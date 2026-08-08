@@ -123,6 +123,8 @@ section{padding:56px 0}
   color:#b0243a;font-weight:700;
 }
 .hero-photo{margin-top:24px;position:relative}
+/* PCでは丸バッジの代わりに、文字カラムの中に置く帯（写真の人物に重ならないように） */
+.hero-pill{display:none}
 .hero-seal{
   position:absolute;top:12px;right:12px;width:106px;height:106px;z-index:2;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -164,7 +166,16 @@ section{padding:56px 0}
     pointer-events:none;z-index:2;
   }
   .hero.hero-wide .hero-photo::after{display:none}
-  .hero.hero-wide .hero-seal{top:26px;right:26px}
+  /* 丸バッジは写真の人物に重なるのでPCでは出さず、文字カラムの帯に置き換える */
+  .hero.hero-wide .hero-seal{display:none}
+  .hero.hero-wide .hero-pill{
+    display:inline-flex;align-items:center;gap:7px;margin:0 0 18px;
+    background:rgba(255,255,255,.88);border:1px solid var(--gold-lt);
+    border-radius:40px;padding:8px 20px;font-size:13.5px;line-height:1.6;
+    color:var(--forest);letter-spacing:.02em;
+    box-shadow:0 4px 16px rgba(22,58,43,.08);
+  }
+  .hero.hero-wide .hero-pill b{color:var(--gold)}
 
   /* PCのヒーローだけ、CTAを見出しの左端に揃えて少し長くする（中央寄せだと浮く） */
   .hero .btn{margin-left:0;margin-right:auto;max-width:560px}
