@@ -6,14 +6,52 @@
    ========================================================= */
 
 var LINE_URL = "https://lin.ee/XXXXXXX"; // ←★講座用LINE公式の友だち追加URLに差し替え
+var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だけ。例: "123456789"）
 
 (function () {
   "use strict";
 
-  /* 1) LINE URL を全CTAへ流し込む ---------------------------------- */
-  var btns = document.querySelectorAll("[data-cta]");
+  /* 1) LINE URL を「LINEへ行くボタン」だけに流し込む ---------------- */
+  var btns = document.querySelectorAll('[data-act="line"]');
   for (var i = 0; i < btns.length; i++) {
     btns[i].setAttribute("href", LINE_URL);
+  }
+
+  /* 1-2) 動画：サムネをクリックしたらVimeoを読み込んで再生 ---------
+     最初からiframeを置かないのは、ページの表示を重くしないため。 */
+  var vf = document.querySelector(".vframe");
+  if (vf) {
+    vf.setAttribute("role", "button");
+    vf.setAttribute("tabindex", "0");
+    vf.setAttribute("aria-label", "30分の無料動画を再生する");
+    var play = function () {
+      if (!VIMEO_ID) {
+        var n = vf.parentNode.querySelector(".vnote");
+        if (!n) {
+          n = document.createElement("p");
+          n.className = "vnote";
+          n.textContent = "※動画は準備中です（Vimeoの動画IDを設定すると、ここでそのまま再生されます）";
+          vf.parentNode.insertBefore(n, vf.nextSibling);
+        }
+        return;
+      }
+      var f = document.createElement("iframe");
+      f.src = "https://player.vimeo.com/video/" + VIMEO_ID +
+              "?autoplay=1&title=0&byline=0&portrait=0&dnt=1";
+      f.title = "30分の無料動画";
+      f.allow = "autoplay; fullscreen; picture-in-picture";
+      f.allowFullscreen = true;
+      f.className = "vplayer";
+      vf.innerHTML = "";
+      vf.classList.add("playing");
+      vf.appendChild(f);
+      if (typeof window.fbq === "function") window.fbq("track", "ViewContent", { content_name: "movie-play" });
+      if (typeof window.gtag === "function") window.gtag("event", "movie_play");
+    };
+    vf.addEventListener("click", play);
+    vf.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(); }
+    });
   }
 
   /* 2) CTAクリック計測（広告の最適化に使う） ----------------------- */

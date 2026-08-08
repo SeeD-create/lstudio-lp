@@ -242,7 +242,16 @@ section{padding:56px 0}
 .videoblock h2{color:#fff}
 .vgrid{display:grid;gap:24px}
 @media(min-width:900px){ .vgrid{grid-template-columns:1.1fr .9fr;gap:34px;align-items:center} }
-.vframe{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(217,196,154,.35)}
+#movie{scroll-margin-top:8px}
+.vframe{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  border:1px solid rgba(217,196,154,.35);cursor:pointer;
+}
+.vframe:hover .play span{transform:scale(1.07)}
+.vframe .play span{transition:transform .2s}
+.vframe.playing{cursor:default;background:#000}
+.vplayer{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.vnote{margin:12px 0 0;font-size:12.5px;color:rgba(233,239,235,.7);line-height:1.7}
 .vframe .play{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
 }
@@ -383,6 +392,9 @@ section{padding:56px 0}
 .btn.green{background:linear-gradient(180deg,#06C755 0%,#04a446 100%);box-shadow:0 10px 26px rgba(6,199,85,.3)}
 .btn.green:hover{box-shadow:0 14px 32px rgba(6,199,85,.4)}
 .btn-sub{margin:12px 0 0;font-size:12.5px;color:var(--mute);line-height:1.8;text-align:center}
+.btn-sub.after{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.16)}
+.ul{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.ul:hover{color:var(--gold-lt)}
 .cta-band .btn-sub,
 .videoblock .btn-sub,
 .dark .btn-sub{color:rgba(255,255,255,.72)}
