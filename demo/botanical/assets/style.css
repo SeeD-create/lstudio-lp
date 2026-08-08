@@ -433,3 +433,98 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.4)}
   background:#fff;
 }
 .switch a:hover{background:var(--forest);color:#fff}
+
+/* =========================================================
+   スマホ表示の詰め（2026-08-08）
+   Instagram広告の流入はほぼスマホ。1画面に入る情報量を増やし、
+   全体の縦の長さを削る。PC側は下の min-width:900px で元に戻す。
+   ========================================================= */
+body{line-height:1.85}
+section{padding:44px 0}
+.sec-head{margin-bottom:24px}
+.sec-head h2{font-size:22px}
+.hero{padding-bottom:26px}
+.hero-photo{margin-top:18px}
+.hero .lead{margin-top:16px}
+.hero h1{font-size:28px;line-height:1.4}
+
+.checks{gap:9px}
+.check{padding:11px 14px;font-size:14.5px;line-height:1.6}
+.cause{gap:11px}
+.cause .c{padding:17px 16px;font-size:14.5px}
+.turn{margin-top:22px}
+.pillars{gap:13px}
+.pillar-photo{aspect-ratio:2/1}
+.pillar-body{padding:17px 17px 19px}
+.pillar h3{font-size:17px;margin-bottom:6px}
+.pillar p{font-size:14px;line-height:1.8}
+.stats{gap:10px;margin-top:20px}
+.stat{padding:13px 8px}
+.vlist{gap:10px}
+.vlist li{font-size:14.5px;line-height:1.7}
+.learn{gap:10px}
+.learn .l{padding:15px 10px}
+.steps{gap:12px}
+.step{padding:22px 17px 18px}
+.step p{font-size:14px}
+.fit{gap:13px}
+.fit .box{padding:19px 18px}
+.fit li{font-size:14px;line-height:1.8}
+.spec th,.spec td{padding:11px 14px;font-size:14px}
+.faq summary{padding:15px 42px 15px 16px;font-size:15px}
+.faq .a{padding:0 16px 17px;font-size:14px}
+.voices{gap:13px}
+.band{height:clamp(150px,26vw,300px)}
+.cta-band h2{font-size:21px}
+footer{padding:28px 0 26px}
+
+@media(min-width:900px){
+  /* PCは従来の余裕をそのまま維持する */
+  body{line-height:1.9}
+  section{padding:84px 0}
+  .sec-head{margin-bottom:34px}
+  .sec-head h2{font-size:32px}
+  .hero{padding-bottom:40px}
+  .checks{gap:14px}
+  .check{padding:14px 16px;font-size:15px;line-height:1.7}
+  .cause{gap:14px}
+  .cause .c{padding:22px 18px;font-size:15px}
+  .turn{margin-top:28px}
+  .pillars{gap:22px}
+  .pillar-photo{aspect-ratio:16/9}
+  .pillar-body{padding:20px 20px 22px}
+  .pillar h3{font-size:18px;margin-bottom:8px}
+  .pillar p{font-size:14.5px;line-height:1.85}
+  .stats{gap:16px;margin-top:26px}
+  .stat{padding:16px 10px}
+  .vlist{gap:12px}
+  .vlist li{font-size:15px;line-height:1.75}
+  .learn{gap:12px}
+  .learn .l{padding:18px 12px}
+  .steps{gap:14px}
+  .step{padding:26px 20px 22px}
+  .step p{font-size:14.5px}
+  .fit{gap:22px}
+  .fit .box{padding:24px 22px}
+  .fit li{font-size:14.5px;line-height:1.9}
+  .spec th,.spec td{padding:14px 16px;font-size:14.5px}
+  .faq summary{padding:18px 44px 18px 18px;font-size:15.5px}
+  .faq .a{padding:0 18px 20px;font-size:14.5px}
+  .voices{gap:16px}
+  .cta-band h2{font-size:30px}
+  footer{padding:34px 0 30px}
+}
+
+/* スマホでは「見出し → 写真 → 本文 → ボタン」の順に並べ替える。
+   ファーストビューに写真とCTAの両方を入れるため（HTMLの順序は変えない）。 */
+@media(max-width:899px){
+  .hero-grid{display:flex;flex-direction:column}
+  .hero-grid > div:not(.hero-photo){display:contents}
+  .hero-photo{aspect-ratio:4/3}   /* 縦を抑えてCTAを1画面に入れる */
+  .hero-grid .hero-pill{order:0}
+  .hero-grid h1{order:1}
+  .hero-grid .hero-photo{order:2}
+  .hero-grid .lead{order:3}
+  .hero-grid .btn{order:4}
+  .hero-grid .btn-sub{order:5}
+}
