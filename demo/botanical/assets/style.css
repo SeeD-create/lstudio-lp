@@ -142,6 +142,29 @@ section{padding:56px 0}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
   .hero-photo{margin-top:0}
   .hero-seal{width:132px;height:132px;font-size:12px;top:18px;right:18px}
+
+  /* PC：ヒーローを全幅の背景写真にして、左の余白に文字を置く
+     （背景画像のURLは各HTMLの<head>内 <style> で指定＝相対パスをHTML基準にするため） */
+  .hero.hero-wide{background-size:cover;background-position:right center;background-repeat:no-repeat}
+  .hero.hero-wide::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:linear-gradient(90deg,
+      rgba(253,251,246,.95) 0%, rgba(253,251,246,.88) 30%,
+      rgba(253,251,246,.45) 50%, rgba(253,251,246,0) 66%);
+  }
+  .hero.hero-wide .hero-badge,
+  .hero.hero-wide .hero-inner{position:relative;z-index:1}
+  .hero.hero-wide .hero-inner{padding-top:52px;padding-bottom:78px}
+  .hero.hero-wide .hero-grid{grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr)}
+  .hero.hero-wide h1{font-size:43px}
+  /* 右カラムの写真はPCでは背景に統合。要素は残して認定シールの土台にする */
+  .hero.hero-wide .hero-photo{
+    position:absolute;inset:0;margin:0;border-radius:0;aspect-ratio:auto;
+    background-image:none!important;background-color:transparent;
+    pointer-events:none;z-index:2;
+  }
+  .hero.hero-wide .hero-photo::after{display:none}
+  .hero.hero-wide .hero-seal{top:26px;right:26px}
 }
 
 /* ---------- 数値バッジ ---------- */
