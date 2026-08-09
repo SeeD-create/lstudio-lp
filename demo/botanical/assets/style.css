@@ -177,12 +177,16 @@ section{padding:56px 0}
   display:block;color:var(--forest);font-size:12px;line-height:1.45;margin-top:3px;
   border-top:1px solid var(--gold);padding-top:3px;
 }
+/* 2026-08-09 写真によって空いている側が違うので、左に出す版を用意した。
+   カット1（カウンセリング）は撮影指示書で「左半分を空ける」としているため、Aは左固定。 */
+.hero-seal.at-left{left:12px;right:auto}
 @media(min-width:900px){
   .hero h1{font-size:46px}
   .hero .lead{font-size:18px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
   .hero-photo{margin-top:0}
   .hero-seal{width:132px;height:132px;font-size:12px;top:18px;right:18px}
+  .hero-seal.at-left{left:18px;right:auto}
 
   /* PC：ヒーローを全幅の背景写真にして、左の余白に文字を置く
      （背景画像のURLは各HTMLの<head>内 <style> で指定＝相対パスをHTML基準にするため） */
