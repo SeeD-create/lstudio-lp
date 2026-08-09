@@ -119,7 +119,7 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
 
   /* 4) 固定CTAバー（ファーストビューを抜けたら出す / フッター手前で引っ込める） */
   var sticky = document.querySelector(".sticky");
-  var hero = document.querySelector(".hero");
+  var hero = document.querySelector(".hero") || document.querySelector(".bhero");
   var lastCta = document.querySelector("#cta-last");
   if (sticky) {
     var onScroll = function () {

@@ -566,32 +566,75 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .switch a:hover{background:rgba(201,168,106,.12)}
 
 /* =========================================================
-   B案（先方カンプ 2026-08-09）専用パーツ
+   B案（先方カンプ① S__84508696 準拠・2026-08-09 作り直し）専用パーツ
    ---------------------------------------------------------
    A案と同じパレット・同じ計測タグを使う。
-   ベタ面は動画ブロックとフッターだけ、という原則も同じ。
+   B案は「動画をページ内で再生する」導線なので、動画ブロックは
+   カンプどおりアイボリー地。そのぶん深緑の面は
+   「言い切りの帯」「受講後の活動イメージ」「フッター」「CTAボタン」で持つ。
    ========================================================= */
 
-/* --- FV：タブレットを持つ横位置ビジュアル --- */
+/* 円形バッジを囲む葉（リース風）。外部ファイルにしないため data URI で持つ。
+   色は --sage 相当（#A8B895）。使う側で ::before / ::after の背景に指定する。 */
+
+/* --- ① FV --- */
 .bhero{position:relative;background:var(--ivory);overflow:hidden;padding:0 0 34px}
 .bhero .eyebrow-bar{
   display:inline-block;background:var(--forest);color:#fff;
-  font-size:12px;letter-spacing:.14em;padding:7px 18px;border-radius:0 0 6px 0;
+  font-size:12px;letter-spacing:.14em;padding:8px 18px;border-radius:0 0 6px 0;
 }
 .bhero h1{margin:16px 0 0;font-size:29px;line-height:1.4;color:var(--ink)}
 .bhero h1 span{color:var(--forest)}
 .bhero .lead{margin:16px 0 0;font-size:15px;line-height:1.9;color:var(--body)}
 .bhero .brand-line{
-  margin:18px 0 0;font-size:13.5px;letter-spacing:.14em;color:var(--gold);
+  margin:20px 0 0;font-size:12.5px;letter-spacing:.16em;color:var(--gold);
 }
-.bhero .brand-line b{display:block;font-size:16px;letter-spacing:.04em;color:var(--forest);margin-top:2px}
-.bhero-photo{margin-top:20px}
-.bmerits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+.bhero .brand-line b{display:block;font-size:16.5px;letter-spacing:.04em;color:var(--forest);margin-top:2px}
+.bhero-photo{margin-top:20px;position:relative}
+
+/* 円形バッジ3つ（カンプ①の葉のリース風の囲み） */
+.bmerits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:22px;max-width:430px}
 .bmerit{
-  border:1px solid var(--sage-lt);border-radius:12px;background:var(--paper);
-  padding:11px 5px;text-align:center;font-size:11.5px;line-height:1.55;color:var(--forest);
+  position:relative;aspect-ratio:1/1;border-radius:50%;
+  background:var(--paper);border:1px solid var(--sage);
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6px;
 }
-@media(min-width:520px){ .bmerit{font-size:12.5px;padding:12px 8px} }
+.bmerit span{font-size:10.5px;line-height:1.5;color:var(--forest);letter-spacing:0}
+.bmerit::before,.bmerit::after{
+  content:"";position:absolute;top:50%;width:20px;height:48px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 180'><g fill='%23A8B895' fill-opacity='.55' stroke='%23A8B895' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path fill='none' d='M62 174 C62 120 62 70 62 16'/><path d='M62 142 C36 138 22 122 18 102 C44 102 58 118 62 142Z'/><path d='M62 108 C38 104 26 90 22 72 C46 72 58 86 62 108Z'/><path d='M62 74 C44 70 34 58 31 44 C50 44 59 56 62 74Z'/></g></svg>") center/contain no-repeat;
+  pointer-events:none;
+}
+.bmerit::before{left:-7px;transform:translateY(-50%)}
+.bmerit::after{right:-7px;transform:translateY(-50%) scaleX(-1)}
+@media(min-width:520px){ .bmerit span{font-size:12px} }
+
+/* 右上の丸バッジ（カンプ①）。スマホは写真の右上、PCは文字カラム外＝ヒーロー右上。
+   ⚠️A案では「顔に重なる」として撤去したが、B案はカンプ①の指定でここに置いている。
+     人物に重なるようなら、この .bseal を display:none にするだけで消せる。 */
+.bseal{
+  position:absolute;top:12px;right:12px;width:104px;height:104px;z-index:3;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 6px;border-radius:50%;
+  background:rgba(250,247,242,.94);border:1px solid var(--gold);
+  font-size:10.5px;line-height:1.5;color:var(--forest);letter-spacing:0;
+  box-shadow:0 6px 20px rgba(31,59,46,.12);
+}
+.bseal b{
+  display:block;font-size:11.5px;line-height:1.45;margin-top:3px;white-space:nowrap;
+  border-top:1px solid var(--gold);padding-top:3px;
+}
+.bseal::before,.bseal::after{
+  content:"";position:absolute;bottom:0;width:24px;height:56px;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 180'><g fill='%23A8B895' fill-opacity='.55' stroke='%23A8B895' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path fill='none' d='M62 174 C62 120 62 70 62 16'/><path d='M62 142 C36 138 22 122 18 102 C44 102 58 118 62 142Z'/><path d='M62 108 C38 104 26 90 22 72 C46 72 58 86 62 108Z'/><path d='M62 74 C44 70 34 58 31 44 C50 44 59 56 62 74Z'/></g></svg>") center/contain no-repeat;
+  pointer-events:none;
+}
+.bseal::before{left:-9px;transform:rotate(24deg)}
+.bseal::after{right:-9px;transform:scaleX(-1) rotate(24deg)}
+/* スマホの写真（01_counseling_mob）は右に人物がいるので、バッジは左上に置く。
+   PCの全幅背景では右上が空くので、下の @media で右に戻す。 */
+@media(max-width:899px){ .bseal{left:12px;right:auto} }
+
 @media(min-width:900px){
   .bhero{padding-bottom:0}
   .bhero.hero-wide{background-size:cover;background-position:right center;background-repeat:no-repeat}
@@ -602,92 +645,138 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
       rgba(250,247,242,.97) 0%, rgba(250,247,242,.94) 40%,
       rgba(250,247,242,.55) 58%, rgba(250,247,242,0) 76%);
   }
-  .bhero h1{font-size:41px}
   .bhero .eyebrow-bar,.bhero .bhero-inner{position:relative;z-index:1}
   /* 2026-08-09 修正：ここに max-width:600px を置くと .wrap の margin:0 auto と噛み合って
      テキスト列がビューポート中央（＝写真の顔の上）に来ていた。
      外枠はA案と同じ1080の中央寄せのまま、中身だけ左半分に収める。 */
   .bhero .bhero-inner{padding-top:46px;padding-bottom:70px}
-  .bhero .bhero-inner > *{max-width:560px}
+  .bhero .bhero-inner > *:not(.bhero-photo){max-width:560px}
   /* ボタンと注記も左端に揃える（.btn の margin:auto が効くと中央＝写真の上に来る） */
   .bhero .bhero-inner .btn{max-width:520px;margin-left:0;margin-right:0}
   .bhero .bhero-inner .btn-sub{text-align:left}
   .bhero h1{font-size:44px}
   .bhero .lead{font-size:16px}
-  .bhero-photo{display:none}
-  .bmerits{max-width:520px}
+  /* 写真そのものは背景に統合。要素は残して右上の丸バッジの土台にする */
+  .bhero.hero-wide .bhero-photo{
+    position:absolute;inset:0;margin:0;border-radius:0;aspect-ratio:auto;
+    background-image:none!important;background-color:transparent;
+    pointer-events:none;z-index:2;
+  }
+  .bhero.hero-wide .bhero-photo::after{display:none}
+  .bhero .bseal{width:130px;height:130px;font-size:11.5px;top:18px;right:18px}
+  .bhero .bseal b{font-size:13.5px}
+  .bmerits{max-width:470px;gap:20px}
 }
 
-/* --- 「美容の仕事には限界がある。」チェックリスト型 --- */
-.limit-head{font-size:23px;line-height:1.5;color:var(--ink);margin:0 0 20px}
-@media(min-width:900px){ .limit-head{font-size:30px} }
-.limit-grid{display:grid;gap:20px}
-@media(min-width:900px){ .limit-grid{grid-template-columns:1fr 1fr;gap:30px} }
-.limit-list{list-style:none;margin:0;padding:0;display:grid;gap:11px}
-.limit-list li{
-  display:flex;gap:11px;align-items:flex-start;font-size:15px;line-height:1.7;color:var(--ink);
-  border-bottom:1px dashed var(--line);padding-bottom:11px;
+/* --- ② 講座説明動画（アイボリー地／カンプ①）--- */
+.vsec{background:var(--ivory)}
+.vsec .vgrid{display:grid;gap:22px}
+@media(min-width:900px){
+  .vsec .vgrid{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:34px;align-items:center}
 }
-.limit-list li:last-child{border-bottom:0}
-.limit-list .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--sage)}
+.vsec .vlist{gap:11px}
+.vsec .vlist li{color:var(--ink);align-items:center}
+.vsec .tickbox{
+  flex:0 0 23px;width:23px;height:23px;border-radius:5px;
+  border:1px solid var(--sage);background:var(--sage-lt);
+  display:flex;align-items:center;justify-content:center;
+}
+.vsec .vlist .tick{flex:none;width:14px;height:14px;margin:0;color:var(--forest)}
+.vsec .vlead{margin:20px 0 0;font-size:14px;line-height:1.9;color:var(--body)}
+.vsec .vfee{margin:10px 0 0;font-size:11.5px;line-height:1.7;color:var(--mute);text-align:right}
+/* lp.js が VIMEO_ID 未設定のときに差し込む「準備中」の注記。
+   深緑地の想定で白系にしてあるので、アイボリー地のB案では色を戻す */
+.vsec .vnote{color:var(--mute);text-align:right}
+.vsec .vframe{border:1px solid var(--sage)}
+@media(max-width:899px){
+  /* スマホは「プレーヤー → 注記 → 7項目 → ボタン」の順（HTMLの順序は変えない） */
+  .vsec .vgrid{display:flex;flex-direction:column}
+  .vsec .vleft,.vsec .vright{display:contents}
+  .vsec .vframe{order:1}
+  .vsec .vfee{order:2}
+  .vsec .vlist{order:3}
+  .vsec .vlead{order:4}
+  .vsec .btn{order:5}
+  .vsec .btn-sub{order:6}
+}
+
+/* --- 「美容の仕事には限界がある。」--- */
+.limit-head{font-size:23px;line-height:1.5;color:var(--ink);margin:0 0 20px;text-align:center}
+@media(min-width:900px){ .limit-head{font-size:30px;margin-bottom:26px} }
 .limit-close{
   margin:22px 0 0;text-align:right;font-size:18px;color:var(--forest);
 }
-.limit-bubble{
-  margin-top:18px;border:1px solid var(--sage-lt);border-radius:16px;
-  background:var(--paper);padding:16px 18px;font-size:14px;line-height:1.9;color:var(--body);
-}
+@media(min-width:900px){ .limit-close{font-size:22px} }
 
-/* --- 05ステップ 横並びフロー --- */
-.flow{display:grid;gap:14px}
-@media(min-width:900px){ .flow{grid-template-columns:repeat(5,1fr);gap:12px} }
-.flow .f{position:relative;text-align:center}
+/* --- ③ 05ステップ 横並びフロー（スマホは横スクロール） --- */
+.flow{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(178px,1fr);
+  gap:16px;overflow-x:auto;padding-bottom:6px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+}
+@media(min-width:900px){
+  .flow{grid-auto-flow:row;grid-template-columns:repeat(5,1fr);gap:14px;overflow:visible}
+}
+.flow .f{position:relative;text-align:center;scroll-snap-align:start}
 .flow .f .ph{border-radius:10px;aspect-ratio:4/3}
 .flow .f .no{
   display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.16em;color:var(--gold);
 }
 .flow .f h3{margin:0 0 6px;font-size:15.5px;color:var(--forest);line-height:1.5}
 .flow .f p{margin:0;font-size:13px;line-height:1.75;color:var(--body)}
-@media(min-width:900px){
-  .flow .f:not(:last-child)::after{
-    content:"";position:absolute;top:34%;right:-11px;width:9px;height:9px;
-    border-top:1.5px solid var(--sage);border-right:1.5px solid var(--sage);
-    transform:rotate(45deg);
-  }
+/* カードとカードを矢印でつなぐ（カンプ①） */
+.flow .f:not(:last-child)::after{
+  content:"";position:absolute;top:32%;right:-13px;width:9px;height:9px;
+  border-top:1.6px solid var(--sage);border-right:1.6px solid var(--sage);
+  transform:rotate(45deg);
 }
+@media(min-width:900px){ .flow .f:not(:last-child)::after{right:-12px} }
+.flow-note{font-size:11.5px;color:var(--mute);margin:10px 0 0}
+@media(min-width:900px){ .flow-note{display:none} }
 
-/* --- 小さく始める（アイコン4つ） --- */
-/* スマホは2列（4列だと「自宅サ／ロン」と割れる） */
-.smallstart{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
-@media(min-width:600px){ .smallstart{grid-template-columns:repeat(4,minmax(0,1fr))} }
+/* --- ④ 小さく始める（アイコン4つ） --- */
+.smallstart{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+@media(min-width:600px){ .smallstart{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px} }
 .smallstart .s{text-align:center}
-.smallstart .s .ico{width:32px;height:32px;margin:0 auto 8px;color:var(--forest)}
-.smallstart .s span{font-size:12.5px;line-height:1.6;color:var(--ink)}
-
-/* --- 引き（ピンクだった強調ブロック→ゴールドに置換） --- */
-.pickup{
-  border:1px solid var(--gold);border-radius:var(--radius);
-  background:var(--paper);padding:22px 20px;
+/* svg は inline なので display:block にしないと margin:auto が効かず、
+   ラベルと同じ行に並んで左に寄って見える（2026-08-09 修正） */
+.smallstart .s .ico{display:block;width:32px;height:32px;margin:0 auto 8px;color:var(--forest)}
+.smallstart .s span{display:block;font-size:12px;line-height:1.6;color:var(--ink)}
+.small-close{
+  margin:18px 0 0;font-size:14px;line-height:1.9;color:var(--body);
+  background:var(--sage-lt);border:1px solid var(--sage);border-radius:12px;padding:14px 16px;
 }
-.pickup h3{margin:0 0 10px;font-size:19px;line-height:1.6;color:var(--gold)}
-.pickup p{margin:0;font-size:14.5px;line-height:1.9;color:var(--body)}
-.pickup .close{margin-top:12px;color:var(--forest);font-weight:600}
+.small-close b{color:var(--forest)}
+/* 不安4項目＋女性写真。PCでは横に並べて、右カラム（小さく始める）と高さをそろえる */
+.worry{display:grid;gap:18px}
+@media(min-width:900px){ .worry{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:16px;align-items:start} }
+.worry-photo{margin-top:0}
 
-/* --- カリキュラム08カード --- */
+/* --- ⑤ 学ぶ内容（8カード＋右に大きな写真）--- */
+.learn2{display:grid;gap:16px}
+@media(min-width:900px){ .learn2{grid-template-columns:minmax(0,2.55fr) minmax(0,1fr);gap:18px} }
+.learn-photo{aspect-ratio:4/3;border-radius:var(--radius)}
+@media(min-width:900px){ .learn-photo{aspect-ratio:auto;min-height:100%} }
 .curri{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:760px){ .curri{grid-template-columns:repeat(4,1fr);gap:12px} }
 .curri .c{
-  background:var(--paper);border:1px solid var(--line);border-radius:12px;
-  padding:15px 13px;
+  position:relative;background:var(--paper);border:1px solid var(--sage);border-radius:12px;
+  padding:14px 12px 15px;
 }
 .curri .c .no{
   display:block;font-size:17px;letter-spacing:.06em;color:var(--gold);
   font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
-  border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:8px;
+  border-bottom:1px solid var(--sage-lt);padding-bottom:7px;margin-bottom:8px;
 }
+.curri .c .ico{position:absolute;right:11px;top:11px;width:21px;height:21px;color:var(--forest);opacity:.6}
 .curri .c b{display:block;font-size:14.5px;color:var(--forest);line-height:1.5;margin-bottom:4px}
 .curri .c span{font-size:12.5px;line-height:1.7;color:var(--body)}
-.curri-note{font-size:11.5px;color:var(--mute);text-align:right;margin:10px 0 0}
+.curri-note{font-size:11.5px;color:var(--mute);text-align:right;margin:12px 0 0}
+
+/* --- 深緑ベタのセクション（限界がある／学ぶ内容）の中の文字 --- */
+.forest .limit-close{color:#fff}
+.forest .curri-note{color:rgba(255,255,255,.62)}
+.forest .flow .f p,.forest .small-close{color:rgba(255,255,255,.85)}
 
 /* --- 受講後の活動イメージ 7点の横並び --- */
 .acts{
@@ -702,15 +791,37 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .acts .a .ph{aspect-ratio:4/3;border-radius:10px}
 .acts .a span{display:block;margin-top:8px;font-size:12px;line-height:1.6;color:var(--ink);text-align:center}
 
-/* --- 締めの2カラム --- */
-.bclose{display:grid;gap:24px;align-items:center}
+/* --- 2カラムの土台（④と⑥で使う）--- */
+.bclose{display:grid;gap:26px;align-items:start}
 @media(min-width:900px){ .bclose{grid-template-columns:1fr 1fr;gap:34px} }
-.bclose h2{margin:0 0 12px;font-size:24px;line-height:1.55;color:var(--ink)}
-@media(min-width:900px){ .bclose h2{font-size:30px} }
+.bclose h2{margin:0 0 14px;font-size:22px;line-height:1.55;color:var(--ink)}
+@media(min-width:900px){ .bclose h2{font-size:27px} }
 .bclose .brand-line{font-size:12.5px;letter-spacing:.14em;color:var(--gold);margin:0 0 8px}
-.bclose ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:9px}
-.bclose ul li{display:flex;gap:10px;font-size:14.5px;line-height:1.7;color:var(--ink)}
-.bclose ul .tick{flex:0 0 18px;width:18px;height:18px;margin-top:4px;color:var(--sage)}
+/* 2カラムの中では、チェックは常に1列（半分の幅で2列にすると読めない） */
+.bclose .checks{grid-template-columns:1fr}
+/* 深緑地に置いた「限界がある」のチェックはセージ地のまま。
+   ベージュ地に置くこちらは白地＋セージ枠にして、面積比のセージを増やしすぎない。 */
+.bclose .check{background:var(--paper);border-color:var(--sage)}
+/* セージ地・白地のカードの上ではチェックを深緑に（セージ同士だと沈む） */
+.limitsec .check .tick,.bclose .check .tick{color:var(--forest)}
+/* 文の途中で折り返させたくない塊（スマホで「か？」だけ落ちるのを防ぐ） */
+.nb{display:inline-block}
+/* 下線つきの強調は、途中で折り返すと下線が割れるので塊で改行させる */
+.actsec .sec-head h2 em{display:inline-block}
+
+/* --- ⑥ 最終CTA（2カラム）--- */
+.lastcta{text-align:left}
+.lastcta-copy p{margin:0 0 12px;font-size:14.5px;line-height:1.95;color:var(--body);max-width:none}
+.lastcta-copy .photo{margin-top:18px}
+.lastcta-box{
+  background:var(--paper);border:1px solid var(--gold);border-radius:var(--radius);
+  padding:26px 20px 28px;text-align:center;
+}
+.lastcta-box h3{margin:0 0 10px;font-size:20px;line-height:1.55;color:var(--forest)}
+@media(min-width:900px){ .lastcta-box h3{font-size:23px} }
+.lastcta-box > p{margin:0;font-size:14px;line-height:1.8;color:var(--body)}
+.lastcta-box .btn{margin-top:18px}
+.lastcta .btn-sub{text-align:center}
 
 /* =========================================================
    スマホ表示の詰め（2026-08-08）
