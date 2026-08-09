@@ -30,7 +30,7 @@
   --forest-lt:#2C5240;  /* forestの明るい版（罫線・アイコン） */
   --sage-lt:#DCE3D2;    /* sageの薄い版（カードの枠） */
   --gold-lt:#E7D9BC;    /* goldの薄い版（枠線） */
-  --body:#3E4C44;       /* 本文（inkを少し薄めた文字色） */
+  --body:#172A22;       /* 本文＝ご指定の文字色そのもの（2026-08-09に #3E4C44 から戻した） */
   --mute:#7C877F;       /* 補助文字 */
   --line:#E3DBCD;       /* 罫線（beigeの濃い版） */
   --paper:#FFFFFF;
@@ -281,9 +281,10 @@ section{padding:56px 0}
 /* ---------- 悩みチェック（アイボリー地／ベタ塗りをやめた） ---------- */
 .checks{display:grid;gap:12px}
 @media(min-width:760px){ .checks{grid-template-columns:repeat(2,1fr);gap:14px} }
+/* 2026-08-09 白地→セージ地に振り替え。ゴールド・セージの面積をご指定の10%に上げるため。 */
 .check{
   display:flex;gap:12px;align-items:flex-start;
-  background:var(--paper);border:1px solid var(--sage-lt);
+  background:var(--sage-lt);border:1px solid var(--sage);
   border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.7;
   color:var(--ink);
 }
@@ -423,7 +424,7 @@ section{padding:56px 0}
 .fit .no{border:1px solid var(--line)}
 .fit h3{margin:0 0 12px;font-size:17px}
 .fit .yes h3{color:var(--forest)}
-.fit .no h3{color:var(--mute)}
+.fit .no h3{color:var(--forest-lt)}  /* 2026-08-09 --mute(#7C877F)は白地で3.7:1と薄すぎた */
 .fit ul{margin:0;padding-left:1.15em}
 .fit li{font-size:14.5px;line-height:1.9;margin-bottom:4px}
 
@@ -474,8 +475,9 @@ section{padding:56px 0}
 .cta-band h2{margin:0 0 8px;font-size:22px;line-height:1.6;color:var(--ink)}
 @media(min-width:900px){ .cta-band h2{font-size:30px} }
 .cta-band p{margin:0 auto;max-width:640px;font-size:15px;color:var(--body)}
+/* 2026-08-09 ゴールドの線はそのまま、文字だけ深緑に（アイボリー地で読めるようにする） */
 .freetag{
-  display:inline-block;background:transparent;color:var(--gold);
+  display:inline-block;background:transparent;color:var(--forest);
   border:1px solid var(--gold);border-radius:30px;
   font-size:13px;letter-spacing:.08em;padding:5px 20px;margin-bottom:14px;
 }
@@ -502,12 +504,14 @@ section{padding:56px 0}
 /* .green は旧LINEブランド緑。カラーガイド外なので深緑に統一した（クラス名は互換のため残す） */
 .btn.green{background:var(--forest);box-shadow:0 8px 22px rgba(31,59,46,.22)}
 .btn.green:hover{background:var(--forest-d)}
-/* サブボタン＝ゴールドの線＋ゴールド文字（塗らない） */
+/* サブボタン＝ゴールドの線（塗らない）。
+   2026-08-09 文字までゴールドにすると地のアイボリー上で1.9:1しか出ず実機で読めないため、
+   線はガイドどおりゴールド、文字だけ深緑にした。 */
 .btn.gold{
-  background:transparent;color:var(--gold);border:1.5px solid var(--gold);
+  background:transparent;color:var(--forest);border:1.5px solid var(--gold);
   box-shadow:none;font-size:17px;padding:16px 22px;
 }
-.btn.gold:hover{background:rgba(201,168,106,.10);box-shadow:none;color:var(--gold)}
+.btn.gold:hover{background:rgba(201,168,106,.10);box-shadow:none;color:var(--forest)}
 .btn.gold .arw{background:rgba(201,168,106,.18)}
 /* スマホ幅ではボタン文字が2行に折れるので1段下げる */
 @media(max-width:430px){ .btn{font-size:17px;padding:17px 16px;gap:8px} .btn.gold{font-size:15.5px} }
@@ -555,7 +559,7 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .switch{background:var(--beige);text-align:center;padding:26px 0}
 .switch p{margin:0 0 10px;font-size:14.5px;color:var(--ink)}
 .switch a{
-  display:inline-block;border:1px solid var(--gold);color:var(--gold);
+  display:inline-block;border:1px solid var(--gold);color:var(--forest);
   text-decoration:none;border-radius:40px;padding:11px 26px;font-size:14.5px;font-weight:600;
   background:transparent;
 }
