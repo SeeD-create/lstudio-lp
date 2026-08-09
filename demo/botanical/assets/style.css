@@ -422,11 +422,14 @@ section{padding:56px 0}
 .steps.green .step::before{background:var(--gold);color:var(--forest);font-weight:700}
 .steps.green .step h3{color:#fff}
 .steps.green .step p{color:rgba(255,255,255,.82)}
+/* 2026-08-09 セクション自体を深緑にしたので、同じ深緑のカードは輪郭が消えて
+   文字が宙に浮いて見えていた。カード側をわずかに明るくして面を立てる。 */
+.forest .steps.green .step{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.20)}
 
 /* ---------- 対象 ---------- */
 .fit{display:grid;gap:16px}
 @media(min-width:760px){ .fit{grid-template-columns:repeat(2,1fr);gap:22px} }
-.fit .box{border-radius:var(--radius);padding:24px 22px;background:var(--paper)}
+.fit .box{border-radius:var(--radius);padding:24px 22px;background:var(--paper);height:100%}
 .fit .yes{border:1px solid var(--gold);background:var(--gold-lt)}
 .fit .no{border:1px solid var(--line)}
 .fit h3{margin:0 0 12px;font-size:17px}
@@ -753,8 +756,11 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .small-close b{color:var(--forest)}
 /* 不安4項目＋女性写真。PCでは横に並べて、右カラム（小さく始める）と高さをそろえる */
 .worry{display:grid;gap:18px}
-@media(min-width:900px){ .worry{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:16px;align-items:start} }
+/* 2026-08-09 align-items:start だと写真がカラム高に届かず、下に不自然な空白ができていた。
+   伸ばして左右の下端をそろえる。 */
+@media(min-width:900px){ .worry{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:16px;align-items:stretch} }
 .worry-photo{margin-top:0}
+@media(min-width:900px){ .worry-photo{aspect-ratio:auto;min-height:100%} }
 
 /* --- ⑤ 学ぶ内容（8カード＋右に大きな写真）--- */
 .learn2{display:grid;gap:16px}
@@ -797,7 +803,9 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 
 /* --- 2カラムの土台（④と⑥で使う）--- */
 .bclose{display:grid;gap:26px;align-items:start}
-@media(min-width:900px){ .bclose{grid-template-columns:1fr 1fr;gap:34px} }
+/* 2026-08-09 align-items:start だと右のCTAカードが上に張り付き、下に大きな空白ができていた。
+   左（コピー＋写真）は縦に長いので、右は中央に置いて視線の高さを合わせる。 */
+@media(min-width:900px){ .bclose{grid-template-columns:1fr 1fr;gap:34px;align-items:center} }
 .bclose h2{margin:0 0 14px;font-size:22px;line-height:1.55;color:var(--ink)}
 @media(min-width:900px){ .bclose h2{font-size:27px} }
 .bclose .brand-line{font-size:12.5px;letter-spacing:.14em;color:var(--gold);margin:0 0 8px}
