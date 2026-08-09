@@ -604,7 +604,14 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   }
   .bhero h1{font-size:41px}
   .bhero .eyebrow-bar,.bhero .bhero-inner{position:relative;z-index:1}
-  .bhero .bhero-inner{padding-top:46px;padding-bottom:70px;max-width:600px}
+  /* 2026-08-09 修正：ここに max-width:600px を置くと .wrap の margin:0 auto と噛み合って
+     テキスト列がビューポート中央（＝写真の顔の上）に来ていた。
+     外枠はA案と同じ1080の中央寄せのまま、中身だけ左半分に収める。 */
+  .bhero .bhero-inner{padding-top:46px;padding-bottom:70px}
+  .bhero .bhero-inner > *{max-width:560px}
+  /* ボタンと注記も左端に揃える（.btn の margin:auto が効くと中央＝写真の上に来る） */
+  .bhero .bhero-inner .btn{max-width:520px;margin-left:0;margin-right:0}
+  .bhero .bhero-inner .btn-sub{text-align:left}
   .bhero h1{font-size:44px}
   .bhero .lead{font-size:16px}
   .bhero-photo{display:none}
