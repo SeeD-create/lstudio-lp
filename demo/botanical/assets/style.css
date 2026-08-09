@@ -134,11 +134,11 @@ section{padding:56px 0}
 @media(min-width:900px){ .sec-head h2{font-size:32px} }
 .sec-head h2 em{font-style:normal;color:var(--forest);border-bottom:2px solid var(--gold);padding-bottom:2px}
 .sec-head p{margin:14px 0 0;font-size:15px;color:var(--mute)}
-.forest .sec-head .eyebrow,.videoblock .sec-head .eyebrow,.statement .eyebrow{color:var(--gold)}
-.forest .sec-head h2,.videoblock .sec-head h2{color:#fff}
-.forest .sec-head h2 em,.videoblock .sec-head h2 em{color:#fff;border-bottom-color:var(--gold)}
+.forest .sec-head .eyebrow,.statement .eyebrow{color:var(--gold)}
+.forest .sec-head h2{color:#fff}
+.forest .sec-head h2 em{color:#fff;border-bottom-color:var(--gold)}
 /* 深緑の上の補足文は --mute だと沈むので白系にする */
-.forest .sec-head p,.videoblock .sec-head p{color:rgba(255,255,255,.8)}
+.forest .sec-head p{color:rgba(255,255,255,.8)}
 
 .leafline{display:block;margin:0 auto 14px;width:46px;height:auto;opacity:.75}
 
@@ -320,9 +320,11 @@ section{padding:56px 0}
 .pillar h3{margin:0 0 8px;font-size:18px;color:var(--forest);line-height:1.5}
 .pillar p{margin:0;font-size:14.5px;line-height:1.85}
 
-/* ---------- 動画ブロック（ページ内で唯一の深緑ベタ面） ---------- */
-.videoblock{background:var(--forest);color:#E8EDE8}
-.videoblock h2{color:#fff}
+/* ---------- 動画ブロック ----------
+   2026-08-09 深緑のベタ面 → 生成りベージュの薄い地に変更（平野さん指示）。
+   写真は上に薄いベージュを重ねて透かす。文字は通常の #172A22。 */
+.videoblock{background:var(--beige);color:var(--body)}
+.videoblock h2{color:var(--ink)}
 .vgrid{display:grid;gap:24px}
 @media(min-width:900px){ .vgrid{grid-template-columns:1.1fr .9fr;gap:34px;align-items:center} }
 #movie{scroll-margin-top:8px}
@@ -347,7 +349,7 @@ section{padding:56px 0}
 .vlist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .vlist li{display:flex;gap:11px;font-size:15px;line-height:1.75;align-items:flex-start}
 .vlist .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--gold)}
-.vmeta{margin-top:18px;font-size:13px;color:rgba(232,237,232,.75);line-height:1.8}
+.vmeta{margin-top:18px;font-size:13px;color:var(--mute);line-height:1.8}
 
 /* ---------- 学ぶ内容 ---------- */
 .learn{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
@@ -368,7 +370,7 @@ section{padding:56px 0}
 .bgphoto::before{content:"";position:absolute;inset:0;z-index:0}
 .bgphoto>*{position:relative;z-index:1}
 /* 深緑ベタは動画ブロックだけ。写真の上に深緑を重ねる。 */
-.videoblock.bgphoto::before{background:linear-gradient(155deg,rgba(31,59,46,.93) 0%,rgba(22,41,31,.90) 100%)}
+.videoblock.bgphoto::before{background:linear-gradient(160deg,rgba(240,233,221,.90) 0%,rgba(250,247,242,.93) 100%)}
 /* 明るいセクションに写真をごく薄く敷く（アイボリー地を保つ） */
 .tint.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.94),rgba(240,233,221,.95))}
 .soft.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.955),rgba(250,247,242,.93))}
@@ -520,14 +522,11 @@ section{padding:56px 0}
 .ul{color:var(--forest);text-decoration:underline;text-underline-offset:3px;font-weight:700}
 .ul:hover{color:var(--gold)}
 .cta-band .btn-sub{color:var(--mute)}
-.videoblock .btn-sub,
 .forest .btn-sub{color:rgba(255,255,255,.72)}
-.videoblock .btn-sub.after,
 .forest .btn-sub.after{border-top-color:rgba(255,255,255,.18)}
-.videoblock .ul,.forest .ul{color:#fff}
-.videoblock .ul:hover,.forest .ul:hover{color:var(--gold)}
+.forest .ul{color:#fff}
+.forest .ul:hover{color:var(--gold)}
 /* 深緑の上に置くメインボタンだけは、背景と同化しないよう白フチを足す */
-.videoblock .btn:not(.gold),
 .forest .btn:not(.gold){border:1px solid rgba(255,255,255,.55)}
 
 /* ---------- 固定CTA ---------- */
