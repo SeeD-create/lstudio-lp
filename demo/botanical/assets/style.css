@@ -77,6 +77,47 @@ section{padding:56px 0}
 .ruled{border-top:1px solid var(--line)}
 .ruled-b{border-bottom:1px solid var(--line)}
 
+/* ---------- 装飾素材（assets/img/deco/） 2026-08-09 ----------
+   カラーガイドの「アクセント背景＝植物・光の写真を薄く重ねて抜け感を出す」に対応。
+   地の色は変えず、質感と光だけを足す。文字の可読性を落とさない濃度に留めること。
+   ※url() は style.css からの相対＝ img/deco/... が正しい（HTML基準にすると404になる） */
+.deco{position:relative;isolation:isolate}
+.deco > *{position:relative;z-index:1}
+.deco::after{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-repeat:no-repeat;
+}
+/* リネンの地の質感。生成りベージュのセクションに重ねる */
+.deco-linen::after{
+  background-image:url(img/deco/deco-texture.jpg);
+  background-size:460px auto;background-repeat:repeat;
+  opacity:.42;mix-blend-mode:multiply;
+}
+/* 窓から入った葉の影。アイボリー地に抜け感を足す */
+.deco-shadow::after{
+  background-image:url(img/deco/deco-leaf-shadow.jpg);
+  background-size:cover;background-position:left top;
+  opacity:.5;mix-blend-mode:multiply;
+}
+/* 深緑のベタ面に奥行きだけ足す（色は足さない） */
+.deco-green::after{
+  background-image:url(img/deco/deco-blur-green.jpg);
+  background-size:cover;background-position:center;
+  opacity:.16;mix-blend-mode:screen;
+}
+/* 切り抜きの小枝。隅に置く飾りなので ::before を使う（::afterは上の地と競合する）
+   .deco と併用しない場合もあるので、単体で成立するよう position をここでも持たせる */
+.deco-leaf{position:relative}
+.deco-leaf > *{position:relative;z-index:1}
+.deco-leaf::before{
+  content:"";position:absolute;z-index:0;pointer-events:none;
+  right:-34px;bottom:-30px;
+  width:clamp(128px,26vw,224px);aspect-ratio:620/591;
+  background:url(img/deco/deco-leaf.png) center/contain no-repeat;
+  opacity:.5;transform:rotate(-8deg);
+}
+@media(min-width:900px){ .deco-leaf::before{right:-26px;bottom:-24px} }
+
 .sec-head{text-align:center;margin-bottom:34px}
 .sec-head .eyebrow{
   display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--gold);
