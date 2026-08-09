@@ -11,6 +11,30 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
 (function () {
   "use strict";
 
+  /* 0) A/Bパターンの判定 -------------------------------------------
+     ・各HTMLの <body data-lp-variant="a"> / "b" が既定値
+     ・URLに ?v=a / ?v=b が付いていれば、そちらを優先（広告側で付けられる）
+     判定結果は、下のCTA計測イベントに lp_variant として必ず乗ります。 */
+  var variant = (document.body.getAttribute("data-lp-variant") || "a").toLowerCase();
+  var q = (location.search.match(/[?&]v=([a-z0-9]+)/i) || [])[1];
+  if (q) variant = q.toLowerCase();
+  window.LP_VARIANT = variant;
+  document.documentElement.setAttribute("data-lp-variant", variant);
+  try { sessionStorage.setItem("lp_variant", variant); } catch (e) {}
+  if (typeof window.fbq === "function") window.fbq("trackCustom", "LPView", { lp_variant: variant });
+  if (typeof window.gtag === "function") window.gtag("event", "lp_view", { lp_variant: variant });
+
+  /* 0-2) ページ内リンクにも ?v= を引き継ぐ（A↔B切替・法務ページ） */
+  if (q) {
+    var inner = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="http"]):not([data-act="line"])');
+    for (var z = 0; z < inner.length; z++) {
+      var h = inner[z].getAttribute("href");
+      if (h.indexOf("v=") === -1) {
+        inner[z].setAttribute("href", h + (h.indexOf("?") === -1 ? "?" : "&") + "v=" + variant);
+      }
+    }
+  }
+
   /* 1) LINE URL を「LINEへ行くボタン」だけに流し込む ---------------- */
   var btns = document.querySelectorAll('[data-act="line"]');
   for (var i = 0; i < btns.length; i++) {
@@ -45,8 +69,8 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
       vf.innerHTML = "";
       vf.classList.add("playing");
       vf.appendChild(f);
-      if (typeof window.fbq === "function") window.fbq("track", "ViewContent", { content_name: "movie-play" });
-      if (typeof window.gtag === "function") window.gtag("event", "movie_play");
+      if (typeof window.fbq === "function") window.fbq("track", "ViewContent", { content_name: "movie-play", lp_variant: variant });
+      if (typeof window.gtag === "function") window.gtag("event", "movie_play", { lp_variant: variant });
     };
     vf.addEventListener("click", play);
     vf.addEventListener("keydown", function (e) {
@@ -59,13 +83,14 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
     var a = e.target.closest ? e.target.closest("[data-cta]") : null;
     if (!a) return;
     var pos = a.getAttribute("data-cta") || "unknown";
+    var kind = a.getAttribute("data-act") || "";   // line / movie
     // Meta Pixel（<head>のタグを有効化したときだけ動く）
     if (typeof window.fbq === "function") {
-      window.fbq("track", "Lead", { content_name: pos });
+      window.fbq("track", "Lead", { content_name: pos, lp_variant: variant, cta_type: kind });
     }
     // GA4（gtag.jsを入れたときだけ動く）
     if (typeof window.gtag === "function") {
-      window.gtag("event", "line_friend_add", { cta_position: pos });
+      window.gtag("event", "line_friend_add", { cta_position: pos, lp_variant: variant, cta_type: kind });
     }
   });
 

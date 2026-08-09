@@ -1,25 +1,40 @@
 @charset "utf-8";
 /* =========================================================
    ボタニカルビューティデザイナー養成講座 LP
-   共通スタイル（サロンオーナー向け / これから美容を仕事に）
+   共通スタイル（A案：現行 / B案：新カンプ）
    Lスタジオ 2026-08
+   ---------------------------------------------------------
+   2026-08-09 カラー再設計（先方カラーデザインガイド準拠）
+     ベース    アイボリー          #FAF7F2  … 面積 70%
+     サブ地    生成りベージュ      #F0E9DD  （区切り用・アイボリーの一部として扱う）
+     メイン    深いボタニカルグリーン #1F3B2E … 面積 20%（動画ブロック・フッター・ボタン）
+     サブ      セージグリーン      #A8B895  … 罫線・アイコン・下線
+     アクセント ゴールド            #C9A86A  … 見出し小・サブCTAの線と文字
+     文字      ほぼ黒に近いグリーン #172A22
+   ※明るい緑 #6FA27A 系は全廃（プレースホルダの緑もセージに置換済み）
+   ※ベタ塗りは「動画ブロック」「フッター」「ボタン」だけ。
+     ほかは全部アイボリー地＋罫線＋余白で区切る。
    ========================================================= */
 
 :root{
-  --forest:#163a2b;
-  --forest-2:#0f2a1f;
-  --forest-3:#1f4a37;
-  --ink:#1e2420;
-  --body:#3f4844;
-  --mute:#7b857f;
-  --gold:#b08b52;
-  --gold-lt:#d9c49a;
-  --gold-bg:#f3ead9;
-  --cream:#fbf7ef;
-  --paper:#ffffff;
-  --line:#e6dccc;
-  --cta:#c8213a;
-  --cta-2:#a8152c;
+  /* ---- 指定パレット5色（＋生成りベージュ） ---- */
+  --ivory:#FAF7F2;      /* ベース70% */
+  --beige:#F0E9DD;      /* 生成りベージュ（区切り） */
+  --forest:#1F3B2E;     /* メイン20% */
+  --sage:#A8B895;       /* サブ */
+  --gold:#C9A86A;       /* アクセント */
+  --ink:#172A22;        /* 文字 */
+
+  /* ---- 上の6色から機械的に作る派生色（新規の色は足さない） ---- */
+  --forest-d:#16291F;   /* forestの暗い版（フッター・ホバー） */
+  --forest-lt:#2C5240;  /* forestの明るい版（罫線・アイコン） */
+  --sage-lt:#DCE3D2;    /* sageの薄い版（カードの枠） */
+  --gold-lt:#E7D9BC;    /* goldの薄い版（枠線） */
+  --body:#3E4C44;       /* 本文（inkを少し薄めた文字色） */
+  --mute:#7C877F;       /* 補助文字 */
+  --line:#E3DBCD;       /* 罫線（beigeの濃い版） */
+  --paper:#FFFFFF;
+
   --radius:14px;
   --maxw:1080px;
   --pad:22px;
@@ -29,7 +44,7 @@
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
 body{
   margin:0;
-  background:var(--cream);
+  background:var(--ivory);
   color:var(--body);
   font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;
   font-size:16px;
@@ -54,17 +69,35 @@ a{color:inherit}
 section{padding:56px 0}
 @media(min-width:900px){ section{padding:84px 0} }
 
+/* 地の色は3種類だけ。ベタ塗りの深緑は .forest のみ。 */
+.beige{background:var(--beige)}
+.forest{background:var(--forest);color:#E8EDE8}
+.forest h2,.forest h3{color:#fff}
+/* セクションの区切りは罫線で。ベタ面を増やさないための基本装備 */
+.ruled{border-top:1px solid var(--line)}
+.ruled-b{border-bottom:1px solid var(--line)}
+
 .sec-head{text-align:center;margin-bottom:34px}
 .sec-head .eyebrow{
   display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--gold);
   margin-bottom:10px;
 }
+.sec-head .eyebrow::before,
+.sec-head .eyebrow::after{
+  content:"";display:inline-block;width:22px;height:1px;background:var(--gold);
+  vertical-align:middle;margin:0 10px 3px;
+}
 .sec-head h2{
   margin:0;font-size:24px;line-height:1.55;color:var(--ink);
 }
 @media(min-width:900px){ .sec-head h2{font-size:32px} }
-.sec-head h2 em{font-style:normal;color:var(--forest);border-bottom:2px solid var(--gold-lt);padding-bottom:2px}
+.sec-head h2 em{font-style:normal;color:var(--forest);border-bottom:2px solid var(--gold);padding-bottom:2px}
 .sec-head p{margin:14px 0 0;font-size:15px;color:var(--mute)}
+.forest .sec-head .eyebrow,.videoblock .sec-head .eyebrow,.statement .eyebrow{color:var(--gold)}
+.forest .sec-head h2,.videoblock .sec-head h2{color:#fff}
+.forest .sec-head h2 em,.videoblock .sec-head h2 em{color:#fff;border-bottom-color:var(--gold)}
+/* 深緑の上の補足文は --mute だと沈むので白系にする */
+.forest .sec-head p,.videoblock .sec-head p{color:rgba(255,255,255,.8)}
 
 .leafline{display:block;margin:0 auto 14px;width:46px;height:auto;opacity:.75}
 
@@ -73,20 +106,22 @@ section{padding:56px 0}
    style="background-image:url('assets/img/xxx.jpg')" を書く。
    未設定でも下地の植物グラデーションが出るので崩れない。
    ※url()をCSS変数(--img)経由で渡すと、HTMLではなくCSSファイル基準で
-     パス解決されて404になる。必ずbackground-imageを直接書くこと。 */
+     パス解決されて404になる。必ずbackground-imageを直接書くこと。
+   ※実写差し替えは data-photo-slot="01_counseling" を付けておけば
+     assets/photos.js の1行を直す（またはファイルを置く）だけで入れ替わる。 */
 .photo{
   position:relative;overflow:hidden;border-radius:var(--radius);
-  background-color:#e9e3d6;
+  background-color:var(--beige);
   background-image:
     radial-gradient(120% 90% at 78% 12%, rgba(255,255,255,.85), transparent 60%),
-    radial-gradient(90% 80% at 12% 88%, rgba(111,145,96,.28), transparent 62%),
-    linear-gradient(150deg,#efe9dc 0%,#e2ddce 55%,#d8d6c6 100%);
+    radial-gradient(90% 80% at 12% 88%, rgba(168,184,149,.30), transparent 62%),
+    linear-gradient(150deg,#F5F0E6 0%,var(--beige) 55%,#E5E3D5 100%);
   background-size:cover;background-position:center;
 }
-.photo.has-img{background-color:#e9e3d6}
+.photo.has-img{background-color:var(--beige)}
 .photo::after{
   content:"";position:absolute;inset:0;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%23163a2b' stroke-opacity='.13' stroke-width='1.4'><path d='M90 168 C90 110 90 70 90 24'/><path d='M90 132 C64 128 50 112 46 92 C72 92 86 108 90 132Z'/><path d='M90 132 C116 128 130 112 134 92 C108 92 94 108 90 132Z'/><path d='M90 96 C66 92 54 78 50 60 C74 60 86 74 90 96Z'/><path d='M90 96 C114 92 126 78 130 60 C106 60 94 74 90 96Z'/><path d='M90 62 C72 58 62 46 59 32 C78 32 87 44 90 62Z'/><path d='M90 62 C108 58 118 46 121 32 C102 32 93 44 90 62Z'/></g></svg>") center/56% no-repeat;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%231F3B2E' stroke-opacity='.13' stroke-width='1.4'><path d='M90 168 C90 110 90 70 90 24'/><path d='M90 132 C64 128 50 112 46 92 C72 92 86 108 90 132Z'/><path d='M90 132 C116 128 130 112 134 92 C108 92 94 108 90 132Z'/><path d='M90 96 C66 92 54 78 50 60 C74 60 86 74 90 96Z'/><path d='M90 96 C114 92 126 78 130 60 C106 60 94 74 90 96Z'/><path d='M90 62 C72 58 62 46 59 32 C78 32 87 44 90 62Z'/><path d='M90 62 C108 58 118 46 121 32 C102 32 93 44 90 62Z'/></g></svg>") center/56% no-repeat;
   pointer-events:none;
 }
 .photo.has-img::after{display:none}
@@ -94,11 +129,12 @@ section{padding:56px 0}
 .ar-4-3{aspect-ratio:4/3}
 .ar-1-1{aspect-ratio:1/1}
 .ar-3-4{aspect-ratio:3/4}
+.ar-3-2{aspect-ratio:3/2}
 
 /* ---------- ヒーロー ---------- */
 .hero{
   position:relative;
-  background:linear-gradient(180deg,#fdfbf6 0%,var(--cream) 70%,#f4eee2 100%);
+  background:var(--ivory);
   padding:0 0 40px;overflow:hidden;
 }
 .hero-badge{
@@ -112,15 +148,18 @@ section{padding:56px 0}
 }
 .hero h1 .big{
   display:inline-block;font-size:1.55em;line-height:1.15;
-  color:var(--gold);
-  text-shadow:0 1px 0 rgba(255,255,255,.6);
+  color:var(--forest);
   letter-spacing:.06em;
+}
+.hero h1 .big::after{
+  content:"";display:block;height:2px;background:var(--gold);
+  margin-top:2px;border-radius:2px;
 }
 .hero .lead{margin:18px 0 0;font-size:16px;color:var(--body)}
 .hero .lead b{color:var(--forest)}
 .hero .mark{
-  background:linear-gradient(transparent 62%, #f6dfe0 62%);
-  color:#b0243a;font-weight:700;
+  background:linear-gradient(transparent 62%, var(--sage-lt) 62%);
+  color:var(--forest);font-weight:700;
 }
 .hero-photo{margin-top:24px;position:relative}
 /* PCでは丸バッジの代わりに、文字カラムの中に置く帯（写真の人物に重ならないように） */
@@ -129,14 +168,14 @@ section{padding:56px 0}
   position:absolute;top:12px;right:12px;width:106px;height:106px;z-index:2;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:0 9px;
-  border-radius:50%;background:rgba(255,255,255,.93);
-  border:1px solid var(--gold-lt);
+  border-radius:50%;background:rgba(250,247,242,.94);
+  border:1px solid var(--gold);
   font-size:10.5px;line-height:1.5;color:var(--forest);
-  box-shadow:0 6px 20px rgba(22,58,43,.12);
+  box-shadow:0 6px 20px rgba(31,59,46,.12);
 }
 .hero-seal b{
-  display:block;color:var(--gold);font-size:12px;line-height:1.45;margin-top:3px;
-  border-top:1px solid var(--gold-lt);padding-top:3px;
+  display:block;color:var(--forest);font-size:12px;line-height:1.45;margin-top:3px;
+  border-top:1px solid var(--gold);padding-top:3px;
 }
 @media(min-width:900px){
   .hero h1{font-size:46px}
@@ -151,8 +190,8 @@ section{padding:56px 0}
   .hero.hero-wide::before{
     content:"";position:absolute;inset:0;z-index:0;
     background:linear-gradient(90deg,
-      rgba(253,251,246,.95) 0%, rgba(253,251,246,.88) 30%,
-      rgba(253,251,246,.45) 50%, rgba(253,251,246,0) 66%);
+      rgba(250,247,242,.96) 0%, rgba(250,247,242,.90) 30%,
+      rgba(250,247,242,.45) 50%, rgba(250,247,242,0) 66%);
   }
   .hero.hero-wide .hero-badge,
   .hero.hero-wide .hero-inner{position:relative;z-index:1}
@@ -170,12 +209,11 @@ section{padding:56px 0}
   .hero.hero-wide .hero-seal{display:none}
   .hero.hero-wide .hero-pill{
     display:inline-flex;align-items:center;gap:7px;margin:0 0 18px;
-    background:rgba(255,255,255,.88);border:1px solid var(--gold-lt);
+    background:rgba(250,247,242,.92);border:1px solid var(--gold);
     border-radius:40px;padding:8px 20px;font-size:13.5px;line-height:1.6;
     color:var(--forest);letter-spacing:.02em;
-    box-shadow:0 4px 16px rgba(22,58,43,.08);
   }
-  .hero.hero-wide .hero-pill b{color:var(--gold)}
+  .hero.hero-wide .hero-pill b{color:var(--forest)}
 
   /* PCのヒーローだけ、CTAを見出しの左端に揃えて少し長くする（中央寄せだと浮く） */
   .hero .btn{margin-left:0;margin-right:auto;max-width:560px}
@@ -195,25 +233,24 @@ section{padding:56px 0}
 .stat .vl small{font-size:.62em}
 .note{font-size:11px;color:var(--mute);text-align:center;margin-top:12px;line-height:1.7}
 
-/* ---------- 悩み ---------- */
-.dark{background:var(--forest-2);color:#e7ece8}
-.dark .sec-head h2{color:#fff}
-.dark .sec-head .eyebrow{color:var(--gold-lt)}
+/* ---------- 悩みチェック（アイボリー地／ベタ塗りをやめた） ---------- */
 .checks{display:grid;gap:12px}
 @media(min-width:760px){ .checks{grid-template-columns:repeat(2,1fr);gap:14px} }
 .check{
   display:flex;gap:12px;align-items:flex-start;
-  background:rgba(255,255,255,.055);border:1px solid rgba(217,196,154,.28);
+  background:var(--paper);border:1px solid var(--sage-lt);
   border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.7;
+  color:var(--ink);
 }
-.check .tick{flex:0 0 20px;width:20px;height:20px;margin-top:3px;color:var(--gold-lt)}
+.check .tick{flex:0 0 20px;width:20px;height:20px;margin-top:3px;color:var(--sage)}
 
 /* ---------- 原因 ---------- */
 .cause{display:grid;gap:14px;margin-top:8px}
 @media(min-width:760px){ .cause{grid-template-columns:repeat(3,1fr)} }
 .cause .c{
-  background:var(--gold-bg);border-radius:var(--radius);padding:22px 18px;text-align:center;
-  font-size:15px;line-height:1.7;color:var(--forest-2);
+  background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--sage);
+  border-radius:var(--radius);padding:22px 18px;text-align:center;
+  font-size:15px;line-height:1.7;color:var(--body);
 }
 .cause .c b{display:block;font-size:16px;margin-bottom:6px;color:var(--forest)}
 .turn{
@@ -232,39 +269,39 @@ section{padding:56px 0}
 .pillar-body{padding:20px 20px 22px}
 .pillar .no{
   display:inline-block;font-size:11px;letter-spacing:.2em;color:var(--gold);
-  border-bottom:1px solid var(--gold-lt);padding-bottom:3px;margin-bottom:10px;
+  border-bottom:1px solid var(--gold);padding-bottom:3px;margin-bottom:10px;
 }
 .pillar h3{margin:0 0 8px;font-size:18px;color:var(--forest);line-height:1.5}
 .pillar p{margin:0;font-size:14.5px;line-height:1.85}
 
-/* ---------- 動画ブロック ---------- */
-.videoblock{background:linear-gradient(160deg,var(--forest) 0%,var(--forest-2) 100%);color:#e9efeb}
+/* ---------- 動画ブロック（ページ内で唯一の深緑ベタ面） ---------- */
+.videoblock{background:var(--forest);color:#E8EDE8}
 .videoblock h2{color:#fff}
 .vgrid{display:grid;gap:24px}
 @media(min-width:900px){ .vgrid{grid-template-columns:1.1fr .9fr;gap:34px;align-items:center} }
 #movie{scroll-margin-top:8px}
 .vframe{
   position:relative;border-radius:var(--radius);overflow:hidden;
-  border:1px solid rgba(217,196,154,.35);cursor:pointer;
+  border:1px solid rgba(201,168,106,.5);cursor:pointer;
 }
 .vframe:hover .play span{transform:scale(1.07)}
 .vframe .play span{transition:transform .2s}
 .vframe.playing{cursor:default;background:#000}
 .vplayer{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.vnote{margin:12px 0 0;font-size:12.5px;color:rgba(233,239,235,.7);line-height:1.7}
+.vnote{margin:12px 0 0;font-size:12.5px;color:rgba(232,237,232,.72);line-height:1.7}
 .vframe .play{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
 }
 .vframe .play span{
-  width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.9);
+  width:64px;height:64px;border-radius:50%;background:rgba(250,247,242,.94);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  box-shadow:0 10px 30px rgba(23,42,34,.25);
 }
 .vframe .play svg{width:22px;height:22px;color:var(--forest);margin-left:3px}
 .vlist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .vlist li{display:flex;gap:11px;font-size:15px;line-height:1.75;align-items:flex-start}
-.vlist .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--gold-lt)}
-.vmeta{margin-top:18px;font-size:13px;color:rgba(233,239,235,.72);line-height:1.8}
+.vlist .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--gold)}
+.vmeta{margin-top:18px;font-size:13px;color:rgba(232,237,232,.75);line-height:1.8}
 
 /* ---------- 学ぶ内容 ---------- */
 .learn{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
@@ -274,7 +311,7 @@ section{padding:56px 0}
   .learn .l:last-child{grid-column:auto}
 }
 .learn .l{
-  background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--paper);border:1px solid var(--sage);border-radius:var(--radius);
   padding:18px 12px;text-align:center;
 }
 .learn .l .ico{width:34px;height:34px;margin:0 auto 10px;color:var(--forest)}
@@ -284,21 +321,33 @@ section{padding:56px 0}
 .bgphoto{position:relative;background-size:cover;background-position:center;background-repeat:no-repeat}
 .bgphoto::before{content:"";position:absolute;inset:0;z-index:0}
 .bgphoto>*{position:relative;z-index:1}
-.dark.bgphoto::before{background:linear-gradient(180deg,rgba(15,42,31,.90),rgba(15,42,31,.94))}
-.videoblock.bgphoto::before{background:linear-gradient(155deg,rgba(22,58,43,.88) 0%,rgba(15,42,31,.80) 100%)}
-.cta-band.bgphoto::before{background:linear-gradient(155deg,rgba(27,68,51,.84) 0%,rgba(15,42,31,.90) 100%)}
-/* 明るいセクションに写真を薄く敷く */
-.tint.bgphoto::before{background:linear-gradient(180deg,rgba(251,247,239,.93),rgba(246,241,231,.95))}
+/* 深緑ベタは動画ブロックだけ。写真の上に深緑を重ねる。 */
+.videoblock.bgphoto::before{background:linear-gradient(155deg,rgba(31,59,46,.93) 0%,rgba(22,41,31,.90) 100%)}
+/* 明るいセクションに写真をごく薄く敷く（アイボリー地を保つ） */
+.tint.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.94),rgba(240,233,221,.95))}
+.soft.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.955),rgba(250,247,242,.93))}
+.cta-band.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.95),rgba(240,233,221,.94))}
 
 /* ---------- 全幅の帯写真 ---------- */
 .band{
   height:clamp(170px,26vw,300px);
-  background:#e9e3d6 center/cover no-repeat;
+  background:var(--beige) center/cover no-repeat;
   position:relative;
 }
 .band::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(251,247,239,.55) 0%,rgba(251,247,239,0) 22%,rgba(246,241,231,0) 78%,rgba(246,241,231,.6) 100%);
+  background:linear-gradient(180deg,rgba(250,247,242,.55) 0%,rgba(250,247,242,0) 22%,rgba(240,233,221,0) 78%,rgba(240,233,221,.6) 100%);
+}
+
+/* ---------- 言い切りの帯（深緑ベタ／面積比20%の担い手） ---------- */
+.statement{background:var(--forest);color:#fff;text-align:center;padding:46px 0}
+.statement .eyebrow{
+  display:block;font-size:12px;letter-spacing:.2em;color:var(--gold);margin-bottom:14px;
+}
+.statement p{margin:0;font-size:18px;line-height:2.05;color:#fff}
+@media(min-width:900px){
+  .statement{padding:76px 0}
+  .statement p{font-size:26px;line-height:2}
 }
 
 /* ---------- ステップ ---------- */
@@ -315,23 +364,28 @@ section{padding:56px 0}
 }
 .step h3{margin:6px 0 8px;font-size:17px;color:var(--forest)}
 .step p{margin:0;font-size:14.5px;line-height:1.8}
+/* 流れのカードだけ深緑ベタ（ページ全体の深緑20%をここで確保する） */
+.steps.green .step{background:var(--forest);border-color:var(--forest)}
+.steps.green .step::before{background:var(--gold);color:var(--forest);font-weight:700}
+.steps.green .step h3{color:#fff}
+.steps.green .step p{color:rgba(255,255,255,.82)}
 
 /* ---------- 対象 ---------- */
 .fit{display:grid;gap:16px}
 @media(min-width:760px){ .fit{grid-template-columns:repeat(2,1fr);gap:22px} }
-.fit .box{border-radius:var(--radius);padding:24px 22px}
-.fit .yes{background:var(--gold-bg);border:1px solid var(--gold-lt)}
-.fit .no{background:#f2f2f0;border:1px solid #e2e2df}
+.fit .box{border-radius:var(--radius);padding:24px 22px;background:var(--paper)}
+.fit .yes{border:1px solid var(--gold);background:var(--gold-lt)}
+.fit .no{border:1px solid var(--line)}
 .fit h3{margin:0 0 12px;font-size:17px}
 .fit .yes h3{color:var(--forest)}
-.fit .no h3{color:#77807a}
+.fit .no h3{color:var(--mute)}
 .fit ul{margin:0;padding-left:1.15em}
 .fit li{font-size:14.5px;line-height:1.9;margin-bottom:4px}
 
 /* ---------- 講座概要表 ---------- */
 .spec{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .spec th,.spec td{padding:14px 16px;font-size:14.5px;text-align:left;border-bottom:1px solid var(--line);line-height:1.8}
-.spec th{width:32%;background:#faf6ee;color:var(--forest);font-weight:600;white-space:nowrap}
+.spec th{width:32%;background:var(--sage-lt);color:var(--forest);font-weight:600;white-space:nowrap}
 .spec tr:last-child th,.spec tr:last-child td{border-bottom:0}
 @media(max-width:600px){
   .spec th,.spec td{display:block;width:100%;border-bottom:0}
@@ -366,57 +420,85 @@ section{padding:56px 0}
 .faq .a{padding:0 18px 20px;font-size:14.5px;line-height:1.9;color:var(--body)}
 
 /* ---------- CTA ---------- */
+/* 最終CTAもアイボリー地。深緑ベタで囲わない（カラーガイドのCTA見本に準拠） */
 .cta-band{
-  background:linear-gradient(160deg,#1b4433 0%,var(--forest-2) 100%);
-  color:#fff;text-align:center;
+  background:var(--ivory);
+  color:var(--ink);text-align:center;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
 }
-.cta-band h2{margin:0 0 8px;font-size:22px;line-height:1.6;color:#fff}
+.cta-band h2{margin:0 0 8px;font-size:22px;line-height:1.6;color:var(--ink)}
 @media(min-width:900px){ .cta-band h2{font-size:30px} }
-.cta-band p{margin:0 auto;max-width:640px;font-size:15px;color:rgba(255,255,255,.82)}
+.cta-band p{margin:0 auto;max-width:640px;font-size:15px;color:var(--body)}
 .freetag{
-  display:inline-block;background:var(--gold);color:#fff;border-radius:30px;
-  font-size:13px;letter-spacing:.08em;padding:6px 20px;margin-bottom:14px;
+  display:inline-block;background:transparent;color:var(--gold);
+  border:1px solid var(--gold);border-radius:30px;
+  font-size:13px;letter-spacing:.08em;padding:5px 20px;margin-bottom:14px;
 }
+
+/* メインボタン＝深緑ベタ */
 .btn{
   display:flex;align-items:center;justify-content:center;gap:10px;
   width:100%;max-width:520px;margin:22px auto 0;
-  background:linear-gradient(180deg,var(--cta) 0%,var(--cta-2) 100%);
+  background:var(--forest);
   color:#fff;text-decoration:none;font-size:19px;font-weight:700;letter-spacing:.03em;
   padding:19px 22px;border-radius:60px;
-  box-shadow:0 10px 26px rgba(200,33,58,.32);
-  transition:transform .15s,box-shadow .15s;
+  box-shadow:0 8px 22px rgba(31,59,46,.22);
+  transition:transform .15s,box-shadow .15s,background .15s;
 }
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(200,33,58,.4)}
+.btn:hover{transform:translateY(-2px);background:var(--forest-d);box-shadow:0 12px 28px rgba(31,59,46,.3)}
 .btn:active{transform:translateY(0)}
 .btn .li{width:26px;height:26px;flex:0 0 26px}
-.btn.green{background:linear-gradient(180deg,#06C755 0%,#04a446 100%);box-shadow:0 10px 26px rgba(6,199,85,.3)}
-.btn.green:hover{box-shadow:0 14px 32px rgba(6,199,85,.4)}
+/* ボタン右端の丸矢印（カラーガイドのボタン見本） */
+.btn .arw{
+  width:26px;height:26px;flex:0 0 26px;margin-left:2px;border-radius:50%;
+  background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;
+}
+.btn .arw svg{width:13px;height:13px}
+/* .green は旧LINEブランド緑。カラーガイド外なので深緑に統一した（クラス名は互換のため残す） */
+.btn.green{background:var(--forest);box-shadow:0 8px 22px rgba(31,59,46,.22)}
+.btn.green:hover{background:var(--forest-d)}
+/* サブボタン＝ゴールドの線＋ゴールド文字（塗らない） */
+.btn.gold{
+  background:transparent;color:var(--gold);border:1.5px solid var(--gold);
+  box-shadow:none;font-size:17px;padding:16px 22px;
+}
+.btn.gold:hover{background:rgba(201,168,106,.10);box-shadow:none;color:var(--gold)}
+.btn.gold .arw{background:rgba(201,168,106,.18)}
+/* スマホ幅ではボタン文字が2行に折れるので1段下げる */
+@media(max-width:430px){ .btn{font-size:17px;padding:17px 16px;gap:8px} .btn.gold{font-size:15.5px} }
 .btn-sub{margin:12px 0 0;font-size:12.5px;color:var(--mute);line-height:1.8;text-align:center}
-.btn-sub.after{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.16)}
-.ul{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:700}
-.ul:hover{color:var(--gold-lt)}
-.cta-band .btn-sub,
+.btn-sub.after{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.ul{color:var(--forest);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.ul:hover{color:var(--gold)}
+.cta-band .btn-sub{color:var(--mute)}
 .videoblock .btn-sub,
-.dark .btn-sub{color:rgba(255,255,255,.72)}
+.forest .btn-sub{color:rgba(255,255,255,.72)}
+.videoblock .btn-sub.after,
+.forest .btn-sub.after{border-top-color:rgba(255,255,255,.18)}
+.videoblock .ul,.forest .ul{color:#fff}
+.videoblock .ul:hover,.forest .ul:hover{color:var(--gold)}
+/* 深緑の上に置くメインボタンだけは、背景と同化しないよう白フチを足す */
+.videoblock .btn:not(.gold),
+.forest .btn:not(.gold){border:1px solid rgba(255,255,255,.55)}
 
 /* ---------- 固定CTA ---------- */
 .sticky{
   position:fixed;left:0;right:0;bottom:0;z-index:60;
-  background:rgba(15,42,31,.96);backdrop-filter:blur(6px);
+  background:rgba(250,247,242,.97);backdrop-filter:blur(6px);
   padding:10px 14px calc(10px + env(safe-area-inset-bottom));
   transform:translateY(110%);transition:transform .3s ease;
-  border-top:1px solid rgba(217,196,154,.3);
+  border-top:1px solid var(--line);
 }
 .sticky.show{transform:translateY(0)}
 .sticky .btn{margin:0 auto;padding:15px 18px;font-size:17px;max-width:520px}
 
 /* ---------- フッター ---------- */
-footer{background:#0c211a;color:rgba(255,255,255,.62);padding:34px 0 30px;font-size:12.5px;line-height:2}
-footer a{color:rgba(255,255,255,.82);text-decoration:underline;text-underline-offset:3px}
+footer{background:var(--forest-d);color:rgba(255,255,255,.66);padding:34px 0 30px;font-size:12.5px;line-height:2}
+footer a{color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px}
 footer .brand{color:#fff;font-size:15px;margin-bottom:8px}
 footer .links{margin-top:14px}
 footer .links a{margin-right:16px;display:inline-block}
-footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.4)}
+footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 
 /* ---------- 出現アニメ ---------- */
 /* JSが動いたときだけ隠す。JS無効・エラー時は最初から見えている状態を保つ */
@@ -425,14 +507,154 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.4)}
 @media(prefers-reduced-motion:reduce){ .js .rv{opacity:1;transform:none;transition:none} }
 
 /* ---------- 切替リンク（もう一方のLPへ） ---------- */
-.switch{background:var(--gold-bg);text-align:center;padding:26px 0}
-.switch p{margin:0 0 10px;font-size:14.5px;color:var(--forest-2)}
+.switch{background:var(--beige);text-align:center;padding:26px 0}
+.switch p{margin:0 0 10px;font-size:14.5px;color:var(--ink)}
 .switch a{
-  display:inline-block;border:1px solid var(--forest);color:var(--forest);
+  display:inline-block;border:1px solid var(--gold);color:var(--gold);
   text-decoration:none;border-radius:40px;padding:11px 26px;font-size:14.5px;font-weight:600;
-  background:#fff;
+  background:transparent;
 }
-.switch a:hover{background:var(--forest);color:#fff}
+.switch a:hover{background:rgba(201,168,106,.12)}
+
+/* =========================================================
+   B案（先方カンプ 2026-08-09）専用パーツ
+   ---------------------------------------------------------
+   A案と同じパレット・同じ計測タグを使う。
+   ベタ面は動画ブロックとフッターだけ、という原則も同じ。
+   ========================================================= */
+
+/* --- FV：タブレットを持つ横位置ビジュアル --- */
+.bhero{position:relative;background:var(--ivory);overflow:hidden;padding:0 0 34px}
+.bhero .eyebrow-bar{
+  display:inline-block;background:var(--forest);color:#fff;
+  font-size:12px;letter-spacing:.14em;padding:7px 18px;border-radius:0 0 6px 0;
+}
+.bhero h1{margin:16px 0 0;font-size:29px;line-height:1.4;color:var(--ink)}
+.bhero h1 span{color:var(--forest)}
+.bhero .lead{margin:16px 0 0;font-size:15px;line-height:1.9;color:var(--body)}
+.bhero .brand-line{
+  margin:18px 0 0;font-size:13.5px;letter-spacing:.14em;color:var(--gold);
+}
+.bhero .brand-line b{display:block;font-size:16px;letter-spacing:.04em;color:var(--forest);margin-top:2px}
+.bhero-photo{margin-top:20px}
+.bmerits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+.bmerit{
+  border:1px solid var(--sage-lt);border-radius:12px;background:var(--paper);
+  padding:11px 5px;text-align:center;font-size:11.5px;line-height:1.55;color:var(--forest);
+}
+@media(min-width:520px){ .bmerit{font-size:12.5px;padding:12px 8px} }
+@media(min-width:900px){
+  .bhero{padding-bottom:0}
+  .bhero.hero-wide{background-size:cover;background-position:right center;background-repeat:no-repeat}
+  /* 左半分は必ず読めるように。写真が差し替わっても文字が乗る側を守る */
+  .bhero.hero-wide::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:linear-gradient(90deg,
+      rgba(250,247,242,.97) 0%, rgba(250,247,242,.94) 40%,
+      rgba(250,247,242,.55) 58%, rgba(250,247,242,0) 76%);
+  }
+  .bhero h1{font-size:41px}
+  .bhero .eyebrow-bar,.bhero .bhero-inner{position:relative;z-index:1}
+  .bhero .bhero-inner{padding-top:46px;padding-bottom:70px;max-width:600px}
+  .bhero h1{font-size:44px}
+  .bhero .lead{font-size:16px}
+  .bhero-photo{display:none}
+  .bmerits{max-width:520px}
+}
+
+/* --- 「美容の仕事には限界がある。」チェックリスト型 --- */
+.limit-head{font-size:23px;line-height:1.5;color:var(--ink);margin:0 0 20px}
+@media(min-width:900px){ .limit-head{font-size:30px} }
+.limit-grid{display:grid;gap:20px}
+@media(min-width:900px){ .limit-grid{grid-template-columns:1fr 1fr;gap:30px} }
+.limit-list{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.limit-list li{
+  display:flex;gap:11px;align-items:flex-start;font-size:15px;line-height:1.7;color:var(--ink);
+  border-bottom:1px dashed var(--line);padding-bottom:11px;
+}
+.limit-list li:last-child{border-bottom:0}
+.limit-list .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--sage)}
+.limit-close{
+  margin:22px 0 0;text-align:right;font-size:18px;color:var(--forest);
+}
+.limit-bubble{
+  margin-top:18px;border:1px solid var(--sage-lt);border-radius:16px;
+  background:var(--paper);padding:16px 18px;font-size:14px;line-height:1.9;color:var(--body);
+}
+
+/* --- 05ステップ 横並びフロー --- */
+.flow{display:grid;gap:14px}
+@media(min-width:900px){ .flow{grid-template-columns:repeat(5,1fr);gap:12px} }
+.flow .f{position:relative;text-align:center}
+.flow .f .ph{border-radius:10px;aspect-ratio:4/3}
+.flow .f .no{
+  display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.16em;color:var(--gold);
+}
+.flow .f h3{margin:0 0 6px;font-size:15.5px;color:var(--forest);line-height:1.5}
+.flow .f p{margin:0;font-size:13px;line-height:1.75;color:var(--body)}
+@media(min-width:900px){
+  .flow .f:not(:last-child)::after{
+    content:"";position:absolute;top:34%;right:-11px;width:9px;height:9px;
+    border-top:1.5px solid var(--sage);border-right:1.5px solid var(--sage);
+    transform:rotate(45deg);
+  }
+}
+
+/* --- 小さく始める（アイコン4つ） --- */
+/* スマホは2列（4列だと「自宅サ／ロン」と割れる） */
+.smallstart{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+@media(min-width:600px){ .smallstart{grid-template-columns:repeat(4,minmax(0,1fr))} }
+.smallstart .s{text-align:center}
+.smallstart .s .ico{width:32px;height:32px;margin:0 auto 8px;color:var(--forest)}
+.smallstart .s span{font-size:12.5px;line-height:1.6;color:var(--ink)}
+
+/* --- 引き（ピンクだった強調ブロック→ゴールドに置換） --- */
+.pickup{
+  border:1px solid var(--gold);border-radius:var(--radius);
+  background:var(--paper);padding:22px 20px;
+}
+.pickup h3{margin:0 0 10px;font-size:19px;line-height:1.6;color:var(--gold)}
+.pickup p{margin:0;font-size:14.5px;line-height:1.9;color:var(--body)}
+.pickup .close{margin-top:12px;color:var(--forest);font-weight:600}
+
+/* --- カリキュラム08カード --- */
+.curri{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:760px){ .curri{grid-template-columns:repeat(4,1fr);gap:12px} }
+.curri .c{
+  background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:15px 13px;
+}
+.curri .c .no{
+  display:block;font-size:17px;letter-spacing:.06em;color:var(--gold);
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
+  border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:8px;
+}
+.curri .c b{display:block;font-size:14.5px;color:var(--forest);line-height:1.5;margin-bottom:4px}
+.curri .c span{font-size:12.5px;line-height:1.7;color:var(--body)}
+.curri-note{font-size:11.5px;color:var(--mute);text-align:right;margin:10px 0 0}
+
+/* --- 受講後の活動イメージ 7点の横並び --- */
+.acts{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(132px,1fr);
+  gap:10px;overflow-x:auto;padding-bottom:8px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+}
+@media(min-width:900px){
+  .acts{grid-auto-flow:row;grid-template-columns:repeat(7,1fr);overflow:visible}
+}
+.acts .a{scroll-snap-align:start}
+.acts .a .ph{aspect-ratio:4/3;border-radius:10px}
+.acts .a span{display:block;margin-top:8px;font-size:12px;line-height:1.6;color:var(--ink);text-align:center}
+
+/* --- 締めの2カラム --- */
+.bclose{display:grid;gap:24px;align-items:center}
+@media(min-width:900px){ .bclose{grid-template-columns:1fr 1fr;gap:34px} }
+.bclose h2{margin:0 0 12px;font-size:24px;line-height:1.55;color:var(--ink)}
+@media(min-width:900px){ .bclose h2{font-size:30px} }
+.bclose .brand-line{font-size:12.5px;letter-spacing:.14em;color:var(--gold);margin:0 0 8px}
+.bclose ul{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:9px}
+.bclose ul li{display:flex;gap:10px;font-size:14.5px;line-height:1.7;color:var(--ink)}
+.bclose ul .tick{flex:0 0 18px;width:18px;height:18px;margin-top:4px;color:var(--sage)}
 
 /* =========================================================
    スマホ表示の詰め（2026-08-08）

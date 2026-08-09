@@ -9,12 +9,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="サロン施術労働から、卒業しませんか？">
 <meta property="og:description" content="同じ施術時間のまま、売上の柱をつくる新しいサロン経営へ。30分の無料説明動画を公開中。">
-<meta property="og:image" content="assets/img/ogp.jpg?v=202608082021">
+<meta property="og:image" content="assets/img/ogp.jpg?v=202608090953">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
-<link rel="stylesheet" href="assets/style.css?v=202608082021">
-<style>/* PCのヒーロー背景（相対パスをHTML基準で解決させるためここに書く） */
-@media(min-width:900px){.hero.hero-wide{background-image:url('assets/img/hero-wide.jpg?v=202608082021')}}</style>
+<link rel="stylesheet" href="assets/style.css?v=202608090953">
+<style>/* PCのヒーロー背景＝仮画像（相対パスをHTML基準で解決させるためここに書く）
+   ★実写スロット 01_counseling_wide が置かれたら assets/photos.js が自動で上書きします */
+@media(min-width:900px){.hero.hero-wide{background-image:url('assets/img/hero-wide.jpg?v=202608090953')}}</style>
 <script>document.documentElement.className+=" js";</script>
 
 <!-- ============================================================
@@ -31,7 +32,9 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
 </script>
      ============================================================ -->
 </head>
-<body>
+<!-- data-lp-variant … A/Bパターンの識別。計測イベントに lp_variant として乗る。
+     広告のリンクに ?v=a / ?v=b を付ければ、そちらが優先されます。 -->
+<body data-lp-variant="a">
 
 <!-- アイコン定義（画面には出ません） -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -45,11 +48,13 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
   <symbol id="i-hand" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M8 13V5.5a1.5 1.5 0 013 0V12m0-1.5a1.5 1.5 0 013 0V13m0-1.2a1.5 1.5 0 013 0V17a5 5 0 01-5 5h-1.6a5 5 0 01-4.2-2.3L4 15.6a1.6 1.6 0 012.6-1.9L8 15.4"/></symbol>
   <symbol id="i-shop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 9.5V20a1 1 0 001 1h14a1 1 0 001-1V9.5M3 9.5l1.6-5A1 1 0 015.6 4h12.8a1 1 0 011 .7l1.6 4.8M3 9.5h18M9 21v-6h6v6"/></symbol>
   <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15l13-7.5z"/></symbol>
+  <symbol id="i-arw" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></symbol>
   <symbol id="i-line" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5c5.5 0 10 3.6 10 8.1 0 1.6-.6 3.1-1.6 4.4-1.6 2.1-4.6 4.6-8.4 6.9-.4.2-.8-.1-.7-.6l.4-1.9c.1-.4-.2-.7-.6-.8C6.2 17.8 2 14.7 2 10.6 2 6.1 6.5 2.5 12 2.5z"/></symbol>
 </svg>
 
 <!-- ========================= HERO ========================= -->
-<header class="hero hero-wide">
+<!-- 写真スロット：PC=01_counseling_wide ／ スマホ=01_counseling_mob -->
+<header class="hero hero-wide" id="hero" data-photo-slot-pc="01_counseling_wide">
   <div class="hero-badge">サロン経営者様へ</div>
   <div class="wrap hero-inner">
     <div class="hero-grid">
@@ -57,7 +62,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
         <p class="hero-pill">施術時間を増やさずに、<b>売上の柱をつくる</b></p>
         <h1 class="mincho">サロン施術労働から、<br><span class="big">卒業</span>しませんか？</h1>
         <!-- スマホでは見出しの直後に写真が来る。PCでは背景に統合される（style.css参照） -->
-        <div class="hero-photo photo ar-4-3 has-img" style="background-image:url('assets/img/hero-mob.jpg?v=202608082021')">
+        <div class="hero-photo photo ar-4-3 has-img" data-photo-slot="01_counseling_mob" style="background-image:url('assets/img/hero-mob.jpg?v=202608090953')">
           <div class="hero-seal"><span>施術時間を<br>増やさずに</span><b>売上の柱を<br>つくる</b></div>
         </div>
         <p class="lead">
@@ -69,6 +74,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
         <a class="btn" data-cta="hero" data-act="movie" href="#movie">
           <svg class="li"><use href="#i-play"></use></svg>
           30分の無料動画を見る
+          <span class="arw"><svg><use href="#i-arw"></use></svg></span>
         </a>
         <p class="btn-sub">登録不要／このページでそのまま再生できます</p>
       </div>
@@ -77,7 +83,8 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
 </header>
 
 <!-- ========================= 悩み ========================= -->
-<section class="dark bgphoto" style="background-image:url('assets/img/band.jpg?v=202608082021')">
+<!-- 2026-08-09 濃い緑のベタ塗り → アイボリー地＋罫線に変更（面積比70/20/10） -->
+<section class="soft bgphoto ruled ruled-b" data-photo-slot="08_teatime_wide" style="background-image:url('assets/img/band.jpg?v=202608090953')">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">CHECK</span>
@@ -106,16 +113,23 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
       <div class="c"><b>単価・リピート・物販が<br>頭打ちになりやすい</b>メニューを増やしても、結局は自分の施術時間を切り売りしている。</div>
       <div class="c"><b>ライフステージの変化で<br>続けるのが難しくなる</b>体調・家族・年齢。休めば売上がゼロになる構造から抜けられない。</div>
     </div>
-    <p class="turn mincho rv">
-      もし、同じ施術時間のまま<br>
-      「客単価・リピート率・物販売上・利益」を<br>
-      伸ばせる仕組みがあったとしたら——。
-    </p>
   </div>
 </section>
 
+<!-- 言い切りの帯（深緑ベタ） -->
+<div class="statement">
+  <div class="wrap narrow rv">
+    <span class="eyebrow">IF</span>
+    <p class="mincho">
+      もし、同じ施術時間のまま<br>
+      「客単価・リピート率・物販売上」を<br>
+      伸ばせる仕組みがあったとしたら——。
+    </p>
+  </div>
+</div>
+
 <!-- ========================= 植物美容クラブとは ========================= -->
-<section style="background:#f6f1e7">
+<section class="beige">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">SOLUTION</span>
@@ -124,7 +138,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
     </div>
     <div class="pillars rv">
       <div class="pillar">
-        <div class="pillar-photo photo has-img" style="background-image:url('assets/img/pillar-1.jpg?v=202608082021')"></div>
+        <div class="pillar-photo photo has-img" data-photo-slot="02_ai_analysis" style="background-image:url('assets/img/pillar-1.jpg?v=202608090953')"></div>
         <div class="pillar-body">
         <span class="no">PILLAR 01</span>
         <h3>スマホ1枚から、会話が変わる</h3>
@@ -133,7 +147,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
       </div>
 
       <div class="pillar">
-        <div class="pillar-photo photo has-img" style="background-image:url('assets/img/pillar-2.jpg?v=202608082021')"></div>
+        <div class="pillar-photo photo has-img" data-photo-slot="04_blending" style="background-image:url('assets/img/pillar-2.jpg?v=202608090953')"></div>
         <div class="pillar-body">
         <span class="no">PILLAR 02</span>
         <h3>その人だけのコスメを、その場で調合</h3>
@@ -142,7 +156,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
       </div>
 
       <div class="pillar">
-        <div class="pillar-photo photo has-img" style="background-image:url('assets/img/pillar-3.jpg?v=202608082021')"></div>
+        <div class="pillar-photo photo has-img" data-photo-slot="06_products" style="background-image:url('assets/img/pillar-3.jpg?v=202608090953')"></div>
         <div class="pillar-body">
         <span class="no">PILLAR 03</span>
         <h3>ホームケアまで設計するから、続く</h3>
@@ -151,7 +165,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
       </div>
 
       <div class="pillar">
-        <div class="pillar-photo photo has-img" style="background-image:url('assets/img/pillar-4.jpg?v=202608082021')"></div>
+        <div class="pillar-photo photo has-img" data-photo-slot="07_club" style="background-image:url('assets/img/pillar-4.jpg?v=202608090953')"></div>
         <div class="pillar-body">
         <span class="no">PILLAR 04</span>
         <h3>&ldquo;クラブ&rdquo;という関係でつながる</h3>
@@ -164,7 +178,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
 </section>
 
 <!-- ========================= 数値 ========================= -->
-<section class="tint bgphoto" style="background-image:url('assets/img/band.jpg?v=202608082021')">
+<section class="tint bgphoto ruled ruled-b" data-photo-slot="05_hirao_labo" style="background-image:url('assets/img/band.jpg?v=202608090953')">
   <div class="wrap narrow">
     <div class="sec-head rv">
       <span class="eyebrow">CHANGE</span>
@@ -193,7 +207,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
 </section>
 
 <!-- ========================= 動画 ========================= -->
-<section class="videoblock bgphoto" id="movie" style="background-image:url('assets/img/ogp.jpg?v=202608082021')">
+<section class="videoblock bgphoto" id="movie" data-photo-slot="11_lab_research" style="background-image:url('assets/img/ogp.jpg?v=202608090953')">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">FREE MOVIE</span>
@@ -201,7 +215,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
     </div>
     <div class="vgrid">
       <!-- ★このサムネは仮（実際の動画の1コマに差し替えること） -->
-      <div class="vframe photo ar-16-9 rv has-img" style="background-image:url('assets/img/video-thumb.jpg?v=202608082021')">
+      <div class="vframe photo ar-16-9 rv has-img" data-photo-slot="video_thumb" style="background-image:url('assets/img/video-thumb.jpg?v=202608090953')">
         <div class="play"><span><svg><use href="#i-play"></use></svg></span></div>
       </div>
       <div class="rv">
@@ -217,9 +231,11 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
           会員登録もメールアドレスの入力も不要。このページでそのままご覧いただけます。<br>
           ※動画の最後に、講座についての特別なご案内があります。
         </p>
+        <!-- 2026-08-09 LINEブランド緑(#06C755)はカラーガイド外のため深緑ベタに統一 -->
         <a class="btn green" data-cta="video-line" data-act="line" href="#">
           <svg class="li"><use href="#i-line"></use></svg>
           LINEで個別相談・お申し込み
+          <span class="arw"><svg><use href="#i-arw"></use></svg></span>
         </a>
         <p class="btn-sub">動画をご覧になった方は、こちらからご相談・お申し込みいただけます</p>
       </div>
@@ -245,16 +261,16 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
   </div>
 </section>
 
-<div class="band" style="background-image:url('assets/img/band.jpg?v=202608082021')"></div>
+<div class="band" data-photo-slot="03_extracts_wide" style="background-image:url('assets/img/band.jpg?v=202608090953')"></div>
 
 <!-- ========================= 導入ステップ ========================= -->
-<section style="background:#f6f1e7">
+<section class="beige">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">STEP</span>
       <h2 class="mincho">導入までの流れ</h2>
     </div>
-    <div class="steps rv">
+    <div class="steps green rv">
       <div class="step">
         <h3>無料動画を見る</h3>
         <p>まずは30分の説明動画で、仕組みの全体像を知ってください。このページの再生ボタンから、そのままご覧いただけます。</p>
@@ -293,7 +309,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
 </section>
 
 <!-- ========================= 対象 ========================= -->
-<section style="background:#f6f1e7">
+<section class="beige">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow">FOR YOU?</span>
@@ -360,7 +376,7 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
 </section>
 
 <!-- ========================= 最終CTA ========================= -->
-<section class="cta-band bgphoto" id="cta-last" style="background-image:url('assets/img/ogp-start.jpg?v=202608082021')">
+<section class="cta-band bgphoto" id="cta-last" data-photo-slot="08_teatime_wide" style="background-image:url('assets/img/ogp-start.jpg?v=202608090953')">
   <div class="wrap">
     <span class="freetag rv">今だけ無料</span>
     <h2 class="mincho rv">あなたのサロンに合った売上の柱をつくる<br>第一歩を、今ここから。</h2>
@@ -368,9 +384,15 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
     <a class="btn rv" data-cta="last" data-act="movie" href="#movie">
       <svg class="li"><use href="#i-play"></use></svg>
       30分の無料動画を見る
+      <span class="arw"><svg><use href="#i-arw"></use></svg></span>
     </a>
     <p class="btn-sub">登録不要／このページでそのまま再生できます</p>
-    <p class="btn-sub after">動画をご覧になった方は <a class="ul" data-cta="last-line" data-act="line" href="#">LINEで個別相談・お申し込み</a></p>
+    <!-- サブCTA＝ゴールドの線＋ゴールド文字（カラーデザインガイドのボタン見本に準拠） -->
+    <p class="btn-sub after">または、動画をご覧になった方はこちらから</p>
+    <a class="btn gold rv" data-cta="last-line" data-act="line" href="#">
+      LINEで個別相談・お申し込み
+      <span class="arw"><svg><use href="#i-arw"></use></svg></span>
+    </a>
   </div>
 </section>
 
@@ -399,9 +421,11 @@ fbq('init','【ピクセルIDをここに】'); fbq('track','PageView');
   <a class="btn" data-cta="sticky" data-act="movie" href="#movie">
     <svg class="li"><use href="#i-play"></use></svg>
     30分の無料動画を見る
+    <span class="arw"><svg><use href="#i-arw"></use></svg></span>
   </a>
 </div>
 
-<script src="assets/lp.js?v=202608082021"></script>
+<script src="assets/photos.js"></script>
+<script src="assets/lp.js?v=202608090953"></script>
 </body>
 </html>
