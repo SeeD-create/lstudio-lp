@@ -47,7 +47,7 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
   if (vf) {
     vf.setAttribute("role", "button");
     vf.setAttribute("tabindex", "0");
-    vf.setAttribute("aria-label", "30分の無料動画を再生する");
+    vf.setAttribute("aria-label", "講座説明動画を再生する");
     var play = function () {
       if (!VIMEO_ID) {
         var n = vf.parentNode.querySelector(".vnote");
@@ -62,7 +62,7 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
       var f = document.createElement("iframe");
       f.src = "https://player.vimeo.com/video/" + VIMEO_ID +
               "?autoplay=1&title=0&byline=0&portrait=0&dnt=1";
-      f.title = "30分の無料動画";
+      f.title = "講座説明動画";
       f.allow = "autoplay; fullscreen; picture-in-picture";
       f.allowFullscreen = true;
       f.className = "vplayer";
