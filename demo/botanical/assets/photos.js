@@ -37,6 +37,12 @@ var PHOTOS = {
   "09_hadaiku_lesson"   : "09_hadaiku_lesson.jpg",    /* 9. 肌育レッスン風景 */
   "10_kouza"            : "10_kouza.jpg",             /* 10. 養成講座受講風景 */
   "10_kouza_wide"       : "10_kouza_wide.jpg",        /*     └ ヒーロー用の横長切り出し */
+
+  /* --- PCヒーロー専用（左半分をアイボリーに溶かした横長）2026-08-09 ---
+     文字が写真に溶け込む見せ方にするため、通常の切り出しとは別に持っている。
+     撮影後は、同じ構図の引きを同じように左を溶かして同名で置けば入れ替わる。 */
+  "01_counseling_hero"  : "01_counseling_hero.jpg",   /* A案・B案のPCヒーロー */
+  "10_kouza_hero"       : "10_kouza_hero.jpg",        /* start（これから向け）のPCヒーロー */
   "11_lab_research"     : "11_lab_research.jpg",      /* 11. 製造ラボ・研究風景 */
   "12_lab_equipment"    : "12_lab_equipment.jpg",     /* 12. 製造ラボ機材・設備 */
 

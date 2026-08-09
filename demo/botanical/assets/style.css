@@ -231,12 +231,15 @@ section{padding:56px 0}
 
   /* PC：ヒーローを全幅の背景写真にして、左の余白に文字を置く
      （背景画像のURLは各HTMLの<head>内 <style> で指定＝相対パスをHTML基準にするため） */
-  .hero.hero-wide{background-size:cover;background-position:right center;background-repeat:no-repeat}
+  /* 2026-08-09 ヒーロー写真を「左半分をアイボリーに溶かした版」に差し替えた。
+     溶けは画像側に焼き込んであるので、position は left にして、
+     上に重ねるベールは保険程度まで薄くする（重ねすぎると写真が白く飛ぶ）。 */
+  .hero.hero-wide{background-size:cover;background-position:left center;background-repeat:no-repeat}
   .hero.hero-wide::before{
     content:"";position:absolute;inset:0;z-index:0;
     background:linear-gradient(90deg,
-      rgba(250,247,242,.96) 0%, rgba(250,247,242,.90) 30%,
-      rgba(250,247,242,.45) 50%, rgba(250,247,242,0) 66%);
+      rgba(250,247,242,.55) 0%, rgba(250,247,242,.34) 32%,
+      rgba(250,247,242,.10) 50%, rgba(250,247,242,0) 64%);
   }
   .hero.hero-wide .hero-badge,
   .hero.hero-wide .hero-inner{position:relative;z-index:1}
@@ -252,6 +255,8 @@ section{padding:56px 0}
   .hero.hero-wide .hero-photo::after{display:none}
   /* 丸バッジは写真の人物に重なるのでPCでは出さず、文字カラムの帯に置き換える */
   .hero.hero-wide .hero-seal{display:none}
+  /* 写真の右上が空いているページだけシールを出す（startは窓＝空きあり。Aは人物の顔が来るので非表示のまま） */
+  .hero.hero-wide .hero-seal.show-pc{display:flex;top:26px;right:26px;width:138px;height:138px}
   .hero.hero-wide .hero-pill{
     display:inline-flex;align-items:center;gap:7px;margin:0 0 18px;
     background:rgba(250,247,242,.92);border:1px solid var(--gold);
@@ -636,13 +641,13 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 
 @media(min-width:900px){
   .bhero{padding-bottom:0}
-  .bhero.hero-wide{background-size:cover;background-position:right center;background-repeat:no-repeat}
+  .bhero.hero-wide{background-size:cover;background-position:left center;background-repeat:no-repeat}
   /* 左半分は必ず読めるように。写真が差し替わっても文字が乗る側を守る */
   .bhero.hero-wide::before{
     content:"";position:absolute;inset:0;z-index:0;
     background:linear-gradient(90deg,
-      rgba(250,247,242,.97) 0%, rgba(250,247,242,.94) 40%,
-      rgba(250,247,242,.55) 58%, rgba(250,247,242,0) 76%);
+      rgba(250,247,242,.58) 0%, rgba(250,247,242,.38) 34%,
+      rgba(250,247,242,.12) 52%, rgba(250,247,242,0) 66%);
   }
   .bhero .eyebrow-bar,.bhero .bhero-inner{position:relative;z-index:1}
   /* 2026-08-09 修正：ここに max-width:600px を置くと .wrap の margin:0 auto と噛み合って
