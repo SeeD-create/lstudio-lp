@@ -171,6 +171,32 @@
   .step h3 { margin: 0 0 4px; font-size: 15.5px; font-weight: 700; }
   .step p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
 
+  /* ---------- portfolio ---------- */
+  .plead { margin: -8px 0 18px; font-size: 13.5px; color: var(--ink-2); }
+  .pf { display: grid; gap: 14px; }
+  @media (min-width: 860px) { .pf { grid-template-columns: 1.35fr 1fr; align-items: start; } }
+  .pfplayer {
+    background: #0A0F18; border: 1px solid var(--line); border-radius: var(--r);
+    overflow: hidden; box-shadow: var(--shadow);
+  }
+  .pfplayer video { display: block; width: 100%; height: auto; background: #0A0F18; aspect-ratio: 16/9; }
+  .pfnow {
+    margin: 0; padding: 9px 13px; font-size: 11.5px; color: rgba(255,255,255,.66);
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .pflist { display: flex; flex-wrap: wrap; gap: 7px; align-content: flex-start; }
+  .pfb {
+    font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+    padding: 7px 13px; border-radius: 100px; line-height: 1.5;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink-2);
+  }
+  .pfb:hover { border-color: var(--accent-line); color: var(--ink); background: var(--accent-soft); }
+  .pfb[aria-pressed="true"] {
+    background: var(--navy); border-color: var(--navy); color: #fff;
+  }
+  .pfb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .note a { color: var(--accent); text-underline-offset: 3px; }
+
   /* ---------- footer ---------- */
   .endcta {
     margin: 40px 0 0; background: var(--navy); color: var(--on-navy);
@@ -182,10 +208,14 @@
 
   footer {
     margin-top: 34px; border-top: 1px solid var(--line);
-    padding: 18px 0 40px; font-size: 11.5px; color: var(--ink-3);
-    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    padding: 26px 0 44px;
   }
-  footer b { color: var(--ink-2); font-weight: 600; }
+  .signame { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: .02em; }
+  .sigrole { margin: 3px 0 0; font-size: 13px; color: var(--ink-2); }
+  .siglinks { margin: 9px 0 0; font-size: 13.5px; display: flex; gap: 9px; flex-wrap: wrap; }
+  .siglinks a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
+  .siglinks .sep { color: var(--ink-3); }
+  .disc { margin: 18px 0 0; font-size: 11.5px; color: var(--ink-3); line-height: 1.8; }
 
   .note {
     margin: 18px 0 0; font-size: 11.5px; color: var(--ink-3);
@@ -335,6 +365,44 @@
     </p>
   </section>
 
+  <section id="jisseki">
+    <p class="stitle">PORTFOLIO</p>
+    <h2>これまでに作った、<span class="hl">18業種の公式LINE</span></h2>
+    <p class="plead">業種ごとに、実際に動くものを作って公開しています。気になる業種をお選びいただくと、その場で動画が再生されます。</p>
+
+    <div class="pf">
+      <div class="pfplayer">
+        <video id="pfv" controls preload="none" playsinline></video>
+        <p class="pfnow" id="pfnow">下から業種をお選びください</p>
+      </div>
+      <div class="pflist" id="pflist">
+        <button class="pfb" data-v="cosme-salon"     data-t="コスメサロン｜サロン向け肌診断LINE">コスメサロン</button>
+        <button class="pfb" data-v="hair-salon"      data-t="ヘアサロン｜美容室 予約・再来店LINE">ヘアサロン</button>
+        <button class="pfb" data-v="pet-salon"       data-t="ペットサロン｜トリミング予約LINE">ペットサロン</button>
+        <button class="pfb" data-v="restaurant"      data-t="飲食店｜レストラン集客LINE">飲食店</button>
+        <button class="pfb" data-v="bar"             data-t="バー｜オーセンティックバーLINE">バー</button>
+        <button class="pfb" data-v="snack"           data-t="スナック｜顧客台帳×接客支援LINE">スナック</button>
+        <button class="pfb" data-v="cosme-monitor"   data-t="コスメモニター事業｜モニター募集・管理LINE">コスメモニター</button>
+        <button class="pfb" data-v="seikotsuin"      data-t="整骨院｜整骨院 予約・通院LINE">整骨院</button>
+        <button class="pfb" data-v="clinic"          data-t="クリニック｜内科クリニック受付LINE">クリニック</button>
+        <button class="pfb" data-v="mimamori"        data-t="介護・健康支援｜高齢者みまもり健康LINE">介護・健康支援</button>
+        <button class="pfb" data-v="lawyer"          data-t="弁護士｜法律相談 事前ヒアリングLINE">弁護士</button>
+        <button class="pfb" data-v="law-office"      data-t="法律事務所｜事務所サイト＋予約システム">法律事務所</button>
+        <button class="pfb" data-v="shihoshoshi"     data-t="司法書士｜相談予約 自動化LINE">司法書士</button>
+        <button class="pfb" data-v="juku"            data-t="学習塾｜塾 生徒・保護者連絡LINE">学習塾</button>
+        <button class="pfb" data-v="realestate-rent" data-t="不動産（賃貸仲介）｜AIお部屋さがしLINE">不動産（賃貸）</button>
+        <button class="pfb" data-v="realestate-invest" data-t="不動産（投資・査定）｜収益物件 査定マッチング">不動産（査定）</button>
+        <button class="pfb" data-v="gas"             data-t="ガス会社（生活インフラ）｜開栓・閉栓受付LINE">ガス会社</button>
+        <button class="pfb" data-v="b2b"             data-t="B2B・経営者向け｜見込み客育成LINE">B2B・経営者向け</button>
+      </div>
+    </div>
+
+    <p class="note">
+      「法律事務所｜事務所サイト＋予約システム」のように、ホームページや予約システムまで一体で作った例もあります。
+      各業種の詳細は <a href="https://l-studiojp.com/">l-studiojp.com</a> にまとめています。
+    </p>
+  </section>
+
   <div class="endcta" id="soudan">
     <h2>まずは、<span class="hl">この形</span>から始めませんか。</h2>
     <p>
@@ -348,12 +416,38 @@
   </div>
 
   <footer>
-    <b>Lスタジオ</b>
-    <span>公式LINE構築・運用／平野</span>
-    <span>info@l-studiojp.com</span>
-    <span>本ページは提案用のデモです。掲載の屋号・お客様名・受付番号・金額はすべて架空のものです。</span>
+    <div class="sig">
+      <p class="signame">Lスタジオ</p>
+      <p class="sigrole">公式LINE構築・運用／担当　平野</p>
+      <p class="siglinks">
+        <a href="https://l-studiojp.com/">l-studiojp.com</a>
+        <span class="sep">／</span>
+        <a href="mailto:info@l-studiojp.com">info@l-studiojp.com</a>
+      </p>
+    </div>
+    <p class="disc">本ページは提案用のデモです。掲載の屋号・お客様名・受付番号・件数・金額はすべて架空のものです。</p>
   </footer>
 
 </div>
+
+<script>
+(function () {
+  var v = document.getElementById('pfv');
+  var now = document.getElementById('pfnow');
+  var list = document.getElementById('pflist');
+  if (!v || !list) return;
+  list.addEventListener('click', function (e) {
+    var b = e.target.closest('.pfb');
+    if (!b) return;
+    list.querySelectorAll('.pfb[aria-pressed="true"]').forEach(function (o) {
+      o.setAttribute('aria-pressed', 'false');
+    });
+    b.setAttribute('aria-pressed', 'true');
+    v.src = '../../videos/' + b.dataset.v + '.mp4';
+    now.textContent = b.dataset.t;
+    v.play().catch(function () {});
+  });
+})();
+</script>
 </body>
 </html>
