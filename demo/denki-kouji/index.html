@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>電気工事店の公式LINE ｜ 機能デモ ｜ Lスタジオ</title>
+<meta name="description" content="電気工事店向けの公式LINEデモ。写真で見積り相談・個人／法人の窓口分け・事前ヒアリング・訪問日時の受付・口コミ導線までを1本の動画でご覧いただけます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="電気工事店の公式LINE ｜ 機能デモ">
+<meta property="og:description" content="問い合わせの取りこぼしをなくし、終わった工事を次の依頼につなげる公式LINEの動作デモです。">
+<meta property="og:url" content="https://l-studiojp.com/demo/denki-kouji/">
+<style>*{box-sizing:border-box}html,body{margin:0;padding:0}img,video{max-width:100%}</style>
+</head>
+<body><style>
+  :root {
+    --paper:        #F7F8FA;
+    --surface:      #FFFFFF;
+    --surface-sunk: #EEF1F5;
+    --line:         #DCE1E8;
+    --line-soft:    #E9ECF1;
+    --ink:          #141A23;
+    --ink-2:        #464F5C;
+    --ink-3:        #79828F;
+    --navy:         #16233D;
+    --navy-2:       #223559;
+    --accent:       #B8791C;
+    --accent-soft:  #FBF2DF;
+    --accent-line:  #E2C182;
+    --amber:        #F2B33D;
+    --on-navy:      #FFFFFF;
+    --ok:           #1E7A4C;
+    --ok-soft:      #E3F1E8;
+    --shadow:       0 1px 2px rgba(20,28,40,.05), 0 10px 30px -18px rgba(20,28,40,.35);
+    --r:            8px;
+    --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+            "Noto Sans JP", "Segoe UI", system-ui, sans-serif;
+    --mono: "SFMono-Regular", "Consolas", "Roboto Mono", ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper); color: var(--ink);
+    line-height: 1.8; font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ribbon {
+    background: var(--navy); color: var(--on-navy);
+    padding: 9px 18px; font-size: 12px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .ribbon b {
+    font-size: 10px; letter-spacing: .16em; font-weight: 700;
+    border: 1px solid rgba(255,255,255,.45); border-radius: 3px; padding: 1px 7px;
+  }
+  .ribbon span { color: rgba(255,255,255,.82); }
+  .ribbon .sp { margin-left: auto; color: rgba(255,255,255,.6); }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 18px; }
+
+  /* ---------- hero：スマホ第一画面に 見出し＋動画＋CTA を全部入れる ---------- */
+  .hero {
+    background:
+      radial-gradient(120% 90% at 82% 8%, rgba(242,179,61,.16), transparent 58%),
+      linear-gradient(170deg, var(--navy-2), var(--navy));
+    color: var(--on-navy);
+    padding: 26px 0 30px;
+  }
+  .eyebrow {
+    font-size: 10.5px; letter-spacing: .18em; font-weight: 700;
+    color: var(--amber); margin: 0 0 10px;
+  }
+  .hero h1 {
+    margin: 0 0 12px; font-size: 25px; line-height: 1.5;
+    font-weight: 700; letter-spacing: .005em;
+  }
+  .hero h1 .hl { color: var(--amber); }
+  .pcbr { display: none; }
+  @media (min-width: 720px) { .pcbr { display: inline; } }
+  .hero .lead {
+    margin: 0 0 18px; font-size: 14px; line-height: 1.85;
+    color: rgba(255,255,255,.84); max-width: 46em;
+  }
+
+  .player {
+    background: #0A0F18; border-radius: var(--r); overflow: hidden;
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 18px 50px -22px rgba(0,0,0,.8);
+  }
+  .player video { display: block; width: 100%; height: auto; background: #0A0F18; }
+  .playmeta {
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    padding: 9px 13px; font-size: 11.5px; color: rgba(255,255,255,.62);
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .playmeta b { color: rgba(255,255,255,.9); font-weight: 600; }
+
+  .cta { display: flex; gap: 11px; flex-wrap: wrap; margin-top: 18px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: inherit; font-size: 14px; font-weight: 700; text-decoration: none;
+    padding: 12px 22px; border-radius: 100px; cursor: pointer;
+    border: 1px solid var(--amber); background: var(--amber); color: #241802;
+  }
+  .btn:hover { filter: brightness(1.07); }
+  .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+  .btn.ghost:hover { background: rgba(255,255,255,.08); filter: none; }
+  .btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* ---------- sections ---------- */
+  section { padding: 44px 0 6px; }
+  .stitle {
+    font-size: 10.5px; letter-spacing: .18em; font-weight: 700;
+    color: var(--accent); margin: 0 0 9px;
+  }
+  h2 {
+    margin: 0 0 20px; font-size: 21px; line-height: 1.55; font-weight: 700;
+    letter-spacing: .005em;
+  }
+  h2 .hl {
+    background: linear-gradient(transparent 62%, var(--accent-soft) 62%);
+    padding: 0 2px;
+  }
+
+  .grid { display: grid; gap: 13px; }
+  @media (min-width: 720px) { .grid.c2 { grid-template-columns: 1fr 1fr; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r); box-shadow: var(--shadow);
+    padding: 17px 18px 18px;
+  }
+  .card h3 {
+    margin: 0 0 6px; font-size: 15.5px; font-weight: 700;
+    display: flex; align-items: center; gap: 9px; line-height: 1.5;
+  }
+  .card p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.85; }
+  .num {
+    flex: none; width: 24px; height: 24px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--navy); color: #fff;
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  }
+
+  /* ---------- 売上・集客の3本柱 ---------- */
+  .pillars { display: grid; gap: 13px; }
+  @media (min-width: 780px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+  .pillar {
+    background: var(--surface); border: 1px solid var(--line);
+    border-top: 3px solid var(--amber);
+    border-radius: var(--r); padding: 18px; box-shadow: var(--shadow);
+  }
+  .pillar .k {
+    font-size: 10.5px; letter-spacing: .14em; font-weight: 700; color: var(--accent);
+  }
+  .pillar h3 { margin: 6px 0 8px; font-size: 16px; font-weight: 700; line-height: 1.5; }
+  .pillar p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.85; }
+
+  /* ---------- 段階 ---------- */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid; grid-template-columns: 74px 1fr; gap: 16px;
+    padding: 16px 0; border-bottom: 1px solid var(--line-soft);
+  }
+  .step:last-child { border-bottom: 0; }
+  .step .ph {
+    font-size: 10.5px; letter-spacing: .1em; font-weight: 700;
+    color: var(--accent); padding-top: 4px;
+  }
+  .step h3 { margin: 0 0 4px; font-size: 15.5px; font-weight: 700; }
+  .step p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+  /* ---------- footer ---------- */
+  .endcta {
+    margin: 40px 0 0; background: var(--navy); color: var(--on-navy);
+    border-radius: var(--r); padding: 28px 22px 30px;
+  }
+  .endcta h2 { color: #fff; margin-bottom: 10px; }
+  .endcta h2 .hl { background: none; color: var(--amber); padding: 0; }
+  .endcta p { margin: 0 0 18px; font-size: 13.5px; color: rgba(255,255,255,.8); }
+
+  footer {
+    margin-top: 34px; border-top: 1px solid var(--line);
+    padding: 18px 0 40px; font-size: 11.5px; color: var(--ink-3);
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  }
+  footer b { color: var(--ink-2); font-weight: 600; }
+
+  .note {
+    margin: 18px 0 0; font-size: 11.5px; color: var(--ink-3);
+    border-left: 2px solid var(--accent-line); padding-left: 11px; line-height: 1.8;
+  }
+
+  @media (min-width: 720px) {
+    body { font-size: 15.5px; }
+    .hero { padding: 40px 0 44px; }
+    .hero h1 { font-size: 32px; }
+    .hero .lead { font-size: 15px; }
+    h2 { font-size: 25px; }
+    section { padding: 58px 0 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="ribbon">
+  <b>DEMO</b>
+  <span>電気工事店を想定した動作デモです。屋号・お客様名・金額はすべて架空のものです。</span>
+  <span class="sp">Lスタジオ／平野</span>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">ELECTRICAL CONTRACTOR ／ LINE DEMO</p>
+    <h1>現場に出ている間の問い合わせを、<br class="pcbr"><span class="hl">1件も落とさない</span>公式LINE。</h1>
+    <p class="lead">
+      写真1枚で見積り相談、工事内容・住所・希望時期は聞く前にそろう。
+      電話に出られない時間の相談も取りこぼさず、終わった工事はそのまま次の依頼につながります。
+      実際の動きを、そのまま動画でご覧ください。
+    </p>
+
+    <div class="player">
+      <video controls preload="metadata" playsinline
+             poster=""
+             src="../../videos/denki.mp4?v=20260810">
+        お使いのブラウザは動画の再生に対応していません。
+      </video>
+      <div class="playmeta">
+        <b>電気工事店の公式LINE デモ</b>
+        <span>左：お客様のLINE画面／右：管理側（案件管理・対応ログ）</span>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="#soudan">この内容で相談する</a>
+      <a class="btn ghost" href="#kinou">機能を見る</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="kinou">
+    <p class="stitle">FUNCTIONS</p>
+    <h2>動画でご覧いただいている、<span class="hl">6つの機能</span></h2>
+    <div class="grid c2">
+      <div class="card">
+        <h3><span class="num">1</span>個人／法人で窓口を分ける</h3>
+        <p>友だち追加の直後に「個人のお客さま／法人のお客さま」を選んでいただき、それぞれに合った案内を自動でお送りします。住宅の修理と店舗・事務所の工事では、聞くことも金額感も違うためです。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">2</span>写真で見積り相談</h3>
+        <p>分電盤やコンセントの写真をLINEから送っていただきます。全体の1枚と気になる部分のアップ、この2枚があるだけで、概算のお見積りの精度が大きく変わります。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">3</span>事前ヒアリング</h3>
+        <p>工事内容・ご住所・ご希望時期を、順番にお伺いします。現地に着く前に見積りと段取りに必要な情報がそろうので、「まず状況を聞くためだけの電話」がなくなります。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">4</span>よくある質問の自動応答</h3>
+        <p>「ブレーカーがよく落ちる」「コンセントを増設したい」といったご相談に、24時間その場で一次回答。契約アンペア不足・回路の容量オーバー・漏電の切り分けまでご案内します。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">5</span>訪問希望日時の受付</h3>
+        <p>候補の日時から選んでいただくだけ。大掛かりな予約システムを入れなくても、日程調整の往復はここでほぼ終わります。件数が増えてから本格的な予約管理へ広げれば十分です。</p>
+      </div>
+      <div class="card">
+        <h3><span class="num">6</span>施工後の口コミご案内</h3>
+        <p>工事が完了したお客様に、完了のご連絡とあわせてGoogle口コミへのリンクを自動でお送りします。お願いしづらい一言を、仕組み側が代わりに引き受けます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="uriage">
+    <p class="stitle">SALES &amp; MARKETING</p>
+    <h2>「事務が楽になる」だけでは終わりません。<br><span class="hl">売上の入口</span>が3つ増えます。</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <p class="k">01 ／ 取りこぼしの回収</p>
+        <h3>出られなかった電話は、<br>そのまま失注になる</h3>
+        <p>現場にいる時間・夜間・休日の問い合わせは、折り返す頃には他社に決まっています。LINEなら相手はいつでも送れて、こちらは手が空いてから返せる。この時間差を埋めるだけで、受けられる仕事が増えます。</p>
+      </div>
+      <div class="pillar">
+        <p class="k">02 ／ 再依頼を生む名簿</p>
+        <h3>終わったお客様が、<br>資産として残る</h3>
+        <p>一度工事したお客様が友だちとして残ります。分電盤の点検時期のご案内、店舗のLED化のご提案などを、後からまとめてお送りできます。新規を取り直すより、はるかに低い労力で次の売上になります。</p>
+      </div>
+      <div class="pillar">
+        <p class="k">03 ／ 新規の流入</p>
+        <h3>口コミが増えると、<br>探されたときに選ばれる</h3>
+        <p>地域＋電気工事で探すお客様は、口コミの数と内容で比べます。施工後のご案内を自動化して口コミを積み上げることが、そのまま新規のご相談の増加につながります。</p>
+      </div>
+    </div>
+    <p class="note">
+      「かわばたさんに聞いたら大丈夫」と思っていただける関係を、LINEの中に置いておくイメージです。
+      問い合わせを増やす前に、まず来ている問い合わせを落とさない。そのうえで、終わったお客様に届く経路を残しておく。この2つが売上に直結します。
+    </p>
+  </section>
+
+  <section id="dankai">
+    <p class="stitle">ROADMAP</p>
+    <h2>最初から全部は作りません。<span class="hl">必要になった機能だけ</span>足します。</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="ph">STEP 1</div>
+        <div>
+          <h3>公式LINEの完成</h3>
+          <p>この動画でご覧いただいている範囲です。窓口の分岐・写真受付・事前ヒアリング・FAQ自動応答・訪問日時の受付・口コミ導線まで。まずはここを完成させます。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="ph">STEP 2</div>
+        <div>
+          <h3>顧客・案件の管理</h3>
+          <p>届いた相談を1件ずつ台帳に残し、見積り送付・訪問予定・完了までの状態を追えるようにします。件数が増えてきた段階で十分です。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="ph">STEP 3</div>
+        <div>
+          <h3>見積り・施工予定の一元管理</h3>
+          <p>定型の工事は概算見積りをLINEから返信、訪問と工事の予定をまとめて管理します。ここまで来ると、事務作業はほぼLINEの中で完結します。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="ph">STEP 4</div>
+        <div>
+          <h3>AIによる要約・返信文案</h3>
+          <p>届いた問い合わせの要約と返信の文案をAIが自動作成します。読んで、直して、送るだけ。文章を考える時間がなくなります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="endcta" id="soudan">
+    <h2>まずは、<span class="hl">この形</span>から始めませんか。</h2>
+    <p>
+      ご予算とご希望の納期をお聞かせいただければ、範囲を調整したお見積りをお出しします。
+      作って終わりではなく、運用しながら必要な機能だけを足していく形でお手伝いします。
+    </p>
+    <div class="cta">
+      <a class="btn" href="mailto:info@l-studiojp.com?subject=%E9%9B%BB%E6%B0%97%E5%B7%A5%E4%BA%8B%E5%BA%97%E3%81%AE%E5%85%AC%E5%BC%8FLINE%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">メールで相談する</a>
+      <a class="btn ghost" href="https://l-studiojp.com/">Lスタジオの実績を見る</a>
+    </div>
+  </div>
+
+  <footer>
+    <b>Lスタジオ</b>
+    <span>公式LINE構築・運用／平野</span>
+    <span>info@l-studiojp.com</span>
+    <span>本ページは提案用のデモです。掲載の屋号・お客様名・受付番号・金額はすべて架空のものです。</span>
+  </footer>
+
+</div>
+</body>
+</html>
