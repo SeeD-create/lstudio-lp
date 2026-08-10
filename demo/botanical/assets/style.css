@@ -4,36 +4,53 @@
    共通スタイル（A案：現行 / B案：新カンプ）
    Lスタジオ 2026-08
    ---------------------------------------------------------
-   2026-08-09 カラー再設計（先方カラーデザインガイド準拠）
-     ベース    アイボリー          #FAF7F2  … 面積 70%
-     サブ地    生成りベージュ      #F0E9DD  （区切り用・アイボリーの一部として扱う）
-     メイン    深いボタニカルグリーン #1F3B2E … 面積 20%（動画ブロック・フッター・ボタン）
-     サブ      セージグリーン      #A8B895  … 罫線・アイコン・下線
-     アクセント ゴールド            #C9A86A  … 見出し小・サブCTAの線と文字
-     文字      ほぼ黒に近いグリーン #172A22
-   ※明るい緑 #6FA27A 系は全廃（プレースホルダの緑もセージに置換済み）
-   ※ベタ塗りは「動画ブロック」「フッター」「ボタン」だけ。
-     ほかは全部アイボリー地＋罫線＋余白で区切る。
+   ★2026-08-10 カラー再設計（先方訂正：8/9の深緑 #1F3B2E は取り消し）
+     「明るく瑞々しく、高級感のあるグリーン」。基準 #4F8F35 ／ 明るい部分 #86B94A。
+     ---------------------------------------------------------
+     基本背景  白〜アイボリー      #FFFDF8 / #FFFFFF … 面積を最大にする
+     区切り地  ごく薄いアイボリー  #FBF7EC
+     グリーン  基準               #4F8F35 … 見出し・アイコン・チェック・ポイント
+               濃い版             #3F7429 … 小さい緑文字（白地で 5.6:1 を確保）
+               最濃               #33632A … フッターのみ
+               明るい版           #86B94A … CTAグラデーションの上端・装飾
+               細罫・カード枠     #BFD9A0
+               ごく薄い緑地       #EEF6E2 … チェック／ポイントの面
+     ゴールド                     #C3A45F … 細線・区切り・枠のみ（面で塗らない）
+     文字      #20301C（見出し） / #2C3A27（本文） / #6B7765（補助）
+   ---------------------------------------------------------
+   ※深緑のベタ塗り面は全廃。ベタで塗るのは
+     「CTAボタン」「言い切りの帯」「ポイント枠(.small-close)」「フッター」だけ。
+     ほかは全部 白／アイボリー地＋細罫＋余白で区切る。
+   ※明るいグリーン #86B94A の上に白文字を置かない（白との比 2.3:1 で読めない）。
+     白文字を乗せてよいのは #4F8F35 以上の濃さ（5.3:1）。
    ========================================================= */
 
 :root{
-  /* ---- 指定パレット5色（＋生成りベージュ） ---- */
-  --ivory:#FAF7F2;      /* ベース70% */
-  --beige:#F0E9DD;      /* 生成りベージュ（区切り） */
-  --forest:#1F3B2E;     /* メイン20% */
-  --sage:#A8B895;       /* サブ */
-  --gold:#C9A86A;       /* アクセント */
-  --ink:#172A22;        /* 文字 */
+  /* ---- ベース（白〜アイボリー） ---- */
+  --ivory:#FFFDF8;      /* 基本背景 */
+  --paper:#FFFFFF;      /* カード・表の白 */
+  --beige:#FBF7EC;      /* 区切りのアイボリー */
 
-  /* ---- 上の6色から機械的に作る派生色（新規の色は足さない） ---- */
-  --forest-d:#16291F;   /* forestの暗い版（フッター・ホバー） */
-  --forest-lt:#2C5240;  /* forestの明るい版（罫線・アイコン） */
-  --sage-lt:#DCE3D2;    /* sageの薄い版（カードの枠） */
-  --gold-lt:#E7D9BC;    /* goldの薄い版（枠線） */
-  --body:#172A22;       /* 本文＝ご指定の文字色そのもの（2026-08-09に #3E4C44 から戻した） */
-  --mute:#7C877F;       /* 補助文字 */
-  --line:#E3DBCD;       /* 罫線（beigeの濃い版） */
-  --paper:#FFFFFF;
+  /* ---- グリーン ---- */
+  --forest:#4F8F35;     /* 基準グリーン（塗り・アイコン・大きな見出し） */
+  --forest-d:#3F7429;   /* 濃い版（小さい緑文字・ホバー・グラデ下端） */
+  --forest-dd:#33632A;  /* 最濃（フッターのみ） */
+  --forest-lt:#86B94A;  /* 明るい版（CTAグラデ上端）※文字色には使わない */
+  /* 白文字を乗せてよい最も明るいグリーン。#46832E で白と 4.6:1（本文サイズでもAA） */
+  --green-fill:#46832E;
+  --green-fill-d:#37692A;
+  --sage:#BFD9A0;       /* 細罫・カード枠 */
+  --sage-lt:#EEF6E2;    /* ごく薄い緑地（チェック／ポイントの面） */
+
+  /* ---- ゴールド（細線とアクセントのみ） ---- */
+  --gold:#C3A45F;
+  --gold-lt:#EFE4CB;    /* さらに薄い金（枠線用・面には使わない） */
+
+  /* ---- 文字 ---- */
+  --ink:#20301C;        /* 見出し */
+  --body:#2C3A27;       /* 本文 */
+  --mute:#6B7765;       /* 補助文字（白地で 4.6:1） */
+  --line:#EDE6D6;       /* 罫線 */
 
   --radius:14px;
   --maxw:1080px;
@@ -71,10 +88,14 @@ a{color:inherit}
 section{padding:48px 0}
 @media(min-width:900px){ section{padding:64px 0} }
 
-/* 地の色は3種類だけ。ベタ塗りの深緑は .forest のみ。 */
+/* 地の色は3種類だけ。いずれも明るい面で、濃色のベタ塗りは使わない。
+   2026-08-10 .forest は「深緑のベタ塗り」→「白からごく薄いグリーンへのグラデーション」に変更。
+   クラス名は3ページで多数使っているのでそのまま（意味だけが変わった）。 */
 .beige{background:var(--beige)}
-.forest{background:var(--forest);color:#E8EDE8}
-.forest h2,.forest h3{color:#fff}
+.forest{background:linear-gradient(180deg,#FFFFFF 0%,var(--sage-lt) 100%);color:var(--body)}
+.forest h2,.forest h3{color:var(--ink)}
+/* 薄いグリーン地の上に置くカードは白にして面を立てる（同系色で沈むのを防ぐ） */
+.forest .check{background:var(--paper)}
 /* セクションの区切りは罫線で。ベタ面を増やさないための基本装備 */
 .ruled{border-top:1px solid var(--line)}
 .ruled-b{border-bottom:1px solid var(--line)}
@@ -121,8 +142,11 @@ section{padding:48px 0}
 @media(min-width:900px){ .deco-leaf::before{right:-26px;bottom:-24px} }
 
 .sec-head{text-align:center;margin-bottom:28px}
+/* 2026-08-10 小見出し（EYEBROW）の文字はグリーンへ。
+   ゴールドは前後の細線だけに残す＝「ゴールドは細線・アクセント程度」の指示どおり。
+   （ゴールド文字は白地で 2.4:1 しか出ず、12pxでは実機で読めない） */
 .sec-head .eyebrow{
-  display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--gold);
+  display:inline-block;font-size:12px;letter-spacing:.18em;color:var(--forest-d);
   margin-bottom:10px;
 }
 .sec-head .eyebrow::before,
@@ -136,11 +160,12 @@ section{padding:48px 0}
 @media(min-width:900px){ .sec-head h2{font-size:32px} }
 .sec-head h2 em{font-style:normal;color:var(--forest);border-bottom:2px solid var(--gold);padding-bottom:2px}
 .sec-head p{margin:14px 0 0;font-size:15px;color:var(--mute)}
-.forest .sec-head .eyebrow,.statement .eyebrow{color:var(--gold)}
-.forest .sec-head h2{color:#fff}
-.forest .sec-head h2 em{color:#fff;border-bottom-color:var(--gold)}
-/* 深緑の上の補足文は --mute だと沈むので白系にする */
-.forest .sec-head p{color:rgba(255,255,255,.8)}
+/* 2026-08-10 .forest が明るい地になったので、中の文字は通常色に戻す（白文字を使わない） */
+.forest .sec-head .eyebrow{color:var(--forest-d)}
+.forest .sec-head h2{color:var(--ink)}
+.forest .sec-head h2 em{color:var(--forest);border-bottom-color:var(--gold)}
+.forest .sec-head p{color:var(--mute)}
+/* 言い切りの帯の小見出しは白（ゴールド文字はグリーン地で2.0:1＝読めない）。実体は下の .statement 節。 */
 
 .leafline{display:block;margin:0 auto 14px;width:46px;height:auto;opacity:.75}
 
@@ -157,14 +182,14 @@ section{padding:48px 0}
   background-color:var(--beige);
   background-image:
     radial-gradient(120% 90% at 78% 12%, rgba(255,255,255,.85), transparent 60%),
-    radial-gradient(90% 80% at 12% 88%, rgba(168,184,149,.30), transparent 62%),
-    linear-gradient(150deg,#F5F0E6 0%,var(--beige) 55%,#E5E3D5 100%);
+    radial-gradient(90% 80% at 12% 88%, rgba(191,217,160,.30), transparent 62%),
+    linear-gradient(150deg,#FFFBF1 0%,var(--beige) 55%,#F2EEE0 100%);
   background-size:cover;background-position:center;
 }
 .photo.has-img{background-color:var(--beige)}
 .photo::after{
   content:"";position:absolute;inset:0;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%231F3B2E' stroke-opacity='.13' stroke-width='1.4'><path d='M90 168 C90 110 90 70 90 24'/><path d='M90 132 C64 128 50 112 46 92 C72 92 86 108 90 132Z'/><path d='M90 132 C116 128 130 112 134 92 C108 92 94 108 90 132Z'/><path d='M90 96 C66 92 54 78 50 60 C74 60 86 74 90 96Z'/><path d='M90 96 C114 92 126 78 130 60 C106 60 94 74 90 96Z'/><path d='M90 62 C72 58 62 46 59 32 C78 32 87 44 90 62Z'/><path d='M90 62 C108 58 118 46 121 32 C102 32 93 44 90 62Z'/></g></svg>") center/56% no-repeat;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><g fill='none' stroke='%234F8F35' stroke-opacity='.13' stroke-width='1.4'><path d='M90 168 C90 110 90 70 90 24'/><path d='M90 132 C64 128 50 112 46 92 C72 92 86 108 90 132Z'/><path d='M90 132 C116 128 130 112 134 92 C108 92 94 108 90 132Z'/><path d='M90 96 C66 92 54 78 50 60 C74 60 86 74 90 96Z'/><path d='M90 96 C114 92 126 78 130 60 C106 60 94 74 90 96Z'/><path d='M90 62 C72 58 62 46 59 32 C78 32 87 44 90 62Z'/><path d='M90 62 C108 58 118 46 121 32 C102 32 93 44 90 62Z'/></g></svg>") center/56% no-repeat;
   pointer-events:none;
 }
 .photo.has-img::after{display:none}
@@ -180,8 +205,12 @@ section{padding:48px 0}
   background:var(--ivory);
   padding:0 0 40px;overflow:hidden;
 }
+/* 2026-08-10 バッジは明るいグリーンのグラデーション。
+   ⚠️白文字は #4F8F35 より薄い緑に乗せない（#86B94A 上では 2.3:1 で読めない）ので、
+     グラデーションは基準グリーン → 濃い版 の範囲に収める。 */
 .hero-badge{
-  display:inline-block;background:var(--forest);color:#fff;
+  display:inline-block;background:linear-gradient(135deg,var(--green-fill) 0%,var(--green-fill-d) 100%);
+  color:#fff;
   font-size:12px;letter-spacing:.16em;padding:7px 18px;border-radius:0 0 6px 0;
 }
 .hero-inner{padding-top:0}
@@ -199,10 +228,11 @@ section{padding:48px 0}
   margin-top:2px;border-radius:2px;
 }
 .hero .lead{margin:18px 0 0;font-size:16px;color:var(--body)}
-.hero .lead b{color:var(--forest)}
+/* 16px級の緑文字は基準グリーン(3.9:1)だと足りないので濃い版(5.6:1)を使う */
+.hero .lead b{color:var(--forest-d)}
 .hero .mark{
   background:linear-gradient(transparent 62%, var(--sage-lt) 62%);
-  color:var(--forest);font-weight:700;
+  color:var(--forest-d);font-weight:700;
 }
 .hero-photo{margin-top:24px;position:relative}
 /* PCでは丸バッジの代わりに、文字カラムの中に置く帯（写真の人物に重ならないように） */
@@ -211,13 +241,13 @@ section{padding:48px 0}
   position:absolute;top:12px;right:12px;width:106px;height:106px;z-index:2;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:0 9px;
-  border-radius:50%;background:rgba(250,247,242,.94);
+  border-radius:50%;background:rgba(255,253,248,.94);
   border:1px solid var(--gold);
-  font-size:10.5px;line-height:1.5;color:var(--forest);
-  box-shadow:0 6px 20px rgba(31,59,46,.12);
+  font-size:10.5px;line-height:1.5;color:var(--forest-d);
+  box-shadow:0 6px 20px rgba(63,116,41,.14);
 }
 .hero-seal b{
-  display:block;color:var(--forest);font-size:12px;line-height:1.45;margin-top:3px;
+  display:block;color:var(--forest-d);font-size:12px;line-height:1.45;margin-top:3px;
   border-top:1px solid var(--gold);padding-top:3px;
 }
 /* 2026-08-09 写真によって空いている側が違うので、左に出す版を用意した。
@@ -240,8 +270,8 @@ section{padding:48px 0}
   .hero.hero-wide::before{
     content:"";position:absolute;inset:0;z-index:0;
     background:linear-gradient(90deg,
-      rgba(250,247,242,.55) 0%, rgba(250,247,242,.34) 32%,
-      rgba(250,247,242,.10) 50%, rgba(250,247,242,0) 64%);
+      rgba(255,253,248,.55) 0%, rgba(255,253,248,.34) 32%,
+      rgba(255,253,248,.10) 50%, rgba(255,253,248,0) 64%);
   }
   .hero.hero-wide .hero-badge,
   .hero.hero-wide .hero-inner{position:relative;z-index:1}
@@ -265,11 +295,11 @@ section{padding:48px 0}
   .hero.hero-wide .hero-seal.show-pc{display:flex;top:26px;right:26px;width:138px;height:138px}
   .hero.hero-wide .hero-pill{
     display:inline-flex;align-items:center;gap:7px;margin:0 0 18px;
-    background:rgba(250,247,242,.92);border:1px solid var(--gold);
+    background:rgba(255,253,248,.92);border:1px solid var(--gold);
     border-radius:40px;padding:8px 20px;font-size:13.5px;line-height:1.6;
-    color:var(--forest);letter-spacing:.02em;
+    color:var(--forest-d);letter-spacing:.02em;
   }
-  .hero.hero-wide .hero-pill b{color:var(--forest)}
+  .hero.hero-wide .hero-pill b{color:var(--forest-d)}
 
   /* PCのヒーローだけ、CTAを見出しの左端に揃えて少し長くする（中央寄せだと浮く） */
   .hero .btn{margin-left:0;margin-right:auto;max-width:560px}
@@ -285,7 +315,7 @@ section{padding:48px 0}
 }
 .stat .ico{width:26px;height:26px;margin:0 auto 6px;color:var(--forest)}
 .stat .lb{display:block;font-size:12px;color:var(--mute);letter-spacing:.04em}
-.stat .vl{display:block;font-size:21px;line-height:1.3;color:var(--forest);margin-top:2px}
+.stat .vl{display:block;font-size:21px;line-height:1.3;color:var(--forest-d);margin-top:2px}
 .stat .vl small{font-size:.62em}
 .note{font-size:12.5px;color:var(--mute);text-align:center;margin-top:12px;line-height:1.7}
 
@@ -299,7 +329,8 @@ section{padding:48px 0}
   border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.7;
   color:var(--ink);
 }
-.check .tick{flex:0 0 20px;width:20px;height:20px;margin-top:3px;color:var(--sage)}
+/* 2026-08-10 チェックマークは基準グリーン。薄い緑地の上でも確実に見えるようにする */
+.check .tick{flex:0 0 20px;width:20px;height:20px;margin-top:3px;color:var(--forest)}
 
 /* ---------- 原因 ---------- */
 .cause{display:grid;gap:14px;margin-top:8px}
@@ -309,7 +340,7 @@ section{padding:48px 0}
   border-radius:var(--radius);padding:22px 18px;text-align:center;
   font-size:15px;line-height:1.7;color:var(--body);
 }
-.cause .c b{display:block;font-size:16px;margin-bottom:6px;color:var(--forest)}
+.cause .c b{display:block;font-size:16px;margin-bottom:6px;color:var(--forest-d)}
 .turn{
   margin-top:28px;text-align:center;font-size:16.5px;line-height:1.85;color:var(--ink);
 }
@@ -325,15 +356,15 @@ section{padding:48px 0}
 .pillar-photo{aspect-ratio:16/9;border-radius:0}
 .pillar-body{padding:20px 20px 22px}
 .pillar .no{
-  display:inline-block;font-size:11px;letter-spacing:.2em;color:var(--gold);
+  display:inline-block;font-size:11px;letter-spacing:.2em;color:var(--forest-d);
   border-bottom:1px solid var(--gold);padding-bottom:3px;margin-bottom:10px;
 }
-.pillar h3{margin:0 0 8px;font-size:18px;color:var(--forest);line-height:1.5}
+.pillar h3{margin:0 0 8px;font-size:18px;color:var(--forest-d);line-height:1.5}
 .pillar p{margin:0;font-size:14.5px;line-height:1.85}
 
 /* ---------- 動画ブロック ----------
    2026-08-09 深緑のベタ面 → 生成りベージュの薄い地に変更（平野さん指示）。
-   写真は上に薄いベージュを重ねて透かす。文字は通常の #172A22。 */
+   写真は上に薄いベージュを重ねて透かす。文字は通常の本文色。 */
 .videoblock{background:var(--beige);color:var(--body)}
 .videoblock h2{color:var(--ink)}
 .vgrid{display:grid;gap:24px}
@@ -341,25 +372,25 @@ section{padding:48px 0}
 #movie{scroll-margin-top:8px}
 .vframe{
   position:relative;border-radius:var(--radius);overflow:hidden;
-  border:1px solid rgba(201,168,106,.5);cursor:pointer;
+  border:1px solid var(--sage);cursor:pointer;
 }
 .vframe:hover .play span{transform:scale(1.07)}
 .vframe .play span{transition:transform .2s}
 .vframe.playing{cursor:default;background:#000}
 .vplayer{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-.vnote{margin:12px 0 0;font-size:12.5px;color:rgba(232,237,232,.72);line-height:1.7}
+.vnote{margin:12px 0 0;font-size:12.5px;color:var(--mute);line-height:1.7}
 .vframe .play{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
 }
 .vframe .play span{
-  width:64px;height:64px;border-radius:50%;background:rgba(250,247,242,.94);
+  width:64px;height:64px;border-radius:50%;background:rgba(255,253,248,.94);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 10px 30px rgba(23,42,34,.25);
+  box-shadow:0 10px 30px rgba(32,48,28,.25);
 }
 .vframe .play svg{width:22px;height:22px;color:var(--forest);margin-left:3px}
 .vlist{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .vlist li{display:flex;gap:11px;font-size:15px;line-height:1.75;align-items:flex-start}
-.vlist .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--gold)}
+.vlist .tick{flex:0 0 19px;width:19px;height:19px;margin-top:4px;color:var(--forest)}
 .vmeta{margin-top:18px;font-size:13px;color:var(--mute);line-height:1.8}
 
 /* ---------- 学ぶ内容 ---------- */
@@ -380,12 +411,12 @@ section{padding:48px 0}
 .bgphoto{position:relative;background-size:cover;background-position:center;background-repeat:no-repeat}
 .bgphoto::before{content:"";position:absolute;inset:0;z-index:0}
 .bgphoto>*{position:relative;z-index:1}
-/* 深緑ベタは動画ブロックだけ。写真の上に深緑を重ねる。 */
-.videoblock.bgphoto::before{background:linear-gradient(160deg,rgba(240,233,221,.90) 0%,rgba(250,247,242,.93) 100%)}
+/* 動画ブロックは薄いアイボリー。写真の上に白〜アイボリーを重ねて透かす。 */
+.videoblock.bgphoto::before{background:linear-gradient(160deg,rgba(251,247,236,.90) 0%,rgba(255,253,248,.93) 100%)}
 /* 明るいセクションに写真をごく薄く敷く（アイボリー地を保つ） */
-.tint.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.94),rgba(240,233,221,.95))}
-.soft.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.955),rgba(250,247,242,.93))}
-.cta-band.bgphoto::before{background:linear-gradient(180deg,rgba(250,247,242,.95),rgba(240,233,221,.94))}
+.tint.bgphoto::before{background:linear-gradient(180deg,rgba(255,253,248,.94),rgba(251,247,236,.95))}
+.soft.bgphoto::before{background:linear-gradient(180deg,rgba(255,253,248,.955),rgba(255,253,248,.93))}
+.cta-band.bgphoto::before{background:linear-gradient(180deg,rgba(255,253,248,.95),rgba(251,247,236,.94))}
 
 /* ---------- 全幅の帯写真 ---------- */
 .band{
@@ -395,19 +426,23 @@ section{padding:48px 0}
 }
 .band::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(250,247,242,.55) 0%,rgba(250,247,242,0) 22%,rgba(240,233,221,0) 78%,rgba(240,233,221,.6) 100%);
+  background:linear-gradient(180deg,rgba(255,253,248,.55) 0%,rgba(255,253,248,0) 22%,rgba(251,247,236,0) 78%,rgba(251,247,236,.6) 100%);
 }
 
-/* ---------- 言い切りの帯（深緑ベタ／面積比20%の担い手） ---------- */
-/* 2026-08-09 外部レビュー③：深緑の面が縦に長すぎたので、帯を2行＋余白圧縮に。
-   ここは深緑20%の担い手なので、削った分は「受講後の活動イメージ」を深緑にして補っている。 */
-.statement{background:var(--forest);color:#fff;text-align:center;padding:54px 0}
+/* ---------- 言い切りの帯（グリーンのベタ面／ページ唯一の“色で言い切る”場所） ---------- */
+/* 2026-08-10 深緑ベタ → 明るいグリーンのグラデーションへ。
+   ページ全体は白〜アイボリーなので、色の面はここ・CTAボタン・ポイント枠・フッターだけ。
+   グラデーションの一番明るいところでも #4F8F35（白文字 5.3:1）を下回らせない。 */
+.statement{
+  background:linear-gradient(135deg,var(--green-fill) 0%,var(--green-fill-d) 100%);
+  color:#fff;text-align:center;padding:46px 0;
+}
 .statement .eyebrow{
-  display:block;font-size:12px;letter-spacing:.2em;color:var(--gold);margin-bottom:12px;
+  display:block;font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.86);margin-bottom:12px;
 }
 .statement p{margin:0;font-size:19px;line-height:1.9;color:#fff}
 @media(min-width:900px){
-  .statement{padding:56px 0}
+  .statement{padding:54px 0}
   .statement p{font-size:26px;line-height:1.85}
 }
 
@@ -423,33 +458,34 @@ section{padding:48px 0}
   position:absolute;top:-11px;left:20px;background:var(--forest);color:#fff;
   font-size:11px;letter-spacing:.14em;padding:4px 12px;border-radius:20px;
 }
-.step h3{margin:6px 0 8px;font-size:17px;color:var(--forest)}
+.step h3{margin:6px 0 8px;font-size:17px;color:var(--forest-d)}
 .step p{margin:0;font-size:14.5px;line-height:1.8}
-/* 流れのカードだけ深緑ベタ（ページ全体の深緑20%をここで確保する） */
-.steps.green .step{background:var(--forest);border-color:var(--forest)}
-.steps.green .step::before{background:var(--gold);color:var(--forest);font-weight:700}
-.steps.green .step h3{color:#fff}
-.steps.green .step p{color:rgba(255,255,255,.82)}
-/* 2026-08-09 セクション自体を深緑にしたので、同じ深緑のカードは輪郭が消えて
-   文字が宙に浮いて見えていた。カード側をわずかに明るくして面を立てる。 */
-.forest .steps.green .step{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.20)}
+/* 2026-08-10 深緑ベタのカード → 白いカード＋グリーンの細枠。
+   .green のクラス名は3ページで使っているので残し、意味だけ「グリーンで縁取る流れ」に変えた。 */
+.steps.green .step{background:var(--paper);border-color:var(--sage)}
+.steps.green .step::before{background:linear-gradient(135deg,var(--green-fill) 0%,var(--green-fill-d) 100%);color:#fff;font-weight:700}
+.steps.green .step h3{color:var(--forest-d)}
+.steps.green .step p{color:var(--body)}
+/* 薄いグリーン地のセクションの中でもカードは白のまま（面を立てるため） */
+.forest .steps.green .step{background:var(--paper);border-color:var(--sage)}
 
 /* ---------- 対象 ---------- */
 .fit{display:grid;gap:16px}
 @media(min-width:760px){ .fit{grid-template-columns:repeat(2,1fr);gap:22px} }
 .fit .box{border-radius:var(--radius);padding:24px 22px;background:var(--paper);height:100%}
-.fit .yes{border:1px solid var(--gold);background:var(--gold-lt)}
+/* 2026-08-10 「向いている方」はゴールドの面 → ごく薄いグリーンの面へ（ゴールドは細線だけに戻す） */
+.fit .yes{border:1px solid var(--sage);background:var(--sage-lt)}
 .fit .no{border:1px solid var(--line)}
 .fit h3{margin:0 0 12px;font-size:17px}
-.fit .yes h3{color:var(--forest)}
-.fit .no h3{color:var(--forest-lt)}  /* 2026-08-09 --mute(#7C877F)は白地で3.7:1と薄すぎた */
+.fit .yes h3{color:var(--forest-d)}
+.fit .no h3{color:var(--body)}  /* 明るい緑(--forest-lt)は白地で2.3:1＝文字に使わない */
 .fit ul{margin:0;padding-left:1.15em}
 .fit li{font-size:14.5px;line-height:1.9;margin-bottom:4px}
 
 /* ---------- 講座概要表 ---------- */
 .spec{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .spec th,.spec td{padding:14px 16px;font-size:14.5px;text-align:left;border-bottom:1px solid var(--line);line-height:1.8}
-.spec th{width:32%;background:var(--sage-lt);color:var(--forest);font-weight:600;white-space:nowrap}
+.spec th{width:32%;background:var(--sage-lt);color:var(--forest-d);font-weight:600;white-space:nowrap}
 .spec tr:last-child th,.spec tr:last-child td{border-bottom:0}
 @media(max-width:600px){
   .spec th,.spec td{display:block;width:100%;border-bottom:0}
@@ -463,7 +499,7 @@ section{padding:48px 0}
 .voice{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px}
 .voice .who{display:flex;align-items:center;gap:12px;margin-bottom:12px}
 .voice .av{flex:0 0 46px;width:46px;height:46px;border-radius:50%}
-.voice .who b{display:block;font-size:14px;color:var(--forest)}
+.voice .who b{display:block;font-size:14px;color:var(--forest-d)}
 .voice .who span{font-size:12px;color:var(--mute)}
 .voice p{margin:0;font-size:14.5px;line-height:1.85}
 
@@ -477,14 +513,14 @@ section{padding:48px 0}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{
   content:"";position:absolute;right:18px;top:50%;width:11px;height:11px;
-  border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);
+  border-right:2px solid var(--forest);border-bottom:2px solid var(--forest);
   transform:translateY(-70%) rotate(45deg);transition:transform .2s;
 }
 .faq details[open] summary::after{transform:translateY(-30%) rotate(225deg)}
 .faq .a{padding:0 18px 20px;font-size:14.5px;line-height:1.9;color:var(--body)}
 
 /* ---------- CTA ---------- */
-/* 最終CTAもアイボリー地。深緑ベタで囲わない（カラーガイドのCTA見本に準拠） */
+/* 最終CTAは白〜アイボリー地。色の面で囲わない（白い余白を多くする方針） */
 .cta-band{
   background:var(--ivory);
   color:var(--ink);text-align:center;
@@ -495,60 +531,64 @@ section{padding:48px 0}
 .cta-band p{margin:0 auto;max-width:640px;font-size:15px;color:var(--body)}
 /* 2026-08-09 ゴールドの線はそのまま、文字だけ深緑に（アイボリー地で読めるようにする） */
 .freetag{
-  display:inline-block;background:transparent;color:var(--forest);
+  display:inline-block;background:transparent;color:var(--forest-d);
   border:1px solid var(--gold);border-radius:30px;
   font-size:13px;letter-spacing:.08em;padding:5px 20px;margin-bottom:14px;
 }
 
-/* メインボタン＝深緑ベタ */
+/* ---- メインCTA＝明るいグリーンのグラデーション（2026-08-10 先方ご指定） ----
+   上端 #8ABF4E（明るい部分）→ 40%で #569737 →下端 #3F7A29。
+   ⚠️白い文字が乗るのは高さの35〜65%あたり。そこが #4F8F35 相当（白と 3.6〜4.3:1）に
+     なるよう、明るい #86B94A は上端の“ツヤ”だけに使い、面の大半は基準グリーンに保つ。
+     さらに text-shadow を薄く敷いて実機での可読性を確保している。
+   ⚠️ここを「全面 #86B94A」にすると白文字が 2.3:1 になり読めなくなる。 */
 .btn{
   display:flex;align-items:center;justify-content:center;gap:10px;
   width:100%;max-width:520px;margin:22px auto 0;
-  background:var(--forest);
+  background:linear-gradient(165deg,#8ABF4E 0%,#569737 40%,#3F7A29 100%);
   color:#fff;text-decoration:none;font-size:19px;font-weight:700;letter-spacing:.03em;
+  text-shadow:0 1px 2px rgba(26,54,14,.30);
   padding:19px 22px;border-radius:60px;
-  box-shadow:0 8px 22px rgba(31,59,46,.22);
-  transition:transform .15s,box-shadow .15s,background .15s;
+  box-shadow:0 8px 22px rgba(79,143,53,.32);
+  transition:transform .15s,box-shadow .15s,filter .15s;
 }
-.btn:hover{transform:translateY(-2px);background:var(--forest-d);box-shadow:0 12px 28px rgba(31,59,46,.3)}
-.btn:active{transform:translateY(0)}
+.btn:hover{transform:translateY(-2px);filter:saturate(1.08) brightness(1.06);box-shadow:0 12px 30px rgba(79,143,53,.42)}
+.btn:active{transform:translateY(0);filter:brightness(.97);box-shadow:0 6px 16px rgba(79,143,53,.32)}
+.btn:focus-visible{outline:3px solid var(--forest-d);outline-offset:3px}
 .btn .li{width:26px;height:26px;flex:0 0 26px}
-/* ボタン右端の丸矢印（カラーガイドのボタン見本） */
+/* ボタン右端の丸矢印 */
 .btn .arw{
   width:26px;height:26px;flex:0 0 26px;margin-left:2px;border-radius:50%;
-  background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;
 }
 .btn .arw svg{width:13px;height:13px}
-/* .green は旧LINEブランド緑。カラーガイド外なので深緑に統一した（クラス名は互換のため残す） */
-.btn.green{background:var(--forest);box-shadow:0 8px 22px rgba(31,59,46,.22)}
-.btn.green:hover{background:var(--forest-d)}
-/* サブボタン＝ゴールドの線（塗らない）。
-   2026-08-09 文字までゴールドにすると地のアイボリー上で1.9:1しか出ず実機で読めないため、
-   線はガイドどおりゴールド、文字だけ深緑にした。 */
+/* .green は旧LINEブランド緑。クラス名は互換のため残し、見た目はメインCTAと同じ。 */
+.btn.green{background:linear-gradient(165deg,#8ABF4E 0%,#569737 40%,#3F7A29 100%)}
+/* サブボタン＝ゴールドの細線（塗らない）。ゴールドはここと枠線・区切りだけに使う。
+   文字までゴールドにすると白地で1.9:1しか出ないので、文字は濃いグリーン。 */
 .btn.gold{
-  background:transparent;color:var(--forest);border:1.5px solid var(--gold);
-  box-shadow:none;font-size:17px;padding:16px 22px;
+  background:transparent;color:var(--forest-d);border:1.5px solid var(--gold);
+  box-shadow:none;text-shadow:none;font-size:17px;padding:16px 22px;
 }
-.btn.gold:hover{background:rgba(201,168,106,.10);box-shadow:none;color:var(--forest)}
-.btn.gold .arw{background:rgba(201,168,106,.18)}
+.btn.gold:hover{background:rgba(195,164,95,.10);box-shadow:none;filter:none;color:var(--forest-d)}
+.btn.gold .arw{background:rgba(195,164,95,.20)}
 /* スマホ幅ではボタン文字が2行に折れるので1段下げる */
 @media(max-width:430px){ .btn{font-size:17px;padding:17px 16px;gap:8px} .btn.gold{font-size:15.5px} }
 .btn-sub{margin:12px 0 0;font-size:13px;color:var(--mute);line-height:1.8;text-align:center}
 .btn-sub.after{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
-.ul{color:var(--forest);text-decoration:underline;text-underline-offset:3px;font-weight:700}
-.ul:hover{color:var(--gold)}
+.ul{color:var(--forest-d);text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.ul:hover{color:var(--forest)}
 .cta-band .btn-sub{color:var(--mute)}
-.forest .btn-sub{color:rgba(255,255,255,.72)}
-.forest .btn-sub.after{border-top-color:rgba(255,255,255,.18)}
-.forest .ul{color:#fff}
-.forest .ul:hover{color:var(--gold)}
-/* 深緑の上に置くメインボタンだけは、背景と同化しないよう白フチを足す */
-.forest .btn:not(.gold){border:1px solid rgba(255,255,255,.55)}
+/* 2026-08-10 .forest が明るい地になったので、白文字への差し替えは全て不要になった */
+.forest .btn-sub{color:var(--mute)}
+.forest .btn-sub.after{border-top-color:var(--line)}
+.forest .ul{color:var(--forest-d)}
+.forest .ul:hover{color:var(--forest)}
 
 /* ---------- 固定CTA ---------- */
 .sticky{
   position:fixed;left:0;right:0;bottom:0;z-index:60;
-  background:rgba(250,247,242,.97);backdrop-filter:blur(6px);
+  background:rgba(255,253,248,.97);backdrop-filter:blur(6px);
   padding:10px 14px calc(10px + env(safe-area-inset-bottom));
   transform:translateY(110%);transition:transform .3s ease;
   border-top:1px solid var(--line);
@@ -557,12 +597,14 @@ section{padding:48px 0}
 .sticky .btn{margin:0 auto;padding:15px 18px;font-size:17px;max-width:520px}
 
 /* ---------- フッター ---------- */
-footer{background:var(--forest-d);color:rgba(255,255,255,.66);padding:34px 0 30px;font-size:12.5px;line-height:2}
-footer a{color:rgba(255,255,255,.85);text-decoration:underline;text-underline-offset:3px}
+/* 2026-08-10 フッターだけは締めに濃いグリーンを残す（#33632A）。
+   ページ内で唯一の濃い面。文字の不透明度は 5:1 を切らないところまで上げてある。 */
+footer{background:var(--forest-dd);color:rgba(255,255,255,.80);padding:34px 0 30px;font-size:12.5px;line-height:2}
+footer a{color:rgba(255,255,255,.92);text-decoration:underline;text-underline-offset:3px}
 footer .brand{color:#fff;font-size:15px;margin-bottom:8px}
 footer .links{margin-top:14px}
 footer .links a{margin-right:16px;display:inline-block}
-footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
+footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.72)}
 
 /* ---------- 出現アニメ ---------- */
 /* JSが動いたときだけ隠す。JS無効・エラー時は最初から見えている状態を保つ */
@@ -574,32 +616,35 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .switch{background:var(--beige);text-align:center;padding:26px 0}
 .switch p{margin:0 0 10px;font-size:14.5px;color:var(--ink)}
 .switch a{
-  display:inline-block;border:1px solid var(--gold);color:var(--forest);
+  display:inline-block;border:1px solid var(--gold);color:var(--forest-d);
   text-decoration:none;border-radius:40px;padding:11px 26px;font-size:14.5px;font-weight:600;
   background:transparent;
 }
-.switch a:hover{background:rgba(201,168,106,.12)}
+.switch a:hover{background:rgba(195,164,95,.12)}
 
 /* =========================================================
    B案（先方カンプ① S__84508696 準拠・2026-08-09 作り直し）専用パーツ
    ---------------------------------------------------------
    A案と同じパレット・同じ計測タグを使う。
-   B案は「動画をページ内で再生する」導線なので、動画ブロックは
-   カンプどおりアイボリー地。そのぶん深緑の面は
-   「言い切りの帯」「受講後の活動イメージ」「フッター」「CTAボタン」で持つ。
+   2026-08-10 カラー訂正後は、色のベタ面は
+   「CTAボタン」「言い切りの帯」「ポイント枠(.small-close)」「フッター」だけ。
+   ほかは白〜アイボリーの地に、グリーンの見出し・チェック・細枠で色を置く。
    ========================================================= */
 
 /* --- ① FV --- */
 .bhero{position:relative;background:var(--ivory);overflow:hidden;padding:0 0 34px}
 .bhero .eyebrow-bar{
-  display:inline-block;background:var(--forest);color:#fff;
+  display:inline-block;background:linear-gradient(135deg,var(--green-fill) 0%,var(--green-fill-d) 100%);
+  color:#fff;
   font-size:12px;letter-spacing:.14em;padding:8px 18px;border-radius:0 0 6px 0;
 }
 .bhero h1{margin:16px 0 0;font-size:30px;line-height:1.35;color:var(--ink)}
 .bhero h1 span{color:var(--forest)}
 .bhero .lead{margin:16px 0 0;font-size:15px;line-height:1.85;color:var(--body)}
+/* 2026-08-10 ブランド行のゴールド文字は白地で2.4:1＝読めないのでグリーンに。
+   ゴールドは下の枠線・細線側に残す。 */
 .bhero .brand-line{
-  margin:20px 0 0;font-size:12.5px;letter-spacing:.16em;color:var(--gold);
+  margin:20px 0 0;font-size:12.5px;letter-spacing:.16em;color:var(--forest-d);
 }
 .bhero .brand-line b{display:block;font-size:16.5px;letter-spacing:.04em;color:var(--forest);margin-top:2px}
 .bhero-photo{margin-top:20px;position:relative}
@@ -611,7 +656,7 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   background:var(--paper);border:1px solid var(--sage);
   display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6px;
 }
-.bmerit span{font-size:11.5px;line-height:1.5;color:var(--forest);letter-spacing:0}
+.bmerit span{font-size:11.5px;line-height:1.5;color:var(--forest-d);letter-spacing:0}
 /* 2026-08-10 平野さんだめ出し：円の左右に付けていた葉の装飾（::before / ::after の
    インラインSVG・麦の穂状）を削除。円・枠線・文字・配置はそのまま。
    葉は position:absolute だったので、消してもレイアウトは動かない
@@ -626,9 +671,9 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   position:absolute;top:12px;right:12px;width:104px;height:104px;z-index:3;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:0 6px;border-radius:50%;
-  background:rgba(250,247,242,.94);border:1px solid var(--gold);
-  font-size:10.5px;line-height:1.5;color:var(--forest);letter-spacing:0;
-  box-shadow:0 6px 20px rgba(31,59,46,.12);
+  background:rgba(255,253,248,.94);border:1px solid var(--gold);
+  font-size:10.5px;line-height:1.5;color:var(--forest-d);letter-spacing:0;
+  box-shadow:0 6px 20px rgba(63,116,41,.14);
 }
 .bseal b{
   display:block;font-size:11.5px;line-height:1.45;margin-top:3px;white-space:nowrap;
@@ -649,8 +694,8 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   .bhero.hero-wide::before{
     content:"";position:absolute;inset:0;z-index:0;
     background:linear-gradient(90deg,
-      rgba(250,247,242,.58) 0%, rgba(250,247,242,.38) 34%,
-      rgba(250,247,242,.12) 52%, rgba(250,247,242,0) 66%);
+      rgba(255,253,248,.58) 0%, rgba(255,253,248,.38) 34%,
+      rgba(255,253,248,.12) 52%, rgba(255,253,248,0) 66%);
   }
   .bhero .eyebrow-bar,.bhero .bhero-inner{position:relative;z-index:1}
   /* 2026-08-09 修正：ここに max-width:600px を置くと .wrap の margin:0 auto と噛み合って
@@ -698,8 +743,7 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .vsec .vlist .tick{flex:none;width:14px;height:14px;margin:0;color:var(--forest)}
 .vsec .vlead{margin:20px 0 0;font-size:14.5px;line-height:1.9;color:var(--body)}
 .vsec .vfee{margin:10px 0 0;font-size:12.5px;line-height:1.7;color:var(--mute);text-align:right}
-/* lp.js が VIMEO_ID 未設定のときに差し込む「準備中」の注記。
-   深緑地の想定で白系にしてあるので、アイボリー地のB案では色を戻す */
+/* lp.js が VIMEO_ID 未設定のときに差し込む「準備中」の注記 */
 .vsec .vnote{color:var(--mute);text-align:right}
 .vsec .vframe{border:1px solid var(--sage)}
 @media(max-width:899px){
@@ -715,28 +759,25 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 /* --- 「美容の仕事には限界がある。」--- */
 /* 2026-08-09 外部レビュー③：縦に長すぎ＋チェックの後の大きな空白を解消。
    上下padding＝PC68 / スマホ44、締めの一言はチェック直下28px。 */
-.limitsec{padding:48px 0 0}
-@media(min-width:900px){ .limitsec{padding:68px 0 0} }
+/* 2026-08-10 カラー訂正で .forest が明るい地になったため、下パディングを復活させた
+   （旧：深緑ブロックを .statement と地続きにするため padding-bottom を 0 にしていた） */
+.limitsec{padding:48px 0 40px}
+@media(min-width:900px){ .limitsec{padding:68px 0 52px} }
 .limit-head{font-size:24px;line-height:1.5;color:var(--ink);margin:0 0 20px;text-align:center}
 @media(min-width:900px){ .limit-head{font-size:30px;margin-bottom:26px} }
 
-/* 2026-08-10 平野さんだめ出し：
-   ①文頭の罫線（——）を削除（HTML側）。②8項目と「BOTANICAL BEAUTY DESIGNER」の間の
-   深緑ブロックの上下・左右センターに置く。
-   この深緑ブロックは .limitsec の下パディング と .statement の上パディング が
-   地続きになったもので、要素をまたぐため「余白を消して .limit-close 自身に
-   ブロックの高さを持たせ、その中で flex センタリング」する形にした。
-   高さは変更前の実測（スマホ163px / PC196px＝8項目の下端からBOTANICALの上端まで）
-   をそのまま引き継いでいるので、深緑の面積比とページ全長は変わらない。 */
+/* 「そんなことは、ありません。」＝8項目の締め。文頭の罫線（——）は 2026-08-10 に削除済み。
+   ⚠️2026-08-10 カラー訂正：旧版はこの一言を「深緑ブロックの中央」に置くため
+     min-height:163px/196px でブロックの高さを自前で持たせていた。
+     いま .limitsec は明るい地なので、通常の余白（margin）に戻している。
+     ページ全長は旧版と同じになるよう、削った高さを .limitsec の下パディングと
+     .statement の上パディングに配分してある。 */
 .limit-close{
-  margin:0;min-height:163px;
+  margin:26px 0 0;
   display:flex;align-items:center;justify-content:center;
-  text-align:center;font-size:18px;color:var(--forest);
+  text-align:center;font-size:18px;color:var(--forest-d);
 }
-@media(min-width:900px){ .limit-close{min-height:196px;font-size:22px} }
-/* 上の .limit-close がブロック下端まで持つので、続く帯の上パディングは殺す
-   （.statement はB案専用。A案・startの言い切りの帯はこのクラスを使っていない） */
-.limitsec + .statement{padding-top:0}
+@media(min-width:900px){ .limit-close{margin-top:32px;font-size:22px} }
 
 /* --- ③ 05ステップ --- */
 /* 2026-08-09 外部レビュー⑥：
@@ -750,9 +791,9 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .flow .f{position:relative}
 .flow .f .ph{border-radius:10px;aspect-ratio:4/3}
 .flow .f .no{
-  display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.16em;color:var(--gold);
+  display:block;margin:12px 0 4px;font-size:13px;letter-spacing:.16em;color:var(--forest-d);
 }
-.flow .f h3{margin:0 0 6px;font-size:16px;color:var(--forest);line-height:1.5}
+.flow .f h3{margin:0 0 6px;font-size:16px;color:var(--forest-d);line-height:1.5}
 .flow .f p{margin:0;font-size:13.5px;line-height:1.75;color:var(--body)}
 
 @media(min-width:900px){
@@ -795,11 +836,13 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 .smallstart .s span{display:block;font-size:13px;line-height:1.6;color:var(--ink)}
 /* 4アイコンはPCでは必ず1行（半分幅のカラムでも折らない） */
 @media(min-width:900px){ .smallstart{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px} }
-/* 2026-08-09 ③で深緑の面を削ったぶんをここで補っている（面積比 70/20/10 の維持）。
-   セージ地→深緑ベタに変更。ここを薄い地に戻すと深緑が20%を割る。 */
+/* 2026-08-10 ここはページ内で数少ない「色のベタ面」。明るいグリーンのグラデーションに。
+   白文字が乗るので、明るい側でも #4F8F35 より薄くしない（#86B94A では 2.3:1 で読めない）。 */
 .small-close{
-  margin:18px 0 0;font-size:14.5px;line-height:1.9;color:rgba(255,255,255,.9);
-  background:var(--forest);border:1px solid var(--forest);border-radius:12px;padding:16px 18px;
+  margin:18px 0 0;font-size:14.5px;line-height:1.9;color:#fff;
+  background:linear-gradient(135deg,var(--green-fill) 0%,var(--green-fill-d) 100%);
+  border:0;border-radius:12px;padding:16px 18px;
+  text-shadow:0 1px 2px rgba(26,54,14,.22);
 }
 .small-close b{color:#fff}
 /* 不安4項目＋女性写真。PCでは横に並べて、右カラム（小さく始める）と高さをそろえる */
@@ -826,19 +869,20 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   padding:14px 12px 15px;
 }
 .curri .c .no{
-  display:block;font-size:17px;letter-spacing:.06em;color:var(--gold);
+  display:block;font-size:17px;letter-spacing:.06em;color:var(--forest-d);
   font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;
   border-bottom:1px solid var(--sage-lt);padding-bottom:7px;margin-bottom:8px;
 }
 .curri .c .ico{position:absolute;right:11px;top:11px;width:21px;height:21px;color:var(--forest);opacity:.6}
-.curri .c b{display:block;font-size:14.5px;color:var(--forest);line-height:1.5;margin-bottom:4px}
+.curri .c b{display:block;font-size:14.5px;color:var(--forest-d);line-height:1.5;margin-bottom:4px}
 .curri .c span{font-size:13px;line-height:1.7;color:var(--body)}
 .curri-note{font-size:12.5px;color:var(--mute);text-align:right;margin:14px 0 0}
 
-/* --- 深緑ベタのセクション（限界がある／学ぶ内容）の中の文字 --- */
-.forest .limit-close{color:#fff}
-.forest .curri-note{color:rgba(255,255,255,.62)}
-.forest .flow .f p,.forest .small-close{color:rgba(255,255,255,.85)}
+/* --- 2026-08-10 .forest（限界がある／学ぶ内容）は明るい地になったので、
+       白文字への差し替えは全て撤去。通常の文字色のままで読める。 --- */
+.forest .limit-close{color:var(--forest-d)}
+.forest .curri-note{color:var(--mute)}
+.forest .flow .f p{color:var(--body)}
 
 /* --- 受講後の活動イメージ 7点の横並び --- */
 /* 2026-08-09 外部レビュー⑨：PCは7枚を同じ幅で横一列（セクション幅1120px）・サムネを1.4倍に。
@@ -882,17 +926,17 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 }
 .bclose h2{margin:0 0 14px;font-size:24px;line-height:1.5;color:var(--ink)}
 @media(min-width:900px){ .bclose h2{font-size:30px;line-height:1.45} }
-.bclose .brand-line{font-size:12.5px;letter-spacing:.14em;color:var(--gold);margin:0 0 8px}
+.bclose .brand-line{font-size:12.5px;letter-spacing:.14em;color:var(--forest-d);margin:0 0 8px}
 /* 2カラムの中では、チェックは常に1列（半分の幅で2列にすると読めない） */
 .bclose .checks{grid-template-columns:1fr;gap:0}
 /* 2026-08-09 外部レビュー⑦：ここは「大きなカード」をやめて行単位のチェックリストに戻す。
-   （深緑地の「限界がある」側はセージのカードのまま＝あちらは面を作る役目がある） */
+   （「限界がある」側は白いカードのまま＝あちらは面を作る役目がある） */
 .bclose .check{
   background:transparent;border:0;border-bottom:1px solid var(--line);
   border-radius:0;padding:11px 2px;
 }
 .bclose .checks .check:last-child{border-bottom:0}
-/* セージ地・白地のカードの上ではチェックを深緑に（セージ同士だと沈む） */
+/* 薄い緑地・白地のカードの上でもチェックは基準グリーンで統一 */
 .limitsec .check .tick,.bclose .check .tick{color:var(--forest)}
 /* 文の途中で折り返させたくない塊（スマホで「か？」だけ落ちるのを防ぐ） */
 .nb{display:inline-block}
@@ -920,7 +964,7 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   background:var(--paper);border:1px solid var(--gold);border-radius:var(--radius);
   padding:26px 20px 28px;text-align:center;
 }
-.lastcta-box h3{margin:0 0 10px;font-size:21px;line-height:1.55;color:var(--forest)}
+.lastcta-box h3{margin:0 0 10px;font-size:21px;line-height:1.55;color:var(--forest-d)}
 @media(min-width:900px){ .lastcta-box h3{font-size:24px} }
 .lastcta-box > p{margin:0;font-size:14.5px;line-height:1.8;color:var(--body)}
 .lastcta-box .btn{margin-top:18px}
@@ -1026,4 +1070,18 @@ footer{padding:28px 0 26px}
   .hero-grid .lead{order:3}
   .hero-grid .btn{order:4}
   .hero-grid .btn-sub{order:5}
+
+  /* 2026-08-10 B案のFVも同じ考え方に統一：スマホの第一画面に
+     「見出し → 写真 → 本文 → CTA」を必ず入れる。
+     円バッジ3つ（.bmerits）とブランド行（.brand-line）はCTAの下へ回す。
+     HTMLの順序は変えていない（PCは上の min-width:900px 側が効くので無変更）。
+     ⚠️元に戻すときはこのブロックごと削除すれば旧レイアウトに戻る。 */
+  .bhero .bhero-inner{display:flex;flex-direction:column}
+  .bhero .bhero-inner > h1{order:1}
+  .bhero .bhero-inner > .bhero-photo{order:2}
+  .bhero .bhero-inner > .lead{order:3}
+  .bhero .bhero-inner > .btn{order:4}
+  .bhero .bhero-inner > .btn-sub{order:5}
+  .bhero .bhero-inner > .bmerits{order:6;margin-top:26px}
+  .bhero .bhero-inner > .brand-line{order:7;margin-top:18px}
 }
