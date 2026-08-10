@@ -30,6 +30,10 @@ var PHOTOS = {
   "03_extracts_wide"    : "03_extracts_wide.jpg",     /*    └ 全幅の帯用（超横長） */
   "04_blending"         : "04_blending.jpg",          /* 4. コスメ調合風景 */
   "05_hirao_labo"       : "05_hirao_labo.jpg",        /* 5. 平尾ラボ */
+  /* 2026-08-10 B案「学ぶ内容」右の縦写真は専用スロットに分離。
+     05_hirao_labo は start（これから向け）の POINT 03 でも使っており、
+     共用のままだと片方を差し替えるともう片方まで変わってしまうため。 */
+  "05_hirao_labo_learn" : "05_hirao_labo_learn.jpg",  /*    └ B案「学ぶ内容」専用（縦4:5） */
   "06_products"         : "06_products.jpg",          /* 6. 実際のコスメ */
   "07_club"             : "07_club.jpg",              /* 7. 植物美容クラブ開催風景 */
   "08_teatime"          : "08_teatime.jpg",           /* 8. お茶を飲みながら話す様子 */
