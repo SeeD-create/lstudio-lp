@@ -589,8 +589,9 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
    「言い切りの帯」「受講後の活動イメージ」「フッター」「CTAボタン」で持つ。
    ========================================================= */
 
-/* 円形バッジを囲む葉（リース風）。外部ファイルにしないため data URI で持つ。
-   色は --sage 相当（#A8B895）。使う側で ::before / ::after の背景に指定する。 */
+/* 葉（リース風）の装飾。外部ファイルにしないため data URI で持つ。色は --sage 相当（#A8B895）。
+   2026-08-10 現在の使用箇所は右上の丸バッジ .bseal のみ
+   （円形バッジ .bmerit の左右にも付けていたが、平野さん判断で削除した）。 */
 
 /* --- ① FV --- */
 .bhero{position:relative;background:var(--ivory);overflow:hidden;padding:0 0 34px}
@@ -615,13 +616,11 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
   display:flex;align-items:center;justify-content:center;text-align:center;padding:0 6px;
 }
 .bmerit span{font-size:11.5px;line-height:1.5;color:var(--forest);letter-spacing:0}
-.bmerit::before,.bmerit::after{
-  content:"";position:absolute;top:50%;width:20px;height:48px;
-  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 180'><g fill='%23A8B895' fill-opacity='.55' stroke='%23A8B895' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path fill='none' d='M62 174 C62 120 62 70 62 16'/><path d='M62 142 C36 138 22 122 18 102 C44 102 58 118 62 142Z'/><path d='M62 108 C38 104 26 90 22 72 C46 72 58 86 62 108Z'/><path d='M62 74 C44 70 34 58 31 44 C50 44 59 56 62 74Z'/></g></svg>") center/contain no-repeat;
-  pointer-events:none;
-}
-.bmerit::before{left:-7px;transform:translateY(-50%)}
-.bmerit::after{right:-7px;transform:translateY(-50%) scaleX(-1)}
+/* 2026-08-10 平野さんだめ出し：円の左右に付けていた葉の装飾（::before / ::after の
+   インラインSVG・麦の穂状）を削除。円・枠線・文字・配置はそのまま。
+   葉は position:absolute だったので、消してもレイアウトは動かない
+   （実測：円98px・間隔18px・FV高901px・FV内CTA 766/832px とも変化なし）。
+   同じ葉のSVGは右上の丸バッジ .bseal でも使っており、そちらは残している。 */
 @media(min-width:520px){ .bmerit span{font-size:12.5px} }
 
 /* 右上の丸バッジ（カンプ①）。スマホは写真の右上、PCは文字カラム外＝ヒーロー右上。
