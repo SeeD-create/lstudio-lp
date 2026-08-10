@@ -723,14 +723,28 @@ footer .copy{margin-top:16px;font-size:11.5px;color:rgba(255,255,255,.45)}
 /* --- 「美容の仕事には限界がある。」--- */
 /* 2026-08-09 外部レビュー③：縦に長すぎ＋チェックの後の大きな空白を解消。
    上下padding＝PC68 / スマホ44、締めの一言はチェック直下28px。 */
-.limitsec{padding:48px 0}
-@media(min-width:900px){ .limitsec{padding:68px 0} }
+.limitsec{padding:48px 0 0}
+@media(min-width:900px){ .limitsec{padding:68px 0 0} }
 .limit-head{font-size:24px;line-height:1.5;color:var(--ink);margin:0 0 20px;text-align:center}
 @media(min-width:900px){ .limit-head{font-size:30px;margin-bottom:26px} }
+
+/* 2026-08-10 平野さんだめ出し：
+   ①文頭の罫線（——）を削除（HTML側）。②8項目と「BOTANICAL BEAUTY DESIGNER」の間の
+   深緑ブロックの上下・左右センターに置く。
+   この深緑ブロックは .limitsec の下パディング と .statement の上パディング が
+   地続きになったもので、要素をまたぐため「余白を消して .limit-close 自身に
+   ブロックの高さを持たせ、その中で flex センタリング」する形にした。
+   高さは変更前の実測（スマホ163px / PC196px＝8項目の下端からBOTANICALの上端まで）
+   をそのまま引き継いでいるので、深緑の面積比とページ全長は変わらない。 */
 .limit-close{
-  margin:28px 0 0;text-align:right;font-size:18px;color:var(--forest);
+  margin:0;min-height:163px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:18px;color:var(--forest);
 }
-@media(min-width:900px){ .limit-close{font-size:22px;margin-top:30px} }
+@media(min-width:900px){ .limit-close{min-height:196px;font-size:22px} }
+/* 上の .limit-close がブロック下端まで持つので、続く帯の上パディングは殺す
+   （.statement はB案専用。A案・startの言い切りの帯はこのクラスを使っていない） */
+.limitsec + .statement{padding-top:0}
 
 /* --- ③ 05ステップ --- */
 /* 2026-08-09 外部レビュー⑥：
