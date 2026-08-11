@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>有料会員制コミュニティ＆送客プラットフォーム ｜ 動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="無料掲示板を有料会員制コミュニティへ刷新するための動作デモ。会員ステータスによるペイウォール、Q&A・いいね、1on1相談の予約マッチング、月額課金までが実際に動きます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="有料会員制コミュニティ＆送客プラットフォーム ｜ 動作デモ">
+<meta property="og:description" content="会員ステータスを切り替えると、見える範囲がその場で変わります。実際に触って動くデモです。">
+<meta property="og:url" content="https://l-studiojp.com/demo/member-community/">
+<style>*{box-sizing:border-box}html,body{margin:0;padding:0}img,video{max-width:100%}</style>
+</head>
+<body><style>
+  :root {
+    --paper:        #F6F8F8;
+    --surface:      #FFFFFF;
+    --surface-sunk: #EDF1F1;
+    --line:         #DBE2E2;
+    --line-soft:    #E8EDED;
+    --ink:          #14201F;
+    --ink-2:        #45524F;
+    --ink-3:        #798682;
+    --navy:         #133433;
+    --navy-2:       #1D4A47;
+    --accent:       #187268;
+    --accent-soft:  #E2F1EE;
+    --accent-line:  #9CCEC5;
+    --amber:        #F2B33D;
+    --gold:         #B8791C;
+    --gold-soft:    #FBF2DF;
+    --gold-line:    #E2C182;
+    --on-navy:      #FFFFFF;
+    --ok:           #1E7A4C;
+    --ok-soft:      #E3F1E8;
+    --red:          #B3383D;
+    --shadow:       0 1px 2px rgba(18,32,30,.05), 0 10px 30px -18px rgba(18,32,30,.35);
+    --r:            8px;
+    --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+            "Noto Sans JP", "Segoe UI", system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper); color: var(--ink);
+    line-height: 1.8; font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ribbon {
+    background: var(--navy); color: var(--on-navy);
+    padding: 9px 18px; font-size: 12px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .ribbon b {
+    font-size: 10px; letter-spacing: .16em; font-weight: 700;
+    border: 1px solid rgba(255,255,255,.45); border-radius: 3px; padding: 1px 7px;
+  }
+  .ribbon span { color: rgba(255,255,255,.82); }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 18px; }
+
+  .hero {
+    background:
+      radial-gradient(120% 90% at 82% 8%, rgba(242,179,61,.14), transparent 58%),
+      linear-gradient(170deg, var(--navy-2), var(--navy));
+    color: var(--on-navy);
+    padding: 26px 0 30px;
+  }
+  .eyebrow {
+    font-size: 10.5px; letter-spacing: .18em; font-weight: 700;
+    color: var(--amber); margin: 0 0 10px;
+  }
+  .hero h1 { margin: 0 0 12px; font-size: 24px; line-height: 1.5; font-weight: 700; }
+  .hero h1 .hl { color: var(--amber); }
+  .hero .lead {
+    margin: 0 0 16px; font-size: 14px; line-height: 1.85;
+    color: rgba(255,255,255,.84); max-width: 47em;
+  }
+  .hero .lead b { color: #fff; }
+  .cta { display: flex; gap: 11px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: inherit; font-size: 14px; font-weight: 700; text-decoration: none;
+    padding: 12px 22px; border-radius: 100px; cursor: pointer;
+    border: 1px solid var(--amber); background: var(--amber); color: #241802;
+  }
+  .btn:hover { filter: brightness(1.07); }
+  .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+  .btn.ghost:hover { background: rgba(255,255,255,.08); filter: none; }
+
+  /* ---------- stage ---------- */
+  .stage { padding: 30px 0 10px; }
+  .stagehead h2 { margin: 0 0 4px; font-size: 20px; }
+  .stagehead p { margin: 0 0 14px; font-size: 12.5px; color: var(--ink-3); }
+
+  /* status switcher */
+  .switcher {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: var(--shadow); padding: 12px 14px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .switcher .lab { font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+  .roles { display: inline-flex; border: 1px solid var(--line); border-radius: 100px; overflow: hidden; }
+  .roles button {
+    font: inherit; font-size: 12.5px; font-weight: 700; color: var(--ink-3);
+    background: #fff; border: none; padding: 8px 16px; cursor: pointer; white-space: nowrap;
+  }
+  .roles button.on { background: var(--navy); color: #fff; }
+  .roles button.on.paid { background: var(--gold); }
+  .switcher .now { font-size: 12px; color: var(--ink-3); }
+  .switcher .now b { color: var(--accent); }
+
+  /* app frame */
+  .app {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .abar {
+    background: var(--surface-sunk); border-bottom: 1px solid var(--line);
+    padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .abar .dots { display: flex; gap: 5px; }
+  .abar .dots i { width: 9px; height: 9px; border-radius: 50%; background: #C6D0CE; }
+  .abar .url {
+    flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 100px;
+    font-size: 11px; color: var(--ink-3); padding: 3px 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .apphead {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 13px 16px; border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; }
+  .brand .mk {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--navy-2));
+    color: #fff; font-size: 13px; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .mybadge {
+    margin-left: auto; font-size: 11px; font-weight: 700; border-radius: 100px; padding: 3px 12px;
+    background: var(--surface-sunk); color: var(--ink-3); border: 1px solid var(--line);
+  }
+  .mybadge.free { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-line); }
+  .mybadge.paid { background: var(--gold-soft); color: var(--gold); border-color: var(--gold-line); }
+  .atabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; overflow-x: auto; }
+  .atab {
+    font: inherit; font-size: 13px; font-weight: 700; color: var(--ink-3);
+    background: none; border: none; border-bottom: 3px solid transparent;
+    padding: 11px 16px 9px; cursor: pointer; white-space: nowrap;
+  }
+  .atab.on { color: var(--navy); border-bottom-color: var(--amber); }
+  .atab .lock { font-size: 11px; }
+  .apane { display: none; padding: 16px; }
+  .apane.on { display: block; }
+
+  /* posts */
+  .postgrid { display: grid; gap: 12px; max-width: 720px; }
+  .post {
+    border: 1px solid var(--line); border-radius: 10px; background: #fff; overflow: hidden;
+  }
+  .post .ph { padding: 12px 14px 8px; }
+  .post .meta { display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--ink-3); margin-bottom: 4px; flex-wrap: wrap; }
+  .chip {
+    font-size: 10px; font-weight: 700; border-radius: 3px; padding: 1px 7px; letter-spacing: .04em;
+  }
+  .chip.q { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-line); }
+  .chip.paidonly { background: var(--gold-soft); color: var(--gold); border: 1px solid var(--gold-line); }
+  .post h4 { margin: 0 0 4px; font-size: 14px; line-height: 1.55; }
+  .post .body { font-size: 12.5px; color: var(--ink-2); margin: 0; }
+  .post .actions {
+    display: flex; gap: 14px; align-items: center; padding: 8px 14px 10px; font-size: 12px; color: var(--ink-3);
+  }
+  .likeb {
+    font: inherit; font-size: 12px; font-weight: 700; color: var(--ink-3);
+    background: none; border: 1px solid var(--line); border-radius: 100px;
+    padding: 4px 12px; cursor: pointer;
+  }
+  .likeb.liked { color: var(--red); border-color: #E7C3C5; background: #FDF3F3; }
+  .replywrap { border-top: 1px solid var(--line-soft); background: #FAFCFB; padding: 10px 14px; }
+  .reply { display: flex; gap: 9px; margin: 8px 0; }
+  .reply .av {
+    flex: none; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--surface-sunk); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+  .reply .av.dr { background: var(--accent-soft); border-color: var(--accent-line); }
+  .reply .rb { min-width: 0; font-size: 12.5px; }
+  .reply .rb .who { font-size: 11px; color: var(--ink-3); margin-bottom: 1px; }
+  .reply .rb .who b { color: var(--ink-2); }
+  .drbadge {
+    font-size: 9.5px; font-weight: 700; color: #fff; background: var(--accent);
+    border-radius: 3px; padding: 0 5px; letter-spacing: .06em; margin-left: 4px;
+  }
+
+  /* paywall */
+  .locked { position: relative; }
+  .locked .blur { filter: blur(5px); user-select: none; pointer-events: none; }
+  .lockover {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px; text-align: center;
+    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.88));
+    padding: 10px;
+  }
+  .lockover p { margin: 0; font-size: 12px; font-weight: 700; color: var(--ink-2); }
+  .lockover small { font-weight: 400; color: var(--ink-3); }
+  .joinb {
+    font: inherit; font-size: 12.5px; font-weight: 700;
+    background: var(--gold); color: #fff; border: none; border-radius: 100px;
+    padding: 8px 18px; cursor: pointer;
+  }
+  .joinb.teal { background: var(--accent); }
+  .joinb:hover { filter: brightness(1.07); }
+
+  /* consult */
+  .consultgrid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); max-width: 720px; }
+  .con {
+    border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 14px;
+  }
+  .con .top { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .con .av2 {
+    width: 44px; height: 44px; border-radius: 50%; flex: none;
+    background: var(--accent-soft); border: 1px solid var(--accent-line);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .con h4 { margin: 0; font-size: 14px; }
+  .con .sub { font-size: 11px; color: var(--ink-3); }
+  .con p { margin: 0 0 10px; font-size: 12px; color: var(--ink-2); }
+  .slots { display: flex; gap: 6px; flex-wrap: wrap; }
+  .slot {
+    font: inherit; font-size: 11.5px; font-weight: 700; color: var(--navy-2);
+    background: #fff; border: 1px solid var(--line); border-radius: 100px;
+    padding: 5px 12px; cursor: pointer;
+  }
+  .slot:hover { border-color: var(--accent); color: var(--accent); }
+  .slot:disabled { opacity: .35; cursor: default; text-decoration: line-through; }
+  .booked {
+    margin-top: 14px; max-width: 720px;
+    background: var(--ok-soft); border: 1px solid #BFE0CC; border-radius: 10px; padding: 12px 16px;
+    font-size: 12.5px; display: none;
+  }
+  .booked.show { display: block; }
+  .booked b { color: var(--ok); }
+  .booked .zoom {
+    display: inline-block; margin-top: 6px; font-size: 11.5px;
+    background: #fff; border: 1px dashed var(--line); border-radius: 6px; padding: 4px 10px; color: var(--ink-3);
+  }
+
+  /* mypage */
+  .mycards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); max-width: 720px; }
+  .myc { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 14px; font-size: 12.5px; }
+  .myc h4 { margin: 0 0 8px; font-size: 13px; }
+  .myc .big { font-size: 20px; font-weight: 700; }
+  .myc .big small { font-size: 11px; color: var(--ink-3); font-weight: 600; }
+  .myc .row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed var(--line-soft); }
+  .myc .row:last-child { border-bottom: 0; }
+  .myc .k { color: var(--ink-3); }
+  .ghostb {
+    font: inherit; font-size: 11.5px; font-weight: 700; color: var(--ink-3);
+    background: #fff; border: 1px solid var(--line); border-radius: 100px;
+    padding: 5px 14px; cursor: pointer; margin-top: 8px;
+  }
+
+  /* modal */
+  .modal {
+    display: none; position: fixed; inset: 0; z-index: 30;
+    background: rgba(16,26,24,.55); align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal.open { display: flex; }
+  .mbox { background: #fff; border-radius: 14px; width: min(420px, 94vw); overflow: hidden; }
+  .mhead { background: var(--navy); color: #fff; padding: 14px 18px; font-weight: 700; font-size: 14px; }
+  .mbody { padding: 16px 18px; font-size: 13px; }
+  .plan {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border: 2px solid var(--gold); background: var(--gold-soft);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 12px;
+  }
+  .plan b { font-size: 16px; }
+  .plan .pr { font-size: 18px; font-weight: 700; color: var(--gold); }
+  .plan .pr small { font-size: 11px; color: var(--ink-3); }
+  .mbody ul { margin: 0 0 12px; padding-left: 20px; font-size: 12.5px; color: var(--ink-2); }
+  .field { margin-bottom: 10px; }
+  .field label { display: block; font-size: 11px; color: var(--ink-3); margin-bottom: 3px; }
+  .field input {
+    width: 100%; font: inherit; font-size: 13px; padding: 9px 12px;
+    border: 1px solid var(--line); border-radius: 8px; background: #FCFDFD;
+  }
+  .paybtn {
+    width: 100%; font: inherit; font-size: 14px; font-weight: 700;
+    background: var(--gold); color: #fff; border: none; border-radius: 100px;
+    padding: 12px; cursor: pointer; margin-top: 4px;
+  }
+  .mnote { font-size: 10.5px; color: var(--ink-3); text-align: center; margin: 8px 0 0; }
+  .mclose { font: inherit; width: 100%; background: none; border: none; color: var(--ink-3); font-size: 12px; padding: 10px; cursor: pointer; }
+
+  .apane .note2 { font-size: 11.5px; color: var(--ink-3); margin: 12px 2px 0; max-width: 720px; }
+
+  /* sections */
+  section { padding: 44px 0 6px; }
+  .stitle { font-size: 10.5px; letter-spacing: .18em; font-weight: 700; color: var(--gold); margin: 0 0 9px; }
+  h2.sec { margin: 0 0 20px; font-size: 21px; line-height: 1.55; font-weight: 700; }
+  h2.sec .hl { color: var(--gold); }
+  .cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+    padding: 18px 18px 14px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 14.5px; display: flex; align-items: center; gap: 9px; }
+  .card h3 .num {
+    flex: none; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--navy); color: #fff; font-size: 11.5px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .card p { margin: 0 0 8px; font-size: 13px; color: var(--ink-2); }
+  .card .in {
+    display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+    border-radius: 3px; padding: 1px 8px; margin-bottom: 8px;
+    color: var(--ok); background: var(--ok-soft); border: 1px solid #BFE0CC;
+  }
+  .card .in.later { color: var(--gold); background: var(--gold-soft); border-color: var(--gold-line); }
+
+  .steps { display: grid; gap: 12px; }
+  .step {
+    display: flex; gap: 14px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r); padding: 16px 18px; box-shadow: var(--shadow); align-items: flex-start;
+  }
+  .step .ph2 {
+    flex: none; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+    background: var(--navy); color: #fff; border-radius: 4px; padding: 3px 10px; margin-top: 3px;
+  }
+  .step h3 { margin: 0 0 5px; font-size: 14.5px; }
+  .step p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .note { font-size: 12.5px; color: var(--ink-3); margin: 14px 2px 0; }
+
+  .endcta {
+    margin: 50px 0 0; background: linear-gradient(170deg, var(--navy-2), var(--navy));
+    color: #fff; border-radius: 12px; padding: 30px 24px; text-align: center;
+  }
+  .endcta h2 { margin: 0 0 10px; font-size: 20px; }
+  .endcta .hl { color: var(--amber); }
+  .endcta p { margin: 0 auto 18px; font-size: 13.5px; color: rgba(255,255,255,.84); max-width: 42em; }
+  .endcta .cta { justify-content: center; }
+
+  footer { padding: 30px 18px 40px; text-align: center; font-size: 11.5px; color: var(--ink-3); }
+  footer a { color: var(--gold); }
+</style>
+
+<div class="ribbon">
+  <b>WORKING DEMO</b>
+  <span>Lスタジオ ｜ 有料会員制コミュニティ＆送客プラットフォーム 動作デモ（サンプルデータで動いています）</span>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">MEMBERSHIP COMMUNITY &amp; MATCHING — LIVE DEMO</p>
+    <h1>無料掲示板を、<span class="hl">会費とご相談が生まれる場所</span>へ。</h1>
+    <p class="lead">
+      このページは提案資料ではなく、<b>実際に触って動くデモ</b>です。
+      いちばん大事な<b>「会員ステータスで見える範囲が変わる」ペイウォール</b>を、切り替えボタンでその場でご確認いただけます。
+      Q&amp;Aのいいね、月額440円の加入フロー、有料会員限定の1on1相談予約まで動きます。
+    </p>
+    <div class="cta">
+      <a class="btn" href="#demo">▶ デモを触ってみる</a>
+      <a class="btn ghost" href="https://l-studiojp.com/">Lスタジオの実績を見る</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="stage" id="demo">
+    <div class="stagehead">
+      <h2>会員ステータスを切り替えて、見え方の違いをご覧ください</h2>
+      <p>おすすめの手順：「非会員」→「無料会員」→「有料会員」の順に切り替えて、同じ掲示板がどう変わるかをご覧ください。無料会員の状態で鍵つきの箇所を押すと、加入フロー（440円/月）が開きます。</p>
+    </div>
+
+    <div class="switcher">
+      <span class="lab">いまの閲覧ステータス：</span>
+      <div class="roles" id="roles">
+        <button class="on" data-role="guest">非会員</button>
+        <button data-role="free">無料会員</button>
+        <button data-role="paid">有料会員（440円/月）</button>
+      </div>
+      <span class="now" id="rolenote">非会員には、質問のタイトルと冒頭だけが見えます。</span>
+    </div>
+
+    <div class="app">
+      <div class="abar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="url">community-demo.l-studiojp.com ─ 会員制コミュニティ（サンプル）</div>
+      </div>
+      <div class="apphead">
+        <span class="brand"><span class="mk">✚</span>髪と治療のコミュニティ（デモ）</span>
+        <span class="mybadge" id="mybadge">未ログイン</span>
+      </div>
+      <div class="atabs">
+        <button class="atab on" data-pane="board">掲示板（Q&amp;A）</button>
+        <button class="atab" data-pane="consult">1on1相談 <span class="lock">🔒</span></button>
+        <button class="atab" data-pane="my">マイページ</button>
+      </div>
+
+      <!-- board -->
+      <div class="apane on" id="pane-board">
+        <div class="postgrid" id="posts"></div>
+        <p class="note2">※ 投稿・回答はすべて架空のサンプルです。既存の無料掲示板の過去投稿は、移行時にこの形へ取り込みます（資産として引き継ぐことが送客の土台になります）。</p>
+      </div>
+
+      <!-- consult -->
+      <div class="apane" id="pane-consult">
+        <div id="consultlock"></div>
+        <div id="consultbody" style="display:none">
+          <div class="consultgrid">
+            <div class="con">
+              <div class="top"><span class="av2">🩺</span><div><h4>監修ドクター（デモ）</h4><p class="sub">治療方針・経過のご相談（20分）</p></div></div>
+              <p>治療の選択肢や経過の不安について、オンラインで直接ご相談いただけます。</p>
+              <div class="slots" data-who="監修ドクター">
+                <button class="slot">明日 19:00</button>
+                <button class="slot">明日 20:00</button>
+                <button class="slot" disabled>金 19:00</button>
+                <button class="slot">土 10:00</button>
+              </div>
+            </div>
+            <div class="con">
+              <div class="top"><span class="av2">💬</span><div><h4>専任カウンセラー（デモ）</h4><p class="sub">費用・通院・生活のご相談（30分）</p></div></div>
+              <p>費用感や通院ペースなど、受診前の疑問を整理するご相談です。</p>
+              <div class="slots" data-who="専任カウンセラー">
+                <button class="slot">今日 21:00</button>
+                <button class="slot" disabled>明日 21:00</button>
+                <button class="slot">土 14:00</button>
+                <button class="slot">日 10:00</button>
+              </div>
+            </div>
+          </div>
+          <div class="booked" id="booked"></div>
+          <p class="note2">※ 予約が確定すると、Zoom等のオンライン相談URLが自動発行され、前日にリマインドが届きます。相談の記録は運営側の管理画面に残り、クリニックへの送客状況を追えます。</p>
+        </div>
+      </div>
+
+      <!-- my -->
+      <div class="apane" id="pane-my">
+        <div class="mycards" id="mycards"></div>
+        <p class="note2">※ 課金はStripeの定期課金（月額440円）を想定。カード変更・解約・領収書発行まで会員自身で完結し、運営の事務作業を増やしません。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- features -->
+  <section>
+    <p class="stitle">SCOPE OF THIS DEMO</p>
+    <h2 class="sec">ご要望の機能と、<span class="hl">このデモで動いている範囲</span></h2>
+    <div class="cards">
+      <div class="card"><h3><span class="num">1</span>会員ステータス・月額課金</h3><p class="in">このデモで動作</p><p>非会員・無料会員・有料会員（440円/月）の3段階。上の切り替えボタンで、それぞれの見え方を確認できます。課金はStripeの定期課金で実装します。</p></div>
+      <div class="card"><h3><span class="num">2</span>ペイウォール（閲覧制限）</h3><p class="in">このデモで動作</p><p>質問は無料会員まで、専門家の回答は有料会員のみ、など記事単位・要素単位で制御。「続きが読みたい」が自然に加入動機になります。</p></div>
+      <div class="card"><h3><span class="num">3</span>質問・回答＋いいね</h3><p class="in">このデモで動作</p><p>Q&amp;A形式の掲示板。いいねの数が「みんなが知りたい質問」を浮かび上がらせ、コンテンツの優先順位が運営に見えます。</p></div>
+      <div class="card"><h3><span class="num">4</span>1on1相談のマッチング・予約</h3><p class="in">このデモで動作</p><p>有料会員限定。相談相手と枠を選ぶだけで予約が確定します。ここがコミュニティからクリニックへの送客の出口になります。</p></div>
+      <div class="card"><h3><span class="num">5</span>オンライン相談（Zoom等）</h3><p class="in later">本開発で実装</p><p>予約確定と同時に相談URLを自動発行し、前日リマインドまで自動化。相談履歴は運営側に残ります。</p></div>
+      <div class="card"><h3><span class="num">6</span>決済システム</h3><p class="in later">本開発で実装</p><p>Stripe定期課金。カード変更・解約・領収書は会員自身のマイページで完結させ、運営の手を増やしません。</p></div>
+    </div>
+  </section>
+
+  <!-- plan -->
+  <section>
+    <p class="stitle">DELIVERY PLAN</p>
+    <h2 class="sec">ご予算の中で、<span class="hl">収益が生まれる順</span>に作ります</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="ph2">第1弾</div>
+        <div>
+          <h3>会員基盤・月額課金・ペイウォール・Q&amp;A掲示板（既存投稿の移行込み）</h3>
+          <p>会費という収益と、閲覧制限による加入動機を先に完成させます。既存の無料掲示板の投稿資産を取り込んだ状態で公開しますので、初日から「読みたいものがある」コミュニティとして始まります。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="ph2">第2弾</div>
+        <div>
+          <h3>1on1相談マッチング・オンライン相談連携（追加は差額のみ）</h3>
+          <p>会員が集まり始めてから、送客の出口である1on1相談を載せます。運用が始まった後の会員の動きを見て、マッチングの導線を最適化できるためです。</p>
+        </div>
+      </div>
+    </div>
+    <p class="note">このデモはご提案のために作成したものです。名称・デザイン・投稿内容はすべて架空で、実際の構築では貴院のブランド・既存掲示板の内容に合わせて作り込みます。</p>
+  </section>
+
+  <div class="endcta">
+    <h2>デモは<span class="hl">量産品ではありません</span>。今回のご依頼内容に合わせて作りました。</h2>
+    <p>
+      ここから先は、既存掲示板の投稿数・会員化の目標・診療フローをお聞きして、移行計画とあわせてご提案するところからです。
+      CrowdWorksのメッセージでお気軽にご質問ください。
+    </p>
+    <div class="cta">
+      <a class="btn ghost" href="https://l-studiojp.com/">18業種の構築実績を見る</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Lスタジオ ｜ 会員制サイト・LINE公式アカウント・予約/顧客管理システム構築 ｜ <a href="https://l-studiojp.com/">l-studiojp.com</a><br>
+  本ページの名称・投稿・人物はすべて架空のサンプルです。
+</footer>
+
+<!-- join modal -->
+<div class="modal" id="modal">
+  <div class="mbox">
+    <div class="mhead">有料会員に加入する（デモ）</div>
+    <div class="mbody">
+      <div class="plan"><div><b>有料会員プラン</b><br><small style="color:var(--ink-3)">いつでも解約できます</small></div><div class="pr">¥440<small>／月</small></div></div>
+      <ul>
+        <li>専門家の回答・体験談の全文が読めます</li>
+        <li>1on1相談（オンライン）を予約できます</li>
+        <li>会員限定の質問投稿ができます</li>
+      </ul>
+      <div class="field"><label>カード番号</label><input value="4242 4242 4242 4242" readonly></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="field"><label>有効期限</label><input value="12/28" readonly></div>
+        <div class="field"><label>セキュリティコード</label><input value="123" readonly></div>
+      </div>
+      <button class="paybtn" id="paygo">440円/月で加入する（デモ）</button>
+      <p class="mnote">デモのため実際の決済は行われません。本実装ではStripeの定期課金を使用します。</p>
+      <button class="mclose" id="payclose">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= data ================= */
+const POSTS = [
+  {
+    q: '治療を始めて3ヶ月、経過が正直わかりません。皆さんはいつ頃変化を感じましたか？',
+    body: '周りに相談できる人がいなくて、このまま続けてよいのか不安です。同じ時期を経験した方のお話を聞きたいです。',
+    who: '会員・40代', when: '2日前', likes: 24,
+    replies: [
+      { who: 'メンバー', dr: false, text: '私は4ヶ月目くらいまでほぼ変化なしでした。5〜6ヶ月で周りに言われて気づいた感じです。焦る時期ですよね。' },
+      { who: '監修ドクター', dr: true, text: '3ヶ月時点で見た目の変化が乏しいのは標準的な経過の範囲です。判断の目安になるのは6ヶ月時点の写真比較で、それまでの自己判断での中断が一番もったいないタイミングです。' },
+    ],
+  },
+  {
+    q: '費用について。トータルでどのくらい見ておけばよいでしょうか',
+    body: '治療の選択肢によってかなり幅があるようで、事前にある程度の目安を知っておきたいです。',
+    who: '検討中・30代', when: '5日前', likes: 41,
+    replies: [
+      { who: 'メンバー', dr: false, text: '自分は月々の治療から始めました。最初に全体の見積りを出してもらえたので不安は少なかったです。' },
+      { who: '専任カウンセラー', dr: true, text: '選択肢ごとの費用レンジと、「どこまでやるか」を決める考え方を整理してお伝えできます。1on1相談では、ご自身の状態に合わせた目安をお出ししています。' },
+    ],
+  },
+  {
+    q: '手術を受けた方に質問です。当日〜1週間の過ごし方で気をつけたことは？',
+    body: '仕事をどのくらい休むべきかも迷っています。デスクワークです。',
+    who: '会員・30代', when: '1週間前', likes: 18,
+    replies: [
+      { who: 'メンバー', dr: false, text: '私は金曜に受けて月曜から在宅勤務にしました。最初の2〜3日は帽子が手放せなかったです。' },
+      { who: '監修ドクター', dr: true, text: 'デスクワークであれば多くの方が2〜3日で復帰されています。最初の1週間の洗髪と就寝姿勢だけは指示どおりに。ここで差が出ます。' },
+    ],
+  },
+];
+let role = 'guest'; // guest / free / paid
+const liked = new Set();
+
+/* ================= render posts ================= */
+const postsEl = document.getElementById('posts');
+function renderPosts() {
+  postsEl.innerHTML = '';
+  POSTS.forEach((p, i) => {
+    const post = document.createElement('div');
+    post.className = 'post';
+    const likeCls = liked.has(i) ? 'likeb liked' : 'likeb';
+    const likeNum = p.likes + (liked.has(i) ? 1 : 0);
+
+    let head = `
+      <div class="ph ${role === 'guest' ? '' : ''}">
+        <div class="meta"><span class="chip q">質問</span><span>${p.who}</span><span>・${p.when}</span></div>
+        <h4>${p.q}</h4>
+        ${role === 'guest'
+          ? `<p class="body">${p.body.slice(0, 26)}…</p>`
+          : `<p class="body">${p.body}</p>`}
+      </div>`;
+
+    let actions = `
+      <div class="actions">
+        <button class="${likeCls}" data-like="${i}" ${role === 'guest' ? 'disabled' : ''}>♥ 参考になった ${likeNum}</button>
+        <span>回答 ${p.replies.length}件</span>
+      </div>`;
+
+    let replies = '';
+    if (role === 'guest') {
+      replies = `
+        <div class="replywrap locked">
+          <div class="blur">${p.replies.map(r => replyHTML(r)).join('')}</div>
+          <div class="lockover">
+            <p>回答の閲覧には会員登録が必要です<br><small>無料会員でも一部の回答が読めます</small></p>
+            <button class="joinb teal" data-join="free">無料会員になる（デモ）</button>
+          </div>
+        </div>`;
+    } else if (role === 'free') {
+      const member = p.replies.filter(r => !r.dr);
+      const pro = p.replies.filter(r => r.dr);
+      replies = `
+        <div class="replywrap">
+          ${member.map(r => replyHTML(r)).join('')}
+          <div class="locked" style="margin-top:8px">
+            <div class="blur">${pro.map(r => replyHTML(r)).join('')}</div>
+            <div class="lockover">
+              <p><span class="chip paidonly">有料会員限定</span> 専門家の回答は有料会員のみ閲覧できます</p>
+              <button class="joinb" data-join="paid">440円/月で読む（デモ）</button>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      replies = `<div class="replywrap">${p.replies.map(r => replyHTML(r)).join('')}</div>`;
+    }
+    post.innerHTML = head + actions + replies;
+    postsEl.appendChild(post);
+  });
+}
+function replyHTML(r) {
+  return `
+    <div class="reply">
+      <span class="av ${r.dr ? 'dr' : ''}">${r.dr ? '🩺' : '👤'}</span>
+      <div class="rb">
+        <p class="who"><b>${r.who}</b>${r.dr ? '<span class="drbadge">専門家</span>' : ''}</p>
+        ${r.text}
+      </div>
+    </div>`;
+}
+postsEl.addEventListener('click', e => {
+  const lk = e.target.closest('[data-like]');
+  if (lk) {
+    const i = +lk.dataset.like;
+    liked.has(i) ? liked.delete(i) : liked.add(i);
+    renderPosts(); return;
+  }
+  const jb = e.target.closest('[data-join]');
+  if (jb) {
+    if (jb.dataset.join === 'free') setRole('free');
+    else openModal();
+  }
+});
+
+/* ================= consult ================= */
+const consultlock = document.getElementById('consultlock');
+const consultbody = document.getElementById('consultbody');
+function renderConsult() {
+  if (role === 'paid') {
+    consultlock.innerHTML = '';
+    consultbody.style.display = 'block';
+  } else {
+    consultbody.style.display = 'none';
+    consultlock.innerHTML = `
+      <div class="locked" style="min-height:170px">
+        <div class="blur">
+          <div class="consultgrid">
+            <div class="con"><div class="top"><span class="av2">🩺</span><div><h4>監修ドクター（デモ）</h4><p class="sub">治療方針・経過のご相談</p></div></div><p>オンラインで直接ご相談いただけます。</p></div>
+            <div class="con"><div class="top"><span class="av2">💬</span><div><h4>専任カウンセラー（デモ）</h4><p class="sub">費用・通院のご相談</p></div></div><p>受診前の疑問を整理するご相談です。</p></div>
+          </div>
+        </div>
+        <div class="lockover">
+          <p><span class="chip paidonly">有料会員限定</span> 1on1相談は有料会員の機能です</p>
+          <button class="joinb" data-join2="paid">440円/月で加入する（デモ）</button>
+        </div>
+      </div>`;
+  }
+}
+consultlock.addEventListener('click', e => {
+  if (e.target.closest('[data-join2]')) openModal();
+});
+document.querySelectorAll('.slots').forEach(s => s.addEventListener('click', e => {
+  const b = e.target.closest('.slot'); if (!b || b.disabled) return;
+  const booked = document.getElementById('booked');
+  booked.className = 'booked show';
+  booked.innerHTML = `<b>✓ ご予約が確定しました</b> ── ${s.dataset.who} ／ ${b.textContent}<br>
+    <span class="zoom">🔗 オンライン相談URL：予約確定と同時に自動発行されます（本実装ではここにZoomリンクが入ります）</span><br>
+    前日にリマインドをお送りします。運営側の管理画面には、この相談の記録が「送客履歴」として残ります。`;
+  booked.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}));
+
+/* ================= mypage ================= */
+const mycards = document.getElementById('mycards');
+function renderMy() {
+  if (role === 'guest') {
+    mycards.innerHTML = `
+      <div class="myc"><h4>ログインしていません</h4>
+        <p style="font-size:12.5px;color:var(--ink-2);margin:0 0 10px">会員登録すると、質問の全文閲覧・いいね・投稿ができるようになります。</p>
+        <button class="joinb teal" id="myfree">無料会員になる（デモ）</button>
+      </div>`;
+    const b = document.getElementById('myfree');
+    if (b) b.addEventListener('click', () => setRole('free'));
+  } else if (role === 'free') {
+    mycards.innerHTML = `
+      <div class="myc"><h4>会員ステータス</h4><p class="big">無料会員</p>
+        <p style="font-size:12px;color:var(--ink-2);margin:6px 0 10px">専門家の回答と1on1相談は、有料会員（440円/月）の機能です。</p>
+        <button class="joinb" id="myup">440円/月にアップグレード（デモ）</button>
+      </div>
+      <div class="myc"><h4>ご利用状況</h4>
+        <div class="row"><span class="k">閲覧できる範囲</span><span>質問・メンバー回答</span></div>
+        <div class="row"><span class="k">いいね</span><span>可能</span></div>
+        <div class="row"><span class="k">1on1相談</span><span>—</span></div>
+      </div>`;
+    const b = document.getElementById('myup');
+    if (b) b.addEventListener('click', openModal);
+  } else {
+    mycards.innerHTML = `
+      <div class="myc"><h4>会員ステータス</h4><p class="big">有料会員 <small>440円/月</small></p>
+        <div class="row"><span class="k">次回請求日</span><span>来月1日</span></div>
+        <div class="row"><span class="k">お支払い方法</span><span>VISA •••• 4242</span></div>
+        <button class="ghostb">カードを変更する</button>
+        <button class="ghostb">解約する</button>
+      </div>
+      <div class="myc"><h4>お支払い履歴</h4>
+        <div class="row"><span class="k">今月</span><span>¥440 ／ 領収書 ↓</span></div>
+        <div class="row"><span class="k">先月</span><span>¥440 ／ 領収書 ↓</span></div>
+        <div class="row"><span class="k">先々月</span><span>¥440 ／ 領収書 ↓</span></div>
+      </div>`;
+  }
+}
+
+/* ================= role & tabs ================= */
+const NOTES = {
+  guest: '非会員には、質問のタイトルと冒頭だけが見えます。',
+  free: '無料会員は質問とメンバーの回答が読めます。専門家の回答は鍵つきです（押すと加入フローが開きます）。',
+  paid: '有料会員はすべて閲覧でき、1on1相談タブが解放されました。',
+};
+function setRole(r) {
+  role = r;
+  document.querySelectorAll('#roles button').forEach(b => {
+    b.classList.toggle('on', b.dataset.role === r);
+    b.classList.toggle('paid', b.dataset.role === r && r === 'paid');
+  });
+  const badge = document.getElementById('mybadge');
+  badge.textContent = r === 'guest' ? '未ログイン' : r === 'free' ? '無料会員' : '有料会員';
+  badge.className = 'mybadge ' + (r === 'guest' ? '' : r);
+  document.getElementById('rolenote').textContent = NOTES[r];
+  document.querySelector('.atab[data-pane="consult"] .lock').textContent = r === 'paid' ? '' : '🔒';
+  renderPosts(); renderConsult(); renderMy();
+}
+document.getElementById('roles').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  setRole(b.dataset.role);
+});
+document.querySelectorAll('.atab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.atab').forEach(x => x.classList.toggle('on', x === t));
+  document.querySelectorAll('.apane').forEach(p => p.classList.toggle('on', p.id === 'pane-' + t.dataset.pane));
+}));
+
+/* ================= modal ================= */
+const modal = document.getElementById('modal');
+function openModal() { modal.classList.add('open'); }
+document.getElementById('payclose').addEventListener('click', () => modal.classList.remove('open'));
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+document.getElementById('paygo').addEventListener('click', () => {
+  modal.classList.remove('open');
+  setRole('paid');
+  document.getElementById('demo').scrollIntoView({ behavior: 'smooth' });
+});
+
+/* init */
+setRole('guest');
+</script>
+</body>
+</html>

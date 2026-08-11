@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>理容室の予約・顧客管理システム ｜ 動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="理容室向け予約・顧客管理システムの動作デモ。お客様側のLINE予約と、お店側の予約台帳・顧客カルテ・売上集計が実際に動きます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="理容室の予約・顧客管理システム ｜ 動作デモ">
+<meta property="og:description" content="LINEで予約を取ると、隣の予約台帳にそのまま載ります。実際に触って動くデモです。">
+<meta property="og:url" content="https://l-studiojp.com/demo/barber/">
+<style>*{box-sizing:border-box}html,body{margin:0;padding:0}img,video{max-width:100%}</style>
+</head>
+<body><style>
+  :root {
+    --paper:        #F7F8FA;
+    --surface:      #FFFFFF;
+    --surface-sunk: #EEF1F5;
+    --line:         #DCE1E8;
+    --line-soft:    #E9ECF1;
+    --ink:          #141A23;
+    --ink-2:        #464F5C;
+    --ink-3:        #79828F;
+    --navy:         #16233D;
+    --navy-2:       #223559;
+    --accent:       #B8791C;
+    --accent-soft:  #FBF2DF;
+    --accent-line:  #E2C182;
+    --amber:        #F2B33D;
+    --on-navy:      #FFFFFF;
+    --ok:           #1E7A4C;
+    --ok-soft:      #E3F1E8;
+    --red:          #B3383D;
+    --red-soft:     #F9E9EA;
+    --shadow:       0 1px 2px rgba(20,28,40,.05), 0 10px 30px -18px rgba(20,28,40,.35);
+    --r:            8px;
+    --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
+            "Noto Sans JP", "Segoe UI", system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper); color: var(--ink);
+    line-height: 1.8; font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ribbon {
+    background: var(--navy); color: var(--on-navy);
+    padding: 9px 18px; font-size: 12px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .ribbon b {
+    font-size: 10px; letter-spacing: .16em; font-weight: 700;
+    border: 1px solid rgba(255,255,255,.45); border-radius: 3px; padding: 1px 7px;
+  }
+  .ribbon span { color: rgba(255,255,255,.82); }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 18px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background:
+      repeating-linear-gradient(135deg, transparent 0 26px, rgba(242,179,61,.05) 26px 30px, transparent 30px 56px, rgba(179,56,61,.05) 56px 60px),
+      radial-gradient(120% 90% at 82% 8%, rgba(242,179,61,.16), transparent 58%),
+      linear-gradient(170deg, var(--navy-2), var(--navy));
+    color: var(--on-navy);
+    padding: 26px 0 30px;
+  }
+  .eyebrow {
+    font-size: 10.5px; letter-spacing: .18em; font-weight: 700;
+    color: var(--amber); margin: 0 0 10px;
+  }
+  .hero h1 {
+    margin: 0 0 12px; font-size: 24px; line-height: 1.5;
+    font-weight: 700; letter-spacing: .005em;
+  }
+  .hero h1 .hl { color: var(--amber); }
+  .hero .lead {
+    margin: 0 0 16px; font-size: 14px; line-height: 1.85;
+    color: rgba(255,255,255,.84); max-width: 46em;
+  }
+  .hero .lead b { color: #fff; }
+  .cta { display: flex; gap: 11px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: inherit; font-size: 14px; font-weight: 700; text-decoration: none;
+    padding: 12px 22px; border-radius: 100px; cursor: pointer;
+    border: 1px solid var(--amber); background: var(--amber); color: #241802;
+  }
+  .btn:hover { filter: brightness(1.07); }
+  .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+  .btn.ghost:hover { background: rgba(255,255,255,.08); filter: none; }
+
+  /* ---------- demo stage ---------- */
+  .stage { padding: 30px 0 10px; }
+  .stagehead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+  .stagehead h2 { margin: 0; font-size: 20px; }
+  .stagehead p { margin: 0; font-size: 12.5px; color: var(--ink-3); }
+  .stagegrid {
+    display: grid; gap: 22px; align-items: start;
+    grid-template-columns: minmax(0, 390px) minmax(0, 1fr);
+    margin-top: 14px;
+  }
+  @media (max-width: 860px) { .stagegrid { grid-template-columns: 1fr; } }
+  .paneltitle {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 700; color: var(--ink-2); margin: 0 0 8px;
+  }
+  .paneltitle .tag {
+    font-size: 10px; letter-spacing: .12em; font-weight: 700; color: var(--accent);
+    border: 1px solid var(--accent-line); background: var(--accent-soft);
+    border-radius: 3px; padding: 1px 7px;
+  }
+
+  /* ---------- phone (LINE) ---------- */
+  .phone {
+    background: #101418; border-radius: 34px; padding: 12px;
+    box-shadow: var(--shadow); max-width: 390px; margin: 0 auto;
+  }
+  .screen { background: #8CABD8; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; height: 640px; }
+  .lhead {
+    background: rgba(16,20,24,.92); color: #fff; padding: 10px 14px;
+    display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700;
+  }
+  .lhead .back { opacity: .7; font-weight: 400; }
+  .lhead .pole {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: repeating-linear-gradient(135deg, #B3383D 0 3px, #fff 3px 6px, #2B4C7E 6px 9px, #fff 9px 12px);
+    border: 1px solid rgba(255,255,255,.5);
+  }
+  .chat { flex: 1; overflow-y: auto; padding: 12px 10px 16px; scroll-behavior: smooth; }
+  .msg { display: flex; margin: 7px 0; align-items: flex-end; gap: 6px; }
+  .msg.user { justify-content: flex-end; }
+  .avatar {
+    width: 30px; height: 30px; border-radius: 50%; flex: none;
+    background: repeating-linear-gradient(135deg, #B3383D 0 4px, #fff 4px 8px, #2B4C7E 8px 12px, #fff 12px 16px);
+    border: 1px solid rgba(0,0,0,.15);
+  }
+  .bubble {
+    max-width: 76%; padding: 9px 12px; border-radius: 14px;
+    font-size: 13px; line-height: 1.65; background: #fff; color: var(--ink);
+    border-bottom-left-radius: 4px; white-space: pre-line;
+    box-shadow: 0 1px 1px rgba(0,0,0,.08);
+  }
+  .msg.user .bubble { background: #7CD16A; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
+  .sysline { text-align: center; font-size: 10.5px; color: rgba(20,26,35,.55); margin: 12px 0 4px; }
+  .sysline b { background: rgba(255,255,255,.7); border-radius: 100px; padding: 2px 12px; font-weight: 600; }
+
+  /* flex card */
+  .fcard {
+    max-width: 82%; background: #fff; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 1px 1px rgba(0,0,0,.08); font-size: 12.5px; line-height: 1.6;
+  }
+  .fcard .fhead { background: var(--navy); color: #fff; padding: 8px 12px; font-weight: 700; font-size: 12px; letter-spacing: .04em; }
+  .fcard .fbody { padding: 10px 12px 6px; }
+  .fcard .frow { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; border-bottom: 1px dashed var(--line-soft); }
+  .fcard .frow:last-child { border-bottom: 0; }
+  .fcard .frow .k { color: var(--ink-3); flex: none; }
+  .fcard .frow .v { font-weight: 600; text-align: right; }
+  .fcard .fbtns { padding: 6px 10px 10px; display: grid; gap: 6px; }
+  .fbtn {
+    display: block; width: 100%; text-align: center; font: inherit; font-size: 12.5px; font-weight: 700;
+    padding: 8px 10px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--navy); background: var(--navy); color: #fff;
+  }
+  .fbtn.sub { background: #fff; color: var(--navy); }
+  .fbtn:disabled { opacity: .45; cursor: default; }
+
+  /* quick replies */
+  .qr { display: flex; gap: 7px; overflow-x: auto; padding: 4px 2px 6px; margin: 4px 0 2px; }
+  .qr::-webkit-scrollbar { display: none; }
+  .qrb {
+    flex: none; font: inherit; font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,.95); color: var(--navy-2);
+    border: 1px solid rgba(34,53,89,.35); border-radius: 100px;
+    padding: 7px 13px; cursor: pointer; white-space: nowrap;
+  }
+  .qrb:hover { background: #fff; }
+  .qrb small { color: var(--ink-3); font-weight: 400; }
+  .qrb:disabled { opacity: .4; cursor: default; }
+
+  /* rich menu */
+  .rich {
+    background: var(--navy); padding: 8px; display: grid; gap: 6px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .richb {
+    font: inherit; font-size: 11px; font-weight: 700; line-height: 1.4;
+    color: #fff; background: var(--navy-2);
+    border: 1px solid rgba(255,255,255,.16); border-radius: 8px;
+    padding: 9px 4px 8px; cursor: pointer; text-align: center;
+  }
+  .richb .ic { display: block; font-size: 16px; margin-bottom: 2px; }
+  .richb:hover { background: #2C4370; }
+  .richb.main { background: var(--amber); color: #241802; border-color: var(--amber); }
+  .richb.main:hover { filter: brightness(1.06); }
+  .phonefoot { text-align: center; font-size: 11.5px; color: var(--ink-3); margin: 10px auto 0; max-width: 390px; }
+  .phonefoot button { font: inherit; font-size: 11.5px; color: var(--accent); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+
+  /* ---------- admin ---------- */
+  .admin {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: var(--shadow); overflow: hidden; min-width: 0;
+  }
+  .abar {
+    background: var(--surface-sunk); border-bottom: 1px solid var(--line);
+    padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .abar .dots { display: flex; gap: 5px; }
+  .abar .dots i { width: 9px; height: 9px; border-radius: 50%; background: #C9D0DA; }
+  .abar .url {
+    flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 100px;
+    font-size: 11px; color: var(--ink-3); padding: 3px 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .atabs { display: flex; border-bottom: 1px solid var(--line); background: #fff; }
+  .atab {
+    font: inherit; font-size: 13px; font-weight: 700; color: var(--ink-3);
+    background: none; border: none; border-bottom: 3px solid transparent;
+    padding: 11px 16px 9px; cursor: pointer;
+  }
+  .atab.on { color: var(--navy); border-bottom-color: var(--amber); }
+  .apane { display: none; padding: 14px; }
+  .apane.on { display: block; }
+
+  .anotice {
+    display: none; align-items: center; gap: 8px;
+    background: var(--ok-soft); color: var(--ok); border: 1px solid #BFE0CC;
+    border-radius: 8px; padding: 8px 12px; font-size: 12.5px; font-weight: 700; margin-bottom: 12px;
+  }
+  .anotice.show { display: flex; }
+
+  /* ledger */
+  .lhead2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .lhead2 h3 { margin: 0; font-size: 15px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 100px; overflow: hidden; }
+  .seg button {
+    font: inherit; font-size: 12px; font-weight: 700; color: var(--ink-3);
+    background: #fff; border: none; padding: 5px 14px; cursor: pointer;
+  }
+  .seg button.on { background: var(--navy); color: #fff; }
+  .ledgerwrap { overflow-x: auto; }
+  .ledger {
+    display: grid; grid-template-columns: 52px repeat(2, minmax(150px, 1fr));
+    border: 1px solid var(--line); border-radius: 8px; overflow: hidden; min-width: 380px;
+    background: #fff;
+  }
+  .lg-h {
+    background: var(--surface-sunk); font-size: 12px; font-weight: 700; text-align: center;
+    padding: 7px 4px; border-bottom: 1px solid var(--line); border-left: 1px solid var(--line-soft);
+  }
+  .lg-h:first-child { border-left: 0; }
+  .lg-h small { display: block; font-weight: 400; color: var(--ink-3); font-size: 10.5px; }
+  .lg-time {
+    font-size: 10.5px; color: var(--ink-3); text-align: right; padding: 0 6px 0 0;
+    border-top: 1px solid var(--line-soft); height: 30px; line-height: 1;
+    padding-top: 2px; background: #FCFDFE;
+  }
+  .lg-cell { position: relative; border-left: 1px solid var(--line-soft); border-top: 1px solid var(--line-soft); }
+  .book {
+    position: absolute; left: 3px; right: 3px; z-index: 1;
+    border-radius: 6px; font-size: 10.5px; line-height: 1.35;
+    padding: 4px 7px; overflow: hidden;
+    background: var(--accent-soft); border: 1px solid var(--accent-line); color: #6B4A12;
+  }
+  .book b { display: block; font-size: 11px; color: var(--ink); }
+  .book.c2 { background: #E9F1FA; border-color: #B9D2EA; color: #2B517A; }
+  .book.c3 { background: var(--ok-soft); border-color: #BFE0CC; color: var(--ok); }
+  .book.new { background: #FFF6D8; border-color: var(--amber); box-shadow: 0 0 0 2px rgba(242,179,61,.35); }
+  .book .nb {
+    position: absolute; top: 3px; right: 4px;
+    background: var(--red); color: #fff; font-size: 9px; font-weight: 700;
+    border-radius: 3px; padding: 0 4px; letter-spacing: .06em;
+  }
+
+  /* karte */
+  .kgrid { display: grid; gap: 12px; grid-template-columns: minmax(150px, 200px) minmax(0, 1fr); }
+  @media (max-width: 640px) { .kgrid { grid-template-columns: 1fr; } }
+  .klist { display: flex; flex-direction: column; gap: 6px; }
+  .kitem {
+    display: flex; align-items: center; gap: 9px; text-align: left;
+    font: inherit; background: #fff; border: 1px solid var(--line); border-radius: 8px;
+    padding: 8px 10px; cursor: pointer;
+  }
+  .kitem.on { border-color: var(--accent); background: var(--accent-soft); }
+  .kitem .face { flex: none; }
+  .kitem b { font-size: 13px; display: block; line-height: 1.3; }
+  .kitem small { color: var(--ink-3); font-size: 11px; }
+  .kcard { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; }
+  .kprof { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+  .kprof h4 { margin: 0; font-size: 16px; }
+  .kprof .sub { font-size: 12px; color: var(--ink-3); }
+  .ktags { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px; }
+  .ktag {
+    font-size: 11px; font-weight: 700; color: var(--navy-2);
+    background: var(--surface-sunk); border: 1px solid var(--line); border-radius: 100px; padding: 2px 10px;
+  }
+  .ktag.warn { color: var(--red); background: var(--red-soft); border-color: #E7C3C5; }
+  .kmemo {
+    font-size: 12.5px; background: var(--accent-soft); border: 1px dashed var(--accent-line);
+    border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; color: #6B4A12;
+  }
+  .khist { border-top: 1px solid var(--line-soft); }
+  .khrow { display: flex; gap: 12px; padding: 10px 2px; border-bottom: 1px solid var(--line-soft); align-items: flex-start; }
+  .khrow .d { flex: none; width: 64px; font-size: 11.5px; color: var(--ink-3); padding-top: 2px; }
+  .khrow .b { min-width: 0; font-size: 12.5px; }
+  .khrow .b b { font-size: 13px; }
+  .khrow .b .m { color: var(--ink-2); }
+  .khrow .ph { flex: none; margin-left: auto; }
+  .styleph {
+    width: 46px; height: 46px; border-radius: 8px; border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface-sunk); font-size: 9px; color: var(--ink-3);
+    flex-direction: column; gap: 2px;
+  }
+  .styleph svg { display: block; }
+
+  /* sales */
+  .stiles { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-bottom: 16px; }
+  .stile { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+  .stile .k { font-size: 11px; color: var(--ink-3); font-weight: 700; letter-spacing: .04em; }
+  .stile .v { font-size: 21px; font-weight: 700; margin: 2px 0 0; }
+  .stile .v small { font-size: 11px; font-weight: 600; color: var(--ink-3); }
+  .stile .diff { font-size: 11px; font-weight: 700; color: var(--ok); }
+  .bars { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+  .bars h4 { margin: 0 0 10px; font-size: 13px; }
+  .brow { display: grid; grid-template-columns: 108px minmax(0,1fr) 64px; gap: 8px; align-items: center; margin: 7px 0; font-size: 12px; }
+  .brow .n { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brow .track { background: var(--surface-sunk); border-radius: 100px; height: 12px; overflow: hidden; }
+  .brow .fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--navy-2), var(--navy)); }
+  .brow.alt .fill { background: linear-gradient(90deg, var(--amber), var(--accent)); }
+  .brow .val { text-align: right; font-weight: 700; font-size: 12px; }
+  .apane .note2 { font-size: 11.5px; color: var(--ink-3); margin: 8px 2px 0; }
+
+  /* ---------- sections ---------- */
+  section { padding: 44px 0 6px; }
+  .stitle {
+    font-size: 10.5px; letter-spacing: .18em; font-weight: 700;
+    color: var(--accent); margin: 0 0 9px;
+  }
+  h2.sec { margin: 0 0 20px; font-size: 21px; line-height: 1.55; font-weight: 700; }
+  h2.sec .hl { color: var(--accent); }
+  .cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+    padding: 18px 18px 14px; box-shadow: var(--shadow);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 14.5px; display: flex; align-items: center; gap: 9px; }
+  .card h3 .num {
+    flex: none; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--navy); color: #fff; font-size: 11.5px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .card p { margin: 0 0 8px; font-size: 13px; color: var(--ink-2); }
+  .card .in {
+    display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+    border-radius: 3px; padding: 1px 8px; margin-bottom: 8px;
+    color: var(--ok); background: var(--ok-soft); border: 1px solid #BFE0CC;
+  }
+  .card .in.later { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+
+  .steps { display: grid; gap: 12px; }
+  .step {
+    display: flex; gap: 14px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r); padding: 16px 18px; box-shadow: var(--shadow); align-items: flex-start;
+  }
+  .step .ph2 {
+    flex: none; font-size: 11px; font-weight: 700; letter-spacing: .06em;
+    background: var(--navy); color: #fff; border-radius: 4px; padding: 3px 10px; margin-top: 3px;
+  }
+  .step h3 { margin: 0 0 5px; font-size: 14.5px; }
+  .step p { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .note { font-size: 12.5px; color: var(--ink-3); margin: 14px 2px 0; }
+
+  .endcta {
+    margin: 50px 0 0; background: linear-gradient(170deg, var(--navy-2), var(--navy));
+    color: #fff; border-radius: 12px; padding: 30px 24px; text-align: center;
+  }
+  .endcta h2 { margin: 0 0 10px; font-size: 20px; }
+  .endcta .hl { color: var(--amber); }
+  .endcta p { margin: 0 auto 18px; font-size: 13.5px; color: rgba(255,255,255,.84); max-width: 40em; }
+  .endcta .cta { justify-content: center; }
+
+  footer { padding: 30px 18px 40px; text-align: center; font-size: 11.5px; color: var(--ink-3); }
+  footer a { color: var(--accent); }
+</style>
+
+<div class="ribbon">
+  <b>WORKING DEMO</b>
+  <span>Lスタジオ ｜ 理容室向け 予約・顧客管理システム 動作デモ（サンプルデータで動いています）</span>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">BARBER SHOP RESERVATION &amp; CRM — LIVE DEMO</p>
+    <h1>「来店順」から「予約制」へ。<br>その移行を、<span class="hl">動くもの</span>でご確認ください。</h1>
+    <p class="lead">
+      このページは提案資料ではなく、<b>実際に触って動くデモ</b>です。
+      左がお客様のLINE画面、右がお店の管理画面。<b>LINEで予約を取ると、隣の予約台帳にその場で載ります。</b>
+      メニューごとの所要時間で空き枠が変わるところまで、本番と同じ考え方で動いています。
+    </p>
+    <div class="cta">
+      <a class="btn" href="#demo">▶ デモを触ってみる</a>
+      <a class="btn ghost" href="https://l-studiojp.com/">Lスタジオの実績を見る</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="stage" id="demo">
+    <div class="stagehead">
+      <h2>予約が入る瞬間を、そのままご覧いただけます</h2>
+      <p>おすすめの手順：左のLINEで「ご予約」をタップ → メニュー・担当・日時を選ぶ → 右の予約台帳を見る</p>
+    </div>
+    <div class="stagegrid">
+
+      <!-- ===== customer / LINE ===== -->
+      <div>
+        <p class="paneltitle"><span class="tag">お客様側</span>LINEでの予約体験（タップで進みます）</p>
+        <div class="phone">
+          <div class="screen">
+            <div class="lhead"><span class="back">〈</span><span class="pole"></span>BARBER L（デモ店舗）<span style="margin-left:auto;opacity:.55">≡</span></div>
+            <div class="chat" id="chat"></div>
+            <div class="rich" id="rich">
+              <button class="richb main" data-act="reserve"><span class="ic">✂</span>ご予約</button>
+              <button class="richb" data-act="menu"><span class="ic">💈</span>メニュー・料金</button>
+              <button class="richb" data-act="check"><span class="ic">📅</span>予約の確認</button>
+              <button class="richb" data-act="hours"><span class="ic">🕐</span>営業時間</button>
+              <button class="richb" data-act="access"><span class="ic">📍</span>アクセス</button>
+              <button class="richb" data-act="talk"><span class="ic">💬</span>お店に相談</button>
+            </div>
+          </div>
+        </div>
+        <p class="phonefoot">
+          LINEをお使いでないお客様向けの<b>Web予約ページ</b>も同じ予約枠で用意します。／
+          <button id="reset">デモを最初からやり直す</button>
+        </p>
+      </div>
+
+      <!-- ===== admin ===== -->
+      <div>
+        <p class="paneltitle"><span class="tag">お店側</span>管理画面（予約台帳・顧客カルテ・売上）</p>
+        <div class="admin">
+          <div class="abar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="url">barber-demo.l-studiojp.com/admin ─ 店舗管理画面（サンプル）</div>
+          </div>
+          <div class="atabs">
+            <button class="atab on" data-pane="ledger">予約台帳</button>
+            <button class="atab" data-pane="karte">顧客カルテ</button>
+            <button class="atab" data-pane="sales">売上</button>
+          </div>
+
+          <!-- ledger -->
+          <div class="apane on" id="pane-ledger">
+            <div class="anotice" id="newnotice">✓ LINEから新しい予約が入りました — 台帳の <b>NEW</b> の枠です</div>
+            <div class="lhead2">
+              <h3 id="ledgertitle">予約台帳</h3>
+              <div class="seg" id="dayseg">
+                <button class="on" data-day="0">今日</button>
+                <button data-day="1">明日</button>
+              </div>
+              <span style="font-size:11.5px;color:var(--ink-3)">枠はメニューの所要時間ぶん自動で確保されます</span>
+            </div>
+            <div class="ledgerwrap"><div class="ledger" id="ledger"></div></div>
+            <p class="note2">※ 予約が入ると、お客様には確定メッセージ、前日19:00にはリマインドが自動送信されます（左の画面で確認できます）。</p>
+          </div>
+
+          <!-- karte -->
+          <div class="apane" id="pane-karte">
+            <div class="kgrid">
+              <div class="klist" id="klist"></div>
+              <div class="kcard" id="kcard"></div>
+            </div>
+            <p class="note2">※ カルテは「切る前に30秒で前回を思い出せる」ことを目的に設計します。入力は選択式＋写真1枚で完結。</p>
+          </div>
+
+          <!-- sales -->
+          <div class="apane" id="pane-sales">
+            <div class="stiles">
+              <div class="stile"><p class="k">本日の売上</p><p class="v">¥38,500 <small>／ 7件</small></p></div>
+              <div class="stile"><p class="k">今月の売上</p><p class="v">¥612,700</p><p class="diff">前月同日比 +8.2%</p></div>
+              <div class="stile"><p class="k">今月の客数</p><p class="v">128<small> 人</small></p><p class="diff">再来店率 74%</p></div>
+              <div class="stile"><p class="k">無断キャンセル</p><p class="v">1<small> 件</small></p><p class="diff">リマインド導入前 月6件</p></div>
+            </div>
+            <div class="bars">
+              <h4>メニュー別（今月）</h4>
+              <div class="brow"><span class="n">カット</span><span class="track"><span class="fill" style="width:88%"></span></span><span class="val">¥268,400</span></div>
+              <div class="brow"><span class="n">カット＋シェービング</span><span class="track"><span class="fill" style="width:64%"></span></span><span class="val">¥195,800</span></div>
+              <div class="brow"><span class="n">カット＋カラー</span><span class="track"><span class="fill" style="width:31%"></span></span><span class="val">¥96,800</span></div>
+              <div class="brow"><span class="n">シェービング＋眉</span><span class="track"><span class="fill" style="width:17%"></span></span><span class="val">¥51,700</span></div>
+            </div>
+            <div class="bars">
+              <h4>指名別（今月）</h4>
+              <div class="brow alt"><span class="n">店長 佐藤</span><span class="track"><span class="fill" style="width:78%"></span></span><span class="val">¥342,100</span></div>
+              <div class="brow alt"><span class="n">田中</span><span class="track"><span class="fill" style="width:52%"></span></span><span class="val">¥228,900</span></div>
+              <div class="brow alt"><span class="n">指名なし</span><span class="track"><span class="fill" style="width:10%"></span></span><span class="val">¥41,700</span></div>
+            </div>
+            <p class="note2">※ 数字はサンプルです。日次・月次・メニュー別・指名別の集計を標準で用意し、レジ・決済と揃えます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== features ===== -->
+  <section>
+    <p class="stitle">SCOPE OF THIS DEMO</p>
+    <h2 class="sec">ご要望の6機能と、<span class="hl">このデモで動いている範囲</span></h2>
+    <div class="cards">
+      <div class="card"><h3><span class="num">1</span>LINE／Webからの予約受付</h3><p class="in">このデモで動作</p><p>リッチメニューから予約。メニュー別の所要時間で空き枠を自動計算し、ダブルブッキングを構造的に防ぎます。Web予約も同じ枠を共有します。</p></div>
+      <div class="card"><h3><span class="num">2</span>顧客情報・来店履歴</h3><p class="in">このデモで動作</p><p>LINEアカウントと顧客レコードを自動で紐付け。来店のたびに履歴が積み上がり、受付での確認作業がなくなります。</p></div>
+      <div class="card"><h3><span class="num">3</span>施術カルテ・施術写真</h3><p class="in">このデモで動作</p><p>「カルテ」タブをご覧ください。選択式の項目＋写真1枚で入力が完結する設計です。入力が続かない仕様にはしません。</p></div>
+      <div class="card"><h3><span class="num">4</span>LINEでの予約リマインド</h3><p class="in">このデモで動作</p><p>予約完了後、左の画面に前日19:00のリマインドの実物が表示されます。無断キャンセル対策として最初に効く機能です。</p></div>
+      <div class="card"><h3><span class="num">5</span>売上管理・集計</h3><p class="in">このデモで動作</p><p>日次・月次に加え、メニュー別・指名別の内訳まで。「売上」タブでご覧いただけます。</p></div>
+      <div class="card"><h3><span class="num">6</span>クレジットカード決済</h3><p class="in later">本開発で実装</p><p>Stripe等を利用し、事前決済と来店時決済の両対応で設計します。当面は任意運用とし、常連のお客様の抵抗感を見ながら広げる形を推奨します。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== plan ===== -->
+  <section>
+    <p class="stitle">DELIVERY PLAN</p>
+    <h2 class="sec">2026年内に店舗で回し、<span class="hl">運用の声を反映して仕上げる</span>二段構え</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="ph2">第1弾</div>
+        <div>
+          <h3>2026年内に稼働 ── 予約受付・顧客/来店履歴・リマインド</h3>
+          <p>予約制への移行で一番大事な「お客様が迷わず予約できる導線」を先に完成させ、実店舗で回していただきます。このデモの左半分に相当する範囲です。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="ph2">第2弾</div>
+        <div>
+          <h3>2027年初頭 ── カルテ・写真、決済、売上分析</h3>
+          <p>実運用で出てきた要望を反映してから仕上げます。予約制そのものが新しい取り組みですので、一度回した後の要望のほうが机上の仕様より確実に正確です。</p>
+        </div>
+      </div>
+    </div>
+    <p class="note">このデモはご提案のために作成したものです。画面の細部・文言・ブランドカラーは、お打ち合わせのうえで貴店仕様に作り込みます。</p>
+  </section>
+
+  <div class="endcta">
+    <h2>デモは<span class="hl">量産品ではありません</span>。今回のご依頼内容に合わせて作りました。</h2>
+    <p>
+      ここから先は、貴店の受付の流れをお聞きして、メニュー構成・営業時間・スタッフ体制をそのまま反映するところからです。
+      CrowdWorksのメッセージでお気軽にご質問ください。
+    </p>
+    <div class="cta">
+      <a class="btn ghost" href="https://l-studiojp.com/">18業種の構築実績を見る</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Lスタジオ ｜ LINE公式アカウント・予約/顧客管理システム構築 ｜ <a href="https://l-studiojp.com/">l-studiojp.com</a><br>
+  本ページのデータはすべて架空のサンプルです。
+</footer>
+
+<script>
+/* ================= data ================= */
+const STAFFS = [
+  { id: 's1', name: '店長 佐藤', short: '佐藤' },
+  { id: 's2', name: '田中', short: '田中' },
+];
+const MENUS = [
+  { id: 'cut',   name: 'カット',             price: 4400, min: 40 },
+  { id: 'shave', name: 'カット＋シェービング', price: 5500, min: 60 },
+  { id: 'color', name: 'カット＋カラー',      price: 8800, min: 90 },
+  { id: 'brow',  name: 'シェービング＋眉',    price: 3300, min: 30 },
+];
+const OPEN = 10 * 60, CLOSE = 19 * 60; // 10:00-19:00
+// bookings[day][] : {staff, start(min), dur, menu, name, cls}
+const bookings = {
+  0: [
+    { staff: 's1', start: 600, dur: 60, menu: 'カット＋シェービング', name: '山本 様', cls: '' },
+    { staff: 's1', start: 690, dur: 40, menu: 'カット', name: '大西 様', cls: 'c2' },
+    { staff: 's1', start: 840, dur: 90, menu: 'カット＋カラー', name: '高橋 様', cls: 'c3' },
+    { staff: 's1', start: 990, dur: 40, menu: 'カット', name: '井上 様', cls: 'c2' },
+    { staff: 's2', start: 630, dur: 40, menu: 'カット', name: '松田 様', cls: 'c2' },
+    { staff: 's2', start: 720, dur: 30, menu: 'シェービング＋眉', name: '北村 様', cls: '' },
+    { staff: 's2', start: 900, dur: 60, menu: 'カット＋シェービング', name: '藤井 様', cls: 'c3' },
+  ],
+  1: [
+    { staff: 's1', start: 630, dur: 40, menu: 'カット', name: '西村 様', cls: 'c2' },
+    { staff: 's1', start: 780, dur: 60, menu: 'カット＋シェービング', name: '小林 様', cls: '' },
+    { staff: 's2', start: 600, dur: 90, menu: 'カット＋カラー', name: '中井 様', cls: 'c3' },
+    { staff: 's2', start: 840, dur: 40, menu: 'カット', name: '安田 様', cls: 'c2' },
+  ],
+};
+const fmt = m => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`;
+const yen = n => '¥' + n.toLocaleString('ja-JP');
+
+/* ================= ledger ================= */
+let curDay = 0;
+const ledgerEl = document.getElementById('ledger');
+function renderLedger() {
+  const rows = (CLOSE - OPEN) / 30;
+  let h = '<div class="lg-h">時間</div>';
+  STAFFS.forEach(s => h += `<div class="lg-h">${s.name}<small>指名可</small></div>`);
+  for (let r = 0; r < rows; r++) {
+    const t = OPEN + r * 30;
+    h += `<div class="lg-time">${t % 60 === 0 ? fmt(t) : ''}</div>`;
+    STAFFS.forEach(s => h += `<div class="lg-cell" data-r="${r}" data-s="${s.id}"></div>`);
+  }
+  ledgerEl.innerHTML = h;
+  bookings[curDay].forEach(b => {
+    const r = (b.start - OPEN) / 30;
+    const cell = ledgerEl.querySelector(`.lg-cell[data-r="${Math.floor(r)}"][data-s="${b.staff}"]`);
+    if (!cell) return;
+    const div = document.createElement('div');
+    div.className = 'book ' + (b.cls || '');
+    div.style.top = '1px';
+    div.style.height = (b.dur / 30 * 30 - 3) + 'px';
+    div.innerHTML = `<b>${fmt(b.start)}〜${fmt(b.start + b.dur)} ${b.name}</b>${b.menu}` + (b.cls === 'new' ? '<span class="nb">NEW</span>' : '');
+    cell.appendChild(div);
+  });
+}
+document.getElementById('dayseg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  curDay = +b.dataset.day;
+  document.querySelectorAll('#dayseg button').forEach(x => x.classList.toggle('on', x === b));
+  renderLedger();
+});
+
+/* free slots: menu duration fits, 30-min steps */
+function freeSlots(day, staffId, dur) {
+  const list = bookings[day].filter(b => b.staff === staffId);
+  const out = [];
+  for (let t = OPEN; t + dur <= CLOSE; t += 30) {
+    const clash = list.some(b => t < b.start + b.dur && b.start < t + dur);
+    if (!clash) out.push(t);
+  }
+  return out;
+}
+
+/* ================= admin tabs ================= */
+document.querySelectorAll('.atab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.atab').forEach(x => x.classList.toggle('on', x === t));
+  document.querySelectorAll('.apane').forEach(p => p.classList.toggle('on', p.id === 'pane-' + t.dataset.pane));
+}));
+
+/* ================= karte ================= */
+const CUSTOMERS = [
+  {
+    name: '山本 健一 様', visits: 12, last: '3週間前', cycle: '約21日',
+    tags: ['刈り上げ 6mm', 'もみあげ 自然に', '肌が弱い（敏感肌用シェービング）'],
+    memo: '次回：襟足を前回より気持ち短めに、とのご希望。仕上げのグリースは軽めが好み。',
+    hist: [
+      { d: '3週間前', menu: 'カット＋シェービング', staff: '佐藤', note: 'サイド6mm・トップ長め残し。肌荒れなし。', style: 'A' },
+      { d: '6週間前', menu: 'カット', staff: '佐藤', note: '全体を短めに。次回シェービング希望と伺う。', style: 'B' },
+      { d: '9週間前', menu: 'カット＋シェービング', staff: '佐藤', note: '敏感肌用のシェービングフォームに変更。', style: 'A' },
+    ],
+  },
+  {
+    name: '大西 亮 様', visits: 4, last: '5週間前', cycle: '約35日',
+    tags: ['ツーブロック', 'パーマ検討中'],
+    memo: '来店周期が空きがち。周期に合わせた「そろそろ」の自動配信の対象。',
+    hist: [
+      { d: '5週間前', menu: 'カット', staff: '田中', note: 'ツーブロック維持。パーマの相談あり→次回見積り。', style: 'C' },
+      { d: '10週間前', menu: 'カット', staff: '田中', note: '初回。仕上がり満足いただけた様子。', style: 'B' },
+    ],
+  },
+  {
+    name: '高橋 誠 様', visits: 21, last: '4週間前', cycle: '約28日',
+    tags: ['白髪カラー 4番', '眉も毎回'],
+    memo: 'カラーの放置時間は短め（頭皮が敏感）。コーヒーはブラック。',
+    hist: [
+      { d: '4週間前', menu: 'カット＋カラー', staff: '佐藤', note: 'カラー4番。放置12分。次回も同じで。', style: 'B' },
+      { d: '8週間前', menu: 'カット＋カラー', staff: '佐藤', note: '眉を少し太めに残す形へ変更。', style: 'A' },
+    ],
+  },
+];
+const faceSVG = (i) => {
+  const cols = ['#2B4C7E', '#B8791C', '#1E7A4C'];
+  return `<svg class="face" width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="16" fill="${cols[i % 3]}" opacity=".14"/><circle cx="17" cy="13" r="6" fill="${cols[i % 3]}" opacity=".55"/><path d="M6 30c1.5-6 6-9 11-9s9.5 3 11 9" fill="${cols[i % 3]}" opacity=".55"/></svg>`;
+};
+const styleSVG = (v) => {
+  const hair = v === 'A' ? 'M8 16c0-6 4-10 10-10s10 4 10 10l-2-1-2 1-2-2-2 2-2-2-2 2-2-1-2 1z'
+    : v === 'B' ? 'M8 16c0-7 4-11 10-11s10 4 10 11c-3-3-6-4-10-4s-7 1-10 4z'
+    : 'M8 15c0-6 4-9 10-9s10 3 10 9l-3 1c-2-3-4-4-7-4s-5 1-7 4z';
+  return `<svg width="30" height="26" viewBox="0 0 36 32"><path d="${hair}" fill="#16233D"/><circle cx="18" cy="18" r="8" fill="#E8CDB0"/><rect x="10" y="26" width="16" height="6" rx="2" fill="#5C6B62"/></svg>`;
+};
+const klist = document.getElementById('klist');
+const kcard = document.getElementById('kcard');
+function renderKarte(sel) {
+  klist.innerHTML = CUSTOMERS.map((c, i) =>
+    `<button class="kitem ${i === sel ? 'on' : ''}" data-i="${i}">${faceSVG(i)}<span><b>${c.name}</b><small>来店${c.visits}回 ／ 前回 ${c.last}</small></span></button>`).join('');
+  const c = CUSTOMERS[sel];
+  kcard.innerHTML = `
+    <div class="kprof">${faceSVG(sel)}<div><h4>${c.name}</h4><p class="sub">来店 ${c.visits}回 ／ 前回 ${c.last} ／ 来店周期 ${c.cycle}</p></div></div>
+    <div class="ktags">${c.tags.map((t, j) => `<span class="ktag ${t.includes('肌') ? 'warn' : ''}">${t}</span>`).join('')}</div>
+    <div class="kmemo">📌 ${c.memo}</div>
+    <div class="khist">${c.hist.map(h => `
+      <div class="khrow">
+        <span class="d">${h.d}</span>
+        <div class="b"><b>${h.menu}</b> <span class="m">／ 担当 ${h.staff}</span><br><span class="m">${h.note}</span></div>
+        <div class="ph"><div class="styleph">${styleSVG(h.style)}<span>仕上がり写真</span></div></div>
+      </div>`).join('')}
+    </div>`;
+}
+klist.addEventListener('click', e => {
+  const b = e.target.closest('.kitem'); if (!b) return;
+  renderKarte(+b.dataset.i);
+});
+
+/* ================= LINE chat ================= */
+const chat = document.getElementById('chat');
+let flow = null; // {menu, staff, day, start}
+function el(html) { const d = document.createElement('div'); d.innerHTML = html; return d.firstElementChild; }
+function push(node) { chat.appendChild(node); chat.scrollTop = chat.scrollHeight; }
+function bot(text, delay = 320) {
+  return new Promise(res => setTimeout(() => {
+    push(el(`<div class="msg"><span class="avatar"></span><div class="bubble">${text}</div></div>`)); res();
+  }, delay));
+}
+function user(text) {
+  push(el(`<div class="msg user"><div class="bubble">${text}</div></div>`));
+}
+function sys(text) {
+  push(el(`<div class="sysline"><b>${text}</b></div>`));
+}
+function quicks(items, handler) {
+  const qr = el('<div class="qr"></div>');
+  items.forEach(it => {
+    const b = el(`<button class="qrb">${it.label}</button>`);
+    b.addEventListener('click', () => {
+      qr.querySelectorAll('button').forEach(x => x.disabled = true);
+      qr.remove();
+      handler(it);
+    });
+    qr.appendChild(b);
+  });
+  push(qr);
+}
+
+async function startReserve() {
+  flow = {};
+  user('ご予約');
+  await bot('ご来店ありがとうございます✂\nご希望のメニューをお選びください。');
+  quicks(MENUS.map(m => ({ label: `${m.name}<br><small>${yen(m.price)}・${m.min}分</small>`, m })), async it => {
+    flow.menu = it.m;
+    user(it.m.name);
+    await bot(`${it.m.name}（${it.m.min}分）ですね。\nご希望の担当をお選びください。`);
+    quicks([
+      { label: '店長 佐藤', staff: STAFFS[0] },
+      { label: '田中', staff: STAFFS[1] },
+      { label: '指名なし', staff: null },
+    ], pickStaff);
+  });
+}
+async function pickStaff(it) {
+  flow.staff = it.staff || STAFFS[+(freeSlots(0, 's1', flow.menu.min).length < freeSlots(0, 's2', flow.menu.min).length)];
+  flow.named = !!it.staff;
+  user(it.staff ? it.staff.name : '指名なし');
+  await bot('ご希望の日をお選びください。');
+  quicks([{ label: '今日', day: 0 }, { label: '明日', day: 1 }], pickDay);
+}
+async function pickDay(it) {
+  flow.day = it.day;
+  user(it.label.replace(/<[^>]*>/g, ''));
+  const slots = freeSlots(flow.day, flow.staff.id, flow.menu.min).slice(0, 5);
+  if (!slots.length) {
+    await bot('申し訳ございません、その日は空きがございません。別の日をお選びください。');
+    quicks([{ label: '今日', day: 0 }, { label: '明日', day: 1 }], pickDay);
+    return;
+  }
+  await bot(`${it.day === 0 ? '本日' : '明日'}の空き枠です。\n（${flow.menu.name}の${flow.menu.min}分で入れる枠だけを表示しています）`);
+  quicks(slots.map(s => ({ label: fmt(s) + '〜', start: s })), confirmSlot);
+}
+async function confirmSlot(it) {
+  flow.start = it.start;
+  user(fmt(it.start) + '〜');
+  await new Promise(r => setTimeout(r, 300));
+  const c = el(`<div class="msg"><span class="avatar"></span><div class="fcard">
+    <div class="fhead">ご予約内容の確認</div>
+    <div class="fbody">
+      <div class="frow"><span class="k">メニュー</span><span class="v">${flow.menu.name}</span></div>
+      <div class="frow"><span class="k">担当</span><span class="v">${flow.staff.name}${flow.named ? '（指名）' : ''}</span></div>
+      <div class="frow"><span class="k">日時</span><span class="v">${flow.day === 0 ? '本日' : '明日'} ${fmt(flow.start)}〜${fmt(flow.start + flow.menu.min)}</span></div>
+      <div class="frow"><span class="k">料金</span><span class="v">${yen(flow.menu.price)}</span></div>
+    </div>
+    <div class="fbtns"><button class="fbtn" id="fix">この内容で予約する</button><button class="fbtn sub" id="redo">選び直す</button></div>
+  </div></div>`);
+  push(c);
+  c.querySelector('#redo').addEventListener('click', () => { c.querySelectorAll('.fbtn').forEach(b => b.disabled = true); startReserve(); });
+  c.querySelector('#fix').addEventListener('click', () => { c.querySelectorAll('.fbtn').forEach(b => b.disabled = true); fixReserve(); });
+}
+async function fixReserve() {
+  user('この内容で予約する');
+  bookings[flow.day].push({
+    staff: flow.staff.id, start: flow.start, dur: flow.menu.min,
+    menu: flow.menu.name, name: 'あなた 様', cls: 'new',
+  });
+  if (curDay === flow.day) renderLedger();
+  const notice = document.getElementById('newnotice');
+  notice.classList.add('show');
+  await new Promise(r => setTimeout(r, 350));
+  const num = 'B-' + (1020 + Math.floor(bookings[0].length + bookings[1].length));
+  push(el(`<div class="msg"><span class="avatar"></span><div class="fcard">
+    <div class="fhead" style="background:var(--ok)">✓ ご予約が確定しました（予約番号 ${num}）</div>
+    <div class="fbody">
+      <div class="frow"><span class="k">日時</span><span class="v">${flow.day === 0 ? '本日' : '明日'} ${fmt(flow.start)}〜</span></div>
+      <div class="frow"><span class="k">メニュー</span><span class="v">${flow.menu.name}</span></div>
+      <div class="frow"><span class="k">担当</span><span class="v">${flow.staff.name}</span></div>
+    </div>
+    <div class="fbtns"><button class="fbtn sub" disabled>予約の変更・キャンセル</button></div>
+  </div></div>`));
+  await bot('ご予約ありがとうございます。<b>→ 右の管理画面の予約台帳に、この予約がいま載りました。</b>ご確認ください。', 500);
+  await new Promise(r => setTimeout(r, 900));
+  sys('前日 19:00（自動送信されるリマインドの実物）');
+  await bot(`【ご予約前日のご案内】\n${flow.day === 0 ? '本日' : '明日'} ${fmt(flow.start)}〜 ${flow.menu.name} でお待ちしております✂\nご都合が悪くなった場合は、こちらから変更・キャンセルができます。`, 400);
+  await bot('──体験は以上です✂ 「メニュー・料金」など他のボタンも動きます。', 600);
+}
+
+/* other rich menu actions */
+async function actMenu() {
+  user('メニュー・料金');
+  await bot(MENUS.map(m => `✂ ${m.name}　${yen(m.price)}（${m.min}分）`).join('\n') + '\n\nすべて税込表示です。ご予約は「ご予約」ボタンからどうぞ。');
+}
+async function actCheck() {
+  user('予約の確認');
+  const mine = [...bookings[0], ...bookings[1]].find(b => b.name === 'あなた 様');
+  if (mine) await bot(`ご予約が1件ございます。\n・${bookings[0].includes(mine) ? '本日' : '明日'} ${fmt(mine.start)}〜 ${mine.menu}\n変更・キャンセルもこの画面からできます。`);
+  else await bot('現在ご予約はございません。「ご予約」ボタンからどうぞ。');
+}
+async function actHours() {
+  user('営業時間');
+  await bot('営業時間：10:00〜19:00（最終受付はメニューにより異なります）\n定休日：毎週月曜・第2火曜');
+}
+async function actAccess() {
+  user('アクセス');
+  await bot('〒000-0000 大阪市〇〇区〇〇 1-2-3\n〇〇駅 徒歩3分／駐車場2台\n（実際の導入時は地図とルート案内を表示します）');
+}
+async function actTalk() {
+  user('お店に相談');
+  await bot('こちらのトークにそのままメッセージをお送りください。営業時間内にスタッフが直接お返事します。\n（自動応答と有人対応は自動で切り替わります）');
+}
+document.getElementById('rich').addEventListener('click', e => {
+  const b = e.target.closest('.richb'); if (!b) return;
+  ({ reserve: startReserve, menu: actMenu, check: actCheck, hours: actHours, access: actAccess, talk: actTalk })[b.dataset.act]();
+});
+document.getElementById('reset').addEventListener('click', () => {
+  chat.innerHTML = '';
+  for (const d of [0, 1]) bookings[d] = bookings[d].filter(b => b.name !== 'あなた 様');
+  document.getElementById('newnotice').classList.remove('show');
+  renderLedger(); greet();
+});
+async function greet() {
+  await bot('BARBER L（デモ店舗）へようこそ✂\nこれは実際に動くデモです。下の「ご予約」をタップして、予約の流れをお試しください。', 200);
+}
+
+/* init */
+renderLedger();
+renderKarte(0);
+greet();
+</script>
+</body>
+</html>
