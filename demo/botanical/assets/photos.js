@@ -51,7 +51,25 @@ var PHOTOS = {
   "12_lab_equipment"    : "12_lab_equipment.jpg",     /* 12. 製造ラボ機材・設備 */
 
   /* 動画サムネだけは撮影ではなく、実際の説明動画から切り出した1コマを使う */
-  "video_thumb"         : "video_thumb.jpg"
+  "video_thumb"         : "video_thumb.jpg",
+
+  /* --- C案（c/index.html）専用スロット 2026-08-11 -------------------
+     C案は黒×白×ゴールドで写真のトーンが他の3本と違うため、共有スロットとは
+     別のファイルを持つ。上の 01〜12 を上書きするとA案・B案・startにも
+     影響するので、C案の写真を替えるときは必ずこちら側を触ること。 */
+  "c_hero"              : "c6_hero.jpg",          /* FV（スポイトの1滴） */
+  "c_worry"             : "c8_worry.jpg",         /* 悩み（縦・モノクロ表示） */
+  "c_lesson"            : "c9_lesson.jpg",        /* SOLUTION主画 */
+  "c_ai"                : "c10_ai.jpg",           /* カード01 AI肌分析 */
+  "c_blend"             : "c7_blend_hands.jpg",   /* カード02 ボタニカル処方 */
+  "c_product"           : "c1_bottle_serum.jpg",  /* カード03（支給写真） */
+  "c_learn"             : "c11_learn.jpg",        /* 学ぶこと */
+  "c_cta"               : "c12_cta.jpg",          /* 最終CTAの背景 */
+  "c_band"              : "c13_band.jpg",         /* 全幅の帯 */
+  "c_movie"             : "c14_movie.jpg",        /* 動画サムネ */
+  "c_voice_a"           : "c15_voice_a.jpg",
+  "c_voice_b"           : "c15_voice_b.jpg",
+  "c_voice_c"           : "c15_voice_c.jpg"
 };
 
 /* ---------------------------------------------------------
