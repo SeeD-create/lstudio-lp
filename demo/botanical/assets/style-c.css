@@ -199,6 +199,11 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   position:relative;z-index:5;
   padding:11px 0 0;
 }
+@media(min-width:900px){
+  /* PCはロゴをFVの写真の上に重ねる（カンプどおり） */
+  .topbar{position:absolute;left:0;right:0;top:0;padding:30px 0 0}
+  .topbar .wrap{max-width:1120px}
+}
 .logo{display:flex;align-items:flex-start;gap:0;flex-direction:column;line-height:1}
 .logo .mark{font-size:30px;font-weight:300;letter-spacing:-.02em;color:var(--text)}
 .logo .nm{margin-top:2px;font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--text)}
@@ -215,7 +220,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .hero{
   position:relative;overflow:hidden;
   background:
-    radial-gradient(120% 80% at 100% 0%,#FFFFFF 0%,#F7F5F1 55%,#EFECE6 100%);
+    radial-gradient(120% 80% at 100% 0%,#FFFFFF 0%,#F8F5F0 55%,#F1EDE6 100%);
   padding-bottom:34px;
 }
 .hero-inner{padding-top:18px}
@@ -223,20 +228,19 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .hero-copy{display:contents}         /* スマホだけ順番を組み替えるため */
 .hero-kicker{
   order:1;
-  font-size:9.5px;font-weight:700;letter-spacing:.15em;color:var(--text-2);
+  font-size:9.5px;font-weight:700;letter-spacing:.15em;color:#8A7043;
   margin-bottom:12px;white-space:nowrap;          /* 2行に折れると締まらないので1行固定 */
 }
 .hero h1{
   order:2;
-  font-size:29px;line-height:1.42;font-weight:700;letter-spacing:.005em;color:var(--text);
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho","Noto Serif JP",serif;
+  font-size:30px;line-height:1.5;font-weight:600;letter-spacing:.02em;color:#1A1713;
 }
-/* 強調はゴールドのマーカー（下線の罫に見えないよう、文字の裏に薄く敷く） */
-.hero h1 .ac{
-  background:linear-gradient(transparent 64%,rgba(176,141,78,.3) 64%,rgba(176,141,78,.06) 100%);
-}
+/* カンプでは強調のマーカーは無く、見出しとリードの間にゴールドの細線が1本入る */
 .hero-photo{order:3;margin:16px 0 0;aspect-ratio:16/11;box-shadow:0 18px 36px rgba(12,13,14,.1)}
 .hero-lead{
-  order:4;margin-top:14px;font-size:15px;line-height:1.9;color:var(--text-2);
+  order:4;margin-top:18px;padding-top:16px;font-size:15px;line-height:1.9;color:#4A463F;
+  border-top:1px solid rgba(176,141,78,.55);max-width:24em;
 }
 .hero-lead b{color:var(--text);font-weight:700}
 .hero-cta{order:5;margin-top:18px}
@@ -248,10 +252,11 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .pill .cir{
   width:78px;height:78px;margin:0 auto 8px;border-radius:50%;
   border:1px solid rgba(176,141,78,.55);
-  display:flex;align-items:center;justify-content:center;
-  font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--gold);
-  background:rgba(255,255,255,.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  font-size:9.5px;font-weight:700;letter-spacing:.12em;color:#8A7043;
+  background:rgba(255,253,250,.72);
 }
+.pill .cir::after{content:"";width:16px;height:1px;background:rgba(176,141,78,.75)}
 .pill p{font-size:11px;line-height:1.6;color:var(--text-2)}
 
 /* =========================================================
@@ -480,19 +485,23 @@ footer .copy{font-size:10.5px;color:#7E8287}
   /* ---- FV：左に文字／右に商品写真 ----
      .hero-copy は display:contents のまま。中の要素を直接グリッドに並べて、
      写真だけを右カラムに全高で置く（HTMLの入れ子は変えない）。 */
-  .hero{padding-bottom:70px}
-  .hero-inner{padding-top:26px}
-  .hero-grid{
-    display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center;
+  .hero{
+    padding:0 0 0;min-height:700px;display:flex;align-items:center;
+    background-repeat:no-repeat;background-position:right center;background-size:cover;
   }
+  /* 左半分に文字が乗るので、写真の上にアイボリーの膜を右へ向かって薄くかける */
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,rgba(248,245,240,.97) 0%,rgba(248,245,240,.93) 30%,rgba(248,245,240,.55) 48%,rgba(248,245,240,0) 66%);
+  }
+  .hero-inner{position:relative;z-index:2;padding:152px 0 96px}
+  .hero-grid{display:block;max-width:54%}
   .hero-copy{display:block}
-  .hero h1{font-size:47px;line-height:1.34}
+  .hero h1{font-size:46px;line-height:1.42}
   .hero-kicker{font-size:11.5px;letter-spacing:.24em}
   .hero-lead{font-size:15.5px;max-width:30em}
-  .hero-photo{
-    grid-column:2;grid-row:1;align-self:center;
-    margin:0;aspect-ratio:4/3;max-height:520px;box-shadow:0 22px 44px rgba(12,13,14,.12);
-  }
+  /* 写真は .hero の背景に回すので、要素としての写真は出さない */
+  .hero-photo{display:none}
   .hero-pills{margin-top:30px;max-width:430px}
   .pill .cir{width:88px;height:88px;font-size:10.5px}
   .pill p{font-size:12px}
@@ -553,7 +562,9 @@ footer .copy{font-size:10.5px;color:#7E8287}
   .spec td{padding:16px 8px}
 }
 
-/* 1180px以上では左右の余白を少し広げる */
+/* 1180px以上では左右の余白を少し広げる。
+   ★ここは必ず padding-left / padding-right で書く。shorthand（padding:0 28px）だと
+     後ろから .hero-inner などの上下paddingを 0 に潰してしまう（2026-08-11にFVが崩れた原因）。 */
 @media(min-width:1180px){
-  .wrap{padding:0 28px}
+  .wrap{padding-left:28px;padding-right:28px}
 }
