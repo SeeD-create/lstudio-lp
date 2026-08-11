@@ -36,6 +36,7 @@
   /* ---- 線 ---- */
   --line:#E2DED8;         /* 白地の罫線 */
   --line-ink:rgba(255,255,255,.16);  /* 黒地の罫線 */
+  --line-why:#323232;                /* 理由セクションの区切り（診断の指定） */
 
   /* ---- ゴールド ---- */
   --gold:#B08D4E;         /* 白地では線のみ */
@@ -58,7 +59,7 @@ body{
   color:var(--text);
   font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",
               "Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;
-  font-size:15.5px;
+  font-size:16px;
   line-height:1.9;
   letter-spacing:.015em;
   line-break:strict;   /* 行頭の「ー」「っ」などを禁止＝日本語の折返しを整える */
@@ -79,7 +80,7 @@ ul{padding:0;list-style:none}
 /* =========================================================
    1. レイアウトの器
    ========================================================= */
-.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 20px}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
 .wrap.narrow{max-width:760px}
 section{padding:40px 0}
 section.tight{padding:32px 0}
@@ -91,7 +92,7 @@ section.tight{padding:32px 0}
 .sec-head{margin-bottom:20px}
 .eyebrow{
   display:inline-flex;align-items:center;gap:10px;
-  font-size:10.5px;font-weight:700;letter-spacing:.32em;
+  font-size:11px;font-weight:700;letter-spacing:.2em;
   text-transform:uppercase;color:var(--text-2);
   margin-bottom:12px;
 }
@@ -100,16 +101,16 @@ section.tight{padding:32px 0}
 .dark .eyebrow::before,.dark2 .eyebrow::before{background:var(--gold-ink)}
 
 h2{
-  font-size:22.5px;line-height:1.6;font-weight:700;letter-spacing:.005em;
+  font-size:24px;line-height:1.45;font-weight:700;letter-spacing:.005em;
   color:var(--text);
 }
 .dark h2,.dark2 h2{color:#fff}
 h2 .thin{font-weight:400}
 h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent 66%,rgba(176,141,78,.28) 66%)}
 .dark h2 em,.dark2 h2 em{color:var(--gold-ink);background:none}
-.sec-head p{margin-top:12px;font-size:14.5px;color:var(--text-2);line-height:1.95}
+.sec-head p{margin-top:20px;font-size:15.5px;color:var(--text-2);line-height:1.95}
 .dark .sec-head p,.dark2 .sec-head p{color:var(--on-ink-2)}
-.note{margin-top:16px;font-size:11.5px;line-height:1.8;color:var(--text-2)}
+.note{margin-top:16px;font-size:12px;line-height:1.8;color:var(--text-2)}
 .dark .note,.dark2 .note{color:#8E9297}
 
 /* =========================================================
@@ -124,6 +125,8 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   background:#DDD8D0 center/cover no-repeat;
 }
 .ph.mono{filter:grayscale(1) contrast(1.06) brightness(.94)}
+/* 動画サムネ用：色は残して薄く暗くするだけ（再生ボタンを目立たせる） */
+.ph.dim::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.22)}
 .ph.ov::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(8,9,10,calc(var(--ov) - .18)) 0%,rgba(8,9,10,var(--ov)) 100%);
@@ -146,10 +149,10 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .btn{
   position:relative;display:flex;align-items:center;justify-content:center;gap:9px;
   width:100%;max-width:430px;
-  padding:16px 44px 16px 20px;
+  padding:17px 44px 17px 20px;
   border-radius:var(--radius);
   background:linear-gradient(180deg,var(--green-l) 0%,var(--green) 32%,var(--green-d) 100%);
-  color:#fff;font-size:16.5px;font-weight:700;line-height:1.45;letter-spacing:.02em;
+  color:#fff;font-size:16px;font-weight:700;line-height:1.45;letter-spacing:.02em;
   box-shadow:0 10px 24px rgba(12,13,14,.22);
   transition:transform .18s ease,box-shadow .18s ease;
 }
@@ -185,7 +188,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .btn.line-btn:hover{background:var(--text);color:#fff;transform:none}
 .btn.line-btn:hover .arw svg{stroke:#fff}
 
-.btn-sub{margin-top:10px;font-size:11.5px;line-height:1.75;color:var(--text-2)}
+.btn-sub{margin-top:10px;font-size:12.5px;line-height:1.75;color:var(--text-2)}
 .dark .btn-sub,.dark2 .btn-sub,.cta-band .btn-sub{color:var(--on-ink-2)}
 .btn-sub.after{margin-top:20px}
 
@@ -233,33 +236,33 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 }
 .hero-photo{order:3;margin:16px 0 0;aspect-ratio:16/11;box-shadow:0 18px 36px rgba(12,13,14,.1)}
 .hero-lead{
-  order:4;margin-top:14px;font-size:13.5px;line-height:1.9;color:var(--text-2);
+  order:4;margin-top:14px;font-size:15px;line-height:1.9;color:var(--text-2);
 }
 .hero-lead b{color:var(--text);font-weight:700}
 .hero-cta{order:5;margin-top:18px}
 .hero-pills{order:6;margin-top:22px}
 
 /* BOTANICAL / AI / BUSINESS の3つ */
-.pills{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pills{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .pill{text-align:center}
 .pill .cir{
-  width:74px;height:74px;margin:0 auto 8px;border-radius:50%;
+  width:78px;height:78px;margin:0 auto 8px;border-radius:50%;
   border:1px solid rgba(176,141,78,.55);
   display:flex;align-items:center;justify-content:center;
   font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--gold);
   background:rgba(255,255,255,.6);
 }
-.pill p{font-size:11.5px;line-height:1.6;color:var(--text-2)}
+.pill p{font-size:11px;line-height:1.6;color:var(--text-2)}
 
 /* =========================================================
    6. お悩み（黒地＋モノクロ人物）
    ========================================================= */
-.worry-photo{aspect-ratio:16/10;margin-bottom:26px}
+.worry-photo{aspect-ratio:16/11;margin-bottom:24px}
 .checks{display:grid;gap:10px}
 .check{
   display:flex;gap:11px;align-items:flex-start;
   padding-bottom:12px;border-bottom:1px solid var(--line-ink);
-  font-size:14.5px;line-height:1.7;color:var(--on-ink);
+  font-size:15px;line-height:1.75;color:var(--on-ink);
 }
 .check .bx{
   flex:none;width:19px;height:19px;margin-top:3px;
@@ -285,13 +288,13 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   margin-bottom:6px;
 }
 .card h3{font-size:16px;font-weight:700;line-height:1.6;margin-bottom:6px}
-.card p{font-size:13.5px;line-height:1.85;color:var(--text-2)}
+.card p{font-size:14.5px;line-height:1.8;color:var(--text-2)}
 
 /* =========================================================
    8. 選ばれる理由（黒地・3列）
    ========================================================= */
 .reasons{display:grid;gap:18px}
-.reason{padding-top:20px;border-top:1px solid var(--line-ink)}
+.reason{padding-top:24px;border-top:1px solid var(--line-why)}
 .reason .ico{
   width:52px;height:52px;border-radius:50%;
   border:1px solid rgba(203,170,108,.5);
@@ -299,7 +302,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 }
 .reason .ico svg{width:23px;height:23px;stroke:var(--gold-ink);fill:none}
 .reason h3{font-size:16.5px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:.01em}
-.reason p{font-size:13.5px;line-height:1.9;color:var(--on-ink-2)}
+.reason p{font-size:14.5px;line-height:1.85;color:#C7C4BE}
 
 /* =========================================================
    9. はじめられる場所（数値の版面）
@@ -307,10 +310,17 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-ink)}
 .stat{
   background:var(--ink-2);padding:18px 14px;text-align:center;
+  min-height:104px;display:flex;flex-direction:column;justify-content:center;
 }
 .stat .ico{display:block;width:22px;height:22px;stroke:var(--gold-ink);fill:none;margin:0 auto 8px}
-.stat .lb{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--on-ink-2)}
-.stat .vl{display:block;margin-top:4px;font-size:18px;font-weight:700;color:#fff;line-height:1.4}
+.stat .lb{display:block;font-size:11px;letter-spacing:.08em;color:var(--on-ink-2)}
+.stat .vl{display:block;margin-top:4px;font-size:16px;font-weight:700;color:#fff;line-height:1.4}
+/* 白地に置く版（黒セクションが続きすぎるのを避けるため 2026-08-11 に追加） */
+.stats.light{background:var(--line)}
+.stats.light .stat{background:var(--paper)}
+.stats.light .ico{stroke:var(--text)}
+.stats.light .lb{color:var(--text-2)}
+.stats.light .vl{color:var(--text)}
 .stat .vl small{font-size:12px;font-weight:600;margin-left:1px}
 
 /* =========================================================
@@ -333,18 +343,24 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .vplayer{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .vnote{margin:12px 0 0;font-size:12px;color:var(--on-ink-2);line-height:1.7}
 .vlist{margin:20px 0 0;display:grid;gap:9px}
-.vlist li{display:flex;gap:10px;font-size:14px;line-height:1.75;color:var(--on-ink)}
+.vlist li{display:flex;gap:10px;font-size:15px;line-height:1.75;color:var(--on-ink)}
 .vlist .tick{flex:none;width:17px;height:17px;margin-top:4px;stroke:var(--gold-ink);fill:none}
-.vmeta{margin:14px 0 16px;font-size:12.5px;line-height:1.85;color:var(--on-ink-2)}
+.vmeta{margin:14px 0 16px;font-size:13px;line-height:1.85;color:var(--on-ink-2)}
+/* LINE導線は再生後に出す（:has 未対応ブラウザでは常に表示） */
+@supports selector(:has(*)){
+  .movie-line{display:none}
+  .vgrid:has(.vframe.playing) .movie-line,
+  .vgrid:has(.vframe.tapped) .movie-line{display:block}
+}
 
 /* =========================================================
    11. 学ぶこと
    ========================================================= */
 .learn{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line)}
-.learn .l{background:var(--paper);padding:20px 14px;text-align:center}
+.learn .l{background:var(--paper);padding:18px 14px;text-align:center;min-height:88px;display:flex;flex-direction:column;justify-content:center}
 .learn .l .ico{display:block;width:26px;height:26px;stroke:var(--text);fill:none;margin:0 auto 10px}
-.learn .l p{font-size:13px;line-height:1.7;font-weight:600}
-.learn-photo{aspect-ratio:16/10;margin-top:14px}
+.learn .l p{font-size:14px;line-height:1.65;font-weight:600}
+.learn-photo{aspect-ratio:16/10;margin-top:32px}
 
 /* =========================================================
    12. 受講生の声
@@ -356,8 +372,8 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 }
 .voice .ph{border-radius:0;height:100%;min-height:118px}
 .voice .bd{padding:13px 14px}
-.voice h3{font-size:15px;font-weight:700;line-height:1.65;margin-bottom:8px}
-.voice p{font-size:13px;line-height:1.85;color:var(--text-2)}
+.voice h3{font-size:15.5px;font-weight:700;line-height:1.6;margin-bottom:8px}
+.voice p{font-size:14px;line-height:1.8;color:var(--text-2)}
 .voice .who{
   margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
   font-size:11px;letter-spacing:.06em;color:var(--text-2);
@@ -366,10 +382,10 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 /* =========================================================
    13. 講座概要
    ========================================================= */
-.spec{width:100%;border-collapse:collapse;font-size:13.5px}
-.spec th,.spec td{border-top:1px solid var(--line);padding:11px 4px;text-align:left;vertical-align:top;line-height:1.8}
+.spec{width:100%;border-collapse:collapse;font-size:15px}
+.spec th,.spec td{border-top:1px solid var(--line);padding:12px 4px;text-align:left;vertical-align:top;line-height:1.75}
 .spec tr:last-child th,.spec tr:last-child td{border-bottom:1px solid var(--line)}
-.spec th{width:104px;font-weight:700;color:var(--text);white-space:nowrap}
+.spec th{width:74px;font-weight:700;color:var(--text);white-space:nowrap}
 .spec td{color:var(--text-2)}
 
 /* =========================================================
@@ -378,8 +394,8 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 .faq{border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
 .faq summary{
-  list-style:none;cursor:pointer;padding:14px 40px 14px 0;position:relative;
-  font-size:14.5px;line-height:1.7;font-weight:700;
+  list-style:none;cursor:pointer;padding:20px 40px 20px 0;position:relative;
+  font-size:15px;line-height:1.7;font-weight:700;
 }
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{
@@ -388,7 +404,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   transform:translateY(-70%) rotate(45deg);transition:transform .2s;
 }
 .faq details[open] summary::after{transform:translateY(-30%) rotate(225deg)}
-.faq .a{padding:0 0 18px;font-size:13.5px;line-height:1.9;color:var(--text-2)}
+.faq .a{padding:0 0 20px;font-size:15px;line-height:1.85;color:var(--text-2)}
 
 /* =========================================================
    15. 最終CTA（写真＋黒）
@@ -406,8 +422,8 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   background:linear-gradient(180deg,rgba(10,11,12,.56),rgba(10,11,12,.82));
 }
 .cta-band .wrap{position:relative;z-index:2}
-.cta-band h2{color:#fff;font-size:23px;line-height:1.55}
-.cta-band p.ld{margin-top:12px;font-size:14px;line-height:1.9;color:#DCDEE0}
+.cta-band h2{color:#fff;font-size:24px;line-height:1.5}
+.cta-band p.ld{margin-top:12px;font-size:15px;line-height:1.9;color:#DCDEE0}
 .cta-band .btn{margin-top:22px}
 /* 特典の帯（丸バッジは人物に重なるので絶対配置しない） */
 .giftbar{
@@ -454,12 +470,12 @@ footer .copy{font-size:10.5px;color:#7E8287}
    17. PC（900px以上）
    ========================================================= */
 @media(min-width:900px){
-  body{font-size:16px;padding-bottom:0}
-  section{padding:96px 0}
-  section.tight{padding:64px 0}
-  h2{font-size:33px;line-height:1.5}
+  body{font-size:17px;padding-bottom:0}
+  section{padding:76px 0}
+  section.tight{padding:60px 0}
+  h2{font-size:34px;line-height:1.45}
   .sec-head{margin-bottom:38px}
-  .sec-head p{font-size:15.5px}
+  .sec-head p{font-size:16.5px}
 
   /* ---- FV：左に文字／右に商品写真 ----
      .hero-copy は display:contents のまま。中の要素を直接グリッドに並べて、
@@ -475,7 +491,7 @@ footer .copy{font-size:10.5px;color:#7E8287}
   .hero-lead{font-size:15.5px;max-width:30em}
   .hero-photo{
     grid-column:2;grid-row:1;align-self:center;
-    margin:0;aspect-ratio:4/5;max-height:560px;box-shadow:0 22px 44px rgba(12,13,14,.12);
+    margin:0;aspect-ratio:4/3;max-height:520px;box-shadow:0 22px 44px rgba(12,13,14,.12);
   }
   .hero-pills{margin-top:30px;max-width:430px}
   .pill .cir{width:88px;height:88px;font-size:10.5px}

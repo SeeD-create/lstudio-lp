@@ -49,6 +49,9 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
     vf.setAttribute("tabindex", "0");
     vf.setAttribute("aria-label", "講座説明動画を再生する");
     var play = function () {
+      // 2026-08-11 C案用：再生を押したことをCSSへ伝える（LINE導線を再生後に出すため）。
+      // A案・B案には対応するCSSが無いので影響なし。
+      vf.classList.add("tapped");
       if (!VIMEO_ID) {
         var n = vf.parentNode.querySelector(".vnote");
         if (!n) {
