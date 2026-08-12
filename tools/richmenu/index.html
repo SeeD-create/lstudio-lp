@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リッチメニューメーカー｜無料でLINEリッチメニュー画像を作成</title>
+<meta name="description" content="質問に答えるだけで、LINE公式アカウントのリッチメニュー画像(2500×1686)を無料作成。9業種×10デザイン。登録不要・すべてブラウザ内で完結します。">
+<link rel="canonical" href="https://l-studiojp.com/tools/richmenu/">
+<meta property="og:title" content="リッチメニューメーカー｜無料でLINEリッチメニュー画像を作成">
+<meta property="og:description" content="質問に答えるだけで、リッチメニュー画像が無料で完成。9業種×10デザイン、登録不要。">
+<meta property="og:url" content="https://l-studiojp.com/tools/richmenu/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Noto+Sans+JP:wght@400;500;700;900&family=Shippori+Mincho:wght@600;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #06C755; --green-dark: #00A94A; --green-deep: #007A38; --green-bg: #E9F9EF;
+  --ink: #1a2b3c; --ink-sub: #5a6a78; --card-border: #e2ece6; --orange: #FF7A00;
+  --paper: #f6faf7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.7; }
+h1, h2, h3 { font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif; line-height: 1.4; }
+.wrap { width: min(980px, 100%); margin: 0 auto; padding: 0 16px; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ヘッダー */
+.hero { background: linear-gradient(160deg, #05391d 0%, #0a6b35 55%, var(--green) 100%); color: #fff; padding: 20px 0 26px; }
+.hero .brand { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.hero .brand img { height: 24px; border-radius: 5px; }
+.hero .brand span { font-weight: 700; font-size: .8rem; letter-spacing: .04em; }
+.hero .badge { display: inline-block; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.45); border-radius: 999px; padding: 2px 12px; font-size: .74rem; font-weight: 700; margin-bottom: 8px; }
+.hero h1 { font-size: clamp(1.3rem, 4.6vw, 1.9rem); font-weight: 800; }
+.hero p { margin-top: 8px; font-size: .86rem; color: #dff5e7; }
+
+/* ステップ */
+.step-sec { padding: 26px 0 6px; }
+.step-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.step-head .no { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: .95rem; font-family: 'M PLUS Rounded 1c', sans-serif; }
+.step-head h2 { font-size: 1.12rem; font-weight: 800; }
+.step-head .opt { font-size: .72rem; color: var(--ink-sub); font-weight: 400; }
+
+/* 業種グリッド */
+.ind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ind-grid button { background: #fff; border: 2px solid var(--card-border); border-radius: 12px; padding: 14px 6px 12px; text-align: center; font-weight: 700; font-size: .88rem; transition: .15s; }
+.ind-grid button .em { display: block; font-size: 1.5rem; margin-bottom: 2px; }
+.ind-grid button.sel { border-color: var(--green); background: var(--green-bg); color: var(--green-deep); }
+
+/* 雰囲気チップ */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { background: #fff; border: 2px solid var(--card-border); border-radius: 999px; padding: 7px 16px; font-weight: 700; font-size: .85rem; }
+.chips button.sel { border-color: var(--green); background: var(--green-bg); color: var(--green-deep); }
+
+/* デザインギャラリー */
+.gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.g-card { background: #fff; border: 2px solid var(--card-border); border-radius: 12px; overflow: hidden; text-align: left; padding: 0; transition: .15s; position: relative; }
+.g-card canvas { width: 100%; display: block; background: #eee; }
+.g-card .cap { padding: 8px 12px 10px; font-size: .82rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.g-card .cap .reco { background: var(--orange); color: #fff; font-size: .64rem; border-radius: 5px; padding: 1px 7px; }
+.g-card .cap .sub { display: block; font-weight: 400; font-size: .7rem; color: var(--ink-sub); }
+.g-card.sel { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-bg); }
+
+/* エディタ */
+.editor { display: grid; grid-template-columns: 1.2fr 1fr; gap: 18px; align-items: start; }
+.ed-preview { position: sticky; top: 10px; }
+.ed-preview canvas { width: 100%; border-radius: 10px; border: 1px solid var(--card-border); display: block; background: #eee; }
+.ed-preview .dl-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.btn-dl { flex: 1; background: var(--green); color: #fff; border: none; border-radius: 999px; padding: 13px 18px; font-weight: 800; font-size: .95rem; min-width: 200px; }
+.btn-dl:active { background: var(--green-deep); }
+.btn-sub { background: #fff; color: var(--green-deep); border: 2px solid var(--green); border-radius: 999px; padding: 11px 18px; font-weight: 700; font-size: .85rem; }
+.ed-panel { background: #fff; border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; }
+.ed-panel h3 { font-size: .92rem; font-weight: 800; color: var(--green-deep); margin-bottom: 10px; }
+.ed-panel + .ed-panel { margin-top: 14px; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-row button { background: #fff; border: 2px solid var(--card-border); border-radius: 8px; padding: 6px 14px; font-weight: 700; font-size: .84rem; }
+.btn-row button.sel { border-color: var(--green); background: var(--green-bg); color: var(--green-deep); }
+.lbl-grid { display: grid; gap: 8px; }
+.lbl-row { display: grid; grid-template-columns: 1fr 90px 54px; gap: 6px; align-items: center; }
+.lbl-row input[type=text] { border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 10px; font-size: .88rem; font-family: inherit; width: 100%; }
+.lbl-row .en input { font-size: .76rem; }
+.lbl-row label.bg { font-size: .68rem; display: flex; align-items: center; gap: 3px; color: var(--ink-sub); white-space: nowrap; }
+.color-row { display: flex; align-items: center; gap: 10px; font-size: .84rem; }
+.color-row input[type=color] { width: 46px; height: 34px; border: 1px solid var(--card-border); border-radius: 8px; padding: 2px; background: #fff; }
+.check-row { font-size: .84rem; display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+
+/* 設定ガイド */
+.guide { background: #fff; border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px; margin-top: 18px; }
+.guide h3 { font-size: .95rem; font-weight: 800; color: var(--green-deep); margin-bottom: 10px; }
+.guide ol { padding-left: 20px; font-size: .87rem; }
+.guide ol li { margin-bottom: 6px; }
+.guide table { border-collapse: collapse; font-size: .78rem; margin-top: 8px; width: 100%; }
+.guide th, .guide td { border: 1px solid var(--card-border); padding: 4px 8px; text-align: center; }
+.guide th { background: var(--green-bg); color: var(--green-deep); }
+.guide .note { font-size: .76rem; color: var(--ink-sub); margin-top: 8px; }
+
+/* CTA */
+.cta { background: linear-gradient(160deg, #05391d 0%, #0a6b35 60%, var(--green) 100%); color: #fff; border-radius: 16px; padding: 24px 20px; margin: 34px 0 14px; }
+.cta h2 { font-size: 1.1rem; font-weight: 800; }
+.cta p { font-size: .86rem; margin-top: 8px; color: #dff5e7; }
+.cta a.btn { display: inline-block; margin-top: 14px; background: #fff; color: var(--green-deep); font-weight: 800; text-decoration: none; border-radius: 999px; padding: 12px 26px; font-size: .93rem; }
+.cta .s { font-size: .74rem; color: #bfe8cd; margin-top: 8px; }
+
+footer { background: #0d1f15; color: #cfe3d6; padding: 26px 0; font-size: .76rem; text-align: center; margin-top: 34px; }
+footer a { color: #8fd6a8; }
+
+.hidden { display: none !important; }
+.loading { text-align: center; color: var(--ink-sub); font-size: .85rem; padding: 20px; }
+
+@media (max-width: 700px) {
+  .ind-grid { grid-template-columns: repeat(3, 1fr); }
+  .ind-grid button { font-size: .78rem; }
+  .gallery { grid-template-columns: 1fr; }
+  .editor { grid-template-columns: 1fr; }
+  .ed-preview { position: static; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="brand"><img src="/logo.png" alt="Lスタジオ"><span>L STUDIO</span></div>
+    <div class="badge">🆓 無料・登録不要・ブラウザで完結</div>
+    <h1>リッチメニューメーカー</h1>
+    <p>質問に答えるだけで、LINE公式アカウントのリッチメニュー画像（2500×1686）がその場で完成。9業種×10デザイン=90パターンから選べます。画像はサーバーに送信されず、すべてお使いの端末内で作られます。</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="step-sec" id="step1">
+    <div class="step-head"><span class="no">1</span><h2>お店の業種を選んでください</h2></div>
+    <div class="ind-grid" id="indGrid"></div>
+  </section>
+
+  <section class="step-sec hidden" id="step2">
+    <div class="step-head"><span class="no">2</span><h2>お店の雰囲気は？ <span class="opt">（近いものを1つ）</span></h2></div>
+    <div class="chips" id="moodChips"></div>
+  </section>
+
+  <section class="step-sec hidden" id="step3">
+    <div class="step-head"><span class="no">3</span><h2>デザインを選んでください <span class="opt">（10パターン・タップで選択）</span></h2></div>
+    <div class="loading" id="galleryLoading">デザインを描画しています…</div>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="step-sec hidden" id="step4">
+    <div class="step-head"><span class="no">4</span><h2>文言を調整してダウンロード</h2></div>
+    <div class="editor">
+      <div class="ed-preview">
+        <canvas id="edCanvas"></canvas>
+        <div class="dl-row">
+          <button class="btn-dl" id="btnDl">📥 画像をダウンロード（JPG・実寸2500×1686）</button>
+          <button class="btn-sub" id="btnPng">PNGで保存</button>
+        </div>
+      </div>
+      <div>
+        <div class="ed-panel">
+          <h3>ボタンの数</h3>
+          <div class="btn-row" id="layoutRow">
+            <button data-n="6">6ボタン</button>
+            <button data-n="4">4ボタン</button>
+            <button data-n="3">3ボタン</button>
+          </div>
+        </div>
+        <div class="ed-panel">
+          <h3>ボタンの文言（日本語／英語サブ／バッジ）</h3>
+          <div class="lbl-grid" id="lblGrid"></div>
+          <label class="check-row"><input type="checkbox" id="chkEn" checked> 英語サブラベルを表示する</label>
+        </div>
+        <div class="ed-panel">
+          <h3>色の調整</h3>
+          <div class="color-row">
+            <input type="color" id="accentPick">
+            <span>アクセント色（目立たせるボタンの色）</span>
+          </div>
+          <label class="check-row"><input type="checkbox" id="chkDefColor" checked> デザインおすすめの色を使う</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide">
+      <h3>📱 LINE公式アカウントへの設定方法（5分）</h3>
+      <ol>
+        <li><a href="https://manager.line.biz/" target="_blank" rel="noopener">LINE Official Account Manager</a> にログイン →「トークルーム管理」→「リッチメニュー」→「作成」</li>
+        <li>表示設定を入力（タイトルは管理用なので何でもOK。メニューバーのテキストは「メニュー」がおすすめ）</li>
+        <li>「コンテンツ設定」→ テンプレートで<b>下の表と同じ分割</b>を選ぶ → 「画像をアップロード」でダウンロードした画像を選択</li>
+        <li>各領域のアクションに「テキスト」を選び、<b>ボタンと同じ文言</b>を入力（自動応答と連動させる場合。リンクなら「リンク」でURLを設定）</li>
+        <li>「保存」→ 表示をオンにして完了！</li>
+      </ol>
+      <div id="areaTable"></div>
+      <p class="note">※ 画像はリッチメニュー大サイズ（2500×1686px）・1MB以下のJPGで出力されるので、そのままアップロードできます。</p>
+    </div>
+
+    <div class="cta">
+      <h2>「押したあとの仕組み」まで作りたい方へ</h2>
+      <p>リッチメニューは入口です。予約受付・自動応答・顧客台帳・ステップ配信まで、このボタンの先の仕組みを丸ごと構築するのがLスタジオの仕事です。あいさつ文・配信文のテンプレ集も無料配布しています。</p>
+      <a class="btn" href="https://lin.ee/xGfU2jt">LINEで相談する（無料）</a>
+      <p class="s">友だち追加して「特典」と送ると、業種別LINE集客テンプレ集（配信文コピペ集）も無料で受け取れます。</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>© L STUDIO ｜ <a href="https://l-studiojp.com/">l-studiojp.com</a> ｜ <a href="https://l-studiojp.com/kit/">無料テンプレ集はこちら</a></p>
+    <p style="margin-top:4px; color:#7fa38c;">作成した画像は商用利用OK。このツールの再配布・転載はご遠慮ください。</p>
+  </div>
+</footer>
+
+<script src="app.js?v=20260812a"></script>
+</body>
+</html>
