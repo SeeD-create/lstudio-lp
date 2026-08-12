@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>業種別LINE集客テンプレ集｜Lスタジオ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #06C755; --green-dark: #00A94A; --green-deep: #007A38; --green-bg: #E9F9EF;
+  --ink: #1a2b3c; --ink-sub: #5a6a78; --card-border: #e2ece6; --orange: #FF7A00;
+  --paper: #f6faf7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", sans-serif; color: var(--ink); background: var(--paper); line-height: 1.75; }
+h1, h2, h3 { font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif; line-height: 1.4; }
+.wrap { width: min(760px, 100%); margin: 0 auto; padding: 0 18px; }
+
+/* ヘッダー */
+.hero { background: linear-gradient(160deg, #05391d 0%, #0a6b35 55%, var(--green) 100%); color: #fff; padding: 40px 0 34px; }
+.hero .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.hero .brand img { height: 30px; border-radius: 6px; }
+.hero .brand span { font-weight: 700; font-size: .9rem; letter-spacing: .04em; }
+.hero .badge { display: inline-block; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.45); border-radius: 999px; padding: 3px 14px; font-size: .78rem; font-weight: 700; margin-bottom: 12px; }
+.hero h1 { font-size: clamp(1.5rem, 5.4vw, 2.1rem); font-weight: 800; }
+.hero p.lead { margin-top: 12px; font-size: .92rem; color: #dff5e7; }
+
+/* 目次ナビ */
+.toc { position: sticky; top: 0; z-index: 20; background: #fff; border-bottom: 1px solid var(--card-border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.toc-inner { display: flex; gap: 6px; padding: 10px 14px; width: max-content; }
+.toc a { flex: none; font-size: .78rem; font-weight: 700; color: var(--green-deep); background: var(--green-bg); border-radius: 999px; padding: 5px 12px; text-decoration: none; white-space: nowrap; }
+.toc a.common { background: #fff3e6; color: #b25400; }
+
+/* セクション共通 */
+section.industry, section.common-block { padding: 34px 0 8px; }
+.sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.sec-head .emoji { font-size: 1.7rem; line-height: 1; }
+.sec-head h2 { font-size: 1.28rem; font-weight: 800; }
+.sec-sub { font-size: .85rem; color: var(--ink-sub); margin-bottom: 16px; }
+
+/* カード */
+.card { background: #fff; border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px; margin-bottom: 16px; }
+.card h3 { font-size: .95rem; font-weight: 800; color: var(--green-deep); display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.card h3 .tag { font-size: .68rem; background: var(--green-bg); color: var(--green-deep); border-radius: 6px; padding: 2px 8px; font-family: 'Noto Sans JP', sans-serif; }
+
+/* リッチメニュー見本 */
+.menu-mock { border: 2px solid var(--ink); border-radius: 12px; overflow: hidden; max-width: 420px; margin: 0 auto; }
+.menu-mock .bar { background: var(--ink); color: #fff; font-size: .7rem; font-weight: 700; text-align: center; padding: 4px; letter-spacing: .1em; }
+.menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.menu-grid .cell { aspect-ratio: 1.25 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: .5px solid #d7e3da; font-size: .78rem; font-weight: 700; text-align: center; padding: 4px; background: #fff; }
+.menu-grid .cell .ic { font-size: 1.35rem; }
+.menu-grid .cell.main { background: var(--green-bg); color: var(--green-deep); }
+.menu-note { font-size: .78rem; color: var(--ink-sub); margin-top: 10px; }
+.menu-note b { color: var(--green-deep); }
+
+/* コピペボックス */
+.copybox { position: relative; background: #f2f7f3; border: 1px solid var(--card-border); border-radius: 10px; padding: 14px 14px 12px; margin-top: 10px; }
+.copybox .label { font-size: .72rem; font-weight: 700; color: var(--ink-sub); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.copybox .label .when { background: var(--ink); color: #fff; border-radius: 5px; padding: 1px 8px; font-size: .68rem; }
+.copybox pre { white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size: .86rem; line-height: 1.7; }
+.copybox button { position: absolute; top: 10px; right: 10px; font-family: inherit; font-weight: 700; font-size: .72rem; padding: 5px 12px; border: none; border-radius: 999px; background: var(--green); color: #fff; cursor: pointer; }
+.copybox button:active { background: var(--green-deep); }
+.hint { font-size: .78rem; color: var(--ink-sub); margin-top: 8px; }
+.hint b { color: var(--orange); }
+
+/* ワンポイント */
+.point { display: flex; gap: 10px; background: #fff8ef; border: 1px solid #ffdcb3; border-radius: 10px; padding: 12px 14px; font-size: .85rem; margin-bottom: 4px; }
+.point .ic { flex: none; }
+
+/* 共通ブロック */
+.common-block h2 { font-size: 1.28rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.check-list { list-style: none; }
+.check-list li { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--card-border); font-size: .89rem; }
+.check-list li:last-child { border-bottom: none; }
+.check-list .num { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--green-bg); color: var(--green-deep); font-weight: 800; font-size: .78rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.ng-list li { display: flex; gap: 10px; padding: 9px 0; font-size: .89rem; border-bottom: 1px dashed var(--card-border); }
+.ng-list li:last-child { border-bottom: none; }
+.ng-list { list-style: none; }
+.ng-list .x { flex: none; color: #d33; font-weight: 800; }
+
+/* ルール表 */
+.rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rule-grid .r { background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; }
+.rule-grid .r .t { font-size: .72rem; font-weight: 700; color: var(--ink-sub); }
+.rule-grid .r .v { font-size: .98rem; font-weight: 800; color: var(--green-deep); margin-top: 2px; }
+.rule-grid .r .s { font-size: .74rem; color: var(--ink-sub); margin-top: 4px; line-height: 1.5; }
+
+/* CTA */
+.cta { background: linear-gradient(160deg, #05391d 0%, #0a6b35 60%, var(--green) 100%); color: #fff; border-radius: 16px; padding: 26px 20px; margin: 36px 0 14px; }
+.cta h2 { font-size: 1.15rem; font-weight: 800; }
+.cta p { font-size: .87rem; margin-top: 10px; color: #dff5e7; }
+.cta .price { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); border-radius: 10px; padding: 10px 14px; margin-top: 14px; font-size: .9rem; font-weight: 700; }
+.cta a.btn { display: inline-block; margin-top: 16px; background: #fff; color: var(--green-deep); font-weight: 800; text-decoration: none; border-radius: 999px; padding: 12px 26px; font-size: .95rem; }
+.cta .s { font-size: .76rem; color: #bfe8cd; margin-top: 8px; }
+
+footer { background: #0d1f15; color: #cfe3d6; padding: 30px 0; font-size: .78rem; text-align: center; margin-top: 30px; }
+footer a { color: #8fd6a8; }
+
+.toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(8px); background: var(--ink); color: #fff; font-size: .82rem; font-weight: 700; padding: 9px 20px; border-radius: 999px; opacity: 0; pointer-events: none; transition: .25s; z-index: 50; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 480px) {
+  .rule-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="brand"><img src="/logo.png" alt="Lスタジオ"><span>L STUDIO</span></div>
+    <div class="badge">🎁 友だち限定特典</div>
+    <h1>業種別LINE集客テンプレ集</h1>
+    <p class="lead">リッチメニューの設計図8業種＋あいさつメッセージ8本＋ステップ配信24通＋導入チェックリスト。すべてコピペしてそのまま使えます。文中の〔店名〕などはお店に合わせて書き換えてください。</p>
+  </div>
+</div>
+
+<nav class="toc"><div class="toc-inner">
+  <a href="#inshoku">🍽 飲食店</a>
+  <a href="#salon">💇 美容室</a>
+  <a href="#seikotsu">💆 整骨院</a>
+  <a href="#clinic">🦷 クリニック</a>
+  <a href="#pet">🐶 ペットサロン</a>
+  <a href="#juku">✏️ 学習塾</a>
+  <a href="#fudosan">🏠 不動産</a>
+  <a href="#shigyo">⚖️ 士業</a>
+  <a href="#rules" class="common">📮 配信ルール</a>
+  <a href="#checklist" class="common">✅ チェックリスト</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ============ 飲食店 ============ -->
+<section class="industry" id="inshoku">
+  <div class="sec-head"><span class="emoji">🍽</span><h2>飲食店・居酒屋</h2></div>
+  <p class="sec-sub">狙い: 「一度来たお客さんを、もう一度呼ぶ」。新規集客より再来店のほうがLINEは強いです。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📅</span>ご予約</div>
+        <div class="cell"><span class="ic">🍜</span>本日の<br>おすすめ</div>
+        <div class="cell main"><span class="ic">🎫</span>クーポン</div>
+        <div class="cell"><span class="ic">📖</span>メニュー</div>
+        <div class="cell"><span class="ic">📍</span>アクセス<br>営業時間</div>
+        <div class="cell"><span class="ic">💬</span>お店に<br>質問</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 左上と右上は一番押される特等席。「予約」と「クーポン」を置きます。「本日のおすすめ」は毎日変えなくてOK、週替わりで十分です。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔店名〕の公式LINEへようこそ🍻
+ご登録ありがとうございます！
+
+このLINEでは
+🎫 友だち限定クーポン
+🍜 週替わりのおすすめ
+📅 予約の受付
+をお届けします。
+
+まずは登録のお礼に、こちらをどうぞ👇
+【ドリンク1杯無料クーポン】
+ご注文時にこの画面をスタッフにお見せください✨
+（有効期限: 登録から2週間）</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 「登録した瞬間にもらえるもの」を必ず入れる。これがないとブロック率が倍になります。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: お礼＋お店の自己紹介</div>
+      <pre>昨日はご登録ありがとうございました😊
+〔店名〕の〔店主名〕です。
+
+うちの自慢は〔看板メニュー〕。
+〔ひとことこだわり。例: 毎朝市場で仕入れる鮮魚を、その日のうちに〕
+
+クーポンの有効期限は〔日付〕までです。
+お近くにお越しの際はぜひ🍻</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">3日後</span>2通目: 人気メニューの紹介</div>
+      <pre>【当店人気ベスト3】🏆
+こんばんは、〔店名〕です。
+初めての方がよく注文される3品をご紹介します。
+
+🥇〔メニュー1〕…〔ひとこと〕
+🥈〔メニュー2〕…〔ひとこと〕
+🥉〔メニュー3〕…〔ひとこと〕
+
+迷ったらこの3つで間違いなしです😊
+ご予約はメニューの【ご予約】からどうぞ。</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">10日後</span>3通目: 再来店のひと押し</div>
+      <pre>〔店名〕です🍻
+クーポンはもうお使いいただけましたか？
+
+まだの方へ、有効期限は〔日付〕までです。
+今週の週替わりは〔メニュー〕。
+
+金・土は混み合うので、
+メニューの【ご予約】からのご予約がおすすめです😊</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> クーポンの提示数を数えるだけでOK。「登録100人→提示20枚」なら上出来です。</span></div>
+</section>
+
+<!-- ============ 美容室 ============ -->
+<section class="industry" id="salon">
+  <div class="sec-head"><span class="emoji">💇</span><h2>美容室・エステサロン</h2></div>
+  <p class="sec-sub">狙い: 「次回予約の取りこぼしを防ぐ」。失客の一番の理由は"なんとなく行きそびれ"です。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📅</span>ご予約</div>
+        <div class="cell"><span class="ic">💰</span>メニュー<br>料金</div>
+        <div class="cell"><span class="ic">📸</span>スタイル<br>実例</div>
+        <div class="cell main"><span class="ic">🎫</span>会員証<br>ポイント</div>
+        <div class="cell"><span class="ic">📍</span>アクセス</div>
+        <div class="cell"><span class="ic">💬</span>相談する</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 「会員証・ポイント」を入れると、お客さんが自分からLINEを開く理由ができます。開く習慣＝配信が読まれる下地です。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔サロン名〕の公式LINEへようこそ✨
+ご登録ありがとうございます！
+
+このLINEでできること
+📅 24時間いつでも予約
+📸 スタイル実例のチェック
+🎫 来店ごとのポイント獲得
+
+ご登録特典として、
+【次回使える 施術10%OFFクーポン】
+をお受け取りください👇
+（ご予約時に「LINE見た」とお伝えください）</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 施術中に「LINEやってます、予約がラクになりますよ」の一言で登録してもらうのが最強の獲得法です。QRコードは鏡の横に。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: お礼＋ケアのアドバイス</div>
+      <pre>ご登録ありがとうございました😊
+〔サロン名〕の〔スタイリスト名〕です。
+
+早速ですが、今日のホームケアのコツをひとつ。
+〔例: カラー後48時間は、シャンプーをぬるめのお湯にすると色持ちが全然違います〕
+
+気になることがあれば、このLINEに
+そのまま返信してくださいね✂️</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">7日後</span>2通目: スタイル実例の紹介</div>
+      <pre>【今月人気のスタイル】📸
+こんにちは、〔サロン名〕です。
+
+最近ご注文の多いスタイルを
+メニューの【スタイル実例】にまとめました。
+
+「こんな感じにしたい」のスクショを
+そのまま送っていただければ、
+似合わせのご相談にも乗ります😊</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">30日後</span>3通目: 次回来店のご案内</div>
+      <pre>〔サロン名〕です✨
+前回のご来店から1ヶ月ほど経ちました。
+
+〔例: カラーの根元が気になり始める頃です〕
+
+今週は〔曜日〕にお席の空きがあります。
+メニューの【ご予約】から30秒で予約できます😊
+10%OFFクーポンもお忘れなく！</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> 「LINE経由の予約件数」を月ごとに数える。電話予約がLINEに置き換わるだけでも、営業中の電話対応が減って施術に集中できます。</span></div>
+</section>
+
+<!-- ============ 整骨院 ============ -->
+<section class="industry" id="seikotsu">
+  <div class="sec-head"><span class="emoji">💆</span><h2>整骨院・整体院</h2></div>
+  <p class="sec-sub">狙い: 「痛みが引いたら来なくなる」を防ぐ。メンテナンス通院の習慣づけがLINEの仕事です。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📅</span>ご予約</div>
+        <div class="cell"><span class="ic">⏰</span>本日の<br>空き状況</div>
+        <div class="cell"><span class="ic">📋</span>施術<br>メニュー</div>
+        <div class="cell main"><span class="ic">🧘</span>セルフケア<br>動画</div>
+        <div class="cell"><span class="ic">📍</span>アクセス<br>受付時間</div>
+        <div class="cell"><span class="ic">💬</span>先生に<br>質問</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 「セルフケア動画」が信頼構築の柱。スマホで撮った1分動画で十分です。「この先生、ちゃんとしてる」が次の予約につながります。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔院名〕の公式LINEへようこそ😊
+ご登録ありがとうございます！
+
+このLINEでできること
+📅 24時間いつでも予約・変更
+🧘 自宅でできるセルフケア動画
+💬 先生への質問（施術前の不安もどうぞ）
+
+「今日の空きありますか？」の
+お問い合わせもこのままどうぞ。
+確認してすぐお返事します！</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 整骨院は「予約変更のしやすさ」が命。電話しづらくて無断キャンセル、が一番の損失です。LINEなら一言で済みます。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: 施術後のフォロー</div>
+      <pre>〔院名〕です😊
+昨日の施術後、お身体の調子はいかがですか？
+
+施術後1〜2日は、だるさが出ることがありますが
+好転反応なのでご安心ください。
+
+⚠️ 今日気をつけていただきたいこと
+〔例: 長時間の同じ姿勢を避け、1時間に1回は立ち上がる〕
+
+気になることがあれば返信でどうぞ！</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">5日後</span>2通目: セルフケアの紹介</div>
+      <pre>【1分セルフケア】🧘
+〔院名〕です。
+
+〔症状。例: デスクワークの肩こり〕に効く
+簡単なストレッチを動画にしました。
+
+▶️ メニューの【セルフケア動画】からどうぞ
+
+1日1回、お風呂上がりが効果的です。
+続けると施術の効果も長持ちしますよ😊</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">14日後</span>3通目: メンテナンス通院のご提案</div>
+      <pre>〔院名〕です😊
+前回の施術から2週間が経ちました。
+
+痛みが落ち着いた今こそ、
+「戻り」を防ぐ大事なタイミングです。
+
+月1回のメンテナンスで
+いい状態をキープしませんか？
+
+今週の空き: 〔曜日・時間帯〕
+メニューの【ご予約】からどうぞ！</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> 「2回目来院率」を見る。初回で終わる人が5人に1人減るだけで、月の売上は目に見えて変わります。</span></div>
+</section>
+
+<!-- ============ クリニック ============ -->
+<section class="industry" id="clinic">
+  <div class="sec-head"><span class="emoji">🦷</span><h2>歯科・クリニック</h2></div>
+  <p class="sec-sub">狙い: 「リコール(定期検診)の呼び戻し」。ハガキよりLINEのほうが届いて、読まれて、予約まで一直線です。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📅</span>診療予約</div>
+        <div class="cell"><span class="ic">🕐</span>診療時間<br>休診日</div>
+        <div class="cell"><span class="ic">🔰</span>初めての<br>方へ</div>
+        <div class="cell main"><span class="ic">🔔</span>定期検診の<br>ご案内</div>
+        <div class="cell"><span class="ic">📍</span>アクセス<br>駐車場</div>
+        <div class="cell"><span class="ic">💬</span>お問い<br>合わせ</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 医療系は派手さより「迷わないこと」。初診の方が知りたいのは持ち物・保険証・所要時間。「初めての方へ」に全部まとめます。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔医院名〕の公式LINEです。
+ご登録ありがとうございます。
+
+このLINEでは
+📅 診療のご予約・変更
+🔔 定期検診の時期のお知らせ
+🕐 休診日のお知らせ
+をご案内しています。
+
+ご予約はメニューの【診療予約】から
+24時間いつでも受け付けています。
+
+※ お急ぎの場合・緊急時は
+お電話（〔電話番号〕）にてご連絡ください。</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 医療系は絵文字を控えめに、敬体で統一。「緊急時は電話へ」の一文は必ず入れます。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: 登録のお礼と使い方</div>
+      <pre>〔医院名〕です。
+ご登録ありがとうございました。
+
+このLINEからは
+・予約の確認、変更、キャンセル
+・定期検診の時期のお知らせ
+ができます。
+
+「予約はいつだったかな？」というときも
+メッセージいただければお調べします。
+お気軽にご利用ください。</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">7日後</span>2通目: 医院のこだわり・安心材料</div>
+      <pre>〔医院名〕です。
+
+当院では〔こだわり。例: 治療の前に必ず写真とイラストで説明し、納得いただいてから治療を始めること〕を大切にしています。
+
+「聞きたいことがあったのに聞きそびれた」
+という場合は、このLINEでご質問ください。
+次回の診療時に担当からお答えします。</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">検診時期に</span>3通目: リコール(定期検診のご案内)</div>
+      <pre>〔医院名〕です。
+前回の検診から〔3ヶ月/6ヶ月〕が経ちました。
+
+お口の健康維持のため、
+定期検診をおすすめする時期です。
+
+🗓 ご都合のよい日時を
+メニューの【診療予約】からお選びください。
+所要時間は約〔30分〕です。
+
+※ 本メッセージは検診時期の方にお送りしています。
+すでにご予約済みの場合はご容赦ください。</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> リコール率(検診案内→来院)を見る。ハガキの回収率は数%、LINEなら2〜3倍が相場です。ハガキ代と貼る手間も丸ごと消えます。</span></div>
+</section>
+
+<!-- ============ ペットサロン ============ -->
+<section class="industry" id="pet">
+  <div class="sec-head"><span class="emoji">🐶</span><h2>ペットサロン</h2></div>
+  <p class="sec-sub">狙い: 「仕上がり写真」を配信の主役に。飼い主さんは自分の子の写真が届くだけで嬉しい＝ブロックされない配信ができる稀有な業種です。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📅</span>ご予約</div>
+        <div class="cell"><span class="ic">💰</span>料金表<br>コース</div>
+        <div class="cell"><span class="ic">📸</span>カット<br>仕上がり例</div>
+        <div class="cell"><span class="ic">🚗</span>送迎に<br>ついて</div>
+        <div class="cell"><span class="ic">📍</span>アクセス</div>
+        <div class="cell main"><span class="ic">💬</span>相談する</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 「相談する」を目立たせるのがコツ。「うちの子、爪切りだけでもいい?」のような小さな相談が新規予約の入口になります。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔サロン名〕の公式LINEへようこそ🐾
+ご登録ありがとうございます！
+
+このLINEでできること
+📅 トリミングのご予約
+📸 仕上がり写真のお届け
+💬 毛玉・皮膚などの相談
+
+初めての方は、わんちゃん・ねこちゃんの
+お名前と犬種(猫種)を送ってください😊
+カルテを作ってお待ちしています！</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 「お名前と犬種を送って」で最初のやり取りが自然に生まれます。会話が一度でもあるアカウントはブロックされにくいです。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: お礼＋お店の紹介</div>
+      <pre>ご登録ありがとうございました🐾
+〔サロン名〕の〔トリマー名〕です。
+
+当店は〔こだわり。例: 1頭ずつの貸切対応で、
+他のわんちゃんが苦手な子も安心〕です。
+
+トリミング後には仕上がり写真を
+このLINEにお送りしています📸
+楽しみにしていてくださいね！</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">7日後</span>2通目: 季節のケア情報</div>
+      <pre>【季節のケア情報】🐾
+〔サロン名〕です。
+
+〔季節の悩み。例: 梅雨どきは皮膚トラブルが増える季節。
+お散歩後は足裏をしっかり乾かしてあげてください〕
+
+「うちの子、最近ここが気になる…」があれば
+写真を送ってください。プロの目でお答えします😊</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">30日後</span>3通目: 次回トリミングのご案内</div>
+      <pre>〔サロン名〕です🐾
+〔ペット名〕ちゃん、前回のトリミングから
+1ヶ月ほど経ちました。
+
+毛玉になる前のご来店がおすすめです✂️
+（毛玉が進むと追加料金がかかってしまうので…！）
+
+今週の空き: 〔曜日〕
+メニューの【ご予約】からどうぞ😊</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> 来店周期(前回来店から次回までの日数)を見る。周期が45日→35日に縮むだけで年間の来店回数が1.3倍になります。</span></div>
+</section>
+
+<!-- ============ 学習塾 ============ -->
+<section class="industry" id="juku">
+  <div class="sec-head"><span class="emoji">✏️</span><h2>学習塾・スクール</h2></div>
+  <p class="sec-sub">狙い: 保護者との連絡を一本化して信頼を積む。塾のLINEは集客ツールである前に「安心ツール」です。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📝</span>体験授業<br>申込</div>
+        <div class="cell"><span class="ic">🔔</span>入退室通知<br>について</div>
+        <div class="cell"><span class="ic">📅</span>講習<br>イベント</div>
+        <div class="cell"><span class="ic">💰</span>コース<br>料金</div>
+        <div class="cell"><span class="ic">📞</span>欠席連絡<br>お問い合わせ</div>
+        <div class="cell"><span class="ic">🗺</span>アクセス</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 「入退室通知」は保護者に一番刺さる機能。「お子さまの入退室をLINEでお知らせできます」は体験申込の決め手になります。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔塾名〕の公式LINEです。
+ご登録ありがとうございます。
+
+このLINEでは
+📝 体験授業のお申し込み
+🔔 お子さまの入退室のお知らせ
+📞 欠席・遅刻のご連絡
+を受け付けています。
+
+まずはお子さまの学年を教えてください👇
+学年に合わせたご案内をお送りします。
+（例: 中2）</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 学年を聞いておくと、講習案内を「中3だけに配信」のように絞れます。全員に同じ配信をしないことがブロック回避の要です。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: 塾の方針紹介</div>
+      <pre>〔塾名〕です。
+ご登録ありがとうございました。
+
+当塾は〔方針。例: 「授業を受けて終わり」ではなく、
+できるようになるまで演習で仕上げる塾〕です。
+
+教室の様子や指導の流れは
+体験授業でご覧いただくのが一番早いです。
+メニューの【体験授業申込】からどうぞ。</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">4日後</span>2通目: 保護者の不安に答える</div>
+      <pre>〔塾名〕です。
+
+保護者の方からよくいただくご質問にお答えします。
+
+Q. 部活と両立できますか？
+A. 〔回答。例: 平日19時以降の時間帯と土曜に
+振替できる仕組みがあるので、大会前も安心です〕
+
+他にも気になることがあれば、
+このLINEにそのままご返信ください😊</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">7日後</span>3通目: 体験授業のご案内</div>
+      <pre>〔塾名〕です。
+
+今週・来週の体験授業の空き状況です。
+〔例:
+・火 19:00〜 残2席
+・木 19:00〜 残1席
+・土 13:00〜 残3席〕
+
+体験は無料・教材もこちらでご用意します。
+メニューの【体験授業申込】から
+ご希望の日時をお選びください。</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> 「体験授業の申込数」と「問い合わせから体験までの日数」。LINEだと電話より問い合わせの心理ハードルが下がり、母数そのものが増えます。</span></div>
+</section>
+
+<!-- ============ 不動産 ============ -->
+<section class="industry" id="fudosan">
+  <div class="sec-head"><span class="emoji">🏠</span><h2>不動産</h2></div>
+  <p class="sec-sub">狙い: 「検討期間が長い」業種こそLINE向き。数ヶ月かけて温めて、動くタイミングで一番近くにいるのが勝ちです。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">🔍</span>物件を<br>探す</div>
+        <div class="cell"><span class="ic">🏢</span>来店予約</div>
+        <div class="cell main"><span class="ic">💰</span>売却査定<br>(無料)</div>
+        <div class="cell"><span class="ic">📄</span>資料請求</div>
+        <div class="cell"><span class="ic">👤</span>スタッフ<br>紹介</div>
+        <div class="cell"><span class="ic">💬</span>質問する</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 「買う人」と「売る人」の入口を分けるのが鉄則。売却査定は単価が大きいので、ボタンを1等地(上段)に置きます。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔会社名〕の公式LINEへようこそ🏠
+ご登録ありがとうございます！
+
+まず、今日はどんなご用件ですか？👇
+
+1️⃣ 物件を探している（賃貸）
+2️⃣ 物件を探している（購入）
+3️⃣ 売却・査定を検討している
+4️⃣ まだ情報収集の段階
+
+番号を送っていただければ、
+ぴったりのご案内をお送りします😊
+（もちろん、しつこい営業はしません）</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 「しつこい営業はしません」の一文が効きます。不動産のLINE登録の最大の心理障壁は「電話が来そう」だからです。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: 探し方のコツ</div>
+      <pre>〔会社名〕です🏠
+ご登録ありがとうございました。
+
+物件探しのコツをひとつだけ。
+「希望条件は3つまでに絞る」です。
+
+駅距離・家賃・広さ…全部を満たす物件は
+出た瞬間になくなります。
+「絶対に譲れない3つ」を返信で教えていただければ、
+条件に合う物件が出たタイミングでお知らせします😊</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">5日後</span>2通目: 非公開情報の価値</div>
+      <pre>〔会社名〕です。
+
+実は、いい物件ほどポータルサイトに
+載る前に決まってしまうのをご存知ですか？
+
+当店ではLINEのご登録者だけに
+公開前の物件情報を先行配信しています。
+
+希望エリアと予算を送っていただければ
+配信の対象に追加します📩</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">14日後</span>3通目: 来店・相談への誘導</div>
+      <pre>〔会社名〕です🏠
+
+物件探しは進んでいますか？
+
+「なかなかピンと来る物件がない」ときは
+条件の立て方を少し変えるだけで
+候補がぐっと増えることがあります。
+
+30分の無料相談(オンラインOK)で
+プロと一緒に条件を整理しませんか？
+メニューの【来店予約】からどうぞ😊</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> 「反響から来店までの転換率」。ポータル反響は来店率2割前後が相場、LINEで温めた客はこれが目に見えて上がります。</span></div>
+</section>
+
+<!-- ============ 士業 ============ -->
+<section class="industry" id="shigyo">
+  <div class="sec-head"><span class="emoji">⚖️</span><h2>士業事務所（弁護士・司法書士・税理士）</h2></div>
+  <p class="sec-sub">狙い: 「相談のハードルを下げる」。電話は緊張する、メールは重い。LINEは"ちょっと聞いてみる"ができる唯一の窓口です。</p>
+
+  <div class="card">
+    <h3>リッチメニュー設計図 <span class="tag">6ボタン</span></h3>
+    <div class="menu-mock">
+      <div class="bar">RICH MENU</div>
+      <div class="menu-grid">
+        <div class="cell main"><span class="ic">📅</span>無料相談<br>予約</div>
+        <div class="cell"><span class="ic">📋</span>取扱分野</div>
+        <div class="cell"><span class="ic">💰</span>費用の<br>目安</div>
+        <div class="cell"><span class="ic">📖</span>解決事例</div>
+        <div class="cell"><span class="ic">📍</span>アクセス</div>
+        <div class="cell main"><span class="ic">💬</span>相談内容を<br>送る</div>
+      </div>
+    </div>
+    <p class="menu-note"><b>設計のコツ:</b> 「費用の目安」を隠さないこと。士業への相談をためらう理由の1位は「いくらかかるか分からない」です。目安を見せるだけで予約が増えます。</p>
+  </div>
+
+  <div class="card">
+    <h3>あいさつメッセージ <span class="tag">友だち追加直後に自動送信</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label">文例</div>
+      <pre>〔事務所名〕の公式LINEです。
+ご登録ありがとうございます。
+
+このLINEでは
+📅 無料相談のご予約
+📄 必要書類のご案内・ご提出
+💬 手続きに関するご質問
+を受け付けています。
+
+「これって相談していい内容かな？」
+という段階のご質問も歓迎です。
+メッセージは所員のみが確認し、
+秘密は厳守いたします。</pre>
+    </div>
+    <p class="hint"><b>ポイント:</b> 「秘密は厳守します」を必ず明記。士業のLINEは書類のやり取り(写真で送ってもらう)まで設計すると、事務所側の工数も激減します。</p>
+  </div>
+
+  <div class="card">
+    <h3>ステップ配信 <span class="tag">3通・自動</span></h3>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">翌日</span>1通目: 相談の流れの案内</div>
+      <pre>〔事務所名〕です。
+ご登録ありがとうございました。
+
+初めてのご相談は、次の流れで進みます。
+
+1. このLINEまたは予約フォームで日時を選ぶ
+2. 当日は手ぶらでOK（資料があればなお良し）
+3. 30分の無料相談で、今後の選択肢と費用をご説明
+
+「相談したら依頼しないといけない」
+ということは一切ありませんので、ご安心ください。</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">5日後</span>2通目: よくある相談の紹介</div>
+      <pre>〔事務所名〕です。
+
+当事務所によくいただくご相談です。
+
+・〔例: 親が亡くなったが、何から手をつければ？〕
+・〔例: 遺産分割で兄弟と話がまとまらない〕
+・〔例: 実家の名義が祖父のままになっている〕
+
+ひとつでも当てはまる方は、
+早めのご相談で選択肢が広がります。
+メニューの【無料相談予約】からどうぞ。</pre>
+    </div>
+    <div class="copybox">
+      <button type="button" onclick="copyBox(this)">コピー</button>
+      <div class="label"><span class="when">10日後</span>3通目: 放置のリスクを伝える</div>
+      <pre>〔事務所名〕です。
+
+〔分野の例: 相続のお手続きには
+「3ヶ月」「10ヶ月」など期限のあるものがあります。
+期限を過ぎると選べなくなる手続きもあります〕
+
+「まだ大丈夫」と思っているうちに
+期限が来てしまうケースを多く見てきました。
+
+状況の整理だけでも、無料相談をご利用ください。
+メニューの【無料相談予約】からどうぞ。</pre>
+    </div>
+  </div>
+
+  <div class="point"><span class="ic">💡</span><span><b>効果の見方:</b> 「無料相談の予約数」と「LINE経由の書類提出数」。1件の受任単価が大きい業種なので、月1件増えるだけで投資回収できます。</span></div>
+</section>
+
+<!-- ============ 配信ルール ============ -->
+<section class="common-block" id="rules">
+  <h2>📮 配信の基本ルール（全業種共通）</h2>
+  <div class="card">
+    <div class="rule-grid">
+      <div class="r"><div class="t">配信頻度</div><div class="v">週1回まで</div><div class="s">迷ったら月2〜3回。「配信しない月を作らない」ほうが頻度より大事です。</div></div>
+      <div class="r"><div class="t">配信する曜日・時間</div><div class="v">火〜木の12時 or 19〜20時</div><div class="s">月曜朝と金曜夜は既読されにくい時間帯。予約配信機能を使えば店休日に仕込めます。</div></div>
+      <div class="r"><div class="t">1通の内容</div><div class="v">1テーマだけ</div><div class="s">「お知らせ3つまとめて」は全部読まれません。一番伝えたいこと1つに絞る。</div></div>
+      <div class="r"><div class="t">クーポン配信</div><div class="v">月1回まで</div><div class="s">毎回クーポンだと「割引がないと来ない客」を育ててしまいます。役立つ情報:クーポン＝3:1が目安。</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>ブロックされない3原則</h3>
+    <ul class="check-list">
+      <li><span class="num">1</span><span><b>売り込みより「役立ち」を先に。</b>ケア情報・豆知識・使い方のコツを3回送って、売り込みは1回。この比率を守るだけでブロック率は大きく下がります。</span></li>
+      <li><span class="num">2</span><span><b>「自分ごと」になる配信だけ送る。</b>学年別・来店時期別など、相手に関係のある配信に絞る。全員一斉の配信ほどブロックされます。</span></li>
+      <li><span class="num">3</span><span><b>返信できる空気を作る。</b>「返信で教えてください」「写真を送ってください」を入れる。一度でも会話したお客さんはブロックしません。</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ チェックリスト ============ -->
+<section class="common-block" id="checklist">
+  <h2>✅ 公式LINE導入チェックリスト</h2>
+  <div class="card">
+    <ul class="check-list">
+      <li><span class="num">1</span><span>LINE公式アカウントを開設した（無料プランでOK・月200通まで配信可能）</span></li>
+      <li><span class="num">2</span><span>アカウント名を「店名＋地域名」にした（検索で見つかりやすくなります）</span></li>
+      <li><span class="num">3</span><span>プロフィール画像・背景画像を設定した（お店の外観 or ロゴ）</span></li>
+      <li><span class="num">4</span><span>あいさつメッセージを設定した（このページの文例をコピペ）</span></li>
+      <li><span class="num">5</span><span>リッチメニューを設定した（このページの設計図を参考に）</span></li>
+      <li><span class="num">6</span><span>登録特典を決めた（クーポン・限定情報など「登録した瞬間にもらえるもの」）</span></li>
+      <li><span class="num">7</span><span>店頭にQRコードを置いた（レジ横・鏡の横・待合室など、お客さんが待つ場所）</span></li>
+      <li><span class="num">8</span><span>スタッフの声かけを決めた（「LINEで予約がラクになりますよ」の一言）</span></li>
+      <li><span class="num">9</span><span>ステップ配信を設定した（このページの3通をコピペして自動化）</span></li>
+      <li><span class="num">10</span><span>月1回、友だち数とブロック数を記録する場所を作った（スプレッドシートでOK）</span></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>やってはいけないNG集</h3>
+    <ul class="ng-list">
+      <li><span class="x">✕</span><span><b>開設だけして放置。</b>3ヶ月配信がないアカウントは、次に配信した瞬間にブロックの山を作ります。細くても続けることが第一。</span></li>
+      <li><span class="x">✕</span><span><b>毎週セール告知だけを送る。</b>チラシと同じ扱いを受け、読まれなくなります。</span></li>
+      <li><span class="x">✕</span><span><b>深夜・早朝の配信。</b>通知が鳴った瞬間にブロックされる筆頭です。予約配信を使いましょう。</span></li>
+      <li><span class="x">✕</span><span><b>友だち登録の入口で個人情報を聞きすぎる。</b>名前・電話・住所を全部聞くフォームは登録前に離脱されます。最初はLINE登録だけでOK。</span></li>
+      <li><span class="x">✕</span><span><b>「とりあえず友だち集め」でプレゼント目当ての登録を大量に集める。</b>お客さんにならない友だちは配信コストを上げるだけです。店に来た人・来る可能性のある人に絞りましょう。</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<div class="cta">
+  <h2>この仕組み、丸ごとお作りできます</h2>
+  <p>リッチメニューのデザイン、自動応答、予約受付、顧客台帳、ステップ配信——このテンプレ集の内容を、あなたのお店専用に構築するのがLスタジオの仕事です。ご相談いただいたLINE自体が作品見本になっています。</p>
+  <div class="price">構築費 0円 ＋ 月額 33,000円（税込）<br><span style="font-weight:400; font-size:.8rem;">Lステップ等の外部ツール費用は不要／最短1週間で公開</span></div>
+  <a class="btn" href="https://lin.ee/xGfU2jt">LINEで相談する（無料）</a>
+  <p class="s">トークで「相談」と送っていただければ、担当の平野が直接お返事します。</p>
+</div>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <p>© L STUDIO ｜ <a href="https://l-studiojp.com/">l-studiojp.com</a></p>
+    <p style="margin-top:6px; color:#7fa38c;">本テンプレ集の文例は、ご自身の店舗・事務所で自由にご利用いただけます。再配布・販売はご遠慮ください。</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast">コピーしました ✅</div>
+
+<script>
+function copyBox(btn) {
+  var pre = btn.parentElement.querySelector('pre');
+  var text = pre.textContent;
+  function done() {
+    var t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function () { t.classList.remove('show'); }, 1600);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    done();
+  }
+}
+</script>
+</body>
+</html>

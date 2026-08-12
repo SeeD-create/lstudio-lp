@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>業種別LINE集客テンプレ集【無料配布】｜Lスタジオ</title>
+<meta name="description" content="飲食店・美容室・整骨院・クリニックなど8業種ぶんのLINE公式アカウント集客テンプレを無料配布。リッチメニュー設計図・あいさつ文・ステップ配信24通をコピペでそのまま使えます。">
+<link rel="canonical" href="https://l-studiojp.com/kit/">
+<meta property="og:title" content="業種別LINE集客テンプレ集【無料配布】｜Lスタジオ">
+<meta property="og:description" content="8業種ぶんのLINE集客テンプレをコピペで。リッチメニュー設計図＋あいさつ文＋ステップ配信24通＋導入チェックリスト。">
+<meta property="og:url" content="https://l-studiojp.com/kit/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #06C755; --green-dark: #00A94A; --green-deep: #007A38; --green-bg: #E9F9EF;
+  --ink: #1a2b3c; --ink-sub: #5a6a78; --card-border: #e2ece6; --orange: #FF7A00;
+  --paper: #f6faf7;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans JP', "Hiragino Kaku Gothic ProN", sans-serif; color: var(--ink); background: #fff; line-height: 1.75; }
+h1, h2, h3 { font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif; line-height: 1.4; }
+.wrap { width: min(880px, 100%); margin: 0 auto; padding: 0 20px; }
+img { max-width: 100%; }
+
+/* ヒーロー */
+.hero { background: linear-gradient(160deg, #05391d 0%, #0a6b35 55%, var(--green) 100%); color: #fff; padding: 22px 0 34px; overflow: hidden; }
+.hero .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.hero .brand img { height: 28px; border-radius: 6px; }
+.hero .brand span { font-weight: 700; font-size: .88rem; letter-spacing: .04em; }
+.hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; align-items: center; }
+.hero .ribbon { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; border-radius: 8px; padding: 4px 14px; font-size: .82rem; font-weight: 800; margin-bottom: 12px; }
+.hero h1 { font-size: clamp(1.45rem, 5.6vw, 2.3rem); font-weight: 800; }
+.hero h1 .num { color: #aef7c8; }
+.hero p.lead { margin-top: 12px; font-size: .92rem; color: #dff5e7; }
+.hero .cta-btn { display: inline-block; margin-top: 18px; background: #fff; color: var(--green-deep); font-weight: 800; text-decoration: none; border-radius: 999px; padding: 14px 30px; font-size: 1rem; box-shadow: 0 6px 18px rgba(0,0,0,.22); }
+.hero .cta-btn .sub { display: block; font-size: .68rem; font-weight: 700; color: var(--ink-sub); }
+.hero .cta-note { font-size: .74rem; color: #bfe8cd; margin-top: 10px; }
+
+/* スマホモック */
+.phone { width: min(250px, 100%); margin: 0 auto; background: #111; border-radius: 26px; padding: 10px 8px; box-shadow: 0 14px 34px rgba(0,0,0,.3); }
+.phone .screen { background: #7a94ab; border-radius: 18px; overflow: hidden; }
+.phone .chat-bar { background: #2b3d4f; color: #fff; font-size: .62rem; font-weight: 700; padding: 6px 10px; }
+.phone .msg { margin: 8px 8px 0; background: #fff; color: var(--ink); border-radius: 10px; padding: 7px 9px; font-size: .6rem; line-height: 1.55; width: 82%; }
+.phone .msg.gift { background: var(--green-bg); border: 1px solid #bfe8cd; }
+.phone .mock-menu { margin: 8px 6px 6px; border-radius: 8px; overflow: hidden; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #5c7288; }
+.phone .mock-menu .c { background: #fff; border: .5px solid #dbe6dd; font-size: .5rem; font-weight: 700; text-align: center; padding: 7px 2px; color: var(--ink); }
+.phone .mock-menu .c .i { display: block; font-size: .85rem; }
+.phone .mock-menu .c.g { background: var(--green-bg); color: var(--green-deep); }
+
+/* セクション */
+section { padding: 44px 0 10px; }
+.sec-label { color: var(--green-deep); font-weight: 800; font-size: .78rem; letter-spacing: .12em; }
+section h2 { font-size: clamp(1.25rem, 4.4vw, 1.6rem); font-weight: 800; margin: 4px 0 18px; }
+
+/* 中身カード */
+.contents-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.c-card { background: var(--paper); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px; }
+.c-card .big { font-size: 1.9rem; line-height: 1; }
+.c-card h3 { font-size: .98rem; font-weight: 800; margin: 10px 0 6px; }
+.c-card h3 .n { color: var(--green-deep); }
+.c-card p { font-size: .82rem; color: var(--ink-sub); }
+
+/* 業種チップ */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chips span { background: #fff; border: 1px solid var(--card-border); border-radius: 999px; padding: 6px 14px; font-size: .82rem; font-weight: 700; }
+
+/* 受け取り方 */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: step; }
+.step { background: #fff; border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 16px; position: relative; }
+.step .no { width: 34px; height: 34px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 1rem; margin-bottom: 10px; font-family: 'M PLUS Rounded 1c', sans-serif; }
+.step h3 { font-size: .95rem; font-weight: 800; margin-bottom: 6px; }
+.step p { font-size: .82rem; color: var(--ink-sub); }
+.step .kw { display: inline-block; background: var(--green-bg); color: var(--green-deep); font-weight: 800; border-radius: 6px; padding: 1px 10px; }
+.steps-note { margin-top: 14px; font-size: .82rem; color: var(--ink-sub); }
+
+/* こんな方へ */
+.who { background: var(--paper); }
+.who-list { list-style: none; display: grid; gap: 10px; }
+.who-list li { display: flex; gap: 10px; background: #fff; border: 1px solid var(--card-border); border-radius: 10px; padding: 12px 14px; font-size: .9rem; }
+.who-list li svg { flex: none; margin-top: 4px; }
+
+/* Lスタジオについて */
+.about-box { display: grid; grid-template-columns: 1fr 1.6fr; gap: 20px; align-items: center; background: var(--paper); border: 1px solid var(--card-border); border-radius: 16px; padding: 22px; }
+.about-box img { border-radius: 12px; width: 100%; }
+.about-box h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+.about-box p { font-size: .86rem; color: var(--ink-sub); }
+.about-box .price { margin-top: 10px; font-size: .88rem; font-weight: 700; color: var(--green-deep); }
+.about-box a { color: var(--green-deep); font-weight: 700; }
+
+/* 最後のCTA */
+.last-cta { background: linear-gradient(160deg, #05391d 0%, #0a6b35 60%, var(--green) 100%); color: #fff; text-align: center; padding: 46px 0 50px; margin-top: 46px; }
+.last-cta h2 { font-size: clamp(1.3rem, 4.6vw, 1.7rem); font-weight: 800; }
+.last-cta p { font-size: .9rem; color: #dff5e7; margin-top: 10px; }
+.last-cta .cta-btn { display: inline-block; margin-top: 20px; background: #fff; color: var(--green-deep); font-weight: 800; text-decoration: none; border-radius: 999px; padding: 15px 34px; font-size: 1.02rem; box-shadow: 0 6px 18px rgba(0,0,0,.22); }
+.last-cta .cta-note { font-size: .74rem; color: #bfe8cd; margin-top: 10px; }
+
+footer { background: #0d1f15; color: #cfe3d6; padding: 30px 0; font-size: .78rem; text-align: center; }
+footer a { color: #8fd6a8; }
+
+@media (max-width: 640px) {
+  .hero { padding-top: 18px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 16px; }
+  .hero-grid { display: flex; flex-direction: column; }
+  .hero .h-copy { display: contents; }
+  .hero .ribbon { order: 1; align-self: flex-start; }
+  .hero h1 { order: 2; }
+  .hero .phone-col { order: 3; margin-top: 14px; }
+  .hero p.lead { order: 4; margin-top: 14px; }
+  .hero .cta-wrap { order: 5; }
+  .phone { width: min(210px, 70%); }
+  .contents-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .steps { grid-template-columns: 1fr; }
+  .about-box { grid-template-columns: 1fr; }
+  .about-box img { max-width: 260px; margin: 0 auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="wrap">
+    <div class="brand"><img src="/logo.png" alt="Lスタジオ"><span>L STUDIO</span></div>
+    <div class="hero-grid">
+      <div class="h-copy">
+        <span class="ribbon">🎁 期間限定・無料配布</span>
+        <h1>コピペで使える、<br><span class="num">8業種</span>ぶんの<br>LINE集客テンプレ集</h1>
+        <p class="lead">リッチメニューの設計図、あいさつメッセージ、ステップ配信24通、導入チェックリスト。LINE構築のプロが実案件で使っている型を、そのまま差し上げます。</p>
+        <div class="cta-wrap">
+          <a class="cta-btn" href="https://lin.ee/xGfU2jt">LINE登録して受け取る<span class="sub">登録後にトークで「特典」と送るだけ</span></a>
+          <p class="cta-note">メールアドレスの入力は不要です。LINEの友だち追加だけで受け取れます。</p>
+        </div>
+      </div>
+      <div class="phone-col">
+        <div class="phone"><div class="screen">
+          <div class="chat-bar">💬 Lスタジオ公式LINE</div>
+          <div class="msg">「特典」と送信📩</div>
+          <div class="msg gift">🎁 業種別LINEテンプレ集をお届けします！こちらからどうぞ👇<br>https://l-studiojp.com/kit/…</div>
+          <div class="mock-menu">
+            <div class="c g"><span class="i">📅</span>ご予約</div>
+            <div class="c"><span class="i">🍜</span>おすすめ</div>
+            <div class="c g"><span class="i">🎫</span>クーポン</div>
+            <div class="c"><span class="i">📖</span>メニュー</div>
+            <div class="c"><span class="i">📍</span>アクセス</div>
+            <div class="c"><span class="i">💬</span>質問</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 中身 -->
+<section>
+  <div class="wrap">
+    <p class="sec-label">CONTENTS</p>
+    <h2>テンプレ集に入っているもの</h2>
+    <div class="contents-grid">
+      <div class="c-card"><span class="big">📱</span><h3>リッチメニュー設計図 <span class="n">×8業種</span></h3><p>「どの位置にどのボタンを置くと押されるか」まで含めた6ボタン構成の設計図。</p></div>
+      <div class="c-card"><span class="big">👋</span><h3>あいさつメッセージ <span class="n">×8本</span></h3><p>友だち追加の瞬間に送る第一声。ブロックされない鉄板の型を業種別に。</p></div>
+      <div class="c-card"><span class="big">📮</span><h3>ステップ配信シナリオ <span class="n">×24通</span></h3><p>登録の翌日・数日後・数週間後に自動で届く3通セット。コピペして日付を設定するだけ。</p></div>
+      <div class="c-card"><span class="big">✅</span><h3>導入チェックリスト <span class="n">＋NG集</span></h3><p>開設から運用開始までの10項目と、やりがちな失敗5つ。配信頻度の早見表つき。</p></div>
+    </div>
+    <div class="chips">
+      <span>🍽 飲食店</span><span>💇 美容室・サロン</span><span>💆 整骨院・整体</span><span>🦷 歯科・クリニック</span><span>🐶 ペットサロン</span><span>✏️ 学習塾</span><span>🏠 不動産</span><span>⚖️ 士業事務所</span>
+    </div>
+  </div>
+</section>
+
+<!-- 受け取り方 -->
+<section>
+  <div class="wrap">
+    <p class="sec-label">HOW TO GET</p>
+    <h2>受け取り方（30秒）</h2>
+    <div class="steps">
+      <div class="step"><div class="no">1</div><h3>友だち追加</h3><p>下のボタンからLスタジオ公式LINEを友だち追加します。</p></div>
+      <div class="step"><div class="no">2</div><h3>「特典」と送る</h3><p>トーク画面で <span class="kw">特典</span> と入力して送信します。</p></div>
+      <div class="step"><div class="no">3</div><h3>すぐ届く</h3><p>テンプレ集のURLが自動で返信されます。スマホでもPCでも見られます。</p></div>
+    </div>
+    <p class="steps-note">※ このLINE自体がLスタジオの"作品見本"です。自動応答・AI診断・顧客台帳が実際に動いている様子も、あわせて体験してみてください。</p>
+  </div>
+</section>
+
+<!-- こんな方へ -->
+<section class="who">
+  <div class="wrap" style="padding-top: 34px; padding-bottom: 34px;">
+    <p class="sec-label">FOR YOU</p>
+    <h2>こんな方のために作りました</h2>
+    <ul class="who-list">
+      <li><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#06C755"/><path d="M6.6 12.4l3.5 3.5 7-7.4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>公式LINEを開設したものの、<b>何を配信すればいいか分からず放置している</b></span></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#06C755"/><path d="M6.6 12.4l3.5 3.5 7-7.4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>リッチメニューを作りたいが、<b>ボタンの構成をどうすべきか迷っている</b></span></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#06C755"/><path d="M6.6 12.4l3.5 3.5 7-7.4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>配信のたびにブロックが増えて、<b>送るのが怖くなっている</b></span></li>
+      <li><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#06C755"/><path d="M6.6 12.4l3.5 3.5 7-7.4" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lステップなどの有料ツールを検討中だが、<b>その前に無料でできることを知りたい</b></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Lスタジオについて -->
+<section>
+  <div class="wrap">
+    <p class="sec-label">ABOUT</p>
+    <h2>配布しているのは、LINE構築の専門スタジオです</h2>
+    <div class="about-box">
+      <img src="/hero_staff.png" alt="Lスタジオ">
+      <div>
+        <h3>L STUDIO（Lスタジオ）</h3>
+        <p>飲食・美容・医療・士業・不動産など18業種のLINE公式アカウント構築デモを持つ、店舗特化のLINE構築スタジオです。予約受付・AI自動応答・顧客台帳・ポイントカードまで、月額ツールを借りずに貴店専用の仕組みとして構築します。</p>
+        <p class="price">構築費0円＋月額33,000円（税込）／最短1週間で公開</p>
+        <p style="margin-top: 8px;"><a href="https://l-studiojp.com/">18業種の構築デモを見る →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 最後のCTA -->
+<div class="last-cta">
+  <div class="wrap">
+    <h2>まずはテンプレ集を受け取ってください</h2>
+    <p>あなたのお店の公式LINEが、今日から「集客する道具」に変わります。</p>
+    <a class="cta-btn" href="https://lin.ee/xGfU2jt">友だち追加して「特典」と送る</a>
+    <p class="cta-note">配布は予告なく終了することがあります。</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>© L STUDIO ｜ <a href="https://l-studiojp.com/">l-studiojp.com</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
