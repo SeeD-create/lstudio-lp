@@ -320,44 +320,39 @@ const INDUSTRIES = [
 // ========== テーマ定義 ==========
 // moods: kirei=高級感 / shinrai=清潔感・信頼 / sitasimi=親しみ / kawaii=かわいい / wa=和風 / cool=スタイリッシュ
 const THEMES = [
-  { id: 'flat_clean', name: 'クリーン', desc: '白ベース・清潔感', moods: ['shinrai', 'sitasimi'],
-    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
-  { id: 'dark_glass', name: 'ダークグラス', desc: 'アプリのホーム画面風', moods: ['cool', 'kirei'],
-    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
-  { id: 'luxury_gold', name: 'ラグジュアリー', desc: '黒×金・高級感', moods: ['kirei'],
-    jp: '600 FZ "Shippori Mincho"', en: '"Shippori Mincho"' },
-  { id: 'wamodern', name: '和モダン', desc: '深色×金・和の品格', moods: ['wa', 'kirei'],
-    jp: '600 FZ "Shippori Mincho"', en: '"Shippori Mincho"' },
-  { id: 'pastel_pop', name: 'パステルポップ', desc: 'カラフル・かわいい', moods: ['kawaii', 'sitasimi'],
-    jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
-  { id: 'gradient_vivid', name: 'ビビッドグラデ', desc: '鮮やか・目を引く', moods: ['cool', 'sitasimi'],
-    jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
-  { id: 'minimal_line', name: 'ミニマルライン', desc: '線だけ・洗練', moods: ['kirei', 'cool'],
+  // ===== プレミアム10 (ChatGPTデザイン仕様書を数値どおり移植・SPECレンダラで描画) =====
+  { id: 'kuro_sumi', name: '玄墨', desc: '料亭・割烹の和モダン', moods: ['wa', 'kirei'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'velour_glow', name: 'ヴェロア', desc: '高級サロン・静かな艶', moods: ['kirei'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'pure_veil', name: 'ピュアヴェール', desc: '医療・清潔と信頼', moods: ['shinrai'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'botanical_linen', name: 'ボタニカルリネン', desc: 'カフェ・自然と紙', moods: ['sitasimi', 'shinrai'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'seoul_minimal', name: 'ソウルミニマル', desc: '韓国サロン・トレンド', moods: ['kirei', 'cool'],
     jp: '500 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
-  { id: 'soft_natural', name: 'ナチュラル', desc: 'ベージュ・あたたか', moods: ['sitasimi', 'kawaii'],
-    jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
-  { id: 'bold_block', name: 'ボールドブロック', desc: '色タイル・元気', moods: ['sitasimi', 'cool'],
-    jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
-  { id: 'neo_tech', name: 'ネオテック', desc: 'ネオン発光・近未来', moods: ['cool'],
-    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'academic_navy', name: 'アカデミックネイビー', desc: '進学塾・知性と実績', moods: ['shinrai', 'kirei'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'estate_prestige', name: 'エステート', desc: '不動産・重厚な信頼', moods: ['kirei'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'civic_authority', name: 'シビック', desc: '士業・端正な品位', moods: ['shinrai'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Noto Sans JP"' },
+  { id: 'nocturne_neon', name: 'ノクターン', desc: '大人のバー・夜のネオン', moods: ['cool'],
+    jp: '500 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'quiet_grid', name: 'クワイエット', desc: 'ミニマル汎用・静謐', moods: ['shinrai', 'cool', 'sitasimi'],
+    jp: '500 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
   { id: 'glass_light', name: 'ライトグラス', desc: 'すりガラス・上品', moods: ['shinrai', 'kirei'],
     jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
   { id: 'elegant_serif', name: 'エレガント', desc: '白×金・明朝の気品', moods: ['kirei', 'wa'],
     jp: '600 FZ "Shippori Mincho"', en: '"Shippori Mincho"' },
-  { id: 'night_neon', name: 'ナイトネオン', desc: '夜のお店・バー向け', moods: ['cool'],
-    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
   { id: 'craft_kraft', name: 'クラフト', desc: '紙の手ざわり・カフェ', moods: ['sitasimi', 'kawaii'],
     jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
   { id: 'duotone_modern', name: 'デュオトーン', desc: '2色構成・メリハリ', moods: ['cool', 'sitasimi'],
     jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
-  { id: 'medical_soft', name: 'メディカルソフト', desc: '医療・清潔と安心', moods: ['shinrai'],
-    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
   { id: 'kids_pop', name: 'キッズポップ', desc: 'クレヨン色・こども向け', moods: ['kawaii', 'sitasimi'],
     jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
   { id: 'active_sport', name: 'アクティブ', desc: 'ジム・スポーツの躍動感', moods: ['cool'],
     jp: '900 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
-  { id: 'botanical_calm', name: 'ボタニカル', desc: '深緑・オーガニック', moods: ['sitasimi', 'shinrai'],
-    jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
   { id: 'retro_taishu', name: 'レトロ酒場', desc: '紺×朱・大衆レトロ', moods: ['wa', 'sitasimi'],
     jp: '700 FZ "Shippori Mincho"', en: '"Shippori Mincho"' },
 ];
@@ -374,8 +369,9 @@ const MOODS = [
 
 // ========== レイアウト ==========
 const W = 2500, H = 1686;
-function layoutRects(n) {
-  const M = 46, G = 32;
+function layoutRects(n, M, G) {
+  if (M == null) M = 46;
+  if (G == null) G = 32;
   const rects = [];
   if (n === 6) {
     const cw = (W - 2 * M - 2 * G) / 3, ch = (H - 2 * M - G) / 2;
@@ -408,18 +404,18 @@ function renderMenu(canvas, opts) {
   c.lineCap = 'round'; c.lineJoin = 'round';
 
   const t = opts.theme, p = opts.pal;
-  const rects = layoutRects(opts.n);
+  const spec = SPEC[t.id];
+  const rects = layoutRects(opts.n, spec ? 110 : 46, spec ? 42 : 32);
   const btns = opts.buttons.slice(0, opts.n);
-  const S = styleFor(t.id, p);
 
-  // --- 背景 ---
-  drawBg(c, t.id, S, p);
-
-  // --- 各セル ---
-  btns.forEach((b, i) => {
-    const r = rects[i];
-    drawCell(c, t, S, p, r, b, i, opts.showEn);
-  });
+  if (spec) {
+    drawSpecBg(c, spec);
+    btns.forEach((b, i) => drawSpecCell(c, spec, rects[i], b, i, opts.showEn));
+  } else {
+    const S = styleFor(t.id, p);
+    drawBg(c, t.id, S, p);
+    btns.forEach((b, i) => drawCell(c, t, S, p, rects[i], b, i, opts.showEn));
+  }
 
   c.restore();
 }
@@ -773,6 +769,645 @@ function drawCell(c, t, S, p, r, b, i, showEn) {
   c.restore();
 }
 
+// ==================================================================
+// プレミアムテーマ (ChatGPTデザイン仕様書 2026-08-13 を数値移植)
+// SPEC[id] があるテーマは styleFor/drawCell ではなくこちらで描画する
+// ==================================================================
+
+function colA(hex, a) { return (a == null || a >= 1) ? hex : rgba(hex, a); }
+
+function linFill(c, x, y, w, h, lin) {
+  const a = lin.a * Math.PI / 180;
+  const cx = x + w / 2, cy = y + h / 2;
+  const L = (Math.abs(Math.sin(a)) * w + Math.abs(Math.cos(a)) * h) / 2;
+  const dx = Math.sin(a) * L, dy = Math.cos(a) * L;
+  const g = c.createLinearGradient(cx - dx, cy + dy, cx + dx, cy - dy);
+  lin.s.forEach(st => g.addColorStop(st[0], colA(st[1], st[2])));
+  return g;
+}
+
+function drawPat(c, x, y, w, h, pat) {
+  if (!pat) return;
+  c.save();
+  c.strokeStyle = colA(pat.col, pat.al);
+  c.fillStyle = colA(pat.col, pat.al);
+  c.lineWidth = pat.lw || 1;
+  const sp = pat.sp || 48;
+  if (pat.type === 'grid') {
+    for (let gx = x; gx <= x + w; gx += sp) line(c, gx, y, gx, y + h);
+    for (let gy = y; gy <= y + h; gy += sp) line(c, x, gy, x + w, gy);
+    if (pat.dot) {
+      c.fillStyle = colA(pat.dotCol || pat.col, pat.dotAl || pat.al);
+      for (let gx = x; gx <= x + w; gx += sp) for (let gy = y; gy <= y + h; gy += sp) {
+        c.beginPath(); c.arc(gx, gy, pat.dot, 0, 7); c.fill();
+      }
+    }
+  } else if (pat.type === 'diag2' || pat.type === 'diag1') {
+    const t = Math.tan((pat.deg || 45) * Math.PI / 180);
+    const run = h / t;
+    for (let bx = x - run - sp; bx < x + w + run + sp; bx += sp) {
+      line(c, bx, y + h, bx + run, y);
+      if (pat.type === 'diag2') line(c, bx, y, bx + run, y + h);
+    }
+  } else if (pat.type === 'vlines') {
+    for (let gx = x + sp / 2; gx < x + w; gx += sp) line(c, gx, y, gx, y + h);
+  } else if (pat.type === 'seigaiha') {
+    const d = pat.d || 54, py = pat.py || d / 2;
+    let row = 0;
+    for (let gy = y; gy < y + h + d; gy += py, row++) {
+      for (let gx = x - d + ((row % 2) ? d / 2 : 0); gx < x + w + d; gx += d) {
+        c.beginPath(); c.arc(gx, gy, d / 2, Math.PI, 0); c.stroke();
+      }
+    }
+  } else if (pat.type === 'shippo') {
+    const d = pat.d || 96, g2 = pat.g || d / 2;
+    for (let gy = y; gy < y + h + d; gy += g2)
+      for (let gx = x; gx < x + w + d; gx += g2) {
+        c.beginPath(); c.arc(gx, gy, d / 2, 0, 7); c.stroke();
+      }
+  } else if (pat.type === 'blueprint') {
+    for (let gx = x; gx <= x + w; gx += 96) line(c, gx, y, gx, y + h);
+    for (let gy = y; gy <= y + h; gy += 96) line(c, x, gy, x + w, gy);
+    let seed = 11;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    for (let k = 0; k < 16; k++) c.strokeRect(x + rnd() * (w - 200), y + rnd() * (h - 180), 70 + rnd() * 110, 50 + rnd() * 110);
+    for (let k = 0; k < 8; k++) { c.beginPath(); c.arc(x + rnd() * w, y + rnd() * h, 40 + rnd() * 80, rnd() * 3, rnd() * 3 + 1.2 + rnd()); c.stroke(); }
+    for (let k = 0; k < 12; k++) { const lx = x + rnd() * w, ly = y + rnd() * h; line(c, lx, ly, lx + 40 + rnd() * 60, ly); }
+  }
+  c.restore();
+}
+
+function drawGrain(c, x, y, w, h, g) { // [dx, dy, offX, col, al]
+  c.save();
+  c.fillStyle = colA(g[3], g[4]);
+  let row = 0;
+  for (let yy = y; yy < y + h; yy += g[1], row++)
+    for (let xx = x + ((row % 2) ? g[2] : 0); xx < x + w; xx += g[0])
+      c.fillRect(xx, yy, 2, 2);
+  c.restore();
+}
+
+function drawCornerSet(c, cfg, pos) {
+  if (!cfg) return;
+  c.save();
+  const n = Array.isArray(cfg.lw) ? cfg.lw.length : (cfg.n || 3);
+  for (let k = 0; k < n; k++) {
+    c.strokeStyle = colA(cfg.col, Array.isArray(cfg.al) ? cfg.al[k] : cfg.al);
+    c.lineWidth = Array.isArray(cfg.lw) ? cfg.lw[k] : cfg.lw;
+    const r0 = (cfg.r0 || 250) + k * (cfg.sp || 13) * 2.3;
+    c.beginPath();
+    if (cfg.line) { // 直線で角を落とす
+      if (pos === 'tl') { c.moveTo(0, r0); c.lineTo(r0, 0); }
+      else { c.moveTo(W - r0, H); c.lineTo(W, H - r0); }
+    } else { // 曲線(同心円弧)
+      if (pos === 'tl') c.arc(0, 0, r0, 0, Math.PI / 2);
+      else c.arc(W, H, r0, Math.PI, Math.PI * 1.5);
+    }
+    c.stroke();
+  }
+  c.restore();
+}
+
+function drawSpecBg(c, S) {
+  c.fillStyle = linFill(c, 0, 0, W, H, S.bg.lin);
+  c.fillRect(0, 0, W, H);
+  (S.bg.rads || []).forEach(rd => {
+    const g = c.createRadialGradient(rd.x, rd.y, 0, rd.x, rd.y, rd.r);
+    rd.s.forEach(st => g.addColorStop(st[0], colA(st[1], st[2] == null ? 1 : st[2])));
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+  });
+  if (S.bg.veil) {
+    const g = c.createLinearGradient(0, 0, 0, S.bg.veil[0]);
+    g.addColorStop(0, rgba('#FFFFFF', S.bg.veil[1])); g.addColorStop(1, rgba('#FFFFFF', 0));
+    c.fillStyle = g; c.fillRect(0, 0, W, S.bg.veil[0]);
+  }
+  drawPat(c, 0, 0, W, H, S.bg.pat);
+  if (S.bg.pat2) drawPat(c, 0, 0, W, H, S.bg.pat2);
+  if (S.bg.grain) drawGrain(c, 0, 0, W, H, S.bg.grain);
+  if (S.bg.corners) {
+    drawCornerSet(c, S.bg.corners.tl || S.bg.corners, 'tl');
+    drawCornerSet(c, S.bg.corners.br || S.bg.corners, 'br');
+  }
+}
+
+function drawDivShape(c, x, y, dv, col) {
+  const ss = dv.ss || 16;
+  c.save();
+  c.translate(x, y);
+  c.strokeStyle = col; c.fillStyle = col; c.lineWidth = (dv.lw || 1.5) + 0.5;
+  if (dv.shape === 'circle') {
+    c.beginPath(); c.arc(0, 0, ss / 2, 0, 7); c.stroke();
+  } else if (dv.shape === 'hex') {
+    c.beginPath();
+    for (let k = 0; k < 6; k++) {
+      const a = Math.PI / 6 + k * Math.PI / 3;
+      const px = Math.cos(a) * ss / 2, py = Math.sin(a) * ss / 2;
+      k ? c.lineTo(px, py) : c.moveTo(px, py);
+    }
+    c.closePath(); c.stroke();
+  } else if (dv.shape === 'leaf') {
+    line(c, 0, ss * 0.55, 0, -ss * 0.55);
+    [[-1, -0.5], [1, -0.5]].forEach(dir => {
+      c.beginPath();
+      c.ellipse(dir[0] * ss * 0.62, dir[1] * ss * 0.2, ss * 0.58, ss * 0.26, dir[0] * 0.55, 0, 7);
+      c.stroke();
+    });
+  } else if (dv.shape === 'dsq') {
+    c.rotate(Math.PI / 4);
+    c.strokeRect(-ss / 2, -ss / 2, ss, ss);
+    c.fillRect(-ss * 0.21, -ss * 0.21, ss * 0.42, ss * 0.42);
+  } else { // diamond
+    c.rotate(Math.PI / 4);
+    c.strokeRect(-ss / 2, -ss / 2, ss, ss);
+    c.fillRect(-ss * 0.15, -ss * 0.15, ss * 0.3, ss * 0.3);
+  }
+  c.restore();
+}
+
+function drawSpecCell(c, S, r, b, i, showEn) {
+  const isMain = !!b.main;
+  const cf = isMain ? S.main : S.card;
+  const rad = cf.r;
+  const s = r.h / 712;
+  c.save();
+  c.lineCap = 'round'; c.lineJoin = 'round';
+
+  // 塗り(多層影つき)
+  const fill = linFill(c, r.x, r.y, r.w, r.h, cf.lin);
+  const shadows = cf.shadows && cf.shadows.length ? cf.shadows : [[null]];
+  shadows.forEach(sh => {
+    c.save();
+    if (sh[0]) { c.shadowColor = colA(sh[0], sh[1]); c.shadowBlur = sh[2]; c.shadowOffsetY = sh[3] || 0; }
+    c.fillStyle = fill;
+    rr(c, r.x, r.y, r.w, r.h, rad); c.fill();
+    c.restore();
+  });
+
+  // カード内(クリップ): ハイライト・パターン・紙質感・上辺光
+  c.save();
+  rr(c, r.x, r.y, r.w, r.h, rad); c.clip();
+  if (cf.rad) {
+    const gx = r.x + r.w * cf.rad.x, gy = r.y + r.h * cf.rad.y;
+    const g = c.createRadialGradient(gx, gy, 0, gx, gy, Math.max(r.w, r.h) * cf.rad.r);
+    cf.rad.s.forEach(st => g.addColorStop(st[0], colA(st[1], st[2])));
+    c.fillStyle = g; c.fillRect(r.x, r.y, r.w, r.h);
+  }
+  drawPat(c, r.x, r.y, r.w, r.h, cf.pat);
+  if (cf.grain) drawGrain(c, r.x + 26, r.y + 26, r.w - 52, r.h - 52, cf.grain);
+  if (cf.topHL) {
+    c.strokeStyle = rgba('#FFFFFF', cf.topHL[2]); c.lineWidth = 2;
+    line(c, r.x + cf.topHL[1], r.y + cf.topHL[0] + 1, r.x + r.w - cf.topHL[1], r.y + cf.topHL[0] + 1);
+  }
+  c.restore();
+
+  // 多重罫線 (inset, width, color, alpha)
+  (cf.borders || []).forEach(bd => {
+    c.strokeStyle = colA(bd[2], bd[3]);
+    c.lineWidth = bd[1];
+    const ins = bd[0];
+    rr(c, r.x + ins, r.y + ins, r.w - 2 * ins, r.h - 2 * ins, Math.max(4, rad - ins * 0.7));
+    c.stroke();
+  });
+
+  // 上端アクセントバー [w, h, y, col, al]
+  if (cf.bar) {
+    c.fillStyle = colA(cf.bar[3], cf.bar[4]);
+    rr(c, r.x + (r.w - cf.bar[0]) / 2, r.y + cf.bar[2] * s, cf.bar[0], cf.bar[1], cf.bar[1] / 2);
+    c.fill();
+  }
+  // 四隅L字 [len, lw, col, al, inset]
+  if (cf.cornerL) {
+    const [len, lwL, colL, alL, insL] = cf.cornerL;
+    c.strokeStyle = colA(colL, alL); c.lineWidth = lwL;
+    [[r.x + insL, r.y + insL, 1, 1], [r.x + r.w - insL, r.y + insL, -1, 1],
+     [r.x + insL, r.y + r.h - insL, 1, -1], [r.x + r.w - insL, r.y + r.h - insL, -1, -1]].forEach(k => {
+      c.beginPath(); c.moveTo(k[0] + len * k[2], k[1]); c.lineTo(k[0], k[1]); c.lineTo(k[0], k[1] + len * k[3]); c.stroke();
+    });
+  }
+
+  // ---- コンテンツ ----
+  const cx = r.x + r.w / 2;
+  const ic = S.icon;
+  const iSize = isMain ? (ic.msize || ic.size) : ic.size;
+  c.save();
+  c.translate(cx, r.y + (ic.top || 108) * s + iSize / 2);
+  c.strokeStyle = isMain ? ic.mcol : ic.col;
+  c.lineWidth = ic.w;
+  (ICONS[b.icon] || ICONS.info)(c, iSize);
+  c.restore();
+
+  // 日本語ラベル
+  const jp = S.jp;
+  const jpSize0 = isMain ? jp.msize : jp.size;
+  const jpLs = isMain ? jp.mls : jp.ls;
+  c.fillStyle = isMain ? jp.mcol : jp.col;
+  if ('letterSpacing' in c) c.letterSpacing = jpLs + 'px';
+  c.font = (jp.wgt || 600) + ' ' + jpSize0 + 'px ' + jp.f;
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  let jpSize = jpSize0;
+  const mw = c.measureText(b.jp).width;
+  if (mw > r.w - 90) {
+    jpSize = Math.floor(jpSize0 * (r.w - 90) / mw);
+    c.font = (jp.wgt || 600) + ' ' + jpSize + 'px ' + jp.f;
+  }
+  const jpY = r.y + (isMain ? (jp.my || jp.y) : jp.y) * s;
+  c.fillText(b.jp, cx + jpLs / 2, jpY);
+  if ('letterSpacing' in c) c.letterSpacing = '0px';
+
+  // 仕切り線 + 英語サブラベル
+  if (showEn && b.en) {
+    const dv = S.div, en = S.en;
+    const divY = jpY + jpSize0 * 0.55 + 42 * s;
+    if (dv) {
+      const colD = colA(isMain ? dv.mcol : dv.col, isMain ? dv.mal : dv.al);
+      c.strokeStyle = colD; c.lineWidth = dv.lw || 1.5;
+      const half = (dv.w - dv.gap) / 2;
+      line(c, cx - dv.w / 2, divY, cx - dv.w / 2 + half, divY);
+      line(c, cx + dv.w / 2 - half, divY, cx + dv.w / 2, divY);
+      drawDivShape(c, cx, divY, dv, colD);
+    }
+    const enSize = isMain ? (en.msize || en.size) : en.size;
+    const enLs = isMain ? (en.mls || en.ls) : en.ls;
+    c.fillStyle = isMain ? en.mcol : en.col;
+    if ('letterSpacing' in c) c.letterSpacing = enLs + 'px';
+    c.font = (en.wgt || 500) + ' ' + enSize + 'px "Noto Sans JP"';
+    c.fillText(b.en.toUpperCase(), cx + enLs / 2, divY + 30 * s + enSize * 0.62);
+    if ('letterSpacing' in c) c.letterSpacing = '0px';
+  }
+
+  // バッジ
+  if (b.badge && S.badge) {
+    c.font = '700 40px "Noto Sans JP"';
+    const bw = c.measureText(b.badge).width + 48, bh = 64;
+    const bx = r.x + r.w - bw - 40, by = r.y + 40;
+    c.fillStyle = S.badge.bg;
+    rr(c, bx, by, bw, bh, bh / 2); c.fill();
+    c.fillStyle = S.badge.tx;
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(b.badge, bx + bw / 2, by + bh / 2 + 2);
+  }
+  c.restore();
+}
+
+const SPEC = {
+  kuro_sumi: {
+    bg: {
+      lin: { a: 135, s: [[0, '#29261F'], [.24, '#171914'], [.58, '#0D100E'], [1, '#080908']] },
+      rads: [
+        { x: 0, y: 0, r: 1050, s: [[0, '#9A774D', .25], [.32, '#654B31', .10], [.72, '#000000', 0], [1, '#000000', 0]] },
+        { x: 2500, y: 1686, r: 900, s: [[0, '#A77D32', .09], [.55, '#4B381D', .035], [1, '#000000', 0]] },
+      ],
+      pat: { type: 'diag2', deg: 60, sp: 54, col: '#D6BD87', al: .055, lw: 1 },
+      corners: { col: '#BA9144', lw: [3, 1.5, 1.5, 1.5, 1.5], al: [.48, .36, .28, .20, .14], sp: 13, r0: 260 },
+    },
+    card: {
+      lin: { a: 90, s: [[0, '#FFFDF7'], [.43, '#F9F3E7'], [1, '#F0E5D2']] },
+      rad: { x: .5, y: .38, r: .7, s: [[0, '#FFFFFF', .32], [.65, '#FFFFFF', 0], [1, '#FFFFFF', 0]] },
+      r: 42,
+      borders: [[14, 3, '#CCAD6D', .82], [23, 1, '#886827', .22]],
+      shadows: [['#000000', .42, 24, 12], ['#000000', .20, 6, 3]],
+      topHL: [3, 48, .58],
+      grain: [17, 19, 8, '#785C35', .035],
+    },
+    main: {
+      lin: { a: 135, s: [[0, '#283027'], [.44, '#182019'], [1, '#0C100D']] },
+      rad: { x: .34, y: .20, r: .85, s: [[0, '#536147', .25], [.56, '#1D241C', .06], [1, '#000000', 0]] },
+      r: 42,
+      pat: { type: 'seigaiha', d: 54, py: 27, col: '#C7A353', al: .10, lw: 1.5 },
+      borders: [[12, 5, '#DDB860', .96], [22, 2, '#9C742B', .88]],
+      shadows: [['#000000', .58, 30, 14]],
+    },
+    icon: { col: '#9A7131', mcol: '#E3BD62', w: 6, size: 150, top: 116 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 58, msize: 62, col: '#27241E', mcol: '#E6C473', ls: 3.2, mls: 5.6, y: 378, my: 376 },
+    div: { w: 340, gap: 34, lw: 1.5, col: '#A67E39', al: .52, mcol: '#D8AE4E', mal: .70, shape: 'diamond', ss: 18 },
+    en: { size: 27, msize: 28, wgt: 500, col: '#9A7131', mcol: '#E4BC5F', ls: 8.1, mls: 9 },
+    badge: { bg: '#B3402E', tx: '#F5EEE2' },
+  },
+
+  velour_glow: {
+    bg: {
+      lin: { a: 145, s: [[0, '#3E312B'], [.18, '#2F2622'], [.47, '#231D1B'], [.76, '#191615'], [1, '#141211']] },
+      rads: [
+        { x: 180, y: 120, r: 920, s: [[0, '#A37A54', .23], [.42, '#7B5C42', .10], [1, '#000000', 0]] },
+        { x: 2330, y: 1540, r: 760, s: [[0, '#B88B55', .12], [.55, '#7B5C42', .05], [1, '#000000', 0]] },
+      ],
+      pat: { type: 'shippo', d: 96, g: 48, col: '#C6A26A', al: .10, lw: 1 },
+      corners: { col: '#D4AE72', lw: [1.5, 1.5, 2, 3], al: [.52, .38, .28, .18], sp: 14, r0: 240 },
+    },
+    card: {
+      lin: { a: 100, s: [[0, '#FFFDF8'], [.34, '#F8F1E6'], [.67, '#F3E8D7'], [1, '#ECDDCA']] },
+      rad: { x: .5, y: .26, r: .74, s: [[0, '#FFFFFF', .34], [.58, '#FFFFFF', .08], [1, '#FFFFFF', 0]] },
+      r: 40,
+      borders: [[3, 3, '#E5CDA9', 1], [13, 1, '#CFAE78', 1]],
+      shadows: [['#000000', .23, 28, 12], ['#000000', .10, 8, 3]],
+      topHL: [10, 40, .55],
+      grain: [16, 18, 8, '#A98A63', .025],
+    },
+    main: {
+      lin: { a: 145, s: [[0, '#4C3B35'], [.24, '#352A27'], [.58, '#241E1C'], [1, '#1A1717']] },
+      rad: { x: .38, y: .22, r: .82, s: [[0, '#8E6D56', .18], [.45, '#5A443B', .08], [1, '#000000', 0]] },
+      r: 40,
+      pat: { type: 'shippo', d: 92, g: 46, col: '#C59A63', al: .11, lw: 1 },
+      borders: [[3, 4, '#E6B867', 1], [12, 1, '#8F6A3B', 1], [19, 1, '#F2D7A2', 1]],
+      shadows: [['#000000', .34, 34, 14], ['#000000', .16, 10, 4]],
+    },
+    icon: { col: '#B08854', mcol: '#E4BB73', w: 5, size: 146, msize: 150, top: 110 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 60, msize: 62, col: '#3A2E29', mcol: '#E6C07B', ls: 2.1, mls: 4.3, y: 392, my: 390 },
+    div: { w: 332, gap: 28, lw: 1.5, col: '#CDA86A', al: .68, mcol: '#DDB368', mal: .82, shape: 'diamond', ss: 16 },
+    en: { size: 27, msize: 28, wgt: 500, col: '#B58B52', mcol: '#E3BC76', ls: 7.6, mls: 8.4 },
+    badge: { bg: '#3A2E29', tx: '#F5F0E4' },
+  },
+
+  pure_veil: {
+    bg: {
+      lin: { a: 135, s: [[0, '#F8FBFD'], [.22, '#F1F5F8'], [.48, '#E9EEF2'], [.76, '#E2E8ED'], [1, '#DCE3E9']] },
+      rads: [
+        { x: 120, y: 110, r: 780, s: [[0, '#D9EEF9', .40], [.36, '#EAF5FB', .18], [1, '#FFFFFF', 0]] },
+        { x: 2360, y: 1580, r: 820, s: [[0, '#DCEFFA', .24], [.48, '#EEF7FC', .10], [1, '#FFFFFF', 0]] },
+      ],
+      veil: [280, .42],
+      pat: { type: 'diag2', deg: 45, sp: 56, col: '#BFCBD6', al: .18, lw: 1 },
+      corners: { col: '#AEBBC8', lw: [1.5, 2, 2, 3], al: [.70, .55, .40, .28], sp: 13, r0: 220 },
+    },
+    card: {
+      lin: { a: 180, s: [[0, '#FFFFFF'], [.38, '#FAFBFC'], [.72, '#F1F4F7'], [1, '#E9EEF2']] },
+      rad: { x: .5, y: .20, r: .76, s: [[0, '#FFFFFF', .34], [.60, '#FFFFFF', .10], [1, '#FFFFFF', 0]] },
+      r: 40,
+      borders: [[3, 2, '#D5DDE5', 1], [10, 1, '#F8FBFD', 1], [16, 1, '#C5CFD8', 1]],
+      shadows: [['#6E7D8C', .18, 24, 12], ['#8C99A6', .08, 8, 3]],
+      topHL: [9, 38, .74],
+      grain: [18, 18, 0, '#CAD3DB', .018],
+    },
+    main: {
+      lin: { a: 145, s: [[0, '#EDF8FE'], [.24, '#DDEFFB'], [.58, '#CBE3F3'], [1, '#BFD8EB']] },
+      rad: { x: .34, y: .18, r: .82, s: [[0, '#FFFFFF', .46], [.42, '#F7FCFF', .18], [1, '#FFFFFF', 0]] },
+      r: 40,
+      pat: { type: 'diag2', deg: 45, sp: 26, col: '#FFFFFF', al: .14, lw: 1 },
+      borders: [[3, 3, '#EAF7FF', 1], [10, 1, '#8FB4CE', 1], [17, 1, '#FDFEFF', 1]],
+      shadows: [['#90A7BA', .22, 30, 12], ['#7B93A8', .10, 10, 4]],
+    },
+    icon: { col: '#97A3AE', mcol: '#6A8FAA', w: 5, size: 148, msize: 150, top: 108 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 60, msize: 64, col: '#4A4F56', mcol: '#416F95', ls: 1.8, mls: 3.8, y: 394, my: 392 },
+    div: { w: 330, gap: 30, lw: 1.5, col: '#C7D0D8', al: .76, mcol: '#7FA3C2', mal: .88, shape: 'diamond', ss: 16 },
+    en: { size: 27, msize: 28, wgt: 400, col: '#A0A7B0', mcol: '#6E97BA', ls: 8.1, mls: 9 },
+    badge: { bg: '#416F95', tx: '#FFFFFF' },
+  },
+
+  botanical_linen: {
+    bg: {
+      lin: { a: 135, s: [[0, '#F4F0E6'], [.28, '#ECE8DC'], [.58, '#E4E5D8'], [1, '#D9DDD0']] },
+      rads: [
+        { x: 160, y: 130, r: 820, s: [[0, '#FFFFFF', .52], [.45, '#F7F4EC', .20], [1, '#FFFFFF', 0]] },
+        { x: 2350, y: 1570, r: 760, s: [[0, '#BAC7AE', .22], [.52, '#CBD3C1', .08], [1, '#FFFFFF', 0]] },
+      ],
+      pat: { type: 'diag1', deg: 45, sp: 48, col: '#8C9684', al: .045, lw: 1 },
+      grain: [18, 18, 9, '#8D907F', .035],
+      corners: { col: '#839379', lw: 2, n: 4, al: .22, sp: 12, r0: 230 },
+    },
+    card: {
+      lin: { a: 105, s: [[0, '#FFFDF8'], [.46, '#F7F3EA'], [1, '#EEE9DE']] },
+      rad: { x: .42, y: .22, r: .78, s: [[0, '#FFFFFF', .32], [.65, '#FFFFFF', 0], [1, '#FFFFFF', 0]] },
+      r: 36,
+      borders: [[3, 2, '#D8D0C0', 1], [13, 1, '#B7BDAE', 1]],
+      shadows: [['#64695F', .16, 24, 10], ['#5A5D55', .07, 8, 3]],
+      bar: [210, 10, 30, '#C6AE7D', .72],
+    },
+    main: {
+      lin: { a: 140, s: [[0, '#87977B'], [.36, '#718469'], [.72, '#61745A'], [1, '#53654D']] },
+      rad: { x: .28, y: .18, r: .82, s: [[0, '#C7D3BC', .24], [.52, '#A7B69E', .08], [1, '#FFFFFF', 0]] },
+      r: 36,
+      pat: { type: 'shippo', d: 58, g: 40, col: '#E3E8DA', al: .075, lw: 1 },
+      borders: [[3, 3, '#E4E0D3', 1], [12, 1, '#C7D0BC', 1]],
+      shadows: [['#3E473A', .28, 30, 13], ['#30382D', .10, 8, 3]],
+      bar: [210, 10, 30, '#667A58', .92],
+    },
+    icon: { col: '#7C806D', mcol: '#F3F0E5', w: 5, size: 146, msize: 150, top: 110 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 58, msize: 62, col: '#4D4A41', mcol: '#F4F1E8', ls: 2, mls: 4.3, y: 392, my: 390 },
+    div: { w: 326, gap: 34, lw: 1.5, col: '#A9A695', al: .72, mcol: '#D9DDCF', mal: .84, shape: 'leaf', ss: 18 },
+    en: { size: 26, msize: 27, wgt: 500, col: '#8A887B', mcol: '#E9E5D9', ls: 7.3, mls: 8.1 },
+    badge: { bg: '#667A58', tx: '#F4F1E8' },
+  },
+
+  seoul_minimal: {
+    bg: {
+      lin: { a: 145, s: [[0, '#F8F5F2'], [.30, '#F1ECE8'], [.62, '#E9E5E2'], [1, '#DDD9D6']] },
+      rads: [
+        { x: 140, y: 120, r: 760, s: [[0, '#F0DDE2', .26], [.48, '#F6E9EC', .10], [1, '#FFFFFF', 0]] },
+        { x: 2360, y: 1560, r: 800, s: [[0, '#D4CBC7', .24], [.52, '#E4DEDA', .08], [1, '#FFFFFF', 0]] },
+      ],
+      pat: { type: 'grid', sp: 64, col: '#BEB6B2', al: .055, lw: 1 },
+      corners: { col: '#AFA4A0', lw: 1.5, n: 3, al: .24, sp: 13, r0: 220 },
+    },
+    card: {
+      lin: { a: 110, s: [[0, '#FFFEFC'], [.48, '#F8F5F3'], [1, '#EEEAE7']] },
+      rad: { x: .42, y: .18, r: .78, s: [[0, '#FFFFFF', .34], [.64, '#FFFFFF', 0], [1, '#FFFFFF', 0]] },
+      r: 32,
+      borders: [[3, 2, '#D5CFCC', 1], [14, 1, '#C4BCB8', 1]],
+      shadows: [['#6B6461', .13, 26, 11], ['#5A5552', .05, 8, 3]],
+      bar: [150, 6, 28, '#C8BEB9', .82],
+    },
+    main: {
+      lin: { a: 140, s: [[0, '#8C747B'], [.35, '#79646B'], [.70, '#66545A'], [1, '#54464B']] },
+      rad: { x: .28, y: .16, r: .84, s: [[0, '#BDA5AC', .24], [.50, '#8D737B', .08], [1, '#FFFFFF', 0]] },
+      r: 32,
+      pat: { type: 'vlines', sp: 30, col: '#F7EDEF', al: .06, lw: 1 },
+      borders: [[3, 3, '#EEE2E5', 1], [12, 1, '#BCA8AE', 1]],
+      shadows: [['#4A3D42', .28, 32, 14], ['#352E31', .09, 8, 3]],
+      bar: [150, 6, 28, '#E9DDE0', .82],
+    },
+    icon: { col: '#877A75', mcol: '#F7EFEF', w: 4.5, size: 144, msize: 148, top: 108 },
+    jp: { f: '"Noto Sans JP"', wgt: 500, size: 56, msize: 60, col: '#4C4644', mcol: '#F9F3F2', ls: 2.5, mls: 3.9, y: 394, my: 392 },
+    div: { w: 300, gap: 26, lw: 1, col: '#BFB4AF', al: .70, mcol: '#DCCDD1', mal: .82, shape: 'circle', ss: 8 },
+    en: { size: 24, msize: 25, wgt: 400, col: '#9A8F8A', mcol: '#E9DDDF', ls: 7.7, mls: 8.5 },
+    badge: { bg: '#66545A', tx: '#F9F3F2' },
+  },
+
+  academic_navy: {
+    bg: {
+      lin: { a: 135, s: [[0, '#121D2B'], [.28, '#172538'], [.57, '#101B29'], [1, '#0B141F']] },
+      rads: [
+        { x: 80, y: 40, r: 900, s: [[0, '#506986', .18], [.38, '#304861', .08], [1, '#000000', 0]] },
+        { x: 2390, y: 1600, r: 760, s: [[0, '#B99A63', .09], [.48, '#745F3F', .035], [1, '#000000', 0]] },
+      ],
+      pat: { type: 'grid', sp: 64, col: '#A6B3C2', al: .045, lw: 1 },
+      pat2: { type: 'diag1', deg: 45, sp: 128, col: '#C1CAD4', al: .025, lw: 1 },
+      corners: { col: '#B89A65', lw: 1.5, n: 4, al: .28, sp: 12, r0: 250, line: true },
+    },
+    card: {
+      lin: { a: 105, s: [[0, '#FFFEFA'], [.45, '#F7F5EF'], [1, '#ECE9E1']] },
+      rad: { x: .42, y: .18, r: .78, s: [[0, '#FFFFFF', .36], [.55, '#FFFFFF', .08], [1, '#FFFFFF', 0]] },
+      r: 24,
+      borders: [[3, 2, '#D4D2CA', 1], [13, 1, '#9FA9B3', 1], [20, 1, '#C3A46C', .34]],
+      shadows: [['#050A10', .30, 26, 12], ['#05080D', .13, 7, 3]],
+      topHL: [10, 38, .55],
+      bar: [160, 5, 28, '#AAB3BD', .72],
+      grain: [19, 21, 0, '#536170', .02],
+    },
+    main: {
+      lin: { a: 140, s: [[0, '#263D58'], [.30, '#1C3048'], [.67, '#14263B'], [1, '#0D1C2D']] },
+      rad: { x: .28, y: .16, r: .84, s: [[0, '#587493', .28], [.45, '#344E69', .10], [1, '#000000', 0]] },
+      r: 24,
+      pat: { type: 'diag2', deg: 45, sp: 48, col: '#D6DFE8', al: .055, lw: 1 },
+      borders: [[3, 4, '#C7A76D', 1], [12, 1, '#EEE4CE', 1], [19, 1, '#80683F', 1]],
+      shadows: [['#03070B', .44, 32, 14], ['#000000', .18, 8, 3]],
+      bar: [160, 5, 28, '#C5A569', .95],
+    },
+    icon: { col: '#617184', mcol: '#D1B278', w: 5, size: 144, msize: 150, top: 108 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 57, msize: 62, col: '#283546', mcol: '#F6F2E8', ls: 3.1, mls: 5, y: 394, my: 392 },
+    div: { w: 320, gap: 32, lw: 1.5, col: '#A4AFB9', al: .62, mcol: '#BFA064', mal: .84, shape: 'diamond', ss: 14 },
+    en: { size: 24, msize: 26, wgt: 500, col: '#7D8996', mcol: '#D5B97E', ls: 7.2, mls: 8.3 },
+    badge: { bg: '#C7A76D', tx: '#14263B' },
+  },
+
+  estate_prestige: {
+    bg: {
+      lin: { a: 135, s: [[0, '#1B2228'], [.24, '#111A22'], [.55, '#0D151C'], [.78, '#12181D'], [1, '#080E13']] },
+      rads: [
+        { x: 100, y: 100, r: 900, s: [[0, '#394957', .20], [.38, '#253541', .08], [1, '#000000', 0]] },
+        { x: 2380, y: 1560, r: 820, s: [[0, '#8C7045', .11], [.46, '#53432D', .045], [1, '#000000', 0]] },
+      ],
+      pat: { type: 'blueprint', col: '#B08A50', al: .075, lw: 1 },
+      corners: { col: '#B58B4D', lw: 2, n: 4, al: .52, sp: 14, r0: 260, line: true },
+    },
+    card: {
+      lin: { a: 110, s: [[0, '#FFFDF7'], [.35, '#F7F1E6'], [.68, '#EEE5D6'], [1, '#E4D8C7']] },
+      rad: { x: .40, y: .18, r: .80, s: [[0, '#FFFFFF', .34], [.55, '#FFFDF8', .08], [1, '#FFFFFF', 0]] },
+      r: 26,
+      borders: [[3, 3, '#C8B89F', 1], [11, 1, '#F4EADB', 1], [18, 1, '#8F7A59', 1]],
+      shadows: [['#000000', .38, 28, 13], ['#000000', .16, 8, 3]],
+      topHL: [11, 40, .48],
+      grain: [18, 20, 9, '#765E40', .025],
+    },
+    main: {
+      lin: { a: 145, s: [[0, '#1E3040'], [.30, '#152637'], [.65, '#0E1C29'], [1, '#08131D']] },
+      rad: { x: .30, y: .18, r: .84, s: [[0, '#466079', .24], [.46, '#263C50', .08], [1, '#000000', 0]] },
+      r: 26,
+      pat: { type: 'diag2', deg: 45, sp: 52, col: '#C6A269', al: .085, lw: 1 },
+      borders: [[3, 4, '#C89D54', 1], [12, 2, '#F1D79D', 1], [20, 1, '#735528', 1]],
+      shadows: [['#000000', .54, 34, 15], ['#000000', .22, 9, 4]],
+    },
+    icon: { col: '#78664C', mcol: '#D1A75E', w: 5, size: 148, msize: 152, top: 105 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 58, msize: 62, col: '#25292D', mcol: '#F5EFE4', ls: 3.5, mls: 5, y: 394, my: 392 },
+    div: { w: 360, gap: 28, lw: 1, col: '#A99677', al: .56, mcol: '#B99152', mal: .78, shape: 'diamond', ss: 12 },
+    en: { size: 25, msize: 26, wgt: 500, col: '#8A7554', mcol: '#D4AA62', ls: 8.5, mls: 9.4 },
+    badge: { bg: '#C89D54', tx: '#0E1C29' },
+  },
+
+  civic_authority: {
+    bg: {
+      lin: { a: 135, s: [[0, '#18222D'], [.28, '#111A24'], [.58, '#0C141C'], [1, '#080E14']] },
+      rads: [
+        { x: 120, y: 100, r: 860, s: [[0, '#53687C', .16], [.42, '#304357', .065], [1, '#000000', 0]] },
+        { x: 2380, y: 1580, r: 780, s: [[0, '#A48655', .075], [.46, '#665334', .025], [1, '#000000', 0]] },
+      ],
+      pat: { type: 'grid', sp: 72, col: '#B8C2CC', al: .038, lw: 1 },
+      corners: { col: '#B39969', lw: 1.5, n: 3, al: .30, sp: 13, r0: 240, line: true },
+    },
+    card: {
+      lin: { a: 105, s: [[0, '#FFFEFB'], [.42, '#F8F7F3'], [1, '#EEEDE8']] },
+      rad: { x: .42, y: .18, r: .76, s: [[0, '#FFFFFF', .30], [.58, '#FFFFFF', .06], [1, '#FFFFFF', 0]] },
+      r: 18,
+      borders: [[3, 2, '#D1D5D8', 1], [11, 1, '#F9F9F6', 1], [18, 1, '#9AA5AF', 1]],
+      shadows: [['#000000', .28, 24, 11], ['#000000', .11, 7, 3]],
+      topHL: [10, 42, .54],
+      bar: [180, 4, 32, '#AEB7BF', .68],
+      cornerL: [30, 1, '#8794A0', .42, 14],
+      grain: [20, 22, 0, '#526170', .018],
+    },
+    main: {
+      lin: { a: 145, s: [[0, '#26394A'], [.30, '#1C2D3D'], [.65, '#132332'], [1, '#0B1722']] },
+      rad: { x: .30, y: .16, r: .82, s: [[0, '#60778D', .22], [.45, '#3A5166', .075], [1, '#000000', 0]] },
+      r: 18,
+      pat: { type: 'vlines', sp: 32, col: '#D9E1E8', al: .045, lw: 1 },
+      borders: [[3, 4, '#B89A64', 1], [12, 1, '#E6D6B7', 1], [19, 1, '#6F5C3C', 1]],
+      shadows: [['#000000', .46, 30, 14], ['#000000', .18, 8, 3]],
+      bar: [180, 4, 32, '#B89A64', .90],
+      cornerL: [30, 1, '#C7A970', .58, 14],
+    },
+    icon: { col: '#657483', mcol: '#C7A970', w: 4.5, size: 144, msize: 148, top: 108 },
+    jp: { f: '"Shippori Mincho"', wgt: 600, size: 56, msize: 60, col: '#293746', mcol: '#F6F3EC', ls: 3.1, mls: 4.5, y: 394, my: 392 },
+    div: { w: 320, gap: 30, lw: 1, col: '#A5AFB8', al: .64, mcol: '#B89A64', mal: .84, shape: 'dsq', ss: 14 },
+    en: { size: 24, msize: 25, wgt: 500, col: '#7F8A94', mcol: '#CDB27D', ls: 7.2, mls: 8 },
+    badge: { bg: '#B89A64', tx: '#132332' },
+  },
+
+  nocturne_neon: {
+    bg: {
+      lin: { a: 135, s: [[0, '#090A10'], [.28, '#10111A'], [.58, '#0B0C13'], [1, '#05060A']] },
+      rads: [
+        { x: 180, y: 120, r: 900, s: [[0, '#6D36B8', .20], [.40, '#3D2168', .08], [1, '#000000', 0]] },
+        { x: 2350, y: 1580, r: 820, s: [[0, '#00C7D9', .16], [.45, '#007B8C', .05], [1, '#000000', 0]] },
+        { x: 1250, y: 820, r: 980, s: [[0, '#C245A8', .055], [.58, '#C245A8', 0], [1, '#000000', 0]] },
+      ],
+      pat: { type: 'grid', sp: 64, col: '#8DA1B8', al: .035, lw: 1, dot: 2, dotCol: '#82C9D4', dotAl: .07 },
+      corners: {
+        tl: { col: '#5FE7F2', lw: [2, 1, 1], al: [.54, .28, .16], sp: 14, r0: 240 },
+        br: { col: '#E267C5', lw: [2, 1, 1], al: [.48, .25, .14], sp: 14, r0: 240 },
+      },
+    },
+    card: {
+      lin: { a: 120, s: [[0, '#151720'], [.42, '#10121A'], [1, '#0A0C12']] },
+      rad: { x: .38, y: .18, r: .78, s: [[0, '#2A2D3A', .28], [.60, '#2A2D3A', 0], [1, '#000000', 0]] },
+      r: 28,
+      borders: [[3, 2, '#3B4352', 1], [13, 1, '#78879A', 1], [19, 1, '#59D9E5', .28]],
+      shadows: [['#000000', .54, 30, 14], ['#000000', .24, 8, 4]],
+      bar: [180, 4, 30, '#6EDCE5', .46],
+    },
+    main: {
+      lin: { a: 145, s: [[0, '#241733'], [.30, '#1A1428'], [.65, '#101522'], [1, '#091019']] },
+      rad: { x: .28, y: .18, r: .84, s: [[0, '#C14DAA', .20], [.35, '#7B3A91', .10], [.70, '#31C6D8', .05], [1, '#000000', 0]] },
+      r: 28,
+      pat: { type: 'diag2', deg: 45, sp: 42, col: '#B7EAF0', al: .035, lw: 1 },
+      borders: [[3, 3, '#60E1EB', 1], [12, 1, '#E067C6', 1], [19, 1, '#94F5FB', 1]],
+      shadows: [['#42D9E7', .28, 22, 0], ['#D656B6', .16, 34, 0], ['#000000', .48, 32, 14]],
+      bar: [180, 4, 30, '#B9F7FA', .88],
+    },
+    icon: { col: '#7DDDE5', mcol: '#B8F5F9', w: 4.5, size: 146, msize: 150, top: 106 },
+    jp: { f: '"Noto Sans JP"', wgt: 500, size: 56, msize: 60, col: '#E7EDF2', mcol: '#F8FCFD', ls: 3.1, mls: 4.5, y: 394, my: 392 },
+    div: { w: 320, gap: 34, lw: 1, col: '#66798A', al: .60, mcol: '#69DCE5', mal: .86, shape: 'hex', ss: 16 },
+    en: { size: 24, msize: 25, wgt: 400, col: '#7F909E', mcol: '#DEA0D0', ls: 8.2, mls: 9 },
+    badge: { bg: '#60E1EB', tx: '#091019' },
+  },
+
+  quiet_grid: {
+    bg: {
+      lin: { a: 135, s: [[0, '#F6F6F3'], [.32, '#F1F0EC'], [.66, '#EBEAE6'], [1, '#E5E4DF']] },
+      rads: [
+        { x: 180, y: 120, r: 820, s: [[0, '#FFFFFF', .52], [.45, '#FAFAF7', .18], [1, '#FFFFFF', 0]] },
+        { x: 2350, y: 1560, r: 760, s: [[0, '#CFD6D3', .20], [.50, '#DDE2DF', .07], [1, '#FFFFFF', 0]] },
+      ],
+      pat: { type: 'grid', sp: 72, col: '#A9ADA9', al: .04, lw: 1 },
+      corners: { col: '#8C928E', lw: 1, n: 3, al: .18, sp: 12, r0: 200, line: true },
+    },
+    card: {
+      lin: { a: 110, s: [[0, '#FFFFFF'], [.45, '#FBFBF9'], [1, '#F1F1ED']] },
+      rad: { x: .40, y: .18, r: .76, s: [[0, '#FFFFFF', .30], [.60, '#FFFFFF', 0], [1, '#FFFFFF', 0]] },
+      r: 28,
+      borders: [[3, 2, '#D6D8D4', 1], [13, 1, '#BFC3BF', 1]],
+      shadows: [['#555A57', .12, 24, 10], ['#3D423F', .05, 7, 3]],
+      topHL: [10, 40, .68],
+      bar: [140, 5, 30, '#C0C5C1', .72],
+      cornerL: [26, 1, '#B7BCB8', .35, 18],
+      grain: [22, 24, 0, '#727975', .012],
+    },
+    main: {
+      lin: { a: 140, s: [[0, '#414A46'], [.35, '#343C39'], [.70, '#29302E'], [1, '#202624']] },
+      rad: { x: .28, y: .18, r: .82, s: [[0, '#65716C', .22], [.48, '#4D5853', .07], [1, '#000000', 0]] },
+      r: 28,
+      pat: { type: 'vlines', sp: 36, col: '#F6F7F5', al: .028, lw: 1 },
+      borders: [[3, 3, '#AEB8B2', 1], [12, 1, '#E7EBE8', 1], [18, 1, '#79837E', .60]],
+      shadows: [['#252A27', .30, 30, 13], ['#000000', .10, 8, 3]],
+      bar: [140, 5, 30, '#DCE2DE', .88],
+      cornerL: [26, 1, '#C8D0CB', .42, 18],
+    },
+    icon: { col: '#68706C', mcol: '#F2F4F1', w: 4.5, size: 144, msize: 148, top: 108 },
+    jp: { f: '"Noto Sans JP"', wgt: 500, size: 56, msize: 60, col: '#353A37', mcol: '#F5F6F3', ls: 2.5, mls: 3.6, y: 394, my: 392 },
+    div: { w: 300, gap: 24, lw: 1, col: '#B3B8B4', al: .62, mcol: '#C9D0CC', mal: .80, shape: 'circle', ss: 8 },
+    en: { size: 24, msize: 25, wgt: 400, col: '#8A908C', mcol: '#D6DDD8', ls: 7.2, mls: 7.9 },
+    badge: { bg: '#353A37', tx: '#F5F6F3' },
+  },
+};
+
 // ========== 状態 ==========
 const state = {
   industry: null,
@@ -856,6 +1491,7 @@ function init() {
 // フォント読み込み後にギャラリー描画
 async function ensureFonts() {
   const loads = [
+    '400 40px "Noto Sans JP"', '500 40px "Noto Sans JP"',
     '700 40px "Noto Sans JP"', '900 40px "Noto Sans JP"',
     '800 40px "M PLUS Rounded 1c"',
     '600 40px "Shippori Mincho"', '700 40px "Shippori Mincho"',
@@ -913,7 +1549,9 @@ async function buildGallery() {
 
 function openEditor() {
   $('#step4').classList.remove('hidden');
-  // 色ピッカー初期値
+  // 色ピッカー初期値 (プレミアムテーマは専用配色固定のため色調整パネルを隠す)
+  const colorPanel = $('#accentPick').closest('.ed-panel');
+  if (colorPanel) colorPanel.style.display = SPEC[state.themeId] ? 'none' : '';
   $('#accentPick').value = state.industry.pal.accent;
   $('#chkDefColor').checked = state.useDefColor;
   buildLabelEditor();
@@ -953,7 +1591,8 @@ function renderEditor() {
 }
 
 function renderAreaTable() {
-  const rects = layoutRects(state.n);
+  const isSpec = !!SPEC[state.themeId];
+  const rects = layoutRects(state.n, isSpec ? 110 : 46, isSpec ? 42 : 32);
   const rows = rects.map((r, i) => {
     const b = state.buttons[i] || {};
     return `<tr><td>${i + 1}. ${b.jp || ''}</td><td>${Math.round(r.x)}</td><td>${Math.round(r.y)}</td><td>${Math.round(r.w)}</td><td>${Math.round(r.h)}</td></tr>`;
