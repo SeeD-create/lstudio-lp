@@ -350,6 +350,16 @@ const THEMES = [
     jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
   { id: 'duotone_modern', name: 'デュオトーン', desc: '2色構成・メリハリ', moods: ['cool', 'sitasimi'],
     jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
+  { id: 'medical_soft', name: 'メディカルソフト', desc: '医療・清潔と安心', moods: ['shinrai'],
+    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'kids_pop', name: 'キッズポップ', desc: 'クレヨン色・こども向け', moods: ['kawaii', 'sitasimi'],
+    jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
+  { id: 'active_sport', name: 'アクティブ', desc: 'ジム・スポーツの躍動感', moods: ['cool'],
+    jp: '900 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'botanical_calm', name: 'ボタニカル', desc: '深緑・オーガニック', moods: ['sitasimi', 'shinrai'],
+    jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
+  { id: 'retro_taishu', name: 'レトロ酒場', desc: '紺×朱・大衆レトロ', moods: ['wa', 'sitasimi'],
+    jp: '700 FZ "Shippori Mincho"', en: '"Shippori Mincho"' },
 ];
 
 const MOODS = [
@@ -538,6 +548,48 @@ function styleFor(id, p) {
       mainFill: '#1B1F26', mainText: '#ffffff', mainIcon: '#ffffff',
       badgeBg: darken(p.accent2, 0.05), badgeText: '#fff',
     };
+    case 'medical_soft': return {
+      bg1: '#FFFFFF', bg2: '#EFF6FA',
+      card: '#FFFFFF', border: '#D7E6EE', borderW: 2.5, radius: 36,
+      shadow: 'rgba(60,110,150,.10)', shadowBlur: 22, shadowY: 8,
+      leftBar: mix(p.accent, '#2E86B8', 0.4),
+      icon: mix(p.accent, '#2E6E93', 0.35), text: '#33424E', sub: '#93A6B3',
+      mainFill: darken(mix(p.accent, '#2E86B8', 0.4), 0.10), mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: '#E8604C', badgeText: '#fff',
+    };
+    case 'kids_pop': return {
+      bg1: '#FFF9E8', bg2: '#FFF3D6', dots: rgba('#E8A906', 0.16),
+      card: '#FFFFFF', borderCycle: ['#F2B705', '#E8604C', '#3E9BD6', '#57B368', '#9A6DD7', '#EE7FA8'], borderW: 5, radius: 64,
+      shadow: 'rgba(120,100,60,.10)', shadowBlur: 16, shadowY: 6,
+      icon: '#4A4A55', text: '#3E3E4A', sub: '#A0A0AC',
+      mainFill: darken(p.accent, 0.06), mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: '#E8604C', badgeText: '#fff',
+    };
+    case 'active_sport': return {
+      bg1: '#15181E', bg2: '#242A34', diag: true, diagLines: rgba(lighten(p.accent, 0.25), 0.10),
+      card: '#1D222B', border: 'rgba(255,255,255,.06)', borderW: 2, radius: 18,
+      shadow: 'rgba(0,0,0,.35)', shadowBlur: 20, shadowY: 8,
+      bottomBar: lighten(p.accent, 0.1),
+      icon: lighten(p.accent, 0.3), text: '#FFFFFF', sub: 'rgba(255,255,255,.5)',
+      mainFill: darken(p.accent, 0.05), mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: '#ffffff', badgeText: '#15181E',
+    };
+    case 'botanical_calm': return {
+      bg1: '#EFF4EC', bg2: '#DDE9D8',
+      card: '#FFFFFF', border: 'rgba(122,155,114,.45)', borderW: 2, radius: 48,
+      shadow: 'rgba(90,120,80,.12)', shadowBlur: 24, shadowY: 8,
+      icon: '#5F8256', text: '#3C4A38', sub: '#8FA089',
+      mainFill: '#447A2E', mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: '#B3552F', badgeText: '#fff',
+    };
+    case 'retro_taishu': return {
+      bg1: '#20242F', bg2: '#161A23', speckle: true,
+      card: '#F5E9CE', border: '#B3402E', borderW: 3.5, inner: true, radius: 12,
+      shadow: 'rgba(0,0,0,.30)', shadowBlur: 18, shadowY: 8,
+      icon: '#8A3325', text: '#3A2E1E', sub: '#8A7A5C',
+      mainFill: '#B3402E', mainText: '#F8EFDD', mainIcon: '#F8EFDD',
+      badgeBg: '#20242F', badgeText: '#F5E9CE',
+    };
   }
 }
 
@@ -563,6 +615,22 @@ function drawBg(c, id, S, p) {
     c.strokeStyle = 'rgba(120,200,255,.05)'; c.lineWidth = 2;
     for (let x = 0; x < W; x += 125) line(c, x, 0, x, H);
     for (let y = 0; y < H; y += 125) line(c, 0, y, W, y);
+    c.restore();
+  }
+  if (S.dots) { // 水玉 (kids)
+    c.save();
+    c.fillStyle = S.dots;
+    for (let y = 0, row = 0; y < H + 60; y += 105, row++) {
+      for (let x = row % 2 ? 52 : 0; x < W + 60; x += 105) {
+        c.beginPath(); c.arc(x, y, 11, 0, 7); c.fill();
+      }
+    }
+    c.restore();
+  }
+  if (S.diagLines) { // 斜めのスピードライン (sport)
+    c.save();
+    c.strokeStyle = S.diagLines; c.lineWidth = 30; c.lineCap = 'butt';
+    for (let x = -H; x < W + H; x += 320) line(c, x, H + 40, x + H, -40);
     c.restore();
   }
   if (S.hairline) { // ミニマル: 罫線は drawCell 側で引かず、ここで全体に
@@ -604,7 +672,7 @@ function drawCell(c, t, S, p, r, b, i, showEn) {
     c.shadowColor = 'transparent'; c.shadowBlur = 0; c.shadowOffsetY = 0;
 
     if (S.borderW) {
-      c.strokeStyle = isMain && S.mainGrad ? rgba('#ffffff', 0.5) : S.border;
+      c.strokeStyle = isMain && S.mainGrad ? rgba('#ffffff', 0.5) : (S.borderCycle ? S.borderCycle[i % S.borderCycle.length] : S.border);
       c.lineWidth = S.borderW;
       if (S.dash) c.setLineDash(S.dash);
       rr(c, r.x, r.y, r.w, r.h, S.radius); c.stroke();
@@ -617,6 +685,14 @@ function drawCell(c, t, S, p, r, b, i, showEn) {
     if (S.topBar) { // カード上端のアクセントバー (duotone)
       c.fillStyle = isMain ? lighten(p.accent, 0.15) : S.topBar;
       rr(c, r.x + r.w * 0.30, r.y, r.w * 0.40, 14, 7); c.fill();
+    }
+    if (S.leftBar) { // カード左端の縦バー (medical)
+      c.fillStyle = isMain ? 'rgba(255,255,255,.85)' : S.leftBar;
+      rr(c, r.x, r.y + r.h * 0.30, 12, r.h * 0.40, 6); c.fill();
+    }
+    if (S.bottomBar) { // カード下端のアクセントバー (sport)
+      c.fillStyle = isMain ? 'rgba(255,255,255,.9)' : S.bottomBar;
+      rr(c, r.x + r.w * 0.30, r.y + r.h - 14, r.w * 0.40, 14, 7); c.fill();
     }
   }
 
