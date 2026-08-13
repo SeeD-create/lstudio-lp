@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>英検S-CBT対策 AI添削トレーナー ｜ 動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="英作文のAI即時添削・スピーキング録音評価・S-CBT風UIを実際に操作できる動作デモです。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="英検S-CBT対策 AI添削トレーナー ｜ 動作デモ">
+<meta property="og:description" content="英作文のAI即時添削・スピーキング録音評価・S-CBT風UIを実際に操作できるデモです。">
+<meta property="og:url" content="https://l-studiojp.com/demo/eiken-scbt/">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F4F6F9; --surface:#FFFFFF; --sunk:#EDF0F4;
+  --line:#D9DEE6; --line-soft:#E7EBF0;
+  --ink:#18222E; --ink2:#47535F; --ink3:#7A8591;
+  --accent:#1D5CA8; --accent-deep:#164A88; --accent-soft:#E4EDF8; --accent-line:#A9C4E4;
+  --ok:#1E7A4C; --ok-soft:#E3F1E8;
+  --warn:#9C6512; --warn-soft:#F7EEDC;
+  --bad:#A93B3B; --bad-soft:#F7E4E4;
+  --shadow:0 1px 2px rgba(18,28,40,.05),0 10px 28px -18px rgba(18,28,40,.3);
+  --r:8px;
+  --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Noto Sans JP","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Courier New",monospace;
+}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+
+/* demo band */
+.demoband{background:#10233C;color:#C8D6E8;font-size:12.5px;padding:7px 0}
+.demoband .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.demoband b{color:#fff;font-weight:600}
+.demoband .tag{background:#1D5CA8;color:#fff;border-radius:99px;padding:1px 10px;font-weight:600;white-space:nowrap}
+
+/* header */
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.applogo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.applogo .mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#1D5CA8,#3D82CE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800}
+.applogo small{display:block;font-size:11px;font-weight:500;color:var(--ink3);line-height:1.3}
+.gradesel{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)}
+.gradesel .gbtns{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--sunk)}
+.gradesel button{border:0;background:transparent;padding:7px 16px;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink2);cursor:pointer}
+.gradesel button.on{background:var(--accent);color:#fff}
+
+/* tabs */
+nav.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto}
+nav.tabs button{border:0;background:transparent;font-family:inherit;font-size:14px;font-weight:600;color:var(--ink2);padding:13px 16px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+
+main{padding:26px 0 60px}
+.view{display:none}.view.on{display:block}
+h2.vt{font-size:20px;margin:0 0 4px}
+p.vd{margin:0 0 20px;color:var(--ink2);font-size:13.5px}
+
+/* home */
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:30px 28px;margin-bottom:18px}
+.hero h1{margin:0 0 10px;font-size:24px;line-height:1.4}
+.hero p{margin:0;color:var(--ink2);max-width:640px}
+.hero .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.hero .pill{background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--accent-line);border-radius:99px;font-size:12.5px;font-weight:600;padding:4px 12px}
+.modecards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modecard{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:22px;cursor:pointer;transition:transform .12s,border-color .12s;text-align:left;font-family:inherit}
+.modecard:hover{transform:translateY(-2px);border-color:var(--accent-line)}
+.modecard .ic{font-size:26px}
+.modecard h3{margin:8px 0 6px;font-size:17px}
+.modecard p{margin:0;color:var(--ink2);font-size:13.5px}
+.modecard .go{display:inline-block;margin-top:12px;color:var(--accent);font-weight:700;font-size:13.5px}
+.subcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.subcard{background:var(--surface);border:1px solid var(--line-soft);border-radius:12px;padding:18px 20px;font-size:13.5px;color:var(--ink2)}
+.subcard b{color:var(--ink);display:block;margin-bottom:4px;font-size:14px}
+.subcard a{color:var(--accent);font-weight:600;text-decoration:none}
+
+/* exam chrome */
+.exam{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.exambar{background:#16324F;color:#fff;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.exambar .ttl{font-weight:700;font-size:14.5px}
+.exambar .sub{font-size:12px;color:#AFC4DA}
+.exambar .timer{margin-left:auto;background:#0E2338;border:1px solid #2C4A6B;border-radius:6px;padding:4px 14px;font-family:var(--mono);font-size:16px;font-weight:700;letter-spacing:1px}
+.exambar .timer.low{color:#FFB4B4}
+.exambar .tnote{font-size:10.5px;color:#8FA9C4;width:100%;text-align:right;margin-top:-4px}
+.exambody{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.qpane{padding:22px 24px;border-right:1px solid var(--line-soft);background:#FBFCFE}
+.apane{padding:22px 24px}
+.qpane .qlabel{font-size:11.5px;font-weight:700;color:var(--accent-deep);letter-spacing:.08em;margin-bottom:8px}
+.qpane .qtext{font-size:15.5px;line-height:1.75}
+.qpane .points{margin-top:14px;background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:14px}
+.qpane .points b{font-size:12px;letter-spacing:.06em;color:var(--accent-deep)}
+.qpane .cond{margin-top:14px;font-size:12.5px;color:var(--ink3);line-height:1.8}
+textarea#essay{width:100%;min-height:230px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:14px;font-family:var(--mono);font-size:14.5px;line-height:1.8;color:var(--ink);background:var(--surface)}
+textarea#essay:focus{outline:2px solid var(--accent-line);border-color:var(--accent)}
+.wcbar{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.wcnum{font-family:var(--mono);font-size:14px;font-weight:700}
+.wcnum .st{font-size:11.5px;font-weight:600;border-radius:99px;padding:2px 10px;margin-left:8px;font-family:var(--sans)}
+.wcnum .st.in{background:var(--ok-soft);color:var(--ok)}
+.wcnum .st.under{background:var(--warn-soft);color:var(--warn)}
+.wcnum .st.over{background:var(--bad-soft);color:var(--bad)}
+.wcmeter{flex:1;min-width:140px;height:8px;background:var(--sunk);border-radius:99px;overflow:hidden;position:relative}
+.wcmeter i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .2s}
+.btnrow{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;font-family:inherit;font-size:14.5px;font-weight:700;padding:12px 22px;cursor:pointer;transition:filter .12s}
+.btn:hover{filter:brightness(1.06)}
+.btn.pri{background:var(--accent);color:#fff}
+.btn.sec{background:var(--surface);color:var(--accent-deep);border:1px solid var(--accent-line)}
+.btn.ghost{background:var(--sunk);color:var(--ink2)}
+.btn:disabled{opacity:.5;cursor:default}
+
+/* result */
+.grading{display:none;padding:28px;text-align:center;color:var(--ink2)}
+.grading .sp{width:34px;height:34px;border:4px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;margin:0 auto 12px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result{display:none;border-top:1px solid var(--line);padding:24px}
+.result h3{margin:0 0 16px;font-size:16.5px}
+.scorehead{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.bigscore{background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:10px;padding:12px 22px;text-align:center}
+.bigscore .n{font-size:30px;font-weight:800;color:var(--accent-deep);line-height:1.1}
+.bigscore .d{font-size:11.5px;color:var(--ink3)}
+.axes{flex:1;min-width:240px;display:grid;gap:8px}
+.axis{display:grid;grid-template-columns:5.5em 1fr 2.5em;align-items:center;gap:10px;font-size:13px}
+.axis .bar{height:9px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.axis .bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.axis .v{font-family:var(--mono);font-weight:700;text-align:right}
+.fb{display:grid;gap:12px}
+.fbcard{border:1px solid var(--line-soft);border-radius:8px;padding:14px 16px;font-size:14px}
+.fbcard.good{background:var(--ok-soft);border-color:#C4E0CE}
+.fbcard.fix{background:var(--warn-soft);border-color:#E8D8B8}
+.fbcard.model{background:var(--sunk)}
+.fbcard b{display:block;font-size:12.5px;margin-bottom:6px;letter-spacing:.04em}
+.fbcard.good b{color:var(--ok)}.fbcard.fix b{color:var(--warn)}.fbcard.model b{color:var(--ink2)}
+.fbcard ul{margin:0;padding-left:1.3em}
+.fbcard .en{font-family:var(--mono);font-size:13.5px;line-height:1.8}
+.apinote{margin-top:14px;font-size:12px;color:var(--ink3);background:var(--sunk);border-radius:8px;padding:10px 14px}
+
+/* speaking */
+.spkbody{padding:24px}
+.spkq{background:#FBFCFE;border:1px solid var(--line-soft);border-radius:10px;padding:18px 20px;margin-bottom:18px}
+.spkq .qlabel{font-size:11.5px;font-weight:700;color:var(--accent-deep);letter-spacing:.08em;margin-bottom:6px}
+.spkq .qtext{font-size:16px;font-weight:600}
+.spkq .qhint{font-size:12.5px;color:var(--ink3);margin-top:6px}
+.microw{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.micbtn{width:76px;height:76px;border-radius:50%;border:0;background:var(--accent);color:#fff;font-size:30px;cursor:pointer;box-shadow:var(--shadow);transition:transform .12s}
+.micbtn:hover{transform:scale(1.05)}
+.micbtn.rec{background:var(--bad);animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(169,59,59,.35)}50%{box-shadow:0 0 0 14px rgba(169,59,59,0)}}
+.micstate{font-size:13.5px;color:var(--ink2)}
+.micstate b{display:block;font-size:15px;color:var(--ink)}
+.transcript{border:1px dashed var(--line);border-radius:8px;min-height:84px;padding:14px 16px;font-family:var(--mono);font-size:14px;line-height:1.8;color:var(--ink);background:var(--surface)}
+.transcript.empty{color:var(--ink3);font-family:var(--sans)}
+.suppnote{font-size:12px;color:var(--ink3);margin-top:8px}
+
+/* data admin */
+.datagrid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:20px 22px}
+.panel h3{margin:0 0 4px;font-size:16px}
+.panel p.pd{margin:0 0 14px;font-size:12.5px;color:var(--ink3)}
+table.qtable{width:100%;border-collapse:collapse;font-size:13px}
+table.qtable th{background:var(--sunk);text-align:left;padding:8px 10px;font-size:11.5px;color:var(--ink2);border-bottom:1px solid var(--line)}
+table.qtable td{padding:9px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+table.qtable td.en{font-family:var(--mono);font-size:12.5px}
+table.qtable tr.new td{background:var(--ok-soft)}
+.badge{display:inline-block;border-radius:99px;font-size:11px;font-weight:700;padding:1px 9px}
+.badge.g3{background:var(--accent-soft);color:var(--accent-deep)}
+.badge.gp2{background:var(--ok-soft);color:var(--ok)}
+.badge.g2{background:var(--warn-soft);color:var(--warn)}
+.badge.w{background:var(--accent-soft);color:var(--accent-deep)}
+.badge.s{background:#F0E4F5;color:#7A3E96}
+.addform{display:grid;gap:10px}
+.addform label{font-size:12px;font-weight:700;color:var(--ink2)}
+.addform input,.addform select,.addform textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:9px 11px;font-family:inherit;font-size:13.5px;background:var(--surface);color:var(--ink)}
+.addform textarea{font-family:var(--mono);min-height:64px;resize:vertical}
+.jsonbox{background:#14202E;color:#C9D7E6;border-radius:8px;padding:14px 16px;font-family:var(--mono);font-size:12px;line-height:1.7;overflow-x:auto;max-height:300px;overflow-y:auto}
+.jsonbox .k{color:#8FC7FF}.jsonbox .s{color:#A8D8A8}
+
+/* arch */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:stretch;margin:18px 0}
+.fstep{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 14px;text-align:center;position:relative}
+.fstep .ic{font-size:22px}
+.fstep b{display:block;font-size:13.5px;margin:6px 0 2px}
+.fstep span{font-size:11.5px;color:var(--ink3);line-height:1.5;display:block}
+.fstep:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--ink3);font-size:16px;z-index:2}
+.flow{gap:20px}
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface)}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:10px 14px;text-align:left}
+table.cmp th{background:var(--sunk);font-size:12.5px}
+table.cmp td:first-child{font-weight:600;white-space:nowrap}
+
+footer{border-top:1px solid var(--line);background:var(--surface);padding:22px 0;font-size:12px;color:var(--ink3)}
+footer .wrap{display:grid;gap:6px}
+
+@media(max-width:760px){
+  .exambody{grid-template-columns:1fr}
+  .qpane{border-right:0;border-bottom:1px solid var(--line-soft)}
+  .modecards,.subcards,.datagrid{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .fstep:not(:last-child)::after{display:none}
+  .gradesel{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="demoband"><div class="wrap">
+  <span class="tag">動作デモ</span>
+  <span><b>AI応答はブラウザ内のサンプルロジックです。</b>本番実装ではOpenAI API（GPT／Whisper）がその場で採点します。</span>
+</div></div>
+
+<header class="site"><div class="wrap">
+  <div class="applogo">
+    <div class="mark">英</div>
+    <div>英検S-CBT対策 AI添削トレーナー<small>Writing &amp; Speaking ／ プロトタイプ</small></div>
+  </div>
+  <div class="gradesel">
+    <span>受験級</span>
+    <div class="gbtns">
+      <button data-g="3" class="on">3級</button>
+      <button data-g="p2">準2級</button>
+      <button data-g="2">2級</button>
+    </div>
+  </div>
+</div></header>
+
+<nav class="tabs"><div class="wrap">
+  <button data-v="home" class="on">🏠 ホーム</button>
+  <button data-v="write">✏️ ライティング添削</button>
+  <button data-v="speak">🎤 スピーキング評価</button>
+  <button data-v="data">🗂 問題管理（ノーコード）</button>
+  <button data-v="arch">⚙️ 仕組み</button>
+</div></nav>
+
+<main><div class="wrap">
+
+<!-- ===== HOME ===== -->
+<section class="view on" id="v-home">
+  <div class="hero">
+    <h1>書いたら、その場でAIが採点。<br>話したら、その場で文字起こし＆評価。</h1>
+    <p>英検S-CBT形式のライティングとスピーキングを、提出した瞬間にAIが採点・フィードバックする学習アプリのプロトタイプです。上の「受験級」を切り替えると、出題・語数条件・採点基準がすべて級別に変わります。</p>
+    <div class="pills">
+      <span class="pill">✏️ 英作文の即時添削（4観点16点）</span>
+      <span class="pill">🎤 録音 → 文字起こし → AI評価</span>
+      <span class="pill">🖥 S-CBT風の試験画面UI</span>
+      <span class="pill">🗂 問題追加はスプレッドシート/JSONだけ</span>
+    </div>
+  </div>
+  <div class="modecards">
+    <button class="modecard" onclick="go('write')">
+      <div class="ic">✏️</div>
+      <h3>ライティング即時添削</h3>
+      <p>S-CBT風の2画面レイアウトで英作文。リアルタイム語数カウント付き。提出すると内容・構成・語彙・文法の4観点（各4点）でスコアとフィードバックが返ります。</p>
+      <span class="go">試してみる →</span>
+    </button>
+    <button class="modecard" onclick="go('speak')">
+      <div class="ic">🎤</div>
+      <h3>スピーキング評価</h3>
+      <p>マイクで録音すると音声がテキスト化され、AIが評価します。このデモはブラウザの音声認識で動作（本番はWhisper APIで高精度化）。マイクなしでもサンプルで試せます。</p>
+      <span class="go">試してみる →</span>
+    </button>
+  </div>
+  <div class="subcards">
+    <div class="subcard"><b>🗂 問題の追加にプログラミングは不要</b>出題データはスプレッドシート／JSONで管理。行を足すだけで問題が増える設計を<a href="javascript:go('data')">「問題管理」タブ</a>で体験できます。</div>
+    <div class="subcard"><b>⚙️ 本番実装との違い</b>このデモの採点はブラウザ内の簡易ロジックです。本番はOpenAI APIによる本格採点になります。構成は<a href="javascript:go('arch')">「仕組み」タブ</a>へ。</div>
+  </div>
+</section>
+
+<!-- ===== WRITING ===== -->
+<section class="view" id="v-write">
+  <h2 class="vt">✏️ ライティング即時添削</h2>
+  <p class="vd">英文を入力（または「例文を自動入力」）して「提出して添削」を押してください。語数カウントは入力と同時に更新されます。</p>
+  <div class="exam">
+    <div class="exambar">
+      <span class="ttl" id="w-ttl">英検3級 Writing</span>
+      <span class="sub" id="w-sub">Eメール／意見論述（練習モード）</span>
+      <span class="timer" id="w-timer">15:00</span>
+      <span class="tnote">※タイマーは練習用の目安です（本番仕様に合わせて調整できます）</span>
+    </div>
+    <div class="exambody">
+      <div class="qpane">
+        <div class="qlabel">QUESTION</div>
+        <div class="qtext en" id="w-q"></div>
+        <div class="points" id="w-points" style="display:none"></div>
+        <div class="cond" id="w-cond"></div>
+      </div>
+      <div class="apane">
+        <textarea id="essay" spellcheck="false" placeholder="Type your answer here..."></textarea>
+        <div class="wcbar">
+          <span class="wcnum"><span id="w-count">0</span> words<span class="st under" id="w-status">目標まであと少し</span></span>
+          <div class="wcmeter"><i id="w-meter"></i></div>
+          <span style="font-size:12px;color:var(--ink3)" id="w-target"></span>
+        </div>
+        <div class="btnrow">
+          <button class="btn pri" id="w-submit">提出して添削 ▶</button>
+          <button class="btn sec" id="w-sample">📋 例文を自動入力</button>
+          <button class="btn ghost" id="w-clear">クリア</button>
+        </div>
+      </div>
+    </div>
+    <div class="grading" id="w-grading"><div class="sp"></div>AIが採点しています…</div>
+    <div class="result" id="w-result">
+      <h3>📝 添削結果</h3>
+      <div class="scorehead">
+        <div class="bigscore"><div class="n" id="w-score">0/16</div><div class="d">英検式 4観点×4点</div></div>
+        <div class="axes">
+          <div class="axis"><span>内容</span><div class="bar"><i id="ax-content"></i></div><span class="v" id="axv-content">0</span></div>
+          <div class="axis"><span>構成</span><div class="bar"><i id="ax-structure"></i></div><span class="v" id="axv-structure">0</span></div>
+          <div class="axis"><span>語彙</span><div class="bar"><i id="ax-vocab"></i></div><span class="v" id="axv-vocab">0</span></div>
+          <div class="axis"><span>文法</span><div class="bar"><i id="ax-grammar"></i></div><span class="v" id="axv-grammar">0</span></div>
+        </div>
+      </div>
+      <div class="fb">
+        <div class="fbcard good"><b>👍 よかった点</b><ul id="w-good"></ul></div>
+        <div class="fbcard fix"><b>✏️ 直すともっと良くなる点</b><ul id="w-fix"></ul></div>
+        <div class="fbcard model"><b>📖 模範解答（この級の語数目安）</b><div class="en" id="w-model"></div></div>
+      </div>
+      <div class="apinote">※このデモの採点はブラウザ内の簡易ロジックによるサンプルです。本番実装では OpenAI API が語法・内容の妥当性まで踏み込んだ添削をその場で返します（応答3〜8秒程度）。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPEAKING ===== -->
+<section class="view" id="v-speak">
+  <h2 class="vt">🎤 スピーキング評価</h2>
+  <p class="vd">マイクボタンを押して英語で答えると、音声がテキスト化されます。話し終えたらもう一度押して停止 →「AI評価」へ。マイクが使えない環境は「サンプル回答で試す」でどうぞ。</p>
+  <div class="exam">
+    <div class="exambar">
+      <span class="ttl" id="s-ttl">英検3級 Speaking</span>
+      <span class="sub">Q&amp;A（練習モード）</span>
+    </div>
+    <div class="spkbody">
+      <div class="spkq">
+        <div class="qlabel">QUESTION（音声読み上げの想定）</div>
+        <div class="qtext en" id="s-q"></div>
+        <div class="qhint" id="s-hint"></div>
+      </div>
+      <div class="microw">
+        <button class="micbtn" id="s-mic" title="録音の開始/停止">🎙️</button>
+        <div class="micstate"><b id="s-state">タップして録音開始</b><span id="s-substate">ブラウザの音声認識（Chrome推奨）で文字起こしします</span></div>
+        <button class="btn sec" id="s-sample" style="margin-left:auto">🧪 サンプル回答で試す</button>
+      </div>
+      <div class="transcript empty" id="s-transcript">ここに話した内容がテキスト化されます</div>
+      <div class="suppnote" id="s-supp"></div>
+      <div class="btnrow">
+        <button class="btn pri" id="s-eval" disabled>この回答をAI評価 ▶</button>
+        <button class="btn ghost" id="s-reset">やり直す</button>
+      </div>
+    </div>
+    <div class="grading" id="s-grading"><div class="sp"></div>AIが評価しています…</div>
+    <div class="result" id="s-result">
+      <h3>🗣 スピーキング評価</h3>
+      <div class="scorehead">
+        <div class="bigscore"><div class="n" id="s-score">0/16</div><div class="d">4観点×4点（練習用）</div></div>
+        <div class="axes">
+          <div class="axis"><span>内容</span><div class="bar"><i id="sax-content"></i></div><span class="v" id="saxv-content">0</span></div>
+          <div class="axis"><span>流暢さ</span><div class="bar"><i id="sax-fluency"></i></div><span class="v" id="saxv-fluency">0</span></div>
+          <div class="axis"><span>語彙</span><div class="bar"><i id="sax-vocab"></i></div><span class="v" id="saxv-vocab">0</span></div>
+          <div class="axis"><span>文法</span><div class="bar"><i id="sax-grammar"></i></div><span class="v" id="saxv-grammar">0</span></div>
+        </div>
+      </div>
+      <div class="fb">
+        <div class="fbcard good"><b>👍 よかった点</b><ul id="s-good"></ul></div>
+        <div class="fbcard fix"><b>✏️ 直すともっと良くなる点</b><ul id="s-fix"></ul></div>
+        <div class="fbcard model"><b>📖 回答例</b><div class="en" id="s-model"></div></div>
+      </div>
+      <div class="apinote">※このデモはブラウザ内蔵の音声認識＋簡易ロジックです。本番実装では Whisper API による高精度文字起こし → GPT による評価になり、iPhoneのSafariを含む全端末で動作します。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DATA ===== -->
+<section class="view" id="v-data">
+  <h2 class="vt">🗂 問題管理（プログラミング不要）</h2>
+  <p class="vd">出題データはスプレッドシート／JSONで管理します。<b>行を追加するだけで、アプリ側は何も変更せずに問題が増えます。</b>下のフォームから実際に追加して、ライティング／スピーキングのタブで出題されるのを確認できます。</p>
+  <div class="datagrid">
+    <div class="panel">
+      <h3>登録済みの問題</h3>
+      <p class="pd">＝ スプレッドシートの中身のイメージ（1行1問）</p>
+      <div style="overflow-x:auto"><table class="qtable"><thead>
+        <tr><th>級</th><th>種別</th><th>問題文（英語）</th><th>語数目安</th></tr>
+      </thead><tbody id="d-rows"></tbody></table></div>
+    </div>
+    <div class="panel">
+      <h3>➕ 問題を追加してみる</h3>
+      <p class="pd">先生・スタッフが行う操作のイメージです（保存はこのブラウザ内のみ）</p>
+      <div class="addform">
+        <div><label>級</label><select id="d-grade"><option value="3">3級</option><option value="p2">準2級</option><option value="2">2級</option></select></div>
+        <div><label>種別</label><select id="d-kind"><option value="w">ライティング</option><option value="s">スピーキング</option></select></div>
+        <div><label>問題文（英語）</label><textarea id="d-q" placeholder="Do you like reading books?"></textarea></div>
+        <button class="btn pri" id="d-add">この内容で追加する</button>
+        <div style="font-size:12px;color:var(--ink3)">追加すると左の一覧に入り、該当タブの「別の問題」からすぐ出題されます。本番はスプレッドシートに行を足す＝この操作と同じです。</div>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h3>JSONで見るとこうなっています</h3>
+    <p class="pd">スプレッドシートの各行が、そのままアプリの出題データになります</p>
+    <div class="jsonbox" id="d-json"></div>
+  </div>
+</section>
+
+<!-- ===== ARCH ===== -->
+<section class="view" id="v-arch">
+  <h2 class="vt">⚙️ 仕組み（本番実装の構成）</h2>
+  <p class="vd">このデモはUI・操作フローの確認用プロトタイプです。本番では以下の構成になります。</p>
+  <div class="flow">
+    <div class="fstep"><div class="ic">⌨️ / 🎙️</div><b>入力</b><span>英作文テキスト、またはマイク録音（音声）</span></div>
+    <div class="fstep"><div class="ic">🔤</div><b>音声→テキスト</b><span>Whisper API（スピーキングのみ）</span></div>
+    <div class="fstep"><div class="ic">🤖</div><b>AI採点</b><span>OpenAI GPTが級別ルーブリックで4観点採点＋講評をJSONで返却</span></div>
+    <div class="fstep"><div class="ic">📊</div><b>結果表示</b><span>スコア・良い点・改善点・模範解答を即時表示／学習履歴を保存</span></div>
+  </div>
+  <table class="cmp">
+    <tr><th></th><th>このデモ</th><th>本番実装</th></tr>
+    <tr><td>英作文の採点</td><td>ブラウザ内の簡易ロジック（サンプル）</td><td>OpenAI GPT（級別ルーブリック・観点別採点・語法指摘）</td></tr>
+    <tr><td>音声の文字起こし</td><td>ブラウザ内蔵の音声認識（Chrome系のみ）</td><td>Whisper API（全ブラウザ・スマホ対応、精度大幅向上）</td></tr>
+    <tr><td>問題データ</td><td>ページ内JSON（このブラウザで追加体験可）</td><td>Googleスプレッドシート連携（行を足すだけ・コード変更不要）</td></tr>
+    <tr><td>学習履歴</td><td>保存なし</td><td>スコア履歴の保存・生徒別の伸び可視化（拡張オプション）</td></tr>
+    <tr><td>タイマー・級設定</td><td>目安値</td><td>本番のS-CBT仕様・運用方針に合わせて設定</td></tr>
+  </table>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  <div>このページは開発提案用の動作デモです。出題文はすべてオリジナルの類題であり、実際の試験問題の転載ではありません。</div>
+  <div>「英検」は公益財団法人日本英語検定協会の登録商標です。このデモ・提案は同協会が認定・後援するものではありません。</div>
+  <div>© L-studio ｜ <a href="https://l-studiojp.com/" style="color:var(--accent)">l-studiojp.com</a></div>
+</div></footer>
+
+<script>
+/* ---------- data ---------- */
+const GRADES = {
+  "3":  {label:"3級",  wmin:25, wmax:35,  timer:15*60},
+  "p2": {label:"準2級", wmin:50, wmax:60,  timer:20*60},
+  "2":  {label:"2級",  wmin:80, wmax:100, timer:25*60}
+};
+let QUESTIONS = [
+  {g:"3", kind:"w", q:"What is your favorite season?", points:null,
+   model:"My favorite season is summer. I have two reasons. First, I can swim in the sea with my family. Second, we have a long vacation, so I can visit my grandmother. That is why I like summer the best.",
+   sample:"I like winter the best. First, I can play in the snow with my friends. Second, my birthday is in December, so my family has a party for me. That is why I like winter."},
+  {g:"3", kind:"w", q:"Which do you like better, watching movies at home or at a movie theater?", points:null,
+   model:"I like watching movies at home better. First, I can relax on the sofa and watch movies with my family. Second, it is cheaper than going to a theater, so I can watch many movies. That is why I like watching movies at home.",
+   sample:"I like watching movies at a movie theater better. First, the screen is very big, so the movies are exciting. Second, I can enjoy popcorn with my friends there. That is why I like movie theaters."},
+  {g:"p2", kind:"w", q:"Do you think it is good for students to take part in club activities at school?", points:null,
+   model:"Yes, I think so. I have two reasons. First, students can learn important skills such as teamwork through club activities. Working toward the same goal with others is a great experience. Second, club activities help students stay healthy because many of them get regular exercise. For these reasons, I think club activities are good for students.",
+   sample:"Yes, I think club activities are good for students. First, students can make many friends through club activities, and they learn how to work together as a team. Second, doing sports after class is good for their health. For these reasons, I believe students should join club activities at school."},
+  {g:"2", kind:"w", q:"Some people say that public libraries will not be needed in the future. Do you agree with this opinion?", points:["Technology","Cost","Local communities"],
+   model:"I do not agree with this opinion. First, public libraries play an important role in local communities. They offer a safe place where children and elderly people can learn, meet, and join events, and such places cannot be replaced by the Internet. Second, not everyone can afford computers or e-books. Libraries give all people free access to information, so they reduce the gap caused by cost. For these reasons, I believe public libraries will still be needed in the future.",
+   sample:"I do not agree with this idea. First, libraries are important for local communities. People of all ages can join events, study together, and feel connected to each other there. Second, technology is useful, but some people cannot pay for computers or the Internet. Libraries give everyone free access to books and information. For these reasons, I think public libraries will still be needed in the future."},
+  {g:"3", kind:"s", q:"What do you like to do in your free time?", hint:"2文以上で答えてみましょう（好きなこと＋理由や具体例）",
+   model:"I like to play soccer in my free time. I practice with my friends in the park every Sunday, and it is a lot of fun."},
+  {g:"p2", kind:"s", q:"Do you think people will use bicycles more in the future?", hint:"Yes/No＋理由を2文以上で",
+   model:"Yes, I think so. Bicycles are good for the environment, and they are also good for our health. More people want to save money, so bicycles will become more popular."},
+  {g:"2", kind:"s", q:"These days, many people work from home. Do you think this is a good idea?", hint:"意見＋理由2つを目安に",
+   model:"I think working from home is a good idea. People can save time because they do not have to travel to their offices. Also, they can spend more time with their families, which makes their lives better."}
+];
+const CONNECTIVES = ["first","second","because","so","also","however","therefore","for example","in addition","that is why","for these reasons","i think","i believe","such as"];
+
+let grade = "3";
+let wq = null, sq = null;
+let usedSampleW = false, usedSampleS = false;
+
+/* ---------- nav ---------- */
+function go(v){
+  document.querySelectorAll(".view").forEach(x=>x.classList.remove("on"));
+  document.getElementById("v-"+v).classList.add("on");
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on", b.dataset.v===v));
+  if(v==="write") startTimer();
+  window.scrollTo({top:0});
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.v)));
+document.querySelectorAll(".gradesel button").forEach(b=>b.addEventListener("click",()=>{
+  grade=b.dataset.g;
+  document.querySelectorAll(".gradesel button").forEach(x=>x.classList.toggle("on",x===b));
+  pickQuestions(); renderWrite(); renderSpeak(); resetWriteResult(); resetSpeak();
+}));
+
+/* ---------- question pick ---------- */
+function pickQuestions(){
+  const w = QUESTIONS.filter(x=>x.g===grade && x.kind==="w");
+  const s = QUESTIONS.filter(x=>x.g===grade && x.kind==="s");
+  wq = w[0]||null; sq = s[0]||null;
+}
+function nextQuestion(kind){
+  const list = QUESTIONS.filter(x=>x.g===grade && x.kind===kind);
+  if(list.length<2) return;
+  if(kind==="w"){ wq = list[(list.indexOf(wq)+1)%list.length]; renderWrite(); resetWriteResult(); }
+  else { sq = list[(list.indexOf(sq)+1)%list.length]; renderSpeak(); resetSpeak(); }
+}
+
+/* ---------- writing ---------- */
+const essay = document.getElementById("essay");
+function renderWrite(){
+  const G = GRADES[grade];
+  document.getElementById("w-ttl").textContent = "英検"+G.label+" Writing";
+  document.getElementById("w-sub").textContent = grade==="2" ? "意見論述（TOPIC＋POINTS・練習モード）" : "意見論述（練習モード）";
+  if(!wq){ document.getElementById("w-q").textContent="（この級の問題が未登録です）"; return; }
+  document.getElementById("w-q").textContent = wq.q;
+  const pts = document.getElementById("w-points");
+  if(wq.points){ pts.style.display="block"; pts.innerHTML = "<b>POINTS</b><br>● "+wq.points.join("<br>● "); }
+  else pts.style.display="none";
+  document.getElementById("w-cond").innerHTML =
+    "・語数の目安： <b>"+G.wmin+"語〜"+G.wmax+"語</b><br>・理由を2つ挙げて、まとまりのある英文で書きましょう。";
+  document.getElementById("w-target").textContent = "目標 "+G.wmin+"〜"+G.wmax+"語";
+  updateCount();
+}
+function wordCount(t){ return (t.trim().match(/[A-Za-z'’-]+/g)||[]).length; }
+function updateCount(){
+  const G = GRADES[grade];
+  const n = wordCount(essay.value);
+  document.getElementById("w-count").textContent = n;
+  const st = document.getElementById("w-status");
+  if(n===0){ st.textContent="未入力"; st.className="st under"; }
+  else if(n<G.wmin){ st.textContent="あと"+(G.wmin-n)+"語"; st.className="st under"; }
+  else if(n<=G.wmax){ st.textContent="ちょうど良い語数"; st.className="st in"; }
+  else { st.textContent=(n-G.wmax)+"語オーバー"; st.className="st over"; }
+  const pct = Math.min(100, n/G.wmax*100);
+  const m = document.getElementById("w-meter");
+  m.style.width = pct+"%";
+  m.style.background = (n>=G.wmin&&n<=G.wmax) ? "var(--ok)" : (n>G.wmax ? "var(--bad)" : "var(--accent)");
+}
+essay.addEventListener("input", ()=>{ usedSampleW=false; updateCount(); });
+document.getElementById("w-sample").addEventListener("click", ()=>{
+  if(!wq) return; essay.value = wq.sample || wq.model; usedSampleW=true; updateCount();
+});
+document.getElementById("w-clear").addEventListener("click", ()=>{ essay.value=""; usedSampleW=false; updateCount(); resetWriteResult(); });
+
+function resetWriteResult(){
+  document.getElementById("w-result").style.display="none";
+  document.getElementById("w-grading").style.display="none";
+}
+function scoreEssay(text){
+  const G = GRADES[grade];
+  const n = wordCount(text);
+  const low = text.toLowerCase();
+  const conn = CONNECTIVES.filter(c=>low.includes(c));
+  const words = low.match(/[a-z'’-]+/g)||[];
+  const uniq = new Set(words).size;
+  const sentences = text.split(/[.!?]+/).filter(s=>s.trim().length>2);
+
+  let content = n>=G.wmin&&n<=G.wmax ? 4 : (n>=G.wmin*0.7 ? 3 : (n>=G.wmin*0.4 ? 2 : 1));
+  let structure = Math.min(4, 1 + Math.min(3, Math.floor(conn.length/1.5)));
+  let vocab = uniq>=n*0.7&&n>=G.wmin*0.7 ? 4 : (uniq>=n*0.55 ? 3 : 2);
+  let grammar = 3;
+  const avg = n/Math.max(1,sentences.length);
+  if(avg>=6&&avg<=22&&/^[A-Z]/.test(text.trim())) grammar=4;
+  if(sentences.length<2) grammar=2;
+  if(usedSampleW){ content=4; structure=4; vocab=3; grammar=4; }
+
+  const good=[], fix=[];
+  if(n>=G.wmin&&n<=G.wmax) good.push("語数が目標（"+G.wmin+"〜"+G.wmax+"語）にきちんと収まっています。");
+  if(conn.length>=2) good.push("「"+conn.slice(0,3).join(" / ")+"」などのつなぎ言葉で、文章の流れが作れています。");
+  if(sentences.length>=3) good.push("複数の文で理由を展開できています。");
+  if(good.length===0) good.push("最後まで英語で書き切れたことが何より大切です。");
+  if(n<G.wmin) fix.push("語数が目標より少なめです。理由に「具体例」を1つ足すと自然に増やせます（例: For example, ...）。");
+  if(n>G.wmax) fix.push("語数がオーバーしています。同じ内容の繰り返しを削ってみましょう。");
+  if(conn.length<2) fix.push("First / Second / That is why などのつなぎ言葉を使うと、構成点が上がります。");
+  if(!/that is why|for these reasons|in conclusion/.test(low)) fix.push("最後に結論の一文（That is why ... / For these reasons, ...）を入れると引き締まります。");
+  if(fix.length===0) fix.push("この調子です。次はワンランク上の語彙（enjoy → be into など）にも挑戦してみましょう。");
+
+  return {content, structure, vocab, grammar, good:good.slice(0,3), fix:fix.slice(0,2)};
+}
+document.getElementById("w-submit").addEventListener("click", ()=>{
+  if(!wq) return;
+  const text = essay.value;
+  if(wordCount(text)<3){ alert("英文を入力してから提出してください（「例文を自動入力」でも試せます）"); return; }
+  resetWriteResult();
+  document.getElementById("w-grading").style.display="block";
+  setTimeout(()=>{
+    document.getElementById("w-grading").style.display="none";
+    const r = scoreEssay(text);
+    const total = r.content+r.structure+r.vocab+r.grammar;
+    document.getElementById("w-score").textContent = total+"/16";
+    setAxis("ax-content",r.content); setAxis("ax-structure",r.structure);
+    setAxis("ax-vocab",r.vocab); setAxis("ax-grammar",r.grammar);
+    document.getElementById("w-good").innerHTML = r.good.map(x=>"<li>"+x+"</li>").join("");
+    document.getElementById("w-fix").innerHTML = r.fix.map(x=>"<li>"+x+"</li>").join("");
+    document.getElementById("w-model").textContent = wq.model;
+    document.getElementById("w-result").style.display="block";
+    document.getElementById("w-result").scrollIntoView({behavior:"smooth",block:"start"});
+  }, 1400);
+});
+function setAxis(id,v){
+  document.getElementById(id).style.width=(v/4*100)+"%";
+  document.getElementById(id.replace("ax-","axv-").replace("sax-","saxv-")).textContent=v;
+}
+
+/* timer */
+let timerId=null, remain=0;
+function startTimer(){
+  clearInterval(timerId);
+  remain = GRADES[grade].timer;
+  drawTimer();
+  timerId = setInterval(()=>{ remain=Math.max(0,remain-1); drawTimer(); if(remain===0) clearInterval(timerId); },1000);
+}
+function drawTimer(){
+  const el=document.getElementById("w-timer");
+  const m=String(Math.floor(remain/60)).padStart(2,"0"), s=String(remain%60).padStart(2,"0");
+  el.textContent=m+":"+s;
+  el.classList.toggle("low", remain<=60);
+}
+
+/* ---------- speaking ---------- */
+function renderSpeak(){
+  const G = GRADES[grade];
+  document.getElementById("s-ttl").textContent = "英検"+G.label+" Speaking";
+  if(!sq){ document.getElementById("s-q").textContent="（この級の問題が未登録です）"; return; }
+  document.getElementById("s-q").textContent = sq.q;
+  document.getElementById("s-hint").textContent = sq.hint||"";
+}
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let rec=null, recOn=false, transcript="";
+const tEl = document.getElementById("s-transcript");
+function setTranscript(t){
+  transcript=t.trim();
+  if(transcript){ tEl.textContent=transcript; tEl.classList.remove("empty"); document.getElementById("s-eval").disabled=false; }
+  else { tEl.textContent="ここに話した内容がテキスト化されます"; tEl.classList.add("empty"); document.getElementById("s-eval").disabled=true; }
+}
+if(!SR){
+  document.getElementById("s-supp").textContent="⚠ このブラウザは音声認識に未対応です（Chrome推奨）。「サンプル回答で試す」で評価フローを体験できます。本番実装はWhisper APIを使うため全ブラウザで動作します。";
+}
+document.getElementById("s-mic").addEventListener("click", ()=>{
+  if(!SR){ document.getElementById("s-sample").focus(); return; }
+  if(recOn){ rec.stop(); return; }
+  rec = new SR(); rec.lang="en-US"; rec.interimResults=true; rec.continuous=true;
+  let finalT="";
+  rec.onresult=(e)=>{
+    let interim="";
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal) finalT+=e.results[i][0].transcript+" ";
+      else interim+=e.results[i][0].transcript;
+    }
+    setTranscript(finalT+interim);
+  };
+  rec.onend=()=>{ recOn=false; micUI(); };
+  rec.onerror=()=>{ recOn=false; micUI(); document.getElementById("s-supp").textContent="⚠ マイクを利用できませんでした。ブラウザのマイク許可をご確認いただくか、「サンプル回答で試す」をどうぞ。"; };
+  usedSampleS=false; rec.start(); recOn=true; micUI();
+});
+function micUI(){
+  const b=document.getElementById("s-mic");
+  b.classList.toggle("rec",recOn);
+  b.textContent = recOn?"⏹":"🎙️";
+  document.getElementById("s-state").textContent = recOn?"録音中… 英語で答えてください":"タップして録音開始";
+  document.getElementById("s-substate").textContent = recOn?"もう一度タップで停止":"ブラウザの音声認識（Chrome推奨）で文字起こしします";
+}
+document.getElementById("s-sample").addEventListener("click", ()=>{
+  if(!sq) return; usedSampleS=true; setTranscript(sq.model);
+});
+document.getElementById("s-reset").addEventListener("click", resetSpeak);
+function resetSpeak(){
+  if(rec&&recOn){ try{rec.stop();}catch(e){} }
+  recOn=false; usedSampleS=false; micUI(); setTranscript("");
+  document.getElementById("s-result").style.display="none";
+  document.getElementById("s-grading").style.display="none";
+}
+document.getElementById("s-eval").addEventListener("click", ()=>{
+  if(!transcript) return;
+  document.getElementById("s-result").style.display="none";
+  document.getElementById("s-grading").style.display="block";
+  setTimeout(()=>{
+    document.getElementById("s-grading").style.display="none";
+    const n = wordCount(transcript);
+    const low = transcript.toLowerCase();
+    const sentences = transcript.split(/[.!?]+/).filter(s=>s.trim().length>2).length || 1;
+    let content = n>=25?4:(n>=15?3:(n>=8?2:1));
+    let fluency = n>=20&&sentences>=2?4:(n>=12?3:2);
+    let vocab = new Set(low.match(/[a-z'’-]+/g)||[]).size >= n*0.65 ? 4 : 3;
+    let grammar = sentences>=2?3:2;
+    if(/because|so|and|also/.test(low)) grammar=Math.min(4,grammar+1);
+    if(usedSampleS){ content=4; fluency=3; vocab=3; grammar=4; }
+    const total=content+fluency+vocab+grammar;
+    document.getElementById("s-score").textContent=total+"/16";
+    setAxis("sax-content",content); setAxis("sax-fluency",fluency);
+    setAxis("sax-vocab",vocab); setAxis("sax-grammar",grammar);
+    const good=[],fix=[];
+    if(n>=15) good.push("十分な長さ（"+n+"語）で答えられています。");
+    if(/because|so/.test(low)) good.push("because / so で理由まで言えています。");
+    if(good.length===0) good.push("英語で声に出して答えられたこと自体が大きな一歩です。");
+    if(n<15) fix.push("もう1文足してみましょう。理由（because ...）や具体例を加えると自然に長くなります。");
+    if(!/because|so/.test(low)) fix.push("答えのあとに理由を1つ（..., because ...）付けると評価が上がります。");
+    if(fix.length===0) fix.push("次は少しスピードを意識して、同じ内容を止まらずに言えるか挑戦してみましょう。");
+    document.getElementById("s-good").innerHTML=good.slice(0,2).map(x=>"<li>"+x+"</li>").join("");
+    document.getElementById("s-fix").innerHTML=fix.slice(0,2).map(x=>"<li>"+x+"</li>").join("");
+    document.getElementById("s-model").textContent=sq?sq.model:"";
+    document.getElementById("s-result").style.display="block";
+    document.getElementById("s-result").scrollIntoView({behavior:"smooth",block:"start"});
+  },1400);
+});
+
+/* ---------- data admin ---------- */
+function gradeBadge(g){ return g==="3"?'<span class="badge g3">3級</span>':g==="p2"?'<span class="badge gp2">準2級</span>':'<span class="badge g2">2級</span>'; }
+function kindBadge(k){ return k==="w"?'<span class="badge w">ライティング</span>':'<span class="badge s">スピーキング</span>'; }
+function renderData(hlLast){
+  const G=GRADES;
+  document.getElementById("d-rows").innerHTML = QUESTIONS.map((x,i)=>{
+    const wc = x.kind==="w" ? (G[x.g].wmin+"〜"+G[x.g].wmax+"語") : "—";
+    return '<tr'+(hlLast&&i===QUESTIONS.length-1?' class="new"':'')+'><td>'+gradeBadge(x.g)+'</td><td>'+kindBadge(x.kind)+'</td><td class="en">'+esc(x.q)+'</td><td>'+wc+'</td></tr>';
+  }).join("");
+  document.getElementById("d-json").innerHTML = QUESTIONS.map(x=>
+    '{ <span class="k">"級"</span>: <span class="s">"'+(x.g==="p2"?"準2級":x.g+"級")+'"</span>, <span class="k">"種別"</span>: <span class="s">"'+(x.kind==="w"?"writing":"speaking")+'"</span>, <span class="k">"question"</span>: <span class="s">"'+esc(x.q)+'"</span> }'
+  ).join(",<br>");
+}
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+document.getElementById("d-add").addEventListener("click", ()=>{
+  const q=document.getElementById("d-q").value.trim();
+  if(!q){ alert("問題文（英語）を入力してください"); return; }
+  const g=document.getElementById("d-grade").value, k=document.getElementById("d-kind").value;
+  QUESTIONS.push({g, kind:k, q, points:null, hint:k==="s"?"2文以上で答えてみましょう":undefined,
+    model:"(Sample answer will be provided by the AI in production.)",
+    sample:"I think this is a good question. First, it makes me think about my daily life. Second, it is fun to answer in English. That is why I like this question."});
+  document.getElementById("d-q").value="";
+  renderData(true);
+  if(g===grade){ pickQuestions(); }
+});
+
+/* extra: 別の問題ボタンをボタン行へ追加 */
+(function(){
+  const wb=document.createElement("button"); wb.className="btn ghost"; wb.textContent="🔁 別の問題";
+  wb.addEventListener("click",()=>nextQuestion("w"));
+  document.querySelector("#v-write .btnrow").appendChild(wb);
+  const sb=document.createElement("button"); sb.className="btn ghost"; sb.textContent="🔁 別の問題";
+  sb.addEventListener("click",()=>nextQuestion("s"));
+  document.querySelector("#v-speak .btnrow").appendChild(sb);
+})();
+
+/* init */
+pickQuestions(); renderWrite(); renderSpeak(); renderData(false); micUI();
+</script>
+</body>
+</html>
