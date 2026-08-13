@@ -593,6 +593,8 @@ document.getElementById("w-submit").addEventListener("click", async ()=>{
     model = wq.model;
     note = resp.reason==="quota"
       ? "※本日のAI採点デモ枠を使い切ったため、簡易採点で表示しています（本実装では制限なし）。"
+      : resp.reason==="expired"
+      ? "※AI採点のデモ公開期間が終了したため、簡易採点で表示しています（本実装では期限なし）。"
       : "※AI採点サーバーに接続できなかったため、簡易採点で表示しています。時間をおいてお試しください。";
   }
   const total = (r.content||0)+(r.structure||0)+(r.vocab||0)+(r.grammar||0);
@@ -690,6 +692,8 @@ async function onRecStop(){
     setTranscript("");
     document.getElementById("s-supp").textContent = resp.reason==="quota"
       ? "⚠ 本日のAIデモ枠を使い切りました。「サンプル回答で試す」をどうぞ。"
+      : resp.reason==="expired"
+      ? "⚠ 文字起こしのデモ公開期間が終了しました。「サンプル回答で試す」をどうぞ。"
       : "⚠ 文字起こしに失敗しました。もう一度お試しいただくか、「サンプル回答で試す」をどうぞ。";
   }
 }
@@ -758,7 +762,7 @@ document.getElementById("s-eval").addEventListener("click", async ()=>{
        good:[n>=15?("十分な長さ（"+n+"語）で答えられています。"):"英語で声に出して答えられたこと自体が大きな一歩です。"],
        fix:[/because|so/.test(low)?"次はもう1文、具体例を足してみましょう。":"答えのあとに理由を1つ（..., because ...）付けると評価が上がります。"]};
     model=sq?sq.model:"";
-    note = resp.reason==="quota" ? "※本日のAIデモ枠を使い切ったため、簡易評価で表示しています（本実装では制限なし）。" : "※AI評価サーバーに接続できなかったため、簡易評価で表示しています。";
+    note = resp.reason==="quota" ? "※本日のAIデモ枠を使い切ったため、簡易評価で表示しています（本実装では制限なし）。" : resp.reason==="expired" ? "※AI評価のデモ公開期間が終了したため、簡易評価で表示しています（本実装では期限なし）。" : "※AI評価サーバーに接続できなかったため、簡易評価で表示しています。";
   }
   const total=(r.content||0)+(r.fluency||0)+(r.vocab||0)+(r.grammar||0);
   document.getElementById("s-score").textContent=total+"/16";
