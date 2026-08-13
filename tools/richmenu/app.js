@@ -340,6 +340,16 @@ const THEMES = [
     jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
   { id: 'neo_tech', name: 'ネオテック', desc: 'ネオン発光・近未来', moods: ['cool'],
     jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'glass_light', name: 'ライトグラス', desc: 'すりガラス・上品', moods: ['shinrai', 'kirei'],
+    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'elegant_serif', name: 'エレガント', desc: '白×金・明朝の気品', moods: ['kirei', 'wa'],
+    jp: '600 FZ "Shippori Mincho"', en: '"Shippori Mincho"' },
+  { id: 'night_neon', name: 'ナイトネオン', desc: '夜のお店・バー向け', moods: ['cool'],
+    jp: '700 FZ "Noto Sans JP"', en: '"Noto Sans JP"' },
+  { id: 'craft_kraft', name: 'クラフト', desc: '紙の手ざわり・カフェ', moods: ['sitasimi', 'kawaii'],
+    jp: '700 FZ "Zen Maru Gothic"', en: '"Zen Maru Gothic"' },
+  { id: 'duotone_modern', name: 'デュオトーン', desc: '2色構成・メリハリ', moods: ['cool', 'sitasimi'],
+    jp: '800 FZ "M PLUS Rounded 1c"', en: '"M PLUS Rounded 1c"' },
 ];
 
 const MOODS = [
@@ -487,6 +497,47 @@ function styleFor(id, p) {
       mainFill: rgba(darken(p.accent, 0.05), 0.95), mainText: '#ffffff', mainIcon: '#ffffff',
       badgeBg: lighten(p.accent, 0.4), badgeText: '#071120',
     };
+    case 'glass_light': return {
+      bg1: '#EAF0F6', bg2: mix('#D6E2EC', lighten(p.accent, 0.72), 0.5), diag: true,
+      card: 'rgba(255,255,255,.62)', border: 'rgba(255,255,255,.95)', borderW: 3, radius: 52,
+      shadow: 'rgba(80,110,150,.22)', shadowBlur: 52, shadowY: 18,
+      icon: darken(p.accent, 0.12), text: '#2A3440', sub: '#8A98A8',
+      mainFill: rgba(darken(p.accent, 0.14), 0.96), mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: '#2A3440', badgeText: '#fff',
+    };
+    case 'elegant_serif': return {
+      bg1: '#FBF9F4', bg2: '#F1ECE0',
+      card: '#FFFFFF', border: rgba('#C0A96E', 0.85), borderW: 2, inner: true, radius: 10,
+      shadow: 'rgba(170,150,100,.16)', shadowBlur: 34, shadowY: 10, ls: 10,
+      icon: '#9A814B', text: '#3A342A', sub: rgba('#9A814B', 0.85),
+      mainFill: null, mainGrad: ['#AD9155', '#D2BC85'], mainText: '#2A2415', mainIcon: '#2A2415',
+      badgeBg: '#3A342A', badgeText: '#F5F0E4',
+    };
+    case 'night_neon': return {
+      bg1: '#130818', bg2: '#221031', diag: true,
+      card: 'rgba(14,7,22,.8)', border: rgba(lighten(p.accent, 0.35), 0.9), borderW: 3.5, glow: true, radius: 34,
+      shadow: rgba(lighten(p.accent, 0.3), 0.5), shadowBlur: 64,
+      icon: lighten(p.accent, 0.42), icon2: lighten(p.accent2, 0.35), text: '#FFF6FF', sub: rgba(lighten(p.accent, 0.45), 0.85),
+      mainFill: rgba(darken(p.accent, 0.02), 0.92), mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: lighten(p.accent, 0.45), badgeText: '#1A0A22',
+    };
+    case 'craft_kraft': return {
+      bg1: '#DBC7A2', bg2: '#C9B085', speckle: true,
+      card: '#F7EEDC', border: '#8A6F4D', borderW: 3.5, dash: [16, 12], radius: 28,
+      shadow: 'rgba(90,70,40,.16)', shadowBlur: 18, shadowY: 7,
+      icon: '#6E543A', text: '#4C3A26', sub: '#96805F',
+      mainFill: darken(mix(p.accent, '#8A5A30', 0.35), 0.05), mainText: '#FFF9EC', mainIcon: '#FFF9EC',
+      badgeBg: '#4C3A26', badgeText: '#F7EEDC',
+    };
+    case 'duotone_modern': return {
+      bg1: darken(p.accent, 0.14), bg2: darken(p.accent, 0.14),
+      card: '#FFFFFF', border: 'rgba(0,0,0,0)', borderW: 0, radius: 22,
+      shadow: 'rgba(0,0,0,.20)', shadowBlur: 26, shadowY: 12,
+      topBar: darken(p.accent2, 0.05),
+      icon: darken(p.accent, 0.16), text: '#20242B', sub: '#9AA0A8',
+      mainFill: '#1B1F26', mainText: '#ffffff', mainIcon: '#ffffff',
+      badgeBg: darken(p.accent2, 0.05), badgeText: '#fff',
+    };
   }
 }
 
@@ -544,7 +595,9 @@ function drawCell(c, t, S, p, r, b, i, showEn) {
       else if (S.blocks) fill = darken(p.accent, 0.05);
     }
     if (S.shadow && S.shadow !== 'rgba(0,0,0,0)') {
-      c.shadowColor = S.shadow; c.shadowBlur = S.glow ? 46 : 26; c.shadowOffsetY = S.glow ? 0 : 10;
+      c.shadowColor = S.shadow;
+      c.shadowBlur = S.shadowBlur != null ? S.shadowBlur : (S.glow ? 46 : 26);
+      c.shadowOffsetY = S.shadowY != null ? S.shadowY : (S.glow ? 0 : 10);
     }
     c.fillStyle = fill;
     rr(c, r.x, r.y, r.w, r.h, S.radius); c.fill();
@@ -553,11 +606,17 @@ function drawCell(c, t, S, p, r, b, i, showEn) {
     if (S.borderW) {
       c.strokeStyle = isMain && S.mainGrad ? rgba('#ffffff', 0.5) : S.border;
       c.lineWidth = S.borderW;
+      if (S.dash) c.setLineDash(S.dash);
       rr(c, r.x, r.y, r.w, r.h, S.radius); c.stroke();
-      if (S.inner) { // 二重線 (luxury)
+      c.setLineDash([]);
+      if (S.inner) { // 二重線 (luxury / elegant)
         c.lineWidth = 1.4;
         rr(c, r.x + 12, r.y + 12, r.w - 24, r.h - 24, Math.max(6, S.radius - 8)); c.stroke();
       }
+    }
+    if (S.topBar) { // カード上端のアクセントバー (duotone)
+      c.fillStyle = isMain ? lighten(p.accent, 0.15) : S.topBar;
+      rr(c, r.x + r.w * 0.30, r.y, r.w * 0.40, 14, 7); c.fill();
     }
   }
 
@@ -591,6 +650,7 @@ function drawCell(c, t, S, p, r, b, i, showEn) {
   // JPラベル
   const textColor = isMain ? (S.mainText || S.text) : S.text;
   c.fillStyle = textColor;
+  if (S.ls && 'letterSpacing' in c) c.letterSpacing = (big ? S.ls * 1.5 : S.ls) + 'px';
   c.font = t.jp.replace('FZ', jpSize + 'px');
   c.textAlign = 'center'; c.textBaseline = 'middle';
   let jp = b.jp;
