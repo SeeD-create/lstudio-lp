@@ -204,7 +204,7 @@ footer .wrap{display:grid;gap:6px}
 
 <div class="demoband"><div class="wrap">
   <span class="tag">動作デモ</span>
-  <span><b>AI応答はブラウザ内のサンプルロジックです。</b>本番実装ではOpenAI API（GPT／Whisper）がその場で採点します。</span>
+  <span><b>AI採点はOpenAI API（GPT／Whisper）で実際に動いています。</b>接続できない場合はサンプル採点に自動で切り替わります。</span>
 </div></div>
 
 <header class="site"><div class="wrap">
@@ -260,7 +260,7 @@ footer .wrap{display:grid;gap:6px}
   </div>
   <div class="subcards">
     <div class="subcard"><b>🗂 問題の追加にプログラミングは不要</b>出題データはスプレッドシート／JSONで管理。行を足すだけで問題が増える設計を<a href="javascript:go('data')">「問題管理」タブ</a>で体験できます。</div>
-    <div class="subcard"><b>⚙️ 本番実装との違い</b>このデモの採点はブラウザ内の簡易ロジックです。本番はOpenAI APIによる本格採点になります。構成は<a href="javascript:go('arch')">「仕組み」タブ</a>へ。</div>
+    <div class="subcard"><b>⚙️ AIは本物が動いています</b>採点はOpenAI API（GPT）、スピーキングの文字起こしはWhisper APIをそのまま使用しています。構成は<a href="javascript:go('arch')">「仕組み」タブ</a>へ。</div>
   </div>
 </section>
 
@@ -296,7 +296,7 @@ footer .wrap{display:grid;gap:6px}
         </div>
       </div>
     </div>
-    <div class="grading" id="w-grading"><div class="sp"></div>AIが採点しています…</div>
+    <div class="grading" id="w-grading"><div class="sp"></div>AI（GPT）が採点しています…（3〜10秒）</div>
     <div class="result" id="w-result">
       <h3>📝 添削結果</h3>
       <div class="scorehead">
@@ -313,7 +313,7 @@ footer .wrap{display:grid;gap:6px}
         <div class="fbcard fix"><b>✏️ 直すともっと良くなる点</b><ul id="w-fix"></ul></div>
         <div class="fbcard model"><b>📖 模範解答（この級の語数目安）</b><div class="en" id="w-model"></div></div>
       </div>
-      <div class="apinote">※このデモの採点はブラウザ内の簡易ロジックによるサンプルです。本番実装では OpenAI API が語法・内容の妥当性まで踏み込んだ添削をその場で返します（応答3〜8秒程度）。</div>
+      <div class="apinote" id="w-apinote"></div>
     </div>
   </div>
 </section>
@@ -345,7 +345,7 @@ footer .wrap{display:grid;gap:6px}
         <button class="btn ghost" id="s-reset">やり直す</button>
       </div>
     </div>
-    <div class="grading" id="s-grading"><div class="sp"></div>AIが評価しています…</div>
+    <div class="grading" id="s-grading"><div class="sp"></div>AI（GPT）が評価しています…（3〜10秒）</div>
     <div class="result" id="s-result">
       <h3>🗣 スピーキング評価</h3>
       <div class="scorehead">
@@ -362,7 +362,7 @@ footer .wrap{display:grid;gap:6px}
         <div class="fbcard fix"><b>✏️ 直すともっと良くなる点</b><ul id="s-fix"></ul></div>
         <div class="fbcard model"><b>📖 回答例</b><div class="en" id="s-model"></div></div>
       </div>
-      <div class="apinote">※このデモはブラウザ内蔵の音声認識＋簡易ロジックです。本番実装では Whisper API による高精度文字起こし → GPT による評価になり、iPhoneのSafariを含む全端末で動作します。</div>
+      <div class="apinote" id="s-apinote"></div>
     </div>
   </div>
 </section>
@@ -401,7 +401,7 @@ footer .wrap{display:grid;gap:6px}
 <!-- ===== ARCH ===== -->
 <section class="view" id="v-arch">
   <h2 class="vt">⚙️ 仕組み（本番実装の構成）</h2>
-  <p class="vd">このデモはUI・操作フローの確認用プロトタイプです。本番では以下の構成になります。</p>
+  <p class="vd">このデモは下の本番構成の縮小版がそのまま動いています（AI部分は本物のOpenAI APIです）。</p>
   <div class="flow">
     <div class="fstep"><div class="ic">⌨️ / 🎙️</div><b>入力</b><span>英作文テキスト、またはマイク録音（音声）</span></div>
     <div class="fstep"><div class="ic">🔤</div><b>音声→テキスト</b><span>Whisper API（スピーキングのみ）</span></div>
@@ -410,8 +410,8 @@ footer .wrap{display:grid;gap:6px}
   </div>
   <table class="cmp">
     <tr><th></th><th>このデモ</th><th>本番実装</th></tr>
-    <tr><td>英作文の採点</td><td>ブラウザ内の簡易ロジック（サンプル）</td><td>OpenAI GPT（級別ルーブリック・観点別採点・語法指摘）</td></tr>
-    <tr><td>音声の文字起こし</td><td>ブラウザ内蔵の音声認識（Chrome系のみ）</td><td>Whisper API（全ブラウザ・スマホ対応、精度大幅向上）</td></tr>
+    <tr><td>英作文の採点</td><td>OpenAI GPT（実際に動作中・級別ルーブリック）</td><td>同じ構成を要件に合わせて本実装（採点観点・講評のカスタマイズ）</td></tr>
+    <tr><td>音声の文字起こし</td><td>Whisper API（実際に動作中）</td><td>同じ構成＋エラー処理・長時間録音対応を本実装</td></tr>
     <tr><td>問題データ</td><td>ページ内JSON（このブラウザで追加体験可）</td><td>Googleスプレッドシート連携（行を足すだけ・コード変更不要）</td></tr>
     <tr><td>学習履歴</td><td>保存なし</td><td>スコア履歴の保存・生徒別の伸び可視化（拡張オプション）</td></tr>
     <tr><td>タイマー・級設定</td><td>目安値</td><td>本番のS-CBT仕様・運用方針に合わせて設定</td></tr>
@@ -454,6 +454,19 @@ let QUESTIONS = [
    model:"I think working from home is a good idea. People can save time because they do not have to travel to their offices. Also, they can spend more time with their families, which makes their lives better."}
 ];
 const CONNECTIVES = ["first","second","because","so","also","however","therefore","for example","in addition","that is why","for these reasons","i think","i believe","such as"];
+
+/* ---------- AI API (GAS proxy -> OpenAI) ---------- */
+const API = "https://script.google.com/macros/s/AKfycbymxTixCOh-ADHD_qrU3jaH9GxHd3FQe5FoFASYldXoYmFBi9shaOUDylr8gHOfSSaO/exec";
+async function api(payload, timeoutMs){
+  const ctrl = new AbortController();
+  const t = setTimeout(()=>ctrl.abort(), timeoutMs||30000);
+  try{
+    const r = await fetch(API, {method:"POST", headers:{"Content-Type":"text/plain"}, body:JSON.stringify(payload), signal:ctrl.signal, redirect:"follow"});
+    return await r.json();
+  }catch(e){
+    return {ok:false, reason:"network"};
+  }finally{ clearTimeout(t); }
+}
 
 let grade = "3";
 let wq = null, sq = null;
@@ -559,25 +572,39 @@ function scoreEssay(text){
 
   return {content, structure, vocab, grammar, good:good.slice(0,3), fix:fix.slice(0,2)};
 }
-document.getElementById("w-submit").addEventListener("click", ()=>{
+document.getElementById("w-submit").addEventListener("click", async ()=>{
   if(!wq) return;
   const text = essay.value;
   if(wordCount(text)<3){ alert("英文を入力してから提出してください（「例文を自動入力」でも試せます）"); return; }
   resetWriteResult();
+  const btn = document.getElementById("w-submit");
+  btn.disabled = true;
   document.getElementById("w-grading").style.display="block";
-  setTimeout(()=>{
-    document.getElementById("w-grading").style.display="none";
-    const r = scoreEssay(text);
-    const total = r.content+r.structure+r.vocab+r.grammar;
-    document.getElementById("w-score").textContent = total+"/16";
-    setAxis("ax-content",r.content); setAxis("ax-structure",r.structure);
-    setAxis("ax-vocab",r.vocab); setAxis("ax-grammar",r.grammar);
-    document.getElementById("w-good").innerHTML = r.good.map(x=>"<li>"+x+"</li>").join("");
-    document.getElementById("w-fix").innerHTML = r.fix.map(x=>"<li>"+x+"</li>").join("");
-    document.getElementById("w-model").textContent = wq.model;
-    document.getElementById("w-result").style.display="block";
-    document.getElementById("w-result").scrollIntoView({behavior:"smooth",block:"start"});
-  }, 1400);
+  const resp = await api({action:"writing", grade:grade, question:wq.q, essay:text});
+  document.getElementById("w-grading").style.display="none";
+  btn.disabled = false;
+  let r, model, note;
+  if(resp.ok && resp.result){
+    r = resp.result;
+    model = resp.result.model_answer || wq.model;
+    note = "※この結果は OpenAI API（GPT）によるリアルタイム採点です。";
+  }else{
+    r = scoreEssay(text);
+    model = wq.model;
+    note = resp.reason==="quota"
+      ? "※本日のAI採点デモ枠を使い切ったため、簡易採点で表示しています（本実装では制限なし）。"
+      : "※AI採点サーバーに接続できなかったため、簡易採点で表示しています。時間をおいてお試しください。";
+  }
+  const total = (r.content||0)+(r.structure||0)+(r.vocab||0)+(r.grammar||0);
+  document.getElementById("w-score").textContent = total+"/16";
+  setAxis("ax-content",r.content||0); setAxis("ax-structure",r.structure||0);
+  setAxis("ax-vocab",r.vocab||0); setAxis("ax-grammar",r.grammar||0);
+  document.getElementById("w-good").innerHTML = (r.good||["よく書けています。"]).map(x=>"<li>"+esc(String(x))+"</li>").join("");
+  document.getElementById("w-fix").innerHTML = (r.fix||[]).map(x=>"<li>"+esc(String(x))+"</li>").join("");
+  document.getElementById("w-model").textContent = model;
+  document.getElementById("w-apinote").textContent = note;
+  document.getElementById("w-result").style.display="block";
+  document.getElementById("w-result").scrollIntoView({behavior:"smooth",block:"start"});
 });
 function setAxis(id,v){
   document.getElementById(id).style.width=(v/4*100)+"%";
@@ -608,19 +635,68 @@ function renderSpeak(){
   document.getElementById("s-hint").textContent = sq.hint||"";
 }
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-let rec=null, recOn=false, transcript="";
+const hasMR = !!(navigator.mediaDevices && window.MediaRecorder);
+let rec=null, recOn=false, transcript="", mediaRec=null, mediaStream=null, chunks=[], recTimer=null;
 const tEl = document.getElementById("s-transcript");
 function setTranscript(t){
   transcript=t.trim();
   if(transcript){ tEl.textContent=transcript; tEl.classList.remove("empty"); document.getElementById("s-eval").disabled=false; }
   else { tEl.textContent="ここに話した内容がテキスト化されます"; tEl.classList.add("empty"); document.getElementById("s-eval").disabled=true; }
 }
-if(!SR){
-  document.getElementById("s-supp").textContent="⚠ このブラウザは音声認識に未対応です（Chrome推奨）。「サンプル回答で試す」で評価フローを体験できます。本番実装はWhisper APIを使うため全ブラウザで動作します。";
+if(!hasMR && !SR){
+  document.getElementById("s-supp").textContent="⚠ この環境ではマイクを使えません。「サンプル回答で試す」で評価フローを体験できます。";
 }
 document.getElementById("s-mic").addEventListener("click", ()=>{
-  if(!SR){ document.getElementById("s-sample").focus(); return; }
-  if(recOn){ rec.stop(); return; }
+  if(recOn){ stopRec(); } else { startRec(); }
+});
+async function startRec(){
+  usedSampleS=false;
+  document.getElementById("s-supp").textContent="";
+  if(hasMR){
+    try{
+      mediaStream = await navigator.mediaDevices.getUserMedia({audio:true});
+      chunks=[];
+      mediaRec = new MediaRecorder(mediaStream);
+      mediaRec.ondataavailable=(e)=>{ if(e.data && e.data.size) chunks.push(e.data); };
+      mediaRec.onstop=onRecStop;
+      mediaRec.start();
+      recOn=true; micUI();
+      recTimer=setTimeout(()=>{ if(recOn) stopRec(); }, 60000);
+      return;
+    }catch(err){ /* マイク拒否・非対応 → ブラウザ音声認識へ */ }
+  }
+  if(SR){ startSR(); return; }
+  document.getElementById("s-supp").textContent="⚠ マイクを利用できませんでした。ブラウザのマイク許可をご確認いただくか、「サンプル回答で試す」をどうぞ。";
+}
+function stopRec(){
+  clearTimeout(recTimer);
+  recOn=false; micUI();
+  if(mediaRec && mediaRec.state==="recording"){ mediaRec.stop(); return; }
+  if(rec){ try{rec.stop();}catch(e){} }
+}
+async function onRecStop(){
+  if(mediaStream){ mediaStream.getTracks().forEach(t=>t.stop()); mediaStream=null; }
+  const blob = new Blob(chunks, {type:(mediaRec && mediaRec.mimeType) || "audio/webm"});
+  if(blob.size < 1000){ setTranscript(""); return; }
+  if(blob.size > 4*1024*1024){ document.getElementById("s-supp").textContent="⚠ 録音が長すぎました。60秒以内でお試しください。"; return; }
+  tEl.classList.remove("empty"); tEl.textContent="🔤 Whisper APIで文字起こししています…";
+  document.getElementById("s-eval").disabled=true;
+  const b64 = await blobToB64(blob);
+  const resp = await api({action:"transcribe", audioB64:b64, mime:blob.type}, 60000);
+  if(resp.ok && resp.text){
+    setTranscript(resp.text);
+    document.getElementById("s-supp").textContent="✅ Whisper APIによる文字起こしです。";
+  }else{
+    setTranscript("");
+    document.getElementById("s-supp").textContent = resp.reason==="quota"
+      ? "⚠ 本日のAIデモ枠を使い切りました。「サンプル回答で試す」をどうぞ。"
+      : "⚠ 文字起こしに失敗しました。もう一度お試しいただくか、「サンプル回答で試す」をどうぞ。";
+  }
+}
+function blobToB64(blob){
+  return new Promise((res)=>{ const fr=new FileReader(); fr.onload=()=>res(String(fr.result).split(",")[1]||""); fr.readAsDataURL(blob); });
+}
+function startSR(){
   rec = new SR(); rec.lang="en-US"; rec.interimResults=true; rec.continuous=true;
   let finalT="";
   rec.onresult=(e)=>{
@@ -632,32 +708,44 @@ document.getElementById("s-mic").addEventListener("click", ()=>{
     setTranscript(finalT+interim);
   };
   rec.onend=()=>{ recOn=false; micUI(); };
-  rec.onerror=()=>{ recOn=false; micUI(); document.getElementById("s-supp").textContent="⚠ マイクを利用できませんでした。ブラウザのマイク許可をご確認いただくか、「サンプル回答で試す」をどうぞ。"; };
-  usedSampleS=false; rec.start(); recOn=true; micUI();
-});
+  rec.onerror=()=>{ recOn=false; micUI(); document.getElementById("s-supp").textContent="⚠ マイクを利用できませんでした。「サンプル回答で試す」をどうぞ。"; };
+  rec.start(); recOn=true; micUI();
+}
 function micUI(){
   const b=document.getElementById("s-mic");
   b.classList.toggle("rec",recOn);
   b.textContent = recOn?"⏹":"🎙️";
   document.getElementById("s-state").textContent = recOn?"録音中… 英語で答えてください":"タップして録音開始";
-  document.getElementById("s-substate").textContent = recOn?"もう一度タップで停止":"ブラウザの音声認識（Chrome推奨）で文字起こしします";
+  document.getElementById("s-substate").textContent = recOn?"もう一度タップで停止（最長60秒）":"録音した音声をWhisper APIで文字起こしします";
 }
 document.getElementById("s-sample").addEventListener("click", ()=>{
   if(!sq) return; usedSampleS=true; setTranscript(sq.model);
+  document.getElementById("s-supp").textContent="";
 });
 document.getElementById("s-reset").addEventListener("click", resetSpeak);
 function resetSpeak(){
+  clearTimeout(recTimer);
+  if(mediaRec && mediaRec.state==="recording"){ try{mediaRec.onstop=null; mediaRec.stop();}catch(e){} }
+  if(mediaStream){ mediaStream.getTracks().forEach(t=>t.stop()); mediaStream=null; }
   if(rec&&recOn){ try{rec.stop();}catch(e){} }
   recOn=false; usedSampleS=false; micUI(); setTranscript("");
+  document.getElementById("s-supp").textContent="";
   document.getElementById("s-result").style.display="none";
   document.getElementById("s-grading").style.display="none";
 }
-document.getElementById("s-eval").addEventListener("click", ()=>{
+document.getElementById("s-eval").addEventListener("click", async ()=>{
   if(!transcript) return;
   document.getElementById("s-result").style.display="none";
   document.getElementById("s-grading").style.display="block";
-  setTimeout(()=>{
-    document.getElementById("s-grading").style.display="none";
+  const btn=document.getElementById("s-eval"); btn.disabled=true;
+  const resp = await api({action:"speaking_eval", grade:grade, question:sq?sq.q:"", transcript:transcript});
+  document.getElementById("s-grading").style.display="none";
+  btn.disabled=false;
+  let r, model, note;
+  if(resp.ok && resp.result){
+    r=resp.result; model=resp.result.model_answer || (sq?sq.model:"");
+    note="※この結果は OpenAI GPT によるリアルタイム評価です（文字起こしはWhisper API）。";
+  }else{
     const n = wordCount(transcript);
     const low = transcript.toLowerCase();
     const sentences = transcript.split(/[.!?]+/).filter(s=>s.trim().length>2).length || 1;
@@ -666,24 +754,22 @@ document.getElementById("s-eval").addEventListener("click", ()=>{
     let vocab = new Set(low.match(/[a-z'’-]+/g)||[]).size >= n*0.65 ? 4 : 3;
     let grammar = sentences>=2?3:2;
     if(/because|so|and|also/.test(low)) grammar=Math.min(4,grammar+1);
-    if(usedSampleS){ content=4; fluency=3; vocab=3; grammar=4; }
-    const total=content+fluency+vocab+grammar;
-    document.getElementById("s-score").textContent=total+"/16";
-    setAxis("sax-content",content); setAxis("sax-fluency",fluency);
-    setAxis("sax-vocab",vocab); setAxis("sax-grammar",grammar);
-    const good=[],fix=[];
-    if(n>=15) good.push("十分な長さ（"+n+"語）で答えられています。");
-    if(/because|so/.test(low)) good.push("because / so で理由まで言えています。");
-    if(good.length===0) good.push("英語で声に出して答えられたこと自体が大きな一歩です。");
-    if(n<15) fix.push("もう1文足してみましょう。理由（because ...）や具体例を加えると自然に長くなります。");
-    if(!/because|so/.test(low)) fix.push("答えのあとに理由を1つ（..., because ...）付けると評価が上がります。");
-    if(fix.length===0) fix.push("次は少しスピードを意識して、同じ内容を止まらずに言えるか挑戦してみましょう。");
-    document.getElementById("s-good").innerHTML=good.slice(0,2).map(x=>"<li>"+x+"</li>").join("");
-    document.getElementById("s-fix").innerHTML=fix.slice(0,2).map(x=>"<li>"+x+"</li>").join("");
-    document.getElementById("s-model").textContent=sq?sq.model:"";
-    document.getElementById("s-result").style.display="block";
-    document.getElementById("s-result").scrollIntoView({behavior:"smooth",block:"start"});
-  },1400);
+    r={content:content, fluency:fluency, vocab:vocab, grammar:grammar,
+       good:[n>=15?("十分な長さ（"+n+"語）で答えられています。"):"英語で声に出して答えられたこと自体が大きな一歩です。"],
+       fix:[/because|so/.test(low)?"次はもう1文、具体例を足してみましょう。":"答えのあとに理由を1つ（..., because ...）付けると評価が上がります。"]};
+    model=sq?sq.model:"";
+    note = resp.reason==="quota" ? "※本日のAIデモ枠を使い切ったため、簡易評価で表示しています（本実装では制限なし）。" : "※AI評価サーバーに接続できなかったため、簡易評価で表示しています。";
+  }
+  const total=(r.content||0)+(r.fluency||0)+(r.vocab||0)+(r.grammar||0);
+  document.getElementById("s-score").textContent=total+"/16";
+  setAxis("sax-content",r.content||0); setAxis("sax-fluency",r.fluency||0);
+  setAxis("sax-vocab",r.vocab||0); setAxis("sax-grammar",r.grammar||0);
+  document.getElementById("s-good").innerHTML=(r.good||[]).map(x=>"<li>"+esc(String(x))+"</li>").join("");
+  document.getElementById("s-fix").innerHTML=(r.fix||[]).map(x=>"<li>"+esc(String(x))+"</li>").join("");
+  document.getElementById("s-model").textContent=model;
+  document.getElementById("s-apinote").textContent=note;
+  document.getElementById("s-result").style.display="block";
+  document.getElementById("s-result").scrollIntoView({behavior:"smooth",block:"start"});
 });
 
 /* ---------- data admin ---------- */
