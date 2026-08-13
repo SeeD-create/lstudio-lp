@@ -76,7 +76,17 @@ button { font-family: inherit; cursor: pointer; }
 .btn-row button { background: #fff; border: 2px solid var(--card-border); border-radius: 8px; padding: 6px 14px; font-weight: 700; font-size: .84rem; }
 .btn-row button.sel { border-color: var(--green); background: var(--green-bg); color: var(--green-deep); }
 .lbl-grid { display: grid; gap: 8px; }
-.lbl-row { display: grid; grid-template-columns: 1fr 90px 54px; gap: 6px; align-items: center; }
+.lbl-row { display: grid; grid-template-columns: 44px 1fr 90px 54px; gap: 6px; align-items: center; }
+.icon-btn { width: 42px; height: 42px; border: 1.5px solid var(--card-border); border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 0; }
+.icon-btn:hover { border-color: var(--green); }
+.icon-btn canvas { width: 26px; height: 26px; }
+.picker { position: fixed; inset: 0; background: rgba(15,28,22,.5); z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.picker-box { background: #fff; border-radius: 14px; padding: 16px; width: min(430px, 94vw); max-height: 72vh; overflow: auto; }
+.picker-box h3 { font-size: .95rem; font-weight: 800; color: var(--green-deep); margin-bottom: 12px; }
+.picker-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.picker-grid button { aspect-ratio: 1; border: 1.5px solid var(--card-border); border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; padding: 0; }
+.picker-grid button:hover { border-color: var(--green); background: var(--green-bg); }
+.picker-grid button canvas { width: 28px; height: 28px; }
 .lbl-row input[type=text] { border: 1px solid var(--card-border); border-radius: 8px; padding: 8px 10px; font-size: .88rem; font-family: inherit; width: 100%; }
 .lbl-row .en input { font-size: .76rem; }
 .lbl-row label.bg { font-size: .68rem; display: flex; align-items: center; gap: 3px; color: var(--ink-sub); white-space: nowrap; }
@@ -165,7 +175,7 @@ footer a { color: #8fd6a8; }
           </div>
         </div>
         <div class="ed-panel">
-          <h3>ボタンの文言（日本語／英語サブ／バッジ）</h3>
+          <h3>ボタンの文言（アイコン／日本語／英語サブ／バッジ）</h3>
           <div class="lbl-grid" id="lblGrid"></div>
           <label class="check-row"><input type="checkbox" id="chkEn" checked> 英語サブラベルを表示する</label>
         </div>
@@ -210,6 +220,8 @@ footer a { color: #8fd6a8; }
   </div>
 </footer>
 
-<script src="app.js?v=20260813c"></script>
+<div class="picker hidden" id="iconPicker"><div class="picker-box"><h3>アイコンを選ぶ</h3><div class="picker-grid" id="iconGrid"></div></div></div>
+
+<script src="app.js?v=20260813d"></script>
 </body>
 </html>

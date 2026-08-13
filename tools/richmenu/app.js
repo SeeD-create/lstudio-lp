@@ -1486,6 +1486,9 @@ function init() {
 
   $('#btnDl').onclick = () => download('jpg');
   $('#btnPng').onclick = () => download('png');
+
+  // アイコンピッカーの背景クリックで閉じる
+  $('#iconPicker').onclick = e => { if (e.target.id === 'iconPicker') e.target.classList.add('hidden'); };
 }
 
 // フォント読み込み後にギャラリー描画
@@ -1567,15 +1570,53 @@ function buildLabelEditor() {
     const row = document.createElement('div');
     row.className = 'lbl-row';
     row.innerHTML = `
+      <button type="button" class="icon-btn" title="アイコンを変える" aria-label="ボタン${i + 1}のアイコンを変える"><canvas></canvas></button>
       <input type="text" value="${escAttr(b.jp)}" maxlength="10" aria-label="ボタン${i + 1}の日本語">
       <span class="en"><input type="text" value="${escAttr(b.en)}" maxlength="10" aria-label="ボタン${i + 1}の英語"></span>
       <label class="bg"><input type="checkbox" ${b.badge ? 'checked' : ''}>無料</label>`;
+    const iconBtn = row.querySelector('.icon-btn');
+    drawIconThumb(iconBtn.querySelector('canvas'), b.icon);
+    iconBtn.onclick = () => openIconPicker(i);
     const [jpIn, enIn, bgIn] = row.querySelectorAll('input');
     jpIn.oninput = () => { b.jp = jpIn.value || ' '; renderEditor(); };
     enIn.oninput = () => { b.en = enIn.value; renderEditor(); };
     bgIn.onchange = () => { b.badge = bgIn.checked ? '無料' : null; renderEditor(); };
     grid.appendChild(row);
   });
+}
+
+// ===== アイコン選択 =====
+function drawIconThumb(cv, key) {
+  const d = 56;
+  cv.width = d; cv.height = d;
+  const cc = cv.getContext('2d');
+  cc.strokeStyle = '#33424E'; cc.fillStyle = '#33424E';
+  cc.lineWidth = 3.4; cc.lineCap = 'round'; cc.lineJoin = 'round';
+  cc.translate(d / 2, d / 2);
+  (ICONS[key] || ICONS.info)(cc, 38);
+}
+
+let pickerTarget = 0;
+function openIconPicker(i) {
+  pickerTarget = i;
+  const grid = $('#iconGrid');
+  if (!grid.children.length) {
+    Object.keys(ICONS).forEach(k => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      const cv = document.createElement('canvas');
+      drawIconThumb(cv, k);
+      btn.appendChild(cv);
+      btn.onclick = () => {
+        state.buttons[pickerTarget].icon = k;
+        $('#iconPicker').classList.add('hidden');
+        buildLabelEditor();
+        renderEditor();
+      };
+      grid.appendChild(btn);
+    });
+  }
+  $('#iconPicker').classList.remove('hidden');
 }
 function escAttr(s) { return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
 
