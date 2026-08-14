@@ -1,0 +1,14 @@
+{
+  "name": "ステップロック暗記",
+  "short_name": "暗記",
+  "description": "一問一答と日数を入れるだけで、その人専用の暗記コースができる学習アプリ。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f9",
+  "theme_color": "#16233f",
+  "lang": "ja",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
