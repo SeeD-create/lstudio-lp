@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>回数券型サブスクリプション管理システム ｜ 動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="回数券（前払い検体数）の残数管理・利用登録・二重請求防止の請求連携まで、実際に操作できる動作デモです。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="回数券型サブスクリプション管理システム ｜ 動作デモ">
+<meta property="og:description" content="残数の自動減算、分析依頼番号による二重消化ブロック、請求対象外リストのAPI/CSV連携までを実機で確認できます。">
+<meta property="og:url" content="https://l-studiojp.com/demo/kaisuken/">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F4F6F9; --surface:#FFFFFF; --sunk:#EDF0F4;
+  --line:#D9DEE6; --line-soft:#E7EBF0;
+  --ink:#18222E; --ink2:#47535F; --ink3:#7A8591;
+  --accent:#1D5CA8; --accent-deep:#164A88; --accent-soft:#E4EDF8; --accent-line:#A9C4E4;
+  --ok:#1E7A4C; --ok-soft:#E3F1E8; --ok-line:#A9D4BC;
+  --warn:#9C6512; --warn-soft:#F7EEDC; --warn-line:#E3C88E;
+  --bad:#A93B3B; --bad-soft:#F7E4E4; --bad-line:#E0AFAF;
+  --shadow:0 1px 2px rgba(18,28,40,.05),0 10px 28px -18px rgba(18,28,40,.3);
+  --r:8px;
+  --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Noto Sans JP","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Courier New",monospace;
+}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* ===== demo band ===== */
+.demoband{background:#10233C;color:#C8D6E8;font-size:12.5px;padding:8px 0}
+.demoband .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.demoband b{color:#fff;font-weight:600}
+.demoband .tag{background:#1D5CA8;color:#fff;border-radius:99px;padding:1px 10px;font-weight:600;white-space:nowrap}
+
+/* ===== header ===== */
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:14px;padding-top:13px;padding-bottom:13px;flex-wrap:wrap}
+.applogo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16.5px;line-height:1.25}
+.applogo .mark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#1D5CA8,#3D82CE);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex:none}
+.applogo small{display:block;font-size:11px;font-weight:500;color:var(--ink3);line-height:1.4}
+.rolebox{margin-left:auto;display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink2);flex-wrap:wrap}
+.rolebox .rbtns{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--sunk)}
+.rolebox button{border:0;background:transparent;padding:7px 15px;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.rolebox button.on{background:var(--accent);color:#fff}
+.linkbtn{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:6px 12px;font-family:inherit;font-size:12.5px;color:var(--ink2);cursor:pointer;font-weight:600}
+.linkbtn:hover{border-color:var(--accent-line);color:var(--accent)}
+
+/* ===== tabs ===== */
+nav.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;padding-top:0;padding-bottom:0;scrollbar-width:thin}
+nav.tabs button{border:0;background:transparent;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink2);padding:13px 14px;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent}
+nav.tabs button:hover{color:var(--accent)}
+nav.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+nav.tabs button[hidden]{display:none}
+nav.tabs .pill{display:inline-block;background:var(--bad);color:#fff;font-size:10.5px;border-radius:99px;padding:0 6px;margin-left:5px;vertical-align:1px;font-weight:700}
+
+main{padding:22px 0 44px}
+.page{display:none}
+.page.on{display:block}
+h2.pt{font-size:19px;margin:0 0 4px;letter-spacing:.01em}
+p.psub{margin:0 0 18px;color:var(--ink3);font-size:13px}
+
+/* ===== card ===== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.card > h3{margin:0;font-size:14px;padding:12px 16px;border-bottom:1px solid var(--line-soft);background:var(--sunk);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.card > h3 .sub{font-weight:500;color:var(--ink3);font-size:12px}
+.card > h3 .right{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}
+.cbody{padding:16px}
+.cbody.tight{padding:0}
+
+/* ===== KPI ===== */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;box-shadow:var(--shadow)}
+.kpi .lbl{font-size:11.5px;color:var(--ink3);font-weight:600;letter-spacing:.02em}
+.kpi .val{font-size:27px;font-weight:800;line-height:1.25;margin-top:2px;letter-spacing:-.01em}
+.kpi .val small{font-size:13px;font-weight:600;color:var(--ink3);margin-left:3px}
+.kpi .note{font-size:11.5px;color:var(--ink3)}
+.kpi.warn .val{color:var(--warn)}
+.kpi.bad .val{color:var(--bad)}
+.kpi.ok .val{color:var(--ok)}
+
+/* ===== table ===== */
+.tscroll{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+table.t th{background:var(--sunk);text-align:left;font-weight:600;color:var(--ink2);font-size:11.5px;letter-spacing:.03em;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td{padding:10px 12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+table.t tr:last-child td{border-bottom:0}
+table.t tbody tr:hover{background:#FAFCFE}
+table.t td.num,table.t th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.t td.mono{font-family:var(--mono);font-size:12px}
+.rowlink{cursor:pointer}
+.empty{padding:26px 16px;text-align:center;color:var(--ink3);font-size:13px}
+
+/* ===== bits ===== */
+.badge{display:inline-block;font-size:11px;font-weight:700;border-radius:99px;padding:2px 9px;white-space:nowrap;border:1px solid transparent}
+.b-ok{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+.b-warn{background:var(--warn-soft);color:var(--warn);border-color:var(--warn-line)}
+.b-bad{background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)}
+.b-gray{background:var(--sunk);color:var(--ink3);border-color:var(--line)}
+.b-acc{background:var(--accent-soft);color:var(--accent-deep);border-color:var(--accent-line)}
+.bar{height:6px;border-radius:99px;background:var(--sunk);overflow:hidden;min-width:74px;margin-top:5px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.bar.warn i{background:var(--warn)} .bar.bad i{background:var(--bad)}
+.muted{color:var(--ink3)}
+.tiny{font-size:11.5px}
+
+/* ===== buttons ===== */
+.btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:7px;padding:9px 17px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--accent-deep)}
+.btn.ghost{background:var(--surface);color:var(--accent);border-color:var(--accent-line)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.btn.sm{padding:5px 11px;font-size:12px;border-radius:6px;font-weight:600}
+.btn.gray{background:var(--surface);color:var(--ink2);border-color:var(--line)}
+.btn.gray:hover{background:var(--sunk)}
+.btn.danger{background:var(--surface);color:var(--bad);border-color:var(--bad-line)}
+.btn.danger:hover{background:var(--bad-soft)}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+
+/* ===== form ===== */
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
+.f label{display:block;font-size:11.5px;font-weight:700;color:var(--ink2);margin-bottom:4px;letter-spacing:.02em}
+.f input,.f select,.f textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:9px 11px;font-family:inherit;font-size:14px;background:var(--surface);color:var(--ink)}
+.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--accent-soft);border-color:var(--accent-line)}
+.f .hint{font-size:11.5px;color:var(--ink3);margin-top:4px}
+.f input[readonly]{background:var(--sunk);color:var(--ink2)}
+
+/* ===== alert ===== */
+.alert{border-radius:7px;padding:11px 14px;font-size:13px;margin-top:13px;border:1px solid;display:flex;gap:9px;align-items:flex-start;line-height:1.6}
+.alert b{display:block;font-size:13px}
+.a-ok{background:var(--ok-soft);border-color:var(--ok-line);color:#14563A}
+.a-bad{background:var(--bad-soft);border-color:var(--bad-line);color:#7E2C2C}
+.a-warn{background:var(--warn-soft);border-color:var(--warn-line);color:#7A4E0C}
+.a-info{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-deep)}
+.alert .ic{font-weight:800;flex:none}
+
+/* ===== check preview ===== */
+.checkbox{background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:12px 14px;font-size:12.5px}
+.checkbox .ln{display:flex;gap:8px;align-items:center;padding:3px 0}
+.checkbox .ln .st{font-weight:800;width:16px;flex:none;text-align:center}
+.st.y{color:var(--ok)} .st.n{color:var(--bad)} .st.q{color:var(--ink3)}
+
+/* ===== flow ===== */
+.flow{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:4px 0}
+.flow .st{border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:9px 12px;min-width:118px;text-align:center;font-size:12px;font-weight:700;flex:none}
+.flow .st small{display:block;font-weight:500;color:var(--ink3);font-size:10.5px;margin-top:1px}
+.flow .st.hi{border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent-deep)}
+.flow .st.fin{border-color:var(--ok-line);background:var(--ok-soft);color:#14563A}
+.flow .ar{display:flex;align-items:center;color:var(--ink3);padding:0 7px;font-size:14px;flex:none}
+
+/* ===== code ===== */
+pre.code{background:#10233C;color:#D7E4F3;border-radius:7px;padding:14px 15px;font-family:var(--mono);font-size:12px;line-height:1.65;overflow-x:auto;margin:0;white-space:pre}
+pre.code .k{color:#8FC3F5} pre.code .s{color:#B7E1B0} pre.code .n{color:#F2C89A} pre.code .c{color:#7C93AC}
+pre.csv{background:var(--sunk);border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:13px 14px;font-family:var(--mono);font-size:12px;line-height:1.7;overflow-x:auto;margin:0;white-space:pre}
+
+/* ===== subtabs ===== */
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}
+.subtabs button{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer}
+.subtabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.sp{display:none}.sp.on{display:block}
+
+/* ===== drawer ===== */
+.scrim{position:fixed;inset:0;background:rgba(16,35,60,.4);z-index:60;display:none}
+.scrim.on{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--surface);z-index:61;transform:translateX(100%);transition:transform .18s ease;display:flex;flex-direction:column;box-shadow:-10px 0 40px -20px rgba(16,35,60,.5)}
+.drawer.on{transform:translateX(0)}
+.drawer .dh{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--sunk)}
+.drawer .dh h3{margin:0;font-size:15px;flex:1}
+.drawer .dh .x{border:0;background:transparent;font-size:22px;line-height:1;color:var(--ink3);cursor:pointer;padding:0 4px}
+.drawer .db{padding:18px;overflow:auto;flex:1}
+dl.kv{margin:0;display:grid;grid-template-columns:112px 1fr;gap:0}
+dl.kv dt{font-size:11.5px;color:var(--ink3);font-weight:600;padding:7px 0;border-bottom:1px solid var(--line-soft)}
+dl.kv dd{margin:0;font-size:13px;padding:7px 0;border-bottom:1px solid var(--line-soft)}
+
+/* ===== mail ===== */
+.mail{border:1px solid var(--line);border-radius:7px;overflow:hidden}
+.mail .mh{background:var(--sunk);padding:10px 14px;font-size:12px;border-bottom:1px solid var(--line);color:var(--ink2)}
+.mail .mh b{color:var(--ink)}
+.mail .mb{padding:14px;font-size:13px;white-space:pre-wrap;line-height:1.85;font-family:var(--sans)}
+
+/* ===== guide ===== */
+.guide{background:linear-gradient(180deg,#F7FAFD,#FFFFFF);border:1px solid var(--accent-line);border-radius:var(--r);padding:15px 17px;margin-bottom:20px;box-shadow:var(--shadow)}
+.guide h3{margin:0 0 8px;font-size:14px;color:var(--accent-deep)}
+.guide ol{margin:0;padding-left:19px;font-size:13px;color:var(--ink2)}
+.guide ol li{margin-bottom:4px}
+.guide ol li b{color:var(--ink)}
+
+/* ===== requirement matrix ===== */
+.matrix{background:var(--surface);border-top:1px solid var(--line);padding:34px 0 40px}
+.matrix h2{font-size:18px;margin:0 0 4px}
+.matrix p.lead{margin:0 0 16px;color:var(--ink3);font-size:13px}
+table.m{width:100%;border-collapse:collapse;font-size:13px;min-width:660px}
+table.m th{background:var(--sunk);text-align:left;font-size:11.5px;color:var(--ink2);padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+table.m td{padding:9px 12px;border:1px solid var(--line-soft);vertical-align:top}
+table.m td:first-child{font-weight:600;white-space:nowrap}
+
+footer.site{background:#10233C;color:#9FB3CA;padding:26px 0 32px;font-size:12.5px}
+footer.site b{color:#fff;font-size:14px}
+footer.site a{color:#8FC3F5}
+.lockmsg{padding:30px 16px;text-align:center;color:var(--ink3);font-size:13.5px}
+.lockmsg .lk{font-size:26px;display:block;margin-bottom:6px}
+
+@media(max-width:640px){
+  .kpi .val{font-size:23px}
+  .applogo{font-size:15px}
+  dl.kv{grid-template-columns:96px 1fr}
+  .rolebox{width:100%;margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="demoband"><div class="wrap">
+  <span class="tag">動作デモ</span>
+  <b>回数券型サブスクリプション管理システム</b>
+  <span>実際に操作できます。データはこのブラウザ内だけで動き、送信も保存もされません。</span>
+</div></div>
+
+<header class="site"><div class="wrap">
+  <div class="applogo">
+    <span class="mark">回</span>
+    <span>回数券管理システム<small>ARA 分析サービス ／ Phase1 想定画面</small></span>
+  </div>
+  <div class="rolebox">
+    <span>ログイン権限</span>
+    <span class="rbtns" id="roleBtns">
+      <button data-role="admin" class="on">管理者</button>
+      <button data-role="sales">営業</button>
+      <button data-role="lab">分析／受付</button>
+    </span>
+    <button class="linkbtn" id="btnReset">データを初期化</button>
+  </div>
+</div></header>
+
+<nav class="tabs"><div class="wrap" id="tabbar">
+  <button data-tab="dash" data-roles="admin,sales,lab" class="on">ダッシュボード</button>
+  <button data-tab="cust" data-roles="admin,sales,lab">顧客・契約</button>
+  <button data-tab="use"  data-roles="admin,lab">利用登録</button>
+  <button data-tab="hist" data-roles="admin,sales,lab">利用履歴</button>
+  <button data-tab="bill" data-roles="admin">請求連携<span class="pill">重要</span></button>
+  <button data-tab="noti" data-roles="admin,sales">期限・通知</button>
+  <button data-tab="log"  data-roles="admin">操作ログ</button>
+  <button data-tab="conf" data-roles="admin">プラン・設定</button>
+</div></nav>
+
+<main><div class="wrap">
+
+  <!-- ========== ダッシュボード ========== -->
+  <section class="page on" id="p-dash">
+    <div class="guide">
+      <h3>▶ 3分で要点だけ確認する手順</h3>
+      <ol>
+        <li><b>利用登録</b>タブで分析依頼番号 <code>AN-2026-08-0412</code>（履歴にある番号）を入れる → <b>二重消化がブロックされます</b>。</li>
+        <li>同じ画面で「グリーンフーズ品質管理室」を選ぶ → <b>入金確認前のため利用不可</b>で弾かれます。</li>
+        <li>正常に登録して <b>請求連携</b>タブへ → その依頼番号が <b>請求対象外リスト</b>に自動で入ります（API／CSVの中身も表示）。</li>
+        <li>右上の権限を<b>営業</b>や<b>分析／受付</b>に切り替える → タブと操作が実際に制限されます。</li>
+      </ol>
+    </div>
+
+    <h2 class="pt">ダッシュボード</h2>
+    <p class="psub" id="dashDate"></p>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="card">
+      <h3>要対応リスト<span class="sub">期限が近い／残数が少ない／未入金の契約</span></h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>企業名</th><th>契約</th><th>プラン</th><th class="num">残数</th><th>有効期限</th><th>状態</th><th>対応</th></tr></thead>
+        <tbody id="dashRows"></tbody>
+      </table></div></div>
+    </div>
+
+    <div class="card">
+      <h3>当月の回数券利用<span class="sub">通常請求の対象外として既存システムへ連携する分</span></h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>利用日</th><th>分析依頼番号</th><th>企業名</th><th class="num">使用</th><th class="num">使用後残数</th><th>請求区分</th></tr></thead>
+        <tbody id="dashUse"></tbody>
+      </table></div></div>
+    </div>
+  </section>
+
+  <!-- ========== 顧客・契約 ========== -->
+  <section class="page" id="p-cust">
+    <h2 class="pt">顧客・契約</h2>
+    <p class="psub">行をクリックすると契約の詳細と残数の内訳が開きます。</p>
+    <div class="card">
+      <h3>契約一覧
+        <span class="right">
+          <button class="btn sm gray" onclick="dl('customers')">顧客CSV</button>
+          <button class="btn sm gray" onclick="dl('contracts')">契約CSV</button>
+        </span>
+      </h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>顧客ID</th><th>企業名／支店</th><th>担当者</th><th>プラン</th><th class="num">契約検体数</th><th class="num">残数</th><th>有効期限</th><th>状態</th></tr></thead>
+        <tbody id="custRows"></tbody>
+      </table></div></div>
+    </div>
+  </section>
+
+  <!-- ========== 利用登録 ========== -->
+  <section class="page" id="p-use">
+    <h2 class="pt">利用登録</h2>
+    <p class="psub">分析依頼1件ごとに回数券を消化します。登録の前に4つのチェックが自動で走ります。</p>
+
+    <div class="card">
+      <h3>登録前チェック<span class="sub">入力に応じてリアルタイムで判定します</span></h3>
+      <div class="cbody">
+        <div class="f">
+          <div class="frow">
+            <div>
+              <label>顧客・契約</label>
+              <select id="uContract"></select>
+              <div class="hint" id="uContractHint">&nbsp;</div>
+            </div>
+            <div>
+              <label>分析依頼番号</label>
+              <input id="uReq" placeholder="AN-2026-08-0501" autocomplete="off">
+              <div class="hint">既存システムの依頼番号。これが二重請求防止の鍵になります。</div>
+            </div>
+            <div>
+              <label>利用日</label>
+              <input id="uDate" type="date">
+              <div class="hint">&nbsp;</div>
+            </div>
+            <div>
+              <label>使用検体数</label>
+              <input id="uCount" type="number" min="1" value="1">
+              <div class="hint">1検体＝1回分</div>
+            </div>
+          </div>
+          <div style="margin-top:13px">
+            <label>備考（任意）</label>
+            <input id="uNote" placeholder="例）追加項目の依頼あり" autocomplete="off">
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="checkbox" id="uChecks"></div>
+        <div id="uAlert"></div>
+
+        <div style="margin-top:15px;display:flex;gap:9px;flex-wrap:wrap;align-items:center">
+          <button class="btn" id="uSubmit">この内容で消化を確定する</button>
+          <button class="btn ghost" id="uHold">仮押さえで登録する</button>
+          <span class="tiny muted">仮押さえ＝分析完了までは残数を確保、請求連携には出しません。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>直近の登録<span class="sub">この画面から登録した分</span></h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>登録時刻</th><th>分析依頼番号</th><th>企業名</th><th class="num">使用</th><th class="num">残数</th><th>状態</th><th>操作</th></tr></thead>
+        <tbody id="uRecent"><tr><td colspan="7" class="empty">まだ登録がありません。上のフォームから登録してみてください。</td></tr></tbody>
+      </table></div></div>
+    </div>
+  </section>
+
+  <!-- ========== 利用履歴 ========== -->
+  <section class="page" id="p-hist">
+    <h2 class="pt">利用履歴</h2>
+    <p class="psub">使用前後の残数と、修正・取消の履歴が1行ごとに残ります。取消すると残数は自動で戻ります。</p>
+    <div class="card">
+      <h3>利用履歴
+        <span class="right">
+          <select id="hFilter" style="border:1px solid var(--line);border-radius:6px;padding:5px 9px;font-family:inherit;font-size:12.5px"></select>
+          <button class="btn sm gray" onclick="dl('usages')">履歴CSV</button>
+        </span>
+      </h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>利用日</th><th>分析依頼番号</th><th>企業名</th><th class="num">使用</th><th class="num">使用前</th><th class="num">使用後</th><th>登録者</th><th>状態</th><th>操作</th></tr></thead>
+        <tbody id="histRows"></tbody>
+      </table></div></div>
+    </div>
+  </section>
+
+  <!-- ========== 請求連携 ========== -->
+  <section class="page" id="p-bill">
+    <h2 class="pt">請求連携（二重請求の防止）</h2>
+    <p class="psub">回数券で消化した分析依頼を「通常請求の対象外」として既存業務システムへ渡す部分です。本案件の最重要要件にあたります。</p>
+
+    <div class="card">
+      <h3>消化から請求除外までの流れ</h3>
+      <div class="cbody">
+        <div class="flow">
+          <div class="st">分析依頼<small>既存システム</small></div><div class="ar">▸</div>
+          <div class="st hi">残数チェック<small>不足なら受付停止</small></div><div class="ar">▸</div>
+          <div class="st hi">検体数の仮押さえ<small>hold</small></div><div class="ar">▸</div>
+          <div class="st">分析完了<small>受付側で確定</small></div><div class="ar">▸</div>
+          <div class="st hi">消化確定<small>confirmed</small></div><div class="ar">▸</div>
+          <div class="st fin">通常請求の対象外<small>既存システムへ連携</small></div>
+        </div>
+        <div class="alert a-info" style="margin-top:14px"><span class="ic">◆</span><span>
+          <b>二重請求が起きない根拠は3つです。</b>
+          ①分析依頼番号を一意キーにしているため、同じ依頼を2回消化できません。
+          ②請求区分は回数券管理側だけが持ち、既存システムは受け取った結果を反映するだけにします（判断元を1か所に固定）。
+          ③連携は冪等キー付きで送るため、再送・通信断があっても既存システム側で二重反映されません。
+        </span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>請求対象外リスト<span class="sub" id="billPeriod"></span>
+        <span class="right">
+          <select id="billMonth" style="border:1px solid var(--line);border-radius:6px;padding:5px 9px;font-family:inherit;font-size:12.5px"></select>
+          <button class="btn sm" id="btnSend">既存システムへ連携する</button>
+        </span>
+      </h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>分析依頼番号</th><th>顧客ID</th><th>企業名</th><th>契約ID</th><th class="num">検体数</th><th>請求区分</th><th>連携</th></tr></thead>
+        <tbody id="billRows"></tbody>
+      </table></div></div>
+      <div class="cbody" id="billResultBox" style="display:none;padding-top:0"></div>
+    </div>
+
+    <div class="card">
+      <h3>連携方式<span class="sub">ご要望の「API／CSV／その他」を並べて比較できるようにしています</span></h3>
+      <div class="cbody">
+        <div class="subtabs" id="billTabs">
+          <button data-sp="api" class="on">① REST API（推奨）</button>
+          <button data-sp="csv">② CSV連携</button>
+          <button data-sp="cmp">③ 3方式の比較</button>
+        </div>
+
+        <div class="sp on" id="sp-api">
+          <p class="tiny muted" style="margin-top:0">消化確定と同時に既存システムへ通知します。下は実際の登録データから生成したリクエストです。</p>
+          <pre class="code" id="apiCode"></pre>
+          <div class="alert a-ok" style="margin-top:12px"><span class="ic">✓</span><span>
+            <b>再送しても二重にならない設計です。</b> <code>idempotency_key</code> は「分析依頼番号＋契約ID」から決まるため、同じ依頼を何度送っても既存システム側は1件として扱えます。既存システムが受け口を用意できない場合は②のCSVから始め、後から①へ差し替えられる構成にします。
+          </span></div>
+        </div>
+
+        <div class="sp" id="sp-csv">
+          <p class="tiny muted" style="margin-top:0">既存システムの改修が難しい場合の入口です。月次または日次で取り込みます。</p>
+          <pre class="csv" id="csvCode"></pre>
+          <div style="margin-top:11px"><button class="btn sm ghost" onclick="dl('billing')">このCSVをダウンロード</button></div>
+        </div>
+
+        <div class="sp" id="sp-cmp">
+          <div class="tscroll"><table class="t" style="min-width:600px">
+            <thead><tr><th>方式</th><th>既存システムの改修</th><th>反映のはやさ</th><th>二重反映の防止</th><th>向いている場面</th></tr></thead>
+            <tbody>
+              <tr><td><b>REST API</b></td><td>受け口の実装が必要</td><td>即時</td><td>冪等キーで確実</td><td>将来の自動化まで見据える場合（推奨）</td></tr>
+              <tr><td><b>CSV取込</b></td><td>ほぼ不要</td><td>日次／月次</td><td>依頼番号で突合</td><td>Phase1をすぐ動かしたい場合</td></tr>
+              <tr><td><b>DB直参照ビュー</b></td><td>参照権限のみ</td><td>即時</td><td>参照専用のため事故が起きにくい</td><td>既存システムが同一基盤にある場合</td></tr>
+            </tbody>
+          </table></div>
+          <div class="alert a-warn" style="margin-top:12px"><span class="ic">!</span><span>
+            <b>どれを選ぶかは、既存システムの作り（言語・DB・改修可否）を伺ってから確定します。</b> Phase1はCSVで先に安全側を確保し、API受け口が用意でき次第そのまま切り替える二段構えをおすすめしています。
+          </span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 期限・通知 ========== -->
+  <section class="page" id="p-noti">
+    <h2 class="pt">有効期限・通知</h2>
+    <p class="psub">契約開始から1年。期限の6か月前・3か月前に、顧客担当者と社内担当者へ自動送信します。</p>
+    <div class="card">
+      <h3>通知スケジュール</h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>企業名</th><th>有効期限</th><th class="num">残日数</th><th class="num">残数</th><th>6か月前通知</th><th>3か月前通知</th><th>プレビュー</th></tr></thead>
+        <tbody id="notiRows"></tbody>
+      </table></div></div>
+    </div>
+    <div class="card" id="mailCard" style="display:none">
+      <h3>送信文面プレビュー<span class="sub">文面は管理画面から編集できる想定です</span></h3>
+      <div class="cbody"><div class="mail" id="mailBox"></div></div>
+    </div>
+  </section>
+
+  <!-- ========== 操作ログ ========== -->
+  <section class="page" id="p-log">
+    <h2 class="pt">操作ログ</h2>
+    <p class="psub">誰が・いつ・何を変更したかを記録します。この画面での操作もそのまま追記されます。</p>
+    <div class="card">
+      <h3>操作ログ<span class="right"><button class="btn sm gray" onclick="dl('logs')">ログCSV</button></span></h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>日時</th><th>操作者</th><th>権限</th><th>操作</th><th>対象</th><th>内容</th></tr></thead>
+        <tbody id="logRows"></tbody>
+      </table></div></div>
+    </div>
+  </section>
+
+  <!-- ========== プラン・設定 ========== -->
+  <section class="page" id="p-conf">
+    <h2 class="pt">プラン・権限設定</h2>
+    <p class="psub">料金・検体数は管理画面から変更できます。変更は新規契約から適用され、既存契約の条件は変わりません。</p>
+    <div class="card">
+      <h3>プラン設定<span class="sub">松・竹・梅（名称も変更可）</span></h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>プラン名</th><th class="num">契約検体数</th><th class="num">契約金額（税抜）</th><th class="num">1検体あたり</th><th>有効期間</th><th></th></tr></thead>
+        <tbody id="planRows"></tbody>
+      </table></div></div>
+      <div class="cbody" style="padding-top:12px">
+        <div class="alert a-info"><span class="ic">◆</span><span>金額または検体数を書き換えて「保存」を押すと、1検体あたりの単価とダッシュボードの表示に即時反映されます。操作ログにも残ります。</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>権限マトリクス<span class="sub">右上の切替で実際の画面が変わります</span></h3>
+      <div class="cbody tight"><div class="tscroll"><table class="t">
+        <thead><tr><th>機能</th><th>管理者</th><th>営業</th><th>分析／受付</th></tr></thead>
+        <tbody>
+          <tr><td>顧客・契約の登録／編集</td><td><span class="badge b-ok">可</span></td><td><span class="badge b-gray">閲覧のみ</span></td><td><span class="badge b-gray">閲覧のみ</span></td></tr>
+          <tr><td>残数・利用履歴の閲覧</td><td><span class="badge b-ok">可</span></td><td><span class="badge b-ok">可</span></td><td><span class="badge b-ok">可</span></td></tr>
+          <tr><td>利用登録・修正・取消</td><td><span class="badge b-ok">可</span></td><td><span class="badge b-bad">不可</span></td><td><span class="badge b-ok">可</span></td></tr>
+          <tr><td>請求連携の実行</td><td><span class="badge b-ok">可</span></td><td><span class="badge b-bad">不可</span></td><td><span class="badge b-bad">不可</span></td></tr>
+          <tr><td>プラン設定・操作ログ</td><td><span class="badge b-ok">可</span></td><td><span class="badge b-bad">不可</span></td><td><span class="badge b-bad">不可</span></td></tr>
+        </tbody>
+      </table></div></div>
+    </div>
+  </section>
+
+</div></main>
+
+<!-- ========== 要件対応表 ========== -->
+<section class="matrix"><div class="wrap">
+  <h2>ご依頼内容と、このデモで確認できる場所</h2>
+  <p class="lead">募集要項に書かれた Phase1 の機能を、そのまま画面に落としています。</p>
+  <div class="tscroll"><table class="m">
+    <thead><tr><th>ご依頼の項目</th><th>デモでの確認場所</th><th>補足</th></tr></thead>
+    <tbody>
+      <tr><td>1. 顧客管理</td><td>顧客・契約 → 行をクリック</td><td>顧客ID・企業名・支店・担当者・電話・メール・社内営業担当者</td></tr>
+      <tr><td>2. プラン・契約管理</td><td>顧客・契約／プラン・設定</td><td>申込日・入金日・利用開始日・有効期限・契約状態を保持</td></tr>
+      <tr><td>3. 回数券残数管理</td><td>全画面の「残数」列</td><td>契約検体数−使用済＝残数。利用登録で自動減算</td></tr>
+      <tr><td>4. 利用登録・修正・取消</td><td>利用登録／利用履歴の「取消」</td><td>取消すると残数が自動で戻り、履歴が残ります</td></tr>
+      <tr><td>5. 利用履歴</td><td>利用履歴</td><td>使用前後の残数・登録者・修正履歴</td></tr>
+      <tr><td>6. 有効期限・通知</td><td>期限・通知</td><td>6か月前／3か月前、顧客担当者と社内担当者へ</td></tr>
+      <tr><td>7. 契約更新・入金管理</td><td>ダッシュボード「要対応」／顧客・契約</td><td>未入金は利用登録の時点でブロック</td></tr>
+      <tr><td>8. ダッシュボード・権限管理</td><td>ダッシュボード／右上の権限切替</td><td>3ロールでタブと操作が実際に変わります</td></tr>
+      <tr><td>9. 操作ログ・CSV</td><td>操作ログ／各画面のCSVボタン</td><td>顧客・契約・履歴・ログを出力</td></tr>
+      <tr><td><b>最重要：二重請求防止</b></td><td><b>請求連携</b></td><td>分析依頼番号の一意制約＋冪等キー付き連携。API／CSVの実データを表示</td></tr>
+      <tr><td>将来のAPI連携</td><td>請求連携 → ①REST API</td><td>残数チェック→仮押さえ→消化確定の状態遷移をPhase1から実装</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<footer class="site"><div class="wrap">
+  <b>Lスタジオ</b>（SeeD Education）<br>
+  本ページは「回数券型サブスクのシステム開発」ご依頼に対する動作デモです。実データの送信・保存は一切行っていません。<br>
+  お問い合わせ：<a href="https://l-studiojp.com/">l-studiojp.com</a>
+</div></footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+  <div class="dh"><h3 id="drawerTitle">契約詳細</h3><button class="x" id="drawerX">×</button></div>
+  <div class="db" id="drawerBody"></div>
+</aside>
+
+<script>
+"use strict";
+/* ============================================================
+   回数券型サブスクリプション管理システム ／ 動作デモ
+   すべてブラウザ内で完結。外部送信なし。
+   ============================================================ */
+
+var TODAY = new Date(); TODAY.setHours(0,0,0,0);
+function d(off){ var x=new Date(TODAY); x.setDate(x.getDate()+off); return x; }
+function ymd(x){ return x.getFullYear()+'-'+p2(x.getMonth()+1)+'-'+p2(x.getDate()); }
+function p2(n){ return (n<10?'0':'')+n; }
+function jp(x){ if(typeof x==='string') x=new Date(x+'T00:00:00'); return x.getFullYear()+'/'+p2(x.getMonth()+1)+'/'+p2(x.getDate()); }
+function days(a,b){ return Math.round((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/86400000); }
+function yen(n){ return '¥'+Number(n).toLocaleString('ja-JP'); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function $(id){ return document.getElementById(id); }
+
+/* 見た目を安定させるための決定的な擬似乱数 */
+var _seed = 20260813;
+function rnd(){ _seed = (_seed*1103515245+12345) % 2147483648; return _seed/2147483648; }
+function pick(n){ return Math.floor(rnd()*n); }
+
+var ROLES = { admin:{label:'管理者', user:'今井（管理者）'}, sales:{label:'営業', user:'佐々木（営業）'}, lab:{label:'分析／受付', user:'村瀬（受付）'} };
+var role = 'admin';
+
+/* ---------- マスタ ---------- */
+var DEFAULT_PLANS = [
+  { id:'matsu', name:'松', samples:100, price:1200000 },
+  { id:'take',  name:'竹', samples:30,  price:400000 },
+  { id:'ume',   name:'梅', samples:10,  price:150000 }
+];
+
+var DEFAULT_CUSTOMERS = [
+  { id:'C-1001', company:'株式会社サンライズ食品分析', branch:'本社', person:'田中 誠',   tel:'03-5xxx-1180', mail:'tanaka@sunrise-fa.example.jp', sales:'佐々木' },
+  { id:'C-1002', company:'東和メディカルラボ株式会社', branch:'名古屋営業所', person:'岸本 由紀', tel:'052-2xx-4410', mail:'kishimoto@towa-ml.example.jp', sales:'佐々木' },
+  { id:'C-1003', company:'北陸環境リサーチ株式会社',   branch:'本社', person:'越野 大輔', tel:'076-4xx-2207', mail:'koshino@hk-eres.example.jp', sales:'井口' },
+  { id:'C-1004', company:'みなと臨床検査センター',     branch:'第二検査部', person:'早坂 千秋', tel:'045-3xx-9931', mail:'hayasaka@minato-lab.example.jp', sales:'井口' },
+  { id:'C-1005', company:'グリーンフーズ品質管理室',   branch:'関西工場', person:'松本 亮',   tel:'06-6xxx-3325', mail:'matsumoto@greenfoods.example.jp', sales:'佐々木' },
+  { id:'C-1006', company:'中央総合研究所',             branch:'本部', person:'相沢 睦',   tel:'03-3xxx-7742', mail:'aizawa@chuo-lab.example.jp', sales:'井口' }
+];
+
+/* startOff: 開始日の相対日数（負＝過去）／ used: 使用済み検体数 */
+var DEFAULT_CONTRACTS = [
+  { id:'K-2026-014', cid:'C-1001', plan:'matsu', startOff:-128, paidOff:-133, appliedOff:-140, used:66, status:'active' },
+  { id:'K-2025-087', cid:'C-1002', plan:'take',  startOff:-282, paidOff:-288, appliedOff:-294, used:26, status:'active' },
+  { id:'K-2026-031', cid:'C-1003', plan:'ume',   startOff:-45,  paidOff:-49,  appliedOff:-53,  used:1,  status:'active' },
+  { id:'K-2026-006', cid:'C-1004', plan:'matsu', startOff:-190, paidOff:-196, appliedOff:-201, used:38, status:'active' },
+  { id:'K-2026-042', cid:'C-1005', plan:'take',  startOff:null, paidOff:null, appliedOff:-6,   used:0,  status:'unpaid' },
+  { id:'K-2025-052', cid:'C-1006', plan:'ume',   startOff:-400, paidOff:-405, appliedOff:-410, used:7,  status:'expired' }
+];
+
+var S = null; /* state */
+
+function build(){
+  var st = { plans: JSON.parse(JSON.stringify(DEFAULT_PLANS)),
+             customers: JSON.parse(JSON.stringify(DEFAULT_CUSTOMERS)),
+             contracts: [], usages: [], logs: [], sent: {} , seq: 500 };
+  _seed = 20260813;
+  var seen = { 'AN-2026-08-0412':1 };
+
+  DEFAULT_CONTRACTS.forEach(function(c){
+    var pl = st.plans.filter(function(p){return p.id===c.plan;})[0];
+    var start = c.startOff==null ? null : ymd(d(c.startOff));
+    var end   = c.startOff==null ? null : ymd(d(c.startOff+364));
+    st.contracts.push({
+      id:c.id, cid:c.cid, plan:c.plan, samples:pl.samples, amount:pl.price,
+      applied: ymd(d(c.appliedOff)), paid: c.paidOff==null?null:ymd(d(c.paidOff)),
+      start:start, end:end, status:c.status
+    });
+    /* 使用済み分の履歴を、契約期間内に時系列順で生成する */
+    var chunks = [], left = c.used;
+    while(left>0){ var n = Math.min(left, 1+pick(3)); chunks.push(n); left -= n; }
+    var from = (c.startOff||0) + 4, to = -1, span = Math.max(to-from, chunks.length);
+    var before = pl.samples;
+    chunks.forEach(function(n,i){
+      var off = Math.round(from + span*(i+0.5)/chunks.length) + pick(3) - 1;
+      if(off>-1) off = -1;
+      var dt = ymd(d(off));
+      var req;
+      do { req = 'AN-'+dt.slice(0,4)+'-'+dt.slice(5,7)+'-'+p2(1+pick(9))+p2(10+pick(89)); } while(seen[req]);
+      seen[req] = 1;
+      st.usages.push({
+        uid:'U'+(st.seq++), contract:c.id, cid:c.cid,
+        req:req,
+        date:dt, count:n, before:before, after:before-n,
+        by: rnd()<0.55?'村瀬（受付）':'今井（管理者）',
+        status:'confirmed', note:'', edited:null
+      });
+      before -= n;
+    });
+  });
+  st.usages.sort(function(a,b){ return a.date<b.date?1:(a.date>b.date?-1:0); });
+  /* 分かりやすいように、直近の1件は固定の依頼番号にする（案内文と一致させる） */
+  var cur = st.usages.filter(function(u){return u.contract==='K-2026-014';})[0];
+  if(cur) cur.req = 'AN-2026-08-0412';
+
+  st.logs = [
+    { at: ymd(d(-2))+' 09:41', user:'今井（管理者）', role:'管理者', act:'契約登録', tgt:'K-2026-042', det:'グリーンフーズ品質管理室／竹プラン（入金待ち）' },
+    { at: ymd(d(-5))+' 16:12', user:'佐々木（営業）', role:'営業', act:'顧客情報更新', tgt:'C-1002', det:'担当者メールアドレスを変更' },
+    { at: ymd(d(-9))+' 11:03', user:'今井（管理者）', role:'管理者', act:'プラン設定変更', tgt:'松', det:'契約金額 1,150,000 → 1,200,000' }
+  ];
+  return st;
+}
+
+/* ---------- ヘルパ ---------- */
+function planOf(id){ return S.plans.filter(function(p){return p.id===id;})[0]; }
+function custOf(id){ return S.customers.filter(function(c){return c.id===id;})[0]; }
+function conOf(id){ return S.contracts.filter(function(c){return c.id===id;})[0]; }
+function usedOf(cid){ var n=0; S.usages.forEach(function(u){ if(u.contract===cid && u.status!=='cancelled') n+=u.count; }); return n; }
+function leftOf(cid){ var c=conOf(cid); return c.samples - usedOf(cid); }
+function isExpired(c){ return c.end && days(c.end, ymd(TODAY))<0; }
+function stateOf(c){
+  if(c.status==='unpaid') return {t:'入金待ち', cls:'b-warn'};
+  if(c.status==='cancelled') return {t:'解約', cls:'b-gray'};
+  if(isExpired(c)) return {t:'期限切れ', cls:'b-bad'};
+  var dd = days(c.end, ymd(TODAY));
+  if(dd<=90) return {t:'期限間近', cls:'b-warn'};
+  return {t:'利用中', cls:'b-ok'};
+}
+function addLog(act,tgt,det){
+  S.logs.unshift({ at: ymd(TODAY)+' '+p2(new Date().getHours())+':'+p2(new Date().getMinutes()), user:ROLES[role].user, role:ROLES[role].label, act:act, tgt:tgt, det:det });
+}
+
+/* ============================================================
+   描画
+   ============================================================ */
+function renderAll(){ renderDash(); renderCust(); renderUseForm(); renderRecent(); renderHist(); renderBill(); renderNoti(); renderLog(); renderConf(); }
+
+/* ---- ダッシュボード ---- */
+function renderDash(){
+  $('dashDate').textContent = jp(TODAY) + ' 現在 ／ ログイン中：' + ROLES[role].user;
+  var act = S.contracts.filter(function(c){ return c.status==='active' && !isExpired(c); });
+  var soon = act.filter(function(c){ return days(c.end, ymd(TODAY))<=90; });
+  var low  = act.filter(function(c){ return leftOf(c.id) <= Math.max(3, Math.round(c.samples*0.12)); });
+  var m = ymd(TODAY).slice(0,7);
+  var mu = S.usages.filter(function(u){ return u.status==='confirmed' && u.date.slice(0,7)===m; });
+  var msum = mu.reduce(function(a,u){return a+u.count;},0);
+  var unpaid = S.contracts.filter(function(c){ return c.status==='unpaid'; });
+
+  $('kpis').innerHTML =
+    kpi('契約社数', act.length, '社', '有効な回数券契約', '') +
+    kpi('期限90日以内', soon.length, '件', '更新提案の対象', soon.length?'warn':'') +
+    kpi('残数わずか', low.length, '件', '残り12%以下', low.length?'bad':'') +
+    kpi('当月の利用', msum, '検体', mu.length+'件の分析依頼', 'ok') +
+    kpi('入金待ち', unpaid.length, '件', '入金確認まで利用不可', unpaid.length?'warn':'');
+
+  var rows = [];
+  S.contracts.forEach(function(c){
+    var st = stateOf(c);
+    var lowNow = leftOf(c.id) <= Math.max(3, Math.round(c.samples*0.12));
+    if(st.t==='利用中' && !lowNow) return;
+    var cu = custOf(c.cid), left = leftOf(c.id);
+    var act2 = st.t==='入金待ち' ? '入金確認' : (st.t==='期限切れ' ? '更新提案' : (left<=3?'追加プラン提案':'更新案内'));
+    rows.push('<tr class="rowlink" data-con="'+c.id+'"><td>'+esc(cu.company)+'<div class="tiny muted">'+esc(cu.branch)+'</div></td>'+
+      '<td class="mono">'+c.id+'</td><td>'+planOf(c.plan).name+'</td>'+
+      '<td class="num"><b>'+left+'</b> / '+c.samples+'</td>'+
+      '<td>'+(c.end?jp(c.end):'—')+'</td>'+
+      '<td><span class="badge '+st.cls+'">'+st.t+'</span></td>'+
+      '<td class="tiny">'+act2+'</td></tr>');
+  });
+  $('dashRows').innerHTML = rows.join('') || '<tr><td colspan="7" class="empty">対応が必要な契約はありません。</td></tr>';
+
+  var ur = mu.slice(0,8).map(function(u){
+    var c = conOf(u.contract), cu = custOf(u.cid);
+    return '<tr><td>'+jp(u.date)+'</td><td class="mono">'+esc(u.req)+'</td><td>'+esc(cu.company)+'</td>'+
+      '<td class="num">'+u.count+'</td><td class="num">'+u.after+'</td>'+
+      '<td><span class="badge b-acc">通常請求の対象外</span></td></tr>';
+  });
+  $('dashUse').innerHTML = ur.join('') || '<tr><td colspan="6" class="empty">当月の利用はまだありません。</td></tr>';
+  bindRows('dashRows');
+}
+function kpi(l,v,u,n,cls){
+  return '<div class="kpi '+cls+'"><div class="lbl">'+l+'</div><div class="val">'+v+'<small>'+u+'</small></div><div class="note">'+n+'</div></div>';
+}
+
+/* ---- 顧客・契約 ---- */
+function renderCust(){
+  var rows = S.contracts.map(function(c){
+    var cu = custOf(c.cid), st = stateOf(c), left = leftOf(c.id);
+    var pct = Math.round(left/c.samples*100);
+    var bc = pct<=12?'bad':(pct<=30?'warn':'');
+    return '<tr class="rowlink" data-con="'+c.id+'"><td class="mono">'+cu.id+'</td>'+
+      '<td>'+esc(cu.company)+'<div class="tiny muted">'+esc(cu.branch)+'</div></td>'+
+      '<td>'+esc(cu.person)+'<div class="tiny muted">社内：'+esc(cu.sales)+'</div></td>'+
+      '<td>'+planOf(c.plan).name+'<div class="tiny muted">'+yen(c.amount)+'</div></td>'+
+      '<td class="num">'+c.samples+'</td>'+
+      '<td class="num"><b>'+left+'</b><div class="bar '+bc+'"><i style="width:'+pct+'%"></i></div></td>'+
+      '<td>'+(c.end?jp(c.end):'—')+'<div class="tiny muted">'+(c.end?(days(c.end,ymd(TODAY))>=0?'残'+days(c.end,ymd(TODAY))+'日':'失効'):'開始前')+'</div></td>'+
+      '<td><span class="badge '+st.cls+'">'+st.t+'</span></td></tr>';
+  });
+  $('custRows').innerHTML = rows.join('');
+  bindRows('custRows');
+}
+function bindRows(id){
+  Array.prototype.forEach.call($(id).querySelectorAll('tr[data-con]'), function(tr){
+    tr.onclick = function(){ openDrawer(tr.getAttribute('data-con')); };
+  });
+}
+
+/* ---- ドロワー ---- */
+function openDrawer(cid){
+  var c = conOf(cid), cu = custOf(c.cid), st = stateOf(c), left = leftOf(c.id);
+  $('drawerTitle').textContent = cu.company;
+  var us = S.usages.filter(function(u){return u.contract===c.id;}).slice(0,10);
+  var h = '<dl class="kv">'+
+    kv('顧客ID', cu.id)+kv('支店・部署', cu.branch)+kv('担当者', cu.person)+kv('電話', cu.tel)+kv('メール', cu.mail)+
+    kv('社内営業担当', cu.sales)+
+    '</dl><h4 style="font-size:13px;margin:18px 0 6px">契約</h4><dl class="kv">'+
+    kv('契約ID', c.id)+kv('プラン', planOf(c.plan).name+'（'+c.samples+'検体）')+kv('契約金額', yen(c.amount)+'（税抜）')+
+    kv('申込日', jp(c.applied))+kv('入金日', c.paid?jp(c.paid):'<span class="badge b-warn">未入金</span>')+
+    kv('利用開始日', c.start?jp(c.start):'—')+kv('有効期限', c.end?jp(c.end):'—')+
+    kv('契約状態','<span class="badge '+st.cls+'">'+st.t+'</span>')+
+    '</dl><h4 style="font-size:13px;margin:18px 0 6px">回数券残数</h4>'+
+    '<div style="display:flex;gap:14px;align-items:center;background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:12px 14px">'+
+      '<div><div class="tiny muted">契約</div><div style="font-size:20px;font-weight:800">'+c.samples+'</div></div>'+
+      '<div class="muted">−</div>'+
+      '<div><div class="tiny muted">使用済</div><div style="font-size:20px;font-weight:800">'+usedOf(c.id)+'</div></div>'+
+      '<div class="muted">＝</div>'+
+      '<div><div class="tiny muted">残数</div><div style="font-size:20px;font-weight:800;color:var(--accent)">'+left+'</div></div>'+
+    '</div>'+
+    '<h4 style="font-size:13px;margin:18px 0 6px">直近の利用</h4>';
+  if(us.length){
+    h += '<table class="t" style="min-width:0"><thead><tr><th>利用日</th><th>依頼番号</th><th class="num">使用</th><th class="num">残</th><th>状態</th></tr></thead><tbody>'+
+      us.map(function(u){ return '<tr><td>'+jp(u.date)+'</td><td class="mono">'+esc(u.req)+'</td><td class="num">'+u.count+'</td><td class="num">'+u.after+'</td><td>'+stTag(u)+'</td></tr>'; }).join('')+
+      '</tbody></table>';
+  } else { h += '<p class="tiny muted">利用実績はまだありません。</p>'; }
+  $('drawerBody').innerHTML = h;
+  $('drawer').classList.add('on'); $('scrim').classList.add('on');
+}
+function kv(k,v){ return '<dt>'+k+'</dt><dd>'+v+'</dd>'; }
+function closeDrawer(){ $('drawer').classList.remove('on'); $('scrim').classList.remove('on'); }
+$('drawerX').onclick = closeDrawer; $('scrim').onclick = closeDrawer;
+
+function stTag(u){
+  if(u.status==='cancelled') return '<span class="badge b-gray">取消</span>';
+  if(u.status==='held') return '<span class="badge b-warn">仮押さえ</span>';
+  return '<span class="badge b-ok">消化確定</span>'+(u.edited?' <span class="badge b-acc">修正あり</span>':'');
+}
+
+/* ---- 利用登録 ---- */
+function renderUseForm(){
+  var sel = $('uContract'), keep = sel.value;
+  sel.innerHTML = S.contracts.map(function(c){
+    var cu = custOf(c.cid);
+    return '<option value="'+c.id+'">'+esc(cu.company)+'（'+planOf(c.plan).name+'／'+c.id+'）</option>';
+  }).join('');
+  if(keep) sel.value = keep;
+  if(!$('uDate').value) $('uDate').value = ymd(TODAY);
+  checkUse();
+}
+function currentCon(){ return conOf($('uContract').value) || S.contracts[0]; }
+
+function validate(){
+  var c = currentCon();
+  var req = $('uReq').value.trim();
+  var n = parseInt($('uCount').value,10);
+  var left = leftOf(c.id);
+  var r = { ok:true, items:[] };
+
+  /* 1. 契約状態 */
+  var okState = c.status==='active' && !isExpired(c);
+  r.items.push({ ok:okState, t:'契約状態', m: c.status==='unpaid' ? '入金確認前のため利用できません（入金日を登録すると解除されます）'
+      : isExpired(c) ? '有効期限（'+jp(c.end)+'）を過ぎています。残数は失効し、繰越はできません'
+      : '利用中（有効期限 '+jp(c.end)+' まで／残'+days(c.end,ymd(TODAY))+'日）' });
+
+  /* 2. 依頼番号の重複 */
+  var dup = S.usages.filter(function(u){ return u.req.toUpperCase()===req.toUpperCase() && u.status!=='cancelled'; })[0];
+  var okReq = req.length>0 && !dup;
+  r.items.push({ ok: okReq, q: req.length===0,
+    t:'分析依頼番号', m: req.length===0 ? '未入力です'
+      : dup ? '★ この依頼番号は '+jp(dup.date)+' に'+dup.count+'検体で消化済みです。二重消化をブロックしました'
+      : '未使用の番号です（この番号で一意に登録されます）' });
+
+  /* 3. 残数 */
+  var okN = n>0 && n<=left;
+  r.items.push({ ok:okN, t:'残数チェック', m: !(n>0) ? '使用検体数を1以上で入力してください'
+      : n>left ? '残数不足です（残'+left+'検体に対して'+n+'検体の要求。追加購入・繰越は不可のため登録できません）'
+      : '残 '+left+' → '+(left-n)+' 検体（'+n+'検体を減算）' });
+
+  /* 4. 権限 */
+  var okRole = (role==='admin'||role==='lab');
+  r.items.push({ ok:okRole, t:'操作権限', m: okRole ? ROLES[role].label+'は利用登録が可能です' : ROLES[role].label+'権限では利用登録できません（閲覧のみ）' });
+
+  r.ok = okState && okReq && okN && okRole;
+  r.dup = dup; r.left = left; r.n = n;
+  return r;
+}
+
+function checkUse(){
+  var v = validate();
+  $('uChecks').innerHTML = v.items.map(function(i){
+    var cls = i.q ? 'q' : (i.ok?'y':'n');
+    var mk = i.q ? '−' : (i.ok?'✓':'✕');
+    return '<div class="ln"><span class="st '+cls+'">'+mk+'</span><span><b>'+i.t+'</b>　<span class="'+(i.ok?'muted':'')+'" style="'+(i.ok?'':'color:var(--bad);font-weight:600')+'">'+esc(i.m)+'</span></span></div>';
+  }).join('');
+  var c = currentCon(), cu = custOf(c.cid);
+  $('uContractHint').innerHTML = '残数 <b>'+leftOf(c.id)+'</b> / '+c.samples+' 検体　担当：'+esc(cu.person);
+  $('uSubmit').disabled = !v.ok; $('uHold').disabled = !v.ok;
+  return v;
+}
+
+function register(status){
+  var v = checkUse(); if(!v.ok) return;
+  var c = currentCon(), n = v.n, left = v.left;
+  var u = { uid:'U'+(S.seq++), contract:c.id, cid:c.cid, req:$('uReq').value.trim().toUpperCase(),
+            date:$('uDate').value, count:n, before:left, after:left-n,
+            by:ROLES[role].user, status:status, note:$('uNote').value.trim(), edited:null, fresh:true };
+  S.usages.unshift(u);
+  addLog(status==='held'?'利用仮押さえ':'利用登録', u.req, custOf(c.cid).company+'／'+n+'検体（残'+left+'→'+(left-n)+'）');
+  $('uReq').value=''; $('uNote').value=''; $('uCount').value=1;
+  renderAll();
+  $('uAlert').innerHTML = '<div class="alert a-ok"><span class="ic">✓</span><span><b>'+(status==='held'?'仮押さえで登録しました。':'消化を確定しました。')+'</b>'+
+    esc(u.req)+'／'+n+'検体　残数 '+left+' → '+(left-n)+'。'+
+    (status==='held' ? '分析完了後に「確定」を押すと請求連携の対象になります。' : '<b>請求連携</b>タブに「通常請求の対象外」として自動で載りました。')+
+    '</span></div>';
+}
+
+function renderRecent(){
+  var fresh = S.usages.filter(function(u){return u.fresh;});
+  if(!fresh.length){ $('uRecent').innerHTML = '<tr><td colspan="7" class="empty">まだ登録がありません。上のフォームから登録してみてください。</td></tr>'; return; }
+  $('uRecent').innerHTML = fresh.map(function(u){
+    var cu = custOf(u.cid);
+    var ops = '';
+    if(u.status==='held') ops += '<button class="btn sm" onclick="confirmHold(\''+u.uid+'\')">確定</button> ';
+    if(u.status!=='cancelled') ops += '<button class="btn sm danger" onclick="cancelUse(\''+u.uid+'\')">取消</button>';
+    return '<tr><td>'+jp(u.date)+'</td><td class="mono">'+esc(u.req)+'</td><td>'+esc(cu.company)+'</td>'+
+      '<td class="num">'+u.count+'</td><td class="num">'+u.before+' → '+u.after+'</td><td>'+stTag(u)+'</td><td>'+ops+'</td></tr>';
+  }).join('');
+}
+
+window.confirmHold = function(uid){
+  var u = S.usages.filter(function(x){return x.uid===uid;})[0]; if(!u) return;
+  u.status='confirmed'; addLog('仮押さえ確定', u.req, '消化確定に変更（請求対象外リストへ）');
+  renderAll();
+};
+window.cancelUse = function(uid){
+  var u = S.usages.filter(function(x){return x.uid===uid;})[0]; if(!u) return;
+  if(role==='sales'){ alert('営業権限では取消できません。'); return; }
+  u.status='cancelled'; u.edited = ymd(TODAY);
+  addLog('利用取消', u.req, custOf(u.cid).company+'／'+u.count+'検体を残数に戻しました');
+  renderAll();
+  $('uAlert').innerHTML = '<div class="alert a-warn"><span class="ic">!</span><span><b>取消しました。</b>'+esc(u.req)+' の'+u.count+'検体を残数に戻し、請求対象外リストからも外しました。履歴は取消として残ります。</span></div>';
+};
+
+/* ---- 利用履歴 ---- */
+function renderHist(){
+  var f = $('hFilter');
+  if(!f.options.length){
+    f.innerHTML = '<option value="">すべての契約</option>' + S.contracts.map(function(c){
+      return '<option value="'+c.id+'">'+esc(custOf(c.cid).company)+'</option>'; }).join('');
+    f.onchange = renderHist;
+  }
+  var sel = f.value;
+  var list = S.usages.filter(function(u){ return !sel || u.contract===sel; });
+  $('histRows').innerHTML = list.map(function(u){
+    var cu = custOf(u.cid);
+    var ops = (role==='sales'||u.status==='cancelled') ? '<span class="tiny muted">—</span>'
+      : '<button class="btn sm danger" onclick="cancelUse(\''+u.uid+'\')">取消</button>';
+    return '<tr><td>'+jp(u.date)+'</td><td class="mono">'+esc(u.req)+'</td><td>'+esc(cu.company)+'</td>'+
+      '<td class="num">'+u.count+'</td><td class="num">'+u.before+'</td><td class="num">'+u.after+'</td>'+
+      '<td class="tiny">'+esc(u.by)+'</td><td>'+stTag(u)+'</td><td>'+ops+'</td></tr>';
+  }).join('') || '<tr><td colspan="9" class="empty">履歴がありません。</td></tr>';
+}
+
+/* ---- 請求連携 ---- */
+function billMonths(){
+  var ms = {}; S.usages.forEach(function(u){ ms[u.date.slice(0,7)]=1; });
+  var arr = Object.keys(ms).sort().reverse(); return arr;
+}
+function billList(){
+  var m = $('billMonth').value;
+  return S.usages.filter(function(u){ return u.status==='confirmed' && u.date.slice(0,7)===m; });
+}
+function renderBill(){
+  var sel = $('billMonth');
+  var cur = sel.value;
+  var ms = billMonths();
+  sel.innerHTML = ms.map(function(m){ return '<option value="'+m+'">'+m.replace('-','年')+'月分</option>'; }).join('');
+  if(cur && ms.indexOf(cur)>=0) sel.value = cur;
+  if(!sel.onchange) sel.onchange = function(){ renderBill(); };
+
+  var list = billList();
+  $('billPeriod').textContent = '対象期間 '+sel.value+' ／ '+list.length+'件・'+list.reduce(function(a,u){return a+u.count;},0)+'検体';
+  $('billRows').innerHTML = list.map(function(u){
+    var cu = custOf(u.cid);
+    var sent = S.sent[u.uid];
+    return '<tr><td class="mono">'+esc(u.req)+'</td><td class="mono">'+cu.id+'</td><td>'+esc(cu.company)+'</td>'+
+      '<td class="mono">'+u.contract+'</td><td class="num">'+u.count+'</td>'+
+      '<td><span class="badge b-acc">excluded_ticket</span></td>'+
+      '<td>'+(sent?'<span class="badge b-ok">連携済</span>':'<span class="badge b-gray">未連携</span>')+'</td></tr>';
+  }).join('') || '<tr><td colspan="7" class="empty">この月に回数券の消化はありません。</td></tr>';
+
+  $('apiCode').innerHTML = apiPayload(list);
+  $('csvCode').textContent = billCSV(list);
+}
+function idem(u){
+  var s = u.req+'|'+u.contract, h=0;
+  for(var i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))>>>0; }
+  return 'idk_'+('00000000'+h.toString(16)).slice(-8)+'-'+u.contract.toLowerCase().replace(/-/g,'');
+}
+function apiPayload(list){
+  var head = '<span class="c">POST /api/v1/billing-exclusions  HTTP/1.1</span>\n'+
+             '<span class="c">Host: existing-system.internal</span>\n'+
+             '<span class="c">Authorization: Bearer &lt;service-token&gt;</span>\n'+
+             '<span class="c">Content-Type: application/json</span>\n\n';
+  var items = list.slice(0,4).map(function(u){
+    return '    {\n'+
+    '      <span class="k">"analysis_request_no"</span>: <span class="s">"'+esc(u.req)+'"</span>,\n'+
+    '      <span class="k">"customer_id"</span>: <span class="s">"'+u.cid+'"</span>,\n'+
+    '      <span class="k">"contract_id"</span>: <span class="s">"'+u.contract+'"</span>,\n'+
+    '      <span class="k">"used_samples"</span>: <span class="n">'+u.count+'</span>,\n'+
+    '      <span class="k">"billing_status"</span>: <span class="s">"excluded_ticket"</span>,\n'+
+    '      <span class="k">"consumed_at"</span>: <span class="s">"'+u.date+'"</span>,\n'+
+    '      <span class="k">"idempotency_key"</span>: <span class="s">"'+idem(u)+'"</span>\n'+
+    '    }';
+  }).join(',\n');
+  var more = list.length>4 ? ',\n    <span class="c">… 他 '+(list.length-4)+' 件</span>' : '';
+  return head + '{\n  <span class="k">"period"</span>: <span class="s">"'+$('billMonth').value+'"</span>,\n'+
+    '  <span class="k">"source"</span>: <span class="s">"ticket-management-system"</span>,\n'+
+    '  <span class="k">"items"</span>: [\n' + (items||'') + more + '\n  ]\n}';
+}
+function billCSV(list){
+  var h = 'analysis_request_no,customer_id,company,contract_id,used_samples,billing_status,consumed_at,idempotency_key';
+  return [h].concat(list.map(function(u){
+    return row([u.req,u.cid,custOf(u.cid).company,u.contract,u.count,'excluded_ticket',u.date,idem(u)]);
+  })).join('\n');
+}
+$('btnSend').onclick = function(){
+  var list = billList();
+  if(!list.length){ alert('連携対象がありません。'); return; }
+  var already = list.filter(function(u){ return S.sent[u.uid]; }).length;
+  list.forEach(function(u){ S.sent[u.uid]=true; });
+  addLog('請求連携実行', $('billMonth').value, list.length+'件を既存システムへ送信（うち再送'+already+'件）');
+  $('billResultBox').style.display='block';
+  $('billResultBox').innerHTML =
+    '<div class="alert a-ok"><span class="ic">✓</span><span><b>連携しました（デモ動作・実際の送信はしていません）。</b>'+
+    '既存システムからの応答：<code>200 OK</code>／受理 '+(list.length-already)+' 件、'+
+    '<b>冪等キーにより重複として無視 '+already+' 件</b>。'+
+    (already? 'もう一度押しても二重に請求除外が積み上がらないことが確認できます。' : 'もう一度「既存システムへ連携する」を押すと、再送しても二重反映されないことが確認できます。')+
+    '</span></div>';
+  renderBill();
+};
+
+/* ---- 通知 ---- */
+function renderNoti(){
+  var list = S.contracts.filter(function(c){ return c.end; });
+  $('notiRows').innerHTML = list.map(function(c){
+    var cu = custOf(c.cid), dd = days(c.end, ymd(TODAY));
+    var s6 = dd<=180 ? '<span class="badge b-ok">送信済 '+jp(addDays(c.end,-180))+'</span>' : '<span class="badge b-gray">'+jp(addDays(c.end,-180))+' 予定</span>';
+    var s3 = dd<=90  ? '<span class="badge b-ok">送信済 '+jp(addDays(c.end,-90))+'</span>'  : '<span class="badge b-gray">'+jp(addDays(c.end,-90))+' 予定</span>';
+    if(dd<0){ s6='<span class="badge b-gray">—</span>'; s3='<span class="badge b-gray">—</span>'; }
+    return '<tr><td>'+esc(cu.company)+'<div class="tiny muted">'+esc(cu.person)+' 様</div></td>'+
+      '<td>'+jp(c.end)+'</td><td class="num">'+(dd>=0?dd+'日':'失効')+'</td><td class="num">'+leftOf(c.id)+'</td>'+
+      '<td>'+s6+'</td><td>'+s3+'</td>'+
+      '<td><button class="btn sm ghost" onclick="mailPrev(\''+c.id+'\')">文面を見る</button></td></tr>';
+  }).join('');
+}
+function addDays(dstr,n){ var x=new Date(dstr+'T00:00:00'); x.setDate(x.getDate()+n); return ymd(x); }
+window.mailPrev = function(cid){
+  var c = conOf(cid), cu = custOf(c.cid), dd = days(c.end, ymd(TODAY));
+  var kind = dd<=90 ? '3か月前' : '6か月前';
+  var body =
+'『'+cu.company+' '+cu.branch+'』\n'+cu.person+' 様\n\n'+
+'いつも分析サービスをご利用いただきありがとうございます。\n'+
+'ご契約中の回数券プラン（'+planOf(c.plan).name+'／'+c.samples+'検体）の有効期限が、'+kind+'となりましたのでご案内いたします。\n\n'+
+'　ご契約ID　：'+c.id+'\n'+
+'　有効期限　：'+jp(c.end)+'（残り'+(dd>=0?dd:0)+'日）\n'+
+'　残検体数　：'+leftOf(c.id)+' 検体\n\n'+
+'有効期限の到来時、残数は失効し翌年度への繰越はできません。\n'+
+'期限内のご利用、またはプランの更新をご検討ください。プラン変更は更新時に承ります。\n\n'+
+'ご不明な点は担当（'+cu.sales+'）までご連絡ください。\n';
+  $('mailCard').style.display='block';
+  $('mailBox').innerHTML = '<div class="mh">宛先：<b>'+esc(cu.mail)+'</b>（cc：社内担当 '+esc(cu.sales)+'）<br>件名：<b>【ご案内】回数券プラン有効期限'+kind+'のお知らせ（'+c.id+'）</b></div><div class="mb">'+esc(body)+'</div>';
+  $('mailCard').scrollIntoView({behavior:'smooth',block:'center'});
+};
+
+/* ---- 操作ログ ---- */
+function renderLog(){
+  $('logRows').innerHTML = S.logs.map(function(l){
+    return '<tr><td class="mono">'+esc(l.at)+'</td><td>'+esc(l.user)+'</td><td><span class="badge b-gray">'+esc(l.role)+'</span></td>'+
+      '<td>'+esc(l.act)+'</td><td class="mono">'+esc(l.tgt)+'</td><td class="tiny">'+esc(l.det)+'</td></tr>';
+  }).join('');
+}
+
+/* ---- プラン設定 ---- */
+function renderConf(){
+  $('planRows').innerHTML = S.plans.map(function(p){
+    return '<tr><td><input value="'+esc(p.name)+'" data-p="'+p.id+'" data-f="name" style="width:80px;border:1px solid var(--line);border-radius:5px;padding:5px 8px;font-family:inherit"></td>'+
+      '<td class="num"><input type="number" value="'+p.samples+'" data-p="'+p.id+'" data-f="samples" style="width:90px;text-align:right;border:1px solid var(--line);border-radius:5px;padding:5px 8px;font-family:inherit"></td>'+
+      '<td class="num"><input type="number" step="10000" value="'+p.price+'" data-p="'+p.id+'" data-f="price" style="width:120px;text-align:right;border:1px solid var(--line);border-radius:5px;padding:5px 8px;font-family:inherit"></td>'+
+      '<td class="num"><b>'+yen(Math.round(p.price/p.samples))+'</b></td>'+
+      '<td>契約開始から1年</td>'+
+      '<td><button class="btn sm" onclick="savePlan(\''+p.id+'\')">保存</button></td></tr>';
+  }).join('');
+}
+window.savePlan = function(id){
+  var p = planOf(id), before = p.name+'／'+p.samples+'検体／'+yen(p.price);
+  Array.prototype.forEach.call(document.querySelectorAll('[data-p="'+id+'"]'), function(el){
+    var f = el.getAttribute('data-f');
+    p[f] = (f==='name') ? el.value : Math.max(1, parseInt(el.value,10)||1);
+  });
+  addLog('プラン設定変更', p.name, before+' → '+p.name+'／'+p.samples+'検体／'+yen(p.price)+'（新規契約から適用）');
+  renderAll();
+  alert('保存しました。1検体あたりの単価と各画面の表示に反映されます。');
+};
+
+/* ============================================================
+   CSV
+   ============================================================ */
+function cc(v){ v = String(v==null?'':v); return /[",\n]/.test(v) ? '"'+v.replace(/"/g,'""')+'"' : v; }
+function row(a){ return a.map(cc).join(','); }
+function csvOf(kind){
+  if(kind==='customers') return ['顧客ID,企業名,支店・部署,担当者,電話,メール,社内営業担当'].concat(
+    S.customers.map(function(c){ return row([c.id,c.company,c.branch,c.person,c.tel,c.mail,c.sales]); })).join('\n');
+  if(kind==='contracts') return ['契約ID,顧客ID,企業名,プラン,契約検体数,契約金額,申込日,入金日,利用開始日,有効期限,使用済,残数,状態'].concat(
+    S.contracts.map(function(c){ return row([c.id,c.cid,custOf(c.cid).company,planOf(c.plan).name,c.samples,c.amount,c.applied,c.paid||'',c.start||'',c.end||'',usedOf(c.id),leftOf(c.id),stateOf(c).t]); })).join('\n');
+  if(kind==='usages') return ['利用日,分析依頼番号,顧客ID,企業名,契約ID,使用検体数,使用前残数,使用後残数,登録者,状態,備考'].concat(
+    S.usages.map(function(u){ return row([u.date,u.req,u.cid,custOf(u.cid).company,u.contract,u.count,u.before,u.after,u.by,u.status,u.note]); })).join('\n');
+  if(kind==='logs') return ['日時,操作者,権限,操作,対象,内容'].concat(
+    S.logs.map(function(l){ return row([l.at,l.user,l.role,l.act,l.tgt,l.det]); })).join('\n');
+  if(kind==='billing') return billCSV(billList());
+  return '';
+}
+window.dl = function(kind){
+  var name = {customers:'顧客一覧',contracts:'契約一覧',usages:'利用履歴',logs:'操作ログ',billing:'請求対象外リスト_'+$('billMonth').value}[kind];
+  var blob = new Blob(['﻿'+csvOf(kind)], {type:'text/csv;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name+'_'+ymd(TODAY)+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  addLog('CSV出力', name, 'ダウンロード（'+ROLES[role].label+'）');
+  renderLog();
+};
+
+/* ============================================================
+   タブ・権限
+   ============================================================ */
+function applyRole(){
+  var btns = $('tabbar').querySelectorAll('button');
+  var firstVisible = null, activeHidden = false;
+  Array.prototype.forEach.call(btns, function(b){
+    var allow = b.getAttribute('data-roles').split(',').indexOf(role)>=0;
+    b.hidden = !allow;
+    if(allow && !firstVisible) firstVisible = b;
+    if(!allow && b.classList.contains('on')) activeHidden = true;
+  });
+  if(activeHidden && firstVisible) go(firstVisible.getAttribute('data-tab'));
+  /* 営業は利用登録を触れない（タブ自体は非表示だが、念のため） */
+  renderAll();
+}
+function go(tab){
+  Array.prototype.forEach.call($('tabbar').querySelectorAll('button'), function(b){ b.classList.toggle('on', b.getAttribute('data-tab')===tab); });
+  Array.prototype.forEach.call(document.querySelectorAll('.page'), function(p){ p.classList.toggle('on', p.id==='p-'+tab); });
+  window.scrollTo({top:0,behavior:'instant'in document.documentElement.style?'instant':'auto'});
+}
+Array.prototype.forEach.call($('tabbar').querySelectorAll('button'), function(b){
+  b.onclick = function(){ go(b.getAttribute('data-tab')); };
+});
+Array.prototype.forEach.call($('roleBtns').querySelectorAll('button'), function(b){
+  b.onclick = function(){
+    role = b.getAttribute('data-role');
+    Array.prototype.forEach.call($('roleBtns').querySelectorAll('button'), function(x){ x.classList.toggle('on', x===b); });
+    applyRole();
+  };
+});
+Array.prototype.forEach.call($('billTabs').querySelectorAll('button'), function(b){
+  b.onclick = function(){
+    Array.prototype.forEach.call($('billTabs').querySelectorAll('button'), function(x){ x.classList.toggle('on', x===b); });
+    Array.prototype.forEach.call(document.querySelectorAll('#p-bill .sp'), function(s){ s.classList.toggle('on', s.id==='sp-'+b.getAttribute('data-sp')); });
+  };
+});
+
+['uContract','uReq','uCount','uDate'].forEach(function(id){
+  $(id).addEventListener('input', checkUse); $(id).addEventListener('change', checkUse);
+});
+$('uSubmit').onclick = function(){ register('confirmed'); };
+$('uHold').onclick   = function(){ register('held'); };
+$('btnReset').onclick = function(){ if(confirm('デモのデータを初期状態に戻します。よろしいですか？')){ S = build(); $('uAlert').innerHTML=''; $('billResultBox').style.display='none'; $('hFilter').innerHTML=''; $('billMonth').innerHTML=''; renderAll(); } };
+
+/* 起動 */
+S = build();
+renderAll();
+</script>
+</body>
+</html>
