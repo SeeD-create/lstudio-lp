@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>小学校外国語 情報ポータル ｜ リニューアル動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="学年・テーマ・立場・種類の4軸で記事を絞り込める情報ポータルの動作デモ。既存173記事をそのまま使って検証できます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="小学校外国語 情報ポータル ｜ リニューアル動作デモ">
+<meta property="og:url" content="https://l-studiojp.com/demo/eigo-portal/">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F5F8F7; --surface:#FFFFFF; --sunk:#EEF4F2;
+  --line:#D8E2DE; --line-soft:#E9F0ED;
+  --ink:#16241F; --ink2:#44554E; --ink3:#78877F;
+  --gr:#0E8F72; --gr-deep:#0A6E58; --gr-soft:#E2F2EC; --gr-line:#9ED3C1;
+  --accent:#C2703A; --accent-soft:#FBEFE6;
+  --gold:#B08324; --gold-soft:#FBF3DF; --gold-line:#E3CE93;
+  --shadow:0 1px 2px rgba(16,36,30,.05),0 10px 28px -18px rgba(16,36,30,.35);
+  --r:10px;
+  --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Noto Sans JP","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Courier New",monospace;
+}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:0 16px}
+
+.demoband{background:#0A2A22;color:#B9D8CD;font-size:12.5px;padding:8px 0}
+.demoband .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.demoband b{color:#fff;font-weight:600}
+.demoband .tag{background:var(--gr);color:#fff;border-radius:99px;padding:1px 10px;font-weight:600;white-space:nowrap}
+
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:14px;padding:15px 16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:11px;font-weight:700;font-size:17px;line-height:1.25}
+.logo .mk{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#0E8F72,#38B394);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex:none;letter-spacing:-.02em}
+.logo small{display:block;font-size:11.5px;font-weight:500;color:var(--ink3);margin-top:1px}
+.hact{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px}
+.memsw{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;background:var(--sunk)}
+.memsw button{border:0;background:transparent;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.memsw button.on{background:var(--gr);color:#fff}
+
+nav.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;padding:0 16px}
+nav.tabs button{border:0;background:transparent;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--ink2);padding:14px 15px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent}
+nav.tabs button:hover{color:var(--gr)}
+nav.tabs button.on{color:var(--gr-deep);border-bottom-color:var(--gr)}
+
+main{padding:22px 0 46px}
+.page{display:none}.page.on{display:block}
+h2.pt{font-size:20px;margin:0 0 4px;letter-spacing:.01em}
+p.psub{margin:0 0 18px;color:var(--ink3);font-size:13.5px}
+
+.guide{background:linear-gradient(180deg,#F1F9F6,#FFFFFF);border:1px solid var(--gr-line);border-radius:var(--r);padding:15px 17px;margin-bottom:20px;box-shadow:var(--shadow)}
+.guide h3{margin:0 0 8px;font-size:14.5px;color:var(--gr-deep)}
+.guide ol{margin:0;padding-left:19px;font-size:13.5px;color:var(--ink2)}
+.guide li{margin-bottom:4px}
+.guide b{color:var(--ink)}
+
+/* search layout */
+.slayout{display:grid;grid-template-columns:246px 1fr;gap:18px;align-items:start}
+@media(max-width:820px){.slayout{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto}
+@media(max-width:820px){.panel{position:static;max-height:none}}
+.panel h3{margin:0;font-size:13px;padding:12px 14px;border-bottom:1px solid var(--line-soft);background:var(--sunk);border-radius:var(--r) var(--r) 0 0;display:flex;align-items:center}
+.panel h3 .cnt{margin-left:auto;font-weight:500;color:var(--ink3);font-size:11.5px}
+.fgroup{border-bottom:1px solid var(--line-soft);padding:11px 14px}
+.fgroup:last-child{border-bottom:0}
+.fgroup .ttl{font-size:11.5px;font-weight:700;color:var(--ink2);letter-spacing:.04em;margin-bottom:7px}
+.chk{display:flex;align-items:center;gap:7px;font-size:13px;padding:3px 0;cursor:pointer;color:var(--ink2)}
+.chk input{width:15px;height:15px;accent-color:var(--gr);cursor:pointer;flex:none}
+.chk .n{margin-left:auto;font-size:11px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.chk:hover{color:var(--gr-deep)}
+.chk.off{opacity:.38}
+.panel .foot{padding:11px 14px;border-top:1px solid var(--line-soft)}
+
+.sbar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow);margin-bottom:13px}
+.sbar input[type=text]{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:14.5px}
+.sbar input:focus{outline:2px solid var(--gr-soft);border-color:var(--gr-line)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.chip{background:var(--gr-soft);border:1px solid var(--gr-line);color:var(--gr-deep);border-radius:99px;font-size:12px;font-weight:600;padding:3px 9px 3px 11px;display:inline-flex;align-items:center;gap:6px}
+.chip button{border:0;background:transparent;color:var(--gr-deep);cursor:pointer;font-size:14px;line-height:1;padding:0}
+.chips .clr{border:0;background:transparent;color:var(--ink3);font-size:12px;cursor:pointer;text-decoration:underline;font-family:inherit}
+.rescount{font-size:13px;color:var(--ink2);margin:2px 0 12px}
+.rescount b{color:var(--gr-deep);font-size:17px}
+
+.cards{display:grid;gap:11px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;box-shadow:var(--shadow)}
+.card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11.5px;color:var(--ink3);margin-bottom:5px}
+.card h4{margin:0 0 7px;font-size:15.5px;line-height:1.55;font-weight:700}
+.card h4 a{color:var(--ink);text-decoration:none}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.t{font-size:11px;border-radius:5px;padding:2px 7px;font-weight:600;border:1px solid}
+.t-g{background:var(--gr-soft);border-color:var(--gr-line);color:var(--gr-deep)}
+.t-t{background:var(--accent-soft);border-color:#E6C3A8;color:#8A4A1C}
+.t-b{background:#EDF1F8;border-color:#BFCEE4;color:#33507F}
+.t-r{background:#F4EDF8;border-color:#D3BFE4;color:#5F3A80}
+.t-k{background:var(--sunk);border-color:var(--line);color:var(--ink2)}
+.lock{background:var(--gold-soft);border:1px solid var(--gold-line);color:var(--gold);font-size:11px;font-weight:700;border-radius:5px;padding:2px 7px;white-space:nowrap}
+.card.hidden4 h4 a{color:var(--ink3)}
+.blur{filter:blur(3.5px);user-select:none;opacity:.6}
+.locknote{margin-top:8px;background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:7px;padding:8px 11px;font-size:12px;color:#7A5A12}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:34px 18px;text-align:center;color:var(--ink3);font-size:13.5px}
+.more{margin-top:14px;text-align:center}
+.btn{border:1px solid var(--gr);background:var(--gr);color:#fff;border-radius:8px;padding:10px 20px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--gr-deep)}
+.btn.ghost{background:var(--surface);color:var(--gr-deep);border-color:var(--gr-line)}
+.btn.ghost:hover{background:var(--gr-soft)}
+.btn.sm{padding:6px 12px;font-size:12.5px;font-weight:600}
+.btn.gray{background:var(--surface);color:var(--ink2);border-color:var(--line)}
+
+/* event list */
+table.t2{width:100%;border-collapse:collapse;font-size:13.5px;min-width:660px}
+table.t2 th{background:var(--sunk);text-align:left;font-size:11.5px;color:var(--ink2);padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t2 td{padding:11px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+table.t2 tr:hover{background:#FAFDFC}
+.tscroll{overflow-x:auto}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.box > h3{margin:0;font-size:14px;padding:13px 16px;border-bottom:1px solid var(--line-soft);background:var(--sunk);display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.box > h3 .sub{font-weight:500;color:var(--ink3);font-size:12px}
+.box > h3 .right{margin-left:auto;display:flex;gap:7px}
+.bbody{padding:16px}
+.bbody.tight{padding:0}
+
+/* before after */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.ba{grid-template-columns:1fr}}
+.ba .col{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.ba .col h4{margin:0;font-size:13px;padding:10px 14px;border-bottom:1px solid var(--line-soft)}
+.ba .before h4{background:#FBEDED;color:#8E3232;border-bottom-color:#EFCFCF}
+.ba .after h4{background:var(--gr-soft);color:var(--gr-deep);border-bottom-color:var(--gr-line)}
+.ba .col .in{padding:13px 15px}
+.qrow{display:flex;align-items:baseline;gap:9px;padding:7px 0;border-bottom:1px dashed var(--line-soft);font-size:13.5px}
+.qrow:last-child{border-bottom:0}
+.qrow .q{flex:1}
+.qrow .r{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.qrow .r.zero{color:#A93B3B}
+.qrow .r.ok{color:var(--gr-deep)}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:11px;margin-bottom:15px}
+.stat .s{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow)}
+.stat .s .l{font-size:11.5px;color:var(--ink3);font-weight:600}
+.stat .s .v{font-size:26px;font-weight:800;line-height:1.25}
+.stat .s .n{font-size:11.5px;color:var(--ink3)}
+.stat .s.bad .v{color:#A93B3B}
+.stat .s.ok .v{color:var(--gr-deep)}
+
+.note{border-radius:8px;padding:12px 14px;font-size:13.5px;border:1px solid;display:flex;gap:10px;align-items:flex-start;line-height:1.7;margin-top:13px}
+.n-ok{background:var(--gr-soft);border-color:var(--gr-line);color:#0A5A47}
+.n-warn{background:var(--gold-soft);border-color:var(--gold-line);color:#7A5A12}
+.n-info{background:#EDF1F8;border-color:#BFCEE4;color:#2C486F}
+.note .ic{font-weight:800;flex:none}
+.note b{display:block}
+
+/* wp editor mock */
+.wpmock{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.wpbar{background:#1D2327;color:#E5E7E8;font-size:12px;padding:7px 12px;display:flex;gap:12px;align-items:center}
+.wpbar .dot{width:9px;height:9px;border-radius:50%;background:#4A5257}
+.wpbody{display:grid;grid-template-columns:1fr 264px;gap:0}
+@media(max-width:760px){.wpbody{grid-template-columns:1fr}}
+.wpmain{padding:16px;border-right:1px solid var(--line-soft)}
+.wpmain .ti{font-size:20px;font-weight:700;border:0;border-bottom:1px solid var(--line);width:100%;padding:6px 0 10px;font-family:inherit}
+.wpmain .bd{margin-top:12px;color:var(--ink3);font-size:13.5px;line-height:2;border:1px dashed var(--line);border-radius:7px;padding:14px;min-height:110px}
+.wpside{background:var(--sunk);padding:14px}
+.wpside .sec{background:#fff;border:1px solid var(--line);border-radius:7px;margin-bottom:11px;overflow:hidden}
+.wpside .sec > b{display:block;font-size:12px;padding:8px 11px;border-bottom:1px solid var(--line-soft);background:#FAFBFB}
+.wpside .sec .in{padding:9px 11px}
+.wpside .chk{font-size:12.5px}
+.prev{margin-top:13px;background:var(--surface);border:1px solid var(--gr-line);border-radius:8px;padding:12px 14px}
+.prev .l{font-size:11.5px;color:var(--ink3);font-weight:700;margin-bottom:6px}
+
+table.m{width:100%;border-collapse:collapse;font-size:13.5px;min-width:600px}
+table.m th{background:var(--sunk);text-align:left;font-size:11.5px;color:var(--ink2);padding:9px 12px;border:1px solid var(--line);white-space:nowrap}
+table.m td{padding:9px 12px;border:1px solid var(--line-soft);vertical-align:top}
+table.m td:first-child{font-weight:700;white-space:nowrap}
+table.m tr.hi td{background:var(--gr-soft)}
+
+footer.site{background:#0A2A22;color:#9FBFB4;padding:26px 0 32px;font-size:12.5px}
+footer.site b{color:#fff;font-size:14px}
+footer.site a{color:#8FD3BC}
+.muted{color:var(--ink3)}
+.tiny{font-size:11.5px}
+</style>
+</head>
+<body>
+
+<div class="demoband"><div class="wrap">
+  <span class="tag">動作デモ</span>
+  <b>小学校外国語 情報ポータル（リニューアル案）</b>
+  <span>実際に絞り込みを操作できます。記事は現在のサイトの173件をそのまま読み込んでいます。</span>
+</div></div>
+
+<header class="site"><div class="wrap">
+  <div class="logo">
+    <span class="mk">外国語</span>
+    <span>小学校外国語授業づくり研究会<small>授業づくりと研修情報のポータル</small></span>
+  </div>
+  <div class="hact">
+    <span class="muted tiny">表示</span>
+    <span class="memsw" id="memsw">
+      <button data-m="guest" class="on">一般の方</button>
+      <button data-m="member">有料会員</button>
+    </span>
+  </div>
+</div></header>
+
+<nav class="tabs"><div class="wrap" id="tabbar">
+  <button data-tab="find" class="on">さがす（記事・資料）</button>
+  <button data-tab="event">研修・セミナー情報</button>
+  <button data-tab="ba">いまのサイトとの違い</button>
+  <button data-tab="post">記事の投稿画面</button>
+  <button data-tab="plan">構成と費用</button>
+</div></nav>
+
+<main><div class="wrap">
+
+<!-- ============ さがす ============ -->
+<section class="page on" id="p-find">
+  <div class="guide">
+    <h3>▶ まずここを試してください</h3>
+    <ol>
+      <li>左の<b>「学年：5年」</b>と<b>「テーマ：評価・テスト」</b>にチェック → 2つの条件を同時に満たす記事だけが残ります。</li>
+      <li><b>「教科書：Here We Go!」</b>を追加 → さらに絞り込まれ、条件はいくつでも重ねられます。</li>
+      <li>右上の表示を<b>「一般の方」</b>にすると、有料会員限定の記事は本文が伏せられます。</li>
+      <li>選んだ条件は上部にタグで並び、×で1つずつ外せます。<b>件数はその場で更新</b>されます。</li>
+    </ol>
+  </div>
+
+  <h2 class="pt">さがす（記事・セミナー資料）</h2>
+  <p class="psub">現在のサイトの全173記事を読み込み、学年・テーマ・教科書・立場・種類の5軸で絞り込めるようにしています。</p>
+
+  <div class="slayout">
+    <aside class="panel" id="fpanel">
+      <h3>絞り込み<span class="cnt" id="pcnt"></span></h3>
+      <div id="fgroups"></div>
+      <div class="foot"><button class="btn ghost sm" id="clearAll" style="width:100%">条件をすべて外す</button></div>
+    </aside>
+
+    <div>
+      <div class="sbar">
+        <input type="text" id="kw" placeholder="キーワードで探す（例：単元、パフォーマンステスト、読み書き）" autocomplete="off">
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="rescount" id="rescount"></div>
+      <div class="cards" id="cards"></div>
+      <div class="more" id="more"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 研修・セミナー情報 ============ -->
+<section class="page" id="p-event">
+  <h2 class="pt">研修・セミナー情報（一般向け）</h2>
+  <p class="psub">これまで別サイトに掲載されていた一般向けの研修・セミナー情報も、同じ絞り込みの中に統合できます。下は動作確認用のサンプルデータです。</p>
+
+  <div class="box">
+    <h3>絞り込み<span class="sub">開催形式・地域・対象で探せます</span></h3>
+    <div class="bbody">
+      <div id="evfilters" style="display:flex;gap:18px;flex-wrap:wrap"></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>開催予定<span class="sub" id="evcnt"></span></h3>
+    <div class="bbody tight"><div class="tscroll"><table class="t2">
+      <thead><tr><th>開催日</th><th>タイトル</th><th>形式</th><th>地域</th><th>対象</th><th>主催</th><th>申込</th></tr></thead>
+      <tbody id="evrows"></tbody>
+    </table></div></div>
+  </div>
+
+  <div class="note n-info"><span class="ic">◆</span><span>
+    <b>投稿の手間は増えません。</b>研修情報は記事と同じ投稿画面から、「種類：研修・セミナー情報」を選び、日付・形式・地域を入れるだけです。過ぎた予定は自動で下がり、手で消す必要はありません。
+  </span></div>
+</section>
+
+<!-- ============ いまのサイトとの違い ============ -->
+<section class="page" id="p-ba">
+  <h2 class="pt">いまのサイトとの違い</h2>
+  <p class="psub">ご依頼文にあった検索の例を、現在のサイトの分類でそのまま試した結果です。実際の173記事のデータで検証しています。</p>
+
+  <div class="stat" id="bastat"></div>
+
+  <div class="ba">
+    <div class="col before">
+      <h4>いまの分類で検索した場合</h4>
+      <div class="in" id="baBefore"></div>
+    </div>
+    <div class="col after">
+      <h4>この案の分類で検索した場合</h4>
+      <div class="in" id="baAfter"></div>
+    </div>
+  </div>
+
+  <div class="note n-warn" style="margin-top:16px"><span class="ic">!</span><span>
+    <b>検索の仕組みを作るだけでは、検索しても0件のままです。</b>
+    現在は「セミナー配布資料」「有料会員」といった掲載の形による分類が中心で、授業を探すための軸（学年・テーマ・立場）がほとんど付いていません。
+    今回いちばん大事なのは、この<b>分類の設計と、173件への割り当て</b>です。ここを飛ばすと、どんなに良い検索画面を作っても空振りします。
+  </span></div>
+
+  <div class="box" style="margin-top:18px">
+    <h3>173件のタグ付けをどう進めるか</h3>
+    <div class="bbody">
+      <p style="margin-top:0">全部を手作業で付け直すのは現実的ではないため、次の順で進めます。</p>
+      <ol style="margin:0;padding-left:20px">
+        <li><b>分類の設計</b>（先生と一緒に決めます）… 学年・テーマ・教科書・立場・種類の5軸。増やしすぎると運用が続かないため、各軸は10項目以内に収めます。</li>
+        <li><b>自動での仮タグ付け</b>… 記事のタイトルと現在の分類のことばから機械的に判定します。<b>このデモの記事タグは、実際にその処理を通した結果をそのまま表示しています。</b>（外部から本文は読めないため、今回はタイトルのみでの判定です。実作業ではサーバー内で本文まで見られるため、精度はこれより上がります）</li>
+        <li><b>先生による確認</b>… 一覧画面でチェックを付け外しするだけ。1記事あたり数秒、迷ったものだけ直していただきます。</li>
+        <li><b>以降は投稿時に選ぶだけ</b>… 「記事の投稿画面」タブでご確認いただけます。</li>
+      </ol>
+      <div class="note n-ok"><span class="ic">✓</span><span>
+        <b>自動判定の実測値：</b>テーマは173件中114件（65%）が自動で付きました。一方、学年は21件（12%）、立場は3件（1%）にとどまります。
+        タイトルに学年や立場が書かれていないためで、<b>この部分だけは確認作業が必要</b>になります。ここまで具体的に見積もれるのは、実際のデータで試したためです。
+      </span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 投稿画面 ============ -->
+<section class="page" id="p-post">
+  <h2 class="pt">記事の投稿画面</h2>
+  <p class="psub">リニューアル後、先生が記事を書くときの画面です。専門知識は不要で、右側のチェックを選ぶだけで絞り込みに反映されます。実際に触れます。</p>
+
+  <div class="wpmock">
+    <div class="wpbar"><span class="dot"></span> 小学校外国語授業づくり研究会　＞　新規投稿を追加</div>
+    <div class="wpbody">
+      <div class="wpmain">
+        <input class="ti" id="mockTitle" value="６年「日本の文化を紹介しよう」単元の評価をどう見取るか">
+        <div class="bd">本文をここに書きます。画像やPDFの添付、見出し、箇条書きなどは、これまでどおりの操作です。<br>（リニューアルで本文の書き方は変わりません）</div>
+      </div>
+      <div class="wpside" id="mockSide"></div>
+    </div>
+  </div>
+
+  <div class="prev">
+    <div class="l">この設定だと、一覧ではこう表示されます</div>
+    <div class="cards"><div class="card" id="mockCard"></div></div>
+  </div>
+
+  <div class="note n-ok"><span class="ic">✓</span><span>
+    <b>チェックを付け外しすると、上のカードとタグがその場で変わります。</b>
+    絞り込みのための特別な入力欄はありません。公開範囲（一般公開／有料会員限定）も同じ場所で切り替えます。
+  </span></div>
+</section>
+
+<!-- ============ 構成と費用 ============ -->
+<section class="page" id="p-plan">
+  <h2 class="pt">構成と費用</h2>
+  <p class="psub">個人で長く運営されることを前提に、完成後に固定費が積み上がらない構成を選んでいます。</p>
+
+  <div class="box">
+    <h3>この案で使うもの<span class="sub">有料テーマ・有料プラグインは使いません</span></h3>
+    <div class="bbody tight"><div class="tscroll"><table class="m">
+      <thead><tr><th>項目</th><th>使うもの</th><th>初期費用</th><th>継続費用</th></tr></thead>
+      <tbody>
+        <tr><td>テーマ</td><td>既存サイト用に作る専用テーマ（子テーマ）</td><td>制作費に含む</td><td class="ok"><b>0円</b></td></tr>
+        <tr><td>絞り込み検索</td><td>WordPress標準の分類（タクソノミー）＋自作の検索処理</td><td>制作費に含む</td><td class="ok"><b>0円</b></td></tr>
+        <tr><td>会員限定の出し分け</td><td>現在お使いの会員機能をそのまま利用</td><td>0円</td><td>現状のまま</td></tr>
+        <tr><td>研修・セミナー情報</td><td>WordPress標準のカスタム投稿</td><td>制作費に含む</td><td class="ok"><b>0円</b></td></tr>
+        <tr><td>本体・PHP・既存プラグイン</td><td>更新前にバックアップ、検証環境で動作確認してから反映</td><td>制作費に含む</td><td>—</td></tr>
+        <tr class="hi"><td>合計の継続費用</td><td>サーバー・ドメインなど現在ご契約のもののみ</td><td>—</td><td><b>追加0円</b></td></tr>
+      </tbody>
+    </table></div></div>
+  </div>
+
+  <div class="note n-info"><span class="ic">◆</span><span>
+    <b>有料の検索プラグインを使わない理由。</b>
+    絞り込み検索のプラグインは年額のものが多く、更新が止まると検索が動かなくなります。今回の絞り込みはWordPressに元から備わっている分類の仕組みで実現できるため、追加費用なしで、将来別の方に引き継いでも動き続けます。
+  </span></div>
+
+  <div class="note n-warn"><span class="ic">!</span><span>
+    <b>先に確認させてください。</b>
+    現在お使いの会員機能（有料会員向け記事の出し分け）が何で実現されているかによって、作業量が変わります。
+    また、WordPress本体・PHPのバージョンが古い場合は、更新の順序を先に決めてから着手します。いきなり上げると既存記事の表示が崩れることがあるためです。
+  </span></div>
+</section>
+
+</div></main>
+
+<footer class="site"><div class="wrap">
+  <b>Lスタジオ</b>（SeeD Education）<br>
+  本ページは「【WordPress】教育系Webサイトのリニューアル・情報ポータル化」ご依頼に対する動作デモです。<br>
+  記事のタイトルと日付は現在公開されている gaikokugolesson.net の内容を読み込んで表示しています。本文の複製・保存はしていません。<br>
+  お問い合わせ：<a href="https://l-studiojp.com/">l-studiojp.com</a>
+</div></footer>
+
+<script>
+"use strict";
+var POSTS = [{"t": "夏休み明け、いきなり教科書を進めない。", "d": "2026-08-12", "g": [], "th": ["単元・授業づくり", "教科書別"], "bk": [], "ro": [], "kd": ["記事"], "m": false}, {"t": "2026.7.5(日)７月プレミアムセミナー「小学校外国語(英語)教育の展望～考えるべきこと、今すべきこと」（ゲスト：信州大学教授 酒井英樹先生）", "d": "2026-07-11", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.6.21(日)小学校外国語授業づくり研究会《教養講座》「デジタル学習基盤を前提とした学び」（ゲスト：鍋谷正尉先生）配布資料", "d": "2026-07-04", "g": [], "th": ["単元・授業づくり", "ICT・デジタル", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【動画】2026.5.24(日)６月セミナー＆勉強会「１学期の山場！６月の授業を考えよう」", "d": "2026-06-17", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2026.6.7(日)プレミアムセミナー「パフォーマンステストと評価」（ゲスト：明星大学講師 増渕真紀子先生）", "d": "2026-06-17", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.5.24(日)６月セミナー＆勉強会「１学期の山場！６月の授業を考えよう」配布資料", "d": "2026-05-27", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.5.10(日)５月プレミアムセミナーⅡ「小学生の読み書きの力を伸ばすためにすべきこと」（ゲスト：青山学院大学名誉教授　アレン玉井光江先生）配布資料", "d": "2026-05-23", "g": [], "th": ["読み書き"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.5.6(水･休)５月プレミアムセミナーPart1「継続的に指導すること」（明星大学講師 増渕真紀子先生）配布資料", "d": "2026-05-10", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.4.26(日)５月セミナー＆勉強会「GW明け、ここから伸ばすー５月単元特集」配布資料", "d": "2026-05-02", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.4.5(日) ４月プレミアムセミナー「４月の授業はこう始める」（ゲスト：明星大学講師 増渕真紀子先生）配布資料", "d": "2026-04-22", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.4.4(土)４月セミナー＆勉強会「新年度計画」特集　配布資料", "d": "2026-04-22", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.3.29(日)SPRING SEMINAR（講義＋実践報告＋交流会）配布資料", "d": "2026-04-05", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "【お知らせ】2026年度 年間テーマ「確かな英語コミュニケーション力を育てる」", "d": "2026-03-01", "g": ["6年"], "th": ["やり取り・Small Talk"], "bk": [], "ro": [], "kd": ["お知らせ"], "m": true}, {"t": "2026.2.23(月･祝)３月セミナー＆交流会「学年のまとめ＆次につなげる３月の授業を考える」配布資料", "d": "2026-02-28", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.2.11(水･祝)２月プレミアムセミナー「今こそ見つめ直そう、外国語を学ぶということ」（ゲスト：国際教養大学教授 町田智久先生）配布資料", "d": "2026-02-28", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.2.1(日)２月セミナー＆勉強会「２月の授業を考える」配布資料", "d": "2026-02-05", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.1.12(月･祝)１月プレミアムセミナー「英語教育の“当然”を見直す」（ゲスト：敬愛大学 教授 向後秀明先生）配布資料", "d": "2026-02-05", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2026.1.6(火)NEW YEARセミナー2026「３学期の授業を考える」配布資料・新年教材", "d": "2026-01-10", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2025.1.5(日)NEW YEARセミナー「３学期の授業開き＆１月の授業を考える」配布資料", "d": "2026-01-06", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.12.21(日) 小学校英語ICT活用ファーストステップセミナー配布資料", "d": "2025-12-26", "g": [], "th": ["ICT・デジタル"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.11.23(日)11月プレミアムセミナー「小学校外国語×情報活用能力-CAN-DOへの取り入れの可能性-」（ゲスト：青山学院大学教授 長沼君主先生）配布資料", "d": "2025-12-26", "g": [], "th": ["評価・テスト", "ICT・デジタル"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.12.7(日)テーマ別講座「改めて考える『個別最適な学びと協働的な学び』と『小学校外国語』」配布資料", "d": "2025-12-26", "g": [], "th": ["個別最適・協働"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.11.16(日)Teachers’ Market 実践報告会Part７（ゲスト：鈴木はる代先生＆中島裕美先生）配布資料", "d": "2025-11-24", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.10.26(日)教科書別オンライン勉強会配布資料", "d": "2025-11-24", "g": [], "th": ["教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2025.10.11(土)10月実践報告会 Teachers’ Market Part6「①自己調整を促す授業デザインby乗富智子先生」／「②思考力を育てるデジタル教科書活用by幡井理恵先生」配布資料", "d": "2025-11-02", "g": [], "th": ["ICT・デジタル", "個別最適・協働", "教科書別", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像＆資料】11月教科書別セミナー「CROWN Jr.」（2025.10.26(日)開催 教科書別セミナーPart3）", "d": "2025-11-02", "g": [], "th": ["教科書別"], "bk": ["CROWN Jr."], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像＆資料】11月教科書別セミナー「NEW HORIZON Elementary」（2025.10.26(日)開催 教科書別セミナーPart2）", "d": "2025-11-02", "g": [], "th": ["教科書別"], "bk": ["NEW HORIZON Elementary"], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像＆資料】11月教科書別セミナー「Here We Go!」（2025.10.26(日)開催 教科書別セミナーPart1）", "d": "2025-11-02", "g": [], "th": ["教科書別"], "bk": ["Here We Go!"], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2025.9.28(日) 秋のオンライン交流会「リクエスト特集」配布資料", "d": "2025-10-02", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.9.17(日) Teachers’ Market実践報告会 Part5「読み書き特集」 （ゲスト：今西佑先生＆高橋博将先生）配布資料", "d": "2025-09-27", "g": [], "th": ["読み書き", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.9.7(日)９月セミナーforBeginner「５年：できること」「６年：夏の思い出」特集 配布資料", "d": "2025-09-27", "g": ["5年", "6年"], "th": ["教科書別"], "bk": ["Here We Go!"], "ro": ["初任・Beginner"], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.8.30(土)小学校英語教科書『CROWN Jr.』活用セミナー（ゲスト：増渕真紀子先生＆乗富智子先生）配布資料", "d": "2025-09-03", "g": [], "th": ["教科書別"], "bk": ["CROWN Jr."], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2025.8.24(日)AM 小学校外国語授業づくり研究会アカデミックセミナー2025夏「個別最適な学びを実現するための教材パッケージの開発」配布資料", "d": "2025-09-02", "g": [], "th": ["単元・授業づくり", "個別最適・協働", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像＆資料】2025.8.31(日)テーマ別セミナー「２学期授業開き特集」", "d": "2025-09-02", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2025.8.21(木)プレミアムセミナー「英語のfluency（流暢性）をどう育てるか～小学校でできることを考える」（ゲスト：狩野晶子先生）配布資料", "d": "2025-08-31", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.8.7(木) 夏休み特別企画「小学校英語おすすめBOOK REVIEWセミナー」配布資料", "d": "2025-08-20", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.7.13(日)　Teachers’ Market 実践報告会Part４（ゲスト：増渕真紀子先生＆引山大士先生）　　配布資料　", "d": "2025-08-02", "g": [], "th": ["教科書別", "研修・研究"], "bk": ["Here We Go!"], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2025.6.22(日)７月セミナー＆勉強会「７月の授業を考える」配布資料", "d": "2025-07-05", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "【セミナー映像】2025.5.18(日)６月セミナー＆勉強会「６月の授業を考える」", "d": "2025-06-21", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2025.6.8(日)Teachers’ Market 実践報告会Part3 配布資料", "d": "2025-06-21", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.5.6(火･休)５月プレミアムセミナー「学習者用デジタル教科書活用と自己調整学習」（ゲスト：岐阜聖徳学園大学准教授 加藤拓由先生）", "d": "2025-05-26", "g": [], "th": ["ICT・デジタル", "個別最適・協働", "教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.5.18(日)６月セミナー＆勉強会「６月の授業を考える」配布資料", "d": "2025-05-26", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.5.11(日)Teachers’ Market実践報告会Ⅱ（長沼久美子先生＆東優也先生）", "d": "2025-05-26", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.5.3(土) ５月Teachers’ Market 実践報告会（ゲスト：恩地麻里先生＆田中誠二先生）配布資料", "d": "2025-05-10", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.4.29(火･祝)５月セミナー＆勉強会「５月の授業を考える」配布資料", "d": "2025-05-06", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像】2025.4.29(火･祝)５月セミナー＆勉強会「５月の授業を考える」", "d": "2025-05-05", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】2024.6.16(日)オンライン勉強会「１学期のまとめをしよう」", "d": "2025-05-05", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】2024.4.29(月･祝)朝活オンライン交流会「教科書の扱い方」「自律的学習に挑戦」", "d": "2025-05-05", "g": [], "th": ["教科書別", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】2025.4.5(土)SPRING START SEMINAR Part1「新年度/4月の授業を考える」", "d": "2025-05-05", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2025.4.27(日)４月プレミアムセミナー「知識･技能と思考･判断･表現を評価する際のポイント」（ゲスト：信州大学教授 酒井英樹先生）", "d": "2025-05-02", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.4.6(日) SPRING START SEMINAR Part2「継続的な指導」特集　配布資料", "d": "2025-04-12", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.4.5(土)SPRING START SEMINAR Part1「新年度/４月の授業を考える」配布資料", "d": "2025-04-12", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.3.28(金) 「春の教材見本市 Teaching Materials Market」教材会社資料", "d": "2025-04-04", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2025.3.23(日) 春のシンポジウム「どうする来年度？これがR7年度マイプラン！」配布資料（ゲスト：岐阜聖徳学園大学准教授 加藤拓由先生、他現場の先生方３名）", "d": "2025-03-27", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.3.16(日) Teachers’ Market Spring Special ３月セミナー～春の実践報告会～配布資料", "d": "2025-03-27", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.3.9(日) ３月プレミアムセミナー「英語への向き合い方のヒント」（ゲスト：早稲田大学名誉教授　松坂ヒロシ先生）配布資料", "d": "2025-03-27", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像】2025.3.16(日)小学校外国語授業づくり研究会 Teachers’ Market Spring Special 実践報告「５年：町紹介」", "d": "2025-03-16", "g": ["5年"], "th": ["単元・授業づくり", "教科書別", "研修・研究"], "bk": ["Here We Go!"], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2025.2.24(月)３月セミナー＆勉強会「一年間のまとめ＆来年への橋渡し」配布資料", "d": "2025-03-02", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.2.16(日)２月プレミアムセミナーⅡ「小学校英語支援員の先生だからできること」（ゲスト：聖学院大学教授 東仁美先生）配布資料", "d": "2025-02-23", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.2.11(火･祝)２月プレミアムセミナーⅠ「小学校外国語教育のこれまでとこれからー秘話と秘策ー」（ゲスト：大阪城南女子短期大学 学長 菅 正隆 先生）配布資料", "d": "2025-02-23", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2025.1.25(土)AM 小学校外国語授業づくり研究会２月セミナー＆勉強会「２月の授業を考える」配布資料", "d": "2025-02-02", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2015.1.12(日)AM 小学校外国語授業づくり研究会１月プレミアムセミナー「小学校外国語教育で大切にしたいこと」（ゲスト：文部科学省 教科調査官 早川 優子先生）配布資料", "d": "2025-02-02", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像】2025.1.5(日)NEW YEARセミナー「３学期の授業開き＆１月単元解説」講義動画", "d": "2025-01-13", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】2024.12.26(木)Year-Endセミナー「3学期プラン先行紹介＆2024年Activity総ざらい」講義動画", "d": "2025-01-10", "g": ["4年"], "th": [], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2024.12.22(日)スペシャルセミナー「小学校英語で使えるアイテム＆ゲーム」（ゲスト：東京都公立学校講師 増渕真紀子先生）配布資料", "d": "2024-12-27", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.11.24(日)11月プレミアムワークショップ「冬特集」（ゲスト：CALA代表 阿部フォード恵子先生）配布資料", "d": "2024-12-04", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.11.17(日)11月セミナー＆勉強会「12月の授業を考える」配布資料", "d": "2024-11-18", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.11.10(日)アカデミックセミナー「子どもの個性と主体性を大切にした小学校英語の話すこと〔発表〕の指導〜４技能の育成も意識して〜（ゲスト：高野山大学　教育学科 専任講師　森本 敦子先生）配布資料", "d": "2024-11-18", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.10.20(日)オンライン勉強会「11月の授業を考える」配布資料", "d": "2024-10-28", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.9.23(月休)９月セミナー＆勉強会「10月単元を考える」配布資料", "d": "2024-09-28", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.9.1(日)AM 小学校外国語授業づくり研究会９月プレミアムセミナー＜テーマ＞リタラシー教育（小中連携の視点、教科書活用など）＜ゲスト：青山学院大学教授 アレン玉井光江先生＞", "d": "2024-09-16", "g": [], "th": ["単元・授業づくり", "教科書別", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.9.8(日)プレミアムワークショップ『音韻認識を高めて「読むこと」「書くこと」の学びを支える―すぐに取り組める具体的な指導のヒント―』（ゲスト：愛知県立大学教授 池田周先生）配布資料", "d": "2024-09-16", "g": [], "th": ["読み書き"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.7.31(水),8.4(日),8.11(日),8.18(日) 小学校外国語授業づくり研究会「教科書読書会」分析レポート", "d": "2024-09-16", "g": ["5年", "6年"], "th": ["単元・授業づくり", "教科書別", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【映像】おすすめ書籍情報「夏の読書会2023」(2023.8.6(日)開催）", "d": "2024-08-29", "g": [], "th": [], "bk": [], "ro": [], "kd": ["記事"], "m": false}, {"t": "【一次募集/9月末〆切】小学校外国語授業づくり研究会OS限定トライアル企画「お試し！オンライン国内交流授業」のご案内", "d": "2024-08-28", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["お知らせ"], "m": true}, {"t": "【セミナー映像】2024.4.6(土)ベーシックセミナー講義動画", "d": "2024-08-27", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】2024.8.25(日)８月セミナー「９月の授業を考える」", "d": "2024-08-27", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": false}, {"t": "2024.8.25(日)８月セミナー＆勉強会「９月の授業を考える」配布資料", "d": "2024-08-27", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.8.24(土)テーマ別セミナー「学習者用デジタル教科書を活用するために知っておきたいこと」（ゲスト：江尻寛正先生）", "d": "2024-08-27", "g": [], "th": ["ICT・デジタル", "教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.8.12(月)AM 小学校外国語授業づくり研究会 Summer Special Seminar（ゲスト:加藤拓由先生,奥平明香先生）配布資料", "d": "2024-08-23", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.7.30(火)小学校外国語授業づくり研究会Teachers’ Market Summer Special～夏の実践報告会～配布資料", "d": "2024-08-02", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.7.28(日)小学校外国語授業づくり研究会アカデミックセミナー『Professional Developmentとしてのティーム・ティーチング』（ゲスト：国際教養大学教授 町田智久先生）配布資料", "d": "2024-08-02", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.6.16(日)オンライン勉強会「１学期のまとめをしよう」", "d": "2024-07-06", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.6.16(日)テーマ別セミナー「自律的な学習者を育てる指導の工夫ーICT活用を通してー」（ゲスト：関西大学初等部 東口貴彰先生）配布資料", "d": "2024-07-06", "g": [], "th": ["ICT・デジタル"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.6.9(日)プレミアムワークショップPartⅡ「ICT最大活用 ボトムアップとトップダウンの文字指導」（ゲスト：京都光華女子大学教授 田縁眞弓先生）配布資料", "d": "2024-06-15", "g": [], "th": ["読み書き", "ICT・デジタル"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.6.2(日)朝活オンライン相談会「評価について」資料", "d": "2024-06-15", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.5.19(日)プレミアムワークショップPart1「音から文字へ。絶対知っておきたい基礎のおさらい」（ゲスト：京都外国語大学教授 山本玲子先生）配布資料", "d": "2024-06-05", "g": [], "th": ["読み書き"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.5.12(日)５月勉強会　配布資料", "d": "2024-06-05", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.5.6(月祝)５月プレミアムセミナー「シンプルに考える教科外国語」（ゲスト：東京学芸大学教授 粕谷恭子先生）配布資料", "d": "2024-05-11", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.4.21(日)４月プレミアムセミナー「学習者用デジタル教科書の活用法」（ゲスト：愛知教育大学名誉教授 高橋美由紀先生）配布資料", "d": "2024-04-27", "g": [], "th": ["ICT・デジタル", "教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.4.14(日)４月オンライン勉強会～いっしょに教科書を分析しよう！～　資料", "d": "2024-04-20", "g": [], "th": ["教科書別"], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "2024.4.7(日)４月セミナー配布資料", "d": "2024-04-20", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.4.6(土)ベーシックセミナー配布資料", "d": "2024-04-20", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.3.28(木)教科書会社によるR6版 小学校英語教科書説明会　配布資料", "d": "2024-04-02", "g": [], "th": ["教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.3.20(水･祝)AM　小学校外国語授業づくり研究会アカデミックセミナー～最新の小学校外国語教育研究を学ぶ～　配布資料", "d": "2024-03-30", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2024.2.11(日)　２月プレミアムセミナー「小中共通の英語教育のありかた」(上智大学名誉教授 吉田研作先生）配布資料", "d": "2024-03-02", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.2.18(日)オンライン勉強会「３月の授業を考える」配布資料", "d": "2024-02-18", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.1.28(日)朝活ミニワークショップー５分間帯活動体験ー配布資料", "d": "2024-01-31", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.1.7(日)１月セミナー配布資料", "d": "2024-01-31", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.1.8(月祝)Teachers’ Market Winter Special Part2～冬のミニ実践報告まつり～配布資料", "d": "2024-01-31", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.1.14(日)１月プレミアムセミナー「小学校英語教育における指導者の役割」(ゲスト:上智大学短期大学部 教授 狩野晶子先生）配布資料", "d": "2024-01-31", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2024.1.21(日)オンライン勉強会「２月の授業を考える」配布資料", "d": "2024-01-22", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.12.26(火)Teachers’ Market Winter Special 1 配布資料", "d": "2023-12-30", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.11.19(日) オンライン勉強会「12月の授業を考える」配布資料", "d": "2023-11-25", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.11.5(日)　11月プレミアムセミナー「主体的に学習に取り組む態度 を育てる 学習者用デジタル教科書の活用」（ゲスト：岐阜聖徳学園大学准教授 加藤拓由先生、山梨市立加納岩小学校藤木真里佳先生）配布資料", "d": "2023-11-18", "g": [], "th": ["ICT・デジタル", "個別最適・協働", "教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像】2023.10.22(日)オンライン勉強会「11月の授業を考える」", "d": "2023-11-06", "g": ["5年", "6年"], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2023.10.22(日)オンライン勉強会「11月の授業を考える」", "d": "2023-11-02", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.10.8(日)10月プレミアムセミナー「小学校外国語の“基本のキ”と“これから”」（ゲスト：信州大学 教授 酒井英樹 先生）配布資料", "d": "2023-10-21", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.9.24(日)オンライン勉強会「10月の授業を考える」配布資料", "d": "2023-09-24", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.9.18(月祝)テーマ別講座「児童の思考力・判断力・表現力を育む言語活動と評価ー中長期的な視点で児童の見取りを考える」（ゲスト：幡井理恵先生）配布資料", "d": "2023-09-24", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.9.17(日)９月プレミアムセミナー「小学校外国語の評価を考える」（ゲスト：東海大学 語学教育センター教授 長沼 君主 先生）配布資料", "d": "2023-09-24", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.8.27(日)　テーマ別講座「小学3年生が苦手なアルファベットの文字とその指導」（ゲスト：神奈川県公立小学校教諭 長沼久美子先生）配布資料", "d": "2023-09-02", "g": ["3年"], "th": ["読み書き"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.8.27(日)　８月セミナー＆勉強会「２学期の計画と９月の授業を考える」配布資料", "d": "2023-09-02", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.8.26(土)　８月セミナー Teachers’ Market Summer Special Day2 配布資料", "d": "2023-09-02", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.7.30(日)　７月プレミアムセミナー「きいて、みて、まねて覚える英語の音」（Guest:神田外語大学准教授　河合裕美先生）配布資料", "d": "2023-08-24", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.8.20(日)　夏の特別無料企画『Here We Go!』活用セミナー　配布資料", "d": "2023-08-24", "g": [], "th": ["教科書別"], "bk": ["Here We Go!"], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.8.9(水)　８月セミナーTeachers’ Market Summer Special Day1配布資料", "d": "2023-08-24", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.8.5(土)　８月プレミアムセミナー「小学校外国語で大切なこと」（ゲスト：大阪教育大学教授 加賀田哲也先生）配布資料", "d": "2023-08-24", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.8.6(日)テーマ別講座「書籍から学ぶ！夏の読書会2023」配布資料", "d": "2023-08-24", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.7.17(月･祝)小学校外国語授業づくり研究会《教養講座》「現場から考える!ICTと小学校教育～私たちが今めざすこととは？」（ゲスト：日本教育情報学会理事 坂井岳志先生）配布資料", "d": "2023-07-26", "g": [], "th": ["単元・授業づくり", "ICT・デジタル", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.6.25(日)AM 6月プレミアムセミナー「異文化間コミュニケーションと小学校外国語教育」（Guest：椙山女学園大学 教育学部 教授 安達 理恵先生）配布資料", "d": "2023-06-27", "g": [], "th": ["やり取り・Small Talk"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.6.18(日) オンライン勉強会＆交流会「７月の授業を考える」配布資料", "d": "2023-06-27", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.6.4(日)《教養講座》「子どもの学び方が変わる！小学校教育におけるICT活用の今とこれから」（ゲスト：東京都公立小学校主幹教諭 鍋谷正尉先生）配布資料　", "d": "2023-06-27", "g": [], "th": ["ICT・デジタル", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.5.28(日)オンライン勉強会「６月の授業を考える」", "d": "2023-06-03", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.5.21(日)朝活オンライン交流会　配布資料", "d": "2023-05-21", "g": [], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.5.7(日) 【指導経験５年以下の方限定】小学校外国語授業づくり研究会GW特別企画「小学校外国語(英語)基礎講座～学習指導要領、言語活動、指導と評価～」（配布資料）", "d": "2023-05-18", "g": ["5年"], "th": ["評価・テスト", "単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.5.14(日)５月プレミアムセミナー「小学校英語、読み書き指導のベストミックス」（Guest:青山学院大学教授 アレン玉井光江先生）配布資料", "d": "2023-05-18", "g": [], "th": ["読み書き"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2023.4.23(日)４月プレミアムセミナーⅡ「瀧沢広人先生のアイデアの源を探る！小学校外国語の授業、活動、ワークを考えるヒント」配布資料", "d": "2023-04-28", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.4.16(日)４月プレミアムセミナーⅠ「実践から学ぶ小学校英語教育」（ゲスト:別府大学短期大学部教授 大田亜紀先生）配布資料", "d": "2023-04-21", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "2023.4.9(日)４月セミナー＆勉強会「４月の授業を考える」配布資料", "d": "2023-04-21", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}, {"t": "【セミナー映像】2023.2.23(木･祝)小学校外国語授業づくり研究会オンライン勉強会「３月の授業を考える」解説講義", "d": "2023-03-03", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": false}, {"t": "【セミナー映像】オンライン勉強会「２月の授業を考える」（2023.1.21(土)開催）", "d": "2023-01-29", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": false}, {"t": "【セミナー動画】ミニ実践報告（4,5,6年2学期）", "d": "2023-01-15", "g": ["6年"], "th": ["研修・研究"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": false}, {"t": "【教材】新年BINGO(３～６年／2023年ver)", "d": "2023-01-07", "g": ["3年", "6年"], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": false}, {"t": "【セミナー動画】１月セミナー「１月の授業づくり」（2023.1.5(木)開催）", "d": "2023-01-07", "g": [], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": false}, {"t": "【セミナー映像】テーマ別講座「小学校外国語（英語）専科の一年間」（2022.12.18(日)開催12月セミナー）", "d": "2023-01-03", "g": [], "th": [], "bk": [], "ro": ["専科"], "kd": ["セミナー映像"], "m": true}, {"t": "2022.12.18(日) 小学校外国語授業づくり研究会12月セミナー【テーマ別講座】「外国語(英語)専科の一年間～授業づくりと仕事の進め方～」配布資料", "d": "2022-12-26", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": ["専科"], "kd": ["セミナー配布資料"], "m": true}, {"t": "６年「日本人紹介」について（クイズメモ教材あり）", "d": "2022-10-02", "g": ["6年"], "th": ["教科書別"], "bk": ["Here We Go!"], "ro": [], "kd": ["教材"], "m": true}, {"t": "2022.8.6(土)朝活ミニセミナー「書籍から学ぶ！夏の読書会Part2」（教育書籍紹介）", "d": "2022-08-14", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2022.7.25(月)朝活ミニセミナー「書籍から学ぶ！夏の読書会Part1」配布資料", "d": "2022-08-02", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2022.7.25(月)朝活ミニセミナー「書籍から学ぶ！夏の読書会」紹介書籍一覧", "d": "2022-07-25", "g": [], "th": [], "bk": [], "ro": [], "kd": ["記事"], "m": false}, {"t": "2022.6.12(日)６月プレミアムセミナーⅡ「五感で楽しむ外国語学習の実践 – See it, Hear it, Touch it, Think it!-」（ゲスト：CALA代表 阿部フォード恵子先生）配布資料", "d": "2022-06-25", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【セミナー映像】2022.5.22(日)オンライン勉強会「６月単元特集」第一部（講義部分）", "d": "2022-05-29", "g": ["5年", "6年"], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】５月単元特集（2022.4.30オンライン勉強会第一部）", "d": "2022-05-14", "g": ["5年", "6年"], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2022.4.10(日)小学校外国語授業づくり研究会「小学校英語『Here We Go!』の使い方セミナー」配布資料", "d": "2022-04-24", "g": [], "th": ["単元・授業づくり", "教科書別", "研修・研究"], "bk": ["Here We Go!"], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "国際理解教育のアイデア集", "d": "2022-02-13", "g": [], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "【セミナー映像】「パフォーマンステストを考える」（2021.6.6朝活ミニセミナー映像）", "d": "2022-01-30", "g": ["5年", "6年"], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】「ICT×英語」朝活ミニセミナー映像(2021.7.17)", "d": "2022-01-30", "g": [], "th": ["ICT・デジタル"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】３年・４年外国語活動３学期単元特集（2022.1.8朝活ミニセミナー）", "d": "2022-01-30", "g": ["3年", "4年"], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【セミナー映像】３・４年外国語活動特集「目標と内容」「高学年につなげるという視点」(2022.1.8朝活ミニセミナー)", "d": "2022-01-30", "g": ["3年", "4年", "5年", "6年"], "th": [], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "小学校外国語授業づくり研究会の基本的な考え方・活動方針（2022年1月）", "d": "2022-01-30", "g": ["3年", "4年"], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["お知らせ"], "m": true}, {"t": "【セミナー映像】2022.1.22オンライン勉強会２月単元特集", "d": "2022-01-29", "g": ["5年", "6年"], "th": ["単元・授業づくり"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【教材】新年BINGO（３年～６年）", "d": "2022-01-06", "g": ["3年", "4年", "5年", "6年"], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "【セミナー映像＆資料】2021.9.19(日)AM 小学校外国語授業づくり研究会オンライン勉強会「10月単元特集」講義映像＆配布資料", "d": "2021-09-25", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2021.8.20(金)８月セミナーⅢ～Here We Go!特集～　配布資料", "d": "2021-09-04", "g": [], "th": ["教科書別"], "bk": ["Here We Go!"], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "ICT活用アイデア集", "d": "2021-08-01", "g": [], "th": ["ICT・デジタル"], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "2021.7.17(土)朝活ミニセミナー「ICT×英語」配布資料", "d": "2021-07-22", "g": [], "th": ["ICT・デジタル"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【コラボレーションマッチングサービス】交流希望校・団体のご紹介", "d": "2021-06-21", "g": [], "th": [], "bk": [], "ro": [], "kd": ["記事"], "m": true}, {"t": "【セミナー映像】2021年5月 教科書別オンライン勉強会「６月単元特集」", "d": "2021-06-13", "g": [], "th": ["単元・授業づくり", "教科書別"], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "【特別コラム】新学習指導要領で言語形式・規則をどう扱うか　by 吉田研作先生（上智大学名誉教授・日本英語検定協会会長）", "d": "2021-05-15", "g": [], "th": [], "bk": [], "ro": [], "kd": ["記事"], "m": true}, {"t": "【セミナー映像】2021.2.14(日)テーマ別基礎講座「Activityの作り方･進め方･考え方」", "d": "2021-04-25", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー映像"], "m": true}, {"t": "2021.2.11(木･祝)２月プレミアムセミナーⅡ「小学校外国語の評価～その考え方と実際～」（ゲスト：東海大学教授 長沼君主先生）配布資料", "d": "2021-03-07", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【教材】３年オリジナルクイズ大会教材（Let’s Try!1 Unit8 What’s this?関連）", "d": "2021-02-02", "g": ["3年"], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "【教材】学校案内練習用教材（４年Let’s Try!2 Unit8 This is my favorite place.関連）", "d": "2021-02-02", "g": ["4年"], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "2020.11.15(日)テーマ別講座「小学校外国語の評価」配布資料", "d": "2020-11-22", "g": [], "th": ["評価・テスト"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "【教材】Let’s Try!2 Unit5 Do you have a pen?おすすめの文房具セットをつくろう", "d": "2020-11-10", "g": [], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "【教材】Let’s Try!1Unit7 This is for you.カードをおくろう", "d": "2020-11-10", "g": [], "th": [], "bk": [], "ro": [], "kd": ["教材"], "m": true}, {"t": "2020.10.18（日）/24（土）小学校外国語授業づくり研究会10月セミナー資料", "d": "2020-10-25", "g": [], "th": ["単元・授業づくり", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2020.9.22(火･祝)テーマ別講座「話すこと[発表]の指導の工夫」", "d": "2020-10-04", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2020.7.5(日)７月教科書別オンライン勉強会配布資料", "d": "2020-07-05", "g": [], "th": ["教科書別"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "2020.6.14(日)　小学校外国語授業づくり研究会「教科書別オンライン勉強会」配布資料", "d": "2020-06-20", "g": [], "th": ["単元・授業づくり", "教科書別", "研修・研究"], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": true}, {"t": "オンラインサロンメルマガQ&Aコーナー投稿フォーム", "d": "2019-11-24", "g": [], "th": [], "bk": [], "ro": [], "kd": ["お知らせ"], "m": true}, {"t": "【オリジナル資料】『We Can!1』Unit5 「できること」校内の先生方への協力依頼文書", "d": "2019-08-22", "g": [], "th": [], "bk": [], "ro": [], "kd": ["セミナー配布資料"], "m": false}];
+var EVENTS = [{"date": "2026-08-23", "time": "10:00-12:00", "title": "２学期の授業開き ―９月の単元をどう組み立てるか", "form": "オンライン", "area": "全国・オンライン", "target": ["学級担任", "初任者"], "host": "小学校外国語授業づくり研究会", "free": true}, {"date": "2026-08-29", "time": "14:00-16:30", "title": "パフォーマンステストと評価 ―見取りの具体", "form": "オンライン", "area": "全国・オンライン", "target": ["学級担任", "専科"], "host": "小学校外国語授業づくり研究会", "free": false}, {"date": "2026-09-06", "time": "13:30-16:00", "title": "ALTとつくる授業 ―打ち合わせの時間がなくてもできること", "form": "ハイブリッド", "area": "関東", "target": ["ALT・TT", "学級担任"], "host": "都内区教育委員会", "free": true}, {"date": "2026-09-13", "time": "10:00-12:00", "title": "教科書別勉強会「Here We Go!」５年後期の単元", "form": "オンライン", "area": "全国・オンライン", "target": ["学級担任", "専科"], "host": "小学校外国語授業づくり研究会", "free": false}, {"date": "2026-09-20", "time": "09:30-16:00", "title": "外国語教育研究大会 ―公開授業と分科会", "form": "対面", "area": "関西", "target": ["学級担任", "専科", "管理職・研究主任"], "host": "府小学校英語教育研究会", "free": true}, {"date": "2026-09-27", "time": "14:00-16:00", "title": "はじめての外国語授業 ―初任者・専科1年目のための基礎講座", "form": "オンライン", "area": "全国・オンライン", "target": ["初任者"], "host": "小学校外国語授業づくり研究会", "free": true}, {"date": "2026-10-04", "time": "10:00-12:30", "title": "読み書きの指導 ―文字に慣れ親しむ段階から書く活動へ", "form": "オンライン", "area": "全国・オンライン", "target": ["学級担任", "専科"], "host": "小学校外国語授業づくり研究会", "free": false}, {"date": "2026-10-11", "time": "13:00-17:00", "title": "学習者用デジタル教科書 実践報告会", "form": "ハイブリッド", "area": "中部", "target": ["学級担任", "専科", "管理職・研究主任"], "host": "県教育センター", "free": true}, {"date": "2026-10-18", "time": "10:00-12:00", "title": "Small Talk を続けるコツ ―ネタ切れしない題材の作り方", "form": "オンライン", "area": "全国・オンライン", "target": ["学級担任"], "host": "小学校外国語授業づくり研究会", "free": false}, {"date": "2026-10-25", "time": "14:00-16:00", "title": "研究主任のための授業研究の進め方", "form": "対面", "area": "関東", "target": ["管理職・研究主任"], "host": "市教育研究会", "free": true}, {"date": "2026-11-03", "time": "10:00-16:00", "title": "秋の実践報告会 Teachers’ Market", "form": "ハイブリッド", "area": "関東", "target": ["学級担任", "専科", "ALT・TT"], "host": "小学校外国語授業づくり研究会", "free": false}, {"date": "2026-11-15", "time": "13:30-15:30", "title": "個別最適な学びと協働的な学び ―外国語ではどう実現するか", "form": "オンライン", "area": "全国・オンライン", "target": ["学級担任", "管理職・研究主任"], "host": "大学附属小学校", "free": true}, {"date": "2026-11-22", "time": "10:00-12:00", "title": "専科教員のための年間指導計画づくり", "form": "オンライン", "area": "全国・オンライン", "target": ["専科"], "host": "小学校外国語授業づくり研究会", "free": false}, {"date": "2026-12-06", "time": "09:30-12:00", "title": "冬の授業づくりセミナー ―３学期を見通す", "form": "対面", "area": "その他", "target": ["学級担任", "専科", "初任者"], "host": "地区小学校教育研究会", "free": true}];
+var STATS = {"total": 173, "grade": 21, "theme": 114, "role": 3, "book": 11, "member": 132};
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function jp(d){ var p=d.split('-'); return p[0]+'年'+(+p[1])+'月'+(+p[2])+'日'; }
+
+var AXES = [
+  { key:'g',  label:'学年',        cls:'t-g', items:['3年','4年','5年','6年'], note:'現在の記事から自動判定できたのは21件です。残りは確認作業で付けていきます。' },
+  { key:'th', label:'テーマ',      cls:'t-t', items:['単元・授業づくり','評価・テスト','やり取り・Small Talk','読み書き','ICT・デジタル','個別最適・協働','教科書別','研修・研究'] },
+  { key:'bk', label:'教科書',      cls:'t-b', items:['Here We Go!','NEW HORIZON Elementary','CROWN Jr.','Junior Sunshine'] },
+  { key:'ro', label:'立場',        cls:'t-r', items:['学級担任','専科','ALT・TT','初任・Beginner','管理職・研究主任'], note:'タイトルに書かれていないため自動判定は3件のみ。この軸はこれから付けます。' },
+  { key:'kd', label:'種類',        cls:'t-k', items:['記事','セミナー配布資料','セミナー映像','教材','お知らせ'] }
+];
+var sel = {}; AXES.forEach(function(a){ sel[a.key]=[]; });
+var kw = '';
+var mode = 'guest';
+var shown = 12;
+
+function matches(p, ignoreKey){
+  for(var i=0;i<AXES.length;i++){
+    var a=AXES[i]; if(a.key===ignoreKey) continue;
+    var s=sel[a.key]; if(!s.length) continue;
+    var v=p[a.key]||[];
+    var ok=false; for(var j=0;j<s.length;j++){ if(v.indexOf(s[j])>=0){ ok=true; break; } }
+    if(!ok) return false;
+  }
+  if(kw){ if(p.t.toLowerCase().indexOf(kw.toLowerCase())<0) return false; }
+  return true;
+}
+function results(){ return POSTS.filter(function(p){ return matches(p); }); }
+
+function renderPanel(){
+  var res = results();
+  $('pcnt').textContent = res.length + ' 件';
+  $('fgroups').innerHTML = AXES.map(function(a){
+    var rows = a.items.map(function(it){
+      var n = POSTS.filter(function(p){ return matches(p,a.key) && (p[a.key]||[]).indexOf(it)>=0; }).length;
+      var on = sel[a.key].indexOf(it)>=0;
+      return '<label class="chk'+((n===0&&!on)?' off':'')+'"><input type="checkbox" data-k="'+a.key+'" data-v="'+esc(it)+'"'+(on?' checked':'')+'>'+
+             '<span>'+esc(it)+'</span><span class="n">'+n+'</span></label>';
+    }).join('');
+    var nt = a.note ? '<div class="tiny muted" style="margin-top:6px;line-height:1.5">※'+esc(a.note)+'</div>' : '';
+    return '<div class="fgroup"><div class="ttl">'+a.label+'</div>'+rows+nt+'</div>';
+  }).join('');
+  Array.prototype.forEach.call($('fgroups').querySelectorAll('input'), function(cb){
+    cb.onchange=function(){
+      var k=cb.getAttribute('data-k'), v=cb.getAttribute('data-v');
+      var i=sel[k].indexOf(v);
+      if(cb.checked){ if(i<0) sel[k].push(v); } else if(i>=0) sel[k].splice(i,1);
+      shown=12; renderAll();
+    };
+  });
+}
+function renderChips(){
+  var out=[];
+  AXES.forEach(function(a){ sel[a.key].forEach(function(v){
+    out.push('<span class="chip">'+esc(a.label)+'：'+esc(v)+'<button data-k="'+a.key+'" data-v="'+esc(v)+'">×</button></span>');
+  });});
+  if(kw) out.push('<span class="chip">キーワード：'+esc(kw)+'<button data-k="kw" data-v="">×</button></span>');
+  if(out.length) out.push('<button class="clr" id="clr2">すべて外す</button>');
+  $('chips').innerHTML = out.join('');
+  Array.prototype.forEach.call($('chips').querySelectorAll('.chip button'), function(b){
+    b.onclick=function(){
+      var k=b.getAttribute('data-k');
+      if(k==='kw'){ kw=''; $('kw').value=''; }
+      else { var v=b.getAttribute('data-v'); var i=sel[k].indexOf(v); if(i>=0) sel[k].splice(i,1); }
+      shown=12; renderAll();
+    };
+  });
+  if($('clr2')) $('clr2').onclick = clearAll;
+}
+function clearAll(){ AXES.forEach(function(a){ sel[a.key]=[]; }); kw=''; $('kw').value=''; shown=12; renderAll(); }
+
+function tagHtml(p){
+  var out=[];
+  AXES.forEach(function(a){
+    (p[a.key]||[]).forEach(function(v){ out.push('<span class="t '+a.cls+'">'+esc(v)+'</span>'); });
+  });
+  return out.join('');
+}
+function renderCards(){
+  var res=results();
+  var sels = AXES.reduce(function(n,a){ return n+sel[a.key].length; },0) + (kw?1:0);
+  $('rescount').innerHTML = '<b>'+res.length+'</b> 件が見つかりました' + (sels? '（条件 '+sels+' 件）' : '（全記事）');
+  if(!res.length){
+    $('cards').innerHTML = '<div class="empty">条件に合う記事がありません。左の条件を減らしてお試しください。</div>';
+    $('more').innerHTML=''; return;
+  }
+  var list=res.slice(0,shown);
+  $('cards').innerHTML = list.map(function(p){
+    var locked = p.m && mode==='guest';
+    return '<div class="card'+(locked?' hidden4':'')+'">'+
+      '<div class="meta"><span>'+jp(p.d)+'</span><span>･</span><span>'+esc((p.kd||['記事'])[0])+'</span>'+
+      (p.m?'<span class="lock">有料会員限定</span>':'')+'</div>'+
+      '<h4><a href="javascript:void(0)" class="'+(locked?'blur':'')+'">'+esc(p.t)+'</a></h4>'+
+      '<div class="tags">'+tagHtml(p)+'</div>'+
+      (locked?'<div class="locknote">この記事は有料会員限定です。右上の表示を「有料会員」に切り替えると、会員の方に見える状態を確認できます。</div>':'')+
+    '</div>';
+  }).join('');
+  $('more').innerHTML = (res.length>shown)
+    ? '<button class="btn ghost" id="btnMore">さらに表示する（残り '+(res.length-shown)+' 件）</button>' : '';
+  if($('btnMore')) $('btnMore').onclick=function(){ shown+=12; renderCards(); };
+}
+function renderAll(){ renderPanel(); renderChips(); renderCards(); }
+
+$('kw').addEventListener('input', function(){ kw=this.value.trim(); shown=12; renderAll(); });
+$('clearAll').onclick = clearAll;
+Array.prototype.forEach.call($('memsw').querySelectorAll('button'), function(b){
+  b.onclick=function(){
+    mode=b.getAttribute('data-m');
+    Array.prototype.forEach.call($('memsw').querySelectorAll('button'),function(x){x.classList.toggle('on',x===b);});
+    renderCards(); renderMock();
+  };
+});
+
+/* ---- イベント ---- */
+var evSel={form:[],area:[],target:[]};
+var EVAX=[{k:'form',l:'開催形式',items:['オンライン','対面','ハイブリッド']},
+          {k:'area',l:'地域',items:['全国・オンライン','関東','関西','中部','その他']},
+          {k:'target',l:'対象',items:['学級担任','専科','ALT・TT','初任者','管理職・研究主任']}];
+function renderEvFilters(){
+  $('evfilters').innerHTML = EVAX.map(function(a){
+    return '<div><div class="ttl" style="font-size:11.5px;font-weight:700;color:var(--ink2);margin-bottom:6px">'+a.l+'</div>'+
+      a.items.map(function(it){
+        var on=evSel[a.k].indexOf(it)>=0;
+        return '<label class="chk"><input type="checkbox" data-k="'+a.k+'" data-v="'+esc(it)+'"'+(on?' checked':'')+'><span>'+esc(it)+'</span></label>';
+      }).join('')+'</div>';
+  }).join('');
+  Array.prototype.forEach.call($('evfilters').querySelectorAll('input'),function(cb){
+    cb.onchange=function(){
+      var k=cb.getAttribute('data-k'), v=cb.getAttribute('data-v'), i=evSel[k].indexOf(v);
+      if(cb.checked){ if(i<0) evSel[k].push(v); } else if(i>=0) evSel[k].splice(i,1);
+      renderEvents();
+    };
+  });
+}
+function renderEvents(){
+  var list=EVENTS.filter(function(e){
+    return EVAX.every(function(a){
+      var s=evSel[a.k]; if(!s.length) return true;
+      var v = a.k==='target' ? e.target : [e[a.k]];
+      return s.some(function(x){ return v.indexOf(x)>=0; });
+    });
+  });
+  $('evcnt').textContent = list.length+' 件';
+  $('evrows').innerHTML = list.map(function(e){
+    return '<tr><td style="white-space:nowrap">'+jp(e.date)+'<div class="tiny muted">'+e.time+'</div></td>'+
+      '<td><b>'+esc(e.title)+'</b></td>'+
+      '<td><span class="t t-g">'+esc(e.form)+'</span></td><td>'+esc(e.area)+'</td>'+
+      '<td class="tiny">'+e.target.map(esc).join('・')+'</td><td class="tiny">'+esc(e.host)+'</td>'+
+      '<td><span class="t '+(e.free?'t-k':'t-t')+'">'+(e.free?'無料':'有料')+'</span></td></tr>';
+  }).join('') || '<tr><td colspan="7" class="empty">条件に合う予定がありません。</td></tr>';
+}
+
+/* ---- Before/After ---- */
+function renderBA(){
+  $('bastat').innerHTML =
+    '<div class="s"><div class="l">現在の記事数</div><div class="v">'+STATS.total+'<span style="font-size:13px"> 件</span></div><div class="n">すべて読み込み済み</div></div>'+
+    '<div class="s bad"><div class="l">学年が付いている記事</div><div class="v">'+STATS.grade+'<span style="font-size:13px"> 件</span></div><div class="n">全体の'+Math.round(STATS.grade/STATS.total*100)+'%</div></div>'+
+    '<div class="s bad"><div class="l">立場が付いている記事</div><div class="v">'+STATS.role+'<span style="font-size:13px"> 件</span></div><div class="n">全体の'+Math.round(STATS.role/STATS.total*100)+'%</div></div>'+
+    '<div class="s ok"><div class="l">テーマを自動判定できた</div><div class="v">'+STATS.theme+'<span style="font-size:13px"> 件</span></div><div class="n">全体の'+Math.round(STATS.theme/STATS.total*100)+'%</div></div>';
+
+  var qs=[
+    {q:'「5年」＋「評価」', b:0, f:function(){ return POSTS.filter(function(p){return p.g.indexOf('5年')>=0 && p.th.indexOf('評価・テスト')>=0;}).length; }},
+    {q:'「高学年」＋「やり取り・Small Talk」', b:0, f:function(){ return POSTS.filter(function(p){return (p.g.indexOf('5年')>=0||p.g.indexOf('6年')>=0) && p.th.indexOf('やり取り・Small Talk')>=0;}).length; }},
+    {q:'「5年」＋「単元・授業づくり」', b:0, f:function(){ return POSTS.filter(function(p){return p.g.indexOf('5年')>=0 && p.th.indexOf('単元・授業づくり')>=0;}).length; }},
+    {q:'「教科書：Here We Go!」＋「5年」', b:0, f:function(){ return POSTS.filter(function(p){return p.bk.indexOf('Here We Go!')>=0 && p.g.indexOf('5年')>=0;}).length; }},
+    {q:'「読み書き」', b:0, f:function(){ return POSTS.filter(function(p){return p.th.indexOf('読み書き')>=0;}).length; }},
+    {q:'「ICT・デジタル」', b:4, f:function(){ return POSTS.filter(function(p){return p.th.indexOf('ICT・デジタル')>=0;}).length; }}
+  ];
+  $('baBefore').innerHTML = qs.map(function(x){
+    return '<div class="qrow"><span class="q">'+esc(x.q)+'</span><span class="r '+(x.b?'':'zero')+'">'+x.b+' 件</span></div>';
+  }).join('') + '<p class="tiny muted" style="margin:10px 0 0">現在のカテゴリは「セミナー配布資料」「有料会員」など掲載形態が中心で、学年は21件、立場は3件にしか付いていません。</p>';
+  $('baAfter').innerHTML = qs.map(function(x){
+    var n=x.f();
+    return '<div class="qrow"><span class="q">'+esc(x.q)+'</span><span class="r '+(n?'ok':'zero')+'">'+n+' 件</span></div>';
+  }).join('') + '<p class="tiny muted" style="margin:10px 0 0">自動での仮タグ付けだけでこの状態です。先生に確認していただくと、さらに増えます。</p>';
+}
+
+/* ---- 投稿画面モック ---- */
+var mockSel={g:['6年'],th:['評価・テスト','単元・授業づくり'],bk:[],ro:['学級担任'],kd:['記事']};
+var mockMember=false;
+function renderMock(){
+  $('mockSide').innerHTML =
+    AXES.map(function(a){
+      return '<div class="sec"><b>'+a.label+'</b><div class="in">'+
+        a.items.map(function(it){
+          var on=(mockSel[a.key]||[]).indexOf(it)>=0;
+          return '<label class="chk"><input type="checkbox" data-k="'+a.key+'" data-v="'+esc(it)+'"'+(on?' checked':'')+'><span>'+esc(it)+'</span></label>';
+        }).join('')+'</div></div>';
+    }).join('') +
+    '<div class="sec"><b>公開範囲</b><div class="in">'+
+      '<label class="chk"><input type="checkbox" id="mockMem"'+(mockMember?' checked':'')+'><span>有料会員限定にする</span></label>'+
+    '</div></div>';
+  Array.prototype.forEach.call($('mockSide').querySelectorAll('input[data-k]'),function(cb){
+    cb.onchange=function(){
+      var k=cb.getAttribute('data-k'), v=cb.getAttribute('data-v');
+      if(!mockSel[k]) mockSel[k]=[];
+      var i=mockSel[k].indexOf(v);
+      if(cb.checked){ if(i<0) mockSel[k].push(v); } else if(i>=0) mockSel[k].splice(i,1);
+      renderMock();
+    };
+  });
+  $('mockMem').onchange=function(){ mockMember=this.checked; renderMock(); };
+
+  var p={t:$('mockTitle').value||'（タイトル未入力）', d:'2026-08-15', g:mockSel.g,th:mockSel.th,bk:mockSel.bk,ro:mockSel.ro,kd:mockSel.kd,m:mockMember};
+  var tags=tagHtml(p);
+  $('mockCard').innerHTML =
+    '<div class="meta"><span>'+jp(p.d)+'</span><span>･</span><span>'+((p.kd&&p.kd[0])||'記事')+'</span>'+(p.m?'<span class="lock">有料会員限定</span>':'')+'</div>'+
+    '<h4><a href="javascript:void(0)">'+esc(p.t)+'</a></h4>'+
+    '<div class="tags">'+(tags||'<span class="tiny muted">タグが選ばれていません（絞り込みに出てきません）</span>')+'</div>';
+}
+$('mockTitle').addEventListener('input', renderMock);
+
+/* ---- タブ ---- */
+Array.prototype.forEach.call($('tabbar').querySelectorAll('button'), function(b){
+  b.onclick=function(){
+    var t=b.getAttribute('data-tab');
+    Array.prototype.forEach.call($('tabbar').querySelectorAll('button'),function(x){x.classList.toggle('on',x===b);});
+    Array.prototype.forEach.call(document.querySelectorAll('.page'),function(p){p.classList.toggle('on',p.id==='p-'+t);});
+    window.scrollTo({top:0});
+  };
+});
+
+renderAll(); renderEvFilters(); renderEvents(); renderBA(); renderMock();
+</script>
+</body>
+</html>
