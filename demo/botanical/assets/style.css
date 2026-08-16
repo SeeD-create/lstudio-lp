@@ -1085,3 +1085,32 @@ footer{padding:28px 0 26px}
   .bhero .bhero-inner > .bmerits{order:6;margin-top:26px}
   .bhero .bhero-inner > .brand-line{order:7;margin-top:18px}
 }
+
+/* =========================================================================
+   2026-08-16 スマホの全長を目安（10,200px）内に収めるための余白の詰め直し
+   -------------------------------------------------------------------------
+   ⚠️ 触っているのは「余白」と「帯写真の高さ」だけ。
+      文章・CTA・リンク・セクションの順序・写真の枚数は1つも変えていない。
+   ⚠️ PC（min-width:900px）には効かない。スマホ幅（〜899px）だけ。
+   ⚠️ 戻すときはこのブロックごと削除する
+      （原本の丸ごとの控え＝assets/_style.css.bak_20260816_length）
+   ========================================================================= */
+@media(max-width:899px){
+  /* 通常セクションの上下 48 → 36
+     8/9の外部レビュー⑩で48pxに統一したもの。ここが全長にいちばん効く。 */
+  section{padding:36px 0}
+  /* 見出しと本文の間 28 → 22 */
+  .sec-head{margin-bottom:22px}
+  /* 全幅の帯写真の高さ 150 → 132（写真は残す。高さだけ） */
+  .band{height:clamp(132px,22vw,300px)}
+  /* カード・グリッドのすき間を2〜4pxずつ */
+  .pillars{gap:12px}
+  .checks{gap:10px}
+  .cause{gap:11px}
+  .steps{gap:11px}
+  .fit{gap:12px}
+  .stats{gap:10px;margin-top:20px}
+  .vgrid{gap:18px}
+  /* フッター 28/26 → 24/22 */
+  footer{padding:24px 0 22px}
+}
