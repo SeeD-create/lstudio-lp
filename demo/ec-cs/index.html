@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>EC問い合わせ自動化（FAQ BOT＋AI BOT＋一元管理）｜ 動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="選択式FAQ BOT → AI BOT → LINE/Gmail/フォームの一元管理 → AI下書き → 承認送信。有人対応の削減率まで実際に触って確かめられる動作デモです。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EC問い合わせ自動化 ｜ 動作デモ">
+<meta property="og:description" content="FAQ BOT・AI BOT・一元管理・AI下書き・効果試算までを通しで操作できるデモ。">
+<meta property="og:url" content="https://l-studiojp.com/demo/ec-cs/">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F3F6F6; --surface:#FFFFFF; --sunk:#ECF1F1;
+  --line:#D7DEDE; --line-soft:#E6EBEB;
+  --ink:#15242A; --ink2:#44565E; --ink3:#7B8B92;
+  --accent:#0E6F6B; --accent-deep:#0A5754; --accent-soft:#E0F0EF; --accent-line:#9CC9C6;
+  --ai:#8A5A0B; --ai-soft:#FBF0DC; --ai-line:#E2C88F;
+  --ok:#1E7A4C; --ok-soft:#E3F1E8;
+  --warn:#9C6512; --warn-soft:#F7EEDC;
+  --bad:#A93B3B; --bad-soft:#F7E4E4;
+  --line-green:#06C755;
+  --shadow:0 1px 2px rgba(18,32,36,.05),0 10px 28px -18px rgba(18,32,36,.32);
+  --r:8px;
+  --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic","Noto Sans JP","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Courier New",monospace;
+}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+button{font-family:inherit}
+
+/* demo band */
+.demoband{background:#0C2226;color:#BFD6D4;font-size:12.5px;padding:8px 0}
+.demoband .wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.demoband b{color:#fff;font-weight:600}
+.demoband .tag{background:var(--accent);color:#fff;border-radius:99px;padding:1px 10px;font-weight:600;white-space:nowrap}
+
+/* header */
+header.site{background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;gap:14px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.applogo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
+.applogo .mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#0E6F6B,#2C9C97);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
+.applogo small{display:block;font-size:11px;font-weight:500;color:var(--ink3);line-height:1.3}
+.hdr-right{margin-left:auto;font-size:12px;color:var(--ink3);text-align:right;line-height:1.5}
+.hdr-right a{color:var(--accent);text-decoration:none;font-weight:600}
+
+/* tabs */
+nav.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+nav.tabs button{border:0;background:transparent;font-size:13.5px;font-weight:600;color:var(--ink2);padding:13px 14px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;position:relative}
+nav.tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+nav.tabs .nbadge{display:inline-block;min-width:18px;height:18px;line-height:18px;border-radius:99px;background:var(--bad);color:#fff;font-size:11px;font-weight:700;text-align:center;margin-left:6px;padding:0 5px;vertical-align:1px}
+nav.tabs .nbadge.zero{display:none}
+
+main{padding:24px 0 64px}
+.view{display:none}.view.on{display:block}
+h2.vt{font-size:20px;margin:0 0 4px}
+p.vd{margin:0 0 18px;color:var(--ink2);font-size:13.5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.pill{display:inline-block;border-radius:99px;padding:2px 10px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.pill.ai{background:var(--ai-soft);color:var(--ai);border:1px solid var(--ai-line)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.mut{background:var(--sunk);color:var(--ink2);border:1px solid var(--line)}
+.pill.acc{background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--accent-line)}
+
+/* ===== view: experience ===== */
+.exp{display:grid;grid-template-columns:352px 1fr;gap:22px;align-items:start}
+@media(max-width:900px){.exp{grid-template-columns:1fr}}
+.phone{background:#0C2226;border-radius:26px;padding:10px;box-shadow:0 20px 44px -22px rgba(12,34,38,.6)}
+.phone-in{background:#8CABB8;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;height:620px}
+.ph-bar{background:var(--line-green);color:#fff;padding:9px 14px;font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.ph-bar .dot{width:8px;height:8px;border-radius:99px;background:#fff;opacity:.85}
+.ph-body{flex:1;overflow-y:auto;padding:14px 12px 8px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:84%;font-size:13.5px;line-height:1.65;border-radius:14px;padding:9px 12px;white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:#fff;color:var(--ink);align-self:flex-start;border-top-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.msg.me{background:#8DE055;color:#12261A;align-self:flex-end;border-top-right-radius:4px}
+.msg.sys{align-self:center;background:rgba(12,34,38,.55);color:#fff;font-size:11.5px;padding:4px 12px;border-radius:99px;max-width:92%;text-align:center}
+.msg .src{display:block;margin-top:7px;padding-top:6px;border-top:1px dashed var(--line);font-size:11px;color:var(--ink3)}
+.qr{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 10px}
+.qr button{background:#fff;border:1px solid #C9D7D6;color:var(--accent-deep);border-radius:99px;padding:7px 13px;font-size:12.5px;font-weight:600;cursor:pointer}
+.qr button:hover{background:var(--accent-soft)}
+.qr button.gh{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ph-input{border-top:1px solid rgba(0,0,0,.08);background:#fff;padding:8px;display:flex;gap:7px}
+.ph-input input{flex:1;border:1px solid var(--line);border-radius:99px;padding:9px 13px;font-size:13.5px;font-family:inherit;outline:none;min-width:0}
+.ph-input input:focus{border-color:var(--accent)}
+.ph-input button{border:0;background:var(--accent);color:#fff;border-radius:99px;padding:0 16px;font-size:13px;font-weight:700;cursor:pointer}
+.ph-input.off{opacity:.45;pointer-events:none}
+.typing span{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:99px;background:var(--ink3);animation:bl 1.1s infinite}
+.typing span:nth-child(2){animation-delay:.18s}.typing span:nth-child(3){animation-delay:.36s}
+@keyframes bl{0%,60%,100%{opacity:.25}30%{opacity:1}}
+
+.explain{display:flex;flex-direction:column;gap:14px}
+.stepcard{padding:16px 18px}
+.stepcard h3{margin:0 0 6px;font-size:15px;display:flex;align-items:center;gap:8px}
+.stepcard h3 .n{width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.stepcard p{margin:0;font-size:13px;color:var(--ink2)}
+.stepcard.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft),var(--shadow)}
+.stepcard.done h3 .n{background:var(--ok)}
+.livelog{padding:14px 16px;font-family:var(--mono);font-size:11.5px;color:var(--ink2);background:#0C2226;border-radius:12px;color:#9FC4C1;max-height:190px;overflow-y:auto}
+.livelog b{color:#fff;font-weight:600}
+.livelog .l{padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.livelog .l.hi{color:#F0C97A}
+
+/* form */
+.reqform{padding:14px 12px 4px}
+.reqform label{display:block;font-size:11.5px;font-weight:700;color:var(--ink2);margin:8px 0 3px}
+.reqform input,.reqform select,.reqform textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
+.reqform .row{display:flex;gap:8px}.reqform .row>*{flex:1}
+
+/* ===== view: inbox ===== */
+.inbox{display:grid;grid-template-columns:288px 1fr 320px;gap:14px;align-items:start}
+@media(max-width:1040px){.inbox{grid-template-columns:1fr}}
+.ibcol{overflow:hidden}
+.ibhead{padding:11px 14px;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:700;color:var(--ink2);display:flex;align-items:center;gap:8px;background:var(--sunk)}
+.chfil{display:flex;gap:4px;padding:8px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap}
+.chfil button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:4px 11px;font-size:11.5px;font-weight:600;color:var(--ink2);cursor:pointer}
+.chfil button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tklist{max-height:560px;overflow-y:auto}
+.tk{padding:11px 14px;border-bottom:1px solid var(--line-soft);cursor:pointer;display:flex;gap:9px;align-items:flex-start}
+.tk:hover{background:var(--sunk)}
+.tk.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.tk .ch{width:30px;height:22px;border-radius:5px;flex:none;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;letter-spacing:.02em;margin-top:2px}
+.ch.line{background:var(--line-green)}.ch.mail{background:#B44B3E}.ch.form{background:#4A6B8A}
+.tk .m{min-width:0;flex:1}
+.tk .m .t{font-size:13px;font-weight:700;margin-bottom:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tk .m .s{font-size:11.5px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tk .m .tags{margin-top:5px;display:flex;gap:4px;flex-wrap:wrap}
+.tk.new{animation:pop .5s ease}
+@keyframes pop{0%{background:#FFF3D0}100%{background:transparent}}
+
+.thread{padding:0}
+.thhead{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.thhead .t{font-size:15px;font-weight:700}
+.thbody{padding:16px;display:flex;flex-direction:column;gap:12px;max-height:430px;overflow-y:auto;background:var(--sunk)}
+.tmsg{max-width:82%;font-size:13.5px;border-radius:12px;padding:10px 13px;white-space:pre-wrap;line-height:1.7}
+.tmsg.cust{background:#fff;border:1px solid var(--line);align-self:flex-start}
+.tmsg.staff{background:var(--accent-soft);border:1px solid var(--accent-line);align-self:flex-end}
+.tmsg .who{display:block;font-size:11px;color:var(--ink3);margin-bottom:3px;font-weight:600}
+.thfoot{padding:12px 16px;border-top:1px solid var(--line);background:var(--surface)}
+.draftbox{border:1px solid var(--ai-line);background:var(--ai-soft);border-radius:10px;padding:11px 13px}
+.draftbox .dh{font-size:11.5px;font-weight:700;color:var(--ai);margin-bottom:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.draftbox textarea{width:100%;border:1px solid var(--ai-line);border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit;line-height:1.7;background:#fff;color:var(--ink);min-height:120px;resize:vertical}
+.dact{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.p:hover{background:var(--accent-deep)}
+.btn:disabled{opacity:.45;cursor:default}
+.aipanel{padding:0}
+.aisec{padding:12px 14px;border-bottom:1px solid var(--line-soft)}
+.aisec h4{margin:0 0 7px;font-size:11.5px;color:var(--ink3);font-weight:700;letter-spacing:.04em}
+.aisec .kv{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0}
+.aisec .kv b{font-weight:700}
+.srcitem{font-size:12px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;background:var(--sunk)}
+.srcitem .id{font-family:var(--mono);font-size:10.5px;color:var(--accent-deep);font-weight:700}
+
+/* ===== view: knowledge ===== */
+.kgrid{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start}
+@media(max-width:900px){.kgrid{grid-template-columns:1fr}}
+.searchbox{display:flex;gap:8px;margin-bottom:12px}
+.searchbox input{flex:1;border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:14px;font-family:inherit;outline:none}
+.searchbox input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.faqrow{padding:12px 15px;border-bottom:1px solid var(--line-soft)}
+.faqrow:last-child{border-bottom:0}
+.faqrow .q{font-size:13.5px;font-weight:700;display:flex;gap:8px;align-items:flex-start}
+.faqrow .a{font-size:12.5px;color:var(--ink2);margin-top:4px;display:none}
+.faqrow.open .a{display:block}
+.faqrow .meta{margin-top:5px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.faqrow .sc{font-family:var(--mono);font-size:10.5px;color:var(--accent-deep);font-weight:700}
+.bar{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:12.5px}
+.bar .lb{width:96px;flex:none;color:var(--ink2)}
+.bar .tr{flex:1;height:16px;background:var(--sunk);border-radius:4px;overflow:hidden}
+.bar .fl{height:100%;background:linear-gradient(90deg,#0E6F6B,#39A29D)}
+.bar .vl{width:78px;flex:none;text-align:right;font-family:var(--mono);font-size:11.5px;color:var(--ink2)}
+
+/* ===== view: roi ===== */
+.roi{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.roi{grid-template-columns:1fr}}
+.ctl{padding:16px}
+.ctl .f{margin-bottom:14px}
+.ctl label{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:5px;display:flex;justify-content:space-between}
+.ctl label span{font-family:var(--mono);color:var(--accent-deep)}
+.ctl input[type=number]{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:14px;font-family:var(--mono)}
+.ctl input[type=range]{width:100%;accent-color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-bottom:14px}
+.kpi{padding:15px 16px}
+.kpi .k{font-size:11.5px;color:var(--ink3);font-weight:700}
+.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:2px;line-height:1.2}
+.kpi .u{font-size:12px;color:var(--ink3);font-weight:600;margin-left:2px}
+.kpi.acc .v{color:var(--accent-deep)}
+.kpi.ok .v{color:var(--ok)}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th,table.t td{border-bottom:1px solid var(--line-soft);padding:9px 12px;text-align:left;vertical-align:top}
+table.t th{background:var(--sunk);font-size:11.5px;color:var(--ink2);font-weight:700;white-space:nowrap}
+table.t td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
+table.t tr.tot td{font-weight:800;background:var(--accent-soft);border-bottom:0}
+.note{font-size:11.5px;color:var(--ink3);margin-top:9px;line-height:1.7}
+
+/* ===== view: arch ===== */
+.archwrap{padding:18px;overflow-x:auto}
+.phasetbl{margin-top:16px}
+.pbadge{display:inline-block;border-radius:5px;padding:1px 8px;font-size:11px;font-weight:800;color:#fff}
+.p1{background:var(--accent)}.p2{background:#4A6B8A}.p3{background:#8A7A5A}
+
+footer.f{border-top:1px solid var(--line);background:var(--surface);padding:22px 0;font-size:12.5px;color:var(--ink3)}
+footer.f a{color:var(--accent);font-weight:600;text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="demoband"><div class="wrap">
+  <span class="tag">動作デモ</span>
+  <b>EC問い合わせ自動化</b>
+  <span>架空ブランド「LUMINA」の設定で、選択式FAQ BOT → AI BOT → 一元管理 → AI下書き → 承認送信までを通しで操作できます。左のスマホから始めてください。</span>
+</div></div>
+
+<header class="site"><div class="wrap">
+  <div class="applogo"><div class="mark">CS</div><div>LUMINA サポート自動化<small>FAQ BOT ＋ AI BOT ＋ LINE/Gmail/フォーム 一元管理</small></div></div>
+  <div class="hdr-right">制作：<a href="https://l-studiojp.com/" target="_blank" rel="noopener">Lスタジオ</a><br>実在ブランドではありません</div>
+</div></header>
+
+<nav class="tabs"><div class="wrap">
+  <button data-v="exp" class="on">① お客さま画面（LINE）</button>
+  <button data-v="inbox">② 一元管理・受信箱<span class="nbadge zero" id="nb">0</span></button>
+  <button data-v="know">③ ナレッジ／RAG検索</button>
+  <button data-v="roi">④ 削減効果の試算</button>
+  <button data-v="arch">⑤ 構成とフェーズ</button>
+</div></nav>
+
+<main><div class="wrap">
+
+<!-- ============ VIEW 1 ============ -->
+<section class="view on" id="v-exp">
+  <h2 class="vt">① お客さま画面：選択式FAQ → AI BOT → 有人</h2>
+  <p class="vd">3階層の選択式で片づけ、外れたものだけAI BOTが自由入力で受け、それでも解けないものだけチケット化して人に回します。実際にボタンを押し、自由に文章を入力してみてください。</p>
+
+  <div class="exp">
+    <div>
+      <div class="phone"><div class="phone-in">
+        <div class="ph-bar"><span class="dot"></span>LUMINA 公式アカウント</div>
+        <div class="ph-body" id="chat"></div>
+        <div class="qr" id="qr"></div>
+        <div class="ph-input off" id="inp">
+          <input id="tx" placeholder="自由に質問を入力…" autocomplete="off">
+          <button id="sd">送信</button>
+        </div>
+      </div></div>
+      <div style="text-align:center;margin-top:10px">
+        <button class="btn" id="reset">最初からやり直す</button>
+      </div>
+    </div>
+
+    <div class="explain">
+      <div class="card stepcard" id="s1"><h3><span class="n">1</span>選択式FAQ BOT</h3><p>配送・サイズ・返品交換・注文支払いを2〜3階層で分岐。問い合わせ全体の約6割はここで完結します（後述の試算に反映）。</p></div>
+      <div class="card stepcard" id="s2"><h3><span class="n">2</span>AI BOT（ナレッジ参照）</h3><p>選択肢で解決しなかった人だけが自由入力へ。ナレッジから根拠を検索して答え、<b>回答に出典FAQ番号を必ず付けます</b>。根拠が無ければ答えずに人へ渡す設計です。</p></div>
+      <div class="card stepcard" id="s3"><h3><span class="n">3</span>交換申請の受付</h3><p>注文番号・購入日・状態から<b>自動で受付可否を一次判定</b>。可否が割れるものだけ人が見ます（Phase 1の線引きはタブ⑤）。</p></div>
+      <div class="card stepcard" id="s4"><h3><span class="n">4</span>有人へエスカレーション</h3><p>会話ログ・AI要約・想定カテゴリを載せた状態でチケット化。タブ②の受信箱に実際に積まれます。</p></div>
+      <div class="livelog" id="log"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIEW 2 ============ -->
+<section class="view" id="v-inbox">
+  <h2 class="vt">② 一元管理・受信箱（Chatwoot相当の画面イメージ）</h2>
+  <p class="vd">LINE・Gmail・問い合わせフォームを1画面に集約。着信ごとにAIが分類・優先度・感情を付け、返信の下書きまで用意します。人がやるのは「読む・直す・送る」だけです。</p>
+
+  <div class="inbox">
+    <div class="card ibcol">
+      <div class="ibhead">受信箱 <span class="pill mut" id="cnt">0件</span></div>
+      <div class="chfil" id="chf">
+        <button data-c="all" class="on">すべて</button>
+        <button data-c="line">LINE</button>
+        <button data-c="mail">Gmail</button>
+        <button data-c="form">フォーム</button>
+        <button data-c="open">未対応のみ</button>
+      </div>
+      <div class="tklist" id="tkl"></div>
+    </div>
+
+    <div class="card ibcol thread">
+      <div class="thhead" id="thh"></div>
+      <div class="thbody" id="thb"></div>
+      <div class="thfoot" id="thf"></div>
+    </div>
+
+    <div class="card ibcol aipanel" id="aip"></div>
+  </div>
+</section>
+
+<!-- ============ VIEW 3 ============ -->
+<section class="view" id="v-know">
+  <h2 class="vt">③ ナレッジ／RAG検索</h2>
+  <p class="vd">3年分の問い合わせを分類してFAQへ落とし込んだ想定のナレッジです。検索は本物です（表記ゆれ・言い換えでも当たります）。「サイズ感どう？」「届かない」「返品したい」などを入れてみてください。</p>
+
+  <div class="kgrid">
+    <div>
+      <div class="searchbox"><input id="ks" placeholder="例：まだ届かない ／ サイズ感 ／ 領収書 ／ ギフト包装"></div>
+      <div class="card" id="klist"></div>
+    </div>
+    <div>
+      <div class="card" style="padding:16px;margin-bottom:14px">
+        <h4 style="margin:0 0 10px;font-size:13px">3年分（36,842件）の分類結果</h4>
+        <div id="bars"></div>
+        <p class="note">※ デモ用の想定値。実案件では実データをAIで自動分類し、この表を最初の成果物としてお出しします。</p>
+      </div>
+      <div class="card" style="padding:16px">
+        <h4 style="margin:0 0 8px;font-size:13px">ナレッジの持ち方</h4>
+        <p style="margin:0;font-size:12.5px;color:var(--ink2)">FAQは1件＝1ファイル（Markdown）でGitHub管理。<b>更新履歴が残り、誰がいつ何を直したか追えます</b>。BOTは常に最新版を参照し、回答には必ず出典IDが付くので「AIが勝手なことを言った」を潰せます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIEW 4 ============ -->
+<section class="view" id="v-roi">
+  <h2 class="vt">④ 削減効果の試算</h2>
+  <p class="vd">御社の数字を入れて確かめてください。ランニングコスト（サーバー＋AI利用料）まで引いた純額で出しています。</p>
+  <div class="roi">
+    <div class="card ctl">
+      <div class="f"><label>月間の問い合わせ件数 <span id="l1"></span></label><input type="number" id="i-vol" value="1200" min="50" step="50"></div>
+      <div class="f"><label>1件あたりの対応時間（分） <span id="l2"></span></label><input type="number" id="i-min" value="6" min="1" step="1"></div>
+      <div class="f"><label>対応スタッフの時間単価（円） <span id="l3"></span></label><input type="number" id="i-wage" value="1500" min="500" step="100"></div>
+      <div class="f"><label>自動解決率（BOTで完結）<span id="l4">62%</span></label><input type="range" id="i-rate" value="62" min="20" max="85"></div>
+      <div class="f"><label>AI下書きによる短縮率（残りの有人分）<span id="l5">45%</span></label><input type="range" id="i-draft" value="45" min="0" max="70"></div>
+      <p class="note">初期値は、選択式FAQで4割・AI BOTで2割強が完結する一般的なEC想定です。<b>数字はすべて置き換えて構いません。</b></p>
+    </div>
+    <div>
+      <div class="kpis">
+        <div class="card kpi acc"><div class="k">有人対応の削減率</div><div class="v" id="k1">—</div></div>
+        <div class="card kpi"><div class="k">月あたり削減時間</div><div class="v" id="k2">—</div></div>
+        <div class="card kpi ok"><div class="k">月あたり純削減額</div><div class="v" id="k3">—</div></div>
+        <div class="card kpi"><div class="k">初期費用の回収</div><div class="v" id="k4">—</div></div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table class="t"><thead><tr><th>内訳</th><th style="text-align:right">件数／時間</th><th style="text-align:right">金額（月）</th></tr></thead><tbody id="tb"></tbody></table>
+      </div>
+      <p class="note">ランニングコストの内訳：VPS（Chatwootセルフホスト）2,000円／月 ＋ AI利用料。AI利用料は<b>1問い合わせあたり約2.5円</b>で計算しています（分類・タグ付け・返信生成の3回呼び出し合計、Claude Haiku＋Sonnetの併用を想定。稼働中の別案件で実測した1件約5円より、短文かつキャッシュ利用で下がる前提）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIEW 5 ============ -->
+<section class="view" id="v-arch">
+  <h2 class="vt">⑤ 構成とフェーズの線引き</h2>
+  <p class="vd">フルスクラッチは作りません。既製のOSS／SaaSを土台に、御社固有のところだけを実装します。</p>
+
+  <div class="card archwrap">
+    <svg viewBox="0 0 1040 420" width="1040" style="max-width:100%;height:auto" role="img" aria-label="システム構成図">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7B8B92"/></marker>
+        <style>
+          .bx{fill:#fff;stroke:#D7DEDE;stroke-width:1.5;rx:9}
+          .ttl{font:700 13px "Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;fill:#15242A}
+          .sub{font:11px "Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;fill:#7B8B92}
+          .gl{font:700 11px "Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;fill:#0E6F6B;letter-spacing:.06em}
+          .ln{stroke:#7B8B92;stroke-width:1.4;fill:none;marker-end:url(#ar)}
+        </style>
+      </defs>
+
+      <text x="16" y="22" class="gl">チャネル</text>
+      <rect x="16" y="32" width="176" height="52" class="bx" fill="#F0FAF3" stroke="#9FD8B4"/>
+      <text x="30" y="54" class="ttl">LINE公式アカウント</text><text x="30" y="70" class="sub">Messaging API / リッチメニュー</text>
+      <rect x="16" y="94" width="176" height="52" class="bx" fill="#FCF0EE" stroke="#E2B0A8"/>
+      <text x="30" y="116" class="ttl">Gmail（サポート宛）</text><text x="30" y="132" class="sub">Gmail API / IMAP</text>
+      <rect x="16" y="156" width="176" height="52" class="bx" fill="#EFF3F8" stroke="#B0C2D6"/>
+      <text x="30" y="178" class="ttl">Webフォーム</text><text x="30" y="194" class="sub">サイト内チャット・交換申請</text>
+
+      <text x="232" y="22" class="gl">入口の自動化</text>
+      <rect x="232" y="32" width="186" height="80" class="bx" fill="#E0F0EF" stroke="#9CC9C6"/>
+      <text x="246" y="56" class="ttl">選択式FAQ BOT</text><text x="246" y="74" class="sub">2〜3階層のボタン分岐</text><text x="246" y="90" class="sub">→ ここで約40%が完結</text>
+      <rect x="232" y="126" width="186" height="82" class="bx" fill="#FBF0DC" stroke="#E2C88F"/>
+      <text x="246" y="150" class="ttl">AI BOT（RAG）</text><text x="246" y="168" class="sub">ナレッジ検索＋回答生成</text><text x="246" y="184" class="sub">根拠なし → 答えず人へ</text>
+      <text x="246" y="200" class="sub" style="fill:#8A5A0B">出典FAQ番号を必ず付与</text>
+
+      <text x="458" y="22" class="gl">一元管理</text>
+      <rect x="458" y="32" width="196" height="176" class="bx" fill="#fff" stroke="#0E6F6B" stroke-width="2"/>
+      <text x="472" y="58" class="ttl">Chatwoot（セルフホスト）</text>
+      <text x="472" y="80" class="sub">・LINE / Email / Web を1画面</text>
+      <text x="472" y="98" class="sub">・チケット、担当割当、SLA</text>
+      <text x="472" y="116" class="sub">・全イベントがWebhookで出る</text>
+      <text x="472" y="134" class="sub">・エージェント課金なし</text>
+      <text x="472" y="152" class="sub">・データは自社サーバー保有</text>
+      <text x="472" y="176" class="sub" style="fill:#0E6F6B;font-weight:700">VPS 月2,000円程度</text>
+
+      <text x="694" y="22" class="gl">AI処理レイヤー</text>
+      <rect x="694" y="32" width="186" height="176" class="bx" fill="#FBF0DC" stroke="#E2C88F"/>
+      <text x="708" y="58" class="ttl">n8n（自動化基盤）</text>
+      <text x="708" y="78" class="sub">Webhook受信 → 順に処理</text>
+      <text x="708" y="100" class="ttl">Claude API</text>
+      <text x="708" y="118" class="sub">① 分類・タグ付け（Haiku）</text>
+      <text x="708" y="136" class="sub">② 優先度・感情判定（Haiku）</text>
+      <text x="708" y="154" class="sub">③ 返信文の生成（Sonnet）</text>
+      <text x="708" y="176" class="sub" style="fill:#8A5A0B;font-weight:700">1件あたり約2.5円</text>
+
+      <text x="920" y="22" class="gl">人</text>
+      <rect x="920" y="32" width="104" height="80" class="bx" fill="#E0F0EF" stroke="#9CC9C6"/>
+      <text x="934" y="56" class="ttl">担当者</text><text x="934" y="74" class="sub">下書きを</text><text x="934" y="90" class="sub">確認して送信</text>
+      <rect x="920" y="126" width="104" height="82" class="bx" fill="#fff" stroke="#D7DEDE"/>
+      <text x="934" y="150" class="ttl">ナレッジ</text><text x="934" y="168" class="sub">GitHub管理</text><text x="934" y="184" class="sub">Markdown</text><text x="934" y="200" class="sub">履歴が残る</text>
+
+      <path class="ln" d="M192 58 L228 58"/>
+      <path class="ln" d="M192 120 L212 120 L212 165 L228 165"/>
+      <path class="ln" d="M192 182 L212 182 L212 167 L228 167"/>
+      <path class="ln" d="M418 72 L438 72 L438 100 L454 100"/>
+      <path class="ln" d="M418 167 L438 167 L438 130 L454 130"/>
+      <path class="ln" d="M654 100 L690 100"/>
+      <path class="ln" d="M786 208 L786 232 L560 232 L560 212" stroke-dasharray="4 3"/>
+      <text x="600" y="248" class="sub">AI下書きを内部メモとして書き戻す</text>
+      <path class="ln" d="M880 72 L916 72"/>
+      <path class="ln" d="M972 112 L972 122"/>
+      <path class="ln" d="M918 167 L900 167 L900 250 L325 250 L325 212" stroke-dasharray="4 3"/>
+      <text x="340" y="266" class="sub">AI BOTは常に最新ナレッジを参照</text>
+
+      <rect x="16" y="292" width="1008" height="112" rx="10" fill="#F3F6F6" stroke="#D7DEDE"/>
+      <text x="32" y="316" class="gl">この構成にした理由</text>
+      <text x="32" y="340" class="sub">・フルスクラッチを避けたので、Phase 1が3週間で立ち上がり、後から担当者が入れ替わっても引き継げます。</text>
+      <text x="32" y="360" class="sub">・Chatwootはエージェント課金がないため、対応スタッフが増えても月額が増えません（SaaS型は1人増えるごとに月2,000〜4,000円）。</text>
+      <text x="32" y="380" class="sub">・3年分の問い合わせという資産を、外部SaaSではなく御社のサーバーとGitHubに置けます。乗り換えも解約も自由に効きます。</text>
+    </svg>
+  </div>
+
+  <div class="card phasetbl" style="overflow:hidden">
+    <table class="t">
+      <thead><tr><th style="width:88px">フェーズ</th><th>やること</th><th style="width:120px">期間</th><th style="width:130px;text-align:right">概算</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pbadge p1">Phase 1</span></td>
+          <td><b>止血。有人対応を半分に落とすところまで。</b><br>選択式FAQ BOT（LINE＋Web）／AI BOT（RAG・出典付き）／Chatwoot構築とLINE・Gmail・フォーム接続／AIによる分類・タグ・優先度・下書き生成／3年分データの分類とFAQ 60〜80件の初版／<b>交換申請の受付と一次判定</b>／GitHub・README・構成図・運用手順の引き渡し</td>
+          <td>3週間</td><td class="n">180,000円</td></tr>
+        <tr><td><span class="pbadge p2">Phase 2</span></td>
+          <td>Phase 1の実ログを見てからの精度上げ。回答精度チューニング／FAQ 150件規模へ拡張／高確度の回答は<b>下書きではなく自動送信</b>へ移行／営業時間外の一次応答／対応品質のレポート自動化</td>
+          <td>2〜3週間</td><td class="n">250,000円</td></tr>
+        <tr><td><span class="pbadge p3">Phase 3</span></td>
+          <td>基幹連携。Shopify等の受注・在庫との接続／<b>配送状況を注文番号から自動回答</b>／返品交換の在庫引当・返金処理まで自動化／CSデータの分析ダッシュボード</td>
+          <td>3〜4週間</td><td class="n">300,000円〜</td></tr>
+        <tr><td><span class="pbadge p1" style="background:#7B8B92">保守</span></td>
+          <td>Chatwootの監視・更新・バックアップ／ナレッジ更新／回答精度の月次チューニングとレポート</td>
+          <td>月次</td><td class="n">30,000円／月</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Phase 1の金額はご提示予算の上限内に収まるよう、範囲を「有人対応を半分に落とす」ところまでに絞った構成です。値引きではなく、<b>最初の3週間で効果が数字に出る範囲を先に切り出しています。</b></p>
+</section>
+
+</div></main>
+
+<footer class="f"><div class="wrap">
+  架空ブランドによる動作デモです。実在の企業・サービスとは関係ありません。／制作 <a href="https://l-studiojp.com/" target="_blank" rel="noopener">Lスタジオ</a>
+</div></footer>
+
+<script>
+/* ========== ナレッジ ========== */
+const KB=[
+ {id:"DL-01",c:"配送",q:"注文してから何日で届きますか",a:"ご注文確定から1〜2営業日で発送し、発送後は本州・四国で翌日、北海道・九州で翌々日、沖縄・離島で2〜4日のお届けです。土日祝のご注文は翌営業日の出荷になります。",k:"何日 いつ 届く 到着 日数 納期 発送 出荷 お届け 届きますか どのくらい かかる 何営業日"},
+ {id:"DL-02",c:"配送",q:"発送済みなのに荷物が届きません",a:"追跡番号でお調べします。反映まで最大12時間かかることがあり、輸送中の遅延（天候・繁忙期）で1〜2日ずれる場合があります。予定日を2日過ぎている場合はこちらで配送会社に調査を依頼しますので、ご注文番号をお知らせください。",k:"届かない 届きません 届いていない 来ない 来ません まだ 未着 遅延 遅い 到着しない 何日も 注文した商品が届かない 発送されたのに 音沙汰"},
+ {id:"DL-03",c:"配送",q:"追跡番号はどこで確認できますか",a:"発送完了メール、およびマイページの「注文履歴」から確認いただけます。LINEでご注文番号を送っていただければ、この画面でも追跡状況をお返しします。",k:"追跡 番号 伝票 配送状況 どこ 確認 トラッキング"},
+ {id:"DL-04",c:"配送",q:"送料はいくらですか",a:"全国一律550円、税込8,000円以上のご購入で無料です。沖縄・離島は1,100円（8,000円以上で550円）となります。",k:"送料 配送料 いくら 無料 送料無料 何円以上 いくら以上 金額 条件 手数料 タダ"},
+ {id:"DL-05",c:"配送",q:"お届け日時を変更したいです",a:"発送前であればマイページから変更できます。発送後は配送会社の追跡ページ、またはご不在票から直接ご指定ください。",k:"日時 変更 指定 時間帯 再配達 受け取り 日にち"},
+ {id:"DL-06",c:"配送",q:"コンビニや宅配ボックスで受け取れますか",a:"宅配ボックスへのお届けは可能です。コンビニ受取はヤマト運輸の営業所受取のみ対応しており、ご注文時にお選びいただけます。",k:"コンビニ 受取 宅配ボックス 置き配 営業所 ロッカー"},
+ {id:"DL-07",c:"配送",q:"海外へ発送できますか",a:"現在は日本国内のみのお届けです。転送サービスをご利用の場合、破損・紛失の補償対象外となる点をご了承ください。",k:"海外 発送 国外 越境 転送 海外配送"},
+
+ {id:"SZ-01",c:"サイズ",q:"サイズ感を教えてください",a:"当ブランドはやや大きめの作りです。普段Mをお召しの方はM、ゆったり着たい方はLをおすすめします。各商品ページに実寸（着丈・身幅・肩幅・袖丈）と、モデルの身長・着用サイズを記載しています。",k:"サイズ感 大きめ 小さめ 普段 ゆったり タイト 選び方 どっち どちら 迷って 買えばいい 選べば 悩んで サイズ選び 普段M 普段L 合うサイズ"},
+ {id:"SZ-02",c:"サイズ",q:"サイズ表はどこにありますか",a:"各商品ページの「サイズ・実寸」タブに、S〜XLの実寸表を掲載しています。お手持ちの服を平置きして測った寸法と見比べていただくのが最も確実です。",k:"サイズ表 実寸 寸法 採寸 何センチ 身幅 着丈"},
+ {id:"SZ-03",c:"サイズ",q:"素材と洗濯方法を教えてください",a:"綿100%（一部ポリエステル混）です。洗濯機の弱水流でネット使用、漂白剤不可、陰干しをおすすめします。乾燥機は縮みの原因になるため避けてください。詳しくは商品タグの表示をご確認ください。",k:"素材 洗濯 洗える 洗えますか 縮む 縮み 縮みますか 洗い方 乾燥機 アイロン 生地 ケア 手入れ 毛玉"},
+ {id:"SZ-04",c:"サイズ",q:"色味が写真と違って見えます",a:"撮影時の照明とご覧の画面環境により、実物と色味が異なって見える場合があります。イメージと違った場合は返品の対象になりますので、到着後8日以内にご連絡ください。",k:"色 色味 違う 写真 イメージ 画像 思ってた 実物"},
+ {id:"SZ-05",c:"サイズ",q:"在庫切れの商品は再入荷しますか",a:"定番商品は3〜6週間で再入荷します。商品ページの「再入荷お知らせ」にご登録いただくと、入荷時にメールとLINEでお知らせします。シーズン商品は再入荷しない場合があります。",k:"在庫 再入荷 入荷 売り切れ 完売 待ち いつ入る 復活"},
+
+ {id:"RT-01",c:"返品交換",q:"返品はできますか",a:"商品到着後8日以内、未使用・タグ付きの状態であれば返品を承ります。返送料はお客様負担（初期不良・誤発送は当社負担）です。セール品・下着・カスタム品は返品対象外となります。",k:"返品 返品できますか 返品したい 返品可能 返せる 返したい 返せますか 返金 いらない 8日以内 期限 条件"},
+ {id:"RT-02",c:"返品交換",q:"サイズ交換をしたいです",a:"到着後8日以内・未使用・タグ付きであれば1回まで無料で交換いたします。交換をご希望の場合は、この画面の「交換を申し込む」からご注文番号と希望サイズをお送りください。在庫を確保のうえ返送用のご案内をお送りします。",k:"交換 交換したい 交換できますか 交換してほしい サイズ交換 取り替え 取り換え 大きかった 小さかった きつい ゆるい 別のサイズ 変えたい 替えて お願いしたい"},
+ {id:"RT-03",c:"返品交換",q:"返金はいつ頃になりますか",a:"返送品の到着確認後3営業日以内に手続きします。クレジットカードはカード会社の締めにより1〜2か月後の明細に反映、コンビニ決済・代引きはご指定口座へ7営業日以内にお振込みします。",k:"返金 いつ 返ってくる 入金 振込 返済 いくら戻る"},
+ {id:"RT-04",c:"返品交換",q:"届いた商品が不良品／注文と違います",a:"大変申し訳ございません。該当箇所のお写真とご注文番号をお送りください。確認のうえ、送料当社負担で交換または返金いたします。この件は優先対応として担当者に回します。",k:"不良 不良品 破損 壊れて 汚れ ほつれ ほつれている 縫製 糸 ボタン 取れた 穴 傷 違う商品 誤配送 間違い 別の商品 袖 裾 襟"},
+ {id:"RT-05",c:"返品交換",q:"開封してしまいましたが返品できますか",a:"開封のみで未着用・タグ付きであれば返品可能です。ご着用後、洗濯後、タグを外された後は対象外となります。",k:"開封 開けた 着た 試着 タグ 外した 使用済み"},
+
+ {id:"OR-01",c:"注文",q:"注文内容を変更・キャンセルしたいです",a:"発送準備前であればマイページから変更・キャンセルできます。発送後はキャンセルできませんので、到着後に返品手続きをお願いします。ご注文番号をお知らせいただければ、現在のステータスを確認します。",k:"注文 変更 キャンセル 取り消し 追加 やめたい 間違えた"},
+ {id:"OR-02",c:"注文",q:"注文確認メールが届きません",a:"迷惑メールフォルダと、ドメイン指定受信の設定をご確認ください。届いていない場合はご登録メールアドレスの誤りが考えられますので、お名前とご注文日をお知らせください。こちらで確認します。",k:"確認メール 届かない メール 来ない 注文できた 受付 完了メール"},
+ {id:"OR-03",c:"注文",q:"支払い方法は何がありますか",a:"クレジットカード（VISA/Master/JCB/AMEX）、Amazon Pay、PayPay、コンビニ後払い、代金引換に対応しています。後払いは手数料250円、代引きは330円です。",k:"支払い 決済 カード 使える クレジット paypay 代引き 後払い コンビニ 方法"},
+ {id:"OR-04",c:"注文",q:"領収書・請求書はもらえますか",a:"マイページの注文履歴から、宛名を指定してPDFで発行できます。適格請求書（インボイス）にも対応しています。",k:"領収書 請求書 インボイス 宛名 発行 経費 明細 pdf"},
+ {id:"OR-05",c:"注文",q:"クーポンが使えません",a:"有効期限・最低購入金額・対象商品の条件をご確認ください。1回のご注文につき1枚のみ利用可能で、セール商品との併用はできません。条件を満たしているのに使えない場合はクーポンコードをお知らせください。",k:"クーポン 割引 コード 使えない 適用 されない プロモーション 併用"},
+ {id:"OR-06",c:"注文",q:"ギフト包装はできますか",a:"1点330円で承ります。ご注文時のオプションでお選びください。納品書の金額を非表示にすることも可能です。メッセージカードは無料でお付けします。",k:"ギフト 包装 プレゼント ラッピング のし メッセージ 贈り物 金額 非表示"},
+
+ {id:"MB-01",c:"会員",q:"ポイントの使い方と有効期限",a:"税込100円につき1ポイント、1ポイント1円としてご利用いただけます。有効期限は最終購入日から1年間です。マイページで残高と履歴を確認できます。",k:"ポイント 使い方 有効期限 貯まる 失効 残高 何円分"},
+ {id:"MB-02",c:"会員",q:"パスワードを忘れました",a:"ログイン画面の「パスワードをお忘れの方」からご登録メールアドレスを入力してください。再設定用のメールをお送りします。届かない場合は迷惑メールフォルダをご確認ください。",k:"パスワード 忘れた ログインできない 再設定 リセット アカウント 入れない"},
+ {id:"MB-03",c:"会員",q:"退会したいです",a:"マイページの「登録情報」から退会いただけます。退会すると保有ポイントと購入履歴は失効し、復元できませんのでご注意ください。",k:"退会 解約 やめたい 削除 アカウント 消したい 配信停止"},
+ {id:"MB-04",c:"会員",q:"登録情報（住所・メール）を変更したい",a:"マイページの「登録情報」からご変更ください。発送準備前のご注文であれば、お届け先の変更も反映されます。",k:"住所 変更 引っ越し メールアドレス 電話番号 登録情報 変えたい"},
+ {id:"MB-05",c:"その他",q:"店舗はありますか／試着できますか",a:"現在はオンラインのみの展開です。年に数回、期間限定のポップアップストアを開催しており、LINEでご案内しています。",k:"店舗 実店舗 お店 試着 直営 ポップアップ どこ 場所"},
+ {id:"MB-06",c:"その他",q:"問い合わせの返信はいつ来ますか",a:"営業時間は平日10:00〜18:00で、24時間以内（土日祝を挟む場合は翌営業日中）にご返信しています。急ぎの場合はその旨を書き添えてください。",k:"返信 いつ 連絡 営業時間 対応時間 遅い 返事 電話"},
+ {id:"MB-07",c:"その他",q:"法人・卸での取引は可能ですか",a:"可能です。取扱条件がございますので、法人名・ご担当者名・希望品目をお知らせください。担当者からご連絡します。",k:"法人 卸 取引 掛け率 まとめて 大量 業者 ホールセール"},
+ {id:"MB-08",c:"その他",q:"アレルギーや肌への影響が心配です",a:"素材は商品ページに全て記載しています。染色は国内基準に適合した薬剤を使用していますが、敏感肌の方は事前に素材表示をご確認ください。ご不安な場合は個別にお答えしますのでお知らせください。",k:"アレルギー 肌 肌が弱い 敏感肌 かゆい かゆみ かぶれ 荒れる 心配 不安 大丈夫 安全 染料 化学"}
+];
+
+/* ========== 日本語検索（文字bigram＋漢字1文字素性、idf重み・被覆率正規化） ==========
+   ・活用ゆれ（届く／届き／届かない）に強くするため漢字1文字も素性に入れる
+   ・スコアは「クエリを全部拾えた場合の理論値」で割った被覆率（0〜1）
+   ・被覆率がTH未満、または希少語の一致が2つ未満なら「根拠なし」＝答えずに人へ回す
+   本番ではこの層をベクトル検索＋Claudeの生成に差し替えます（判定の作法は同じ）。 */
+function norm(s){return (s||"").toLowerCase().replace(/[ぁ-ん]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60)).replace(/[、。！？!?,.\s　・「」（）()]/g,"");}
+function grams(s){s=norm(s);const g=[];for(let i=0;i<s.length-1;i++)g.push(s.slice(i,i+2));if(s.length===1)g.push(s);return g;}
+function uniq(a){return [...new Set(a)];}
+const W={k:2.4,q:1.8,a:1.0};
+const CH=/[一-鿿゠-ヿA-Za-z0-9]/;
+function feats(s){const n=norm(s);const u=[];for(const c of n)if(CH.test(c))u.push('_'+c);return {g:uniq(grams(n)),u:uniq(u)};}
+const DOC=KB.map(f=>{
+  const w={};
+  const put=(t,base)=>{const F=feats(t);F.g.forEach(x=>w[x]=Math.max(w[x]||0,base));F.u.forEach(x=>w[x]=Math.max(w[x]||0,base*0.55));};
+  put(f.a,W.a);put(f.q,W.q);put(f.k,W.k);
+  return {f,w};
+});
+const N=DOC.length,DF={};
+DOC.forEach(d=>Object.keys(d.w).forEach(k=>DF[k]=(DF[k]||0)+1));
+function idf(x){return Math.log(N/((DF[x]||0)+0.5));}
+function search(q){
+  const F=feats(q);
+  const terms=F.g.map(x=>({x,w:W.k})).concat(F.u.map(x=>({x,w:W.k*0.55})));
+  if(!terms.length)return [];
+  let ideal=0;terms.forEach(t=>ideal+=Math.max(idf(t.x),0)*t.w);
+  if(ideal<=0)return [];
+  return DOC.map(d=>{
+    let sc=0,rare=0;
+    terms.forEach(t=>{if(d.w[t.x]){sc+=Math.max(idf(t.x),0)*d.w[t.x];if((DF[t.x]||0)<=4)rare++;}});
+    return {f:d.f,sc:sc/ideal,rare:rare};
+  }).filter(r=>r.sc>0).sort((a,b)=>b.sc-a.sc);
+}
+const TH=0.30;
+function grounded(r){return !!(r&&r.sc>=TH&&r.rare>=2);} // 根拠ありと見なせるか
+
+/* ========== タブ ========== */
+const tabs=[...document.querySelectorAll('nav.tabs button')];
+function go(v){tabs.forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  window.scrollTo({top:0,behavior:'smooth'});}
+tabs.forEach(b=>b.onclick=()=>go(b.dataset.v));
+
+/* ========== ① チャット ========== */
+const chat=document.getElementById('chat'),qr=document.getElementById('qr'),inp=document.getElementById('inp'),tx=document.getElementById('tx'),logEl=document.getElementById('log');
+let state={mode:'menu',path:[],ctx:null,form:null,askedCount:0};
+function log(t,hi){const d=document.createElement('div');d.className='l'+(hi?' hi':'');d.innerHTML=t;logEl.appendChild(d);logEl.scrollTop=logEl.scrollHeight;}
+function step(n){['s1','s2','s3','s4'].forEach((id,i)=>{const el=document.getElementById(id);el.classList.toggle('on',i===n-1);el.classList.toggle('done',i<n-1);});}
+function bubble(who,html,src){const d=document.createElement('div');d.className='msg '+who;d.innerHTML=html+(src?'<span class="src">出典：'+src+'</span>':'');chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d;}
+function sys(t){const d=document.createElement('div');d.className='msg sys';d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+function typing(){const d=document.createElement('div');d.className='msg bot typing';d.innerHTML='<span></span><span></span><span></span>';chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d;}
+function botSay(html,src,delay){const t=typing();return new Promise(r=>setTimeout(()=>{t.remove();bubble('bot',html,src);r();},delay||620));}
+function setQr(items){qr.innerHTML='';items.forEach(it=>{const b=document.createElement('button');b.textContent=it.t;if(it.gh)b.classList.add('gh');b.onclick=it.f;qr.appendChild(b);});}
+
+const TREE={
+ root:{t:"ご用件を選んでください。",o:[
+   {t:"配送・お届け",n:"haiso"},{t:"サイズ・商品",n:"size"},{t:"返品・交換",n:"henpin"},
+   {t:"注文・お支払い",n:"chumon"},{t:"会員・ポイント",n:"kaiin"},{t:"その他",n:"sonota"}]},
+ haiso:{t:"配送について、近いものはどれですか。",o:[
+   {t:"いつ届く？",a:"DL-01"},{t:"まだ届かない",a:"DL-02"},{t:"追跡番号を知りたい",a:"DL-03"},
+   {t:"送料",a:"DL-04"},{t:"日時を変更したい",a:"DL-05"},{t:"受け取り方法",a:"DL-06"},{t:"← 戻る",n:"root"}]},
+ size:{t:"サイズ・商品について、近いものはどれですか。",o:[
+   {t:"サイズ感を知りたい",a:"SZ-01"},{t:"サイズ表はどこ？",a:"SZ-02"},{t:"素材・洗濯方法",a:"SZ-03"},
+   {t:"色が写真と違う",a:"SZ-04"},{t:"再入荷はいつ？",a:"SZ-05"},{t:"← 戻る",n:"root"}]},
+ henpin:{t:"返品・交換について、近いものはどれですか。",o:[
+   {t:"返品したい",a:"RT-01"},{t:"サイズ交換したい",a:"RT-02"},{t:"返金はいつ？",a:"RT-03"},
+   {t:"不良品・誤発送",a:"RT-04"},{t:"開封後の返品",a:"RT-05"},
+   {t:"交換を申し込む",n:"__form",gh:1},{t:"← 戻る",n:"root"}]},
+ chumon:{t:"注文・お支払いについて、近いものはどれですか。",o:[
+   {t:"変更・キャンセル",a:"OR-01"},{t:"確認メールが来ない",a:"OR-02"},{t:"支払い方法",a:"OR-03"},
+   {t:"領収書がほしい",a:"OR-04"},{t:"クーポンが使えない",a:"OR-05"},{t:"ギフト包装",a:"OR-06"},{t:"← 戻る",n:"root"}]},
+ kaiin:{t:"会員・ポイントについて、近いものはどれですか。",o:[
+   {t:"ポイントについて",a:"MB-01"},{t:"パスワードを忘れた",a:"MB-02"},{t:"登録情報の変更",a:"MB-04"},
+   {t:"退会したい",a:"MB-03"},{t:"← 戻る",n:"root"}]},
+ sonota:{t:"その他について、近いものはどれですか。",o:[
+   {t:"店舗・試着",a:"MB-05"},{t:"返信はいつ来る？",a:"MB-06"},{t:"法人・卸",a:"MB-07"},
+   {t:"素材・肌への影響",a:"MB-08"},{t:"← 戻る",n:"root"}]}
+};
+const byId=id=>KB.find(f=>f.id===id);
+
+async function showNode(n){
+  state.mode='menu';inp.classList.add('off');
+  const nd=TREE[n];
+  await botSay(nd.t,null,n==='root'?520:420);
+  setQr(nd.o.map(o=>({t:o.t,gh:o.gh,f:()=>{
+    bubble('me',o.t);
+    log('選択：<b>'+o.t+'</b>');
+    if(o.n==='__form'){openForm();return;}
+    if(o.n){state.path=[o.n];showNode(o.n);return;}
+    answer(o.a);
+  }})));
+}
+async function answer(id){
+  const f=byId(id);state.ctx=f;
+  step(1);
+  await botSay(f.a,f.id+'（'+f.c+'）',560);
+  log('FAQ回答 <b>'+f.id+'</b> を返却 → 選択式で完結');
+  setQr([
+   {t:"解決しました 👍",gh:1,f:async()=>{bubble('me','解決しました 👍');log('<b>自己解決</b>／有人対応 0件',1);await botSay('ありがとうございます。またご利用ください。',null,420);setQr([{t:"最初に戻る",f:()=>start()}]);}},
+   {t:"解決しない",f:()=>toAi(f)},
+   {t:"別の質問をする",f:()=>{bubble('me','別の質問をする');showNode('root');}}
+  ]);
+}
+async function toAi(from){
+  bubble('me','解決しない');
+  step(2);
+  log('選択式で未解決 → <b>AI BOTへ引き渡し</b>');
+  state.mode='ai';
+  await botSay('うまくお答えできず失礼しました。<b>お困りのことを、そのまま文章で入力してください。</b>\nご注文番号がわかる場合は一緒に書いていただけると早いです。',null,700);
+  setQr([{t:"いきなり人と話したい",f:()=>escalate('お客さまのご希望により有人対応へ')}]);
+  inp.classList.remove('off');tx.focus();
+}
+async function aiAnswer(q){
+  state.askedCount++;
+  const res=search(q);
+  const top=res[0];
+  log('AI BOT 検索：「'+q.slice(0,18)+'」→ '+(top?top.f.id+'／被覆率'+top.sc.toFixed(2)+'・希少語'+top.rare:'該当なし'));
+  const t=typing();
+  await new Promise(r=>setTimeout(r,780));
+  t.remove();
+  if(!grounded(top)){
+    log('<b>根拠不足（閾値'+TH+'／希少語2つ）→ 回答せず有人へ</b>',1);
+    bubble('bot','申し訳ありません。こちらでは確かなご案内ができませんでした。<b>担当者におつなぎします。</b>');
+    setTimeout(()=>escalate('AI BOTがナレッジ内に根拠を見つけられず'),500);
+    return;
+  }
+  const also=res.slice(1,3).filter(r=>r.sc>TH*0.8&&r.rare>=2);
+  bubble('bot',top.f.a,top.f.id+'（'+top.f.c+'）'+(also.length?' ／ 参考：'+also.map(r=>r.f.id).join('・'):''));
+  setQr([
+   {t:"解決しました 👍",gh:1,f:async()=>{bubble('me','解決しました 👍');log('<b>AI BOTで自己解決</b>／有人対応 0件',1);await botSay('よかったです。またご利用ください。',null,420);setQr([{t:"最初に戻る",f:()=>start()}]);inp.classList.add('off');}},
+   {t:"まだ解決しない",f:()=>{bubble('me','まだ解決しない');escalate('AI BOTの回答で解決しなかったため');}},
+   {t:"別のことを聞く",f:()=>{bubble('me','別のことを聞く');setQr([]);tx.focus();}}
+  ]);
+}
+async function escalate(reason){
+  step(4);
+  inp.classList.add('off');setQr([]);
+  await botSay('担当者におつなぎしました。<b>平日10:00〜18:00、24時間以内</b>にご返信します。ここまでのやり取りは担当者に引き継がれていますので、もう一度説明していただく必要はありません。',null,600);
+  const hist=[...chat.querySelectorAll('.msg')].filter(m=>!m.classList.contains('sys')).map(m=>({who:m.classList.contains('me')?'cust':'bot',text:m.textContent.replace(/出典：.*$/,'').trim()}));
+  const lastQ=[...hist].reverse().find(h=>h.who==='cust'&&h.text.length>4);
+  const q=lastQ?lastQ.text:'（選択式のみ）';
+  const res=search(q);
+  const cat=res[0]?res[0].f.c:'その他';
+  const urgent=/不良|破損|届かない|遅|間違|違う|クレーム|最悪|ひどい|返金|至急|急ぎ/.test(q);
+  const t=addTicket({
+    ch:'line',name:'デモ利用者さま',subj:q.slice(0,26)||'選択式FAQから引き継ぎ',
+    cat:cat,prio:urgent?'高':'中',sent:urgent?'不満':'中立',
+    msgs:hist.filter(h=>h.who==='cust').map(h=>({who:'cust',t:h.text})).slice(-3),
+    reason:reason,srcIds:res.slice(0,2).map(r=>r.f.id)
+  });
+  sys('チケット '+t.id+' を作成しました（受信箱に反映）');
+  log('<b>チケット '+t.id+' 生成 → 受信箱へ</b>（分類：'+cat+'／優先度：'+(urgent?'高':'中')+'）',1);
+  setQr([{t:"受信箱（担当者側）を見る 👉",gh:1,f:()=>{go('inbox');openTk(t.id);}},{t:"最初からやり直す",f:()=>start()}]);
+}
+
+/* 交換申請フォーム */
+function openForm(){
+  step(3);
+  inp.classList.add('off');setQr([]);
+  log('交換申請フォームを表示（Phase 1 = 受付と一次判定まで）');
+  const d=document.createElement('div');d.className='msg bot';d.style.maxWidth='94%';
+  d.innerHTML='<b>交換のお申し込み</b><div class="reqform">'+
+   '<label>ご注文番号</label><input id="f-no" value="LM-240815-3391">'+
+   '<div class="row"><div><label>ご購入日</label><input type="date" id="f-date"></div>'+
+   '<div><label>商品の状態</label><select id="f-cond"><option>未使用・タグ付き</option><option>開封のみ・タグ付き</option><option>着用済み</option></select></div></div>'+
+   '<label>交換理由</label><select id="f-rsn"><option>サイズが合わない</option><option>イメージと違った</option><option>不良品・破損</option><option>誤った商品が届いた</option></select>'+
+   '<label>ご希望のサイズ</label><select id="f-size"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select>'+
+   '<label>備考（任意）</label><textarea id="f-note" rows="2" placeholder="例：肩幅が少しきつく感じました"></textarea>'+
+   '<div style="height:10px"></div></div>';
+  chat.appendChild(d);chat.scrollTop=chat.scrollHeight;
+  const dt=new Date();dt.setDate(dt.getDate()-5);
+  d.querySelector('#f-date').value=dt.toISOString().slice(0,10);
+  setQr([{t:"この内容で申し込む",gh:1,f:()=>submitForm(d)},{t:"やめる",f:()=>{d.remove();showNode('henpin');}}]);
+}
+async function submitForm(d){
+  const no=d.querySelector('#f-no').value.trim();
+  const date=d.querySelector('#f-date').value;
+  const cond=d.querySelector('#f-cond').value;
+  const rsn=d.querySelector('#f-rsn').value;
+  const size=d.querySelector('#f-size').value;
+  const note=d.querySelector('#f-note').value.trim();
+  setQr([]);
+  bubble('me','交換を申し込む\n注文番号：'+no+'\n理由：'+rsn+'／希望サイズ：'+size);
+  const days=Math.floor((Date.now()-new Date(date).getTime())/86400000);
+  log('一次判定：経過 '+days+'日／状態「'+cond+'」／理由「'+rsn+'」');
+  const defect=/不良|誤った/.test(rsn);
+  const ok=(days<=8&&cond!=='着用済み')||defect;
+  const t=typing();await new Promise(r=>setTimeout(r,900));t.remove();
+  if(ok){
+    const rid='EX-'+String(Math.floor(Math.random()*9000)+1000);
+    bubble('bot','お申し込みを受け付けました。<b>受付番号 '+rid+'</b>\n'+(defect?'不良・誤発送のため<b>送料は当社負担</b>で手配します。':'到着後8日以内・'+cond+'のため、<b>無料交換の対象</b>です。')+'\n希望サイズ '+size+' の在庫を確保しました。返送用の着払い伝票の案内を、この後お送りします。');
+    log('<b>自動受付OK → 受付番号 '+rid+' 発行</b>（有人0件）',1);
+    addTicket({ch:'form',name:'デモ利用者さま',subj:'交換申請 '+rid+'（'+rsn+'）',cat:'返品交換',prio:defect?'高':'低',sent:defect?'不満':'中立',
+      msgs:[{who:'cust',t:'注文番号 '+no+'／購入から'+days+'日／'+cond+'／理由：'+rsn+'／希望サイズ：'+size+(note?'／備考：'+note:'')}],
+      reason:'自動受付済み（'+(defect?'不良・誤発送':'8日以内・未使用')+'）— 在庫確保まで完了。人の確認は発送処理のみ',
+      srcIds:['RT-02','RT-04'],status:'auto'});
+    setQr([{t:"受信箱（担当者側）を見る 👉",gh:1,f:()=>go('inbox')},{t:"最初からやり直す",f:()=>start()}]);
+  }else{
+    bubble('bot','お申し込みを受け付けました。'+(days>8?'ご購入から'+days+'日経過':'商品が着用済み')+'のため、<b>自動での受付条件から外れます。</b>担当者が個別に確認し、24時間以内にご連絡します。');
+    log('<b>自動判定NG → 有人確認へ</b>（条件外）',1);
+    const t2=addTicket({ch:'form',name:'デモ利用者さま',subj:'交換申請（要判断：'+(days>8?days+'日経過':'着用済み')+'）',cat:'返品交換',prio:'中',sent:'不満',
+      msgs:[{who:'cust',t:'注文番号 '+no+'／購入から'+days+'日／'+cond+'／理由：'+rsn+'／希望サイズ：'+size+(note?'／備考：'+note:'')}],
+      reason:'規定外のため人が判断。AIは規定と過去の類似対応をまとめて提示',srcIds:['RT-01','RT-05']});
+    setQr([{t:"受信箱（担当者側）を見る 👉",gh:1,f:()=>{go('inbox');openTk(t2.id);}},{t:"最初からやり直す",f:()=>start()}]);
+  }
+}
+
+document.getElementById('sd').onclick=send;
+tx.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+function send(){const v=tx.value.trim();if(!v)return;tx.value='';bubble('me',v);setQr([]);aiAnswer(v);}
+document.getElementById('reset').onclick=()=>start();
+
+async function start(){
+  chat.innerHTML='';qr.innerHTML='';logEl.innerHTML='';inp.classList.add('off');state={mode:'menu',path:[],ctx:null,askedCount:0};
+  step(1);
+  log('セッション開始');
+  sys('LUMINA 公式アカウント');
+  await botSay('LUMINAサポートです。<b>選択肢からお選びいただくと、その場でお答えできます。</b>',null,380);
+  showNode('root');
+}
+
+/* ========== ② 受信箱 ========== */
+let TK=[
+ {id:"#1041",ch:"mail",name:"佐藤 美咲",subj:"注文した商品がまだ届きません",cat:"配送",prio:"高",sent:"不満",status:"open",time:"9分前",
+  msgs:[{who:"cust",t:"8/12に注文（LM-240812-1177）したのですが、まだ届きません。発送メールは届いています。旅行に持っていきたかったので、いつ届くか教えてください。"}],
+  reason:"予定日を2日超過。追跡調査が必要",srcIds:["DL-02","DL-03"]},
+ {id:"#1040",ch:"line",name:"はるか",subj:"サイズ交換したいのですが",cat:"返品交換",prio:"中",sent:"中立",status:"open",time:"22分前",
+  msgs:[{who:"cust",t:"先週買ったニット、Mだと袖が長かったのでSに交換ってできますか？タグはまだ付いてます"}],
+  reason:"8日以内・タグ付き＝無料交換の対象。交換申請フォームへ誘導すれば自動化可能",srcIds:["RT-02"]},
+ {id:"#1039",ch:"form",name:"田中 亮介",subj:"届いた商品にほつれがあります",cat:"返品交換",prio:"高",sent:"不満",status:"open",time:"41分前",
+  msgs:[{who:"cust",t:"本日届いたシャツの右袖にほつれがありました。写真を添付します。交換していただけますか。それとも返金でしょうか。"}],
+  reason:"不良品。送料当社負担での交換または返金。優先対応",srcIds:["RT-04","RT-03"]},
+ {id:"#1038",ch:"line",name:"Yuka",subj:"クーポンが使えない",cat:"注文",prio:"中",sent:"中立",status:"open",time:"1時間前",
+  msgs:[{who:"cust",t:"メールで届いた10%オフのクーポン、カートで入れてもエラーになります。コードはSUMMER10です"}],
+  reason:"セール品との併用不可の可能性。カート内容の確認が必要",srcIds:["OR-05"]},
+ {id:"#1037",ch:"mail",name:"株式会社ミナト 購買部",subj:"法人での取引について",cat:"その他",prio:"低",sent:"中立",status:"open",time:"2時間前",
+  msgs:[{who:"cust",t:"貴社商品の法人向け卸取引について伺いたく連絡しました。掛け率と最低ロットをご教示ください。"}],
+  reason:"営業判断が必要。担当者へ割り当て",srcIds:["MB-07"]},
+ {id:"#1036",ch:"line",name:"ken",subj:"送料はいくら？",cat:"配送",prio:"低",sent:"中立",status:"closed",time:"3時間前",
+  msgs:[{who:"cust",t:"送料っていくらですか"},{who:"bot",t:"全国一律550円、税込8,000円以上のご購入で無料です。沖縄・離島は1,100円（8,000円以上で550円）となります。"},{who:"cust",t:"ありがとうございます"}],
+  reason:"BOTで完結（有人対応なし）",srcIds:["DL-04"],auto:true}
+];
+let seq=1042,cur=null,filt='all';
+function addTicket(o){
+  const t=Object.assign({id:'#'+(seq++),status:'open',time:'たった今',isNew:true},o);
+  TK.unshift(t);renderList();bump();return t;
+}
+function bump(){const n=TK.filter(t=>t.status==='open'&&t.isNew).length;const b=document.getElementById('nb');b.textContent=n;b.classList.toggle('zero',n===0);}
+const CHN={line:{l:'LINE',c:'line'},mail:{l:'MAIL',c:'mail'},form:{l:'FORM',c:'form'}};
+function renderList(){
+  const l=document.getElementById('tkl');
+  const arr=TK.filter(t=>filt==='all'?1:filt==='open'?t.status==='open':t.ch===filt);
+  document.getElementById('cnt').textContent=arr.length+'件';
+  l.innerHTML='';
+  arr.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='tk'+(cur===t.id?' on':'')+(t.isNew?' new':'');
+    d.innerHTML='<div class="ch '+CHN[t.ch].c+'">'+CHN[t.ch].l.slice(0,4)+'</div><div class="m">'+
+      '<div class="t">'+t.name+'</div><div class="s">'+t.subj+'</div>'+
+      '<div class="tags"><span class="pill acc">'+t.cat+'</span>'+
+      '<span class="pill '+(t.prio==='高'?'bad':t.prio==='中'?'warn':'mut')+'">優先度'+t.prio+'</span>'+
+      (t.status==='closed'?'<span class="pill ok">解決済</span>':t.status==='auto'?'<span class="pill ok">自動受付</span>':'')+
+      '<span class="pill mut" style="background:transparent;border:0;color:var(--ink3);padding:2px 0">'+t.time+'</span></div></div>';
+    d.onclick=()=>openTk(t.id);
+    l.appendChild(d);
+  });
+}
+document.getElementById('chf').onclick=e=>{if(e.target.tagName!=='BUTTON')return;
+  [...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b===e.target));filt=e.target.dataset.c;renderList();};
+
+function openTk(id){
+  const t=TK.find(x=>x.id===id);if(!t)return;
+  cur=id;t.isNew=false;bump();renderList();
+  document.getElementById('thh').innerHTML='<div class="t">'+t.name+'</div><span class="pill mut">'+CHN[t.ch].l+'</span><span class="pill acc">'+t.cat+'</span><span class="pill '+(t.prio==='高'?'bad':t.prio==='中'?'warn':'mut')+'">優先度'+t.prio+'</span><span style="margin-left:auto;font-size:12px;color:var(--ink3)">'+t.id+' ／ '+t.time+'</span>';
+  const b=document.getElementById('thb');b.innerHTML='';
+  t.msgs.forEach(m=>{const d=document.createElement('div');d.className='tmsg '+(m.who==='cust'?'cust':'staff');
+    d.innerHTML='<span class="who">'+(m.who==='cust'?t.name:m.who==='bot'?'FAQ BOT（自動）':'担当者')+'</span>'+m.t;b.appendChild(d);});
+  b.scrollTop=b.scrollHeight;
+  const f=document.getElementById('thf');
+  if(t.status==='closed'){f.innerHTML='<div style="text-align:center;color:var(--ink3);font-size:13px;padding:8px">この会話は解決済みです'+(t.auto?'（BOTで完結・有人対応なし）':'')+'</div>';}
+  else{
+    f.innerHTML='<div class="draftbox"><div class="dh">🤖 AIが作成した返信案 <span class="pill mut" id="dmeta">生成待ち</span></div>'+
+      '<textarea id="dft" placeholder="「AI下書きを生成」を押してください"></textarea>'+
+      '<div class="dact"><button class="btn" id="gen">AI下書きを生成</button><button class="btn p" id="snd" disabled>承認して送信</button><button class="btn" id="esc">担当者を変更</button></div></div>';
+    document.getElementById('gen').onclick=()=>genDraft(t);
+    document.getElementById('snd').onclick=()=>sendDraft(t);
+    document.getElementById('esc').onclick=()=>alert('デモのため動作しません。実装時は担当者の割り当て変更とSlack通知が動きます。');
+    if(t.draft){document.getElementById('dft').value=t.draft;document.getElementById('snd').disabled=false;document.getElementById('dmeta').textContent='生成済み';}
+    else{setTimeout(()=>genDraft(t),260);}
+  }
+  renderAi(t);
+}
+function renderAi(t){
+  const p=document.getElementById('aip');
+  const srcs=(t.srcIds||[]).map(byId).filter(Boolean);
+  p.innerHTML=
+   '<div class="ibhead">AIの判定</div>'+
+   '<div class="aisec"><h4>自動分類</h4>'+
+     '<div class="kv"><span>カテゴリ</span><b>'+t.cat+'</b></div>'+
+     '<div class="kv"><span>優先度</span><b style="color:'+(t.prio==='高'?'var(--bad)':t.prio==='中'?'var(--warn)':'var(--ink2)')+'">'+t.prio+'</b></div>'+
+     '<div class="kv"><span>感情</span><b>'+(t.sent||'中立')+'</b></div>'+
+     '<div class="kv"><span>チャネル</span><b>'+CHN[t.ch].l+'</b></div></div>'+
+   '<div class="aisec"><h4>エスカレーション理由</h4><p style="margin:0;font-size:12.5px;color:var(--ink2)">'+(t.reason||'—')+'</p></div>'+
+   '<div class="aisec"><h4>参照したナレッジ</h4>'+(srcs.length?srcs.map(f=>'<div class="srcitem"><span class="id">'+f.id+'</span> '+f.q+'</div>').join(''):'<p style="margin:0;font-size:12.5px;color:var(--ink3)">該当なし（だから人に回っています）</p>')+'</div>'+
+   '<div class="aisec" style="border-bottom:0"><h4>この1件のAI利用料</h4><div class="kv"><span>分類・優先度・生成 計3回</span><b>約2.5円</b></div>'+
+     '<p class="note" style="margin-top:6px">Haiku（分類）＋Sonnet（生成）の併用。ナレッジ部分はプロンプトキャッシュで課金を抑えます。</p></div>';
+}
+function genDraft(t){
+  const ta=document.getElementById('dft');if(!ta)return;
+  const meta=document.getElementById('dmeta');
+  meta.textContent='生成中…';ta.value='';
+  const srcs=(t.srcIds||[]).map(byId).filter(Boolean);
+  let body='';
+  if(srcs.length){
+    body=srcs.map(f=>f.a).join('\n\n');
+  }else{body='恐れ入りますが、確認のうえ改めてご連絡いたします。';}
+  const head=t.name+' 様\n\nいつもLUMINAをご利用いただきありがとうございます。\nお問い合わせいただいた件についてご案内いたします。\n\n';
+  const tail='\n\nご不明な点がございましたら、このままご返信ください。\n引き続きよろしくお願いいたします。\n\nLUMINA カスタマーサポート';
+  const full=head+body+tail;
+  let i=0;
+  const iv=setInterval(()=>{
+    i+=Math.max(4,Math.floor(full.length/34));
+    ta.value=full.slice(0,i);ta.scrollTop=ta.scrollHeight;
+    if(i>=full.length){clearInterval(iv);t.draft=full;
+      meta.textContent='生成完了（参照：'+(srcs.map(s=>s.id).join('・')||'なし')+'）';
+      const s=document.getElementById('snd');if(s)s.disabled=false;}
+  },26);
+}
+function sendDraft(t){
+  const ta=document.getElementById('dft');if(!ta||!ta.value.trim())return;
+  t.msgs.push({who:'staff',t:ta.value.trim()});
+  t.status='closed';t.time='たった今';
+  renderList();openTk(t.id);
+}
+
+/* ========== ③ ナレッジ ========== */
+const ks=document.getElementById('ks'),kl=document.getElementById('klist');
+function renderK(q){
+  let arr;
+  if(q&&q.trim()){arr=search(q).slice(0,10);}
+  else{arr=KB.map(f=>({f,sc:null}));}
+  if(!arr.length){kl.innerHTML='<div class="faqrow"><div class="q">該当するFAQが見つかりませんでした。<b>この場合BOTは推測で答えず、人へ回します。</b></div></div>';return;}
+  kl.innerHTML='';
+  arr.forEach(r=>{
+    const d=document.createElement('div');d.className='faqrow';
+    d.innerHTML='<div class="q"><span class="pill acc">'+r.f.c+'</span>'+r.f.q+'</div>'+
+      '<div class="a">'+r.f.a+'</div>'+
+      '<div class="meta"><span class="sc">'+r.f.id+'</span>'+
+      (r.sc!==null?'<span class="sc">被覆率 '+r.sc.toFixed(2)+'</span>'+(grounded(r)?'<span class="pill ok">BOTが回答できる</span>':'<span class="pill warn">根拠不足 → 人へ</span>'):'')+'</div>';
+    d.onclick=()=>d.classList.toggle('open');
+    if(r.sc!==null&&r===arr[0])d.classList.add('open');
+    kl.appendChild(d);
+  });
+}
+ks.addEventListener('input',()=>renderK(ks.value));
+const TOPICS=[["配送・お届け",11420],["返品・交換",8930],["サイズ・商品",6510],["注文・支払い",5240],["会員・ポイント",2870],["その他",1872]];
+(function(){const b=document.getElementById('bars');const mx=Math.max(...TOPICS.map(t=>t[1]));const tot=TOPICS.reduce((a,t)=>a+t[1],0);
+ b.innerHTML=TOPICS.map(t=>'<div class="bar"><span class="lb">'+t[0]+'</span><span class="tr"><span class="fl" style="width:'+(t[1]/mx*100)+'%"></span></span><span class="vl">'+t[1].toLocaleString()+'件</span></div>').join('')
+ +'<div class="bar" style="margin-top:8px;border-top:1px solid var(--line-soft);padding-top:8px"><span class="lb"><b>合計</b></span><span class="tr" style="background:transparent"></span><span class="vl"><b>'+tot.toLocaleString()+'件</b></span></div>';})();
+
+/* ========== ④ 試算 ========== */
+const F=['i-vol','i-min','i-wage','i-rate','i-draft'].map(id=>document.getElementById(id));
+function yen(n){return '¥'+Math.round(n).toLocaleString();}
+function calc(){
+  const vol=+F[0].value||0,min=+F[1].value||0,wage=+F[2].value||0,rate=(+F[3].value||0)/100,dr=(+F[4].value||0)/100;
+  document.getElementById('l4').textContent=Math.round(rate*100)+'%';
+  document.getElementById('l5').textContent=Math.round(dr*100)+'%';
+  const beforeH=vol*min/60, beforeY=beforeH*wage;
+  const autoN=vol*rate, humanN=vol-autoN;
+  const humanH=humanN*min/60*(1-dr), humanY=humanH*wage;
+  const savedH=beforeH-humanH, savedY=beforeY-humanY;
+  const api=vol*2.5, vps=2000, run=api+vps;
+  const net=savedY-run;
+  const init=180000;
+  const months=net>0?init/net:null;
+  const cutRate=beforeH>0?savedH/beforeH*100:0;
+  document.getElementById('k1').innerHTML=Math.round(cutRate)+'<span class="u">%</span>';
+  document.getElementById('k2').innerHTML=Math.round(savedH).toLocaleString()+'<span class="u">時間</span>';
+  document.getElementById('k3').innerHTML=yen(net);
+  document.getElementById('k4').innerHTML=months?(months<1?'1<span class="u">か月未満</span>':Math.ceil(months)+'<span class="u">か月</span>'):'—';
+  document.getElementById('tb').innerHTML=
+   '<tr><td>導入前：全件を人が対応</td><td class="n">'+vol.toLocaleString()+'件 ／ '+Math.round(beforeH).toLocaleString()+'h</td><td class="n">'+yen(beforeY)+'</td></tr>'+
+   '<tr><td>BOTで完結（人が触らない）</td><td class="n">'+Math.round(autoN).toLocaleString()+'件</td><td class="n" style="color:var(--ok)">−'+yen(autoN*min/60*wage).slice(1)+'</td></tr>'+
+   '<tr><td>有人対応（AI下書きで'+Math.round(dr*100)+'%短縮）</td><td class="n">'+Math.round(humanN).toLocaleString()+'件 ／ '+Math.round(humanH).toLocaleString()+'h</td><td class="n">'+yen(humanY)+'</td></tr>'+
+   '<tr><td>ランニング：AI利用料（'+vol.toLocaleString()+'件 × 2.5円）</td><td class="n">—</td><td class="n">'+yen(api)+'</td></tr>'+
+   '<tr><td>ランニング：VPS（Chatwootセルフホスト）</td><td class="n">—</td><td class="n">'+yen(vps)+'</td></tr>'+
+   '<tr class="tot"><td>月あたりの純削減額</td><td class="n">'+Math.round(savedH).toLocaleString()+'h 削減</td><td class="n">'+yen(net)+'</td></tr>';
+}
+F.forEach(el=>el.addEventListener('input',calc));
+
+/* ========== init ========== */
+renderList();bump();openTk('#1041');renderK('');calc();start();
+</script>
+</body>
+</html>
