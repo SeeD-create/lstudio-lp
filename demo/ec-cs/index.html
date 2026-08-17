@@ -214,7 +214,7 @@ footer.f a{color:var(--accent);font-weight:600;text-decoration:none}
 <div class="demoband"><div class="wrap">
   <span class="tag">動作デモ</span>
   <b>EC問い合わせ自動化</b>
-  <span>架空ブランド「LUMINA」の設定で、選択式FAQ BOT → AI BOT → 一元管理 → AI下書き → 承認送信までを通しで操作できます。左のスマホから始めてください。</span>
+  <span>架空ブランド「LUMINA」の設定で、選択式FAQ BOT → AI BOT → 一元管理 → AI下書き → 承認送信までを通しで操作できます。<b style="color:#F0C97A">AI BOTの回答と返信下書きは実際に生成AI（Gemini）を呼んでいます。</b>左のスマホから始めてください。</span>
 </div></div>
 
 <header class="site"><div class="wrap">
@@ -338,7 +338,7 @@ footer.f a{color:var(--accent);font-weight:600;text-decoration:none}
       <div class="card" style="overflow:hidden">
         <table class="t"><thead><tr><th>内訳</th><th style="text-align:right">件数／時間</th><th style="text-align:right">金額（月）</th></tr></thead><tbody id="tb"></tbody></table>
       </div>
-      <p class="note">ランニングコストの内訳：VPS（Chatwootセルフホスト）2,000円／月 ＋ AI利用料。AI利用料は<b>1問い合わせあたり約2.5円</b>で計算しています（分類・タグ付け・返信生成の3回呼び出し合計、Claude Haiku＋Sonnetの併用を想定。稼働中の別案件で実測した1件約5円より、短文かつキャッシュ利用で下がる前提）。</p>
+      <p class="note">ランニングコストの内訳：VPS（Chatwootセルフホスト）2,000円／月 ＋ AI利用料。AI利用料は<b>1問い合わせあたり約0.3円</b>で計算しています（Gemini 2.5 Flash、分類・優先度・返信文を1回の呼び出しにまとめた場合の実測ベース）。<b>月1,000件でもAI利用料は300円程度</b>で、ランニングの主役はサーバー代です。</p>
     </div>
   </div>
 </section>
@@ -375,6 +375,7 @@ footer.f a{color:var(--accent);font-weight:600;text-decoration:none}
       <rect x="232" y="126" width="186" height="82" class="bx" fill="#FBF0DC" stroke="#E2C88F"/>
       <text x="246" y="150" class="ttl">AI BOT（RAG）</text><text x="246" y="168" class="sub">ナレッジ検索＋回答生成</text><text x="246" y="184" class="sub">根拠なし → 答えず人へ</text>
       <text x="246" y="200" class="sub" style="fill:#8A5A0B">出典FAQ番号を必ず付与</text>
+      <text x="700" y="272" class="sub" style="fill:#8A5A0B">※このデモのAI BOTと下書き生成は実際にGemini APIを呼んでいます</text>
 
       <text x="458" y="22" class="gl">一元管理</text>
       <rect x="458" y="32" width="196" height="176" class="bx" fill="#fff" stroke="#0E6F6B" stroke-width="2"/>
@@ -390,11 +391,11 @@ footer.f a{color:var(--accent);font-weight:600;text-decoration:none}
       <rect x="694" y="32" width="186" height="176" class="bx" fill="#FBF0DC" stroke="#E2C88F"/>
       <text x="708" y="58" class="ttl">n8n（自動化基盤）</text>
       <text x="708" y="78" class="sub">Webhook受信 → 順に処理</text>
-      <text x="708" y="100" class="ttl">Claude API</text>
-      <text x="708" y="118" class="sub">① 分類・タグ付け（Haiku）</text>
-      <text x="708" y="136" class="sub">② 優先度・感情判定（Haiku）</text>
-      <text x="708" y="154" class="sub">③ 返信文の生成（Sonnet）</text>
-      <text x="708" y="176" class="sub" style="fill:#8A5A0B;font-weight:700">1件あたり約2.5円</text>
+      <text x="708" y="100" class="ttl">Gemini 2.5 Flash</text>
+      <text x="708" y="118" class="sub">分類・タグ付け</text>
+      <text x="708" y="136" class="sub">優先度・感情判定</text>
+      <text x="708" y="154" class="sub">返信文の生成（1回で同時に）</text>
+      <text x="708" y="176" class="sub" style="fill:#8A5A0B;font-weight:700">1件あたり約0.3円</text>
 
       <text x="920" y="22" class="gl">人</text>
       <rect x="920" y="32" width="104" height="80" class="bx" fill="#E0F0EF" stroke="#9CC9C6"/>
@@ -495,7 +496,8 @@ const KB=[
    ・活用ゆれ（届く／届き／届かない）に強くするため漢字1文字も素性に入れる
    ・スコアは「クエリを全部拾えた場合の理論値」で割った被覆率（0〜1）
    ・被覆率がTH未満、または希少語の一致が2つ未満なら「根拠なし」＝答えずに人へ回す
-   本番ではこの層をベクトル検索＋Claudeの生成に差し替えます（判定の作法は同じ）。 */
+   本番ではこの層をベクトル検索に差し替えます（判定の作法は同じ）。
+   根拠が取れたときだけ、上位FAQを添えて生成AIに文章化させます。 */
 function norm(s){return (s||"").toLowerCase().replace(/[ぁ-ん]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60)).replace(/[、。！？!?,.\s　・「」（）()]/g,"");}
 function grams(s){s=norm(s);const g=[];for(let i=0;i<s.length-1;i++)g.push(s.slice(i,i+2));if(s.length===1)g.push(s);return g;}
 function uniq(a){return [...new Set(a)];}
@@ -525,6 +527,26 @@ function search(q){
 }
 const TH=0.30;
 function grounded(r){return !!(r&&r.sc>=TH&&r.rare>=2);} // 根拠ありと見なせるか
+
+/* ========== AI（本物のLLM呼び出し） ==========
+   検索で根拠が取れたときだけ、上位FAQを添えてLLMに渡して文章を生成させます。
+   根拠が無いときはLLMを呼ばずに人へ回す（＝AIに推測させない）設計です。
+   通信できないときは、FAQの原文をそのまま返す縮退モードで動きます。 */
+const AI_API="https://script.google.com/macros/s/AKfycbwM_8kdyWrUuQlK86FItVt7ifplbzfVr-iheKzMklyvrfeYcao2fCcX6ymhTrO8CSituQ/exec";
+let AI_OK=null; // null=未判定 / true=生成AI稼働中 / false=縮退モード
+async function callAI(payload,ms){
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),ms||20000);
+  try{
+    const r=await fetch(AI_API,{method:"POST",headers:{"Content-Type":"text/plain"},
+      body:JSON.stringify(payload),signal:ctrl.signal,redirect:"follow"});
+    const j=await r.json();
+    if(!j||!j.ok)throw new Error((j&&j.reason)||"ng");
+    AI_OK=true;return j.result;
+  }catch(e){AI_OK=false;return null;}
+  finally{clearTimeout(t);}
+}
+const faqPayload=rs=>rs.map(r=>({id:r.f.id,c:r.f.c,q:r.f.q,a:r.f.a}));
 
 /* ========== タブ ========== */
 const tabs=[...document.querySelectorAll('nav.tabs button')];
@@ -617,7 +639,20 @@ async function aiAnswer(q){
     return;
   }
   const also=res.slice(1,3).filter(r=>r.sc>TH*0.8&&r.rare>=2);
-  bubble('bot',top.f.a,top.f.id+'（'+top.f.c+'）'+(also.length?' ／ 参考：'+also.map(r=>r.f.id).join('・'):''));
+  const src=[top].concat(also);
+  const t2=typing();
+  const ai=await callAI({action:'answer',q:q,faqs:faqPayload(src)});
+  t2.remove();
+  if(ai&&ai.answered===false){
+    log('<b>生成AIが「根拠なし」と判断 → 回答せず有人へ</b>',1);
+    bubble('bot','申し訳ありません。こちらでは確かなご案内ができませんでした。<b>担当者におつなぎします。</b>');
+    setTimeout(()=>escalate('AIがナレッジ内に根拠を見つけられず'),500);
+    return;
+  }
+  const ids=(ai&&ai.used_ids&&ai.used_ids.length?ai.used_ids:src.map(r=>r.f.id)).slice(0,3);
+  const label=ids.join('・')+(ai?'　🤖 生成AIが作成':'　※通信できないためFAQ原文を表示');
+  log(ai?'<b>生成AIが回答を作成</b>（参照 '+ids.join('・')+'）':'<b>API未接続 → FAQ原文で応答（縮退モード）</b>',1);
+  bubble('bot',(ai&&ai.answer)?ai.answer:top.f.a,label);
   setQr([
    {t:"解決しました 👍",gh:1,f:async()=>{bubble('me','解決しました 👍');log('<b>AI BOTで自己解決</b>／有人対応 0件',1);await botSay('よかったです。またご利用ください。',null,420);setQr([{t:"最初に戻る",f:()=>start()}]);inp.classList.add('off');}},
    {t:"まだ解決しない",f:()=>{bubble('me','まだ解決しない');escalate('AI BOTの回答で解決しなかったため');}},
@@ -794,28 +829,50 @@ function renderAi(t){
      '<div class="kv"><span>チャネル</span><b>'+CHN[t.ch].l+'</b></div></div>'+
    '<div class="aisec"><h4>エスカレーション理由</h4><p style="margin:0;font-size:12.5px;color:var(--ink2)">'+(t.reason||'—')+'</p></div>'+
    '<div class="aisec"><h4>参照したナレッジ</h4>'+(srcs.length?srcs.map(f=>'<div class="srcitem"><span class="id">'+f.id+'</span> '+f.q+'</div>').join(''):'<p style="margin:0;font-size:12.5px;color:var(--ink3)">該当なし（だから人に回っています）</p>')+'</div>'+
-   '<div class="aisec" style="border-bottom:0"><h4>この1件のAI利用料</h4><div class="kv"><span>分類・優先度・生成 計3回</span><b>約2.5円</b></div>'+
-     '<p class="note" style="margin-top:6px">Haiku（分類）＋Sonnet（生成）の併用。ナレッジ部分はプロンプトキャッシュで課金を抑えます。</p></div>';
+   '<div class="aisec" style="border-bottom:0"><h4>この1件のAI利用料</h4><div class="kv"><span>分類・優先度・下書きを1回で生成</span><b>約0.3円</b></div>'+
+     '<p class="note" style="margin-top:6px">Gemini 2.5 Flash。分類・優先度・感情・返信文を1回の呼び出しでまとめて出力し、思考モードを切って単価を下げています。</p></div>';
 }
-function genDraft(t){
+async function genDraft(t){
   const ta=document.getElementById('dft');if(!ta)return;
   const meta=document.getElementById('dmeta');
   meta.textContent='生成中…';ta.value='';
   const srcs=(t.srcIds||[]).map(byId).filter(Boolean);
-  let body='';
-  if(srcs.length){
-    body=srcs.map(f=>f.a).join('\n\n');
-  }else{body='恐れ入りますが、確認のうえ改めてご連絡いたします。';}
-  const head=t.name+' 様\n\nいつもLUMINAをご利用いただきありがとうございます。\nお問い合わせいただいた件についてご案内いたします。\n\n';
-  const tail='\n\nご不明な点がございましたら、このままご返信ください。\n引き続きよろしくお願いいたします。\n\nLUMINA カスタマーサポート';
-  const full=head+body+tail;
+
+  // 実LLM呼び出し。失敗時はFAQ本文を流し込む定型文へ縮退する。
+  const ai=await callAI({
+    action:'draft',
+    name:t.name,
+    channel:CHN[t.ch].l,
+    msgs:t.msgs.filter(m=>m.who==='cust').map(m=>m.t),
+    faqs:srcs.map(f=>({id:f.id,c:f.c,q:f.q,a:f.a}))
+  });
+
+  let full;
+  if(ai&&ai.reply){
+    full=ai.reply;
+    if(ai.category)t.cat=ai.category;
+    if(ai.priority)t.prio=ai.priority;
+    if(ai.sentiment)t.sent=ai.sentiment;
+    if(ai.reason)t.reason=ai.reason;
+    renderList();renderAi(t);
+    const h=document.getElementById('thh');
+    if(h)h.innerHTML='<div class="t">'+t.name+'</div><span class="pill mut">'+CHN[t.ch].l+'</span><span class="pill acc">'+t.cat+'</span><span class="pill '+(t.prio==='高'?'bad':t.prio==='中'?'warn':'mut')+'">優先度'+t.prio+'</span><span style="margin-left:auto;font-size:12px;color:var(--ink3)">'+t.id+' ／ '+t.time+'</span>';
+  }else{
+    const body=srcs.length?srcs.map(f=>f.a).join('\n\n'):'恐れ入りますが、確認のうえ改めてご連絡いたします。';
+    full=t.name+' 様\n\nいつもLUMINAをご利用いただきありがとうございます。\nお問い合わせいただいた件についてご案内いたします。\n\n'+body+
+      '\n\nご不明な点がございましたら、このままご返信ください。\n引き続きよろしくお願いいたします。\n\nLUMINA カスタマーサポート';
+  }
+
+  const meta2=document.getElementById('dmeta');
   let i=0;
   const iv=setInterval(()=>{
+    const el=document.getElementById('dft');
+    if(!el){clearInterval(iv);return;}
     i+=Math.max(4,Math.floor(full.length/34));
-    ta.value=full.slice(0,i);ta.scrollTop=ta.scrollHeight;
+    el.value=full.slice(0,i);el.scrollTop=el.scrollHeight;
     if(i>=full.length){clearInterval(iv);t.draft=full;
-      meta.textContent='生成完了（参照：'+(srcs.map(s=>s.id).join('・')||'なし')+'）';
-      const s=document.getElementById('snd');if(s)s.disabled=false;}
+      if(meta2)meta2.textContent=(ai?'🤖 生成AIが作成':'通信できないため定型文')+'（参照：'+(srcs.map(s=>s.id).join('・')||'なし')+'）';
+      const sd=document.getElementById('snd');if(sd)sd.disabled=false;}
   },26);
 }
 function sendDraft(t){
@@ -861,7 +918,7 @@ function calc(){
   const autoN=vol*rate, humanN=vol-autoN;
   const humanH=humanN*min/60*(1-dr), humanY=humanH*wage;
   const savedH=beforeH-humanH, savedY=beforeY-humanY;
-  const api=vol*2.5, vps=2000, run=api+vps;
+  const api=vol*0.3, vps=2000, run=api+vps;
   const net=savedY-run;
   const init=180000;
   const months=net>0?init/net:null;
@@ -874,7 +931,7 @@ function calc(){
    '<tr><td>導入前：全件を人が対応</td><td class="n">'+vol.toLocaleString()+'件 ／ '+Math.round(beforeH).toLocaleString()+'h</td><td class="n">'+yen(beforeY)+'</td></tr>'+
    '<tr><td>BOTで完結（人が触らない）</td><td class="n">'+Math.round(autoN).toLocaleString()+'件</td><td class="n" style="color:var(--ok)">−'+yen(autoN*min/60*wage).slice(1)+'</td></tr>'+
    '<tr><td>有人対応（AI下書きで'+Math.round(dr*100)+'%短縮）</td><td class="n">'+Math.round(humanN).toLocaleString()+'件 ／ '+Math.round(humanH).toLocaleString()+'h</td><td class="n">'+yen(humanY)+'</td></tr>'+
-   '<tr><td>ランニング：AI利用料（'+vol.toLocaleString()+'件 × 2.5円）</td><td class="n">—</td><td class="n">'+yen(api)+'</td></tr>'+
+   '<tr><td>ランニング：AI利用料（'+vol.toLocaleString()+'件 × 0.3円）</td><td class="n">—</td><td class="n">'+yen(api)+'</td></tr>'+
    '<tr><td>ランニング：VPS（Chatwootセルフホスト）</td><td class="n">—</td><td class="n">'+yen(vps)+'</td></tr>'+
    '<tr class="tot"><td>月あたりの純削減額</td><td class="n">'+Math.round(savedH).toLocaleString()+'h 削減</td><td class="n">'+yen(net)+'</td></tr>';
 }
