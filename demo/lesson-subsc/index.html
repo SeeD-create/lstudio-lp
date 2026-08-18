@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Zoomレッスンの月額サブスク ｜ 構築のご提案と動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="月額9,800円のオンラインレッスンを、入会から退会まで自動で回す仕組みのご提案。実際の動きを2分の動画でご覧いただけます。手数料シミュレータつき。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zoomレッスンの月額サブスク ｜ 構築のご提案と動作デモ">
+<meta property="og:description" content="入会・退会・決済エラー・Zoom案内・会員限定アーカイブまで自動。2分の動画で動きを確認できます。">
+<meta property="og:url" content="https://l-studiojp.com/demo/lesson-subsc/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩰</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#FAF7F8; --surface:#fff; --sunk:#F4EEF0;
+  --line:#E7DADF; --line-soft:#F0E6EA;
+  --ink:#2B2226; --ink2:#5D4F55; --ink3:#8B7A80;
+  --rose:#C8657F; --rose-deep:#8E3C53; --rose-soft:#FBEEF1; --rose-line:#EDCFD8;
+  --ok:#1E7A4C; --ok-soft:#E7F4EC; --ok-line:#B3DCC4;
+  --warn:#B4552C; --warn-soft:#FBEEE7; --warn-line:#EBC6B2;
+  --accent:#12507F; --accent-soft:#E5EEF6; --accent-line:#A6C4DC;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+section{padding:40px 0;border-top:1px solid var(--line-soft)}
+
+.hero{background:linear-gradient(160deg,#8E3C53,#6E2B3F 65%,#4E1E2D);color:#fff;padding:36px 0 32px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.12em;font-weight:700;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:4px 13px}
+.hero h1{font-size:28px;line-height:1.45;margin:14px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#FFC7D6}
+.hero p{font-size:15px;color:#F0D9E0;margin:0;max-width:790px}
+.hero .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.hero .kpi{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);border-radius:11px;padding:12px 14px}
+.hero .kpi b{display:block;font-size:19px;font-weight:900}
+.hero .kpi span{font-size:12px;color:#EBCBD5}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--rose-deep);
+  background:var(--rose-soft);border:1px solid var(--rose-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:2px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:830px}
+
+.player{background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(80,40,55,.18)}
+video{display:block;width:100%;height:auto;background:#000}
+ol.chap{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ol.chap button{width:100%;display:flex;align-items:baseline;gap:11px;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 14px;
+  font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+ol.chap button:hover{border-color:var(--rose);background:var(--rose-soft)}
+ol.chap .tm{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;color:var(--rose);flex:none;min-width:36px}
+
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:12px;color:var(--ink2);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center;white-space:nowrap}
+.ok{color:var(--ok);font-weight:900}
+.mid{color:var(--warn);font-weight:900}
+.ng{color:var(--ink3);font-weight:900}
+.pill{display:inline-block;font-size:11px;font-weight:800;border-radius:5px;padding:2px 8px;
+  background:var(--rose-soft);color:var(--rose-deep);border:1px solid var(--rose-line);white-space:nowrap}
+.pill.g{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+
+/* シミュレータ */
+.sim{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
+.simctl{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.simctl .lb{font-size:12px;font-weight:800;color:var(--ink2);margin:14px 0 6px}
+.simctl .lb:first-child{margin-top:0}
+.simctl input[type=range]{width:100%;accent-color:var(--rose)}
+.simctl .val{font-size:22px;font-weight:900;color:var(--rose-deep)}
+.simctl .val small{font-size:12px;color:var(--ink3);font-weight:700}
+.simctl input[type=number]{width:78px;border:1px solid var(--line);border-radius:7px;padding:6px 8px;font:inherit;font-size:13px}
+.simctl .rate{display:flex;align-items:center;gap:8px;font-size:12.5px;margin-top:7px}
+.simctl .rate span{color:var(--ink2)}
+.simres{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.simres .big{background:var(--rose-soft);border:1px solid var(--rose-line);border-radius:12px;
+  padding:14px 16px;margin-bottom:14px}
+.simres .big .k{font-size:12px;font-weight:800;color:var(--rose-deep)}
+.simres .big .v{font-size:30px;font-weight:900;line-height:1.2;margin-top:2px}
+.simres .big .n{font-size:12.5px;color:var(--ink2);margin-top:4px}
+.simres table{min-width:0}
+.simres td.num,.simres th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column}
+.card .k{font-size:11.5px;font-weight:800;color:var(--rose-deep);letter-spacing:.06em}
+.card h3{font-size:16.5px;margin:6px 0 6px;font-weight:900}
+.card .price{font-size:23px;font-weight:900;margin:8px 0 2px}
+.card .price small{font-size:12px;color:var(--ink3);font-weight:700}
+.card p{font-size:13px;color:var(--ink2);margin:6px 0 0}
+.card ul{margin:10px 0 0;padding-left:19px;font-size:12.5px;color:var(--ink2)}
+.card li{margin-bottom:4px}
+.card.rec{border-color:var(--rose);box-shadow:0 6px 18px rgba(142,60,83,.14)}
+.card.rec .k{color:#fff;background:var(--rose-deep);border-radius:5px;padding:2px 8px;display:inline-block}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 12px}
+.st .d{font-size:11px;font-weight:800;color:var(--rose-deep);letter-spacing:.06em}
+.st .t{font-size:13.5px;font-weight:800;margin:4px 0 4px}
+.st .p{font-size:12px;color:var(--ink3)}
+
+.note{background:var(--surface);border-left:5px solid var(--rose);border-radius:0 12px 12px 0;
+  padding:16px 20px;font-size:13.5px;color:var(--ink2)}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note b{color:var(--ink)}
+.note ul{margin:8px 0 0;padding-left:20px}
+
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.lk{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.lk:hover{border-color:var(--rose);transform:translateY(-1px)}
+.lk b{display:block;font-size:14.5px}
+.lk span{font-size:12.5px;color:var(--ink3)}
+
+footer{background:#4E1E2D;color:#E3C9D1;padding:26px 0;font-size:12.5px;margin-top:10px}
+footer b{color:#fff}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+@media (max-width:880px){
+  .sim,.cards{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  ol.chap,.links{grid-template-columns:1fr}
+  .hero .kpis{grid-template-columns:1fr}
+  .hero h1{font-size:21px}
+  h2{font-size:18px}
+  section{padding:30px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="tag">Zoomオンラインレッスンの月額サービス ／ 構築のご提案</div>
+    <h1>入会から退会まで、<em>先生が触らずに</em>回る形にします。<br>9月の開講に間に合わせます。</h1>
+    <p>新しいシステムは作りません。すでにお使いの公式LINEに、自動決済と会員名簿をつなぐだけです。
+    まずは<b>実際の動きを2分の動画</b>でご確認ください。文章よりも速いと思います。</p>
+    <div class="kpis">
+      <div class="kpi"><b>先生の作業は3つ</b><span>レッスンする／録画を置く／名簿を眺める</span></div>
+      <div class="kpi"><b>追加の月額 0円</b><span>拡張ツールなし。かかるのは決済手数料だけ</span></div>
+      <div class="kpi"><b>最短10営業日</b><span>審査期間を含めて9月開講に間に合います</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section style="border-top:0">
+  <h2><span class="num">01</span>実際の動き（2分）</h2>
+  <p class="sub">生徒さんのスマホ（左）と、先生の会員名簿（右）を並べています。
+  <b>左で何かが起きると、右が自動で変わる</b>ところをご覧ください。手入力は一度も出てきません。</p>
+  <div class="player">
+    <video id="v" controls preload="metadata" playsinline poster="poster.jpg">
+      <source src="lesson-demo.mp4" type="video/mp4">
+      お使いのブラウザは動画再生に対応していません。
+    </video>
+  </div>
+  <ol class="chap" id="chapters"></ol>
+</section>
+
+<section>
+  <h2><span class="num">02</span>ご要望への回答（いただいた11項目すべて）</h2>
+  <div class="tbl">
+    <table>
+      <tr><th>ご要望</th><th class="c">対応</th><th>どうやって実現するか</th></tr>
+      <tr><td>月額料金の自動決済</td><td class="c ok">○</td><td>カード情報を決済会社に登録し、毎月同日に自動で引き落とします</td></tr>
+      <tr><td>毎月の継続課金</td><td class="c ok">○</td><td>止めるまで続きます。金額変更も後から可能です</td></tr>
+      <tr><td>入会手続きの簡略化</td><td class="c ok">○</td><td>LINEのメニューから<b>3タップ＋カード入力だけ</b>。申込書・振込のご案内は不要です</td></tr>
+      <tr><td>退会手続きの自動化</td><td class="c ok">○</td><td><b>ご本人がLINEから完結</b>。先生の作業はゼロ。名簿とアーカイブの権限が自動で外れます</td></tr>
+      <tr><td>途中入会への対応</td><td class="c ok">○</td><td>お手続きの日から1か月ぶん（日割りにする形も選べます）</td></tr>
+      <tr><td>決済エラー時の対応</td><td class="c ok">○</td><td>ご本人と先生の両方に自動通知。<b>3回失敗で自動停止</b>。催促のご連絡は不要です</td></tr>
+      <tr><td>会員管理</td><td class="c ok">○</td><td>スプレッドシートの名簿が常に最新。入会日・次回請求日・状態が自動で入ります</td></tr>
+      <tr><td>Zoomリンクの案内</td><td class="c ok">○</td><td>レッスン前日に自動配信。宛先は名簿から自動で決まります</td></tr>
+      <tr><td>会員だけへのアーカイブ共有</td><td class="c ok">○</td><td>継続中の方にだけ届き、<b>退会すると自動で見えなくなります</b>（URLが転送されても再生できません）</td></tr>
+      <tr><td>LINE公式との連携</td><td class="c ok">◎</td><td><b>ここが私の本業です。</b>入会・案内・退会をすべてLINEの中で完結させます（→ 03）</td></tr>
+      <tr><td>入会者／退会者の自動管理</td><td class="c ok">○</td><td>決済側の結果を受け取って名簿を自動更新。二重管理がなくなります</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">03</span>サービス選定の考え方（①のご質問）</h2>
+  <p class="sub">結論から申し上げると、<b>「手軽さ」を取るか「手数料」を取るか</b>の二択です。
+  会員数が増えるほど差が開くため、下のシミュレータで確かめてから決めていただくのが確実です。</p>
+
+  <div class="tbl">
+    <table>
+      <tr>
+        <th>方式</th><th class="c">手数料の目安</th><th class="c">月額固定費</th>
+        <th class="c">LINE連携</th><th class="c">アーカイブの会員限定</th><th>向いている場合</th>
+      </tr>
+      <tr>
+        <td><b>A. レッスン販売サービス</b><br><span style="font-size:12px;color:#8B7A80">MOSH など</span></td>
+        <td class="c mid">売上の約11%</td><td class="c ok">0円</td>
+        <td class="c ng">△（手作業）</td><td class="c mid">△</td>
+        <td>とにかく早く始めたい。会員数が少人数のまま</td>
+      </tr>
+      <tr>
+        <td><b>B. ネットショップ型</b><br><span style="font-size:12px;color:#8B7A80">BASE・STORES など</span></td>
+        <td class="c mid">3〜6%程度</td><td class="c mid">0〜数千円</td>
+        <td class="c ng">△（手作業）</td><td class="c ng">×（別途工夫が必要）</td>
+        <td>物販と一緒に売りたい</td>
+      </tr>
+      <tr style="background:var(--rose-soft)">
+        <td><b>C. 決済サービス＋公式LINE＋名簿</b><br><span style="font-size:12px;color:#8B7A80">Stripe や Square ＋ 今のLINE</span><br><span class="pill">ご提案</span></td>
+        <td class="c ok">約3.6%</td><td class="c ok">0円</td>
+        <td class="c ok">◎ 完全自動</td><td class="c ok">◎ 自動で失効</td>
+        <td><b>今回のご要望すべてを満たせます</b>。会員が増えるほど有利</td>
+      </tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:14px">
+    手数料は<b>2026年8月時点の各社公表値をもとにした目安</b>です。ご契約前に最新の料率を確認し、書面でお出しします。
+    下のシミュレータは<b>料率を書き換えて</b>試せるようにしてあります。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>手数料シミュレータ（③のご質問）</h2>
+  <p class="sub">会員数を動かしてみてください。<b>方式Aと方式Cの差額</b>と、<b>構築費が何か月で回収できるか</b>が出ます。</p>
+
+  <div class="sim">
+    <div class="simctl">
+      <div class="lb">会員数</div>
+      <div class="val"><span id="nOut">30</span><small> 名</small></div>
+      <input type="range" id="n" min="5" max="200" step="1" value="30">
+
+      <div class="lb">月額（税込）</div>
+      <div class="rate"><input type="number" id="price" value="9800" step="100"><span>円 / 人</span></div>
+
+      <div class="lb">料率（変更できます）</div>
+      <div class="rate"><span>方式A</span><input type="number" id="rA" value="11" step="0.1"><span>％</span></div>
+      <div class="rate"><span>方式C</span><input type="number" id="rC" value="3.6" step="0.1"><span>％</span></div>
+
+      <div class="lb">構築費（方式C）</div>
+      <div class="rate"><input type="number" id="build" value="148000" step="1000"><span>円（税別）</span></div>
+    </div>
+
+    <div class="simres">
+      <div class="big">
+        <div class="k">方式Cにした場合の年間の差額</div>
+        <div class="v" id="diffY">—</div>
+        <div class="n" id="payback">—</div>
+      </div>
+      <table>
+        <tr><th>方式</th><th class="num">月の手数料</th><th class="num">年の手数料</th></tr>
+        <tr><td>A（レッスン販売サービス）</td><td class="num" id="mA">—</td><td class="num" id="yA">—</td></tr>
+        <tr><td><b>C（決済＋公式LINE）</b></td><td class="num" id="mC">—</td><td class="num" id="yC">—</td></tr>
+        <tr><td>売上（参考）</td><td class="num" id="mS">—</td><td class="num" id="yS">—</td></tr>
+      </table>
+      <div style="font-size:12px;color:var(--ink3);margin-top:10px">
+        ※ 手数料以外の費用（Zoom・保存先など既にお使いのもの）は含めていません。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span>費用と納期（②④のご質問）</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="k">PLAN A</div>
+      <h3>最小構成</h3>
+      <div class="price">9万8千円<small>／税別</small></div>
+      <p>自動決済と会員名簿まで。案内は手動でも回せる形。</p>
+      <ul>
+        <li>決済サービスの開設・商品設定</li>
+        <li>月額自動決済・途中入会の設定</li>
+        <li>会員名簿（自動更新）</li>
+        <li>入会・退会の導線（LINEから）</li>
+        <li>操作説明（動画つき）</li>
+      </ul>
+    </div>
+    <div class="card rec">
+      <div class="k">PLAN B ／ おすすめ</div>
+      <h3>ご要望11項目すべて</h3>
+      <div class="price">14万8千円<small>／税別</small></div>
+      <p>動画でお見せしている状態そのものです。</p>
+      <ul>
+        <li>PLAN A のすべて</li>
+        <li><b>決済エラーの自動通知</b>（本人＋先生／3回で自動停止）</li>
+        <li><b>Zoomリンクの前日自動配信</b></li>
+        <li><b>会員限定アーカイブ</b>（退会で自動失効）</li>
+        <li>会員用リッチメニューの切替</li>
+        <li>公開後1か月の調整・質問対応</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">運用サポート</div>
+      <h3>任意・継続</h3>
+      <div class="price">月1万1千円<small>／税別</small></div>
+      <p>ご不要なら付けなくて構いません。</p>
+      <ul>
+        <li>不具合対応・仕様変更の相談</li>
+        <li>配信文面の作成</li>
+        <li>会員数・退会率のレポート</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:34px"><span class="num">06</span>9月開講までの逆算（最短10営業日）</h2>
+  <div class="steps">
+    <div class="st"><div class="d">DAY 1–2</div><div class="t">決済の申込み</div><div class="p"><b>審査に数日かかります</b>。ここを最初に動かすのが肝心です</div></div>
+    <div class="st"><div class="d">DAY 2–4</div><div class="t">導線の設計</div><div class="p">入会・退会・案内の流れを1枚の図に。ご確認をいただきます</div></div>
+    <div class="st"><div class="d">DAY 5–8</div><div class="t">構築</div><div class="p">決済設定・名簿・自動配信・アーカイブの権限まわり</div></div>
+    <div class="st"><div class="d">DAY 9–10</div><div class="t">テストと引き渡し</div><div class="p">実際のカードで入会・退会を通しテスト。操作説明つき</div></div>
+  </div>
+  <div class="note warn" style="margin-top:16px">
+    <b>ひとつだけ、先にお伝えしておきます。</b>
+    <ul>
+      <li>決済サービスの<b>審査に数日〜1週間</b>かかります。9月開講なら<b>今週中に申込みを始める</b>のが安全です。</li>
+      <li>審査は事業者ご本人でのお申込みが必要です（こちらで代行はできません）。手順書をお渡しし、画面を見ながらご一緒に進めます。</li>
+      <li>返金・休会のルールは、決めていただく必要があります。案をこちらでご用意します。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span>実績（⑤のご質問）</h2>
+  <p class="sub">公式LINEの構築と、業務の自動化を本業にしています。すべて自社で作って公開しているものです。</p>
+  <div class="links">
+    <a class="lk" href="https://l-studiojp.com/" target="_blank" rel="noopener">
+      <b>業種別の公式LINE構築デモ　18業種</b>
+      <span>飲食・サロン・クリニック・士業・不動産など。会話の流れと管理台帳まで見られます</span>
+    </a>
+    <a class="lk" href="https://l-studiojp.com/demo/kaisuken/" target="_blank" rel="noopener">
+      <b>回数券・前払いの残数管理システム（動作デモ）</b>
+      <span>前払い分の残数管理と二重請求の防止、請求連携まで。今回の会員管理と考え方が同じです</span>
+    </a>
+    <a class="lk" href="https://l-studiojp.com/demo/line-donsen/" target="_blank" rel="noopener">
+      <b>公式LINE 導線診断ツール</b>
+      <span>登録直後から問い合わせまでの設計を、12項目で採点する自社ツール</span>
+    </a>
+    <a class="lk" href="https://l-studiojp.com/tools/richmenu/" target="_blank" rel="noopener">
+      <b>リッチメニュー作成ツール（無料・登録不要）</b>
+      <span>自社開発。会員用メニューの画像もこれで作ります</span>
+    </a>
+  </div>
+  <div class="note" style="margin-top:14px">
+    このほかに稼働中の実案件として、<b>法律事務所</b>のホームページと公式LINEでの資料受付の自動化、
+    <b>化粧品メーカー</b>のLINE内AI診断（回答内容を店舗ごとの管理表へ自動記録）、
+    <b>学習塾</b>の月謝計算・入退室管理などを担当しています。
+    いずれも「決済・名簿・自動配信」を組み合わせた仕組みで、今回と同じ作りです。
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>Lスタジオ</b>　公式LINE構築・業務システム開発</div>
+    <div>本ページはご提案用のため、検索には表示していません</div>
+  </div>
+</footer>
+
+<script>
+/* ---- 章立て ---- */
+var CHAPTERS=[
+  [7,'生徒さんがLINEから入会'],
+  [20,'決済（カード情報は教室に渡りません）'],
+  [38,'名簿に自動で1行追加'],
+  [50,'レッスン前日にZoomリンクを自動配信'],
+  [60,'アーカイブは会員だけ'],
+  [70,'決済エラーは本人と先生に自動通知'],
+  [84,'退会もご本人が完結'],
+  [98,'先生の作業は3つだけ']
+];
+function mmss(s){ return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+var v=document.getElementById('v');
+document.getElementById('chapters').innerHTML=CHAPTERS.map(function(c){
+  return '<li><button data-t="'+c[0]+'"><span class="tm">'+mmss(c[0])+'</span><span>'+c[1]+'</span></button></li>';
+}).join('');
+document.getElementById('chapters').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  v.currentTime=Number(b.dataset.t); v.play();
+  v.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+/* ---- 手数料シミュレータ ---- */
+var els=['n','price','rA','rC','build'].reduce(function(o,id){ o[id]=document.getElementById(id); return o; },{});
+function yen(x){ return '¥'+Math.round(x).toLocaleString('ja-JP'); }
+function calc(){
+  var n=Number(els.n.value), p=Number(els.price.value)||0;
+  var rA=Number(els.rA.value)||0, rC=Number(els.rC.value)||0, build=Number(els.build.value)||0;
+  document.getElementById('nOut').textContent=n;
+  var sales=n*p;
+  var mA=sales*rA/100, mC=sales*rC/100;
+  document.getElementById('mS').textContent=yen(sales);
+  document.getElementById('yS').textContent=yen(sales*12);
+  document.getElementById('mA').textContent=yen(mA);
+  document.getElementById('yA').textContent=yen(mA*12);
+  document.getElementById('mC').textContent=yen(mC);
+  document.getElementById('yC').textContent=yen(mC*12);
+  var diffM=mA-mC;
+  document.getElementById('diffY').textContent=yen(diffM*12);
+  var pb=document.getElementById('payback');
+  if(diffM<=0){
+    pb.textContent='この条件では差が出ません（料率を確認してください）';
+  }else{
+    var months=build/diffM;
+    pb.textContent='手数料の差だけで、構築費（'+yen(build)+'）は約'
+      +(months<1?'1':Math.ceil(months))+'か月で回収できます（月あたり '+yen(diffM)+' の差）';
+  }
+}
+Object.keys(els).forEach(function(k){
+  els[k].addEventListener('input',calc);
+  els[k].addEventListener('change',calc);
+});
+calc();
+</script>
+</body>
+</html>
