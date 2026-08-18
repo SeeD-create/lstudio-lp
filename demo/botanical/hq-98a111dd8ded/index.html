@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>植物美容AIナビ　本部運用編（期間限定・関係者用）</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<style>
+  :root{
+    --bg:#f5f2ed; --ink:#4a4038; --sub:#7b7068; --accent:#b89a6e; --line:#e4dccd;
+    --warn:#a4483f; --ok:#6f9160; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+    line-height:1.8;-webkit-text-size-adjust:100%}
+  .wrap{max-width:940px;margin:0 auto;padding:26px 18px 64px}
+
+  .ribbon{background:#3d3730;color:#fff;border-radius:11px;padding:11px 16px;font-size:13px;
+    display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+  .ribbon b{color:#f0d9a4}
+  .ribbon .lim{font-variant-numeric:tabular-nums;font-weight:800}
+
+  header{text-align:center;padding:22px 0 20px;border-bottom:1px solid var(--line);margin-bottom:22px}
+  .brand{letter-spacing:.2em;font-size:11px;color:var(--accent);font-weight:700}
+  h1{font-size:23px;margin:10px 0 6px;font-weight:800}
+  .lead{font-size:14px;color:var(--sub);margin:0}
+  .meta{display:inline-block;margin-top:12px;font-size:12px;color:var(--sub);
+    border:1px solid var(--line);border-radius:999px;padding:5px 14px;background:#fff}
+
+  .player{background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(70,60,45,.18)}
+  video{display:block;width:100%;height:auto;background:#000}
+
+  h2{font-size:16px;margin:32px 0 12px;padding-left:11px;border-left:5px solid var(--accent);font-weight:800}
+
+  ol.chap{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  ol.chap button{width:100%;display:flex;align-items:baseline;gap:11px;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:11px;padding:11px 14px;
+    font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+  ol.chap button:hover,ol.chap button:focus{border-color:var(--accent);background:#fbf7ef}
+  ol.chap .tm{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;color:var(--accent);flex:none;min-width:38px}
+  ol.chap .star{color:var(--ok);font-weight:800}
+
+  .note{background:#fdf4f2;border-left:5px solid var(--warn);border-radius:0 11px 11px 0;
+    padding:14px 18px;font-size:13.5px;color:var(--sub);margin-top:26px}
+  .note b{color:var(--ink)}
+  .note ul{margin:8px 0 0;padding-left:20px}
+
+  .expired{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:40px 24px;text-align:center}
+  .expired .t{font-size:18px;font-weight:800;margin-bottom:8px}
+  .expired .d{font-size:13.5px;color:var(--sub)}
+  body.over .player,body.over #chapSec{display:none}
+  body.over .expired{display:block}
+
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--sub);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:760px){
+    .wrap{padding:16px 14px 48px}
+    h1{font-size:19px}
+    ol.chap{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="ribbon">
+  <span><b>関係者用・期間限定公開</b>　本部マスターを管理される方向けの資料です。</span>
+  <span class="lim">公開期限　<span id="limit"></span></span>
+</div>
+
+<header>
+  <div class="brand">K LAB. BOTANICAL THERAPY ／ OPERATION</div>
+  <h1>植物美容AIナビ　本部運用編</h1>
+  <p class="lead">サロンの増やし方・診断QRの再発行・触ってはいけない場所を、4分で。</p>
+  <div class="meta">4分10秒 ／ 音が出ます（BGMのみ）</div>
+</header>
+
+<div class="player">
+  <video id="v" controls preload="metadata" playsinline poster="poster.jpg">
+    <source src="hq-ops.mp4" type="video/mp4">
+    お使いのブラウザは動画再生に対応していません。
+  </video>
+</div>
+
+<div class="expired">
+  <div class="t">公開期間が終了しました</div>
+  <div class="d">この動画の公開期限を過ぎています。ご覧になる必要があるときは、Lスタジオまでご連絡ください。</div>
+</div>
+
+<div id="chapSec">
+  <h2>見たいところから（タップで頭出し）</h2>
+  <ol class="chap" id="chapters"></ol>
+</div>
+
+<div class="note">
+  <b>この動画の取り扱いについて</b>
+  <ul>
+    <li>本部マスターの操作手順（診断QRの再発行・初期化を含む）が入っています。<b>URLをサロン様や第三者に転送しないでください。</b></li>
+    <li>画面に出ているサロン名・メールアドレス・トークンは<b>すべて架空</b>です。実際のお客様のデータは映っていません。</li>
+    <li>公開期限を過ぎると、このページと動画ファイルは削除されます。手元に残す必要がある場合は、期限内にLスタジオへお申し付けください（ファイルでお渡しします）。</li>
+  </ul>
+</div>
+
+<footer>
+  <div>植物美容AIナビ ／ kalaku　本部運用編</div>
+  <div>制作・運用サポート：Lスタジオ</div>
+</footer>
+
+</div>
+
+<script>
+/* 公開期限。延長するときはこの日付を書き換えて再公開する（サーバ側では止まらないので、
+   期限が来たらファイルごと削除する運用が本体。→ 動画仕様書_本部向け.md §7 参照） */
+var LIMIT='2026-09-18';
+
+var d=new Date(LIMIT+'T23:59:59+09:00');
+document.getElementById('limit').textContent=
+  d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日まで';
+if(new Date()>d){ document.body.classList.add('over'); }
+
+var CHAPTERS=[
+  [8,  'データは2層（全体像）'],
+  [24, '本部マスターの10シート'],
+  [42, '「サロン管理」メニュー8項目'],
+  [62, '新規サロンを追加', true],
+  [100,'発行されたQRの3列'],
+  [118,'診断QR＝32桁のトークン'],
+  [134,'診断QRを再発行（流出時）', true],
+  [160,'サロンの休止（inactive）'],
+  [172,'全サロンの成分プルダウンを更新'],
+  [190,'お客様データの見方'],
+  [208,'触ってはいけない4つ', true],
+  [224,'初期化（三重確認）']
+];
+function mmss(s){ return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+var v=document.getElementById('v');
+document.getElementById('chapters').innerHTML=CHAPTERS.map(function(c){
+  return '<li><button data-t="'+c[0]+'"><span class="tm">'+mmss(c[0])+'</span>'
+    +'<span>'+c[1]+(c[2]?' <span class="star">★</span>':'')+'</span></button></li>';
+}).join('');
+document.getElementById('chapters').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  v.currentTime=Number(b.dataset.t);
+  v.play();
+  v.scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+</body>
+</html>
