@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>公式LINE 導線診断ツール ｜ 改善のご提案 ｜ Lスタジオ</title>
+<meta name="description" content="いま動いている公式LINEの、どこで離脱しているかを12項目で採点し、直す順番を出します。改善前後の導線図・ステップ配信7通の設計例つき。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="公式LINE 導線診断ツール ｜ 改善のご提案">
+<meta property="og:description" content="12項目で採点し、直す順番を出します。改善前後の導線図とステップ配信の設計例つき。">
+<meta property="og:url" content="https://l-studiojp.com/demo/line-donsen/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F5F7FA; --surface:#fff; --sunk:#EDF1F5;
+  --line:#DCE2EA; --line-soft:#E9EDF2;
+  --ink:#16202B; --ink2:#465260; --ink3:#7A8695;
+  --accent:#12507F; --accent-deep:#0E3F66; --accent-soft:#E5EEF6; --accent-line:#A6C4DC;
+  --line-green:#06C755; --green-soft:#E8F8EE; --green-line:#A8E2BF;
+  --warn:#B4552C; --warn-soft:#FBEEE7; --warn-line:#EBC6B2;
+  --ok:#1E7A4C; --ok-soft:#E4F2EA;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+section{padding:40px 0;border-top:1px solid var(--line-soft)}
+section:first-of-type{border-top:0}
+
+/* ---- hero ---- */
+.hero{background:linear-gradient(160deg,#12507F,#0E3F66 65%,#0B3050);color:#fff;padding:38px 0 34px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.12em;font-weight:700;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:4px 13px}
+.hero h1{font-size:29px;line-height:1.45;margin:14px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#8FD3FF}
+.hero p{font-size:15px;color:#CFE0EE;margin:0 0 18px;max-width:760px}
+.hero .who{font-size:12.5px;color:#9FBBD2;border-top:1px solid rgba(255,255,255,.18);padding-top:14px}
+.hero .who b{color:#fff}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px;letter-spacing:.01em}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:2px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:800px}
+
+/* ---- 診断ツール ---- */
+.diag{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.qgroup{border-top:1px solid var(--line-soft)}
+.qgroup:first-child{border-top:0}
+.qgroup>.gh{background:var(--sunk);font-size:12.5px;font-weight:800;color:var(--ink2);
+  padding:8px 16px;letter-spacing:.04em}
+.q{display:flex;gap:12px;padding:12px 16px;border-top:1px solid var(--line-soft);cursor:pointer;
+  transition:background .12s}
+.q:first-of-type{border-top:0}
+.q:hover{background:#FAFCFE}
+.q .bx{flex:none;width:20px;height:20px;border:2px solid #BCC7D3;border-radius:5px;margin-top:4px;
+  position:relative;transition:all .15s}
+.q.on .bx{background:var(--line-green);border-color:var(--line-green)}
+.q.on .bx::after{content:"";position:absolute;left:5px;top:1px;width:6px;height:11px;
+  border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(40deg)}
+.q .t{font-size:14px;font-weight:700}
+.q .d{font-size:12.5px;color:var(--ink3);margin-top:1px}
+.q.on .t{color:var(--ok)}
+
+.result{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;
+  position:sticky;top:16px}
+.score{text-align:center;padding:6px 0 12px;border-bottom:1px dashed var(--line)}
+.score .n{font-size:44px;font-weight:900;line-height:1;color:var(--accent)}
+.score .n small{font-size:17px;color:var(--ink3);font-weight:800}
+.score .lbl{font-size:12.5px;color:var(--ink3);margin-top:4px}
+.verdict{margin-top:14px;font-size:13.5px;font-weight:800;padding:10px 12px;border-radius:9px;
+  background:var(--accent-soft);border:1px solid var(--accent-line)}
+.rx{margin-top:14px}
+.rx h4{font-size:12px;letter-spacing:.06em;color:var(--ink3);margin:0 0 8px;font-weight:800}
+.rx ol{margin:0;padding-left:20px;font-size:13px}
+.rx li{margin-bottom:9px}
+.rx li b{display:block;color:var(--warn)}
+.rx .none{font-size:13px;color:var(--ok);font-weight:700;background:var(--ok-soft);
+  border-radius:9px;padding:10px 12px}
+
+/* ---- 導線図 ---- */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.flow{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.flow.now{border-color:var(--warn-line);background:var(--warn-soft)}
+.flow.aft{border-color:var(--green-line);background:var(--green-soft)}
+.flow .fh{font-size:13px;font-weight:900;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.flow .fh span{font-size:11px;font-weight:800;border-radius:5px;padding:2px 8px;background:#fff;border:1px solid var(--line)}
+.step{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13px;position:relative}
+.step+.step{margin-top:20px}
+.step+.step::before{content:"▼";position:absolute;left:50%;top:-17px;transform:translateX(-50%);
+  font-size:10px;color:var(--ink3)}
+.step>b{display:block;font-size:13.5px}
+.step i b{color:inherit;font-weight:800}
+.step i{font-style:normal;color:var(--ink3);font-size:12px}
+.step.bad{border-color:var(--warn-line)}
+.step.bad i{color:var(--warn)}
+.step.good{border-color:var(--green-line)}
+.step.good i{color:var(--ok)}
+
+/* ---- テーブル ---- */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:640px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:12px;color:var(--ink2);font-weight:800;white-space:nowrap}
+td b{color:var(--accent-deep)}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font-size:11px;font-weight:800;border-radius:5px;padding:2px 8px;
+  background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--accent-line);white-space:nowrap}
+.pill.g{background:var(--green-soft);color:var(--ok);border-color:var(--green-line)}
+
+/* ---- メニュー before/after ---- */
+.menus{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.menu{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.cell{border:1px solid var(--line);border-radius:8px;padding:12px 6px;text-align:center;font-size:12px;
+  background:var(--sunk);line-height:1.5}
+.cell.main{grid-column:span 3;background:var(--line-green);color:#fff;border-color:var(--line-green);font-weight:800;font-size:13.5px}
+.cell.dim{color:var(--ink3)}
+.menu .cap{font-size:12.5px;color:var(--ink2);margin-top:10px}
+
+/* ---- カード列 ---- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card .k{font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.06em}
+.card h3{font-size:16px;margin:6px 0 8px;font-weight:900}
+.card p{font-size:13px;color:var(--ink2);margin:0}
+.card .price{font-size:22px;font-weight:900;margin:10px 0 2px}
+.card .price small{font-size:12px;color:var(--ink3);font-weight:700}
+.card ul{margin:10px 0 0;padding-left:19px;font-size:12.5px;color:var(--ink2)}
+.card li{margin-bottom:4px}
+.card.rec{border-color:var(--accent);box-shadow:0 6px 18px rgba(18,80,127,.12)}
+.card.rec .k{color:#fff;background:var(--accent);border-radius:5px;padding:2px 8px;display:inline-block}
+
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.lk{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.lk:hover{border-color:var(--accent);transform:translateY(-1px)}
+.lk b{display:block;font-size:14.5px}
+.lk span{font-size:12.5px;color:var(--ink3)}
+
+.note{background:var(--surface);border-left:5px solid var(--accent);border-radius:0 12px 12px 0;
+  padding:16px 20px;font-size:13.5px;color:var(--ink2)}
+.note b{color:var(--ink)}
+
+footer{background:#0E3F66;color:#B9CFE0;padding:26px 0;font-size:12.5px;margin-top:10px}
+footer b{color:#fff}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+@media (max-width:880px){
+  .diag,.ba,.menus{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .links{grid-template-columns:1fr}
+  .result{position:static}
+  .hero h1{font-size:22px}
+  h2{font-size:18px}
+  section{padding:30px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="tag">公式LINE 導線・配信設計の見直し ／ ご提案資料</div>
+    <h1>いま動いている公式LINEの、<br><em>どこで止まっているか</em>を先に確かめます。</h1>
+    <p>作り直しの提案から入りません。まず現状の導線を12項目で採点し、<b>直す順番</b>を決めます。
+    このページの診断ツールは、そのとき実際に使っているものと同じ観点です。ご自身のLINEを当てはめて触ってみてください。</p>
+    <div class="who">
+      <b>Lスタジオ（平野）</b>　公式LINE構築・運用 ／ 業種別の構築デモ18業種を自社で公開・稼働中の実案件あり
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="num">01</span>まず、採点してみてください</h2>
+  <p class="sub">当てはまるものにチェックを入れてください。チェックが付かなかった項目が、そのまま改善候補になります。
+  右側に点数と「直す順番」が出ます（送信されません。この場で計算しているだけです）。</p>
+
+  <div class="diag">
+    <div class="qcard" id="qcard"></div>
+
+    <div class="result">
+      <div class="score">
+        <div class="n"><span id="sc">0</span><small> / 12</small></div>
+        <div class="lbl">導線スコア</div>
+      </div>
+      <div class="verdict" id="verdict">チェックを入れると診断が出ます。</div>
+      <div class="rx">
+        <h4>直す順番（上から）</h4>
+        <div id="rxbox"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>登録直後〜問い合わせまで、こう組み替えます</h2>
+  <p class="sub">よくある形と、私がいつも組む形の比較です。ポイントは<b>「1画面に選択肢を1つだけ置く」</b>こと。
+  分岐は増やさず、聞く順番で絞り込みます。</p>
+
+  <div class="ba">
+    <div class="flow now">
+      <div class="fh"><span>よくある現状</span>読む人が「次に何をすれば」で迷う</div>
+      <div class="step bad"><b>友だち追加</b><i>あいさつが長文1通。サービス紹介が中心</i></div>
+      <div class="step bad"><b>リッチメニュー6枠</b><i>「サービス」「会社概要」「SNS」…どれを押すか決められない</i></div>
+      <div class="step bad"><b>ステップ配信</b><i>お知らせ中心。3通目あたりで開かれなくなる</i></div>
+      <div class="step bad"><b>問い合わせ</b><i>フォームに飛ばす。項目が多く、返信の目安が書いていない</i></div>
+      <div class="step bad"><b>結果</b><i>友だち数は増えるが、相談が発生しない</i></div>
+    </div>
+    <div class="flow aft">
+      <div class="fh"><span>改善後の設計</span>次の一手が常に1つだけ見えている</div>
+      <div class="step good"><b>友だち追加</b><i>あいさつは短く。<b>最初の質問を1つだけ</b>投げる（例：今のお困りごとは？）</i></div>
+      <div class="step good"><b>回答で分岐</b><i>タップした答えで、その人に必要な案内だけを返す＋<b>タグ付け</b></i></div>
+      <div class="step good"><b>すぐ使えるものを1つ渡す</b><i>診断結果・チェックリスト・料金の目安など。ここで「役に立った」を作る</i></div>
+      <div class="step good"><b>ステップ配信（分岐後の内容で出し分け）</b><i>価値提供→事例→相談のご案内。相談への誘導は<b>1回だけ</b></i></div>
+      <div class="step good"><b>問い合わせ</b><i>メニューに常設。<b>営業時間と返信目安を明記</b>し、最初は3項目だけ聞く</i></div>
+      <div class="step good"><b>計測</b><i>タップ数・分岐の内訳・相談到達率を記録。次の配信で直す</i></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">03</span>ステップ配信は、この骨組みで書き直します</h2>
+  <p class="sub">「お知らせを送る」のをやめて、<b>読み進めると自分の状況が整理される</b>順番に組み替えます。
+  以下は業種を伏せた汎用の型です。実際は分岐タグごとに文面を出し分けます。</p>
+
+  <div class="tbl">
+    <table>
+      <tr><th>#</th><th>タイミング</th><th>役割</th><th>中身（骨子）</th><th>相談への誘導</th></tr>
+      <tr><td><b>1</b></td><td>登録直後</td><td>迷わせない</td><td>あいさつ＋<b>質問1つ</b>（タップで回答）。ここで長い自己紹介はしない</td><td><span class="pill">しない</span></td></tr>
+      <tr><td><b>2</b></td><td>回答の直後</td><td>役に立つ</td><td>回答に応じた案内＋すぐ使える1つ（チェックリスト・目安の料金・進め方）</td><td><span class="pill">しない</span></td></tr>
+      <tr><td><b>3</b></td><td>翌日の朝</td><td>共感</td><td>同じ悩みの方がつまずく3点。「うちもこれだ」と思ってもらう</td><td><span class="pill">しない</span></td></tr>
+      <tr><td><b>4</b></td><td>3日後</td><td>証拠</td><td>事例1本を短く（前・打ち手・後）。数字は1つだけ出す</td><td><span class="pill g">軽く1回</span></td></tr>
+      <tr><td><b>5</b></td><td>5日後</td><td>不安を外す</td><td>よくある質問4つ（費用・期間・手間・断りやすさ）</td><td><span class="pill">しない</span></td></tr>
+      <tr><td><b>6</b></td><td>7日後</td><td>本命</td><td><b>相談のご案内</b>。何を話すか・何分か・その後どうなるかを明記</td><td><span class="pill g">本番</span></td></tr>
+      <tr><td><b>7</b></td><td>14日後</td><td>拾い直す</td><td>読み飛ばした方向けに要点だけ再送。以降は月1の配信へ合流</td><td><span class="pill g">1回</span></td></tr>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:16px">
+    <b>配信の設計で一番効くのは、送る内容より「送らない回」を決めることです。</b>
+    毎回売り込みが入ると、6通目の本命が読まれません。上の型では<b>相談への誘導を3か所に絞っています</b>。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>リッチメニューは「今やってほしい1つ」を主役にします</h2>
+  <p class="sub">6枠を均等に並べると、どれも押されません。1枠を大きく取り、残りは補助にします。</p>
+
+  <div class="menus">
+    <div class="menu">
+      <div class="fh" style="font-size:13px;font-weight:900">現状によくある形</div>
+      <div class="grid6">
+        <div class="cell dim">サービス紹介</div>
+        <div class="cell dim">会社概要</div>
+        <div class="cell dim">料金</div>
+        <div class="cell dim">アクセス</div>
+        <div class="cell dim">SNS</div>
+        <div class="cell dim">お問い合わせ</div>
+      </div>
+      <div class="cap">6つが同じ重さ。「今、何をすればいいか」が伝わらず、結局どれも押されません。
+      押した先がWebサイトだと、LINEから離れてそのまま戻ってきません。</div>
+    </div>
+    <div class="menu">
+      <div class="fh" style="font-size:13px;font-weight:900">改善後</div>
+      <div class="grid6">
+        <div class="cell main">▶ まずは30秒の質問に答える</div>
+        <div class="cell">よくある質問</div>
+        <div class="cell">料金の目安</div>
+        <div class="cell">担当者に相談</div>
+      </div>
+      <div class="cap">上半分を「入口」1つに。押した先は<b>LINEの中で完結</b>させます（外部サイトに飛ばさない）。
+      下段は迷った人の受け皿。<b>「担当者に相談」は常設</b>し、営業時間と返信目安を必ず添えます。</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span>実際に動くものを、先に見ていただけます</h2>
+  <p class="sub">口頭の説明より速いので、いつも先にお見せしています。すべて自社で作って公開しているものです。</p>
+  <div class="links">
+    <a class="lk" href="https://l-studiojp.com/" target="_blank" rel="noopener">
+      <b>業種別の公式LINE構築デモ　18業種</b>
+      <span>飲食・サロン・クリニック・士業・不動産・法人向けなど。実際の会話の流れと管理台帳まで見られます</span>
+    </a>
+    <a class="lk" href="https://l-studiojp.com/tools/richmenu/" target="_blank" rel="noopener">
+      <b>リッチメニュー作成ツール（無料・登録不要）</b>
+      <span>自社開発。ブラウザ上でメニュー画像を作れます。改善案の見た目は、この場で作ってお見せできます</span>
+    </a>
+  </div>
+  <div class="note" style="margin-top:14px">
+    このほかに、稼働中の実案件（法律事務所のホームページ＋公式LINEでの資料受付、化粧品メーカー様のLINE内AI診断など）があります。
+    <b>守秘の範囲でお見せできるものは、面談時に画面共有でご覧いただけます。</b>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">06</span>進め方（最初の1週間で「直す順番」までお出しします）</h2>
+  <div class="tbl">
+    <table>
+      <tr><th>時期</th><th>やること</th><th>お渡しするもの</th><th>そちらの手間</th></tr>
+      <tr><td><b>1〜2日</b></td><td>現在の公式LINEを実際に登録して一通り体験。配信履歴・メニュー・タグ設定を確認</td><td>―</td><td>閲覧権限の共有だけ（30分）</td></tr>
+      <tr><td><b>3〜5日</b></td><td>離脱点の特定と、改善の優先順位づけ</td><td><b>導線診断レポート</b>（現状の図・問題点・直す順番）</td><td>なし</td></tr>
+      <tr><td><b>6〜7日</b></td><td>改善設計のご提示とすり合わせ</td><td><b>導線設計図</b>＋<b>ステップ配信の原稿</b>＋<b>リッチメニュー改善案</b></td><td>1時間の打ち合わせ</td></tr>
+      <tr><td><b>以降</b></td><td>ご相談のうえ、実装まで行うか、設計をお渡しして自社で進めるかを選べます</td><td>実装する場合は反映・テスト・計測設定まで</td><td>確認のみ</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span>費用の考え方</h2>
+  <p class="sub">まとめて全部ではなく、<b>範囲で区切ってご相談</b>いただけます。まずは診断だけ、という形でも構いません。</p>
+  <div class="cards">
+    <div class="card">
+      <div class="k">PLAN A</div>
+      <h3>導線診断のみ</h3>
+      <div class="price">12万円<small>（税別・一括）</small></div>
+      <p>現状を体験して、直す順番を出すところまで。</p>
+      <ul>
+        <li>導線診断レポート</li>
+        <li>離脱点の特定と優先順位</li>
+        <li>1時間の報告打ち合わせ</li>
+      </ul>
+    </div>
+    <div class="card rec">
+      <div class="k">PLAN B ／ おすすめ</div>
+      <h3>診断＋改善設計</h3>
+      <div class="price">28万円〜<small>（税別・一括）</small></div>
+      <p>そのまま実装できる状態の設計一式まで。</p>
+      <ul>
+        <li>PLAN A のすべて</li>
+        <li>登録直後〜問い合わせまでの導線設計図</li>
+        <li>ステップ配信の原稿（7通・分岐ぶん含む）</li>
+        <li>リッチメニュー改善案（画像データ込み）</li>
+        <li>タグ設計と計測項目の定義</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">PLAN C</div>
+      <h3>設計＋実装まで</h3>
+      <div class="price">45万円〜<small>（税別・一括）</small></div>
+      <p>設定作業までこちらで行い、動く状態でお渡しします。</p>
+      <ul>
+        <li>PLAN B のすべて</li>
+        <li>公式LINEへの反映・動作テスト</li>
+        <li>自動応答・分岐の実装</li>
+        <li>公開後2週間の調整</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px">
+    継続でのご相談をご希望の場合は、<b>月額3.3万円（税別）</b>で配信原稿の作成・数値のレビュー・改善の実施までお引き受けしています。
+    <b>拡張ツールをお使いでない場合、多くは追加費用なしで同じことができます</b>（必要な機能だけ実装する形にしています）。
+    ご予算に合わせて、金額を下げるのではなく<b>範囲を区切って</b>ご提案します。
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>Lスタジオ</b>　公式LINE構築・運用／Webシステム開発</div>
+    <div>本ページはご提案用のため、検索には表示していません</div>
+  </div>
+</footer>
+
+<script>
+var GROUPS=[
+ {g:'① 登録した直後', qs:[
+  {t:'あいさつメッセージで、次にやることが1つに絞られている',
+   d:'長い自己紹介やサービス一覧になっていないか',
+   rx:'あいさつを短くし、質問を1つだけ投げる形に変える（ここが一番効きます）'},
+  {t:'登録した人に、すぐ使えるものを1つ渡している',
+   d:'診断結果・チェックリスト・料金の目安など',
+   rx:'「役に立った」を最初の3分で作る。渡すものを1つ決める'},
+  {t:'登録直後の質問への回答で、案内を出し分けている',
+   d:'タップした答えで内容が変わるか',
+   rx:'質問1つ＋分岐を作り、回答をタグとして残す'}
+ ]},
+ {g:'② リッチメニュー', qs:[
+  {t:'「今これを押してほしい」枠が、他より大きい',
+   d:'6枠が均等に並んでいないか',
+   rx:'1枠を大きく取り、入口を1つにする（見た目は無料ツールで作れます）'},
+  {t:'押した先がLINEの中で完結する',
+   d:'外部サイトに飛ばして離脱していないか',
+   rx:'主要な導線はLINE内で完結させ、外部サイトは補助に回す'},
+  {t:'「相談する」が常に出ている',
+   d:'探さないと見つからない状態になっていないか',
+   rx:'相談の入口を常設し、営業時間と返信の目安を添える'}
+ ]},
+ {g:'③ ステップ配信', qs:[
+  {t:'最初の1週間で、売り込み以外の回がある',
+   d:'毎回お知らせや案内になっていないか',
+   rx:'相談への誘導を3か所に絞り、あいだを価値提供の回にする'},
+  {t:'配信の順番に、読み進める理由がある',
+   d:'共感→事例→不安を外す→ご案内、の流れになっているか',
+   rx:'7通の型に沿って順番から組み替える'},
+  {t:'分岐タグごとに、送る内容を変えている',
+   d:'全員に同じ文面を送っていないか',
+   rx:'①の回答タグで出し分ける。文面は使い回しでも順番を変えるだけで効きます'}
+ ]},
+ {g:'④ 問い合わせと計測', qs:[
+  {t:'最初に聞く項目が3つ以内',
+   d:'フォームの項目が多くて止まっていないか',
+   rx:'初回は3項目まで。残りは会話の中で聞く'},
+  {t:'友だち数以外の数字を見ている',
+   d:'メニューのタップ数・分岐の内訳・相談に至った数',
+   rx:'計測項目を決めて記録を開始する（ここが無いと改善が勘になります）'},
+  {t:'ブロック・離脱が起きた位置を把握している',
+   d:'何通目で減るかが分かっているか',
+   rx:'配信ごとの増減を並べて、落ちる回の内容を特定する'}
+ ]}
+];
+
+var flat=[];
+GROUPS.forEach(function(g){ g.qs.forEach(function(q){ flat.push(q); }); });
+
+var html='';
+var idx=0;
+GROUPS.forEach(function(g){
+  html+='<div class="qgroup"><div class="gh">'+g.g+'</div>';
+  g.qs.forEach(function(q){
+    html+='<div class="q" data-i="'+idx+'"><div class="bx"></div><div><div class="t">'+q.t+'</div>'
+       +'<div class="d">'+q.d+'</div></div></div>';
+    idx++;
+  });
+  html+='</div>';
+});
+document.getElementById('qcard').innerHTML=html;
+
+var state=flat.map(function(){ return false; });
+
+function render(){
+  var n=state.filter(Boolean).length;
+  document.getElementById('sc').textContent=n;
+  var v=document.getElementById('verdict');
+  var msg;
+  if(n===0){ msg='チェックを入れると診断が出ます。'; }
+  else if(n<=4){ msg='入口で失っている状態です。配信の中身より先に、登録直後とメニューを直すと反応が変わります。'; }
+  else if(n<=8){ msg='読まれてはいますが、相談まで届いていない状態です。順番と誘導の置き場所の調整が効きます。'; }
+  else if(n<=11){ msg='土台はできています。あとは出し分けと計測を足して、伸ばす段階です。'; }
+  else { msg='ひととおり押さえられています。この状態なら、配信の中身と数字の伸ばし方のご相談になります。'; }
+  v.textContent=msg;
+
+  var box=document.getElementById('rxbox');
+  var todo=[];
+  for(var i=0;i<flat.length;i++){ if(!state[i]) todo.push(flat[i]); }
+  if(n===0){ box.innerHTML='<div style="font-size:13px;color:#7A8695">まずチェックしてみてください。</div>'; return; }
+  if(todo.length===0){ box.innerHTML='<div class="none">直すべき点は見つかりませんでした。この段階なら、伸ばす相談から始められます。</div>'; return; }
+  box.innerHTML='<ol>'+todo.slice(0,3).map(function(q){
+    return '<li><b>'+q.t+'</b>'+q.rx+'</li>';
+  }).join('')+'</ol>'+(todo.length>3?'<div style="font-size:12px;color:#7A8695">ほか '+(todo.length-3)+' 件</div>':'');
+}
+
+document.getElementById('qcard').addEventListener('click',function(e){
+  var q=e.target.closest('.q'); if(!q) return;
+  var i=Number(q.dataset.i);
+  state[i]=!state[i];
+  q.classList.toggle('on',state[i]);
+  render();
+});
+render();
+</script>
+</body>
+</html>
