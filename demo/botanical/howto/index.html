@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>植物美容AIナビ　使い方（サロン様向け）</title>
+<meta name="description" content="植物美容AIナビの使い方を3分36秒でご説明します。QRの置き方・お客様のご案内・番号での原液の取り方・施術後の記入まで。">
+<meta name="robots" content="noindex,nofollow">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<style>
+  :root{
+    --bg:#f7f3ee; --ink:#4a4038; --sub:#7b7068; --accent:#b89a6e; --line:#e6dccc;
+    --ok:#6f9160; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+    line-height:1.8;-webkit-text-size-adjust:100%}
+  .wrap{max-width:940px;margin:0 auto;padding:28px 18px 64px}
+
+  header{text-align:center;padding:14px 0 22px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .brand{letter-spacing:.2em;font-size:11px;color:var(--accent);font-weight:700}
+  h1{font-size:24px;margin:10px 0 6px;font-weight:800;letter-spacing:.02em}
+  .lead{font-size:14px;color:var(--sub);margin:0}
+  .meta{display:inline-block;margin-top:12px;font-size:12px;color:var(--sub);
+    border:1px solid var(--line);border-radius:999px;padding:5px 14px;background:#fff}
+
+  .player{background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(70,60,45,.18)}
+  video{display:block;width:100%;height:auto;background:#000}
+
+  h2{font-size:16px;margin:34px 0 12px;padding-left:11px;border-left:5px solid var(--accent);font-weight:800}
+
+  .core{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .core .c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .core .t{font-size:14px;font-weight:800}
+  .core .t span{color:var(--ok)}
+  .core .d{font-size:12.5px;color:var(--sub);margin-top:5px}
+
+  ol.chap{list-style:none;margin:0;padding:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  ol.chap li{margin:0}
+  ol.chap button{width:100%;display:flex;align-items:baseline;gap:11px;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:11px;padding:11px 14px;
+    font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+  ol.chap button:hover,ol.chap button:focus{border-color:var(--accent);background:#fbf7ef}
+  ol.chap .tm{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;color:var(--accent);flex:none;min-width:38px}
+  ol.chap .star{color:var(--ok);font-weight:800}
+
+  .note{background:#fff;border-left:5px solid var(--accent);border-radius:0 11px 11px 0;
+    padding:14px 18px;font-size:13.5px;color:var(--sub);margin-top:26px}
+  .note b{color:var(--ink)}
+
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--sub);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  @media (max-width:760px){
+    .wrap{padding:18px 14px 48px}
+    h1{font-size:19px}
+    .core{grid-template-columns:1fr}
+    ol.chap{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="brand">K LAB. BOTANICAL THERAPY</div>
+  <h1>植物美容AIナビ　使い方</h1>
+  <p class="lead">導入されたサロンの皆さまへ。この1本で、店頭での回し方がひととおり分かります。</p>
+  <div class="meta">3分36秒 ／ 音が出ます（BGMのみ）</div>
+</header>
+
+<div class="player">
+  <video id="v" controls preload="metadata" playsinline poster="poster.jpg">
+    <source src="howto-salon.mp4" type="video/mp4">
+    お使いのブラウザは動画再生に対応していません。
+  </video>
+</div>
+
+<h2>まず、この3つだけ覚えてください</h2>
+<div class="core">
+  <div class="c">
+    <div class="t"><span>①</span> 緑の1行が出れば成功</div>
+    <div class="d">お客様がQRを読むと「✓ 店頭QRからご来店を確認しました」と緑で出ます。</div>
+  </div>
+  <div class="c">
+    <div class="t"><span>②</span> 全部埋まると送信できる</div>
+    <div class="d">「残り◯項目」が消えて「送信する」に変わったら送信できます。</div>
+  </div>
+  <div class="c">
+    <div class="t"><span>③</span> 名前ではなく番号で取る</div>
+    <div class="d">原液はPAD番号、アロマはA番号。店頭の一覧表と同じ番号です。</div>
+  </div>
+</div>
+
+<h2>見たいところから（タップで頭出し）</h2>
+<ol class="chap" id="chapters"></ol>
+
+<div class="note">
+  <b>QRのURL・画像は、お客様やSNSにお渡ししないでください。</b>
+  店頭でお読み取りいただく前提の入口です。<br>
+  また、ご提案は「お肌を整えるご提案」です。<b>「治る」「効く」という言い方はできません。</b><br>
+  くわしい手順・困ったときの対処は、<b>取扱説明書</b>と<b>店頭クイックガイド</b>をご覧ください。
+</div>
+
+<footer>
+  <div>植物美容AIナビ ／ kalaku</div>
+  <div>制作・運用サポート：Lスタジオ</div>
+</footer>
+
+</div>
+
+<script>
+var CHAPTERS=[
+  [8,  'やることは4つだけ'],
+  [20, 'QRは2枚（B8＝友だち追加／B9＝診断用）'],
+  [42, '入口は店頭QRだけ'],
+  [52, 'お客様がQRを読む', true],
+  [68, '8つの質問'],
+  [98, 'お顔の写真を1枚', true],
+  [118,'ご提案が2通届く'],
+  [148,'番号で原液を取る', true],
+  [165,'施術前は「診断履歴」の1行だけ'],
+  [182,'施術後に書くのは3列だけ'],
+  [196,'2つのお願い'],
+  [208,'困ったときは']
+];
+function mmss(s){ return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); }
+var v=document.getElementById('v');
+document.getElementById('chapters').innerHTML=CHAPTERS.map(function(c){
+  return '<li><button data-t="'+c[0]+'"><span class="tm">'+mmss(c[0])+'</span>'
+    +'<span>'+c[1]+(c[2]?' <span class="star">★</span>':'')+'</span></button></li>';
+}).join('');
+document.getElementById('chapters').addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b) return;
+  v.currentTime=Number(b.dataset.t);
+  v.play();
+  v.scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+</body>
+</html>
