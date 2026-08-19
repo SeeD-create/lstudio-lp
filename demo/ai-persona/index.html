@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>「AIらしさ」を工程で消す ｜ 人格AIによるコミュニティ投稿のご提案 ｜ Lスタジオ</title>
+<meta name="description" content="AIらしさはプロンプトでは消えません。生成の前後に工程を挟んで消します。判定器をその場で試せます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="「AIらしさ」を工程で消す ｜ 人格AIによるコミュニティ投稿のご提案">
+<meta property="og:description" content="AIらしさ判定器を実際に触れます。人格の一貫性・ガードレール・WordPress連携まで。">
+<meta property="og:url" content="https://l-studiojp.com/demo/ai-persona/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✍️</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+:root{
+  --paper:#F6F7F9; --surface:#fff; --sunk:#EEF1F4;
+  --line:#DDE2E8; --line-soft:#E9EDF1;
+  --ink:#151C24; --ink2:#454F5B; --ink3:#78838F;
+  --accent:#2A5C8A; --accent-deep:#1C4468; --accent-soft:#E6EEF5; --accent-line:#A9C5DC;
+  --ok:#1E7A4C; --ok-soft:#E5F3EB; --ok-line:#AFD9C2;
+  --bad:#B03A3A; --bad-soft:#FBECEC; --bad-line:#EDC0C0;
+  --warn:#A9682A; --warn-soft:#FAF1E5; --warn-line:#E8CFAB;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+section{padding:42px 0;border-top:1px solid var(--line-soft)}
+
+.hero{background:linear-gradient(155deg,#22405C,#16293B 62%,#101B27);color:#fff;padding:40px 0 34px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.12em;font-weight:700;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 13px}
+.hero h1{font-size:29px;line-height:1.45;margin:15px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#8FD0FF}
+.hero p{font-size:15px;color:#C6D5E2;margin:0;max-width:800px}
+.hero .lead2{margin-top:14px;font-size:13.5px;color:#9FB6C8;border-top:1px solid rgba(255,255,255,.16);padding-top:14px}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:2px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:840px}
+
+/* 判定器 */
+.judge{display:grid;grid-template-columns:1fr 340px;gap:18px;align-items:start}
+.jbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+textarea{width:100%;min-height:210px;border:1px solid var(--line);border-radius:10px;padding:13px 14px;
+  font:inherit;font-size:14px;line-height:1.9;resize:vertical;background:#FCFDFE;color:var(--ink)}
+textarea:focus{outline:2px solid var(--accent-line);outline-offset:1px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{border:1px solid var(--line);background:var(--sunk);border-radius:9px;padding:8px 13px;
+  font:inherit;font-size:12.5px;font-weight:700;color:var(--ink2);cursor:pointer;transition:all .15s}
+.btn:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+.btn.bad:hover{border-color:var(--bad);color:var(--bad);background:var(--bad-soft)}
+.btn.ok:hover{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+
+.meter{text-align:center;padding:4px 0 12px;border-bottom:1px dashed var(--line)}
+.meter .n{font-size:46px;font-weight:900;line-height:1}
+.meter .n small{font-size:16px;color:var(--ink3);font-weight:800}
+.meter .lbl{font-size:12.5px;color:var(--ink3);margin-top:2px}
+.bar{height:9px;border-radius:99px;background:var(--sunk);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;width:0;transition:width .4s,background .4s}
+.verdict{margin-top:13px;font-size:13.5px;font-weight:800;padding:10px 12px;border-radius:9px;
+  background:var(--sunk);border:1px solid var(--line)}
+.flags{margin-top:14px}
+.flags h4{font-size:11.5px;letter-spacing:.06em;color:var(--ink3);margin:0 0 8px;font-weight:800}
+.flag{font-size:12.5px;padding:8px 11px;border-radius:9px;margin-bottom:7px;line-height:1.65}
+.flag.minus{background:var(--bad-soft);border:1px solid var(--bad-line)}
+.flag.plus{background:var(--ok-soft);border:1px solid var(--ok-line)}
+.flag b{display:block}
+.flag code{background:rgba(0,0,0,.05);border-radius:4px;padding:0 4px;font-size:11.5px}
+
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:660px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:12px;color:var(--ink2);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td b{color:var(--accent-deep)}
+.pill{display:inline-block;font-size:11px;font-weight:800;border-radius:5px;padding:2px 8px;white-space:nowrap;
+  background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--accent-line)}
+.pill.g{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+.pill.r{background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)}
+
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.layer{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:17px}
+.layer .k{font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.06em}
+.layer h3{font-size:15.5px;margin:6px 0 7px;font-weight:900}
+.layer p{font-size:12.5px;color:var(--ink2);margin:0}
+.layer .ex{margin-top:9px;background:var(--sunk);border-radius:9px;padding:9px 11px;font-size:12px;color:var(--ink2);line-height:1.7}
+
+.gates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:stretch}
+.gate{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative}
+.gate .n{font-size:11px;font-weight:800;color:#fff;background:var(--accent);border-radius:5px;padding:2px 8px;display:inline-block}
+.gate h3{font-size:15px;margin:8px 0 7px;font-weight:900}
+.gate ul{margin:0;padding-left:18px;font-size:12.5px;color:var(--ink2)}
+.gate li{margin-bottom:5px}
+
+.samples{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.smp{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.smp .who{font-size:12px;font-weight:800;color:var(--accent-deep);background:var(--accent-soft);
+  border:1px solid var(--accent-line);border-radius:6px;padding:2px 9px;display:inline-block}
+.smp .body{font-size:13.5px;line-height:1.95;margin-top:10px;white-space:pre-wrap}
+.smp .why{font-size:12px;color:var(--ink3);margin-top:10px;border-top:1px dashed var(--line);padding-top:9px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column}
+.card .k{font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.06em}
+.card h3{font-size:16px;margin:6px 0 6px;font-weight:900}
+.card .price{font-size:23px;font-weight:900;margin:8px 0 2px}
+.card .price small{font-size:12px;color:var(--ink3);font-weight:700}
+.card p{font-size:12.5px;color:var(--ink2);margin:6px 0 0}
+.card ul{margin:10px 0 0;padding-left:18px;font-size:12.5px;color:var(--ink2)}
+.card li{margin-bottom:4px}
+.card.rec{border-color:var(--accent);box-shadow:0 6px 18px rgba(42,92,138,.13)}
+.card.rec .k{color:#fff;background:var(--accent);border-radius:5px;padding:2px 8px;display:inline-block}
+
+.note{background:var(--surface);border-left:5px solid var(--accent);border-radius:0 12px 12px 0;
+  padding:16px 20px;font-size:13.5px;color:var(--ink2)}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note b{color:var(--ink)}
+.note ul{margin:8px 0 0;padding-left:20px}
+
+.links{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.lk{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:14px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.lk:hover{border-color:var(--accent);transform:translateY(-1px)}
+.lk b{display:block;font-size:14.5px}
+.lk span{font-size:12.5px;color:var(--ink3)}
+
+footer{background:#16293B;color:#B4C6D4;padding:26px 0;font-size:12.5px;margin-top:10px}
+footer b{color:#fff}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .judge,.layers,.gates,.samples,.cards,.links{grid-template-columns:1fr}
+  .hero h1{font-size:22px}
+  h2{font-size:18px}
+  section{padding:32px 0}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="tag">人格設定AIによるコミュニティ投稿 ／ 技術提案</div>
+    <h1>「AIらしさ」は、プロンプトでは消えません。<br><em>生成の前後に工程を挟んで</em>消します。</h1>
+    <p>いちばん大事なのは、投稿が「いかにもAIが書いた文章」に見えないこと。ここは書き方の工夫ではなく、
+    <b>作った文章を機械的に弾く仕組み</b>があるかどうかで決まります。実際に動くものを用意しましたので、まず触ってみてください。</p>
+    <div class="lead2">
+      このページは、ご提案の内容をそのままお見せするために作ったものです。判定器はブラウザの中だけで動いており、入力した文章はどこにも送信されません。
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section style="border-top:0">
+  <h2><span class="num">01</span>まず、触ってみてください（AIらしさ判定器）</h2>
+  <p class="sub">つぶやきを貼り付けると、<b>「人が書いたらしさ」</b>を採点し、AIっぽく見える箇所を指摘します。
+  下のボタンで、比較用の文章をすぐ入れられます。</p>
+
+  <div class="judge">
+    <div class="jbox">
+      <textarea id="t" placeholder="ここに投稿文を貼り付けてください"></textarea>
+      <div class="btns">
+        <button class="btn bad" data-s="ai1">よくあるAI投稿を入れる</button>
+        <button class="btn bad" data-s="ai2">もう1つ（丁寧すぎる版）</button>
+        <button class="btn ok" data-s="h1">今回の書き方（キャラB）</button>
+        <button class="btn ok" data-s="h2">今回の書き方（キャラA）</button>
+        <button class="btn" data-s="">消す</button>
+      </div>
+      <div class="note" style="margin-top:14px;font-size:12.5px">
+        <b>この判定器は、本番システムでは「生成した文章を投稿前に弾く関門」として動きます。</b>
+        ここではブラウザだけで動く簡易版（辞書と統計）ですが、本番では<b>これに加えてLLMによる判定を二段目に置き、
+        閾値を下回った投稿は自動で書き直させます</b>。人が毎回チェックする運用にはしません。
+      </div>
+    </div>
+
+    <div class="jbox">
+      <div class="meter">
+        <div class="n" id="score">—<small> / 100</small></div>
+        <div class="lbl">人が書いたらしさ</div>
+        <div class="bar"><i id="bar"></i></div>
+      </div>
+      <div class="verdict" id="verdict">文章を入れると判定します。</div>
+      <div class="flags">
+        <h4>判定の内訳</h4>
+        <div id="flags"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>「AIらしさ」の正体と、消し方</h2>
+  <p class="sub">ご提示いただいた「整いすぎた構成・体温のない一般論・毎回同じリズムの締め方」は、
+  分解すると次の6つに落ちます。<b>それぞれに対して、生成側と検査側の両方で手を打ちます。</b></p>
+  <div class="tbl">
+    <table>
+      <tr><th>AIらしさの正体</th><th>生成のときにやること</th><th>検査のときにやること</th></tr>
+      <tr>
+        <td><b>構成が毎回同じ</b><br><span style="font-size:12px;color:#78838F">導入→3点→まとめ</span></td>
+        <td>投稿の「型カード」を20種類用意し、ランダムに引く（独り言／失敗報告／引用と感想／途中で切れる／写真の説明だけ など）</td>
+        <td>直近20投稿と<b>構成パターンが一致</b>したら破棄して引き直し</td>
+      </tr>
+      <tr>
+        <td><b>締め方が毎回同じ</b></td>
+        <td>禁止する結びを辞書化（「〜していきたいと思います」「皆さんはどうですか？」「ぜひ〜してみてください」）</td>
+        <td>辞書に当たったら<b>即再生成</b>。文末表現の連続重複もチェック</td>
+      </tr>
+      <tr>
+        <td><b>体温のない一般論</b></td>
+        <td>投稿ネタに<b>必ず「その日の具体」を1つ混ぜる</b>（時刻・場所・飲み物・家族・失敗）。ネタ帳から供給</td>
+        <td>固有名詞・数字・時刻が<b>ゼロなら弾く</b></td>
+      </tr>
+      <tr>
+        <td><b>整いすぎている</b></td>
+        <td>完成度を意図的にばらす。3回に1回は<b>短い・言い切らない・結論がない</b>投稿にする</td>
+        <td>文の長さのばらつき（変動係数）が小さすぎたら弾く</td>
+      </tr>
+      <tr>
+        <td><b>語彙がビジネス抽象語ばかり</b></td>
+        <td>キャラごとの<b>語彙帳</b>を作る。実際の受講生投稿・アンケート（ご用意いただけるもの）から語彙と言い回しを抽出して使う</td>
+        <td>抽象語（活用・効果的・重要・意識する）の密度が高いと減点</td>
+      </tr>
+      <tr>
+        <td><b>誰が書いても同じ</b></td>
+        <td>キャラごとに文長・句読点の癖・一人称・絵文字の有無・改行位置まで規定</td>
+        <td><b>キャラ当てクイズを機械で実施</b>。名前を伏せて誰の投稿か判定させ、当たらなければ書き分け失敗として差し戻し</td>
+      </tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:16px">
+    <b>いちばん効くのは、最後の「キャラ当て」です。</b>
+    4人ぶんの文章を名前を伏せて判定させ、正しく当てられないうちは本番に出しません。
+    これを毎週まわすと、<b>文体の劣化（数か月後にみんな同じ喋り方になる現象）を早い段階で検出できます</b>。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">03</span>人格を数か月ぶらさない（記憶の持たせ方）</h2>
+  <p class="sub">「過去の投稿履歴を参照して一貫性を担保」というご要件そのものです。<b>記憶を3層に分けます。</b></p>
+  <div class="layers">
+    <div class="layer">
+      <div class="k">LAYER 1 ／ 変わらない</div>
+      <h3>人格カード</h3>
+      <p>プロフィール・価値観・文体規定・NG事項。手で書いて固定し、勝手に育たせません。</p>
+      <div class="ex">例：Bさん／28歳／営業3年目／マーケは独学7か月／焦りがある／断定を避ける／絵文字は使わない／一人称は「自分」</div>
+    </div>
+    <div class="layer">
+      <div class="k">LAYER 2 ／ 進んでいく</div>
+      <h3>できごとの年表</h3>
+      <p>学習の進捗・受けた講座・悩みの変化を日付つきで積む。<b>ここがないと数か月後に矛盾します</b>（先週知らなかったことを今日語り出す）。</p>
+      <div class="ex">例：7月3日 SQLの講座で挫折 ／ 7月20日 上司に提案が通らず落ち込む ／ 8月5日 分析の課題を1つ提出</div>
+    </div>
+    <div class="layer">
+      <div class="k">LAYER 3 ／ 直近だけ</div>
+      <h3>投稿の要約</h3>
+      <p>直近20投稿の要約と、使った語彙・話題を保持。<b>同じ話を繰り返さない</b>ためのメモです。週1で圧縮します。</p>
+      <div class="ex">例：直近で「時間がない」を3回使用 → 次は別の切り口を選ぶ</div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px">
+    <b>ベクトルDB（RAG）についての正直な見解です。</b>
+    4キャラ×月16本なら、1年でも1キャラ200投稿ほど。この規模では<b>全件を要約して渡すほうが、速く・安く・破綻しません</b>。
+    RAGは「引いてくる文脈がズレると、人格が微妙に別人になる」という副作用があり、今回の最重要要件と相性が良くありません。
+    <b>まず年表＋要約で作り、投稿数が増えて要約に収まらなくなった時点でRAGに移行する</b>——この順番をご提案します
+    （移行しやすいよう、記憶の入口は最初から差し替え可能な作りにします）。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>実際に書いた、つぶやきのサンプル</h2>
+  <p class="sub">上の判定器に、そのまま入れて試せます（ボタンで入ります）。<b>狙って崩している箇所</b>を下に添えました。</p>
+  <div class="samples">
+    <div class="smp">
+      <span class="who">キャラB／28歳・会社員・転職したい</span>
+      <div class="body">昨日の夜、競合のLPを20本くらい見て回ってたんですが、途中で何を比べてたのか分からなくなって寝ました。
+朝、見返したら「価格の見せ方」だけメモしてあった。たぶん自分がいま引っかかってるのはそこなんだと思う。
+目的を決めずに見はじめると、こうなるんだな…</div>
+      <div class="why">狙い：結論を出していない／時刻と本数だけ具体／「たぶん」で断定を避ける／三点構成にしない／体言止めと口語の混在</div>
+    </div>
+    <div class="smp">
+      <span class="who">キャラA／30代後半・主婦・副業をはじめたい</span>
+      <div class="body">子どもの習い事の待ち時間、いつもレシピ動画を見て終わっていたので、今日から講座に変えてみました。
+30分で1本は無理でした。半分。
+でも半分は進んだので、よしとします。</div>
+      <div class="why">狙い：生活の具体（待ち時間）から入る／短文と体言止め／「よしとします」で締めすぎない／数字が端数で自然</div>
+    </div>
+    <div class="smp">
+      <span class="who">キャラB／同上・相談室での投稿</span>
+      <div class="body">上司に「この施策の狙いは？」と聞かれて、うまく答えられませんでした。
+数字は用意していたのに、言葉が出てこなかった。
+狙いって、数字を出す前に言葉で置いておかないと駄目なんですね。当たり前のことを、また一つ遅れて理解しました。
+
+似たようなことで詰まった方、どう整理されてますか。</div>
+      <div class="why">狙い：失敗から入る／相談室なので最後だけ問いを置く（つぶやきでは置かない）／「駄目」の漢字表記をキャラの癖として固定</div>
+    </div>
+    <div class="smp" style="background:var(--bad-soft);border-color:var(--bad-line)">
+      <span class="who" style="background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)">比較：よくあるAI投稿</span>
+      <div class="body">マーケティングを学ぶ上で重要なのは、継続的なインプットとアウトプットのバランスです。
+まず、日々の情報収集を習慣化すること。次に、学んだ内容を自分の言葉で整理すること。最後に、実務で試すことです。
+小さな積み重ねが、大きな成果につながります。皆さんも、ぜひ意識してみてはいかがでしょうか。</div>
+      <div class="why">判定器にかけると低スコアになります。整った三段構成／抽象語の連続／定型の締め／具体が1つもない、が同時に出るためです。</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span>NG話題の検知と、承認フロー</h2>
+  <p class="sub">「サービスを推す発言を一切生成させない」が最も難しい要件です。<b>3つの関門を通します。</b></p>
+  <div class="gates">
+    <div class="gate">
+      <div class="n">関門 1</div>
+      <h3>生成の前（プロンプト）</h3>
+      <ul>
+        <li>禁止事項を人格カードに常駐（効果・成果・優位性・料金／他者批判／医療・法律・投資／政治・宗教／個人特定）</li>
+        <li>ネタ帳の時点でNGを含む話題を除外</li>
+        <li>「学んだ内容の共有はOK、サービスの評価はNG」の<b>境界の例文を20本</b>与える</li>
+      </ul>
+    </div>
+    <div class="gate">
+      <div class="n">関門 2</div>
+      <h3>生成の後（機械判定）</h3>
+      <ul>
+        <li><b>辞書</b>：講座名・商品名・料金表現・効果表現を機械で全文検査（ここは確実に止まります）</li>
+        <li><b>LLM判定</b>：「この文はサービスを推しているか」を別プロンプトで採点。辞書をすり抜ける言い換えを拾う</li>
+        <li>2つのどちらかが反応したら<b>投稿せず書き直し</b>。3回失敗で人へ回す</li>
+      </ul>
+    </div>
+    <div class="gate">
+      <div class="n">関門 3</div>
+      <h3>人の承認</h3>
+      <ul>
+        <li>コラムは<b>全文チェック</b>（ご指定どおり）</li>
+        <li>つぶやき・相談室は、最初の1か月は<b>全件</b>→数値が安定したら抜き取りへ</li>
+        <li>受講生への返信は、当面<b>すべて人が承認してから</b>投稿（ここは自動化しないほうが安全です）</li>
+        <li>クレーム性・炎上の兆候を検知したら<b>その場で全キャラ停止</b>し、運営へ通知</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:36px"><span class="num">06</span>AIであることの開示</h2>
+  <div class="tbl">
+    <table>
+      <tr><th>場面</th><th>ふるまい</th><th>実装</th></tr>
+      <tr><td>通常の投稿</td><td>名乗らない。自然な一人称で書く</td><td>人格カードに「AIである旨を投稿本文で述べない」を明記</td></tr>
+      <tr><td>「これAIですか？」と聞かれた</td><td><b>正直に肯定する</b></td><td>この質問だけは<b>生成させず、承認済みの定型文</b>を返す（ごまかす応答が出る余地を作らない）</td></tr>
+      <tr><td>判断に迷う問い</td><td>自動応答しない</td><td>「AI」「中の人」「本物」等の語を検知したら<b>自動応答を止めて運営へエスカレーション</b></td></tr>
+      <tr><td>プロフィール欄</td><td>隠さない</td><td>「このアカウントは運営が用意した学習用のキャラクターです」等の表記をご相談のうえ設置</td></tr>
+    </table>
+  </div>
+  <div class="note warn" style="margin-top:16px">
+    <b>ここは技術より方針の問題なので、先に決めておきたい点があります。</b>
+    「あえてAIだとは言わない」の運用は、受講生が後から気づいたときに<b>信頼を損ねる形にならないこと</b>が肝心です。
+    プロフィール欄にだけ明記しておく（本文では名乗らない）形が、実務上いちばん角が立ちません。ご相談させてください。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span>技術構成とWordPress連携</h2>
+  <div class="tbl">
+    <table>
+      <tr><th>層</th><th>やること</th><th>使うもの（案）</th></tr>
+      <tr><td><b>人格・記憶</b></td><td>人格カード／年表／投稿要約を保持。<b>投稿先を知らない</b></td><td>データベース（またはスプレッドシート）。第二フェーズのSNS展開に備えて疎結合に</td></tr>
+      <tr><td><b>生成</b></td><td>型カード＋ネタ＋語彙帳＋記憶からドラフトを作る</td><td>LLMのAPI（Claude または Gemini。文体の自然さで選定し、比較結果をお出しします）</td></tr>
+      <tr><td><b>検査</b></td><td>AIらしさ判定・NG検知・キャラ当て・重複チェック</td><td>辞書＋統計＋LLM判定の二段。<b>このページの判定器がその一段目です</b></td></tr>
+      <tr><td><b>配信</b></td><td>投稿・コメント・いいねを時間差で実行</td><td><b>WordPress REST API</b>（アプリケーションパスワード認証）。カスタム投稿タイプにも対応</td></tr>
+      <tr><td><b>管理画面</b></td><td>投稿予定と履歴の一覧／手動編集／停止／承認</td><td>WordPress側にプラグインを増やさず<b>外部の管理画面</b>にします（本体の改修リスクを持ち込まないため）</td></tr>
+      <tr><td><b>実行基盤</b></td><td>定時実行・時刻分散・リトライ</td><td>クラウド上の小さなサーバー、または n8n / Make。<b>運用のしやすさを優先して選定</b></td></tr>
+    </table>
+  </div>
+  <div class="note" style="margin-top:16px">
+    <b>第二フェーズ（各キャラのSNSアカウント）を最初から見込んだ設計にします。</b>
+    人格・記憶・生成は投稿先を知らず、配信だけを差し替える形（アダプタ方式）にしておけば、
+    SNSを足すときに<b>人格まわりを一切触らずに済みます</b>。ここは初期の作り方だけの違いで、費用は変わりません。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">08</span>フェーズ別のお見積もりと、運用コスト</h2>
+  <p class="sub">段階的リリースのご意向にあわせ、<b>フェーズごとに区切って</b>ご相談いただけます（すべて税別）。</p>
+  <div class="cards">
+    <div class="card">
+      <div class="k">PHASE 0</div>
+      <h3>設計と土台づくり</h3>
+      <div class="price">22万円</div>
+      <p>ここが全体の品質を決めます。</p>
+      <ul>
+        <li>人格カード4名分の作り込み（設定素案をもとに）</li>
+        <li>語彙帳の抽出（過去の受講生投稿・アンケートから）</li>
+        <li>型カード20種・ネタ帳の設計</li>
+        <li>NG辞書と判定基準の作成</li>
+        <li><b>合格ラインの定義</b>（何点以上なら出してよいか）</li>
+      </ul>
+    </div>
+    <div class="card rec">
+      <div class="k">PHASE 1 ／ まずここまで</div>
+      <h3>プロトタイプ</h3>
+      <div class="price">38万円</div>
+      <p>1キャラ×つぶやきを、実際にWordPressへ。</p>
+      <ul>
+        <li>生成 → 検査 → 投稿の一本道を実装</li>
+        <li>AIらしさ判定＋NG検知（辞書＋LLM）</li>
+        <li>WordPress REST API 連携</li>
+        <li>管理画面（予定・履歴・停止・手動編集）</li>
+        <li><b>2週間の試験運用と、実データでの調整</b></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">PHASE 2</div>
+      <h3>本番展開</h3>
+      <div class="price">68万円</div>
+      <p>4キャラ×3機能と、キャラ同士の交流まで。</p>
+      <ul>
+        <li>4キャラ×つぶやき・相談室・コラム</li>
+        <li>コメント／返信／いいねの連鎖と時間差設計</li>
+        <li>記憶3層と一貫性チェック（キャラ当て）</li>
+        <li>承認フロー・エスカレーション</li>
+        <li>受講生投稿への対応動線</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px">
+    <b>運用（任意）</b>：月4万4千円。文体の劣化監視（毎週のキャラ当て）、語彙帳とネタ帳の更新、障害対応、月次レポート。<br>
+    <b>LLMの利用料の目安</b>：月間の生成本数を、投稿192本＋コメント返信200本＋検査（判定・書き直し）ぶんとして概算すると、
+    <b>月額およそ2,000円〜6,000円</b>の見込みです（モデルの選定と1投稿あたりの文字数で変わります。
+    Phase 0 の時点で実測して確定値をお出しします）。<br>
+    <span style="font-size:12.5px;color:var(--ink3)">※ サーバー費用は構成により月1,000円前後。ご希望があれば貴社アカウントで契約いただく形にできます。</span>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">09</span>なぜ私がこの案件に向いているか</h2>
+  <p class="sub">「人格を設定したAIを、破綻させずに数か月動かし続ける」——これを、自分の仕事の中で毎日やっています。</p>
+  <div class="tbl">
+    <table>
+      <tr><th>やっていること</th><th>今回との関係</th></tr>
+      <tr><td><b>役割の違うAIを複数、社内で常時運用</b>（案件担当・事務・制作など、性格と担当領域を分けて運用しています）</td>
+          <td>人格カードと記憶の持たせ方、<b>数か月後に別人化する現象</b>への対処は、実際に踏んだうえで対策しています</td></tr>
+      <tr><td><b>教材コンテンツの量産ライン</b>（AIで作り、機械的な点検を通してから世に出す）</td>
+          <td>今回の<b>「生成→検査→再生成」の関門設計</b>と同じ構造です。検査を通らないものは出さない、を運用で回しています</td></tr>
+      <tr><td><b>LLM APIの本番運用</b>（顧客向けサービスで、回答生成と自動記録を稼働中）</td>
+          <td>コスト試算・リトライ・失敗時の代替応答など、<b>止まらない作り</b>の実装経験があります</td></tr>
+      <tr><td><b>学習塾の運営</b>（本業のひとつ）</td>
+          <td>「誰も書き込んでいない場所には誰も書き込まない」——学習コミュニティの停滞は、当事者としてよく分かります</td></tr>
+    </table>
+  </div>
+  <div class="links" style="margin-top:16px">
+    <a class="lk" href="https://l-studiojp.com/" target="_blank" rel="noopener">
+      <b>Lスタジオ（制作実績）</b><span>公式LINE構築18業種・業務システム。すべて自社で公開しています</span>
+    </a>
+    <a class="lk" href="https://l-studiojp.com/demo/kaisuken/" target="_blank" rel="noopener">
+      <b>回数券管理システム（動作デモ）</b><span>実際に操作できます。要件を仕組みに落とす進め方の見本として</span>
+    </a>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>Lスタジオ</b>　AI活用システム開発／公式LINE構築</div>
+    <div>本ページはご提案用のため、検索には表示していません</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   AIらしさ判定器（ブラウザ内で完結・送信なし）
+   本番では、これを一段目の関門として使い、二段目にLLM判定を置く
+   ========================================================= */
+var SAMPLES={
+ ai1:'マーケティングを学ぶ上で重要なのは、継続的なインプットとアウトプットのバランスです。\nまず、日々の情報収集を習慣化すること。次に、学んだ内容を自分の言葉で整理すること。最後に、実務で試すことです。\n小さな積み重ねが、大きな成果につながります。皆さんも、ぜひ意識してみてはいかがでしょうか。',
+ ai2:'本日は、効果的な時間管理について共有させていただきます。\n限られた時間の中で成果を最大化するためには、優先順位の明確化が不可欠です。\nタスクを重要度と緊急度で整理し、最も価値の高い活動に集中することが重要です。\n皆様も、ぜひ一度ご自身の時間の使い方を振り返ってみてください。',
+ h1:'昨日の夜、競合のLPを20本くらい見て回ってたんですが、途中で何を比べてたのか分からなくなって寝ました。\n朝、見返したら「価格の見せ方」だけメモしてあった。たぶん自分がいま引っかかってるのはそこなんだと思う。\n目的を決めずに見はじめると、こうなるんだな…',
+ h2:'子どもの習い事の待ち時間、いつもレシピ動画を見て終わっていたので、今日から講座に変えてみました。\n30分で1本は無理でした。半分。\nでも半分は進んだので、よしとします。'
+};
+
+var CLOSERS=['していきたいと思います','していきたい','ではないでしょうか','いかがでしょうか','ぜひ','してみてください',
+  'ことが重要です','が不可欠です','につながります','を心がけましょう','まとめると','最後に、','皆さん','皆様'];
+var ABSTRACT=['重要','効果的','活用','最適','戦略','意識','ポイント','本質','価値','成果','最大化','習慣化','明確化',
+  '継続的','積極的','不可欠','共有させて','振り返って','バランス','アウトプット','インプット'];
+var STRUCT=['まず','次に','最後に','さらに','また、','そして、','加えて'];
+var COLLOQ=['けど','たぶん','なんか','かも','だな','ですね','しまった','っぽい','…','ちゃっ','じゃ','とりあえず',
+  'よしと','だろうか','のかな','みたい','っていう','ってた','てた','とか'];
+var EXPERIENCE=['してみた','してみました','だった','でした','しまいました','できなかった','わからなく','分からなく',
+  '思い出','気づい','間違え','忘れ','寝ました','見返し','聞かれ'];
+
+function esc(s){ return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+function countHits(text,list){
+  var hits=[];
+  list.forEach(function(w){ if(text.indexOf(w)>=0) hits.push(w); });
+  return hits;
+}
+function judge(text){
+  var flags=[], score=50;
+  var t=text.trim();
+  if(!t) return null;
+  var sentences=t.split(/[。！？\n]/).map(function(s){return s.trim();}).filter(function(s){return s.length>0;});
+  var lens=sentences.map(function(s){return s.length;});
+  var avg=lens.reduce(function(a,b){return a+b;},0)/(lens.length||1);
+  var sd=Math.sqrt(lens.map(function(l){return (l-avg)*(l-avg);}).reduce(function(a,b){return a+b;},0)/(lens.length||1));
+  var cv=avg? sd/avg : 0;
+
+  /* 減点 */
+  var c=countHits(t,CLOSERS);
+  if(c.length){ var d=Math.min(20,c.length*8); score-=d;
+    flags.push(['minus','定型の締め・呼びかけが入っています（−'+d+'）','よくある結びの言い回しが '+c.length+' 件：<code>'+c.join('</code> <code>')+'</code>']); }
+  var a=countHits(t,ABSTRACT);
+  if(a.length>=2){ var d2=Math.min(18,(a.length-1)*5); score-=d2;
+    flags.push(['minus','抽象的なビジネス語が多いです（−'+d2+'）','<code>'+a.join('</code> <code>')+'</code>　体温のない一般論に見える主因です']); }
+  var st=countHits(t,STRUCT);
+  if(st.length>=2){ score-=12;
+    flags.push(['minus','「まず・次に・最後に」型の整った構成です（−12）','<code>'+st.join('</code> <code>')+'</code>　毎回この形だと一発で見抜かれます']); }
+  if(sentences.length>=3 && cv<0.35){ score-=10;
+    flags.push(['minus','文の長さが揃いすぎています（−10）','長さのばらつき '+cv.toFixed(2)+'（0.35未満は機械的）。人は長短が混ざります']); }
+  if(/[・▪●]|^\s*\d\./m.test(t)){ score-=6;
+    flags.push(['minus','箇条書きが入っています（−6）','つぶやきでの箇条書きは、書き手が整理してから書いた印象になります']); }
+
+  /* 加点 */
+  var nums=t.match(/\d+/g)||[];
+  var time=/(朝|昼|夜|昨日|今日|明日|時|分|曜)/.test(t);
+  if(nums.length||time){ var p=Math.min(16,(nums.length?8:0)+(time?8:0)); score+=p;
+    flags.push(['plus','具体（数字・時間）が入っています（＋'+p+'）', (nums.length?'数字 '+nums.length+' 件':'')+(time?'　時間の言及あり':'')]); }
+  var co=countHits(t,COLLOQ);
+  if(co.length){ var p2=Math.min(13,co.length*3); score+=p2;
+    flags.push(['plus','口語・言い淀みがあります（＋'+p2+'）','<code>'+co.slice(0,8).join('</code> <code>')+'</code>']); }
+  var ex=countHits(t,EXPERIENCE);
+  if(ex.length){ var p3=Math.min(14,ex.length*5); score+=p3;
+    flags.push(['plus','自分の体験として書かれています（＋'+p3+'）','<code>'+ex.slice(0,6).join('</code> <code>')+'</code>']); }
+  var last=sentences[sentences.length-1]||'';
+  if(last.length<=14 && sentences.length>=2){ score+=8;
+    flags.push(['plus','最後が短く、締めすぎていません（＋8）','終わりの一文：「'+esc(last)+'」']); }
+  if(/[「」]/.test(t)){ score+=5; flags.push(['plus','会話や引用が入っています（＋5）','その場の具体が伝わります']); }
+
+  score=Math.max(0,Math.min(100,Math.round(score)));
+  return {score:score, flags:flags};
+}
+
+var tEl=document.getElementById('t');
+function render(){
+  var r=judge(tEl.value);
+  var sEl=document.getElementById('score'), vEl=document.getElementById('verdict'),
+      fEl=document.getElementById('flags'), bar=document.getElementById('bar');
+  if(!r){
+    sEl.innerHTML='—<small> / 100</small>'; bar.style.width='0';
+    vEl.textContent='文章を入れると判定します。'; fEl.innerHTML=''; return;
+  }
+  sEl.innerHTML=r.score+'<small> / 100</small>';
+  bar.style.width=r.score+'%';
+  var col = r.score>=70? '#1E7A4C' : (r.score>=45? '#A9682A' : '#B03A3A');
+  bar.style.background=col; sEl.style.color=col;
+  vEl.textContent = r.score>=70 ? '人が書いた文章として自然です。このまま投稿して問題ありません。'
+    : r.score>=45 ? 'どちらとも言えません。本番では書き直しに回す範囲です。'
+    : 'AIが書いた文章に見えます。本番では投稿せず、自動で書き直させます。';
+  vEl.style.background = r.score>=70? 'var(--ok-soft)' : (r.score>=45? 'var(--warn-soft)':'var(--bad-soft)');
+  vEl.style.borderColor = r.score>=70? 'var(--ok-line)' : (r.score>=45? 'var(--warn-line)':'var(--bad-line)');
+  fEl.innerHTML=r.flags.map(function(f){
+    return '<div class="flag '+f[0]+'"><b>'+f[1]+'</b>'+f[2]+'</div>';
+  }).join('') || '<div style="font-size:12.5px;color:#78838F">特徴が検出されませんでした。</div>';
+}
+tEl.addEventListener('input',render);
+document.querySelectorAll('.btn[data-s]').forEach(function(b){
+  b.addEventListener('click',function(){
+    tEl.value=SAMPLES[b.dataset.s]||'';
+    render(); tEl.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+});
+render();
+</script>
+</body>
+</html>
