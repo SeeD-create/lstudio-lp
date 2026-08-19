@@ -580,9 +580,9 @@ function render(){
   bar.style.width=r.score+'%';
   var col = r.score>=70? '#1E7A4C' : (r.score>=45? '#A9682A' : '#B03A3A');
   bar.style.background=col; sEl.style.color=col;
-  vEl.textContent = r.score>=70 ? '人が書いた文章として自然です。このまま投稿して問題ありません。'
-    : r.score>=45 ? 'どちらとも言えません。本番では書き直しに回す範囲です。'
-    : 'AIが書いた文章に見えます。本番では投稿せず、自動で書き直させます。';
+  vEl.textContent = r.score>=70 ? '文体としては自然です。ただし中身の良し悪しは、この一段目では判断していません。'
+    : r.score>=45 ? 'どちらとも言えません。本番ではもう一度だけ生成し直し、また落ちたら人に回します。'
+    : 'AIが書いた文体に見えます。本番ではこの時点で棄却します（点を上げさせる書き直しはしません）。';
   vEl.style.background = r.score>=70? 'var(--ok-soft)' : (r.score>=45? 'var(--warn-soft)':'var(--bad-soft)');
   vEl.style.borderColor = r.score>=70? 'var(--ok-line)' : (r.score>=45? 'var(--warn-line)':'var(--bad-line)');
   fEl.innerHTML=r.flags.map(function(f){
