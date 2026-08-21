@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#16233f"/>
+  <!-- 広がっていく復習間隔＝ステップ -->
+  <g fill="#b08d3e">
+    <rect x="96" y="336" width="52" height="80" rx="8"/>
+    <rect x="168" y="296" width="52" height="120" rx="8"/>
+    <rect x="240" y="248" width="52" height="168" rx="8"/>
+    <rect x="312" y="192" width="52" height="224" rx="8"/>
+  </g>
+  <!-- ロック -->
+  <g fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round">
+    <path d="M372 152v-24a44 44 0 0 1 88 0v24"/>
+  </g>
+  <rect x="356" y="148" width="120" height="96" rx="18" fill="#ffffff"/>
+  <circle cx="416" cy="196" r="16" fill="#16233f"/>
+</svg>
