@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>不動産のLINE公式アカウント × HubSpot ｜ 設計デモ ｜ Lスタジオ</title>
+<meta name="description" content="高額・長期検討の不動産で、LINEの配信を検討段階で出し分ける設計。HubSpotを判定台帳にした場合の動きを2分の動画でご覧いただけます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="不動産のLINE公式アカウント × HubSpot ｜ 設計デモ">
+<meta property="og:description" content="未公開物件を、送っていい人にだけ。検討段階で配信を出し分けると、どう変わるか。">
+<meta property="og:url" content="https://l-studiojp.com/demo/jonan-line-hubspot/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗝️</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F4F6F9; --surface:#fff; --sunk:#EDF1F6;
+  --line:#DCE3EC; --line-soft:#E9EEF4;
+  --ink:#1F2937; --ink2:#4B5768; --ink3:#7C8899;
+  --navy:#1B2A41; --navy2:#263A55; --gold:#A8842F; --gold-soft:#FBF6EA; --gold-line:#E6D6AE;
+  --ok:#1E7A4C; --ok-soft:#E9F5EE; --ok-line:#B6DCC6;
+  --warn:#B4472C; --warn-soft:#FBEDE8; --warn-line:#EBC0B0;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+section{padding:40px 0;border-top:1px solid var(--line-soft)}
+
+.hero{background:linear-gradient(160deg,#263A55,#1B2A41 62%,#111B2B);color:#fff;padding:38px 0 34px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.14em;font-weight:700;
+  background:rgba(198,166,100,.16);border:1px solid rgba(198,166,100,.5);color:#E4CE9C;
+  border-radius:999px;padding:4px 14px}
+.hero h1{font-size:29px;line-height:1.45;margin:15px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#C6A664}
+.hero p{font-size:15px;color:#B9C5D6;margin:0;max-width:820px}
+.hero .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+.hero .kpi{background:rgba(255,255,255,.07);border:1px solid rgba(198,166,100,.34);border-radius:11px;padding:12px 15px}
+.hero .kpi b{display:block;font-size:18px;font-weight:900;color:#fff}
+.hero .kpi span{font-size:12px;color:#A9B7CA}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--gold);
+  background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:2px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:840px}
+
+.player{background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(27,42,65,.20)}
+video{display:block;width:100%;height:auto;background:#000}
+ol.chap{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ol.chap button{width:100%;display:flex;align-items:baseline;gap:11px;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:10px 14px;
+  font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+ol.chap button:hover{border-color:var(--gold);background:var(--gold-soft)}
+ol.chap .tm{font-variant-numeric:tabular-nums;font-size:12px;font-weight:800;color:var(--gold);flex:none;min-width:36px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card .n{display:inline-flex;width:28px;height:28px;border-radius:8px;background:var(--navy);color:#C6A664;
+  align-items:center;justify-content:center;font-weight:900;font-size:14px}
+.card h3{font-size:15.5px;margin:11px 0 6px;font-weight:900}
+.card p{font-size:13px;color:var(--ink2);margin:0}
+
+.note{border-left:5px solid var(--warn);background:var(--warn-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin-bottom:14px}
+.note.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.note .t{font-size:16px;font-weight:900}
+.note .d{font-size:13.5px;color:var(--ink2);margin-top:5px}
+
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:12px;color:var(--ink2);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td .yen{font-weight:900;white-space:nowrap}
+
+.kpi4{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.k{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 17px;display:flex;gap:13px;align-items:center}
+.k .b{width:28px;height:28px;border-radius:8px;background:var(--gold-soft);border:1px solid var(--gold-line);
+  color:var(--gold);font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.k .t{font-size:14px;font-weight:800}
+.k .d{font-size:12px;color:var(--ink3)}
+.k.hot{border-color:var(--gold-line);background:var(--gold-soft)}
+
+.disc{background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:15px 18px;font-size:12.5px;color:var(--ink2)}
+footer{background:var(--navy);color:#A9B7CA;padding:26px 0;font-size:13px}
+footer b{color:#C6A664;font-size:15px}
+@media(max-width:760px){
+  .hero h1{font-size:23px}
+  .hero .kpis,.cards,ol.chap,.kpi4{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="tag">LINE 公式アカウント × HubSpot ／ 設計デモ</span>
+    <h1>未公開物件を、<em>送っていい人にだけ。</em></h1>
+    <p>高額・長期検討の不動産で、LINEの配信を「検討段階」で出し分けるとどうなるか。
+      登録直後の3問から、HubSpotのプロパティ、セグメント配信、来店予約までを2分でご覧いただけます。</p>
+    <div class="kpis">
+      <div class="kpi"><b>3問</b><span>登録直後に聞くのはこれだけ</span></div>
+      <div class="kpi"><b>3系統</b><span>検討段階ごとに配信を分ける</span></div>
+      <div class="kpi"><b>ブロック率</b><span>配信頻度は実データで決める</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">DEMO</span>動作デモ（1分58秒）</h2>
+    <p class="sub">下の見出しをクリックすると、その場面から再生されます。</p>
+    <div class="player">
+      <video id="v" controls preload="metadata" playsinline poster="poster.jpg">
+        <source src="jonan-demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <ol class="chap">
+      <li><button data-t="5"><span class="tm">0:05</span>友だち追加 → 3問だけ伺う</button></li>
+      <li><button data-t="22"><span class="tm">0:22</span>答えがHubSpotのプロパティに入る</button></li>
+      <li><button data-t="30"><span class="tm">0:30</span>なぜ、この3問が起点なのか</button></li>
+      <li><button data-t="43"><span class="tm">0:43</span>買い手・売り手でリッチメニューを入れ替える</button></li>
+      <li><button data-t="53"><span class="tm">0:53</span>セグメント配信（送る相手を絞る）</button></li>
+      <li><button data-t="72"><span class="tm">1:12</span>全員に送った瞬間、価値を失う</button></li>
+      <li><button data-t="79"><span class="tm">1:19</span>3か月後、検討段階が変わる → 来店予約</button></li>
+      <li><button data-t="100"><span class="tm">1:40</span>運用でみる4つの指標</button></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>設計の起点は、登録直後の3問です</h2>
+    <p class="sub">億単位の住まい探しは検討期間が長く、登録者の大半は「今すぐ買う人」ではありません。
+      配信を設計する前に、<b>送っていい人を判定する台帳</b>を先に作る必要があります。それがHubSpotです。</p>
+    <div class="cards">
+      <div class="card"><span class="n">1</span><h3>ご希望エリア</h3>
+        <p>世田谷／目黒／大田／品川／未定。カード形式で1タップ。</p></div>
+      <div class="card"><span class="n">2</span><h3>ご予算帯</h3>
+        <p>〜1.5億／1.5〜3億／3億〜／未定。金額そのものは聞きません。</p></div>
+      <div class="card"><span class="n">3</span><h3>現在のご状況</h3>
+        <p>すぐに探している／1年以内／情報収集中。<b>ここが最重要です。</b></p></div>
+    </div>
+    <p class="sub" style="margin-top:18px">この3項目をそのままHubSpotのカスタムプロパティとして持たせ、
+      セグメント配信・リッチメニューの出し分け・KPI集計のすべてをこの3軸から導出します。
+      取得項目とプロパティ設計を一致させておかないと、あとからセグメントが切れません。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>「送らない」を、あらかじめ仕組みに入れます</h2>
+    <p class="sub">この商材でいちばん効くのは、送る設計ではなく送らない設計です。</p>
+    <div class="note">
+      <div class="t">✕ 登録者全員に、毎週「未公開物件」を送る</div>
+      <div class="d">情報収集の段階の方には、ただの広告です。3か月でブロックされます。一度ブロックされた方は、二度と戻りません。</div>
+    </div>
+    <div class="note ok">
+      <div class="t">◯ 条件に合致した方にだけ、出たときに送る</div>
+      <div class="d">届いた方にとっては「自分のために来た1件」になります。同じ1通でも、意味がまったく違います。</div>
+    </div>
+    <div class="note ok">
+      <div class="t">◯ 情報収集層には、売らない配信を続ける</div>
+      <div class="d">城南エリアの街と相場の話を月1回。目的は成約ではなく、1年後まで残っていただくことです。</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>追う指標は4つだけです</h2>
+    <p class="sub">友だち数と開封率だけを見ても、この商材では判断できません。</p>
+    <div class="kpi4">
+      <div class="k"><span class="b">1</span><div><div class="t">登録 → 3問の完了率</div><div class="d">ここが低いと、以降の出し分けが全部効きません</div></div></div>
+      <div class="k"><span class="b">2</span><div><div class="t">セグメント別の物件リクエスト率</div><div class="d">全体平均ではなく、層ごとに見ます</div></div></div>
+      <div class="k"><span class="b">3</span><div><div class="t">来店予約率</div><div class="d">最終的にここに効いていなければ、配信を変えます</div></div></div>
+      <div class="k hot"><span class="b">4</span><div><div class="t">配信翌日のブロック率</div><div class="d">配信ごとに記録。頻度の上限は実データで決めます</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">04</span>ご提案の範囲と費用</h2>
+    <p class="sub">構築が終わった時点では、まだ数字は生まれません。配信を回し、ブロック率とリクエスト率を見ながら
+      2〜3か月調整して、はじめて反響につながります。構築費を抑え、運用でご一緒する形をご提案します。</p>
+    <div class="tbl">
+      <table>
+        <tr><th style="width:170px">初期構築</th>
+          <td>既存アカウント・会員登録導線の棚卸し／HubSpotポータル監査／全体設計とシナリオ設計書／
+            友だち追加導線とオファー設計／LITTLE HELP CONNECT上での構築（あいさつ・3問ヒアリング・自動応答・ステップ配信3系統・セグメント配信設定）／
+            リッチメニュー2種（デザイン制作込み）／CV導線／HubSpot連携とKPI定義／実機テスト／運用マニュアル・引き継ぎ<br>
+            <span class="yen">380,000円（税込）・約6週間</span></td></tr>
+        <tr><th>月額運用サポート</th>
+          <td>配信コンテンツの企画・ライティング（月4〜6本）／月次レポート（上記4指標＋セグメント別内訳）と改善提案／
+            ステップ配信・リッチメニュー・セグメント条件の修正／HubSpotのプロパティ・リスト調整／仕様変更への追従<br>
+            <span class="yen">80,000円（税込）／月・最低6か月</span></td></tr>
+        <tr><th>6か月時点の合計</th>
+          <td><span class="yen">860,000円（税込）</span>　※ 配信のライティングを貴社でご担当される場合は月額50,000円（税込）のプランもございます</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="disc">
+      <b>この動画について。</b>　提案用に画面を再現したものです。社名「JONAN ESTATE」、物件、お客様、件数はすべて架空で、
+      実在の企業・個人・取引とは関係ありません。HubSpotおよびLITTLE HELP CONNECTの画面は、実装後の動きをご説明するために
+      再現したイメージであり、各社の公式画面そのものではありません。実際の構築は、貴社にすでに導入済みの
+      LITTLE HELP CONNECT および HubSpot 上で行います。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>Lスタジオ</b>　LINE公式アカウント構築・業務システム開発<br>
+    https://l-studiojp.com/
+  </div>
+</footer>
+
+<script>
+var v=document.getElementById('v');
+document.querySelectorAll('ol.chap button').forEach(function(b){
+  b.addEventListener('click',function(){
+    v.currentTime=Number(b.dataset.t);
+    v.play();
+    v.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+});
+</script>
+</body>
+</html>
