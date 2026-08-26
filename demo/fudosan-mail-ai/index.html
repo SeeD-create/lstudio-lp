@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>不動産の反響メール、AIが一次対応まで下書きする ｜ 動作デモ ｜ Lスタジオ</title>
+<meta name="description" content="TERASS Offerの反響メール／HOME'S一括査定の追客を、Geminiが読んで「物件提案・ローン試算つきの返信案」まで自動で用意する動作デモ。承認ボタンを押すまで送信しません。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="不動産の反響メール、AIが一次対応まで下書きする｜動作デモ">
+<meta property="og:description" content="反響を受け取ってから返信するまでの3分を、承認ボタン1回に変える。">
+<meta property="og:url" content="https://l-studiojp.com/demo/fudosan-mail-ai/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📩</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}img{max-width:100%}
+:root{
+  --paper:#F4F6F9; --surface:#fff; --sunk:#EDF1F6;
+  --line:#DCE3EC; --line-soft:#E9EEF4;
+  --ink:#1F2937; --ink2:#4B5768; --ink3:#7C8899;
+  --navy:#1B2A41; --navy2:#263A55; --gold:#A8842F; --gold-soft:#FBF6EA; --gold-line:#E6D6AE;
+  --ok:#1E7A4C; --ok-soft:#E9F5EE; --ok-line:#B6DCC6;
+  --warn:#B4472C; --warn-soft:#FBEDE8; --warn-line:#EBC0B0;
+  --hot:#C2410C; --cool:#2563A8;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:42px 0;border-top:1px solid var(--line-soft)}
+
+.hero{background:linear-gradient(160deg,#263A55,#1B2A41 62%,#111B2B);color:#fff;padding:40px 0 36px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.14em;font-weight:700;
+  background:rgba(198,166,100,.16);border:1px solid rgba(198,166,100,.5);color:#E4CE9C;
+  border-radius:999px;padding:4px 14px}
+.hero h1{font-size:30px;line-height:1.45;margin:15px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#C6A664}
+.hero p{font-size:15px;color:#B9C5D6;margin:0;max-width:840px}
+.hero .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.hero .kpi{background:rgba(255,255,255,.07);border:1px solid rgba(198,166,100,.34);border-radius:11px;padding:12px 15px}
+.hero .kpi b{display:block;font-size:18px;font-weight:900;color:#fff}
+.hero .kpi span{font-size:12px;color:#A9B7CA}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--gold);
+  background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:2px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:860px}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flow .st{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative}
+.flow .st .n{display:inline-flex;width:26px;height:26px;border-radius:8px;background:var(--navy);color:#C6A664;
+  align-items:center;justify-content:center;font-weight:900;font-size:13px}
+.flow .st h3{font-size:14.5px;margin:10px 0 5px;font-weight:900}
+.flow .st p{font-size:12.5px;color:var(--ink2);margin:0;line-height:1.7}
+.flow .st.you{border-color:var(--gold-line);background:var(--gold-soft)}
+.flow .st.you .n{background:var(--gold);color:#fff}
+
+/* demo app */
+.app{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 12px 34px rgba(27,42,65,.13)}
+.appbar{background:var(--navy);color:#fff;padding:11px 18px;display:flex;align-items:center;gap:10px;font-size:13px}
+.appbar .dot{width:9px;height:9px;border-radius:50%;background:#3FBF7F;flex:none}
+.appbar b{font-weight:800;letter-spacing:.02em}
+.appbar span{color:#93A3B8;font-size:12px;margin-left:auto}
+.grid2{display:grid;grid-template-columns:290px 1fr;min-height:520px}
+.mails{border-right:1px solid var(--line);background:var(--sunk)}
+.mails .mh{padding:11px 16px;font-size:11.5px;font-weight:800;color:var(--ink3);letter-spacing:.08em;
+  border-bottom:1px solid var(--line)}
+.mail{width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line-soft);
+  padding:13px 16px;cursor:pointer;font:inherit;display:block;transition:background .13s}
+.mail:hover{background:#E4EBF3}
+.mail.on{background:var(--surface);box-shadow:inset 3px 0 0 var(--gold)}
+.mail .src{font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:1px 7px;border-radius:5px;display:inline-block}
+.mail .src.terass{background:#E7EEF8;color:#1F4E8C;border:1px solid #C6D8EE}
+.mail .src.homes{background:#FDF0E6;color:#A2530F;border:1px solid #F0D4B6}
+.mail .sbj{font-size:13.5px;font-weight:800;margin:6px 0 3px;line-height:1.5}
+.mail .pre{font-size:11.5px;color:var(--ink3);line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mail .tm{font-size:11px;color:var(--ink3);margin-top:5px}
+
+.pane{padding:20px 24px 26px}
+.mailhead{border-bottom:1px solid var(--line-soft);padding-bottom:14px;margin-bottom:16px}
+.mailhead h3{font-size:16px;font-weight:900;margin:0 0 6px}
+.mailhead .meta{font-size:12px;color:var(--ink3)}
+.mailbody{background:var(--sunk);border:1px solid var(--line);border-radius:11px;padding:15px 17px;
+  font-size:13px;line-height:1.9;white-space:pre-wrap;color:var(--ink2);
+  font-family:"Yu Gothic UI",Meiryo,sans-serif}
+
+.btn{appearance:none;border:0;border-radius:10px;font:inherit;font-weight:800;cursor:pointer;
+  padding:12px 22px;font-size:14px;transition:filter .15s,opacity .15s}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.primary:hover{filter:brightness(1.22)}
+.btn.gold{background:var(--gold);color:#fff}
+.btn.gold:hover{filter:brightness(1.1)}
+.btn.ghost{background:var(--surface);color:var(--ink2);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.btnrow .hint{font-size:12px;color:var(--ink3)}
+
+.steps{margin-top:18px;display:grid;gap:7px}
+.step{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:var(--ink3);
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:9px;padding:9px 13px;
+  opacity:.4;transition:opacity .3s,color .3s,background .3s}
+.step.on{opacity:1;color:var(--ink2);background:var(--surface);border-color:var(--line)}
+.step.done{opacity:1;color:var(--ink2)}
+.step .ic{flex:none;width:19px;height:19px;border-radius:50%;border:2px solid var(--line);margin-top:3px}
+.step.on .ic{border-color:var(--gold);border-right-color:transparent;animation:spin .7s linear infinite}
+.step.done .ic{border-color:var(--ok);background:var(--ok);position:relative}
+.step.done .ic::after{content:"";position:absolute;left:5px;top:1.5px;width:4px;height:8px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(43deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.readout{margin-top:18px;display:none}
+.readout.show{display:block}
+.rlabel{font-size:11.5px;font-weight:800;letter-spacing:.08em;color:var(--ink3);margin-bottom:9px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 13px;font-size:12.5px}
+.chip b{display:block;font-size:10.5px;color:var(--ink3);font-weight:800;letter-spacing:.05em}
+.chip span{font-weight:800;font-size:13.5px}
+.chip.hot{background:#FFF3EC;border-color:#F2C7AE}
+.chip.hot span{color:var(--hot)}
+.chip.cool{background:#EEF4FB;border-color:#C7DAF0}
+.chip.cool span{color:var(--cool)}
+
+.props{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.prop{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.prop .pn{font-size:10.5px;font-weight:800;color:var(--gold);letter-spacing:.05em}
+.prop h4{font-size:13.5px;margin:5px 0 4px;font-weight:900;line-height:1.5}
+.prop .pp{font-size:15px;font-weight:900;color:var(--navy)}
+.prop .pd{font-size:11.5px;color:var(--ink3);line-height:1.65;margin-top:4px}
+.prop .why{font-size:11.5px;color:var(--ok);font-weight:700;margin-top:6px}
+
+.draft{margin-top:16px;background:#FFFDF7;border:1px solid var(--gold-line);border-radius:12px;padding:17px 19px}
+.draft .dh{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--gold);margin-bottom:10px}
+.draft pre{margin:0;font-size:13px;line-height:1.95;white-space:pre-wrap;word-break:break-word;
+  font-family:"Yu Gothic UI",Meiryo,sans-serif;color:var(--ink);min-height:60px}
+.caret{display:inline-block;width:8px;height:16px;background:var(--gold);vertical-align:-3px;animation:bl .9s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+
+.ledger{margin-top:16px;display:none}
+.ledger.show{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:11px;color:var(--ink2);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;white-space:nowrap}
+.badge.s{background:var(--ok-soft);color:var(--ok);border:1px solid var(--ok-line)}
+.badge.w{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold-line)}
+.badge.g{background:var(--sunk);color:var(--ink3);border:1px solid var(--line)}
+
+.note{border-left:5px solid var(--warn);background:var(--warn-soft);border-radius:0 12px 12px 0;padding:16px 20px;margin-bottom:14px}
+.note.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.note.gold{border-left-color:var(--gold);background:var(--gold-soft)}
+.note .t{font-size:15.5px;font-weight:900}
+.note .d{font-size:13.5px;color:var(--ink2);margin-top:5px}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h3{font-size:15px;margin:0 0 6px;font-weight:900}
+.card p{font-size:12.5px;color:var(--ink2);margin:0;line-height:1.8}
+
+/* report */
+.report{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.report .rh{background:var(--navy);color:#fff;padding:16px 22px}
+.report .rh b{font-size:16px;font-weight:900;display:block}
+.report .rh span{font-size:12px;color:#A9B7CA}
+.report .rb{padding:20px 22px}
+.report h4{font-size:13.5px;font-weight:900;margin:0 0 8px;color:var(--navy);
+  border-left:4px solid var(--gold);padding-left:9px}
+.report .blk{margin-bottom:20px}
+.report .blk:last-child{margin-bottom:0}
+.report p{font-size:13px;color:var(--ink2);margin:0;line-height:1.9}
+.bigno{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:6px}
+.bigno div{background:var(--sunk);border:1px solid var(--line);border-radius:11px;padding:12px 15px;text-align:center}
+.bigno b{display:block;font-size:19px;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums}
+.bigno span{font-size:11.5px;color:var(--ink3)}
+.bigno div.main{background:var(--gold-soft);border-color:var(--gold-line)}
+.bigno div.main b{color:var(--gold)}
+
+.phase{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.phase table{min-width:700px;font-size:13px}
+.phase td .yen{font-weight:900;white-space:nowrap}
+.phase tr.p1{background:var(--gold-soft)}
+
+.disc{background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:15px 18px;font-size:12.5px;color:var(--ink2)}
+footer{background:var(--navy);color:#A9B7CA;padding:28px 0;font-size:13px}
+footer b{color:#C6A664;font-size:15px;display:block;margin-bottom:4px}
+footer a{color:#C6A664}
+
+@media(max-width:860px){
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr;min-height:0}
+  .mails{border-right:0;border-bottom:1px solid var(--line)}
+  .mail{border-bottom:1px solid var(--line-soft)}
+  .props{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .bigno{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .hero h1{font-size:23px}
+  .hero .kpis{grid-template-columns:1fr}
+  .pane{padding:18px 16px 22px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="tag">反響メール AI一次対応 ／ 本件専用の動作デモ</span>
+    <h1>反響が来てから返信するまでの3分を、<br><em>承認ボタン1回</em>に変える。</h1>
+    <p>TERASS Offerの反響メール、HOME'S一括査定の追客、売却査定前の物件調査 ──
+      いちばん時間を取られていて、いちばん「早さ」が成約を分ける3つを、AIが下書きまで用意します。
+      下のデモは実際に動きます。メールを選んで、ボタンを押してみてください。</p>
+    <div class="kpis">
+      <div class="kpi"><b>約3分 → 15秒</b><span>反響1件あたりの一次対応</span></div>
+      <div class="kpi"><b>送信は承認制</b><span>AIが勝手に送ることはありません</span></div>
+      <div class="kpi"><b>取りこぼし0件</b><span>未返信・追客期限を台帳が見張ります</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>朝、メールを開いたときに何が起きているか</h2>
+    <p class="sub">反響メールが届いた時点で、AIはすでに読み終わって、返信案を作り終えています。ご自身がやるのは、目を通して押すだけです。</p>
+    <div class="flow">
+      <div class="st"><span class="n">1</span><h3>反響メールを検知</h3><p>TERASS Offer／HOME'S一括査定／取引先Gmailを、件名と差出人で自動的に振り分けます。</p></div>
+      <div class="st"><span class="n">2</span><h3>AIが中身を読む</h3><p>本文からエリア・予算・時期・温度感を取り出し、追客の優先順位をつけます。</p></div>
+      <div class="st"><span class="n">3</span><h3>返信案をつくる</h3><p>ご登録の物件データと突き合わせ、提案物件・ローン試算・次の一手まで入れた文面を下書きします。</p></div>
+      <div class="st you"><span class="n">4</span><h3>あなたが押す</h3><p>読んで、直して、送信。ここだけが人の仕事です。<b>AIは絶対に自動送信しません。</b></p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>動作デモ（実際に押せます）</h2>
+    <p class="sub">左の反響メールを選び、<b>「AIに一次対応させる」</b>を押してください。3件それぞれ、AIの判断と返信の書き方が変わります。
+      ※ お客様名・物件・数値はすべて架空です。</p>
+
+    <div class="app">
+      <div class="appbar"><span class="dot"></span><b>反響対応アシスタント</b><span id="clock">受信箱：未対応 3件</span></div>
+      <div class="grid2">
+        <div class="mails">
+          <div class="mh">未対応の反響</div>
+          <button class="mail on" data-i="0">
+            <span class="src terass">TERASS Offer</span>
+            <div class="sbj">【反響】藤沢市／戸建て購入のお問い合わせ</div>
+            <div class="pre">来年の春までには引っ越したいと考えており、藤沢駅か辻堂駅の周辺で探しています。</div>
+            <div class="tm">今朝 7:12</div>
+          </button>
+          <button class="mail" data-i="1">
+            <span class="src terass">TERASS Offer</span>
+            <div class="sbj">【反響】横浜市青葉区／マンションのお問い合わせ</div>
+            <div class="pre">今すぐではないのですが、相場観を知っておきたくご連絡しました。</div>
+            <div class="tm">昨日 22:41</div>
+          </button>
+          <button class="mail" data-i="2">
+            <span class="src homes">HOME'S 一括査定</span>
+            <div class="sbj">【査定依頼】川崎市中原区／マンション売却（架電つながらず）</div>
+            <div class="pre">一括査定にお申し込みいただいた後、3回お電話しましたが不通のお客様です。</div>
+            <div class="tm">2日前 10:05</div>
+          </button>
+        </div>
+
+        <div class="pane">
+          <div class="mailhead">
+            <h3 id="mSbj">【反響】藤沢市／戸建て購入のお問い合わせ</h3>
+            <div class="meta" id="mMeta">TERASS Offer &lt;offer@terass.example&gt; ／ 今朝 7:12 受信</div>
+          </div>
+          <div class="mailbody" id="mBody"></div>
+
+          <div class="btnrow">
+            <button class="btn primary" id="go">AIに一次対応させる</button>
+            <button class="btn ghost" id="reset">最初から</button>
+            <span class="hint">押すと、読み取り → 物件照合 → 文面作成の順に動きます</span>
+          </div>
+
+          <div class="steps" id="steps"></div>
+
+          <div class="readout" id="readout">
+            <div class="rlabel">AIが読み取った内容</div>
+            <div class="chips" id="chips"></div>
+
+            <div id="propWrap" style="margin-top:18px">
+              <div class="rlabel" id="propLabel">ご登録データから選んだ提案物件</div>
+              <div class="props" id="props"></div>
+            </div>
+
+            <div class="draft">
+              <div class="dh">▼ 返信の下書き（このまま送れます）</div>
+              <pre id="draft"></pre>
+            </div>
+
+            <div class="btnrow" id="approveRow" style="display:none">
+              <button class="btn gold" id="send">この内容で送信する</button>
+              <button class="btn ghost" id="edit">直してから送る</button>
+              <span class="hint">送信すると、台帳に記録され、追客の予定が自動で入ります</span>
+            </div>
+
+            <div class="ledger" id="ledger">
+              <div class="rlabel" style="margin-top:20px">送信後：台帳と追客予定（スプレッドシート）</div>
+              <div class="tbl">
+                <table>
+                  <thead><tr><th>受付日</th><th>お客様</th><th>反響元</th><th>ご要望</th><th>温度</th><th>状態</th><th>次のアクション</th></tr></thead>
+                  <tbody id="ledgerBody"></tbody>
+                </table>
+              </div>
+              <div class="note ok" style="margin-top:14px">
+                <div class="t">この行は、放っておいても勝手に動きます</div>
+                <div class="d">「次のアクション」の日付が来たら、AIが<b>その日の朝に追客メールの下書き</b>を用意して通知します。
+                  返信が来たら状態が自動で変わり、来なければ期限が近づくたびに催促されます。<b>忘れたまま消えていく反響がなくなります。</b></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>売却査定の訪問前に、調査と報告書もAIが用意します</h2>
+    <p class="sub">査定依頼が入った時点で、住所から周辺の成約事例・売出事例・地域の需給を集め、訪問前に持っていける形の報告書を自動で組み立てます。
+      下は、デモ3通目（川崎市中原区）の査定依頼から生成した報告書の抜粋です。</p>
+
+    <div class="report">
+      <div class="rh">
+        <b>売却査定 事前調査レポート</b>
+        <span>川崎市中原区◯◯ ／ マンション 3LDK 72.4㎡ ／ 築18年 ／ 作成：訪問前日 自動生成</span>
+      </div>
+      <div class="rb">
+        <div class="blk">
+          <h4>査定価格レンジ</h4>
+          <div class="bigno">
+            <div><b>4,280万円</b><span>下限（早期売却）</span></div>
+            <div class="main"><b>4,680万円</b><span>推奨売出価格</span></div>
+            <div><b>4,900万円</b><span>上限（時間をかける）</span></div>
+          </div>
+          <p style="margin-top:10px">直近1年の同一マンション・近隣3棟の成約事例8件、現在の売出6件から算出。㎡単価の中央値は64.7万円／㎡。</p>
+        </div>
+        <div class="blk">
+          <h4>訪問時にお客様へお伝えすべき3点（AIが下書き）</h4>
+          <p>① <b>同マンション内に現在2件の売出があります。</b>いずれも4,780万円台で3か月以上動いていません。価格を横並びにすると埋もれます。<br>
+             ② <b>この駅の在庫は前年同月比で1.4倍。</b>春の需要期を逃すと、来期まで動きにくくなる可能性があります。<br>
+             ③ 築18年で大規模修繕が完了済み。<b>これは競合2件にない優位点</b>ですので、資料の一行目に出します。</p>
+        </div>
+        <div class="blk">
+          <h4>この物件で確認が必要な点（訪問時チェックリスト）</h4>
+          <p>管理費・修繕積立金の改定予定／バルコニーの向きと日照／リフォーム履歴（水回り）／residents専用駐車場の空き／ローン残債の有無</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note gold" style="margin-top:18px">
+      <div class="t">この報告書の価値は「持っていける」ことです</div>
+      <div class="d">査定訪問の場でお客様が知りたいのは金額そのものより、<b>その金額の根拠と、他社と何が違うか</b>です。
+        訪問前日に自動で組み上がっていれば、当日は中身を確認して数字を微調整するだけで済みます。</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">04</span>できること／正直に、できないこと</h2>
+    <p class="sub">ご依頼の7項目を検討したところ、<b>そのままでは自動化できない箇所が2つ</b>ありました。先に申し上げます。</p>
+
+    <div class="note">
+      <div class="t">レインズ（REINS）は、機械で自動取得することができません</div>
+      <div class="d">レインズは利用規約で自動巡回・機械的な取得が認められておらず、API連携もありません。
+        「AIがレインズから物件を選んで提案する」と書ける業者がいたら、その部分は規約違反の実装になります。<br>
+        <b>私のご提案：</b>レインズの検索結果を<b>コピーして1回貼り付ける</b>ところだけを人の手に残し、その先（物件データ化・条件との突合・提案文への差し込み）を全自動にします。
+        この方式は<b>すでに別案件で実装し、動くものがあります</b>（貼り付け→自動採点→条件に合う人へ自動通知）。</div>
+    </div>
+
+    <div class="note">
+      <div class="t">いえらぶへのポータル入力代行も、同様です</div>
+      <div class="d">いえらぶはログインが必要な管理画面で、自動入力は規約とセキュリティの両面でお勧めできません。
+        現実的なのは、<b>物件情報を1枚のフォームに入れれば、SUUMO／HOME'S／at home それぞれの体裁に合わせた原稿（キャッチコピー・紹介文・設備欄）をAIが書き上げる</b>ところまでです。
+        貼り付ける作業は残りますが、<b>いちばん時間がかかる「書く」が消えます。</b></div>
+    </div>
+
+    <div class="cards" style="margin-top:20px">
+      <div class="card"><h3>◎ 完全に自動化できる</h3><p>反響メールの検知・仕分け／AIによる内容の読み取り／返信文の作成／追客スケジュールの管理と催促／査定報告書の作成／チラシ・自己PRの文章作成</p></div>
+      <div class="card"><h3>△ 人の一手だけ残す</h3><p>レインズの検索結果の貼り付け（1回）／メール送信の承認／ポータルへの貼り付け／Loan Checkerの数値入力（試算そのものはAI側でも算出可）</p></div>
+      <div class="card"><h3>× おすすめしない</h3><p>お客様への完全自動返信（不動産は誤送信が致命傷になります）／ログインが必要なサイトの自動操作／レインズ情報の外部システムへの保存</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">05</span>進め方のご提案</h2>
+    <p class="sub">7項目を一度に作ると、必ずどこかで「思っていたのと違う」が起きます。<b>いちばん効く1本を先に作って、実際に使っていただいてから</b>広げるのが確実です。</p>
+
+    <div class="phase">
+      <table>
+        <thead><tr><th>段階</th><th>つくるもの</th><th>期間</th><th>費用（税込）</th></tr></thead>
+        <tbody>
+          <tr class="p1">
+            <td><b>第1弾<br><span style="font-size:11px;color:var(--gold)">まずここだけ</span></b></td>
+            <td><b>反響メールの一次対応 一式</b><br>TERASS Offer反響／HOME'S一括査定の追客／返信下書き／台帳・追客リマインド<br><span style="font-size:12px;color:var(--ink3)">＝このページのデモ 02 がそのまま納品物です</span></td>
+            <td>2週間</td>
+            <td class="yen">200,000円</td>
+          </tr>
+          <tr>
+            <td>第2弾</td>
+            <td>売却査定の事前調査＆AI査定報告書の自動生成<br><span style="font-size:12px;color:var(--ink3)">＝デモ 03</span></td>
+            <td>2週間</td>
+            <td class="yen">180,000円</td>
+          </tr>
+          <tr>
+            <td>第3弾</td>
+            <td>既存顧客のLINE／取引先Gmailの問い合わせ対応・自動仕分け・下書き</td>
+            <td>2〜3週間</td>
+            <td class="yen">220,000円</td>
+          </tr>
+          <tr>
+            <td>第4弾</td>
+            <td>ポータル掲載原稿の自動作成／手巻きチラシ・自己PRの制作支援</td>
+            <td>1〜2週間</td>
+            <td class="yen">150,000円</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note ok" style="margin-top:16px">
+      <div class="t">第1弾の200,000円は、値引きではありません</div>
+      <div class="d">ご提示の50〜100万円は、7項目すべてを作る規模として妥当な金額です。私が下げているのは単価ではなく<b>最初にお約束する範囲</b>です。<br>
+        2週間で動くものをお渡しし、<b>実際の反響で使っていただいてから</b>、第2弾以降に進むかをご判断ください。第1弾で終了されても構いません。その場合も、作ったものはそのままお使いいただけます。</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="disc">
+      本ページは提案用のデモンストレーションです。<b>お客様名・物件情報・査定額・成約事例はすべて架空</b>であり、実在の個人・物件とは関係ありません。
+      画面はブラウザ上で再現したもので、実際の納品物はGoogle Workspace（Gmail／スプレッドシート／Apps Script）とGemini APIの上に構築します。
+      レインズ・いえらぶ・Loan Checker各サービスの利用条件については、着手前に貴社のご契約内容を確認のうえ設計いたします。
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>Lスタジオ　平野 淳一</b>
+    Google Workspace／LINE公式アカウント／生成AIを使った、中小事業者向けの業務自動化を専門にしております。<br>
+    ポートフォリオ：<a href="https://l-studiojp.com/">https://l-studiojp.com/</a>（不動産分野は「賃貸仲介」「収益不動産の査定・マッチング」を掲載）
+  </div>
+</footer>
+
+<script>
+const DATA = [
+  {
+    sbj:"【反響】藤沢市／戸建て購入のお問い合わせ",
+    meta:"TERASS Offer &lt;offer@terass.example&gt; ／ 今朝 7:12 受信",
+    body:`TERASS Offer に新しいお問い合わせが届きました。
+
+お名前：中村 様
+ご連絡先：nakamura****@example.com
+お問い合わせ物件：藤沢市鵠沼海岸 中古戸建 5,480万円
+
+【お客様からのメッセージ】
+はじめまして。掲載の物件を拝見してご連絡しました。
+現在は賃貸で、来年の春までには引っ越したいと考えています。
+藤沢駅か辻堂駅の周辺で、駐車場2台がとれる戸建てを探しています。
+予算は5,500万円くらいまでで考えていますが、住宅ローンがどのくらい
+組めるのかがよく分かっておらず、そのあたりも相談したいです。
+土日であれば見学に伺えます。`,
+    steps:["反響メールを検知（TERASS Offer）","本文からご要望を読み取り","ご登録の物件データと突合（3件を選定）","住宅ローンの試算","返信文を作成"],
+    chips:[
+      {l:"エリア",v:"藤沢／辻堂",c:""},
+      {l:"種別",v:"中古戸建",c:""},
+      {l:"ご予算",v:"〜5,500万円",c:""},
+      {l:"必須条件",v:"駐車場2台",c:""},
+      {l:"時期",v:"来春まで",c:""},
+      {l:"温度感",v:"高（今すぐ層）",c:"hot"},
+      {l:"見学",v:"土日 可",c:""},
+      {l:"論点",v:"ローン不安",c:"hot"}
+    ],
+    propLabel:"ご登録データから選んだ提案物件（レインズ検索結果を貼り付けた分から自動選定）",
+    props:[
+      {n:"提案 1",t:"辻堂元町 中古戸建",p:"5,280万円",d:"4LDK／土地128㎡／築9年／辻堂駅 徒歩12分",w:"✓ 駐車場2台・予算内"},
+      {n:"提案 2",t:"藤沢市鵠沼松が岡 戸建",p:"5,450万円",d:"4LDK／土地112㎡／築6年／藤沢駅 徒歩15分",w:"✓ 駐車場2台・築浅"},
+      {n:"提案 3",t:"藤沢市辻堂新町 新築戸建",p:"5,180万円",d:"4LDK／土地105㎡／新築／辻堂駅 バス8分",w:"✓ 新築で予算に余裕"}
+    ],
+    draft:`中村様
+
+はじめまして。TERASS エージェントの◯◯と申します。
+このたびは鵠沼海岸の物件へお問い合わせをいただき、誠にありがとうございます。
+
+ご希望を拝見し、「藤沢・辻堂エリア／駐車場2台／ご予算5,500万円まで」の
+条件で、本日時点でご紹介できる物件を3件お選びしました。
+
+━━━━━━━━━━━━━━━━━━━━
+■ 1｜辻堂元町 中古戸建　5,280万円
+　4LDK／土地128㎡／築9年／辻堂駅 徒歩12分
+　→ カーポート2台分あり。ご予算に対して200万円ほど余裕が出ます。
+
+■ 2｜藤沢市鵠沼松が岡 戸建　5,450万円
+　4LDK／土地112㎡／築6年／藤沢駅 徒歩15分
+　→ 築6年と新しく、並列2台の駐車が可能です。
+
+■ 3｜藤沢市辻堂新町 新築戸建　5,180万円
+　4LDK／土地105㎡／新築／辻堂駅 バス8分
+　→ 駅からは離れますが新築です。ご予算に最も余裕があります。
+━━━━━━━━━━━━━━━━━━━━
+
+■ 住宅ローンについて
+ご不安とのことでしたので、目安をお伝えします。
+5,000万円を35年・変動0.7%でお借り入れの場合、
+ご返済は月々およそ13.4万円です（ボーナス払いなし）。
+
+お借り入れ可能額はご年収・ご勤続年数によって変わりますので、
+差し支えなければ一度お伺いできればと思います。
+その場で複数の金融機関の条件を比較してお出しできます。
+
+■ ご見学について
+土日にご都合がよいとのこと、承知いたしました。
+上記3件は今週末、続けてご案内が可能です。
+
+　　第1希望：◯月◯日（土）10:00〜
+　　第2希望：◯月◯日（日）13:00〜
+
+いずれかでご都合はいかがでしょうか。
+ご希望の時間帯がございましたら、そちらに合わせて調整いたします。
+
+なお、藤沢・辻堂エリアで駐車場2台がとれる戸建ては、
+出てから2〜3週間で決まることが多い状況です。
+気になる物件がございましたら、お早めにお知らせください。
+
+どうぞよろしくお願いいたします。`,
+    ledger:{cust:"中村 様",src:"TERASS Offer",req:"藤沢・辻堂／戸建／〜5,500万／駐車2台",temp:'<span class="badge s">高</span>',state:"提案メール送信済",next:"3日後：反応なければ再連絡＋新着物件"}
+  },
+  {
+    sbj:"【反響】横浜市青葉区／マンションのお問い合わせ",
+    meta:"TERASS Offer &lt;offer@terass.example&gt; ／ 昨日 22:41 受信",
+    body:`TERASS Offer に新しいお問い合わせが届きました。
+
+お名前：井上 様
+ご連絡先：inoue****@example.com
+お問い合わせ物件：横浜市青葉区あざみ野 中古マンション 4,180万円
+
+【お客様からのメッセージ】
+今すぐ購入を考えているわけではないのですが、
+青葉区あたりの相場を知っておきたくてご連絡しました。
+子どもが小学校に上がるタイミング（再来年）で考えています。
+今は資料をいただければ十分です。よろしくお願いします。`,
+    steps:["反響メールを検知（TERASS Offer）","本文からご要望を読み取り","温度感を判定 → 提案を抑える方針に切替","相場資料の内容を選定","返信文を作成"],
+    chips:[
+      {l:"エリア",v:"青葉区",c:""},
+      {l:"種別",v:"中古マンション",c:""},
+      {l:"ご予算",v:"記載なし",c:""},
+      {l:"時期",v:"再来年 春",c:""},
+      {l:"温度感",v:"低（情報収集層）",c:"cool"},
+      {l:"意向",v:"資料のみ希望",c:"cool"},
+      {l:"AIの判断",v:"物件は送らない",c:"cool"}
+    ],
+    propLabel:"AIの判断：この方には物件を送りません",
+    props:[
+      {n:"送らない理由 1",t:"ご本人が「資料で十分」と明記",p:"—",d:"要望を超える提案は、この段階では負担になり、返信をやめる理由になります。",w:"✓ 相場資料のみ送付"},
+      {n:"送らない理由 2",t:"ご検討時期は再来年",p:"—",d:"今の物件を送っても、その時期には存在しません。情報として無価値です。",w:"✓ エリアの相場推移を送付"},
+      {n:"送らない理由 3",t:"追いかけるべきは2年後",p:"—",d:"ここで嫌われないことが最優先。連絡は四半期に1回に設定します。",w:"✓ 3か月後に再接触を予約"}
+    ],
+    draft:`井上様
+
+はじめまして。TERASS エージェントの◯◯と申します。
+このたびはお問い合わせをいただき、ありがとうございます。
+
+「今すぐではなく、まずは相場を知っておきたい」とのこと、承知いたしました。
+売り込みのご連絡はいたしませんので、ご安心ください。
+
+青葉区の中古マンションについて、いまの状況をまとめました。
+
+━━━━━━━━━━━━━━━━━━━━
+■ 青葉区 中古マンション 相場（直近1年）
+　あざみ野・たまプラーザ　㎡単価 平均 74.2万円（前年比 +3.1%）
+　市が尾・江田　　　　　　㎡単価 平均 61.8万円（前年比 +1.4%）
+　3LDK（70㎡前後）の成約中心帯：4,000〜5,200万円
+
+■ 再来年の春に向けて、いま知っておくとよいこと
+　・小学校の学区は、同じ青葉区内でも価格差が出やすい要素です
+　・青葉区は在庫が少なく、条件のよい物件は1〜2週間で決まります
+　　→ 探し始めるのは「入居したい時期の6〜8か月前」が目安です
+　・住宅ローンの金利が変わると、ご予算は数百万円単位で動きます
+━━━━━━━━━━━━━━━━━━━━
+
+詳しい相場資料（学区別・棟別の成約事例つき）をPDFでお送りできます。
+ご希望でしたら、このメールにご返信いただくだけで結構です。
+
+今後は、3か月に1度ほど青葉区の相場の動きだけをお送りいたします。
+不要になりましたら、いつでもひと言お知らせください。すぐに停止いたします。
+
+ご検討が具体的になられた際に、思い出していただけましたら幸いです。
+どうぞよろしくお願いいたします。`,
+    ledger:{cust:"井上 様",src:"TERASS Offer",req:"青葉区／マンション／再来年春・情報収集",temp:'<span class="badge g">低</span>',state:"相場資料 送信済",next:"3か月後：相場アップデートのみ送付"}
+  },
+  {
+    sbj:"【査定依頼】川崎市中原区／マンション売却（架電つながらず）",
+    meta:"HOME'S 一括査定 &lt;satei@homes.example&gt; ／ 2日前 10:05 受信",
+    body:`HOME'S 一括査定に、査定のお申し込みがありました。
+
+お名前：渡辺 様
+物件：川崎市中原区◯◯ マンション 3LDK 72.4㎡ 築18年
+ご希望：売却査定
+備考：住み替えを検討中
+
+［社内メモ］
+・2日前 10:30／昨日 12:15／本日 9:40 の3回架電。いずれも不通。
+・一括査定のため、他社3社にも同時に依頼が出ています。`,
+    steps:["架電3回・不通を検知 → メール追客に切替","物件所在地から周辺事例を収集","査定レンジを算出（成約8件／売出6件）","他社との差別化ポイントを抽出","返信文＋事前レポートを作成"],
+    chips:[
+      {l:"物件",v:"中原区 3LDK",c:""},
+      {l:"面積・築年",v:"72.4㎡／築18年",c:""},
+      {l:"目的",v:"住み替え",c:""},
+      {l:"架電",v:"3回 不通",c:"hot"},
+      {l:"競合",v:"他社3社が同時対応",c:"hot"},
+      {l:"経過",v:"申込から2日",c:"hot"},
+      {l:"AIの判断",v:"金額を先に出す",c:"hot"}
+    ],
+    propLabel:"AIの判断：一括査定は「先に数字を見せた1社」が残ります",
+    props:[
+      {n:"根拠 1",t:"他社3社と同時進行",p:"—",d:"「一度お伺いさせてください」だけのメールは、他3社と区別がつきません。",w:"✓ 査定レンジをメールに明記"},
+      {n:"根拠 2",t:"電話に出ない＝拒否ではない",p:"—",d:"日中に働かれている可能性。時間帯を変える／メールで完結する選択肢を出します。",w:"✓ 訪問なしの査定も提示"},
+      {n:"根拠 3",t:"住み替えは売却単体ではない",p:"—",d:"買い先の資金計画とセットで話せる会社が残ります。",w:"✓ 住み替えの段取りに言及"}
+    ],
+    draft:`渡辺様
+
+はじめまして。◯◯不動産の◯◯と申します。
+HOME'Sの一括査定にお申し込みいただき、ありがとうございます。
+
+何度かお電話を差し上げましたが、お忙しいご様子でしたので、
+メールにて失礼いたします。
+
+お申し込みいただいた内容をもとに、先に査定額の目安をお出しします。
+（ご訪問前の、周辺事例からの机上査定です）
+
+━━━━━━━━━━━━━━━━━━━━
+■ 川崎市中原区◯◯ マンション 3LDK 72.4㎡ 築18年
+
+　　早期に売る場合　　　4,280万円
+　　推奨の売出価格　　　4,680万円　◀ おすすめ
+　　時間をかける場合　　4,900万円
+
+　根拠：直近1年の同マンション・近隣3棟の成約8件、現在の売出6件
+　　　　㎡単価の中央値 64.7万円／㎡ から算出
+━━━━━━━━━━━━━━━━━━━━
+
+あわせて、いま渡辺様にお伝えしておきたい点が1つあります。
+
+同じマンション内に現在2件の売出があり、いずれも4,780万円台で
+3か月以上動いていません。同じ価格帯に並べると埋もれてしまいます。
+一方、渡辺様のお部屋は大規模修繕が完了済みで、この2件にはない
+優位点があります。ここを出せるかどうかで、動きが変わります。
+
+■ 住み替えをご検討とのことですので
+売却と、次のお住まいの資金計画は同時に組む必要があります。
+「売ってから買う」「買ってから売る」で必要な資金がまったく変わりますので、
+先に段取りを決めておくと、あとで慌てずに済みます。
+
+■ 次のステップは、どちらでも結構です
+　（1）現地を拝見しての正式査定　… 30分ほど。ご都合のよい日時をお知らせください
+　（2）メールだけで進める　　　　… 間取り図とお写真を数枚いただければ、
+　　　　　　　　　　　　　　　　　　精度を上げた査定書をお送りします
+
+夜間・土日のご連絡も可能です。ご希望の時間帯をお知らせいただければ、
+そちらに合わせてお電話いたします。
+
+どうぞよろしくお願いいたします。`,
+    ledger:{cust:"渡辺 様",src:"HOME'S 一括査定",req:"中原区／3LDK 72.4㎡／売却・住み替え",temp:'<span class="badge s">高</span>',state:"机上査定 送信済",next:"2日後：未返信なら夜間に架電＋査定書送付"}
+  }
+];
+
+let cur = 0, timer = null, typing = null;
+const $ = id => document.getElementById(id);
+
+function render(i){
+  cur = i;
+  const d = DATA[i];
+  document.querySelectorAll('.mail').forEach((b,k)=>b.classList.toggle('on', k===i));
+  $('mSbj').textContent = d.sbj;
+  $('mMeta').innerHTML = d.meta;
+  $('mBody').textContent = d.body;
+  resetAll();
+}
+
+function resetAll(){
+  clearTimeout(timer); clearInterval(typing);
+  $('steps').innerHTML = '';
+  $('readout').classList.remove('show');
+  $('ledger').classList.remove('show');
+  $('approveRow').style.display = 'none';
+  $('draft').innerHTML = '';
+  $('go').disabled = false;
+  $('go').textContent = 'AIに一次対応させる';
+  $('clock').textContent = '受信箱：未対応 3件';
+}
+
+function run(){
+  const d = DATA[cur];
+  $('go').disabled = true;
+  $('go').textContent = '処理中…';
+  $('steps').innerHTML = d.steps.map(s=>`<div class="step"><span class="ic"></span><span>${s}</span></div>`).join('');
+  const els = [...document.querySelectorAll('#steps .step')];
+  let k = 0;
+  const tick = () => {
+    if(k>0){ els[k-1].classList.remove('on'); els[k-1].classList.add('done'); }
+    if(k>=els.length){ showResult(); return; }
+    els[k].classList.add('on');
+    k++;
+    timer = setTimeout(tick, 620);
+  };
+  tick();
+}
+
+function showResult(){
+  const d = DATA[cur];
+  $('chips').innerHTML = d.chips.map(c=>`<div class="chip ${c.c}"><b>${c.l}</b><span>${c.v}</span></div>`).join('');
+  $('propLabel').textContent = d.propLabel;
+  $('props').innerHTML = d.props.map(p=>`<div class="prop"><div class="pn">${p.n}</div><h4>${p.t}</h4>
+    <div class="pp">${p.p}</div><div class="pd">${p.d}</div><div class="why">${p.w}</div></div>`).join('');
+  $('readout').classList.add('show');
+  $('go').textContent = '完了';
+  typeDraft(d.draft);
+}
+
+function typeDraft(text){
+  const el = $('draft');
+  let n = 0;
+  const speed = 9;
+  clearInterval(typing);
+  typing = setInterval(()=>{
+    n += 7;
+    if(n >= text.length){
+      el.textContent = text;
+      clearInterval(typing);
+      $('approveRow').style.display = 'flex';
+      return;
+    }
+    el.innerHTML = escapeHtml(text.slice(0,n)) + '<span class="caret"></span>';
+  }, speed);
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+}
+
+function send(){
+  const d = DATA[cur].ledger;
+  const rows = $('ledgerBody');
+  const today = '本日';
+  rows.innerHTML = `<tr>
+      <td class="n">${today}</td><td>${d.cust}</td><td>${d.src}</td>
+      <td>${d.req}</td><td>${d.temp}</td>
+      <td><span class="badge w">${d.state}</span></td><td>${d.next}</td>
+    </tr>` + rows.innerHTML;
+  $('ledger').classList.add('show');
+  $('approveRow').style.display = 'none';
+  $('clock').textContent = '送信しました ／ 追客を予約しました';
+  $('ledger').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+document.querySelectorAll('.mail').forEach(b=>{
+  b.addEventListener('click', ()=>render(+b.dataset.i));
+});
+$('go').addEventListener('click', run);
+$('reset').addEventListener('click', resetAll);
+$('send').addEventListener('click', send);
+$('edit').addEventListener('click', ()=>{
+  const el = $('draft');
+  el.contentEditable = 'true';
+  el.style.background = '#fff';
+  el.style.outline = '2px solid var(--gold)';
+  el.style.borderRadius = '8px';
+  el.style.padding = '8px';
+  el.focus();
+});
+
+render(0);
+</script>
+</body>
+</html>
