@@ -7,249 +7,262 @@
 <title>DOPE ROPPONGI ｜ ご提案用モック（Lスタジオ）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600&family=Shippori+Mincho+B1:wght@400;500;600;700&family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
-   DESIGN.md: Limón / limonoslo.no （refero.design）に準拠
-   north star = "moody brasserie under candlelight"
-   色は4つだけ：Black Olive #1d0b0d / Forest Ink #103b15 / Lemon Zest #f7ea48
-                / Warm Cream #fcf9f0（＋ hairline Sage Mist #dbe2dc）
-   角丸は 1px（back-to-top の丸ボタンだけ 40px）／影・グラデーション禁止
-   表示文字は 46px 以上・トラッキングは +0.04〜0.06em（詰めない）
+   DESIGN.md: Lamborghini.com（refero.design）／ ref-lambo/reference.jpg を見て作成
+   north star = "Showroom black with one yellow car under spotlights"
+   ・写真が主役。フルブリードの暗い写真の上に文字を直接置く（パネルを敷かない）
+   ・角丸は 0px。影・グロー・装飾グラデーション禁止。段差は面の色でつける
+   ・黄 #ffc000 は 1画面に1つだけ。それ以外は無彩色
+   ・欧文は Barlow Condensed の大文字・トラッキング .023em で統一（太さで階層を作らない）
+   ・和文は Shippori Mincho B1（明朝）を採用。
+     ← ここだけ DESIGN.md から意図的に外している。欧文のコンデンス体を
+        そのまま和文に当てると「大人の隠れ家」の格が出ないため。
+   ・余白は 8 の倍数（8/16/24/32/40/48/64/80）
    ========================================================================== */
 :root{
-  --olive:#1d0b0d; --forest:#103b15; --lemon:#f7ea48; --cream:#fcf9f0;
-  --sage:#dbe2dc; --white:#fff;
-  --sans:'DM Sans','Noto Sans JP',system-ui,"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
+  --ink:#0d0b0a;          /* 面：黒 */
+  --carbon:#181818;
+  --paper:#ffffff;
+  --marble:#f5f5f5;       /* 明るい面 */
+  --steel:#7d7d7d;        /* 二次テキスト */
+  --hair:#494949;         /* 暗い面の罫 */
+  --hair-l:#d6d6d6;       /* 明るい面の罫 */
+  --gold:#ffc000;         /* 1画面に1つ */
+  --lat:'Barlow Condensed',system-ui,sans-serif;
+  --jp:'Shippori Mincho B1',"Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:'Noto Sans JP',system-ui,"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--olive);color:var(--cream);font-family:var(--sans);
-  font-size:16px;line-height:1.6;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
-a{color:var(--lemon);text-decoration:none}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans);
+  font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
 
-/* ---- 非公式モックであることの明示（提案用） ---- */
-.ribbon{position:sticky;top:0;z-index:50;background:var(--forest);color:var(--cream);
-  font-size:11.5px;letter-spacing:.04em;padding:7px 16px;text-align:center;border-radius:1px}
-.ribbon b{color:var(--lemon);font-weight:600}
+/* ---- 提案用モックである旨（消さない） ---- */
+.ribbon{position:relative;z-index:20;background:#000;color:var(--steel);
+  font-size:11px;line-height:1.7;letter-spacing:.02em;padding:8px 16px;text-align:center;
+  border-bottom:1px solid var(--hair)}
+.ribbon b{color:var(--gold);font-weight:500}
 
-/* ---- nav ---- */
-nav{display:flex;align-items:center;justify-content:space-between;gap:15px;
-  padding:22px 32px;border-bottom:1px solid rgba(219,226,220,.16)}
-.navg{display:flex;gap:24px;font-size:13px;letter-spacing:.064em;text-transform:uppercase}
-.navg a{color:var(--cream)}
-.navg a:hover{color:var(--lemon)}
-.wordmark{font-size:26px;font-weight:700;letter-spacing:.12em;color:var(--cream);line-height:1}
-.wordmark i{font-style:normal;display:block;font-size:9.5px;letter-spacing:.34em;font-weight:400;
-  color:var(--sage);margin-top:5px;text-align:center}
-@media(max-width:820px){nav{flex-wrap:wrap;justify-content:center;padding:16px}.navg{font-size:11.5px;gap:15px}}
+/* ---- nav（ヒーローに重ねる） ---- */
+nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;
+  justify-content:space-between;padding:24px 40px}
+.navg{display:flex;gap:32px;font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;
+  font-size:15px;font-weight:400}
+.navg a:hover{color:var(--gold)}
+.wordmark{font-family:var(--lat);text-transform:uppercase;letter-spacing:.14em;font-size:24px;
+  font-weight:500;line-height:1;text-align:center}
+.wordmark i{font-style:normal;display:block;font-size:9px;letter-spacing:.42em;font-weight:300;
+  color:#bdbdbd;margin-top:6px}
+@media(max-width:820px){nav{padding:16px}.navg{display:none}.wordmark{margin:0 auto}}
 
-/* ---- hero ---- */
-.hero{position:relative;padding:60px 32px;border-bottom:1px solid rgba(219,226,220,.16)}
-.hero .plate{position:absolute;inset:0;overflow:hidden}
-.hero .inner{position:relative;max-width:1100px;margin:0 auto}
-h1.display{font-size:75px;line-height:1;letter-spacing:.06em;font-weight:400;color:var(--lemon);
-  margin:0 0 15px}
-@media(max-width:820px){h1.display{font-size:46px;letter-spacing:.04em}.hero{padding:40px 16px}}
-.hero p{font-size:20px;line-height:1.4;letter-spacing:.03em;color:var(--cream);max-width:640px;margin:0 0 30px}
-.hero .meta{font-family:var(--mono);font-size:12px;letter-spacing:0;color:var(--sage);margin-top:30px}
+/* ---- HERO：写真がそのまま背景 ---- */
+.hero{position:relative;height:calc(100svh - 36px);min-height:560px;overflow:hidden}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.34) 44%,rgba(0,0,0,0) 72%)}
+.hero .copy{position:absolute;left:40px;bottom:64px;z-index:2;max-width:640px}
+@media(max-width:820px){.hero .copy{left:16px;right:16px;bottom:40px}}
+.eyebrow{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:15px;
+  color:#e6e6e6;margin:0 0 16px}
+h1{font-family:var(--jp);font-weight:600;font-size:72px;line-height:1.18;letter-spacing:.02em;margin:0 0 24px}
+@media(max-width:820px){h1{font-size:40px}}
+.hero .sub{font-size:15px;line-height:2;color:#dcdcdc;margin:0 0 32px;max-width:440px}
+.hero .facts{position:absolute;right:40px;bottom:64px;z-index:2;text-align:right;
+  font-family:var(--mono);font-size:11px;line-height:2.2;color:#b9b9b9;letter-spacing:0}
+@media(max-width:1000px){.hero .facts{display:none}}
 
-/* ---- buttons ---- */
-.btn{display:inline-flex;align-items:center;gap:8px;background:var(--lemon);color:var(--olive);
-  border:none;border-radius:1px;padding:12px 20px;font-family:inherit;font-size:16px;font-weight:600;
-  letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:.12s}
-.btn:hover{background:var(--white)}
-.btn:disabled{opacity:.35;cursor:default}
-.ghost{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid var(--cream);
-  color:var(--cream);border-radius:1px;padding:11px 18px;font-family:inherit;font-size:14px;
-  letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:.12s}
-.ghost:hover{border-color:var(--lemon);color:var(--lemon)}
-.ghost.on{background:var(--cream);color:var(--olive)}
+/* ---- ボタン：黄は1画面に1つ ---- */
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#000;
+  border:none;border-radius:0;padding:16px 32px;font-family:var(--lat);text-transform:uppercase;
+  letter-spacing:.023em;font-size:17px;font-weight:500;cursor:pointer;transition:background .15s;line-height:1}
+.btn:hover{background:var(--paper)}
+.btn:disabled{background:#3a3a3a;color:#8a8a8a;cursor:default}
+.ghost{background:none;color:inherit;border:1px solid currentColor;border-radius:0;
+  padding:11px 20px;font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;
+  font-size:15px;cursor:pointer;transition:.15s;line-height:1.2}
+.ghost:hover{opacity:.72}
+.ghost.on{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+section.light .ghost.on{background:var(--ink);color:var(--marble);border-color:var(--ink)}
 
-/* ---- sections ---- */
-section{padding:60px 32px;border-bottom:1px solid rgba(219,226,220,.16)}
-section.light{background:var(--cream);color:var(--forest);border-bottom-color:var(--sage)}
-section.light a{color:var(--forest)}
-.sec{max-width:1100px;margin:0 auto}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--lemon);margin:0 0 15px}
-section.light .eyebrow{color:var(--forest);opacity:.65}
-section.light .checks li{border-top-color:var(--sage)}
-section.light .checks li .n{color:var(--forest);opacity:.55}
-section.light .codeblk{color:var(--cream)}
-h2{font-size:46px;line-height:1.15;letter-spacing:.04em;font-weight:400;margin:0 0 15px}
-section.light h2{color:var(--forest)}
-@media(max-width:820px){h2{font-size:30px;letter-spacing:.03em}section{padding:40px 16px}}
-.lead{font-size:19px;line-height:1.45;letter-spacing:.03em;margin:0 0 15px;max-width:680px}
-.mocknote{font-family:var(--mono);font-size:11.5px;letter-spacing:0;line-height:1.7;margin:0 0 30px;
-  max-width:680px;opacity:.62}
+/* ---- セクション：暗↔明を交互に ---- */
+section{padding:80px 40px}
+@media(max-width:820px){section{padding:48px 16px}}
+section.light{background:var(--marble);color:var(--ink)}
+.sec{max-width:1200px;margin:0 auto}
+.kicker{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
+  color:var(--steel);margin:0 0 16px}
+h2{font-family:var(--jp);font-weight:600;font-size:48px;line-height:1.28;letter-spacing:.02em;margin:0 0 24px}
+@media(max-width:820px){h2{font-size:30px}}
+.lead{font-size:16px;line-height:2;max-width:640px;margin:0 0 8px}
+.mocknote{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:0;
+  color:var(--steel);margin:0 0 40px;max-width:640px}
 
 /* ---- 予約 ---- */
-.book{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:start}
+.book{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start}
 @media(max-width:900px){.book{grid-template-columns:1fr}}
-.field{margin-bottom:15px}
-.field .lb{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--forest);opacity:.6;margin-bottom:8px}
+.field{margin-bottom:24px}
+.field .lb{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
+  color:var(--steel);margin-bottom:12px}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:1px solid var(--sage);background:var(--white);color:var(--forest);border-radius:1px;
-  padding:9px 14px;font-family:inherit;font-size:14px;letter-spacing:.03em;cursor:pointer;transition:.1s}
-.chip:hover{border-color:var(--forest)}
-.chip.on{background:var(--forest);color:var(--cream);border-color:var(--forest)}
-.chip.full{opacity:.34;cursor:not-allowed;text-decoration:line-through}
-.slip{background:var(--olive);color:var(--cream);border-radius:1px;padding:24px}
-.slip .t{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--lemon);margin-bottom:15px}
-.slip .r{display:flex;justify-content:space-between;gap:15px;padding:8px 0;
-  border-top:1px solid rgba(219,226,220,.18);font-size:14px}
+.chip{border:1px solid var(--hair-l);background:var(--paper);color:var(--ink);border-radius:0;
+  padding:12px 18px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:.12s;line-height:1}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.full{color:#bdbdbd;border-color:#e6e6e6;cursor:not-allowed;text-decoration:line-through}
+.slip{background:var(--ink);color:var(--paper);padding:32px}
+.slip .t{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
+  color:var(--steel);margin-bottom:24px}
+.slip .r{display:flex;justify-content:space-between;gap:16px;padding:12px 0;
+  border-top:1px solid var(--hair);font-size:14px;line-height:1.4}
 .slip .r:first-of-type{border-top:none}
-.slip .r span:first-child{color:var(--sage)}
-.slip .done{margin-top:15px;font-size:13px;line-height:1.5;color:var(--lemon);display:none}
+.slip .r span{color:var(--steel)}
+.slip .r b{font-weight:400}
+.slip .done{margin-top:24px;font-size:13px;line-height:1.9;color:var(--gold);display:none}
 .slip .done.show{display:block}
+.slip .done b{color:var(--paper);font-weight:500}
 
 /* ---- メニュー ---- */
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr;gap:15px}}
-.tile figure{margin:0}
-.tile .ph{position:relative;aspect-ratio:1/1;border-radius:1px;overflow:hidden;background:#120607}
-.tile .ph .cap{position:absolute;left:8px;bottom:8px;font-family:var(--mono);font-size:9.5px;
-  letter-spacing:.02em;color:rgba(252,249,240,.62)}
-.tile h3{font-size:20px;font-weight:500;letter-spacing:.03em;margin:30px 0 0;line-height:1.3}
-.tile .desc{font-size:15px;line-height:1.5;margin:8px 0 0;opacity:.8}
-.tile .price{font-family:var(--mono);font-size:15px;letter-spacing:0;margin-top:8px;display:inline-block;
-  transition:background .4s}
-.tile .price.flash{background:var(--lemon);color:var(--olive);padding:0 4px}
-section.light .tile h3,section.light .tile .price{color:var(--forest)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr;gap:16px}}
+.tile img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.tile h3{font-family:var(--jp);font-size:21px;font-weight:500;line-height:1.5;margin:24px 0 0}
+.tile .desc{font-size:14px;line-height:1.9;color:var(--steel);margin:8px 0 0}
+.tile .price{font-family:var(--mono);font-size:15px;letter-spacing:0;margin-top:8px;
+  display:inline-block;transition:background .4s,color .4s}
+.tile .price.flash{background:var(--gold);color:#000;padding:0 6px}
 
-/* ---- スプレッドシート風 ---- */
-.sheet{border:1px solid var(--sage);border-radius:1px;background:var(--white);overflow:hidden;
-  font-family:var(--mono);font-size:12.5px;letter-spacing:0;color:var(--forest)}
-.sheet .hd{display:grid;grid-template-columns:28px 1.5fr 3fr 90px 70px;background:#eef1ea;
-  border-bottom:1px solid var(--sage)}
-.sheet .rw{display:grid;grid-template-columns:28px 1.5fr 3fr 90px 70px;border-bottom:1px solid #eef1ea}
-.sheet .hd div,.sheet .rw div{padding:6px 8px;border-right:1px solid #eef1ea;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sheet .rw .cell.edit{background:var(--lemon)}
+/* ---- スプレッドシート ---- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:48px}
+@media(max-width:900px){.two{grid-template-columns:1fr;gap:24px}}
+.sheetwrap{overflow-x:auto}
+.sheet{border:1px solid var(--hair);background:var(--paper);color:var(--ink);
+  font-family:var(--mono);font-size:12px;letter-spacing:0;min-width:520px}
+.sheet .hd,.sheet .rw{display:grid;grid-template-columns:32px 1.4fr 2.6fr 92px 76px}
+.sheet .hd{background:#ececec;border-bottom:1px solid var(--hair-l);color:#5a5a5a}
+.sheet .rw{border-bottom:1px solid #ececec}
 .sheet .rw:last-child{border-bottom:none}
-.pipe{font-family:var(--mono);font-size:11.5px;letter-spacing:0;color:var(--sage);opacity:.9;
-  margin-top:15px;line-height:1.9;min-height:70px}
-.pipe b{font-weight:400;color:var(--lemon)}
-section.light .pipe{color:var(--forest);opacity:.75}
-section.light .pipe b{color:#0b7a1f}
+.sheet div{padding:8px 10px;border-right:1px solid #ececec;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.sheet .cell.edit{background:var(--gold)}
+.pipe{font-family:var(--mono);font-size:12px;line-height:2.1;letter-spacing:0;color:var(--steel);min-height:96px}
+.pipe b{font-weight:400;color:var(--gold)}
+.sheetctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 
-/* ---- SEO / 構造化データ ---- */
-.codeblk{background:var(--olive);color:var(--cream);border-radius:1px;padding:20px;overflow:auto;
-  font-family:var(--mono);font-size:11.5px;letter-spacing:0;line-height:1.65;max-height:360px;white-space:pre}
-.codeblk .k{color:var(--lemon)}
-.codeblk .s{color:#a9d8b0}
-.seo{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
-@media(max-width:900px){.seo{grid-template-columns:1fr}}
+/* ---- SEO ---- */
 .checks{list-style:none;margin:0;padding:0}
-.checks li{border-top:1px solid rgba(219,226,220,.2);padding:12px 0;font-size:15px;line-height:1.5;
-  display:flex;gap:12px}
+.checks li{border-top:1px solid var(--hair-l);padding:16px 0;display:flex;gap:16px;
+  font-size:15px;line-height:1.9}
 .checks li:first-child{border-top:none}
-.checks li .n{font-family:var(--mono);font-size:11px;letter-spacing:0;color:var(--lemon);flex:none;
-  width:22px;padding-top:3px}
+.checks li .n{font-family:var(--lat);font-size:14px;color:var(--steel);flex:none;width:28px;padding-top:4px}
+.codeblk{background:var(--ink);color:#e6e6e6;padding:24px;overflow:auto;white-space:pre;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:0;line-height:1.75;max-height:400px}
+.codeblk .k{color:var(--gold)}
+.codeblk .s{color:#9fb8a4}
 
-/* ---- スマホ切替 ---- */
-.viewport{border:1px solid rgba(219,226,220,.2);border-radius:1px;padding:24px;margin-top:30px;
-  display:flex;justify-content:center;background:#160809}
-.viewport .frame{width:100%;max-width:1000px;transition:max-width .5s ease}
-.viewport.mobile .frame{max-width:390px}
-.mockpage{background:var(--olive);border:1px solid rgba(219,226,220,.18);border-radius:1px;overflow:hidden}
-.mockpage .mh{position:relative;padding:30px 20px}
-.mockpage .mh .t{position:relative;font-size:34px;letter-spacing:.06em;color:var(--lemon);line-height:1;margin:0}
-.viewport.mobile .mockpage .mh .t{font-size:26px}
-.mockpage .mh .s{position:relative;font-size:13px;color:var(--cream);margin:10px 0 15px;letter-spacing:.03em}
-.mockpage .mb{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px 20px}
-.viewport.mobile .mockpage .mb{grid-template-columns:1fr 1fr}
-.mockpage .mb .ph{position:relative;aspect-ratio:1/1;border-radius:1px;overflow:hidden;background:#120607}
-.mockpage .mf{border-top:1px solid rgba(219,226,220,.18);padding:12px 20px;font-family:var(--mono);
-  font-size:11px;letter-spacing:0;color:var(--sage);display:flex;justify-content:space-between;gap:15px}
+/* ---- スマホ ---- */
+.mobile{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
+@media(max-width:900px){.mobile{grid-template-columns:1fr}}
+.device{border:1px solid var(--hair);padding:16px;background:#000;transition:max-width .5s ease;
+  width:100%;max-width:720px}
+.device.sp{max-width:340px}
+.mockpage{background:#000}
+.mockpage .mh{position:relative;height:280px;overflow:hidden}
+.device.sp .mockpage .mh{height:300px}
+.mockpage .mh img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mockpage .mh::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.12) 72%)}
+.mockpage .mh .c{position:absolute;left:16px;bottom:16px;z-index:2}
+.mockpage .mh .c p{font-family:var(--jp);font-size:26px;font-weight:600;line-height:1.25;margin:0 0 8px}
+.device.sp .mockpage .mh .c p{font-size:20px}
+.mockpage .mh .c .s{font-family:var(--mono);font-size:10px;color:#cfcfcf;letter-spacing:0}
+.mockpage .mb{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding-top:4px}
+.device.sp .mockpage .mb{grid-template-columns:1fr 1fr}
+.mockpage .mb img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.stairs img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.stairs figcaption{font-family:var(--mono);font-size:10.5px;color:var(--steel);
+  letter-spacing:0;margin-top:8px}
 
 /* ---- footer ---- */
-footer{padding:60px 32px}
-.fg{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px}
-@media(max-width:900px){.fg{grid-template-columns:1fr}}
-.fg .h{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--lemon);margin-bottom:12px}
-.fg p{margin:0;font-size:14px;line-height:1.7;color:var(--cream)}
-.fnote{max-width:1100px;margin:30px auto 0;border-top:1px solid rgba(219,226,220,.16);padding-top:15px;
-  font-size:12px;color:var(--sage);line-height:1.6}
-.totop{position:fixed;right:24px;bottom:24px;width:40px;height:40px;border-radius:40px;background:var(--forest);
-  color:var(--cream);border:none;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+footer{background:#000;padding:64px 40px 40px}
+@media(max-width:820px){footer{padding:40px 16px}}
+.fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+@media(max-width:900px){.fg{grid-template-columns:1fr;gap:24px}}
+.fg .h{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
+  color:var(--steel);margin-bottom:12px}
+.fg p{margin:0;font-size:15px;line-height:1.9}
+.fnote{max-width:1200px;margin:40px auto 0;border-top:1px solid var(--hair);padding-top:24px;
+  font-size:12px;line-height:1.9;color:var(--steel)}
+.fnote b{color:#c9c9c9;font-weight:400}
 </style>
 </head>
 <body>
 
 <div class="ribbon">
-  これは <b>Lスタジオ</b> が制作した<b>ご提案用の非公式モック</b>です。DOPE ROPPONGI 様の公式サイトではありません／写真枠・メニュー・文言はすべて仮のものです／<b>予約とメニュー更新は画面上の再現</b>で、実際の送信・反映は行いません。
+  これは <b>Lスタジオ</b> が制作した<b>ご提案用の非公式モック</b>です。DOPE ROPPONGI 様の公式サイトではありません／
+  写真はすべて<b>イメージ（AI生成）の差し替え枠</b>で、実際の店舗写真ではありません／
+  <b>予約とメニュー更新は画面上の再現</b>で、実際の送信・反映は行いません。
 </div>
-
-<nav>
-  <div class="navg"><a href="#about">About</a><a href="#menu">Menu</a></div>
-  <div class="wordmark">DOPE<i>ROPPONGI</i></div>
-  <div class="navg"><a href="#reserve">Reserve</a><a href="#access">Access</a></div>
-</nav>
 
 <!-- ================= HERO ================= -->
 <div class="hero">
-  <div class="plate" id="heroPlate"></div>
-  <div class="inner">
-    <h1 class="display">六本木の<br>灯を、ひとつ。</h1>
-    <p>駅から1分、階段をひとつ上がるだけ。<br>グラスと会話のための、大人の隠れ家。</p>
+  <img src="img/hero.jpg" alt="夜のカウンター（イメージ写真）">
+  <nav>
+    <div class="navg"><a href="#reserve">Reserve</a><a href="#menu">Menu</a></div>
+    <div class="wordmark">Dope<i>Roppongi</i></div>
+    <div class="navg"><a href="#seo">About</a><a href="#access">Access</a></div>
+  </nav>
+  <div class="copy">
+    <p class="eyebrow">Roppongi — Dining &amp; Bar</p>
+    <h1>六本木の灯を、<br>ひとつ。</h1>
+    <p class="sub">駅から1分、階段をひとつ上がるだけ。<br>グラスと会話のための、大人の隠れ家。</p>
     <button class="btn" onclick="document.getElementById('reserve').scrollIntoView()">席を予約する</button>
-    <div class="meta">OPEN 18:00 – 26:00 ／ 港区六本木 4-10-11 八巻ビル 2F ／ 03-3403-5020</div>
   </div>
+  <div class="facts">OPEN 18:00 – 26:00<br>港区六本木 4-10-11 八巻ビル 2F<br>03-3403-5020</div>
 </div>
 
-<!-- ================= 予約 ================= -->
+<!-- ================= 01 予約 ================= -->
 <section class="light" id="reserve">
   <div class="sec">
-    <p class="eyebrow">01 — Reservation</p>
-    <h2>電話が鳴らない<br>予約のとりかた。</h2>
+    <p class="kicker">01 — Reservation</p>
+    <h2>電話が鳴らない、<br>予約のとりかた。</h2>
     <p class="lead">営業中に電話が鳴らなくなります。空席は席数から自動で計算し、確定するとお店と、お客様のLINEに同時に届きます。予約サイトの月額手数料はかかりません。</p>
     <p class="mocknote">※ このモックでは予約番号の発行までを画面上で再現しています。通知の送信と記帳は行いません（実装後は実際に届きます）。</p>
 
     <div class="book">
       <div>
-        <div class="field">
-          <div class="lb">Date — 日付</div>
+        <div class="field"><div class="lb">Date — 日付</div>
           <div class="chips" id="fDate">
             <button class="chip" data-v="9/5(金)">9/5(金)</button>
             <button class="chip on" data-v="9/6(土)">9/6(土)</button>
             <button class="chip" data-v="9/7(日)">9/7(日)</button>
             <button class="chip" data-v="9/8(月)">9/8(月)</button>
-          </div>
-        </div>
-        <div class="field">
-          <div class="lb">Guests — 人数</div>
+          </div></div>
+        <div class="field"><div class="lb">Guests — 人数</div>
           <div class="chips" id="fPax">
             <button class="chip" data-v="2名">2名</button>
             <button class="chip on" data-v="4名">4名</button>
             <button class="chip" data-v="6名">6名</button>
             <button class="chip" data-v="8名">8名</button>
-          </div>
-        </div>
-        <div class="field">
-          <div class="lb">Time — 時間（空席のみ選べます）</div>
+          </div></div>
+        <div class="field"><div class="lb">Time — 時間（空席のみ選べます）</div>
           <div class="chips" id="fTime">
             <button class="chip" data-v="18:00">18:00</button>
             <button class="chip full" disabled data-v="19:00">19:00</button>
             <button class="chip full" disabled data-v="20:00">20:00</button>
             <button class="chip on" data-v="21:00">21:00</button>
             <button class="chip" data-v="22:00">22:00</button>
-          </div>
-        </div>
-        <div class="field">
-          <div class="lb">Seat — 席</div>
+          </div></div>
+        <div class="field"><div class="lb">Seat — 席</div>
           <div class="chips" id="fSeat">
             <button class="chip on" data-v="カウンター">カウンター</button>
             <button class="chip" data-v="ソファ席">ソファ席</button>
             <button class="chip" data-v="半個室">半個室</button>
-          </div>
-        </div>
+          </div></div>
       </div>
 
       <div class="slip">
@@ -259,9 +272,9 @@ footer{padding:60px 32px}
         <div class="r"><span>時間</span><b id="sTime">21:00</b></div>
         <div class="r"><span>席</span><b id="sSeat">カウンター</b></div>
         <div class="r"><span>残席</span><b id="sLeft">2</b></div>
-        <div style="margin-top:15px"><button class="btn" id="bBook" style="width:100%;justify-content:center">この内容で予約</button></div>
+        <div style="margin-top:24px"><button class="btn" id="bBook" style="width:100%;justify-content:center">この内容で予約</button></div>
         <div class="done" id="dBook">
-          予約番号 <b id="rid">DR-260906-21A</b> を発行しました。<br>
+          予約番号 <b id="rid">DR-260906-21C</b> を発行しました。<br>
           ・お客様のLINEに確認メッセージを送信<br>
           ・店舗のLINEと予約シートに自動で記帳<br>
           ・前日18:00にリマインドを自動送信
@@ -271,105 +284,100 @@ footer{padding:60px 32px}
   </div>
 </section>
 
-<!-- ================= メニュー ================= -->
+<!-- ================= 02 メニュー ================= -->
 <section id="menu">
   <div class="sec">
-    <p class="eyebrow">02 — Menu</p>
+    <p class="kicker">02 — Menu</p>
     <h2>値段は、店主が<br>スプレッドシートで直す。</h2>
     <p class="lead">メニューの更新に制作会社を通す必要はありません。いつものスプレッドシートを書き換えると、サイトが自動で作り直されます。写真も同じ行にURLを貼るだけです。</p>
     <p class="mocknote">※ 下のシートはモック内の再現です。実際のスプレッドシートには接続していません。</p>
 
     <div class="tiles" id="tiles">
-      <div class="tile" data-i="0"><figure>
-        <div class="ph"></div>
+      <div class="tile"><img src="img/dish-lamb.jpg" alt="炭火の骨付きラム（イメージ写真）">
         <h3>炭火の骨付きラム</h3>
         <p class="desc">山椒と黒胡椒。ワインでも、ハイボールでも。</p>
-        <div class="price">¥2,800</div>
-      </figure></div>
-      <div class="tile" data-i="1"><figure>
-        <div class="ph"></div>
+        <div class="price">¥2,800</div></div>
+      <div class="tile" data-i="1"><img src="img/dish-burrata.jpg" alt="ブラータと桃（イメージ写真）">
         <h3>ブラータと桃</h3>
         <p class="desc">季節で果物が変わります。9月は桃。</p>
-        <div class="price">¥1,800</div>
-      </figure></div>
-      <div class="tile" data-i="2"><figure>
-        <div class="ph"></div>
+        <div class="price">¥1,800</div></div>
+      <div class="tile"><img src="img/drink.jpg" alt="オリジナルカクテル（イメージ写真）">
         <h3>DOPE オリジナル</h3>
         <p class="desc">メスカルと自家製シトラス。当店だけの一杯。</p>
-        <div class="price">¥1,600</div>
-      </figure></div>
+        <div class="price">¥1,600</div></div>
     </div>
 
-    <div style="margin-top:30px" class="seo">
+    <div class="two">
       <div>
-        <div class="sheet">
+        <div class="sheetwrap"><div class="sheet">
           <div class="hd"><div>&nbsp;</div><div>A / 名前</div><div>B / 説明</div><div>C / 価格</div><div>D / 公開</div></div>
           <div class="rw"><div>2</div><div>炭火の骨付きラム</div><div>山椒と黒胡椒。…</div><div class="cell" id="c2">2800</div><div>TRUE</div></div>
           <div class="rw"><div>3</div><div>ブラータと桃</div><div>季節で果物が…</div><div class="cell" id="c3">1800</div><div>TRUE</div></div>
           <div class="rw"><div>4</div><div>DOPE オリジナル</div><div>メスカルと自家製…</div><div class="cell" id="c4">1600</div><div>TRUE</div></div>
-        </div>
-        <div style="margin-top:15px;display:flex;gap:8px;flex-wrap:wrap">
+        </div></div>
+        <div class="sheetctl">
           <button class="ghost" id="bEdit">C3 を 2,200 に書き換える</button>
           <button class="ghost" id="bSold">「ブラータと桃」を非公開にする</button>
         </div>
       </div>
-      <div>
-        <div class="pipe" id="pipe">スプレッドシートを書き換えると、ここに反映の様子が出ます。</div>
-      </div>
+      <div class="pipe" id="pipe">スプレッドシートを書き換えると、ここに反映の様子が出ます。</div>
     </div>
   </div>
 </section>
 
-<!-- ================= SEO / MEO / AI ================= -->
-<section class="light" id="about">
+<!-- ================= 03 SEO ================= -->
+<section class="light" id="seo">
   <div class="sec">
-    <p class="eyebrow">03 — SEO / MEO / AI</p>
+    <p class="kicker">03 — SEO / MEO / AI</p>
     <h2>「六本木 ダイニングバー」で<br>もう一度、見つかる。</h2>
-    <p class="lead">サーバーが消えた期間に落ちた評価は、構造化データと Google ビジネスプロフィールの一致で取り戻します。あわせて ChatGPT・Gemini・AI検索が読む形式も同時に出力します。</p>
+    <p class="lead" style="margin-bottom:40px">サーバーが消えた期間に落ちた評価は、構造化データと Google ビジネスプロフィールの一致で取り戻します。あわせて ChatGPT・Gemini・AI検索が読む形式も同時に出力します。</p>
 
-    <div class="seo">
-      <div>
-        <ul class="checks">
-          <li><span class="n">01</span><span><b>NAP を1か所で管理。</b>店名・住所・電話・営業時間をシート1行で持ち、サイトと構造化データとビジネスプロフィール用のCSVへ同時に出します。表記ゆれが検索評価を落とす一番の原因です。</span></li>
-          <li><span class="n">02</span><span><b>Restaurant / Menu の構造化データ。</b>右のJSON-LDを自動生成。Googleの「レストラン」枠にメニューと価格が出ます。</span></li>
-          <li><span class="n">03</span><span><b>旧URLの引き継ぎ。</b>消えた前サイトのURLが残っていれば 301 で受け止め、失った被リンクを回収します。</span></li>
-          <li><span class="n">04</span><span><b>llms.txt / AI向け要約。</b>AIが店の情報を答えるときに参照する平文を用意します。「六本木で深夜まで空いている店」と聞かれたときに拾われる側に回ります。</span></li>
-          <li><span class="n">05</span><span><b>表示速度。</b>画像は自動でWebP化。回線の細い店内でも1秒台で開きます。</span></li>
-        </ul>
-      </div>
+    <div class="two" style="margin-top:0">
+      <ul class="checks">
+        <li><span class="n">01</span><span><b>NAP を1か所で管理。</b>店名・住所・電話・営業時間をシート1行で持ち、サイトと構造化データとビジネスプロフィール用のCSVへ同時に出します。表記ゆれが検索評価を落とす一番の原因です。</span></li>
+        <li><span class="n">02</span><span><b>飲食店向けの構造化データ。</b>右のJSON-LDを自動生成。Googleの「レストラン」枠にメニューと価格が出ます。</span></li>
+        <li><span class="n">03</span><span><b>旧URLの引き継ぎ。</b>消えた前サイトのURLが残っていれば 301 で受け止め、失った被リンクを回収します。</span></li>
+        <li><span class="n">04</span><span><b>llms.txt / AI向け要約。</b>「六本木で深夜まで空いている店」と聞かれたときに、拾われる側に回ります。</span></li>
+        <li><span class="n">05</span><span><b>表示速度。</b>画像は自動でWebP化。回線の細い店内でも1秒台で開きます。</span></li>
+      </ul>
       <div>
         <div class="codeblk" id="jsonld"></div>
-        <p style="font-family:var(--mono);font-size:11px;letter-spacing:0;opacity:.7;margin-top:12px">
-          ↑ 予約とメニューのシートから自動生成。手で書き直す必要はありません。</p>
+        <p class="mocknote" style="margin:16px 0 0">↑ 予約とメニューのシートから自動生成。手で書き直す必要はありません。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= スマホ ================= -->
+<!-- ================= 04 スマホ ================= -->
 <section id="access">
   <div class="sec">
-    <p class="eyebrow">04 — Mobile first</p>
+    <p class="kicker">04 — Mobile first</p>
     <h2>お客様の9割は、<br>片手で見ている。</h2>
-    <p class="lead">同じ1本のコードが、画面幅で組み替わります。切り替えて確かめてください。</p>
-    <div style="display:flex;gap:8px">
+    <p class="lead" style="margin-bottom:24px">同じ1本のコードが、画面幅で組み替わります。切り替えて確かめてください。</p>
+    <div style="display:flex;gap:8px;margin-bottom:40px">
       <button class="ghost on" id="bPC">PC</button>
       <button class="ghost" id="bSP">スマートフォン</button>
     </div>
 
-    <div class="viewport" id="vp">
-      <div class="frame">
+    <div class="mobile">
+      <div class="device" id="dev">
         <div class="mockpage">
           <div class="mh">
-            <div class="plate" style="position:absolute;inset:0;overflow:hidden" id="mockPlate"></div>
-            <p class="t">六本木の<br>灯を、ひとつ。</p>
-            <p class="s">OPEN 18:00 – 26:00 ／ 六本木駅 徒歩1分</p>
-            <button class="btn" style="font-size:13px;padding:9px 14px">席を予約する</button>
+            <img src="img/hero.jpg" alt="">
+            <div class="c">
+              <p>六本木の灯を、<br>ひとつ。</p>
+              <div class="s">OPEN 18:00 – 26:00 ／ 六本木駅 徒歩1分</div>
+            </div>
           </div>
-          <div class="mb"><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
-          <div class="mf"><span>03-3403-5020</span><span>MENU / RESERVE</span></div>
+          <div class="mb">
+            <img src="img/dish-lamb.jpg" alt=""><img src="img/dish-burrata.jpg" alt=""><img src="img/drink.jpg" alt="">
+          </div>
         </div>
       </div>
+      <figure class="stairs" style="margin:0">
+        <img src="img/stairs.jpg" alt="2階へ上がる階段（イメージ写真）">
+        <figcaption>ACCESS — 六本木駅から徒歩1分、階段をひとつ。</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -382,43 +390,13 @@ footer{padding:60px 32px}
   </div>
   <div class="fnote">
     本ページは <b>Lスタジオ（平野 淳一）</b> が DOPE ROPPONGI 様へのご提案として制作した非公式のモックアップです。
-    掲載の写真枠・メニュー・価格・文言はすべて仮のもので、実際の店舗情報とは異なります。住所・電話番号は公開情報を参照しています。
-    ご不要のご連絡をいただければ即時に取り下げます。 ／ DESIGN.md: Limón（refero.design）
+    掲載の写真はすべて生成AIによるイメージで、実際の店舗・料理の写真ではありません。メニュー・価格・文言も仮のものです。
+    住所・電話番号は公開情報を参照しています。ご不要のご連絡をいただければ即時に取り下げます。<br>
+    DESIGN.md: Lamborghini.com（refero.design）／ 和文の書体のみ日本語向けに変更しています。
   </div>
 </footer>
-<button class="totop" onclick="scrollTo({top:0})">↑</button>
 
 <script>
-/* ============ 写真枠：ろうそくの下のボケを手続き生成（差し替え前提） ============ */
-function bokeh(el,seed,label){
-  let s=seed; const rnd=()=>(s=(s*1103515245+12345)&0x7fffffff)/0x7fffffff;
-  const tones=['#4a2a12','#6b3d15','#8a5a1c','#2c3a1c','#5d4a1a','#3a1a14'];
-  let g='';
-  for(let i=0;i<14;i++){
-    const cx=rnd()*100, cy=rnd()*100, r=6+rnd()*26, c=tones[(i*3+seed)%tones.length], o=(.18+rnd()*.4).toFixed(2);
-    g+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${c}" opacity="${o}"/>`;
-  }
-  el.innerHTML=
-   `<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%">
-      <defs>
-        <filter id="b${seed}"><feGaussianBlur stdDeviation="4.2"/></filter>
-        <radialGradient id="v${seed}" cx="42%" cy="30%">
-          <stop offset="0%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#0d0405" stop-opacity=".82"/>
-        </radialGradient>
-        <filter id="n${seed}"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2"/>
-          <feColorMatrix type="saturate" values="0"/></filter>
-      </defs>
-      <rect width="100" height="100" fill="#160809"/>
-      <g filter="url(#b${seed})">${g}</g>
-      <rect width="100" height="100" fill="url(#v${seed})"/>
-      <rect width="100" height="100" filter="url(#n${seed})" opacity=".10"/>
-    </svg>`+(label?`<div class="cap">${label}</div>`:'');
-}
-document.querySelectorAll('.tile .ph').forEach((el,i)=>bokeh(el,i+3,'写真差し替え枠'));
-document.querySelectorAll('.mockpage .mb .ph').forEach((el,i)=>bokeh(el,i+11,''));
-bokeh(document.getElementById('heroPlate'),7,'');
-bokeh(document.getElementById('mockPlate'),9,'');
-
 /* ============ 予約 ============ */
 const pick=(id,out)=>{
   const box=document.getElementById(id);
@@ -429,7 +407,8 @@ const pick=(id,out)=>{
     document.getElementById('dBook').classList.remove('show');
     document.getElementById('bBook').disabled=false;
     const pax=parseInt(document.getElementById('sPax').textContent)||2;
-    document.getElementById('sLeft').textContent=Math.max(0,10-pax-(document.getElementById('sTime').textContent==='21:00'?4:1));
+    document.getElementById('sLeft').textContent=
+      Math.max(0,10-pax-(document.getElementById('sTime').textContent==='21:00'?4:1));
   });
 };
 pick('fDate','sDate'); pick('fPax','sPax'); pick('fTime','sTime'); pick('fSeat','sSeat');
@@ -442,34 +421,36 @@ document.getElementById('bBook').onclick=function(){
   document.getElementById('dBook').classList.add('show'); this.disabled=true;
 };
 
-/* ============ メニュー編集 ============ */
+/* ============ メニュー ============ */
 const pipe=document.getElementById('pipe');
 function pline(t,ok){ pipe.innerHTML+=(pipe.dataset.started?'<br>':'')+(ok?'<b>'+t+'</b>':t); pipe.dataset.started=1; }
 function resetPipe(){ pipe.innerHTML=''; pipe.dataset.started=''; }
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
 document.getElementById('bEdit').onclick=async()=>{
   resetPipe();
   const c=document.getElementById('c3'); c.classList.add('edit'); c.textContent='2200';
   pline('onEdit(C3)  1800 → 2200');
-  await new Promise(r=>setTimeout(r,600)); pline('build menu.json  3 items  ok',1);
-  await new Promise(r=>setTimeout(r,600)); pline('deploy  12s  → 公開済み',1);
+  await wait(600); pline('build menu.json  3 items  ok',1);
+  await wait(600); pline('deploy  12s  → 公開済み',1);
   const p=document.querySelectorAll('.tile .price')[1];
   p.textContent='¥2,200'; p.classList.add('flash');
-  setTimeout(()=>p.classList.remove('flash'),1400);
-  await new Promise(r=>setTimeout(r,400)); pline('JSON-LD offers[1].price を 2200 に更新',1);
+  setTimeout(()=>p.classList.remove('flash'),1600);
+  await wait(400); pline('JSON-LD offers[1].price を 2200 に更新',1);
   renderLD();
 };
 document.getElementById('bSold').onclick=async()=>{
   resetPipe(); pline('onEdit(D3)  TRUE → FALSE');
-  await new Promise(r=>setTimeout(r,600));
-  const t=document.querySelector('.tile[data-i="1"]'); t.style.transition='opacity .4s'; t.style.opacity=.16;
+  await wait(600);
+  const t=document.querySelector('.tile[data-i="1"]');
+  t.style.transition='opacity .4s'; t.style.opacity=.14;
   pline('build menu.json  2 items  ok',1);
-  await new Promise(r=>setTimeout(r,500)); pline('サイトから非表示（行は消さずに残ります）',1);
+  await wait(500); pline('サイトから非表示（行は消さずに残ります）',1);
 };
 
 /* ============ JSON-LD ============ */
 function renderLD(){
   const price=document.getElementById('c3').textContent;
-  const j=
+  document.getElementById('jsonld').innerHTML=
 `{
   <span class="k">"@context"</span>: <span class="s">"https://schema.org"</span>,
   <span class="k">"@type"</span>: <span class="s">"Restaurant"</span>,
@@ -487,19 +468,20 @@ function renderLD(){
   <span class="k">"hasMenu"</span>: {
     <span class="k">"@type"</span>: <span class="s">"Menu"</span>,
     <span class="k">"hasMenuItem"</span>: [
-      { <span class="k">"name"</span>: <span class="s">"炭火の骨付きラム"</span>, <span class="k">"offers"</span>: { <span class="k">"price"</span>: <span class="s">"2800"</span>, <span class="k">"priceCurrency"</span>: <span class="s">"JPY"</span> } },
-      { <span class="k">"name"</span>: <span class="s">"ブラータと桃"</span>, <span class="k">"offers"</span>: { <span class="k">"price"</span>: <span class="s">"${price}"</span>, <span class="k">"priceCurrency"</span>: <span class="s">"JPY"</span> } }
+      { <span class="k">"name"</span>: <span class="s">"炭火の骨付きラム"</span>,
+        <span class="k">"offers"</span>: { <span class="k">"price"</span>: <span class="s">"2800"</span>, <span class="k">"priceCurrency"</span>: <span class="s">"JPY"</span> } },
+      { <span class="k">"name"</span>: <span class="s">"ブラータと桃"</span>,
+        <span class="k">"offers"</span>: { <span class="k">"price"</span>: <span class="s">"${price}"</span>, <span class="k">"priceCurrency"</span>: <span class="s">"JPY"</span> } }
     ]
   }
 }`;
-  document.getElementById('jsonld').innerHTML=j;
 }
 renderLD();
 
-/* ============ 表示幅の切替 ============ */
-const vp=document.getElementById('vp'), bPC=document.getElementById('bPC'), bSP=document.getElementById('bSP');
-bPC.onclick=()=>{vp.classList.remove('mobile');bPC.classList.add('on');bSP.classList.remove('on')};
-bSP.onclick=()=>{vp.classList.add('mobile');bSP.classList.add('on');bPC.classList.remove('on')};
+/* ============ 幅の切替 ============ */
+const dev=document.getElementById('dev'),bPC=document.getElementById('bPC'),bSP=document.getElementById('bSP');
+bPC.onclick=()=>{dev.classList.remove('sp');bPC.classList.add('on');bSP.classList.remove('on')};
+bSP.onclick=()=>{dev.classList.add('sp');bSP.classList.add('on');bPC.classList.remove('on')};
 
 window.demo={book:()=>document.getElementById('bBook').click(),
              edit:()=>document.getElementById('bEdit').click(),
