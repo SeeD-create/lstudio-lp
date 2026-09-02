@@ -12,100 +12,169 @@
 /* ==========================================================================
    DESIGN.md: Lamborghini.com（refero.design）／ ref-lambo/reference.jpg を見て作成
    north star = "Showroom black with one yellow car under spotlights"
-   ・写真が主役。フルブリードの暗い写真の上に文字を直接置く（パネルを敷かない）
-   ・角丸は 0px。影・グロー・装飾グラデーション禁止。段差は面の色でつける
+   ・写真が主役。フルブリードの写真の上に文字を直接置く（パネルを敷かない）
+   ・角丸 0px。影・グロー・装飾グラデーション禁止。段差は面の色でつける
    ・黄 #ffc000 は 1画面に1つだけ。それ以外は無彩色
-   ・欧文は Barlow Condensed の大文字・トラッキング .023em で統一（太さで階層を作らない）
-   ・和文は Shippori Mincho B1（明朝）を採用。
-     ← ここだけ DESIGN.md から意図的に外している。欧文のコンデンス体を
-        そのまま和文に当てると「大人の隠れ家」の格が出ないため。
-   ・余白は 8 の倍数（8/16/24/32/40/48/64/80）
+   ・欧文 Barlow Condensed 大文字・トラッキング .023em（太さで階層を作らない）
+   ・和文は Shippori Mincho B1（明朝）。← ここだけ意図的にDESIGN.mdから外している
+   ・余白は 8 の倍数
    ========================================================================== */
 :root{
-  --ink:#0d0b0a;          /* 面：黒 */
-  --carbon:#181818;
-  --paper:#ffffff;
-  --marble:#f5f5f5;       /* 明るい面 */
-  --steel:#7d7d7d;        /* 二次テキスト */
-  --hair:#494949;         /* 暗い面の罫 */
-  --hair-l:#d6d6d6;       /* 明るい面の罫 */
-  --gold:#ffc000;         /* 1画面に1つ */
+  --ink:#0d0b0a; --carbon:#151312; --paper:#fff; --marble:#f5f5f5; --marble2:#ebebeb;
+  --steel:#8a8a8a; --steel-d:#6b6b6b; --hair:#3a3a3a; --hair-l:#d6d6d6;
+  --gold:#ffc000;
   --lat:'Barlow Condensed',system-ui,sans-serif;
   --jp:'Shippori Mincho B1',"Hiragino Mincho ProN","Yu Mincho",serif;
   --sans:'Noto Sans JP',system-ui,"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --nav:64px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav)}
 body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--sans);
-  font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+  font-size:16px;line-height:1.9;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
+.lat{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em}
 
 /* ---- 提案用モックである旨（消さない） ---- */
-.ribbon{position:relative;z-index:20;background:#000;color:var(--steel);
+.ribbon{position:relative;z-index:60;background:#000;color:var(--steel);
   font-size:11px;line-height:1.7;letter-spacing:.02em;padding:8px 16px;text-align:center;
   border-bottom:1px solid var(--hair)}
 .ribbon b{color:var(--gold);font-weight:500}
-@media(max-width:820px){.ribbon .more{display:none}}
+@media(max-width:860px){.ribbon .more{display:none}}
 
-/* ---- nav（ヒーローに重ねる） ---- */
-nav{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;
-  justify-content:space-between;padding:24px 40px}
-.navg{display:flex;gap:32px;font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;
+/* ---- nav ---- */
+.nav{position:sticky;top:0;z-index:50;height:var(--nav);display:flex;align-items:center;
+  justify-content:space-between;padding:0 40px;transition:background .3s,border-color .3s;
+  background:transparent;border-bottom:1px solid transparent}
+.nav.solid{background:rgba(13,11,10,.94);backdrop-filter:blur(8px);border-bottom-color:var(--hair)}
+.navg{display:flex;gap:28px;font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;
   font-size:15px;font-weight:400}
 .navg a:hover{color:var(--gold)}
-.wordmark{font-family:var(--lat);text-transform:uppercase;letter-spacing:.14em;font-size:24px;
+.wordmark{font-family:var(--lat);text-transform:uppercase;letter-spacing:.14em;font-size:22px;
   font-weight:500;line-height:1;text-align:center}
-.wordmark i{font-style:normal;display:block;font-size:9px;letter-spacing:.42em;font-weight:300;
-  color:#bdbdbd;margin-top:6px}
-@media(max-width:820px){nav{padding:16px}.navg{display:none}.wordmark{margin:0 auto}}
+.wordmark i{font-style:normal;display:block;font-size:8.5px;letter-spacing:.42em;font-weight:300;
+  color:#b5b5b5;margin-top:5px}
+@media(max-width:900px){.nav{padding:0 16px;justify-content:center}.navg{display:none}}
 
-/* ---- HERO：写真がそのまま背景 ---- */
-.hero{position:relative;height:calc(100svh - 36px);min-height:560px;overflow:hidden}
-.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.34) 44%,rgba(0,0,0,0) 72%)}
-.hero .copy{position:absolute;left:40px;bottom:64px;z-index:2;max-width:640px}
-@media(max-width:820px){.hero .copy{left:16px;right:16px;bottom:40px}}
-.eyebrow{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:15px;
-  color:#e6e6e6;margin:0 0 16px}
-h1{font-family:var(--jp);font-weight:600;font-size:72px;line-height:1.18;letter-spacing:.02em;margin:0 0 24px}
-@media(max-width:820px){h1{font-size:40px}}
-.hero .sub{font-size:15px;line-height:2;color:#dcdcdc;margin:0 0 32px;max-width:440px}
-.hero .facts{position:absolute;right:40px;bottom:64px;z-index:2;text-align:right;
-  font-family:var(--mono);font-size:11px;line-height:2.2;color:#b9b9b9;letter-spacing:0}
-@media(max-width:1000px){.hero .facts{display:none}}
-
-/* ---- ボタン：黄は1画面に1つ ---- */
+/* ---- 共通：ボタン ---- */
 .btn{display:inline-flex;align-items:center;gap:12px;background:var(--gold);color:#000;
   border:none;border-radius:0;padding:16px 32px;font-family:var(--lat);text-transform:uppercase;
   letter-spacing:.023em;font-size:17px;font-weight:500;cursor:pointer;transition:background .15s;line-height:1}
 .btn:hover{background:var(--paper)}
 .btn:disabled{background:#3a3a3a;color:#8a8a8a;cursor:default}
-.ghost{background:none;color:inherit;border:1px solid currentColor;border-radius:0;
-  padding:11px 20px;font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;
-  font-size:15px;cursor:pointer;transition:.15s;line-height:1.2}
-.ghost:hover{opacity:.72}
+.ghost{background:none;color:inherit;border:1px solid currentColor;border-radius:0;padding:11px 20px;
+  font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:15px;
+  cursor:pointer;transition:.15s;line-height:1.2}
+.ghost:hover{opacity:.7}
 .ghost.on{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 section.light .ghost.on{background:var(--ink);color:var(--marble);border-color:var(--ink)}
 
-/* ---- セクション：暗↔明を交互に ---- */
-section{padding:80px 40px}
-@media(max-width:820px){section{padding:48px 16px}}
+/* ---- 共通：セクション ---- */
+section{padding:96px 40px}
+@media(max-width:860px){section{padding:56px 16px}}
 section.light{background:var(--marble);color:var(--ink)}
-.sec{max-width:1200px;margin:0 auto}
+section.light2{background:var(--carbon)}
+.sec{max-width:1240px;margin:0 auto}
 .kicker{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
   color:var(--steel);margin:0 0 16px}
-h2{font-family:var(--jp);font-weight:600;font-size:48px;line-height:1.28;letter-spacing:.02em;margin:0 0 24px}
-@media(max-width:820px){h2{font-size:30px}}
-.lead{font-size:16px;line-height:2;max-width:640px;margin:0 0 8px}
+h2{font-family:var(--jp);font-weight:600;font-size:48px;line-height:1.3;letter-spacing:.02em;margin:0 0 24px}
+h3{font-family:var(--jp);font-weight:500;font-size:22px;line-height:1.5;letter-spacing:.02em;margin:0}
+@media(max-width:860px){h2{font-size:30px}}
+.lead{font-size:16px;line-height:2;max-width:660px;margin:0 0 8px}
 .mocknote{font-family:var(--mono);font-size:11px;line-height:1.9;letter-spacing:0;
-  color:var(--steel);margin:0 0 40px;max-width:640px}
+  color:var(--steel-d);margin:0;max-width:660px}
+section.light .mocknote{color:#8f8f8f}
 
-/* ---- 予約 ---- */
-.book{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start}
-@media(max-width:900px){.book{grid-template-columns:1fr}}
+/* ---- 出現アニメ（控えめ） ---- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ================= HERO ================= */
+.hero{position:relative;height:calc(100svh - 36px - var(--nav));min-height:520px;overflow:hidden;
+  margin-top:calc(var(--nav) * -1)}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.76) 0%,rgba(0,0,0,.34) 46%,rgba(0,0,0,0) 74%)}
+.hero .copy{position:absolute;left:40px;bottom:72px;z-index:2;max-width:660px}
+@media(max-width:860px){.hero .copy{left:16px;right:16px;bottom:48px}}
+.eyebrow{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:15px;
+  color:#e6e6e6;margin:0 0 16px}
+h1{font-family:var(--jp);font-weight:600;font-size:76px;line-height:1.16;letter-spacing:.02em;margin:0 0 24px}
+@media(max-width:860px){h1{font-size:40px}}
+.hero .sub{font-size:15px;line-height:2;color:#dcdcdc;margin:0 0 32px;max-width:440px}
+.hero .facts{position:absolute;right:40px;bottom:72px;z-index:2;text-align:right;
+  font-family:var(--mono);font-size:11px;line-height:2.2;color:#b9b9b9;letter-spacing:0}
+@media(max-width:1080px){.hero .facts{display:none}}
+.scrollhint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:2;
+  font-family:var(--lat);text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:#a8a8a8}
+
+/* ================= CONCEPT ================= */
+.concept{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+@media(max-width:900px){.concept{grid-template-columns:1fr;gap:32px}}
+.concept img{width:100%;aspect-ratio:16/11;object-fit:cover}
+.concept .body p{font-size:16px;line-height:2.1;margin:0 0 24px}
+.concept .sign{font-family:var(--jp);font-size:14px;color:var(--steel);letter-spacing:.06em}
+
+/* ================= 帯（写真の全幅） ================= */
+.band{position:relative;height:clamp(280px,42vw,520px);overflow:hidden}
+.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.42)}
+.band .t{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:0 24px}
+.band .t p{font-family:var(--jp);font-size:clamp(22px,3.4vw,40px);font-weight:500;
+  line-height:1.6;letter-spacing:.08em;margin:0}
+.band .t span{font-family:var(--lat);text-transform:uppercase;letter-spacing:.28em;font-size:11px;
+  color:#cfcfcf;margin-top:16px}
+
+/* ================= MENU ================= */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 40px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:1000px){.tiles{grid-template-columns:1fr 1fr;gap:16px}}
+.tile{display:none}
+.tile.show{display:block}
+.tile img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.tile h3{margin:20px 0 0;font-size:20px}
+.tile .desc{font-size:13.5px;line-height:1.9;color:var(--steel);margin:6px 0 0}
+.tile .price{font-family:var(--mono);font-size:15px;letter-spacing:0;margin-top:8px;
+  display:inline-block;transition:background .4s,color .4s}
+.tile .price.flash{background:var(--gold);color:#000;padding:0 6px}
+.menufoot{margin-top:40px;font-size:14px;color:var(--steel);line-height:2}
+
+/* ================= 席 ================= */
+.seats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.seats{grid-template-columns:1fr;gap:16px}}
+.seat img{width:100%;aspect-ratio:16/11;object-fit:cover}
+.seat .n{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:12px;
+  color:var(--steel);margin:16px 0 6px}
+.seat h3{font-size:21px}
+.seat p{font-size:14px;line-height:1.9;color:var(--steel);margin:8px 0 0}
+
+/* ================= 貸切 ================= */
+.charter{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+@media(max-width:900px){.charter{grid-template-columns:1fr}}
+.charter .ph{position:relative;min-height:320px;overflow:hidden}
+.charter .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.charter .tx{display:flex;flex-direction:column;justify-content:center;padding:8px 0}
+.plan{border-top:1px solid var(--hair);padding:16px 0;display:flex;justify-content:space-between;gap:16px}
+.plan:last-child{border-bottom:1px solid var(--hair)}
+.plan .l{font-size:15px}
+.plan .l small{display:block;color:var(--steel);font-size:12.5px;line-height:1.8}
+.plan .p{font-family:var(--mono);font-size:14px;letter-spacing:0;white-space:nowrap;color:var(--gold)}
+
+/* ================= 仕切り（ここから提案） ================= */
+.divider{background:#000;padding:48px 40px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+@media(max-width:860px){.divider{padding:32px 16px}}
+.divider .sec{display:flex;gap:24px;align-items:baseline;flex-wrap:wrap}
+.divider .n{font-family:var(--lat);text-transform:uppercase;letter-spacing:.28em;font-size:11px;color:var(--gold)}
+.divider p{font-family:var(--jp);font-size:clamp(20px,2.6vw,30px);font-weight:500;line-height:1.6;
+  letter-spacing:.04em;margin:0}
+
+/* ================= 予約 ================= */
+.book{display:grid;grid-template-columns:1fr 372px;gap:48px;align-items:start;margin-top:40px}
+@media(max-width:900px){.book{grid-template-columns:1fr;gap:32px}}
 .field{margin-bottom:24px}
 .field .lb{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
   color:var(--steel);margin-bottom:12px}
@@ -127,18 +196,8 @@ h2{font-family:var(--jp);font-weight:600;font-size:48px;line-height:1.28;letter-
 .slip .done.show{display:block}
 .slip .done b{color:var(--paper);font-weight:500}
 
-/* ---- メニュー ---- */
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr;gap:16px}}
-.tile img{width:100%;aspect-ratio:1/1;object-fit:cover}
-.tile h3{font-family:var(--jp);font-size:21px;font-weight:500;line-height:1.5;margin:24px 0 0}
-.tile .desc{font-size:14px;line-height:1.9;color:var(--steel);margin:8px 0 0}
-.tile .price{font-family:var(--mono);font-size:15px;letter-spacing:0;margin-top:8px;
-  display:inline-block;transition:background .4s,color .4s}
-.tile .price.flash{background:var(--gold);color:#000;padding:0 6px}
-
-/* ---- スプレッドシート ---- */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:48px}
+/* ================= シート ================= */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px}
 @media(max-width:900px){.two{grid-template-columns:1fr;gap:24px}}
 .sheetwrap{overflow-x:auto}
 .sheet{border:1px solid var(--hair);background:var(--paper);color:var(--ink);
@@ -150,24 +209,23 @@ h2{font-family:var(--jp);font-weight:600;font-size:48px;line-height:1.28;letter-
 .sheet div{padding:8px 10px;border-right:1px solid #ececec;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap}
 .sheet .cell.edit{background:var(--gold)}
-.pipe{font-family:var(--mono);font-size:12px;line-height:2.1;letter-spacing:0;color:var(--steel);min-height:96px}
+.pipe{font-family:var(--mono);font-size:12px;line-height:2.1;letter-spacing:0;color:var(--steel);min-height:104px}
 .pipe b{font-weight:400;color:var(--gold)}
 .sheetctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 
-/* ---- SEO ---- */
+/* ================= SEO ================= */
 .checks{list-style:none;margin:0;padding:0}
-.checks li{border-top:1px solid var(--hair-l);padding:16px 0;display:flex;gap:16px;
-  font-size:15px;line-height:1.9}
+.checks li{border-top:1px solid var(--hair-l);padding:16px 0;display:flex;gap:16px;font-size:15px;line-height:1.9}
 .checks li:first-child{border-top:none}
 .checks li .n{font-family:var(--lat);font-size:14px;color:var(--steel);flex:none;width:28px;padding-top:4px}
 .codeblk{background:var(--ink);color:#e6e6e6;padding:24px;overflow:auto;white-space:pre;
-  font-family:var(--mono);font-size:11.5px;letter-spacing:0;line-height:1.75;max-height:400px}
+  font-family:var(--mono);font-size:11.5px;letter-spacing:0;line-height:1.75;max-height:420px}
 .codeblk .k{color:var(--gold)}
 .codeblk .s{color:#9fb8a4}
 
-/* ---- スマホ ---- */
-.mobile{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start}
-@media(max-width:900px){.mobile{grid-template-columns:1fr}}
+/* ================= スマホ ================= */
+.mobile{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start}
+@media(max-width:900px){.mobile{grid-template-columns:1fr;gap:24px}}
 .device{border:1px solid var(--hair);padding:16px;background:#000;transition:max-width .5s ease;
   width:100%;max-width:720px}
 .device.sp{max-width:340px}
@@ -185,50 +243,386 @@ h2{font-family:var(--jp);font-weight:600;font-size:48px;line-height:1.28;letter-
 .device.sp .mockpage .mb{grid-template-columns:1fr 1fr}
 .mockpage .mb img{width:100%;aspect-ratio:1/1;object-fit:cover}
 .stairs img{width:100%;aspect-ratio:3/4;object-fit:cover}
-.stairs figcaption{font-family:var(--mono);font-size:10.5px;color:var(--steel);
-  letter-spacing:0;margin-top:8px}
+.stairs figcaption{font-family:var(--mono);font-size:10.5px;color:var(--steel);letter-spacing:0;margin-top:8px}
 
-/* ---- footer ---- */
-footer{background:#000;padding:64px 40px 40px}
-@media(max-width:820px){footer{padding:40px 16px}}
-.fg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+/* ================= FAQ ================= */
+.faq{max-width:860px}
+.faq details{border-top:1px solid var(--hair-l)}
+.faq details:last-of-type{border-bottom:1px solid var(--hair-l)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;position:relative;
+  font-family:var(--jp);font-size:17px;font-weight:500;line-height:1.6}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:8px;top:18px;font-family:var(--lat);
+  font-size:22px;color:var(--steel);transition:transform .2s}
+.faq details[open] summary::after{content:"–"}
+.faq .a{padding:0 40px 24px 0;font-size:15px;line-height:2;color:#4a4a4a}
+
+/* ================= ACCESS ================= */
+.access{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media(max-width:900px){.access{grid-template-columns:1fr;gap:24px}}
+.access .rows .r{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;
+  border-top:1px solid var(--hair);font-size:15px;line-height:1.9}
+.access .rows .r:first-child{border-top:none}
+.access .rows .r .l{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;
+  font-size:13px;color:var(--steel);padding-top:4px}
+
+/* ================= footer ================= */
+footer{background:#000;padding:80px 40px 40px}
+@media(max-width:860px){footer{padding:48px 16px 96px}}
+.fg{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
 @media(max-width:900px){.fg{grid-template-columns:1fr;gap:24px}}
 .fg .h{font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:13px;
   color:var(--steel);margin-bottom:12px}
 .fg p{margin:0;font-size:15px;line-height:1.9}
-.fnote{max-width:1200px;margin:40px auto 0;border-top:1px solid var(--hair);padding-top:24px;
-  font-size:12px;line-height:1.9;color:var(--steel)}
-.fnote b{color:#c9c9c9;font-weight:400}
+.fnote{max-width:1240px;margin:48px auto 0;border-top:1px solid var(--hair);padding-top:24px;
+  font-size:12px;line-height:1.9;color:var(--steel-d)}
+.fnote b{color:#b5b5b5;font-weight:400}
+
+
+/* ==========================================================================
+   MOTION — 「高級店の間」を作る動き。全部 prefers-reduced-motion で止まる
+   イージングは cubic-bezier(.16,1,.3,1)（expo out）で統一
+   ========================================================================== */
+:root{--ez:cubic-bezier(.16,1,.3,1)}
+
+/* 幕：ロード時に黒からロゴが立ち上がって抜ける */
+#curtain{position:fixed;inset:0;z-index:100;background:#000;display:flex;
+  align-items:center;justify-content:center;opacity:1;visibility:visible;
+  transition:opacity .8s .5s var(--ez),visibility .8s .5s}
+#curtain .w{font-family:var(--lat);text-transform:uppercase;font-size:26px;font-weight:500;
+  line-height:1;text-align:center;color:#fff;opacity:0;letter-spacing:.5em;
+  animation:curtainWord 1.1s .1s var(--ez) forwards}
+#curtain .w i{font-style:normal;display:block;font-size:9px;letter-spacing:.42em;
+  font-weight:300;color:#8a8a8a;margin-top:8px}
+@keyframes curtainWord{0%{opacity:0;letter-spacing:.62em}60%{opacity:1}100%{opacity:1;letter-spacing:.14em}}
+body.loaded #curtain{opacity:0;visibility:hidden}
+
+/* ヒーロー：ケン・バーンズ（ゆっくり寄る） */
+.hero>img{transform:scale(1.02)}
+body.loaded .hero>img{animation:kenburns 26s 1.2s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+
+/* 見出し：行ごとに下から立ち上げる */
+.rl{display:block;overflow:hidden;padding-bottom:.06em}
+.rl>span{display:block;transform:translateY(112%);transition:transform 1.05s var(--ez)}
+body.loaded h1 .rl>span{transform:none}
+h1 .rl:nth-of-type(1)>span{transition-delay:.95s}
+h1 .rl:nth-of-type(2)>span{transition-delay:1.06s}
+h1 .rl:nth-of-type(3)>span{transition-delay:1.17s}
+.rv.in .rl>span{transform:none}
+.rv .rl:nth-of-type(1)>span{transition-delay:.06s}
+.rv .rl:nth-of-type(2)>span{transition-delay:.15s}
+.rv .rl:nth-of-type(3)>span{transition-delay:.24s}
+
+/* ヒーローの周辺要素を順に */
+.hero .eyebrow,.hero .sub,.hero .btn,.hero .facts,.scrollhint{
+  opacity:0;transform:translateY(14px);transition:opacity .9s var(--ez),transform .9s var(--ez)}
+body.loaded .hero .eyebrow{opacity:1;transform:none;transition-delay:.8s}
+body.loaded .hero .sub{opacity:1;transform:none;transition-delay:1.3s}
+body.loaded .hero .btn{opacity:1;transform:none;transition-delay:1.45s}
+body.loaded .hero .facts{opacity:1;transform:none;transition-delay:1.6s}
+body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.9s;
+  animation:scrollPulse 2.4s 2.6s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* 出現：フェードアップ */
+.rv{opacity:0;transform:translateY(28px);
+  transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.rv.in{opacity:1;transform:none}
+
+/* 画像：下から幕が開き、同時に寄りが戻る */
+.ib{overflow:hidden;position:relative;clip-path:inset(0 0 100% 0);
+  transition:clip-path 1.2s var(--ez)}
+.ib.in{clip-path:inset(0 0 0 0)}
+.ib>img{transform:scale(1.14);transition:transform 1.6s var(--ez)}
+.ib.in>img{transform:none}
+.tile:hover .ib>img,.seat:hover .ib>img{transform:scale(1.06)}
+
+/* 帯：視差＋文字のトラッキングが締まる */
+.band img{will-change:transform}
+.band .t p,.band .t span{opacity:0;transition:opacity 1.1s var(--ez),letter-spacing 1.4s var(--ez)}
+.band .t p{letter-spacing:.24em}
+.band.in .t p{opacity:1;letter-spacing:.08em}
+.band.in .t span{opacity:1;transition-delay:.35s}
+
+/* ナビ：下スクロールで隠れ、上で戻る／リンクに金の下線 */
+.nav{transition:transform .5s var(--ez),background .35s ease,border-color .35s ease}
+.nav.hide{transform:translateY(-101%)}
+.navg a{position:relative;padding-bottom:3px}
+.navg a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:var(--gold);transition:right .4s var(--ez)}
+.navg a:hover::after{right:0}
+
+/* ボタン：白が左から満ちる */
+.btn{position:relative;overflow:hidden;z-index:0}
+.btn::before{content:"";position:absolute;inset:0;background:#fff;
+  transform:translateX(-101%);transition:transform .45s var(--ez);z-index:-1}
+.btn:hover{background:var(--gold)}
+.btn:hover::before{transform:none}
+.ghost{position:relative;overflow:hidden;z-index:0;transition:color .35s ease,border-color .35s ease}
+.ghost::before{content:"";position:absolute;inset:0;background:currentColor;opacity:.12;
+  transform:translateY(101%);transition:transform .4s var(--ez);z-index:-1}
+.ghost:hover::before{transform:none}
+.ghost:hover{opacity:1;border-color:var(--gold);color:var(--gold)}
+.ghost.on::before{display:none}
+
+/* メニューのタブ切替：時間差で立ち上がる */
+.tile.show{animation:tileIn .7s var(--ez) both}
+.tile.show:nth-child(2){animation-delay:.05s}
+.tile.show:nth-child(3){animation-delay:.1s}
+.tile.show:nth-child(4){animation-delay:.15s}
+.tile.show:nth-child(5){animation-delay:.2s}
+.tile.show:nth-child(6){animation-delay:.25s}
+@keyframes tileIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* 席・プラン・FAQ・アクセス：行ごとに時間差 */
+.stagger>*{opacity:0;transform:translateY(20px);
+  transition:opacity .9s var(--ez),transform .9s var(--ez)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(2){transition-delay:.1s}
+.stagger.in>*:nth-child(3){transition-delay:.2s}
+.stagger.in>*:nth-child(4){transition-delay:.3s}
+.stagger.in>*:nth-child(5){transition-delay:.4s}
+.stagger.in>*:nth-child(6){transition-delay:.5s}
+
+/* 見出し脇の金の線が伸びる */
+.kicker::after{content:"";display:inline-block;vertical-align:middle;height:1px;
+  background:var(--gold);width:0;margin-left:16px;transition:width 1.1s .25s var(--ez)}
+.rv.in .kicker::after{width:64px}
+
+/* FAQ：開閉をなめらかに */
+.faq .a{overflow:hidden}
+.faq details[open] .a{animation:faqOpen .5s var(--ez)}
+@keyframes faqOpen{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* 仕切り */
+.divider p{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.divider .n{opacity:0;transition:opacity .8s var(--ez)}
+.divider.in p{opacity:1;transform:none;transition-delay:.15s}
+.divider.in .n{opacity:1}
+
+/* 動きを止める設定の人には一切動かさない */
+@media(prefers-reduced-motion:reduce){
+  #curtain{display:none}
+  .hero>img,body.loaded .hero>img{animation:none;transform:none}
+  .rl>span,.rv,.ib,.ib>img,.hero .eyebrow,.hero .sub,.hero .btn,.hero .facts,.scrollhint,
+  .band .t p,.band .t span,.stagger>*,.divider p,.divider .n{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important;animation:none !important}
+  .band .t p{letter-spacing:.08em}
+  .kicker::after{width:64px;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---- スマホの固定CTA ---- */
+.spcta{position:fixed;left:0;right:0;bottom:0;z-index:55;display:none;
+  background:var(--gold);color:#000;text-align:center;padding:16px;
+  font-family:var(--lat);text-transform:uppercase;letter-spacing:.023em;font-size:16px;font-weight:500}
+@media(max-width:860px){.spcta{display:block}}
 </style>
 </head>
 <body>
+
+<div id="curtain"><div class="w">Dope<i>Roppongi</i></div></div>
 
 <div class="ribbon">
   <b>Lスタジオ</b>が制作した<b>ご提案用の非公式モック</b>です（公式サイトではありません）。写真は<b>AI生成のイメージ</b>。<span class="more">実際の店舗写真ではありません／<b>予約とメニュー更新は画面上の再現</b>で、実際の送信・反映は行いません。</span>
 </div>
 
+<div class="nav" id="nav">
+  <div class="navg"><a href="#concept">Concept</a><a href="#menu">Menu</a><a href="#seats">Seats</a></div>
+  <div class="wordmark">Dope<i>Roppongi</i></div>
+  <div class="navg"><a href="#charter">Charter</a><a href="#access">Access</a><a href="#reserve">Reserve</a></div>
+</div>
+
 <!-- ================= HERO ================= -->
 <div class="hero">
   <img src="img/hero.jpg" alt="夜のカウンター（イメージ写真）">
-  <nav>
-    <div class="navg"><a href="#reserve">Reserve</a><a href="#menu">Menu</a></div>
-    <div class="wordmark">Dope<i>Roppongi</i></div>
-    <div class="navg"><a href="#seo">About</a><a href="#access">Access</a></div>
-  </nav>
   <div class="copy">
     <p class="eyebrow">Roppongi — Dining &amp; Bar</p>
-    <h1>六本木の灯を、<br>ひとつ。</h1>
+    <h1><span class="rl"><span>六本木の灯を、</span></span><span class="rl"><span>ひとつ。</span></span></h1>
     <p class="sub">駅から1分、階段をひとつ上がるだけ。<br>グラスと会話のための、大人の隠れ家。</p>
-    <button class="btn" onclick="document.getElementById('reserve').scrollIntoView()">席を予約する</button>
+    <a class="btn" href="#reserve">席を予約する</a>
   </div>
   <div class="facts">OPEN 18:00 – 26:00<br>港区六本木 4-10-11 八巻ビル 2F<br>03-3403-5020</div>
+  <div class="scrollhint">Scroll</div>
 </div>
 
-<!-- ================= 01 予約 ================= -->
-<section class="light" id="reserve">
+<!-- ================= CONCEPT ================= -->
+<section id="concept">
+  <div class="sec concept rv">
+    <div><div class="ib"><img src="img/exterior.jpg" alt="夜のビル外観（イメージ写真）" loading="lazy"></div></div>
+    <div class="body">
+      <p class="kicker">01 — Concept</p>
+      <h2><span class="rl"><span>看板は、</span></span><span class="rl"><span>出していません。</span></span></h2>
+      <p>六本木四丁目、細い階段を上がった二階。看板を出していないので、初めての方は一度通り過ぎます。それでいいと思っています。</p>
+      <p>騒がしい店は、この街にいくらでもあります。ここは、隣の人の声が聞こえる音量で、一杯を長く飲むための店です。炭火と、季節の果物と、メスカル。料理はどれも一皿で完結するように組んでいます。</p>
+      <p>深夜二時まで開けています。仕事が終わってからでも、一軒目のあとでも。</p>
+      <p class="sign">店主 ／ DOPE ROPPONGI</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 帯 ================= -->
+<div class="band">
+  <img src="img/counter.jpg" alt="カウンター席（イメージ写真）" loading="lazy">
+  <div class="t">
+    <p>ひとりでも、<br>座りやすい席から。</p>
+    <span>Counter — 8 seats</span>
+  </div>
+</div>
+
+<!-- ================= MENU ================= -->
+<section class="light" id="menu">
+  <div class="sec rv">
+    <p class="kicker">02 — Menu</p>
+    <h2><span class="rl"><span>一皿で、</span></span><span class="rl"><span>終わらせない。</span></span></h2>
+    <p class="lead" style="margin-bottom:32px">季節で三分の一が入れ替わります。下の分類を切り替えてご覧ください。</p>
+
+    <div class="tabs">
+      <button class="ghost on" data-tab="food">Food</button>
+      <button class="ghost" data-tab="drink">Drink</button>
+      <button class="ghost" data-tab="course">Course</button>
+    </div>
+
+    <div class="tiles" id="tiles">
+      <!-- FOOD -->
+      <div class="tile show" data-cat="food"><div class="ib"><img src="img/dish-oyster.jpg" alt="生牡蠣（イメージ写真）" loading="lazy"></div>
+        <h3>生牡蠣 六種</h3><p class="desc">その日の産地から。レモンと自家製ミニョネット。</p><div class="price">¥2,400</div></div>
+      <div class="tile show" data-cat="food"><div class="ib"><img src="img/dish-lamb.jpg" alt="炭火の骨付きラム（イメージ写真）" loading="lazy"></div>
+        <h3>炭火の骨付きラム</h3><p class="desc">山椒と黒胡椒。ワインでも、ハイボールでも。</p><div class="price">¥2,800</div></div>
+      <div class="tile show" data-cat="food" data-i="1"><div class="ib"><img src="img/dish-burrata.jpg" alt="ブラータと桃（イメージ写真）" loading="lazy"></div>
+        <h3>ブラータと桃</h3><p class="desc">季節で果物が変わります。9月は桃。</p><div class="price">¥1,800</div></div>
+      <div class="tile show" data-cat="food"><div class="ib"><img src="img/dish-pasta.jpg" alt="ウニのパスタ（イメージ写真）" loading="lazy"></div>
+        <h3>雲丹のクリームパスタ</h3><p class="desc">締めに。二人でひと皿がちょうどです。</p><div class="price">¥2,200</div></div>
+      <div class="tile show" data-cat="food"><div class="ib"><img src="img/dish-steak.jpg" alt="黒毛和牛ステーキ（イメージ写真）" loading="lazy"></div>
+        <h3>黒毛和牛の炭火焼</h3><p class="desc">150g。塩と山葵だけで。</p><div class="price">¥4,800</div></div>
+      <div class="tile show" data-cat="food"><div class="ib"><img src="img/dish-dessert.jpg" alt="チーズケーキ（イメージ写真）" loading="lazy"></div>
+        <h3>バスクチーズケーキ</h3><p class="desc">焼きたてを一日一回だけ。売り切れご容赦。</p><div class="price">¥900</div></div>
+      <!-- DRINK -->
+      <div class="tile" data-cat="drink"><div class="ib"><img src="img/drink.jpg" alt="オリジナルカクテル（イメージ写真）" loading="lazy"></div>
+        <h3>DOPE オリジナル</h3><p class="desc">メスカルと自家製シトラス。当店だけの一杯。</p><div class="price">¥1,600</div></div>
+      <div class="tile" data-cat="drink"><div class="ib"><img src="img/wine.jpg" alt="赤ワイン（イメージ写真）" loading="lazy"></div>
+        <h3>グラスワイン</h3><p class="desc">赤・白 各3種。ボトルは30種前後。</p><div class="price">¥1,200〜</div></div>
+      <div class="tile" data-cat="drink"><div class="ib"><img src="img/champagne.jpg" alt="シャンパン（イメージ写真）" loading="lazy"></div>
+        <h3>シャンパーニュ</h3><p class="desc">グラスでも。記念日はボトルでお取り置きします。</p><div class="price">¥2,200〜</div></div>
+      <div class="tile" data-cat="drink"><div class="ib"><img src="img/bartender.jpg" alt="バーテンダーの手元（イメージ写真）" loading="lazy"></div>
+        <h3>お任せの一杯</h3><p class="desc">お好みを伺ってお作りします。ノンアルコールも。</p><div class="price">¥1,400〜</div></div>
+      <!-- COURSE -->
+      <div class="tile" data-cat="course"><div class="ib"><img src="img/course.jpg" alt="コース（イメージ写真）" loading="lazy"></div>
+        <h3>おまかせ 5品</h3><p class="desc">前菜・炭火・パスタ・肉・甘味。2名様から。</p><div class="price">¥6,800</div></div>
+      <div class="tile" data-cat="course"><div class="ib"><img src="img/dish-steak.jpg" alt="コース（イメージ写真）" loading="lazy"></div>
+        <h3>おまかせ 7品</h3><p class="desc">和牛と旬の魚を含む構成。2名様から。</p><div class="price">¥9,800</div></div>
+      <div class="tile" data-cat="course"><div class="ib"><img src="img/champagne.jpg" alt="ペアリング（イメージ写真）" loading="lazy"></div>
+        <h3>ペアリング 5杯</h3><p class="desc">コースに合わせて。ノンアルコールも同額で。</p><div class="price">¥5,000</div></div>
+      <div class="tile" data-cat="course"><div class="ib"><img src="img/dish-dessert.jpg" alt="記念日（イメージ写真）" loading="lazy"></div>
+        <h3>記念日のプレート</h3><p class="desc">3日前までにご相談ください。お名前をお入れします。</p><div class="price">¥1,500</div></div>
+    </div>
+
+    <p class="menufoot">表示は税込・サービス料10%別。仕入れにより内容が変わります。<br>
+      アレルギー・苦手な食材は、ご予約時にお知らせください。</p>
+  </div>
+</section>
+
+<!-- ================= 席 ================= -->
+<section id="seats">
+  <div class="sec rv">
+    <p class="kicker">03 — Seats</p>
+    <h2><span class="rl"><span>三通りの、</span></span><span class="rl"><span>座りかた。</span></span></h2>
+    <p class="lead" style="margin-bottom:40px">全26席。用途で選べるように分けています。</p>
+
+    <div class="seats stagger">
+      <div class="seat"><div class="ib"><img src="img/counter.jpg" alt="カウンター席（イメージ写真）" loading="lazy"></div>
+        <div class="n">01 — Counter / 8 seats</div><h3>カウンター</h3>
+        <p>ひとりでも、二人でも。作っているところが見えます。お通しはありません。</p></div>
+      <div class="seat"><div class="ib"><img src="img/sofa.jpg" alt="ソファ席（イメージ写真）" loading="lazy"></div>
+        <div class="n">02 — Sofa / 12 seats</div><h3>ソファ席</h3>
+        <p>4名まで×3卓。長く話す日に。テーブルの高さを低くしています。</p></div>
+      <div class="seat"><div class="ib"><img src="img/private.jpg" alt="半個室（イメージ写真）" loading="lazy"></div>
+        <div class="n">03 — Semi-private / 6 seats</div><h3>半個室</h3>
+        <p>格子で仕切った6名まで。接待と、少人数のお祝いに。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 貸切 ================= -->
+<section class="light2" id="charter">
+  <div class="sec rv">
+    <p class="kicker">04 — Charter &amp; Party</p>
+    <h2><span class="rl"><span>貸切は、</span></span><span class="rl"><span>20名から。</span></span></h2>
+    <p class="lead" style="margin-bottom:40px">立食なら30名まで。プロジェクターと音響はこちらで用意します。</p>
+
+    <div class="charter">
+      <div class="ph"><img src="img/champagne.jpg" alt="シャンパン（イメージ写真）" loading="lazy"></div>
+      <div class="tx stagger">
+        <div class="plan"><div class="l">半個室貸切<small>6名まで／2時間</small></div><div class="p">¥6,000 / 名</div></div>
+        <div class="plan"><div class="l">フロア半貸切<small>12〜18名／2.5時間・飲み放題</small></div><div class="p">¥8,000 / 名</div></div>
+        <div class="plan"><div class="l">全館貸切（着席）<small>20〜26名／3時間・コース＋飲み放題</small></div><div class="p">¥11,000 / 名</div></div>
+        <div class="plan"><div class="l">全館貸切（立食）<small>〜30名／3時間・ビュッフェ＋飲み放題</small></div><div class="p">¥9,500 / 名</div></div>
+        <p style="font-size:13.5px;color:var(--steel);line-height:1.9;margin:24px 0 0">
+          金・土は22時以降のみお受けしています。お見積りはご予約フォームの備考からご相談ください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="light" id="faq">
+  <div class="sec rv">
+    <p class="kicker">05 — FAQ</p>
+    <h2><span class="rl"><span>よくいただく</span></span><span class="rl"><span>ご質問。</span></span></h2>
+    <div class="faq stagger" style="margin-top:40px">
+      <details open><summary>ひとりでも入れますか。</summary>
+        <div class="a">はい。カウンター8席はおひとり様を想定して作っています。お通しもチャージもありません。</div></details>
+      <details><summary>予約は必要ですか。</summary>
+        <div class="a">金・土の19時〜21時はほぼ満席です。それ以外の時間帯は当日でもお席をご用意できることが多いですが、確実なのはご予約です。</div></details>
+      <details><summary>何時まで開いていますか。</summary>
+        <div class="a">26時（翌2時）まで。ラストオーダーは食事25時、ドリンク25時30分です。</div></details>
+      <details><summary>接待に使えますか。</summary>
+        <div class="a">半個室を6名までご用意しています。お車代・領収書の宛名・お帰りのタクシー手配まで承ります。</div></details>
+      <details><summary>ドレスコードはありますか。</summary>
+        <div class="a">ございません。お仕事帰りのままでお越しください。</div></details>
+      <details><summary>キャンセル料はかかりますか。</summary>
+        <div class="a">通常のお席は当日のご連絡でも頂戴しません。貸切とコースのご予約は、前日以降のキャンセルで50%を頂戴します。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACCESS ================= -->
+<section id="access">
+  <div class="sec rv">
+    <p class="kicker">06 — Access</p>
+    <h2><span class="rl"><span>階段を、</span></span><span class="rl"><span>ひとつだけ。</span></span></h2>
+    <div class="access" style="margin-top:40px">
+      <figure class="stairs" style="margin:0">
+        <div class="ib"><img src="img/stairs.jpg" alt="2階へ上がる階段（イメージ写真）" loading="lazy"></div>
+        <figcaption>この階段を上がって、突き当たりの右手です。</figcaption>
+      </figure>
+      <div class="rows stagger">
+        <div class="r"><div class="l">Address</div><div>東京都港区六本木 4-10-11 八巻ビル 2F</div></div>
+        <div class="r"><div class="l">Station</div><div>東京メトロ日比谷線・都営大江戸線「六本木」駅 徒歩1分<br>4a出口を出て、外苑東通りを北へ</div></div>
+        <div class="r"><div class="l">Hours</div><div>18:00 – 26:00（L.O. 食事25:00 / 飲物25:30）<br>不定休（年末年始を除く）</div></div>
+        <div class="r"><div class="l">Seats</div><div>26席（カウンター8／ソファ12／半個室6）</div></div>
+        <div class="r"><div class="l">Payment</div><div>現金・各種クレジットカード・QR決済</div></div>
+        <div class="r"><div class="l">Tel</div><div>03-3403-5020</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ここから提案 ================= -->
+<div class="divider">
   <div class="sec">
-    <p class="kicker">01 — Reservation</p>
-    <h2>電話が鳴らない、<br>予約のとりかた。</h2>
+    <span class="n">Proposal</span>
+    <p>ここから下は、このサイトの<br>仕組みのご説明です。</p>
+  </div>
+</div>
+
+<!-- ================= 予約の仕組み ================= -->
+<section class="light" id="reserve">
+  <div class="sec rv">
+    <p class="kicker">07 — Reservation</p>
+    <h2><span class="rl"><span>電話が鳴らない、</span></span><span class="rl"><span>予約のとりかた。</span></span></h2>
     <p class="lead">営業中に電話が鳴らなくなります。空席は席数から自動で計算し、確定するとお店と、お客様のLINEに同時に届きます。予約サイトの月額手数料はかかりません。</p>
     <p class="mocknote">※ このモックでは予約番号の発行までを画面上で再現しています。通知の送信と記帳は行いません（実装後は実際に届きます）。</p>
 
@@ -283,28 +677,13 @@ footer{background:#000;padding:64px 40px 40px}
   </div>
 </section>
 
-<!-- ================= 02 メニュー ================= -->
-<section id="menu">
-  <div class="sec">
-    <p class="kicker">02 — Menu</p>
-    <h2>値段は、店主が<br>スプレッドシートで直す。</h2>
+<!-- ================= メニュー管理 ================= -->
+<section id="ops">
+  <div class="sec rv">
+    <p class="kicker">08 — Operation</p>
+    <h2><span class="rl"><span>値段は、店主が</span></span><span class="rl"><span>スプレッドシートで直す。</span></span></h2>
     <p class="lead">メニューの更新に制作会社を通す必要はありません。いつものスプレッドシートを書き換えると、サイトが自動で作り直されます。写真も同じ行にURLを貼るだけです。</p>
     <p class="mocknote">※ 下のシートはモック内の再現です。実際のスプレッドシートには接続していません。</p>
-
-    <div class="tiles" id="tiles">
-      <div class="tile"><img src="img/dish-lamb.jpg" alt="炭火の骨付きラム（イメージ写真）">
-        <h3>炭火の骨付きラム</h3>
-        <p class="desc">山椒と黒胡椒。ワインでも、ハイボールでも。</p>
-        <div class="price">¥2,800</div></div>
-      <div class="tile" data-i="1"><img src="img/dish-burrata.jpg" alt="ブラータと桃（イメージ写真）">
-        <h3>ブラータと桃</h3>
-        <p class="desc">季節で果物が変わります。9月は桃。</p>
-        <div class="price">¥1,800</div></div>
-      <div class="tile"><img src="img/drink.jpg" alt="オリジナルカクテル（イメージ写真）">
-        <h3>DOPE オリジナル</h3>
-        <p class="desc">メスカルと自家製シトラス。当店だけの一杯。</p>
-        <div class="price">¥1,600</div></div>
-    </div>
 
     <div class="two">
       <div>
@@ -312,7 +691,7 @@ footer{background:#000;padding:64px 40px 40px}
           <div class="hd"><div>&nbsp;</div><div>A / 名前</div><div>B / 説明</div><div>C / 価格</div><div>D / 公開</div></div>
           <div class="rw"><div>2</div><div>炭火の骨付きラム</div><div>山椒と黒胡椒。…</div><div class="cell" id="c2">2800</div><div>TRUE</div></div>
           <div class="rw"><div>3</div><div>ブラータと桃</div><div>季節で果物が…</div><div class="cell" id="c3">1800</div><div>TRUE</div></div>
-          <div class="rw"><div>4</div><div>DOPE オリジナル</div><div>メスカルと自家製…</div><div class="cell" id="c4">1600</div><div>TRUE</div></div>
+          <div class="rw"><div>4</div><div>雲丹のクリームパスタ</div><div>締めに。二人で…</div><div class="cell" id="c4">2200</div><div>TRUE</div></div>
         </div></div>
         <div class="sheetctl">
           <button class="ghost" id="bEdit">C3 を 2,200 に書き換える</button>
@@ -324,20 +703,21 @@ footer{background:#000;padding:64px 40px 40px}
   </div>
 </section>
 
-<!-- ================= 03 SEO ================= -->
+<!-- ================= SEO ================= -->
 <section class="light" id="seo">
-  <div class="sec">
-    <p class="kicker">03 — SEO / MEO / AI</p>
-    <h2>「六本木 ダイニングバー」で<br>もう一度、見つかる。</h2>
+  <div class="sec rv">
+    <p class="kicker">09 — SEO / MEO / AI</p>
+    <h2><span class="rl"><span>「六本木 ダイニングバー」で</span></span><span class="rl"><span>もう一度、見つかる。</span></span></h2>
     <p class="lead" style="margin-bottom:40px">サーバーが消えた期間に落ちた評価は、構造化データと Google ビジネスプロフィールの一致で取り戻します。あわせて ChatGPT・Gemini・AI検索が読む形式も同時に出力します。</p>
 
     <div class="two" style="margin-top:0">
-      <ul class="checks">
+      <ul class="checks stagger">
         <li><span class="n">01</span><span><b>NAP を1か所で管理。</b>店名・住所・電話・営業時間をシート1行で持ち、サイトと構造化データとビジネスプロフィール用のCSVへ同時に出します。表記ゆれが検索評価を落とす一番の原因です。</span></li>
         <li><span class="n">02</span><span><b>飲食店向けの構造化データ。</b>右のJSON-LDを自動生成。Googleの「レストラン」枠にメニューと価格が出ます。</span></li>
         <li><span class="n">03</span><span><b>旧URLの引き継ぎ。</b>消えた前サイトのURLが残っていれば 301 で受け止め、失った被リンクを回収します。</span></li>
         <li><span class="n">04</span><span><b>llms.txt / AI向け要約。</b>「六本木で深夜まで空いている店」と聞かれたときに、拾われる側に回ります。</span></li>
         <li><span class="n">05</span><span><b>表示速度。</b>画像は自動でWebP化。回線の細い店内でも1秒台で開きます。</span></li>
+        <li><span class="n">06</span><span><b>FAQ の構造化データ。</b>上の「よくいただくご質問」をそのまま FAQPage として出し、検索結果の中で答えます。</span></li>
       </ul>
       <div>
         <div class="codeblk" id="jsonld"></div>
@@ -347,11 +727,11 @@ footer{background:#000;padding:64px 40px 40px}
   </div>
 </section>
 
-<!-- ================= 04 スマホ ================= -->
-<section id="access">
-  <div class="sec">
-    <p class="kicker">04 — Mobile first</p>
-    <h2>お客様の9割は、<br>片手で見ている。</h2>
+<!-- ================= スマホ ================= -->
+<section id="mobilesec">
+  <div class="sec rv">
+    <p class="kicker">10 — Mobile first</p>
+    <h2><span class="rl"><span>お客様の9割は、</span></span><span class="rl"><span>片手で見ている。</span></span></h2>
     <p class="lead" style="margin-bottom:24px">同じ1本のコードが、画面幅で組み替わります。切り替えて確かめてください。</p>
     <div style="display:flex;gap:8px;margin-bottom:40px">
       <button class="ghost on" id="bPC">PC</button>
@@ -369,13 +749,13 @@ footer{background:#000;padding:64px 40px 40px}
             </div>
           </div>
           <div class="mb">
-            <img src="img/dish-lamb.jpg" alt=""><img src="img/dish-burrata.jpg" alt=""><img src="img/drink.jpg" alt="">
+            <img src="img/dish-oyster.jpg" alt=""><img src="img/dish-lamb.jpg" alt=""><img src="img/drink.jpg" alt="">
           </div>
         </div>
       </div>
       <figure class="stairs" style="margin:0">
-        <img src="img/stairs.jpg" alt="2階へ上がる階段（イメージ写真）">
-        <figcaption>ACCESS — 六本木駅から徒歩1分、階段をひとつ。</figcaption>
+        <div class="ib"><img src="img/private.jpg" alt="半個室（イメージ写真）" loading="lazy" style="aspect-ratio:16/11"></div>
+        <figcaption>写真は差し替え前提です。実写に入れ替えても組み直しは不要です。</figcaption>
       </figure>
     </div>
   </div>
@@ -383,20 +763,88 @@ footer{background:#000;padding:64px 40px 40px}
 
 <footer>
   <div class="fg">
-    <div><div class="h">Hours</div><p>18:00 – 26:00<br>不定休（年末年始を除く）</p></div>
-    <div><div class="h">Access</div><p>東京都港区六本木 4-10-11<br>八巻ビル 2F ／ 六本木駅 徒歩1分</p></div>
+    <div>
+      <div class="wordmark" style="text-align:left;margin-bottom:16px">Dope<i style="letter-spacing:.42em">Roppongi</i></div>
+      <p style="color:#b5b5b5;font-size:14px">六本木四丁目、階段をひとつ上がった二階。<br>グラスと会話のための、大人の隠れ家。</p>
+    </div>
+    <div><div class="h">Hours</div><p>18:00 – 26:00<br>L.O. 食事25:00 / 飲物25:30<br>不定休</p></div>
+    <div><div class="h">Access</div><p>東京都港区六本木<br>4-10-11 八巻ビル 2F<br>六本木駅 徒歩1分</p></div>
     <div><div class="h">Contact</div><p>03-3403-5020<br>ご予約はサイトまたはLINEから</p></div>
   </div>
   <div class="fnote">
     本ページは <b>Lスタジオ（平野 淳一）</b> が DOPE ROPPONGI 様へのご提案として制作した非公式のモックアップです。
-    掲載の写真はすべて生成AIによるイメージで、実際の店舗・料理の写真ではありません。メニュー・価格・文言も仮のものです。
-    住所・電話番号は公開情報を参照しています。ご不要のご連絡をいただければ即時に取り下げます。<br>
+    掲載の写真はすべて生成AIによるイメージで、実際の店舗・料理の写真ではありません。
+    メニュー・価格・席数・貸切条件・FAQ の内容もすべて仮のもので、実際の営業内容とは異なります。
+    住所・電話番号・最寄駅は公開情報を参照しています。ご不要のご連絡をいただければ即時に取り下げます。<br>
     DESIGN.md: Lamborghini.com（refero.design）／ 和文の書体のみ日本語向けに変更しています。
   </div>
 </footer>
 
+<a class="spcta" href="#reserve">席を予約する</a>
+
 <script>
-/* ============ 予約 ============ */
+/* ---- 幕を上げる ---- */
+const lift=()=>document.body.classList.add('loaded');
+if(document.readyState==='complete') lift(); else addEventListener('load',lift);
+setTimeout(lift,2200);            // 画像が重いときの保険
+
+/* ---- ナビ：下で隠れ、上で戻る ---- */
+const nav=document.getElementById('nav');
+let lastY=0;
+const navTick=()=>{
+  const y=window.scrollY;
+  nav.classList.toggle('solid', y>window.innerHeight*.62);
+  nav.classList.toggle('hide', y>lastY+6 && y>window.innerHeight);
+  if(Math.abs(y-lastY)>6) lastY=y;
+};
+addEventListener('scroll',navTick,{passive:true}); navTick();
+
+/* ---- 出現：.rv / .stagger / .band / .divider ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}
+}),{rootMargin:'0px 0px -10% 0px',threshold:.05});
+document.querySelectorAll('.rv,.stagger,.band,.divider').forEach(el=>io.observe(el));
+
+/* ---- 画像の幕開け ----
+   注意：clip-path をかけた要素そのものを IntersectionObserver で見ると、
+   完全にクリップされているせいで永久に isIntersecting=false になり発火しない。
+   必ず「親」を観測して、クラスは .ib 側に付ける。 */
+document.querySelectorAll('.ib').forEach(ib=>{
+  const host=ib.parentElement||ib;
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ ib.classList.add('in'); o.disconnect(); }
+  }),{rootMargin:'0px 0px -8% 0px',threshold:.02});
+  o.observe(host);
+});
+
+/* ---- 帯の視差（rAFで間引き） ---- */
+const bands=[...document.querySelectorAll('.band')];
+let raf=0;
+const parallax=()=>{
+  raf=0;
+  const vh=innerHeight;
+  for(const b of bands){
+    const r=b.getBoundingClientRect();
+    if(r.bottom<-120||r.top>vh+120) continue;
+    const p=(r.top+r.height/2-vh/2)/vh;
+    const img=b.querySelector('img');
+    if(img) img.style.transform='translate3d(0,'+(p*-7).toFixed(2)+'%,0) scale(1.14)';
+  }
+};
+const onPar=()=>{ if(!raf) raf=requestAnimationFrame(parallax); };
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  addEventListener('scroll',onPar,{passive:true});
+  addEventListener('resize',onPar);
+  onPar();
+}
+
+/* ---- メニューのタブ ---- */
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-tab]').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+  document.querySelectorAll('.tile').forEach(t=>t.classList.toggle('show',t.dataset.cat===b.dataset.tab));
+});
+
+/* ---- 予約 ---- */
 const pick=(id,out)=>{
   const box=document.getElementById(id);
   box.addEventListener('click',e=>{
@@ -420,21 +868,21 @@ document.getElementById('bBook').onclick=function(){
   document.getElementById('dBook').classList.add('show'); this.disabled=true;
 };
 
-/* ============ メニュー ============ */
+/* ---- メニュー管理 ---- */
 const pipe=document.getElementById('pipe');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
 function pline(t,ok){ pipe.innerHTML+=(pipe.dataset.started?'<br>':'')+(ok?'<b>'+t+'</b>':t); pipe.dataset.started=1; }
 function resetPipe(){ pipe.innerHTML=''; pipe.dataset.started=''; }
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
 document.getElementById('bEdit').onclick=async()=>{
   resetPipe();
   const c=document.getElementById('c3'); c.classList.add('edit'); c.textContent='2200';
   pline('onEdit(C3)  1800 → 2200');
-  await wait(600); pline('build menu.json  3 items  ok',1);
+  await wait(600); pline('build menu.json  14 items  ok',1);
   await wait(600); pline('deploy  12s  → 公開済み',1);
-  const p=document.querySelectorAll('.tile .price')[1];
+  const p=document.querySelector('.tile[data-i="1"] .price');
   p.textContent='¥2,200'; p.classList.add('flash');
   setTimeout(()=>p.classList.remove('flash'),1600);
-  await wait(400); pline('JSON-LD offers[1].price を 2200 に更新',1);
+  await wait(400); pline('JSON-LD offers[2].price を 2200 に更新',1);
   renderLD();
 };
 document.getElementById('bSold').onclick=async()=>{
@@ -442,11 +890,11 @@ document.getElementById('bSold').onclick=async()=>{
   await wait(600);
   const t=document.querySelector('.tile[data-i="1"]');
   t.style.transition='opacity .4s'; t.style.opacity=.14;
-  pline('build menu.json  2 items  ok',1);
+  pline('build menu.json  13 items  ok',1);
   await wait(500); pline('サイトから非表示（行は消さずに残ります）',1);
 };
 
-/* ============ JSON-LD ============ */
+/* ---- JSON-LD ---- */
 function renderLD(){
   const price=document.getElementById('c3').textContent;
   document.getElementById('jsonld').innerHTML=
@@ -455,6 +903,7 @@ function renderLD(){
   <span class="k">"@type"</span>: <span class="s">"Restaurant"</span>,
   <span class="k">"name"</span>: <span class="s">"DOPE ROPPONGI"</span>,
   <span class="k">"telephone"</span>: <span class="s">"+81-3-3403-5020"</span>,
+  <span class="k">"priceRange"</span>: <span class="s">"¥¥¥"</span>,
   <span class="k">"address"</span>: {
     <span class="k">"@type"</span>: <span class="s">"PostalAddress"</span>,
     <span class="k">"streetAddress"</span>: <span class="s">"六本木4-10-11 八巻ビル2F"</span>,
@@ -467,6 +916,8 @@ function renderLD(){
   <span class="k">"hasMenu"</span>: {
     <span class="k">"@type"</span>: <span class="s">"Menu"</span>,
     <span class="k">"hasMenuItem"</span>: [
+      { <span class="k">"name"</span>: <span class="s">"生牡蠣 六種"</span>,
+        <span class="k">"offers"</span>: { <span class="k">"price"</span>: <span class="s">"2400"</span>, <span class="k">"priceCurrency"</span>: <span class="s">"JPY"</span> } },
       { <span class="k">"name"</span>: <span class="s">"炭火の骨付きラム"</span>,
         <span class="k">"offers"</span>: { <span class="k">"price"</span>: <span class="s">"2800"</span>, <span class="k">"priceCurrency"</span>: <span class="s">"JPY"</span> } },
       { <span class="k">"name"</span>: <span class="s">"ブラータと桃"</span>,
@@ -477,7 +928,7 @@ function renderLD(){
 }
 renderLD();
 
-/* ============ 幅の切替 ============ */
+/* ---- 幅の切替 ---- */
 const dev=document.getElementById('dev'),bPC=document.getElementById('bPC'),bSP=document.getElementById('bSP');
 bPC.onclick=()=>{dev.classList.remove('sp');bPC.classList.add('on');bSP.classList.remove('on')};
 bSP.onclick=()=>{dev.classList.add('sp');bSP.classList.add('on');bPC.classList.remove('on')};
@@ -485,7 +936,8 @@ bSP.onclick=()=>{dev.classList.add('sp');bSP.classList.add('on');bPC.classList.r
 window.demo={book:()=>document.getElementById('bBook').click(),
              edit:()=>document.getElementById('bEdit').click(),
              sold:()=>document.getElementById('bSold').click(),
-             sp:()=>bSP.click(), pc:()=>bPC.click()};
+             sp:()=>bSP.click(), pc:()=>bPC.click(),
+             tab:c=>document.querySelector('[data-tab="'+c+'"]').click()};
 </script>
 </body>
 </html>
