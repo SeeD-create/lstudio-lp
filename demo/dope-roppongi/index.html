@@ -430,9 +430,11 @@ const pick=(id,out)=>{
 };
 pick('fDate','sDate'); pick('fPax','sPax'); pick('fTime','sTime'); pick('fSeat','sSeat');
 document.getElementById('bBook').onclick=function(){
-  const d=document.getElementById('sDate').textContent.replace(/[^0-9\/]/g,'').replace('/','');
-  document.getElementById('rid').textContent='DR-2609'+String(d).slice(-2).padStart(2,'0')+'-'+
-    document.getElementById('sTime').textContent.slice(0,2)+'A';
+  const m=document.getElementById('sDate').textContent.match(/(\d+)\/(\d+)/);
+  const ymd='26'+String(m[1]).padStart(2,'0')+String(m[2]).padStart(2,'0');
+  const seat={'カウンター':'C','ソファ席':'S','半個室':'P'}[document.getElementById('sSeat').textContent]||'C';
+  document.getElementById('rid').textContent='DR-'+ymd+'-'+
+    document.getElementById('sTime').textContent.slice(0,2)+seat;
   document.getElementById('dBook').classList.add('show'); this.disabled=true;
 };
 
