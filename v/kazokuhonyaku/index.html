@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>家族の日英翻訳 LINE BOT ｜ デモ動画（Lスタジオ）</title>
+<meta property="og:title" content="家族の日英翻訳 LINE BOT ｜ デモ動画">
+<meta property="og:description" content="いつものLINEグループにボットを1人足すだけ。66秒のデモ動画です。">
+<meta property="og:image" content="https://l-studiojp.com/v/kazokuhonyaku/poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* DESIGN.md: Linear — canvas #08090a / hairline .5px / accent は主アクション1つだけ */
+:root{
+  --void:#08090a; --carbon:#0f1011; --obsidian:#161718; --graphite:#23252a; --smoke:#383b3f;
+  --ash:#62666d; --fog:#8a8f98; --mist:#d0d6e0; --paper:#fff; --lime:#e4f222; --coral:#eb5757;
+  --sans:'Inter','Noto Sans JP',system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--void);color:var(--mist);font-family:var(--sans);
+  font-size:15px;line-height:1.6;letter-spacing:-.011em;font-feature-settings:"cv01" on,"ss03" on,"zero" on;
+  -webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:380px;pointer-events:none;
+  background:radial-gradient(820px 280px at 30% -12%,rgba(228,242,34,.055),transparent 62%),
+             radial-gradient(680px 240px at 78% -14%,rgba(2,184,204,.05),transparent 60%)}
+.wrap{position:relative;max-width:900px;margin:0 auto;padding:24px 20px 96px}
+nav{display:flex;align-items:center;gap:12px;padding-bottom:24px}
+.mark{width:26px;height:26px;border-radius:6px;border:.5px solid var(--smoke);background:var(--obsidian);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:590;color:var(--lime);letter-spacing:0}
+.brand{font-size:13px;font-weight:500}.brand span{color:var(--ash);font-weight:400}
+.pill{margin-left:auto;font-family:var(--mono);font-size:11px;color:#f0a3a3;
+  border:.5px solid rgba(235,87,87,.42);border-radius:9999px;padding:3px 10px;letter-spacing:-.013em}
+h1{font-size:32px;line-height:1.13;letter-spacing:-.022em;font-weight:590;color:var(--paper);margin:0 0 8px}
+@media(max-width:600px){h1{font-size:26px}}
+.lede{font-size:15px;color:var(--fog);margin:0 0 24px}
+.lede b{color:var(--mist);font-weight:510}
+video{width:100%;display:block;border:.5px solid var(--graphite);border-radius:12px;background:#000}
+.meta{font-family:var(--mono);font-size:11.5px;color:var(--ash);letter-spacing:-.013em;margin-top:8px;
+  display:flex;gap:12px;flex-wrap:wrap}
+.disclaimer{border:.5px solid rgba(235,87,87,.34);border-radius:12px;background:rgba(235,87,87,.05);
+  padding:12px 14px;margin:24px 0 0;font-size:13px;line-height:1.65}
+.disclaimer b{color:#f0a3a3;font-weight:510}
+.disclaimer ul{margin:8px 0 0;padding-left:18px;color:var(--fog)}
+.disclaimer li{margin:2px 0}
+.cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:#111;text-decoration:none;
+  border-radius:6px;padding:10px 16px;font-size:13.5px;font-weight:510;letter-spacing:-.01em;transition:.12s}
+.btn:hover{filter:brightness(1.06)}
+.cta .note{font-size:12.5px;color:var(--ash)}
+footer{margin-top:96px;border-top:.5px solid var(--graphite);padding-top:24px;font-size:12px;color:var(--ash);
+  display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+footer b{color:var(--mist);font-weight:510}
+footer .sp{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:-.013em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="mark">L</div>
+    <div class="brand">Lスタジオ <span>／ 提案用デモ</span></div>
+    <div class="pill">台本の再生・AI未接続</div>
+  </nav>
+
+  <h1>家族の日英翻訳を、LINEのまま。</h1>
+  <p class="lede">新しいアプリは入れません。<b>いつものLINEグループにボットを1人足すだけ</b>で、日本語は英語に、英語は日本語に自動で戻ります。噛み合わなくなったら「AI整理」と打つと、争点・一致点・不足情報・日本の一般的なルール・文化背景が日英2言語で並びます。</p>
+
+  <video controls playsinline preload="metadata" poster="poster.jpg">
+    <source src="https://l-studiojp.com/videos/kazokuhonyaku.mp4" type="video/mp4">
+    お使いの環境では動画を再生できません。
+  </video>
+  <div class="meta"><span>66秒</span><span>音声なし</span><span>1280×720</span></div>
+
+  <div class="disclaimer">
+    <b>この動画はデモ（動作イメージの再現）です。</b>
+    <ul>
+      <li>実際の翻訳AI（Gemini）には接続していません</li>
+      <li>公式アカウントにも接続していません（本物のグループには送っていません）</li>
+      <li>訳文と整理結果は、あらかじめ書いた台本を再生しています</li>
+      <li>画面右のログに出る時間・トークン数・金額は、実装したときの想定値です</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <a class="btn" href="https://l-studiojp.com/demo/kazokuhonyaku/">同じものをブラウザで触ってみる →</a>
+    <span class="note">操作できるデモ版です（こちらも台本の再生です）</span>
+  </div>
+
+  <footer>
+    <b>Lスタジオ</b>（平野 淳一）／ LINE公式アカウント構築・GAS自動化
+    <span class="sp">l-studiojp.com</span>
+  </footer>
+</div>
+</body>
+</html>
