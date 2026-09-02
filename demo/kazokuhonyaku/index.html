@@ -51,6 +51,10 @@ nav{display:flex; align-items:center; gap:12px; padding-bottom:20px}
 .navright{margin-left:auto;display:flex;gap:8px;align-items:center}
 .tagpill{font-family:var(--mono);font-size:11px;color:var(--fog);border:.5px solid var(--graphite);
   border-radius:9999px;padding:3px 10px;letter-spacing:-.013em}
+.tagpill.warnpill{color:#f0a3a3;border-color:rgba(235,87,87,.42)}
+.disclaimer{border:.5px solid rgba(235,87,87,.34);border-radius:12px;background:rgba(235,87,87,.05);
+  padding:9px 14px;margin:0 0 16px;font-size:12.5px;line-height:1.6;color:var(--mist)}
+.disclaimer b{color:#f0a3a3;font-weight:510}
 
 /* ---- hero ---- */
 h1{font-size:40px;line-height:1.05;letter-spacing:-.022em;font-weight:590;color:var(--paper);
@@ -76,7 +80,7 @@ h1{font-size:40px;line-height:1.05;letter-spacing:-.022em;font-weight:590;color:
   justify-content:center;font-size:9px;color:#04331a;font-weight:590}
 .ph-top .n{font-weight:500}
 .ph-top .cnt{margin-left:auto;color:#9aa4b2;font-size:11px}
-.chat{background:#8ba7c4;height:318px;overflow-y:auto;padding:12px}
+.chat{background:#8ba7c4;height:252px;overflow-y:auto;padding:12px}
 .chat::-webkit-scrollbar{width:6px}.chat::-webkit-scrollbar-thumb{background:#6f89a5;border-radius:9999px}
 .row{margin:0 0 10px;display:flex;flex-direction:column}
 .row.me{align-items:flex-end}
@@ -115,7 +119,7 @@ button:disabled{opacity:.4;cursor:default}
 
 /* log */
 .log{font-family:var(--mono);font-size:11.5px;line-height:1.71;letter-spacing:-.013em;
-  padding:12px 16px;height:262px;overflow-y:auto;color:var(--ash)}
+  padding:12px 16px;height:196px;overflow-y:auto;color:var(--ash)}
 .log::-webkit-scrollbar{width:6px}.log::-webkit-scrollbar-thumb{background:var(--graphite);border-radius:9999px}
 .log div{opacity:0;animation:fin .3s forwards}
 @keyframes fin{to{opacity:1}}
@@ -165,12 +169,16 @@ footer .sp{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacin
     <div class="brand">Lスタジオ <span>／ 提案用デモ</span></div>
     <div class="navright">
       <span class="tagpill">DESIGN.md: Linear</span>
-      <span class="tagpill">架空データ</span>
+      <span class="tagpill warnpill">台本の再生・AI未接続</span>
     </div>
   </nav>
 
   <h1>家族の日英翻訳を、<br>LINEのまま。</h1>
-  <p class="lede">新しいアプリは入れません。<b>いつものLINEグループにボットを1人足すだけ</b>で、日本語は英語に、英語は日本語に自動で戻ります。話が噛み合わなくなったら「AI整理」と打つ — 争点・一致点・不足情報・日本の一般的なルール・文化背景を、日英2言語で並べます。</p>
+  <p class="lede">新しいアプリは入れません。<b>いつものLINEグループにボットを1人足すだけ</b>で、日本語は英語に、英語は日本語に自動で戻ります。噛み合わなくなったら「AI整理」と打つと、争点・一致点・不足情報・日本の一般的なルール・文化背景が日英2言語で並びます。</p>
+
+  <p class="disclaimer">
+    <b>これはデモです。</b>実際の翻訳AI（Gemini）や公式アカウントには接続していません。訳文と整理結果は、あらかじめ書いた台本を再生しています。ログの所要時間・トークン数・金額は、同じ処理を実装したときの想定値です（実測の単価から算出）。<b>ここまでが「見た目と流れ」で、実際に動かすのは実装後です。</b>
+  </p>
 
   <div class="grid">
 
@@ -200,7 +208,7 @@ footer .sp{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacin
 
       <div class="two">
         <div class="card">
-          <h2>裏側で起きていること <span class="k" id="klive">idle</span></h2>
+          <h2>裏側で起きていること（想定値） <span class="k" id="klive">idle</span></h2>
           <div class="log" id="log"></div>
         </div>
 
@@ -231,7 +239,7 @@ footer .sp{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacin
 
   <footer>
     <b>Lスタジオ</b>（平野 淳一）／ LINE公式アカウント構築・GAS自動化
-    <span class="badge">提案用デモ・架空の家族データ</span>
+    <span class="badge">提案用デモ・架空の家族データ・AI未接続</span>
     <span class="sp">l-studiojp.com</span>
   </footer>
 </div>

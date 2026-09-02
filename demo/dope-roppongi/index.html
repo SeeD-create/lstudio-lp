@@ -82,7 +82,9 @@ section.light .codeblk{color:var(--cream)}
 h2{font-size:46px;line-height:1.15;letter-spacing:.04em;font-weight:400;margin:0 0 15px}
 section.light h2{color:var(--forest)}
 @media(max-width:820px){h2{font-size:30px;letter-spacing:.03em}section{padding:40px 16px}}
-.lead{font-size:19px;line-height:1.45;letter-spacing:.03em;margin:0 0 30px;max-width:680px}
+.lead{font-size:19px;line-height:1.45;letter-spacing:.03em;margin:0 0 15px;max-width:680px}
+.mocknote{font-family:var(--mono);font-size:11.5px;letter-spacing:0;line-height:1.7;margin:0 0 30px;
+  max-width:680px;opacity:.62}
 
 /* ---- 予約 ---- */
 .book{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:start}
@@ -182,7 +184,7 @@ footer{padding:60px 32px}
 <body>
 
 <div class="ribbon">
-  これは <b>Lスタジオ</b> が制作した<b>ご提案用の非公式モック</b>です。DOPE ROPPONGI 様の公式サイトではありません／掲載中の写真枠・文言はすべて仮のものです。
+  これは <b>Lスタジオ</b> が制作した<b>ご提案用の非公式モック</b>です。DOPE ROPPONGI 様の公式サイトではありません／写真枠・メニュー・文言はすべて仮のものです／<b>予約とメニュー更新は画面上の再現</b>で、実際の送信・反映は行いません。
 </div>
 
 <nav>
@@ -208,6 +210,7 @@ footer{padding:60px 32px}
     <p class="eyebrow">01 — Reservation</p>
     <h2>電話が鳴らない<br>予約のとりかた。</h2>
     <p class="lead">営業中に電話が鳴らなくなります。空席は席数から自動で計算し、確定するとお店と、お客様のLINEに同時に届きます。予約サイトの月額手数料はかかりません。</p>
+    <p class="mocknote">※ このモックでは予約番号の発行までを画面上で再現しています。通知の送信と記帳は行いません（実装後は実際に届きます）。</p>
 
     <div class="book">
       <div>
@@ -274,6 +277,7 @@ footer{padding:60px 32px}
     <p class="eyebrow">02 — Menu</p>
     <h2>値段は、店主が<br>スプレッドシートで直す。</h2>
     <p class="lead">メニューの更新に制作会社を通す必要はありません。いつものスプレッドシートを書き換えると、サイトが自動で作り直されます。写真も同じ行にURLを貼るだけです。</p>
+    <p class="mocknote">※ 下のシートはモック内の再現です。実際のスプレッドシートには接続していません。</p>
 
     <div class="tiles" id="tiles">
       <div class="tile" data-i="0"><figure>
