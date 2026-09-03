@@ -8,6 +8,18 @@
 <meta name="description" content="練馬区の税理士事務所ホームページの提案用デモ。WordPressで納品したときの完成イメージです。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"AccountingService",
+"name":"白岩税理士事務所",
+"description":"練馬区の税理士事務所。法人顧問・確定申告・記帳代行・相続税申告。初回相談60分無料。",
+"address":{"@type":"PostalAddress","addressRegion":"東京都","addressLocality":"練馬区","streetAddress":"豊玉北5-0-0","postalCode":"176-0012","addressCountry":"JP"},
+"telephone":"+81-3-0000-0000",
+"openingHours":"Mo-Fr 09:00-18:00",
+"areaServed":["練馬区","板橋区","西東京市","杉並区"],
+"priceRange":"¥¥",
+"knowsAbout":["法人税務顧問","確定申告","記帳代行","相続税申告","会社設立"],
+"founder":{"@type":"Person","name":"白岩 直人","jobTitle":"税理士"}}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
@@ -555,14 +567,14 @@ body.loaded .scrollhint{opacity:.5;transform:translateX(-50%);transition-delay:1
         <div class="ib"><img src="img/tea.jpg" alt="応接" loading="lazy"></div>
         <span class="n">05</span>
         <h3>相続税の申告</h3>
-        <p>財産の洗い出し、評価、遺産分割のご相談、申告書の作成まで。生前のご相談も承ります。むしろ生前に来ていただきたい分野です。</p>
+        <p>財産の洗い出しと評価、相続税の申告書作成まで。分割案ごとの税額の試算もお出しします。生前のご相談も承ります。むしろ生前に来ていただきたい分野です。</p>
         <span class="price">¥220,000〜<i>／一件</i></span>
       </article>
       <article class="card">
         <div class="ib"><img src="img/entrance.jpg" alt="事務所の入口" loading="lazy"></div>
         <span class="n">06</span>
         <h3>融資・補助金のご相談</h3>
-        <p>日本政策金融公庫の創業融資、小規模事業者持続化補助金など。通る事業計画は、数字の作り方でほぼ決まります。</p>
+        <p>日本政策金融公庫の創業融資や、小規模事業者持続化補助金など。事業計画の数字づくりをお手伝いします（採択・融資を保証するものではありません）。</p>
         <span class="price">¥33,000〜<i>／スポット</i></span>
       </article>
     </div>
@@ -724,14 +736,14 @@ body.loaded .scrollhint{opacity:.5;transform:translateX(-50%);transition-delay:1
           </ul>
         </div>
       </div>
-      <form class="form" id="cf" novalidate>
-        <div class="f"><label>お名前 <i>必須</i></label><input type="text" placeholder="練馬 太郎"></div>
+      <form class="form" id="cf">
+        <div class="f"><label>お名前 <i>必須</i></label><input type="text" name="name" required placeholder="練馬 太郎"></div>
         <div class="f"><label>会社名・屋号</label><input type="text" placeholder="株式会社ねりま商店"></div>
-        <div class="f"><label>メールアドレス <i>必須</i></label><input type="email" placeholder="you@example.com"></div>
+        <div class="f"><label>メールアドレス <i>必須</i></label><input type="email" name="email" required placeholder="you@example.com"></div>
         <div class="f"><label>お電話番号</label><input type="tel" placeholder="03-0000-0000"></div>
         <div class="f"><label>ご相談の種類 <i>必須</i></label>
-          <select>
-            <option>選んでください</option>
+          <select name="kind" required>
+            <option value="">選んでください</option>
             <option>法人の税務顧問について</option>
             <option>個人事業・フリーランスの確定申告</option>
             <option>記帳代行</option>
@@ -741,7 +753,7 @@ body.loaded .scrollhint{opacity:.5;transform:translateX(-50%);transition-delay:1
             <option>その他</option>
           </select></div>
         <div class="f"><label>ご相談内容</label><textarea placeholder="今の状況を、わかる範囲で結構です。"></textarea></div>
-        <label class="agree"><input type="checkbox"><span>個人情報の取り扱いについて同意します。いただいた情報はご相談への回答にのみ使用します。</span></label>
+        <label class="agree"><input type="checkbox" name="agree" required><span>個人情報の取り扱いについて同意します。いただいた情報はご相談への回答にのみ使用します。</span></label>
         <button type="submit" class="btn">この内容で送信する</button>
         <div class="sent" id="sent">送信しました（デモのため実際には送られません）。<br>
           本番では <b>事務所のメールアドレスへ通知</b>が届き、同時に<b>お客様へ自動返信メール</b>が送られます。迷惑メール対策のスパム判定も入ります。</div>
@@ -828,10 +840,10 @@ body.loaded .scrollhint{opacity:.5;transform:translateX(-50%);transition-delay:1
   <div class="sec rv">
     <p class="kicker">Mobile</p>
     <h2>
-      <span class="rl"><span>お問い合わせの7割は、</span></span>
+      <span class="rl"><span>お問い合わせの多くは、</span></span>
       <span class="rl"><span>スマホから来ます。</span></span>
     </h2>
-    <p class="lead" style="margin-bottom:36px">スマホでは、画面の下に「無料相談」のボタンが常に出ています。電話番号はタップでそのまま発信できます。下のボタンで幅を切り替えて、実際の見え方をご確認ください。</p>
+    <p class="lead" style="margin-bottom:36px">いまはスマホから見られることを前提に組んでいます。画面の下に「無料相談」のボタンが常に出ていて、電話番号はタップでそのまま発信できます。下のボタンで幅を切り替えて、実際の見え方をご確認ください。</p>
     <div class="devwrap">
       <div class="devbtns">
         <button class="wpbtn pri" id="bPC">パソコンの幅</button>
@@ -975,7 +987,11 @@ if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
 /* ---- お問い合わせフォーム（デモ） ---- */
 document.getElementById('cf').addEventListener('submit',e=>{
   e.preventDefault();
+  const f=e.currentTarget;
+  /* 本番と同じく、未入力・形式違い・未同意は弾く */
+  if(!f.reportValidity()) return;
   document.getElementById('sent').classList.add('show');
+  f.querySelector('button[type=submit]').disabled=true;
 });
 
 /* ---- WordPress 管理画面の再現 ---- */
@@ -1070,7 +1086,8 @@ bPC.onclick=()=>{loadFrame();dev.classList.remove('sp');bPC.classList.add('pri')
 bSP.onclick=()=>{loadFrame();dev.classList.add('sp');bSP.classList.add('pri');bPC.classList.remove('pri')};
 
 /* 枠の中で開かれたときは、帯と枠の入れ子を消す */
-if(new URLSearchParams(location.search).get('embed')==='1'){
+const isEmbed=new URLSearchParams(location.search).get('embed')==='1';
+if(isEmbed){
   document.documentElement.style.setProperty('--ribbon','0px');
   const rb=document.querySelector('.ribbon'); if(rb) rb.remove();
   const cur=document.getElementById('curtain'); if(cur) cur.remove();
@@ -1081,10 +1098,12 @@ if(new URLSearchParams(location.search).get('embed')==='1'){
   var dv=document.querySelector('.divider'); if(dv) dv.remove();
 }
 
-window.demo={post:()=>document.getElementById('bPost').click(),
-             price:()=>document.getElementById('bPrice').click(),
-             reset:()=>document.getElementById('bReset').click(),
-             sp:()=>bSP.click(), pc:()=>bPC.click()};
+if(!isEmbed){
+  window.demo={post:()=>document.getElementById('bPost').click(),
+               price:()=>document.getElementById('bPrice').click(),
+               reset:()=>document.getElementById('bReset').click(),
+               sp:()=>bSP.click(), pc:()=>bPC.click()};
+}
 </script>
 </body>
 </html>
