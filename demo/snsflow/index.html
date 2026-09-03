@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>浮いた時間を、訂正作業で失わない ｜ SNS運用の横展開フローと検品ゲートのご提案 ｜ Lスタジオ</title>
+<meta name="description" content="1本の原稿を各SNSへ横展開し、数字と固有名詞の間違いを配信の手前で機械が止めます。検品ゲートをその場で試せます。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="浮いた時間を、訂正作業で失わない ｜ SNS運用の横展開フローと検品ゲート">
+<meta property="og:description" content="検品ゲートを実際に触れます。横展開・コメント返信案・動画台本・運用マニュアルまで。">
+<meta property="og:url" content="https://l-studiojp.com/demo/snsflow/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧾</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+:root{
+  --paper:#F6F7F9; --surface:#fff; --sunk:#EEF1F4;
+  --line:#DDE2E8; --line-soft:#E9EDF1;
+  --ink:#151C24; --ink2:#454F5B; --ink3:#78838F;
+  --accent:#2A5C8A; --accent-deep:#1C4468; --accent-soft:#E6EEF5; --accent-line:#A9C5DC;
+  --ok:#1E7A4C; --ok-soft:#E5F3EB; --ok-line:#AFD9C2;
+  --bad:#B03A3A; --bad-soft:#FBECEC; --bad-line:#EDC0C0;
+  --warn:#A9682A; --warn-soft:#FAF1E5; --warn-line:#E8CFAB;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+section{padding:42px 0;border-top:1px solid var(--line-soft)}
+
+.hero{background:linear-gradient(155deg,#22405C,#16293B 62%,#101B27);color:#fff;padding:40px 0 34px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.12em;font-weight:700;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 13px}
+.hero h1{font-size:29px;line-height:1.45;margin:15px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#8FD0FF}
+.hero p{font-size:15px;color:#C6D5E2;margin:0;max-width:800px}
+.hero .lead2{margin-top:14px;font-size:13.5px;color:#9FB6C8;border-top:1px solid rgba(255,255,255,.16);padding-top:14px}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:2px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:840px}
+h3.mini{font-size:14px;font-weight:900;margin:22px 0 9px;color:var(--accent-deep)}
+
+/* 検品ゲート */
+.gate2{display:grid;grid-template-columns:1fr 350px;gap:18px;align-items:start}
+.gbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.gbox h4{font-size:11.5px;letter-spacing:.06em;color:var(--ink3);margin:0 0 8px;font-weight:800}
+textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:13px 14px;
+  font:inherit;font-size:13.5px;line-height:1.9;resize:vertical;background:#FCFDFE;color:var(--ink)}
+textarea:focus{outline:2px solid var(--accent-line);outline-offset:1px}
+#src{min-height:132px}
+#out{min-height:172px}
+.dict{font-size:12.5px;color:var(--ink2);background:var(--sunk);border-radius:9px;padding:9px 11px;margin-top:9px}
+.dict b{color:var(--accent-deep)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{border:1px solid var(--line);background:var(--sunk);border-radius:9px;padding:8px 13px;
+  font:inherit;font-size:12.5px;font-weight:700;color:var(--ink2);cursor:pointer;transition:all .15s}
+.btn:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+.btn.bad:hover{border-color:var(--bad);color:var(--bad);background:var(--bad-soft)}
+.btn.ok:hover{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+.btn.go{background:var(--accent);color:#fff;border-color:var(--accent-deep)}
+.btn.go:hover{background:var(--accent-deep);color:#fff}
+
+.verdict{font-size:14px;font-weight:900;padding:12px 13px;border-radius:10px;
+  background:var(--sunk);border:1px solid var(--line);text-align:center}
+.verdict.stop{background:var(--bad-soft);border-color:var(--bad-line);color:var(--bad)}
+.verdict.pass{background:var(--ok-soft);border-color:var(--ok-line);color:var(--ok)}
+.verdict.hold{background:var(--warn-soft);border-color:var(--warn-line);color:var(--warn)}
+.verdict small{display:block;font-size:11.5px;font-weight:700;color:var(--ink3);margin-top:3px}
+.flags{margin-top:14px}
+.flag{font-size:12.5px;padding:9px 11px;border-radius:9px;margin-bottom:7px;line-height:1.7}
+.flag.minus{background:var(--bad-soft);border:1px solid var(--bad-line)}
+.flag.plus{background:var(--ok-soft);border:1px solid var(--ok-line)}
+.flag.warn{background:var(--warn-soft);border:1px solid var(--warn-line)}
+.flag b{display:block}
+.flag code{background:rgba(0,0,0,.06);border-radius:4px;padding:0 4px;font-size:11.5px}
+.rules{margin-top:14px;font-size:12px;color:var(--ink3);border-top:1px dashed var(--line);padding-top:10px}
+.rules li{margin-bottom:4px}
+
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:12px;color:var(--ink2);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td b{color:var(--accent-deep)}
+.pill{display:inline-block;font-size:11px;font-weight:800;border-radius:5px;padding:2px 8px;white-space:nowrap;
+  background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--accent-line)}
+.pill.g{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+.pill.r{background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)}
+
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:14px 13px;position:relative}
+.step .n{font-size:11px;font-weight:800;color:#fff;background:var(--accent);border-radius:5px;padding:2px 8px;display:inline-block}
+.step h3{font-size:14px;margin:8px 0 6px;font-weight:900;line-height:1.5}
+.step p{font-size:12px;color:var(--ink2);margin:0;line-height:1.7}
+.step.human{border-color:var(--warn-line);background:var(--warn-soft)}
+.step.human .n{background:var(--warn)}
+
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cardy{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:17px}
+.cardy .k{font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.06em}
+.cardy h3{font-size:15.5px;margin:6px 0 7px;font-weight:900}
+.cardy p{font-size:12.5px;color:var(--ink2);margin:0;line-height:1.8}
+.cardy .ex{margin-top:9px;background:var(--sunk);border-radius:9px;padding:9px 11px;font-size:12px;color:var(--ink2);line-height:1.75;white-space:pre-wrap}
+.cardy .price{font-size:23px;font-weight:900;margin:8px 0 2px}
+.cardy .price small{font-size:12px;color:var(--ink3);font-weight:800}
+
+.reply{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.reply .who{font-size:12px;font-weight:800;color:var(--accent-deep);background:var(--accent-soft);
+  border:1px solid var(--accent-line);border-radius:6px;padding:2px 9px;display:inline-block}
+.reply .who.r{background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)}
+.reply .body{font-size:13.5px;line-height:1.95;margin-top:10px;white-space:pre-wrap}
+.reply .why{font-size:12px;color:var(--ink3);margin-top:10px;border-top:1px dashed var(--line);padding-top:9px}
+
+.note{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:0 12px 12px 0;padding:14px 16px;font-size:13px;color:var(--ink2);line-height:1.85;margin-top:16px}
+.note b{color:var(--accent-deep)}
+
+.qa{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden}
+.qa details{border-bottom:1px solid var(--line-soft)}
+.qa details:last-child{border-bottom:0}
+.qa summary{cursor:pointer;padding:13px 16px;font-size:13.5px;font-weight:800;color:var(--accent-deep);list-style:none}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:"＋ ";color:var(--accent);font-weight:900}
+.qa details[open] summary::before{content:"－ "}
+.qa .a{padding:0 16px 15px;font-size:13px;color:var(--ink2);line-height:1.9}
+
+footer{background:#141C25;color:#8FA0AF;padding:26px 0;font-size:12.5px;margin-top:10px}
+footer b{color:#D6E2EC}
+footer a{color:#8FD0FF}
+.cta{background:var(--accent-deep);color:#fff;border-radius:14px;padding:22px 24px;margin-top:20px}
+.cta h3{margin:0 0 8px;font-size:18px;font-weight:900}
+.cta p{margin:0;font-size:13.5px;color:#CFE0EE;line-height:1.85}
+
+@media(max-width:900px){
+  .gate2{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+  .cols3,.cols2{grid-template-columns:1fr}
+  .hero h1{font-size:23px}
+  h2{font-size:18.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="tag">ご提案用ページ ／ Lスタジオ</span>
+    <h1>自動化で浮いた時間は、<br>たいてい<em>訂正作業</em>で消えます。</h1>
+    <p>SNS運用に生成AIを入れて最初に事故るのは、文章の質ではありません。価格、日付、人名です。1文字ずれたまま投稿されると、お詫びと差し替えで、浮いた時間が一瞬でなくなります。</p>
+    <div class="lead2">そこで私は、生成の後ろに<b style="color:#8FD0FF">機械の検品ゲート</b>を必ず置きます。下でそのゲートを実際に動かせます。ブラウザの中だけで動き、入力した文章はどこにも送信されません。</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section style="border-top:0">
+  <h2><span class="num">01</span>まず、触ってみてください（検品ゲート）</h2>
+  <p class="sub">左上が「原稿（確かな事実）」、左下が「AIが横展開した投稿文」です。ゲートは投稿文に出てくる数値と固有名詞を原稿と突き合わせ、原稿に無いものを配信の手前で止めます。<b>「事故る例」を押してから判定してみてください。</b></p>
+
+  <div class="gate2">
+    <div>
+      <div class="gbox">
+        <h4>原稿（社内で確定した事実。ここが正本）</h4>
+        <textarea id="src"></textarea>
+        <div class="dict">照合する固有名詞：<b id="dictview"></b><br>
+        <span style="color:var(--ink3);font-size:11.5px">※ 本番では、この辞書を案件ごとの用語集として持ちます</span></div>
+      </div>
+      <div class="gbox" style="margin-top:14px">
+        <h4>AIが横展開した投稿文（X向け）</h4>
+        <textarea id="out"></textarea>
+        <div class="btns">
+          <button class="btn bad" data-load="bad">事故る例を入れる</button>
+          <button class="btn ok" data-load="good">通る例を入れる</button>
+          <button class="btn" data-load="partial">惜しい例（情報が欠けている）</button>
+          <button class="btn go" id="run">検品する</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gbox">
+      <div class="verdict" id="verdict">検品する を押してください<small>ブラウザ内で完結・送信なし</small></div>
+      <div class="flags" id="flags"></div>
+      <div class="rules">
+        <b style="color:var(--ink2)">このゲートが見ている3つ</b>
+        <ol style="margin:6px 0 0;padding-left:18px">
+          <li>数値の突合：投稿文の数値表現が原稿に無ければ止める（<code>9/18</code> と <code>9月18日</code> は同じものとして扱う）</li>
+          <li>固有名詞の突合：辞書の語が1文字だけ違う形で現れたら止める（田口 → 田中）</li>
+          <li>必須事実の欠落：申込方法と期限が落ちていたら保留にする</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>これは一段目です。</b>機械で確実に判定できるのは、数値・固有名詞・必須項目の有無までです。文脈の妥当さや言い回しは、二段目として別のAIに読ませ、三段目で人が見ます。<b>三段構えにする理由は、一段目だけで9割の事故が止まり、人が見る対象がその日の数本に絞れるからです。</b>目視だけの運用は、本数が増えた月に必ず破綻します。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>ご依頼の4つを、1本のフローに繋ぎます</h2>
+  <p class="sub">募集文に挙げられていた4つの業務は、別々の作業ではなく、同じ1本の流れの上に並びます。人が手を入れるのは、色の変わっている1か所だけです。</p>
+
+  <div class="flow">
+    <div class="step"><span class="n">1</span><h3>原稿を1本入れる</h3><p>ブログ、LP、議事録、既存投稿のどれでも起点にできます。</p></div>
+    <div class="step"><span class="n">2</span><h3>各SNSへ横展開</h3><p>X、Instagram、LINE、ショート動画の台本まで、媒体ごとの型に流し込みます。</p></div>
+    <div class="step"><span class="n">3</span><h3>検品ゲート</h3><p>数値・固有名詞・必須項目を機械で突合。落ちたものは次へ進みません。</p></div>
+    <div class="step human"><span class="n">4</span><h3>人が見る（ここだけ）</h3><p>ゲートを通った分だけが並びます。承認か差し戻しを押すだけです。</p></div>
+    <div class="step"><span class="n">5</span><h3>配信と記録</h3><p>予約投稿し、反応とコメントを台帳へ戻します。次の横展開の材料になります。</p></div>
+  </div>
+
+  <h3 class="mini">募集文の4項目との対応</h3>
+  <div class="tbl">
+    <table>
+      <tr><th>ご依頼</th><th>どこで実現するか</th><th>成果物</th></tr>
+      <tr>
+        <td><b>SNSコンテンツのリライト・横展開フロー構築</b></td>
+        <td>上の 1 → 2 → 3。媒体ごとの型（文字数、改行、ハッシュタグ、禁止表現）を定義ファイルとして持たせます</td>
+        <td>横展開フロー一式＋媒体ごとの型定義</td>
+      </tr>
+      <tr>
+        <td><b>SNSコメント返信案作成・通知連携の仕組み化</b></td>
+        <td>5 で回収したコメントを分類し、返信案を作って通知へ流します。判断が要るものだけ担当者に上げます（<a href="#reply">下に実例</a>）</td>
+        <td>返信案の生成＋通知の出し分け＋エスカレーション条件</td>
+      </tr>
+      <tr>
+        <td><b>LP（Webページ）からの動画構成案・台本作成</b></td>
+        <td>1 の起点にLPのURLを入れると、構成案と台本まで一気に出ます（<a href="#video">下に型</a>）</td>
+        <td>構成案テンプレート＋台本の型＋撮影メモ</td>
+      </tr>
+      <tr>
+        <td><b>運用マニュアル作成および継続的な改善提案</b></td>
+        <td>4 の承認基準と 3 の検品条件を、そのままマニュアルの本体にします。判断の記録が改善の材料になります</td>
+        <td>運用マニュアル＋月次の改善レポート</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="note">
+    <b>ChatGPT Work（コネクタ／ブラウザ連携／Plan Mode）についてです。</b>
+    正直に申し上げます。私の主戦場は Claude Code と Google Workspace で、ChatGPT Work の常用歴は長くありません。
+    ただ、コネクタで社内の置き場を参照させる、ブラウザ連携で公開情報を取りに行かせる、Plan Mode で手順を先に立てさせる、という3つの使い分け自体は、別の道具で毎日やっていることと同じです。
+    <b>上のゲートのように「AIの出力を機械で受け止める工程」を作れるかどうかが、この案件の成否だと考えています。</b>そこは道具が変わっても私の持ち場です。
+  </div>
+</section>
+
+<section id="reply">
+  <h2><span class="num">03</span>コメント返信案と、通知の出し分け</h2>
+  <p class="sub">コメントは3種類に分かれます。全部を人が読む必要はありませんが、全部を自動で返すのは危険です。分類して、通知先を変えます。</p>
+
+  <div class="reply">
+    <span class="who">A：そのまま送れる（自動で下書き→担当者が承認1回）</span>
+    <div class="body">「これ、スマホからでも使えますか？」
+→ 返信案：はい、スマートフォンのブラウザからそのままご利用いただけます。アプリのインストールは不要です。詳しい手順はプロフィールのリンクからご覧いただけます。</div>
+    <div class="why">よくある質問に一致。回答は用語集から引くため、機能の有無を作文しません。担当者は承認を押すだけです。</div>
+  </div>
+
+  <div class="reply">
+    <span class="who">B：担当者が一言足す（下書き＋論点を添えて通知）</span>
+    <div class="body">「前に使ってたやつより高いですね」
+→ 返信案：ご検討ありがとうございます。価格については、○○の範囲が含まれている点が前提になっております。
+→ <b>担当者への注記：値引きの可否は判断が要ります。競合名が出ているため、比較表現は避けてください。</b></div>
+    <div class="why">価格・比較・納期は、返信案を作るが送信させません。担当者に論点だけ渡します。</div>
+  </div>
+
+  <div class="reply">
+    <span class="who r">C：自動で返さない（即エスカレーション）</span>
+    <div class="body">「お金を払ったのに連絡がありません。消費者センターに相談します」
+→ 返信案：<b>作りません。</b>
+→ 通知：責任者へ即時。原文をそのまま添付し、AIの要約は付けません。</div>
+    <div class="why">クレーム、健康・法律に関わる話題、個人情報を含む書き込みは、AIに要約させた時点で判断を誤らせます。原文で人に渡すのが正解です。</div>
+  </div>
+
+  <div class="tbl" style="margin-top:16px">
+    <table>
+      <tr><th>分類</th><th>判定のしかた</th><th>通知先</th><th>人の手数</th></tr>
+      <tr><td><span class="pill g">A 定型</span></td><td>用語集の質問と一致</td><td>担当者へ日次まとめ</td><td>承認1回</td></tr>
+      <tr><td><span class="pill">B 要判断</span></td><td>価格・比較・納期・競合名を含む</td><td>担当者へ都度</td><td>一言足して承認</td></tr>
+      <tr><td><span class="pill r">C 危険</span></td><td>クレーム語、法律・健康、個人情報</td><td>責任者へ即時</td><td>人が全文を読む</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="video">
+  <h2><span class="num">04</span>LPから、動画の構成案と台本まで</h2>
+  <p class="sub">LPのURLを起点にすると、構成案と台本が同じ流れの中で出ます。人が考えるべきなのは「どの一点で引っかけるか」だけで、それ以外は型で埋まります。</p>
+
+  <div class="cols2">
+    <div class="cardy">
+      <div class="k">STEP 1</div>
+      <h3>LPから、素材を抜く</h3>
+      <p>見出し、提供価値、料金、実績の数字、よくある質問、申込までの手順を、構造ごとに抜き出して一覧にします。ここまでは判断が入りません。</p>
+      <div class="ex">抜いた素材はそのまま検品ゲートの「原稿」になります。台本の数字が化けても、配信の手前で止まります。</div>
+    </div>
+    <div class="cardy">
+      <div class="k">STEP 2</div>
+      <h3>構成案を3案出す</h3>
+      <p>「数字で驚かせる」「よくある失敗から入る」「使用前後を見せる」の3つの型に、抜いた素材を流し込みます。3案並べて、担当者が1つ選びます。</p>
+      <div class="ex">案を無限に出させないのが肝です。型を3つに固定しておくと、選ぶ時間が5分で終わります。</div>
+    </div>
+  </div>
+
+  <h3 class="mini">台本の型（そのまま撮影メモになります）</h3>
+  <div class="tbl">
+    <table>
+      <tr><th>秒</th><th>画面</th><th>ナレーション／テロップ</th><th>この段の役目</th></tr>
+      <tr><td>0-2</td><td>結果の画面を先に見せる</td><td>「これ、30分でできます」</td><td>離脱を止める。数字はLPから引いた実数のみ</td></tr>
+      <tr><td>2-8</td><td>元の状態（手作業）</td><td>「いままでは3日かかっていました」</td><td>落差を作る</td></tr>
+      <tr><td>8-20</td><td>操作を3手だけ</td><td>手順の読み上げ</td><td>手数を数えられる形にする</td></tr>
+      <tr><td>20-27</td><td>結果をもう一度</td><td>「ここまでで30分です」</td><td>冒頭の主張を回収する</td></tr>
+      <tr><td>27-30</td><td>申込の1画面</td><td>「手順はプロフィールから」</td><td>行動をひとつに絞る</td></tr>
+    </table>
+  </div>
+  <div class="note">
+    この台本の型は、私が自社の紹介動画で使っているものです。<b>操作を記録して自動で撮り直せる形にしてあるため、数字やサービス名が変わっても、録画ボタンを押し直す作業がありません。</b>本数を増やす前提のご依頼では、ここが効いてきます。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span>担当者が代わっても回る形にします</h2>
+  <p class="sub">「再現性の高い業務フロー」という言葉の中身は、結局この2つだと考えています。判断の基準が文字になっていること、そして落ちたときに誰でも原因を追えること。</p>
+
+  <div class="cols3">
+    <div class="cardy">
+      <div class="k">引き継ぎ</div>
+      <h3>運用マニュアル</h3>
+      <p>検品ゲートの条件表と、承認・差し戻しの基準を、そのままマニュアルの本体にします。文章の説明ではなく、条件の一覧です。読む人によって解釈が変わりません。</p>
+    </div>
+    <div class="cardy">
+      <div class="k">追跡</div>
+      <h3>止まった記録を残す</h3>
+      <p>ゲートで落ちた投稿を、理由ごとに記録します。「日付の間違いが先月8件」と出れば、原稿の書き方を直せます。改善提案の材料はここから出ます。</p>
+    </div>
+    <div class="cardy">
+      <div class="k">安全</div>
+      <h3>情報管理</h3>
+      <p>外部へ渡すデータは必要最小限に絞り、個人が特定できる情報は入れません。履歴の保持期間も明示的に決めます。私は生徒の実名と成績を扱う立場なので、ここは職業的な習慣です。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">06</span>お見積りと、進め方</h2>
+  <p class="sub">全部を一度に作らないことをお勧めします。いちばん時間を食っている工程を1つだけ先に自動化し、効果を確認してから広げる形です。追加は差額のみで承ります。</p>
+
+  <div class="cols3">
+    <div class="cardy">
+      <div class="k">第一段階</div>
+      <h3>横展開フロー＋検品ゲート</h3>
+      <div class="price">300,000<small> 円</small></div>
+      <p style="color:var(--ink3);font-size:12px;margin-bottom:8px">着手から3週間</p>
+      <p>原稿1本から各SNSへ展開し、上のゲートを本番の条件で組みます。媒体ごとの型定義と運用マニュアルまで含みます。</p>
+    </div>
+    <div class="cardy">
+      <div class="k">第二段階</div>
+      <h3>コメント返信案＋通知連携</h3>
+      <div class="price">200,000<small> 円</small></div>
+      <p style="color:var(--ink3);font-size:12px;margin-bottom:8px">着手から2週間</p>
+      <p>3分類の判定、返信案の生成、通知の出し分け、エスカレーション条件の実装です。</p>
+    </div>
+    <div class="cardy">
+      <div class="k">第三段階</div>
+      <h3>LPから動画構成案・台本</h3>
+      <div class="price">150,000<small> 円</small></div>
+      <p style="color:var(--ink3);font-size:12px;margin-bottom:8px">着手から2週間</p>
+      <p>素材の抽出、構成案3型、台本の型、撮影メモまで。撮り直せる形での書き出しもここに含められます。</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>継続的な改善提案は、月額50,000円で承ります。</b>月次で、ゲートに落ちた理由の集計、反応の良かった型の整理、次に自動化すべき工程の提案を1枚でお出しします。<br>
+    <b>稼働について正直にお伝えします。</b>平日の日中が中心で、週10時間から15時間です。夕方以降と土曜は自分の塾の指導が入るため、お打ち合わせは平日日中でお願いできればと思います。ご連絡は翌営業日の午前までに必ずお返しします。開始は即日可能です。
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span>なぜ私がこのご依頼に向いているか</h2>
+  <div class="qa">
+    <details open>
+      <summary>制作会社ではなく、自分の業務を自分で自動化して毎日使っている側です</summary>
+      <div class="a">私は学習塾を経営しながら、その業務システムをすべて自分で設計・実装し、毎日運用しています。時間割の編成、月謝の計算、請求、入退室、講師への配信までが一本で繋がっており、週に90分かかっていた時間割編成は5分になりました。使わない人が設計したフローは、忙しい時間帯に必ず捨てられます。そこを外しません。</div>
+    </details>
+    <details>
+      <summary>生成物を機械で検品する工程を、すでに本番で回しています</summary>
+      <div class="a">教材スライドを310単元ぶん生成する仕組みを自作していますが、生成したものは必ず検品スクリプトに通し、条件を満たさないものは人が見る前に落としています。上のゲートは、その考え方をSNS運用に置き換えたものです。作れることと、間違いを止められることは別の能力だと考えています。</div>
+    </details>
+    <details>
+      <summary>曖昧な要件から仕様を立てるのが、日常です</summary>
+      <div class="a">自分の事業では、要件を決める人も作る人も私です。着手前に必ず「この作業が何分から何分になれば成功か」を1行で合意します。ここが曖昧なまま始めた仕事は、後で必ず揉めるためです。細かい指示をいただかなくても進みますが、勝手に範囲を広げることもしません。</div>
+    </details>
+    <details>
+      <summary>不得意なところは先に申し上げます</summary>
+      <div class="a">ChatGPT Work の常用歴は長くありません（02の枠に書いたとおりです）。また、動画の凝った編集や、デザイン性の高いクリエイティブ制作は私の担当ではありません。私の持ち場は、フローを組んで、間違いを止めて、担当者が代わっても回る形にすることです。ここが今回のご依頼の中心だと読んでいます。</div>
+    </details>
+  </div>
+
+  <div class="cta">
+    <h3>ご発注の前に、1つ無償でお出しします</h3>
+    <p>いま最も時間を食っている工程を1つ教えていただければ、その工程のフロー図と、どこに検品を挟むかを1枚にまとめて3営業日でお返しします。上のゲートを御社の実際の原稿と用語で組み替えたものをお見せする形でも構いません。<br>
+    文章で判断していただく必要はありません。動くものを先に見ていただくのが、私のやり方です。</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><b>Lスタジオ　平野 淳一</b>　AI活用システム開発／業務フロー構築／公式LINE構築</div>
+    <div style="margin-top:4px"><a href="https://l-studiojp.com/">https://l-studiojp.com/</a></div>
+    <div style="margin-top:6px">本ページはご提案用のため、検索には表示していません。入力した文章はブラウザの外に出ません。</div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   検品ゲート（ブラウザ内で完結・送信なし）
+   一段目の機械ゲート。数値・固有名詞・必須事実の3点だけを見る。
+   文脈の妥当さは二段目のLLM、最終判断は三段目の人。
+   ========================================================= */
+
+var SRC_DEFAULT =
+'9月17日にオンラインセミナーを開催します。\n' +
+'定員は40名、参加費は無料です。\n' +
+'テーマは「AIで広告クリエイティブの制作本数を月30本から60本へ」。\n' +
+'登壇はマーケティング部の田口です。\n' +
+'お申込はLINEから。アーカイブ配信は9月24日までご覧いただけます。';
+
+var DICT = ['田口', 'マーケティング部', 'LINE'];
+
+var SAMPLES = {
+  bad:
+  '【9/18 開催】AIで広告クリエイティブを月30本から80本へ\n' +
+  '定員50名・参加費1,000円。\n' +
+  '広告部の田中が、実際の運用画面をお見せしながら解説します。\n' +
+  'アーカイブは1週間ご覧いただけます。',
+  good:
+  '【9月17日 開催／参加費無料】\n' +
+  'AIで広告クリエイティブの制作本数を、月30本から60本へ。\n' +
+  '定員40名。マーケティング部の田口が、実際の進め方をお話しします。\n' +
+  'お申込はLINEから。アーカイブは9月24日までご覧いただけます。',
+  partial:
+  '【9月17日 開催】AIで広告クリエイティブの制作本数を月30本から60本へ。\n' +
+  '定員40名、参加費は無料です。\n' +
+  'マーケティング部の田口がお話しします。'
+};
+
+var UNITS = '月\\d+日|年|月|日|名|円|本|回|週間|週|分|時間|時|%|％|人|件|割|倍';
+
+function esc(s){ return String(s).replace(/[&<>]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+
+/* 9/18 → 9月18日 に寄せる。半角カンマと空白は落とす。 */
+function normalize(s){
+  return String(s)
+    .replace(/(\d{1,2})\s*[\/／]\s*(\d{1,2})/g, '$1月$2日')
+    .replace(/[，,]/g, '')
+    .replace(/\s+/g, '');
+}
+
+/* 数値表現を拾う。「30本から60本」は 30本 と 60本 の2つとして扱う。
+   突合は正規化した形で行うが、画面に出すのは原文どおりの見た目にする
+   （1,000円 を 1000円 と表示すると、読む側が別の数字だと感じるため）。 */
+function numExprs(s){
+  var re = new RegExp('\\d[\\d，,]*\\s*(?:' + UNITS + ')|\\d{1,2}\\s*[\\/／]\\s*\\d{1,2}', 'g');
+  var found = String(s).match(re) || [];
+  var seen = {}, out = [];
+  for (var i = 0; i < found.length; i++){
+    var raw = found[i].replace(/\s+/g, '');
+    var key = normalize(raw);
+    if (!seen[key]){ seen[key] = 1; out.push({ key: key, raw: raw }); }
+  }
+  return out;
+}
+
+/* 辞書語が「1文字だけ違う形」で現れていないか。同じ長さの窓を全部見る。 */
+function nearMiss(term, text){
+  var t = normalize(text), n = term.length;
+  if (t.indexOf(term) !== -1) return null;      // そのまま出ている
+  for (var i = 0; i + n <= t.length; i++){
+    var w = t.substr(i, n), diff = 0;
+    for (var j = 0; j < n; j++) if (w[j] !== term[j]) diff++;
+    if (diff === 1) return w;                    // 1文字違い＝取り違えの疑い
+  }
+  return null;
+}
+
+function judge(){
+  var src = document.getElementById('src').value;
+  var out = document.getElementById('out').value;
+  var flags = [], stop = 0, hold = 0;
+
+  if (!out.trim()){
+    render('検品する を押してください', 'ブラウザ内で完結・送信なし', '', []);
+    return;
+  }
+
+  /* ルール1: 数値の突合 */
+  var srcNums = numExprs(src), outNums = numExprs(out);
+  var srcSet = {};
+  for (var i = 0; i < srcNums.length; i++) srcSet[srcNums[i].key] = 1;
+  var unknown = [];
+  for (var k = 0; k < outNums.length; k++) if (!srcSet[outNums[k].key]) unknown.push(outNums[k].raw);
+  if (unknown.length){
+    stop += unknown.length;
+    flags.push({ cls:'minus', t:'原稿に無い数値が ' + unknown.length + ' 件',
+      d:'<code>' + unknown.map(esc).join('</code>　<code>') + '</code><br>原稿側の数値は ' +
+        '<code>' + srcNums.map(function(n){ return esc(n.raw); }).join('</code> <code>') + '</code> です。配信を止めました。' });
+  } else {
+    flags.push({ cls:'plus', t:'数値の突合 ' + outNums.length + ' 件すべて一致',
+      d:'投稿文の数値表現は、すべて原稿に存在します。' });
+  }
+
+  /* ルール2: 固有名詞の突合 */
+  var misses = [];
+  for (var d = 0; d < DICT.length; d++){
+    var nm = nearMiss(DICT[d], out);
+    if (nm) misses.push({ term: DICT[d], got: nm });
+  }
+  if (misses.length){
+    stop += misses.length;
+    flags.push({ cls:'minus', t:'固有名詞の取り違えが ' + misses.length + ' 件',
+      d: misses.map(function(m){
+        return '<code>' + esc(m.got) + '</code> → 正しくは <code>' + esc(m.term) + '</code>';
+      }).join('<br>') + '<br>1文字違いは、人の目視でいちばん見落とされます。' });
+  } else {
+    flags.push({ cls:'plus', t:'固有名詞の取り違えなし', d:'辞書の語に1文字違いは見つかりませんでした。' });
+  }
+
+  /* ルール3: 必須事実の欠落 */
+  var lack = [];
+  var no = normalize(out);
+  if (!/LINE|申込|申し込|お申/.test(no)) lack.push('申込方法');
+  if (!/まで|締切|期限/.test(no)) lack.push('期限');
+  if (lack.length){
+    hold += lack.length;
+    flags.push({ cls:'warn', t:'必須事実の欠落：' + lack.join('・'),
+      d:'間違いではありませんが、この投稿だけを見た人が次の行動を取れません。担当者に保留として上げます。' });
+  }
+
+  var cls = stop ? 'stop' : (hold ? 'hold' : 'pass');
+  var head = stop ? '配信を止めました' : (hold ? '保留（担当者へ）' : 'ゲート通過');
+  var note = stop ? '差し戻し ' + stop + ' 件 ／ このまま投稿されると訂正が発生します'
+           : (hold ? '欠落 ' + hold + ' 件 ／ 内容は正しいが、行動に繋がりません'
+           : '二段目のAI判定と、三段目の人の承認へ進みます');
+  render(head, note, cls, flags);
+}
+
+function render(head, note, cls, flags){
+  var v = document.getElementById('verdict');
+  v.className = 'verdict' + (cls ? ' ' + cls : '');
+  v.innerHTML = esc(head) + '<small>' + esc(note) + '</small>';
+  document.getElementById('flags').innerHTML = flags.map(function(f){
+    return '<div class="flag ' + f.cls + '"><b>' + f.t + '</b>' + f.d + '</div>';
+  }).join('');
+}
+
+document.getElementById('src').value = SRC_DEFAULT;
+document.getElementById('out').value = SAMPLES.bad;
+document.getElementById('dictview').textContent = DICT.join('　／　');
+
+document.getElementById('run').addEventListener('click', judge);
+var loaders = document.querySelectorAll('[data-load]');
+for (var i = 0; i < loaders.length; i++){
+  loaders[i].addEventListener('click', function(){
+    document.getElementById('out').value = SAMPLES[this.getAttribute('data-load')];
+    judge();
+  });
+}
+</script>
+</body>
+</html>
