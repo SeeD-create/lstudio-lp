@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>白岩税理士事務所（練馬）｜ホームページ制作のご提案デモ - Lスタジオ</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="練馬区の税理士事務所ホームページの提案用デモ。WordPressで納品したときの完成イメージです。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   参照：Munro Partners（クリーム地・ヘアライン・全幅写真・囁くような見出し）
+        ＋ Legora（写真の上に直接セリフ体を置くヒーロー）
+   DO   : 地は #fff9ee のみ。黒は使わず墨茶 #3f322a。区切りは1pxヘアライン。
+          ボタン・入力・カードは角丸2px、画像だけ15px。塗りのアクセントは
+          深緑青 #004e4e を1画面に1つだけ。影・グラデーションは使わない。
+   DON'T: 純白の地、#000の文字、影、角丸を混ぜる、本文を700にする。
+   ========================================================================== */
+:root{
+  --cream:#fff9ee; --paper:#ffffff; --ink:#3f322a; --earth:#796e65;
+  --warm:#9f968c;  --stone:#c5bdb3; --line:#e7e0d5;
+  --teal:#004e4e;  --dark:#262019;
+  --jp:'Noto Sans JP',system-ui,sans-serif;
+  --disp:'Shippori Mincho B1','Yu Mincho',serif;
+  --lat:'Barlow Condensed',sans-serif;
+  --ez:cubic-bezier(.16,1,.3,1);
+  --ribbon:38px; --nav:60px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+section,.band,.divider{scroll-margin-top:calc(var(--ribbon) + var(--nav) + 10px)}
+body{background:var(--cream);color:var(--ink);font-family:var(--jp);
+  font-size:15px;line-height:1.95;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---- 帯（この頁が提案デモであることの断り） ---- */
+.ribbon{position:fixed;top:0;left:0;right:0;z-index:60;height:var(--ribbon);
+  background:var(--dark);color:#e9e2d5;display:flex;align-items:center;justify-content:center;
+  gap:14px;font-size:11.5px;letter-spacing:.06em;padding:0 14px;text-align:center;line-height:1.4}
+.ribbon b{font-weight:500;color:#fff}
+.ribbon .by{font-family:var(--lat);text-transform:uppercase;letter-spacing:.18em;
+  font-size:10.5px;color:#8f867a}
+@media(max-width:720px){:root{--ribbon:34px}.ribbon{font-size:10.5px;letter-spacing:.02em}
+  .ribbon .by,.ribbon .long{display:none}}
+.ribbon .short{display:none}
+@media(max-width:720px){.ribbon .short{display:inline}}
+
+/* ---- ナビ ---- */
+.nav{position:fixed;top:var(--ribbon);left:0;right:0;z-index:55;height:var(--nav);
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,44px);
+  background:transparent;border-bottom:1px solid transparent;
+  transition:transform .5s var(--ez),background .35s ease,border-color .35s ease}
+.nav.solid{background:rgba(255,249,238,.94);backdrop-filter:blur(8px);border-bottom-color:var(--line)}
+.nav.hide{transform:translateY(-101%)}
+.brand{font-family:var(--disp);font-size:17px;font-weight:600;letter-spacing:.08em;color:#fff;
+  transition:color .35s ease}
+.brand small{display:block;font-family:var(--lat);font-size:9px;letter-spacing:.28em;
+  text-transform:uppercase;font-weight:500;opacity:.75;margin-top:1px}
+.nav.solid .brand{color:var(--ink)}
+.navg{display:flex;gap:26px;align-items:center;font-size:12.5px;letter-spacing:.06em;color:#fff;
+  transition:color .35s ease}
+.nav.solid .navg{color:var(--ink)}
+.navg a{position:relative;padding-bottom:3px}
+.navg a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:currentColor;transition:right .4s var(--ez)}
+.navg a:hover::after{right:0}
+.navg .cta{background:var(--teal);color:#fff;padding:9px 18px;border-radius:2px;font-size:12px;
+  letter-spacing:.08em}
+.navg .cta::after{display:none}
+@media(max-width:860px){.navg a:not(.cta){display:none}}
+
+/* ---- 共通の版面 ---- */
+.sec{max-width:1180px;margin:0 auto;padding:clamp(64px,9vw,116px) clamp(16px,4vw,44px)}
+.kicker{font-family:var(--lat);font-size:12px;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--earth);display:flex;align-items:center;margin-bottom:22px}
+.kicker::after{content:"";display:inline-block;height:1px;background:var(--stone);
+  width:0;margin-left:16px;transition:width 1.1s .25s var(--ez)}
+.rv.in .kicker::after{width:64px}
+h2{font-family:var(--disp);font-weight:600;letter-spacing:.03em;
+  font-size:clamp(27px,4.4vw,46px);line-height:1.42;margin-bottom:26px}
+.lead{max-width:680px;color:var(--ink);font-size:15px;line-height:2.05}
+.lead p+p{margin-top:20px}
+.hair{height:1px;background:var(--line);border:0}
+section.paper{background:var(--paper)}
+section.dark{background:var(--dark);color:#e9e2d5}
+section.dark h2{color:#fff}
+section.dark .kicker{color:#9a9081}
+section.dark .lead{color:#cfc6b6}
+section.dark .hair,section.dark hr{background:#3b342b}
+
+/* ---- ヒーロー ---- */
+.hero{position:relative;height:calc(100svh - var(--ribbon));margin-top:var(--ribbon);
+  min-height:540px;overflow:hidden;background:#201c17}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.02)}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(24,20,16,.80) 0%,rgba(24,20,16,.55) 42%,rgba(24,20,16,.12) 78%)}
+.hero .in{position:relative;z-index:2;height:100%;max-width:1180px;margin:0 auto;
+  padding:0 clamp(16px,4vw,44px);display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(64px,10vh,118px)}
+.hero .eyebrow{font-family:var(--lat);font-size:12.5px;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:#cbbfa8;margin-bottom:20px}
+.hero h1{font-family:var(--disp);font-weight:600;color:#fff;
+  font-size:clamp(34px,6.6vw,74px);line-height:1.34;letter-spacing:.04em}
+.hero .sub{color:#e2dacb;max-width:520px;margin-top:26px;font-size:15px;line-height:2.05}
+.hero .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.hero .facts{display:flex;gap:0;margin-top:40px;border-top:1px solid rgba(255,255,255,.22);
+  padding-top:18px;flex-wrap:wrap}
+.hero .facts div{padding-right:30px;margin-right:30px;border-right:1px solid rgba(255,255,255,.18)}
+.hero .facts div:last-child{border:0;margin:0;padding:0}
+.hero .facts b{display:block;font-family:var(--lat);font-size:11px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:#a99e8b;margin-bottom:2px}
+.hero .facts span{font-size:13.5px;color:#efe9dd}
+.scrollhint{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:3;
+  font-family:var(--lat);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#fff;opacity:.5}
+@media(max-width:720px){
+  .hero::after{background:linear-gradient(180deg,rgba(24,20,16,.34) 0%,rgba(24,20,16,.20) 26%,rgba(24,20,16,.72) 62%,rgba(24,20,16,.90) 100%)}
+  .hero .in{padding-bottom:clamp(48px,7vh,80px)}
+  .hero{height:calc(100svh - var(--ribbon));min-height:0}
+  .hero .facts div{padding-right:16px;margin-right:16px}
+  .hero .facts b{font-size:10px}
+  .hero .facts span{font-size:12px}
+}
+
+/* ---- ボタン ---- */
+.btn{display:inline-block;background:var(--teal);color:#fff;padding:14px 28px;border-radius:2px;
+  font-size:13px;letter-spacing:.1em;position:relative;overflow:hidden;z-index:0;border:0;
+  cursor:pointer;font-family:var(--jp)}
+.btn::before{content:"";position:absolute;inset:0;background:#00696a;
+  transform:translateX(-101%);transition:transform .45s var(--ez);z-index:-1}
+.btn:hover::before{transform:none}
+.ghost{display:inline-block;border:1px solid rgba(255,255,255,.5);color:#fff;padding:13px 26px;
+  border-radius:2px;font-size:13px;letter-spacing:.1em;transition:border-color .35s,color .35s}
+.ghost:hover{border-color:#fff}
+.ghost.ink{border-color:var(--stone);color:var(--ink)}
+.ghost.ink:hover{border-color:var(--ink)}
+
+/* ---- 2カラム（事務所案内） ---- */
+.two{display:grid;grid-template-columns:.86fr 1.14fr;gap:clamp(28px,5vw,72px);align-items:center}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.sign{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);display:flex;
+  align-items:baseline;gap:14px;flex-wrap:wrap}
+.sign b{font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:.06em}
+.sign span{font-size:12px;color:var(--earth);letter-spacing:.06em}
+
+/* ---- 帯（全幅写真） ---- */
+.band{position:relative;height:clamp(280px,44vh,440px);overflow:hidden;background:#201c17}
+.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.14)}
+.band::after{content:"";position:absolute;inset:0;background:rgba(22,18,14,.5)}
+.band .t{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:0 20px}
+.band .t p{font-family:var(--disp);font-weight:500;color:#fff;
+  font-size:clamp(19px,3vw,32px);line-height:1.7;letter-spacing:.08em}
+.band .t span{display:block;margin-top:16px;font-family:var(--lat);font-size:11px;
+  letter-spacing:.28em;text-transform:uppercase;color:#c4b8a4}
+
+/* ---- 画像の枠 ---- */
+.ib{overflow:hidden;position:relative;border-radius:15px}
+.ib>img{width:100%;height:100%;object-fit:cover}
+
+/* ---- サービスのカード ---- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,30px)}
+@media(max-width:960px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}}
+.card .ib{aspect-ratio:1/1;margin-bottom:16px}
+.card .n{font-family:var(--lat);font-size:11px;font-weight:600;letter-spacing:.18em;
+  color:var(--warm);display:block;margin-bottom:6px}
+.card h3{font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:.05em;
+  line-height:1.6;margin-bottom:9px}
+.card p{font-size:13.5px;color:var(--earth);line-height:1.95}
+.card .price{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
+  font-family:var(--lat);font-size:15px;letter-spacing:.05em;color:var(--ink)}
+.card .price i{font-style:normal;font-family:var(--jp);font-size:11.5px;color:var(--warm);
+  margin-left:6px;letter-spacing:0}
+
+/* ---- 料金表 ---- */
+.rate{border-top:1px solid var(--stone)}
+.rate .row{display:grid;grid-template-columns:1.5fr 2.4fr 1fr;gap:18px;align-items:baseline;
+  padding:19px 0;border-bottom:1px solid var(--line)}
+.rate .row b{font-weight:500;font-size:15px;letter-spacing:.03em}
+.rate .row span{font-size:13px;color:var(--earth);line-height:1.85}
+.rate .row em{font-style:normal;font-family:var(--lat);font-size:18px;letter-spacing:.04em;
+  text-align:right;white-space:nowrap}
+.rate .row em i{font-style:normal;font-family:var(--jp);font-size:11px;color:var(--warm);margin-left:4px}
+@media(max-width:720px){
+  .rate .row{grid-template-columns:1fr auto;gap:6px 14px}
+  .rate .row span{grid-column:1/-1}
+}
+.note{margin-top:20px;font-size:12.5px;color:var(--warm);line-height:1.95}
+
+/* ---- 流れ ---- */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,26px)}
+@media(max-width:860px){.flow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.flow{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:2px;padding:24px 20px;background:var(--cream)}
+section.paper .step{background:var(--paper)}
+.step b{font-family:var(--lat);font-size:34px;font-weight:400;letter-spacing:.02em;
+  color:var(--stone);display:block;line-height:1;margin-bottom:14px}
+.step h4{font-family:var(--disp);font-size:16.5px;font-weight:600;letter-spacing:.05em;margin-bottom:8px}
+.step p{font-size:13px;color:var(--earth);line-height:1.9}
+
+/* ---- お知らせ・ブログ ---- */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,32px)}
+@media(max-width:860px){.posts{grid-template-columns:1fr}}
+.post .ib{aspect-ratio:16/10;margin-bottom:14px}
+.post .meta{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.post .meta time{font-family:var(--lat);font-size:12.5px;letter-spacing:.08em;color:var(--warm)}
+.post .meta .tag{font-size:10.5px;letter-spacing:.08em;border:1px solid var(--stone);
+  border-radius:2px;padding:2px 8px;color:var(--earth)}
+.post h3{font-family:var(--disp);font-size:17px;font-weight:600;line-height:1.68;letter-spacing:.04em}
+.post p{font-size:13px;color:var(--earth);margin-top:8px;line-height:1.9}
+.post.new{animation:postIn .8s var(--ez) both}
+@keyframes postIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ---- FAQ ---- */
+.faq{border-top:1px solid var(--stone);max-width:900px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;position:relative;
+  font-size:15px;letter-spacing:.03em;line-height:1.75}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:19px;font-family:var(--lat);
+  font-size:19px;color:var(--warm);transition:transform .3s var(--ez)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 40px 22px 0;font-size:13.5px;color:var(--earth);line-height:2}
+.faq details[open] .a{animation:faqOpen .5s var(--ez)}
+@keyframes faqOpen{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* ---- アクセス ---- */
+.access{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(28px,5vw,64px);align-items:start}
+@media(max-width:860px){.access{grid-template-columns:1fr}}
+.access .ib{aspect-ratio:3/4}
+.dl{border-top:1px solid var(--stone)}
+.dl .r{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;
+  border-bottom:1px solid var(--line)}
+.dl .r dt{font-family:var(--lat);font-size:12px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--earth);padding-top:3px}
+.dl .r dd{font-size:14px;line-height:1.9}
+@media(max-width:560px){.dl .r{grid-template-columns:1fr;gap:4px}}
+.mapbox{margin-top:26px;height:230px;border:1px solid var(--line);border-radius:2px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 38px,rgba(63,50,42,.05) 38px 39px),
+    repeating-linear-gradient(0deg,transparent 0 38px,rgba(63,50,42,.05) 38px 39px),
+    var(--paper);
+  display:flex;align-items:center;justify-content:center;position:relative}
+.mapbox .pin{width:13px;height:13px;border-radius:50%;background:var(--teal);
+  box-shadow:0 0 0 6px rgba(0,78,78,.16)}
+.mapbox .lb{position:absolute;bottom:12px;left:14px;font-size:11px;color:var(--warm);
+  letter-spacing:.06em}
+
+/* ---- お問い合わせフォーム ---- */
+.formwrap{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,5vw,72px)}
+@media(max-width:860px){.formwrap{grid-template-columns:1fr}}
+.form .f{margin-bottom:22px}
+.form label{display:block;font-size:12px;letter-spacing:.1em;color:#b6ab99;margin-bottom:9px}
+.form label i{font-style:normal;color:#c98b6a;margin-left:6px;font-size:10.5px}
+.form input,.form textarea,.form select{width:100%;background:transparent;border:0;
+  border-bottom:1px solid #5b5147;color:#f2ece1;font-family:var(--jp);font-size:15px;
+  padding:9px 2px;border-radius:0;transition:border-color .3s}
+.form input:focus,.form textarea:focus,.form select:focus{outline:0;border-bottom:2px solid #7fb3ad}
+.form select option{background:#262019;color:#f2ece1}
+.form textarea{resize:vertical;min-height:104px;line-height:1.85}
+.form .agree{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:#c3b9a8;
+  margin:6px 0 24px;line-height:1.8}
+.form .agree input{width:auto;border:0;margin-top:5px}
+.form .btn{width:100%;padding:17px}
+.form .sent{margin-top:16px;border:1px solid #4a6b66;background:rgba(0,78,78,.24);
+  border-radius:2px;padding:16px 18px;font-size:13px;line-height:1.9;color:#dcecea;display:none}
+.form .sent.show{display:block;animation:faqOpen .5s var(--ez)}
+
+/* ---- 仕切り（ここから制作の説明） ---- */
+.divider{background:var(--dark);color:#8f867a;text-align:center;
+  padding:clamp(48px,7vw,84px) 20px;border-top:1px solid #3b342b}
+.divider .n{font-family:var(--lat);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:#6f6659;margin-bottom:14px}
+.divider p{font-family:var(--disp);font-size:clamp(17px,2.6vw,25px);color:#e9e2d5;
+  line-height:1.85;letter-spacing:.07em}
+
+/* ---- 管理画面の再現 ---- */
+.wp{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,52px);align-items:start}
+@media(max-width:960px){.wp{grid-template-columns:1fr}}
+.screen{border:1px solid var(--line);border-radius:2px;background:var(--paper);overflow:hidden}
+.screen .bar{background:#1f2b33;color:#c3ced6;display:flex;align-items:center;gap:8px;
+  padding:9px 13px;font-family:var(--lat);font-size:11.5px;letter-spacing:.1em}
+.screen .bar i{width:8px;height:8px;border-radius:50%;background:#4a5c68;display:block}
+.screen .body{padding:18px}
+.wpfield{margin-bottom:14px}
+.wpfield label{display:block;font-size:11px;letter-spacing:.12em;color:var(--warm);margin-bottom:6px}
+.wpfield .box{border:1px solid var(--line);border-radius:2px;padding:11px 12px;font-size:13.5px;
+  background:#fdfbf6;min-height:42px;line-height:1.75;transition:border-color .35s,background .35s}
+.wpfield .box.edit{border-color:var(--teal);background:#f2f8f7}
+.wpfield .box.tall{min-height:88px;color:var(--earth);font-size:13px}
+.wpbtns{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.wpbtn{border:1px solid var(--stone);background:var(--cream);color:var(--ink);border-radius:2px;
+  padding:10px 16px;font-size:12.5px;font-family:var(--jp);letter-spacing:.05em;cursor:pointer;
+  transition:border-color .3s,background .3s}
+.wpbtn:hover{border-color:var(--ink)}
+.wpbtn.pri{background:var(--teal);border-color:var(--teal);color:#fff}
+.wpbtn:disabled{opacity:.4;cursor:default}
+.pipe{margin-top:18px;border:1px solid var(--line);border-radius:2px;background:#fdfbf6;
+  padding:14px 15px;font-family:var(--lat);font-size:13px;letter-spacing:.04em;color:var(--earth);
+  min-height:104px;line-height:1.95}
+.pipe b{color:var(--teal);font-weight:600}
+.flash{animation:flash 1.6s var(--ez)}
+@keyframes flash{0%{background:#cfe7e4}100%{background:transparent}}
+
+/* ---- SEO ---- */
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 28px;max-width:820px}
+@media(max-width:640px){.checks{grid-template-columns:1fr}}
+.checks li{list-style:none;display:flex;gap:12px;font-size:13.5px;line-height:1.9;
+  padding-bottom:13px;border-bottom:1px solid var(--line)}
+.checks li::before{content:"";flex:0 0 7px;height:7px;margin-top:9px;border-radius:50%;
+  background:var(--teal)}
+.code{margin-top:30px;border:1px solid var(--line);border-radius:2px;background:#fdfbf6;
+  padding:18px;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:11.5px;line-height:1.85;color:var(--earth);white-space:pre}
+.code .k{color:#7a5c2e}.code .s{color:var(--teal)}
+
+/* ---- スマホ幅の切替 ---- */
+.devwrap{display:flex;flex-direction:column;align-items:center;gap:20px}
+.devbtns{display:flex;gap:9px}
+.dev{width:100%;max-width:980px;border:1px solid var(--line);border-radius:2px;overflow:hidden;
+  transition:max-width .6s var(--ez);background:var(--paper)}
+.dev.sp{max-width:390px}
+.dev img{width:100%}
+
+/* ---- 提案のまとめ ---- */
+.spec{border-top:1px solid var(--stone);max-width:920px}
+.spec .r{display:grid;grid-template-columns:190px 1fr;gap:22px;padding:18px 0;
+  border-bottom:1px solid var(--line)}
+.spec .r dt{font-size:13px;letter-spacing:.08em;color:var(--earth);padding-top:2px}
+.spec .r dd{font-size:14.5px;line-height:1.95}
+.spec .r dd>b{font-family:var(--lat);font-size:22px;letter-spacing:.03em;font-weight:500}
+.spec .r dd span b{font-size:inherit;font-family:inherit;font-weight:500;letter-spacing:inherit}
+@media(max-width:640px){.spec .r{grid-template-columns:1fr;gap:4px}}
+
+/* ---- footer ---- */
+footer{background:var(--dark);color:#a9a093;padding:clamp(48px,7vw,80px) clamp(16px,4vw,44px) 108px}
+.fin{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:34px}
+@media(max-width:860px){.fin{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.fin{grid-template-columns:1fr}}
+.fin h5{font-family:var(--lat);font-size:11px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:#6f6659;margin-bottom:14px}
+.fin a,.fin p{font-size:13px;line-height:2.1;display:block}
+.fin a:hover{color:#fff}
+.fin .fb{font-family:var(--disp);font-size:20px;font-weight:600;color:#efe9dd;letter-spacing:.08em;
+  margin-bottom:10px}
+.fbot{max-width:1180px;margin:44px auto 0;padding-top:20px;border-top:1px solid #3b342b;
+  font-size:11.5px;color:#6f6659;line-height:1.9}
+
+/* ---- スマホ固定CTA ---- */
+.spcta{position:fixed;left:0;right:0;bottom:0;z-index:56;display:none;background:var(--teal);
+  color:#fff;text-align:center;padding:15px;font-size:14px;letter-spacing:.08em}
+@media(max-width:860px){.spcta{display:block}}
+
+/* ==========================================================================
+   MOTION — 全部 prefers-reduced-motion で止まる
+   ========================================================================== */
+#curtain{position:fixed;inset:0;z-index:100;background:var(--dark);display:flex;
+  align-items:center;justify-content:center;opacity:1;visibility:visible;
+  transition:opacity .8s .45s var(--ez),visibility .8s .45s}
+#curtain .w{font-family:var(--disp);font-size:23px;font-weight:600;line-height:1;text-align:center;
+  color:#fff;opacity:0;letter-spacing:.5em;animation:curtainWord 1.1s .1s var(--ez) forwards}
+#curtain .w i{font-style:normal;display:block;font-family:var(--lat);font-size:9px;
+  letter-spacing:.42em;text-transform:uppercase;font-weight:500;color:#8a8073;margin-top:11px}
+@keyframes curtainWord{0%{opacity:0;letter-spacing:.62em}60%{opacity:1}100%{opacity:1;letter-spacing:.16em}}
+body.loaded #curtain{opacity:0;visibility:hidden}
+
+body.loaded .hero>img{animation:kenburns 26s 1.2s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.11)}}
+
+.rl{display:block;overflow:hidden;padding-bottom:.08em}
+.rl>span{display:block;transform:translateY(112%);transition:transform 1.05s var(--ez)}
+body.loaded h1 .rl>span{transform:none}
+h1 .rl:nth-of-type(1)>span{transition-delay:.9s}
+h1 .rl:nth-of-type(2)>span{transition-delay:1.01s}
+h1 .rl:nth-of-type(3)>span{transition-delay:1.12s}
+.rv.in .rl>span{transform:none}
+.rv .rl:nth-of-type(1)>span{transition-delay:.06s}
+.rv .rl:nth-of-type(2)>span{transition-delay:.15s}
+.rv .rl:nth-of-type(3)>span{transition-delay:.24s}
+
+.hero .eyebrow,.hero .sub,.hero .btns,.hero .facts,.scrollhint{
+  opacity:0;transform:translateY(14px);transition:opacity .9s var(--ez),transform .9s var(--ez)}
+body.loaded .hero .eyebrow{opacity:1;transform:none;transition-delay:.75s}
+body.loaded .hero .sub{opacity:1;transform:none;transition-delay:1.25s}
+body.loaded .hero .btns{opacity:1;transform:none;transition-delay:1.4s}
+body.loaded .hero .facts{opacity:1;transform:none;transition-delay:1.55s}
+body.loaded .scrollhint{opacity:.5;transform:translateX(-50%);transition-delay:1.85s;
+  animation:scrollPulse 2.4s 2.6s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:.75}}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.rv.in{opacity:1;transform:none}
+
+.ib{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s var(--ez)}
+.ib.in{clip-path:inset(0 0 0 0)}
+.ib>img{transform:scale(1.13);transition:transform 1.6s var(--ez)}
+.ib.in>img{transform:none}
+.card:hover .ib>img,.post:hover .ib>img{transform:scale(1.05)}
+
+.band img{will-change:transform}
+.band .t p,.band .t span{opacity:0;transition:opacity 1.1s var(--ez),letter-spacing 1.4s var(--ez)}
+.band .t p{letter-spacing:.24em}
+.band.in .t p{opacity:1;letter-spacing:.08em}
+.band.in .t span{opacity:1;transition-delay:.35s}
+
+.stagger>*{opacity:0;transform:translateY(20px);
+  transition:opacity .9s var(--ez),transform .9s var(--ez)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(2){transition-delay:.09s}
+.stagger.in>*:nth-child(3){transition-delay:.18s}
+.stagger.in>*:nth-child(4){transition-delay:.27s}
+.stagger.in>*:nth-child(5){transition-delay:.36s}
+.stagger.in>*:nth-child(6){transition-delay:.45s}
+
+.divider p{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.divider .n{opacity:0;transition:opacity .8s var(--ez)}
+.divider.in p{opacity:1;transform:none;transition-delay:.15s}
+.divider.in .n{opacity:1}
+
+@media(prefers-reduced-motion:reduce){
+  #curtain{display:none}
+  .hero>img,body.loaded .hero>img{animation:none;transform:none}
+  .rl>span,.rv,.ib,.ib>img,.hero .eyebrow,.hero .sub,.hero .btns,.hero .facts,.scrollhint,
+  .band .t p,.band .t span,.stagger>*,.divider p,.divider .n{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important;animation:none !important}
+  .band .t p{letter-spacing:.08em}
+  .kicker::after{width:64px;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div id="curtain"><div class="w">白岩税理士事務所<i>Nerima &middot; Demo</i></div></div>
+
+<div class="ribbon">
+  <span class="long">これは<b>ご提案用のデモ</b>です。事務所名・所在地・料金・写真はすべて架空の仮置きで、実在の事務所ではありません。</span><span class="short">これは<b>ご提案用のデモ</b>です（架空の事務所）</span>
+  <span class="by">L-Studio &middot; Proposal</span>
+</div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top">白岩税理士事務所<small>Shiraiwa Tax Office</small></a>
+  <nav class="navg">
+    <a href="#about">事務所案内</a>
+    <a href="#service">サービス</a>
+    <a href="#price">料金</a>
+    <a href="#blog">お知らせ</a>
+    <a href="#access">アクセス</a>
+    <a class="cta" href="#contact">無料相談</a>
+  </nav>
+</header>
+
+<!-- 01 HERO ============================================================== -->
+<section class="hero" id="top">
+  <img src="img/hero.jpg" alt="事務所の面談スペース" fetchpriority="high">
+  <div class="in">
+    <p class="eyebrow">Nerima, Tokyo &mdash; Certified Tax Accountant</p>
+    <h1>
+      <span class="rl"><span>数字の前に、</span></span>
+      <span class="rl"><span>事情を聞きます。</span></span>
+    </h1>
+    <p class="sub">練馬で開業した、ひとりの税理士事務所です。<br>
+      はじめての確定申告、はじめての決算、はじめての相続。<br>
+      「何がわからないのかもわからない」 の状態から、ご一緒します。</p>
+    <div class="btns">
+      <a class="btn" href="#contact">初回相談（60分）は無料</a>
+      <a class="ghost" href="#service">サービスと料金を見る</a>
+    </div>
+    <div class="facts">
+      <div><b>Access</b><span>練馬駅 徒歩4分</span></div>
+      <div><b>Hours</b><span>平日 9:00–18:00</span></div>
+      <div><b>Area</b><span>練馬・板橋・西東京</span></div>
+      <div><b>First visit</b><span>初回相談 無料</span></div>
+    </div>
+  </div>
+  <div class="scrollhint">Scroll</div>
+</section>
+
+<!-- 02 事務所案内 ======================================================== -->
+<section id="about">
+  <div class="sec two rv">
+    <div class="ib"><img src="img/concept.jpg" alt="窓辺の執務席" loading="lazy"></div>
+    <div>
+      <p class="kicker">About</p>
+      <h2>
+        <span class="rl"><span>顧問料の話より先に、</span></span>
+        <span class="rl"><span>来年の話をします。</span></span>
+      </h2>
+      <div class="lead">
+        <p>2026年8月、練馬に事務所を開きました。前職は都内の会計事務所で、法人の月次と個人の確定申告を12年間担当しています。独立したのは、担当できる件数を絞って、一社一社の事情まで踏み込みたかったからです。</p>
+        <p>税務の相談は、たいてい「もう決まってしまったこと」の後始末から始まります。けれど本当に効くのは、決める前の30分です。設備を買う前、人を雇う前、家を相続する前。その一本の電話を気軽にかけてもらえる距離にいることが、この事務所の役割だと考えています。</p>
+        <p>だから初回のご相談は無料、時間は60分いただきます。ご契約に至らなくても構いません。持ち帰っていただく「次にやること3つ」まで、その場でお出しします。</p>
+      </div>
+      <div class="sign">
+        <b>白岩 直人</b>
+        <span>代表・税理士（東京税理士会 練馬支部）</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND ================================================================ -->
+<div class="band">
+  <img src="img/band-street.jpg" alt="練馬の街並み" loading="lazy">
+  <div class="t">
+    <p>会いに行ける距離に、<br>税理士がいるということ。</p>
+    <span>Nerima &middot; Itabashi &middot; Nishitokyo</span>
+  </div>
+</div>
+
+<!-- 03 サービス案内 ====================================================== -->
+<section class="paper" id="service">
+  <div class="sec rv">
+    <p class="kicker">Services</p>
+    <h2>
+      <span class="rl"><span>お引き受けしている、</span></span>
+      <span class="rl"><span>6つのご依頼。</span></span>
+    </h2>
+    <p class="lead" style="margin-bottom:44px">金額は目安です。ご依頼の範囲と業種・仕訳数によって前後します。初回の面談で、必ず書面のお見積りをお出しします。</p>
+    <div class="cards stagger">
+      <article class="card">
+        <div class="ib"><img src="img/meet1.jpg" alt="打ち合わせの手元" loading="lazy"></div>
+        <span class="n">01</span>
+        <h3>法人の税務顧問</h3>
+        <p>月次の巡回監査、試算表のご説明、決算・法人税申告、年末調整まで。四半期に一度は「このままいくと税額はいくらか」を必ずお伝えします。</p>
+        <span class="price">¥30,000〜<i>／月（決算料は別）</i></span>
+      </article>
+      <article class="card">
+        <div class="ib"><img src="img/desk1.jpg" alt="確定申告の資料" loading="lazy"></div>
+        <span class="n">02</span>
+        <h3>個人事業・フリーランス</h3>
+        <p>青色申告の確定申告一式。開業届と青色申告承認申請、経費の線引き、インボイスの要否判断まで、初年度の方を歓迎しています。</p>
+        <span class="price">¥88,000〜<i>／年</i></span>
+      </article>
+      <article class="card">
+        <div class="ib"><img src="img/calc.jpg" alt="電卓と帳簿" loading="lazy"></div>
+        <span class="n">03</span>
+        <h3>記帳代行</h3>
+        <p>領収書と通帳のコピーを封筒で送っていただければ、こちらで会計ソフトに入力します。「まだ何もつけていない」状態からで大丈夫です。</p>
+        <span class="price">¥11,000〜<i>／月（仕訳50件まで）</i></span>
+      </article>
+      <article class="card">
+        <div class="ib"><img src="img/docs.jpg" alt="設立の書類" loading="lazy"></div>
+        <span class="n">04</span>
+        <h3>会社設立サポート</h3>
+        <p>個人から法人へ切り替えるべき時期の試算、定款の内容、設立後の届出。提携の司法書士と一緒に、登記まで一本でお通しします。</p>
+        <span class="price">¥110,000〜<i>／一式</i></span>
+      </article>
+      <article class="card">
+        <div class="ib"><img src="img/tea.jpg" alt="応接" loading="lazy"></div>
+        <span class="n">05</span>
+        <h3>相続税の申告</h3>
+        <p>財産の洗い出し、評価、遺産分割のご相談、申告書の作成まで。生前のご相談も承ります。むしろ生前に来ていただきたい分野です。</p>
+        <span class="price">¥220,000〜<i>／一件</i></span>
+      </article>
+      <article class="card">
+        <div class="ib"><img src="img/entrance.jpg" alt="事務所の入口" loading="lazy"></div>
+        <span class="n">06</span>
+        <h3>融資・補助金のご相談</h3>
+        <p>日本政策金融公庫の創業融資、小規模事業者持続化補助金など。通る事業計画は、数字の作り方でほぼ決まります。</p>
+        <span class="price">¥33,000〜<i>／スポット</i></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 料金案内 ========================================================== -->
+<section id="price">
+  <div class="sec rv">
+    <p class="kicker">Fees</p>
+    <h2>
+      <span class="rl"><span>料金は、先に</span></span>
+      <span class="rl"><span>書いておきます。</span></span>
+    </h2>
+    <p class="lead" style="margin-bottom:40px">「聞かないとわからない」を無くすために、目安を公開しています。表にない業務も、ご相談いただければ都度お見積りします。</p>
+    <div class="rate stagger">
+      <div class="row"><b>法人 税務顧問</b><span>月次巡回・試算表の説明・税務相談（年4回の面談を含む）</span><em>30,000<i>円／月〜</i></em></div>
+      <div class="row"><b>法人 決算申告</b><span>決算書・法人税・地方税・消費税の申告書作成</span><em>150,000<i>円〜</i></em></div>
+      <div class="row"><b>個人 確定申告</b><span>青色申告（記帳済みの場合）。医療費控除・住宅ローン控除の初年度も対応</span><em>88,000<i>円〜</i></em></div>
+      <div class="row"><b>記帳代行</b><span>仕訳50件まで。以降50件ごとに5,500円</span><em>11,000<i>円／月〜</i></em></div>
+      <div class="row"><b>年末調整・法定調書</b><span>従業員5名まで一式</span><em>33,000<i>円〜</i></em></div>
+      <div class="row"><b>相続税申告</b><span>遺産総額5,000万円まで。財産の種類により加算</span><em>220,000<i>円〜</i></em></div>
+    </div>
+    <p class="note">※ 表示はすべて税込です。※ 顧問契約を結ばず、確定申告や決算のみのご依頼も承ります。※ 契約後に金額が上がることはありません。範囲が変わるときは、必ず事前に書面でご相談します。</p>
+  </div>
+</section>
+
+<!-- 05 ご相談の流れ ====================================================== -->
+<section class="paper" id="flow">
+  <div class="sec rv">
+    <p class="kicker">How it works</p>
+    <h2>
+      <span class="rl"><span>お問い合わせから、</span></span>
+      <span class="rl"><span>おおむね2週間。</span></span>
+    </h2>
+    <div class="flow stagger" style="margin-top:40px">
+      <div class="step"><b>01</b><h4>お問い合わせ</h4><p>フォームかお電話で。24時間以内にご返信します。この時点で費用はかかりません。</p></div>
+      <div class="step"><b>02</b><h4>初回面談（無料・60分）</h4><p>事務所かオンラインで。現状をうかがい、その場で「次にやること3つ」をお渡しします。</p></div>
+      <div class="step"><b>03</b><h4>お見積り・ご契約</h4><p>業務範囲と金額を書面で。ご検討の時間は十分におとりください。</p></div>
+      <div class="step"><b>04</b><h4>業務開始</h4><p>資料の受け渡し方法を決めて、初回の記帳・申告に着手します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BAND 2 ============================================================== -->
+<div class="band">
+  <img src="img/office-wide.jpg" alt="事務所の執務スペース" loading="lazy">
+  <div class="t">
+    <p>担当は、最後まで所長ひとり。<br>引き継ぎはありません。</p>
+    <span>One accountant, start to finish</span>
+  </div>
+</div>
+
+<!-- 06 お知らせ・ブログ ================================================== -->
+<section id="blog">
+  <div class="sec rv">
+    <p class="kicker">Journal</p>
+    <h2>
+      <span class="rl"><span>お知らせと、</span></span>
+      <span class="rl"><span>ちいさな税務の話。</span></span>
+    </h2>
+    <p class="lead" style="margin-bottom:44px">月に2〜3本、練馬の小さな会社と個人事業の方に向けて書いています。</p>
+    <div class="posts stagger" id="postlist">
+      <article class="post">
+        <div class="ib"><img src="img/desk2.jpg" alt="書棚" loading="lazy"></div>
+        <div class="meta"><time>2026.08.28</time><span class="tag">個人事業</span></div>
+        <h3>開業1年目のフリーランスが、いちばん損をしやすい経費の話</h3>
+        <p>「これは経費になりますか」と最も多く聞かれる7項目を、練馬で実際にあったご相談の形で並べました。</p>
+      </article>
+      <article class="post">
+        <div class="ib"><img src="img/meet2.jpg" alt="応接テーブル" loading="lazy"></div>
+        <div class="meta"><time>2026.08.19</time><span class="tag">インボイス</span></div>
+        <h3>インボイス、結局うちは登録すべきですか（練馬の小さな会社の場合）</h3>
+        <p>取引先が誰かで答えが変わります。判断の分かれ目を、フローチャート1枚にしました。</p>
+      </article>
+      <article class="post">
+        <div class="ib"><img src="img/exterior.jpg" alt="事務所の外観" loading="lazy"></div>
+        <div class="meta"><time>2026.08.05</time><span class="tag">お知らせ</span></div>
+        <h3>練馬区豊玉北に事務所を開設しました</h3>
+        <p>ご挨拶と、事務所の場所・受付時間・初回相談のご案内です。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 07 FAQ =============================================================== -->
+<section class="paper" id="faq">
+  <div class="sec rv">
+    <p class="kicker">FAQ</p>
+    <h2>
+      <span class="rl"><span>よくいただく</span></span>
+      <span class="rl"><span>ご質問。</span></span>
+    </h2>
+    <div class="faq" style="margin-top:36px">
+      <details><summary>顧問契約をせず、確定申告だけをお願いできますか。</summary>
+        <div class="a">できます。むしろ最初はスポットのご依頼から始まる方が多いです。年に一度の申告だけ、決算だけ、というご依頼も歓迎しています。</div></details>
+      <details><summary>記帳をまったくしていません。領収書の山でも大丈夫ですか。</summary>
+        <div class="a">大丈夫です。封筒にまとめて送っていただければ、こちらで仕訳します。むしろ中途半端に入力されているより早く終わることがあります。</div></details>
+      <details><summary>練馬区の外でも対応してもらえますか。</summary>
+        <div class="a">板橋区・西東京市・杉並区・豊島区は訪問でうかがいます。それ以外の地域は、オンライン面談と郵送でのやり取りで全国対応しています。</div></details>
+      <details><summary>会計ソフトの指定はありますか。</summary>
+        <div class="a">freee・マネーフォワード・弥生のいずれにも対応します。すでにお使いのものがあれば、そのまま引き継ぎます。これから決める場合はご相談ください。</div></details>
+      <details><summary>土日や夜間の相談はできますか。</summary>
+        <div class="a">平日の夜19時までと、第2・第4土曜日の午前を面談枠にしています。フォームからご希望の時間帯をお知らせください。</div></details>
+      <details><summary>料金はいつ確定しますか。</summary>
+        <div class="a">初回面談の後、書面のお見積りでご提示します。ご契約後に金額が上がることはありません。業務範囲が変わる場合は、着手前に必ずご相談します。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 08 アクセス ========================================================== -->
+<section id="access">
+  <div class="sec rv">
+    <p class="kicker">Access</p>
+    <h2>
+      <span class="rl"><span>練馬駅から、</span></span>
+      <span class="rl"><span>歩いて4分です。</span></span>
+    </h2>
+    <div class="access" style="margin-top:40px">
+      <div class="ib"><img src="img/window.jpg" alt="事務所の窓" loading="lazy"></div>
+      <div>
+        <dl class="dl stagger">
+          <div class="r"><dt>Office</dt><dd>白岩税理士事務所</dd></div>
+          <div class="r"><dt>Address</dt><dd>東京都練馬区豊玉北5丁目（西武池袋線・大江戸線 練馬駅 徒歩4分）<br><span style="color:var(--warm);font-size:12px">※ 番地はデモのため伏せています</span></dd></div>
+          <div class="r"><dt>Tel</dt><dd>03-0000-0000（平日 9:00–18:00）</dd></div>
+          <div class="r"><dt>Hours</dt><dd>平日 9:00–18:00 ／ 面談は 19:00 まで、第2・第4土曜の午前も可</dd></div>
+          <div class="r"><dt>Area</dt><dd>練馬区・板橋区・西東京市・杉並区・豊島区（訪問）／ 全国（オンライン）</dd></div>
+          <div class="r"><dt>Payment</dt><dd>銀行振込 ／ クレジットカード ／ 口座振替</dd></div>
+        </dl>
+        <div class="mapbox">
+          <span class="pin"></span>
+          <span class="lb">Google マップを埋め込みます（本番では実際の地図が入ります）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 お問い合わせ ====================================================== -->
+<section class="dark" id="contact">
+  <div class="sec rv">
+    <div class="formwrap">
+      <div>
+        <p class="kicker">Contact</p>
+        <h2>
+          <span class="rl"><span>まずは60分、</span></span>
+          <span class="rl"><span>聞かせてください。</span></span>
+        </h2>
+        <div class="lead">
+          <p>初回のご相談は無料です。売り込みはしません。ご契約に至らなくても、その場でできる整理はしてお返しします。</p>
+          <p style="color:#a99e8b;font-size:13px">お電話でも承ります<br>
+            <span style="font-family:var(--lat);font-size:26px;letter-spacing:.04em;color:#efe9dd">03-0000-0000</span><br>
+            平日 9:00–18:00</p>
+          <ul style="list-style:none;margin-top:30px;padding-top:22px;border-top:1px solid #3b342b">
+            <li style="font-size:13.5px;color:#cfc6b6;padding:7px 0">初回のご相談は 60分・無料です</li>
+            <li style="font-size:13.5px;color:#cfc6b6;padding:7px 0">24時間以内にご返信します</li>
+            <li style="font-size:13.5px;color:#cfc6b6;padding:7px 0">オンライン（Zoom・Meet）でも承ります</li>
+            <li style="font-size:13.5px;color:#cfc6b6;padding:7px 0">平日夜19時まで、第2・第4土曜の午前も面談枠があります</li>
+          </ul>
+        </div>
+      </div>
+      <form class="form" id="cf" novalidate>
+        <div class="f"><label>お名前 <i>必須</i></label><input type="text" placeholder="練馬 太郎"></div>
+        <div class="f"><label>会社名・屋号</label><input type="text" placeholder="株式会社ねりま商店"></div>
+        <div class="f"><label>メールアドレス <i>必須</i></label><input type="email" placeholder="you@example.com"></div>
+        <div class="f"><label>お電話番号</label><input type="tel" placeholder="03-0000-0000"></div>
+        <div class="f"><label>ご相談の種類 <i>必須</i></label>
+          <select>
+            <option>選んでください</option>
+            <option>法人の税務顧問について</option>
+            <option>個人事業・フリーランスの確定申告</option>
+            <option>記帳代行</option>
+            <option>会社設立</option>
+            <option>相続税</option>
+            <option>融資・補助金</option>
+            <option>その他</option>
+          </select></div>
+        <div class="f"><label>ご相談内容</label><textarea placeholder="今の状況を、わかる範囲で結構です。"></textarea></div>
+        <label class="agree"><input type="checkbox"><span>個人情報の取り扱いについて同意します。いただいた情報はご相談への回答にのみ使用します。</span></label>
+        <button type="submit" class="btn">この内容で送信する</button>
+        <div class="sent" id="sent">送信しました（デモのため実際には送られません）。<br>
+          本番では <b>事務所のメールアドレスへ通知</b>が届き、同時に<b>お客様へ自動返信メール</b>が送られます。迷惑メール対策のスパム判定も入ります。</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 仕切り ============================================================== -->
+<div class="divider">
+  <p class="n">Here on: about the build</p>
+  <p>ここから下は、サイトの中身ではなく<br>「どう作って、どう更新するか」のご説明です。</p>
+</div>
+
+<!-- 10 更新の仕組み ====================================================== -->
+<section id="update">
+  <div class="sec rv">
+    <p class="kicker">WordPress</p>
+    <h2>
+      <span class="rl"><span>ブログも料金も、</span></span>
+      <span class="rl"><span>先生ご自身で直せます。</span></span>
+    </h2>
+    <p class="lead" style="margin-bottom:44px">WordPress の管理画面から、文章・写真・料金・お知らせを差し替えられる作りにします。HTML は触りません。下のボタンを押すと、管理画面で操作したときにこのページのどこが変わるかを再現します。</p>
+    <div class="wp">
+      <div class="screen">
+        <div class="bar"><i></i><i></i><i></i><span>WordPress 管理画面 &mdash; 投稿の新規追加</span></div>
+        <div class="body">
+          <div class="wpfield"><label>タイトル</label>
+            <div class="box" id="wpTitle">9月の受付時間と、年末調整のご案内</div></div>
+          <div class="wpfield"><label>カテゴリー</label>
+            <div class="box" id="wpCat">お知らせ</div></div>
+          <div class="wpfield"><label>本文</label>
+            <div class="box tall">9月は第2・第4土曜の午前も面談枠をお取りしています。年末調整の資料は11月上旬にご案内します…</div></div>
+          <div class="wpbtns">
+            <button class="wpbtn pri" id="bPost">公開する</button>
+            <button class="wpbtn" id="bPrice">料金表の「記帳代行」を 13,200円 に直す</button>
+            <button class="wpbtn" id="bReset">元に戻す</button>
+          </div>
+          <div class="pipe" id="pipe">操作を選ぶと、ここに何が起きたかが出ます。</div>
+        </div>
+      </div>
+      <div>
+        <p class="kicker">What you get</p>
+        <div class="lead">
+          <p><b>押した瞬間にサイトへ反映されます。</b>ビルドも、こちらへの連絡も、追加費用もいりません。ブログを書く・お知らせを出す・料金を直す・写真を差し替える。この4つは全部、管理画面の中で完結します。</p>
+          <p>お渡しするもの：<br>
+            ・管理者権限（すべての権限をお渡しします）<br>
+            ・A4・12ページの操作マニュアル（PDF）<br>
+            ・画面録画の操作動画（投稿・料金変更・写真差し替えの3本）<br>
+            ・公開後30分のオンライン操作レクチャー</p>
+          <p style="font-size:13px;color:var(--earth)">「保守契約なしでの納品可否」につきまして &mdash;
+            <b style="color:var(--teal)">可能です。</b>保守契約は不要で、月額もいただきません。
+            サーバー・ドメインも先生の契約のままで、こちらが握るものは何もありません。
+            必要になったときだけ、スポットでご依頼いただければ対応します。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 SEO =============================================================== -->
+<section class="paper" id="seo">
+  <div class="sec rv">
+    <p class="kicker">SEO &middot; MEO</p>
+    <h2>
+      <span class="rl"><span>「練馬区 税理士」で、</span></span>
+      <span class="rl"><span>見つかる状態にして渡します。</span></span>
+    </h2>
+    <p class="lead" style="margin-bottom:40px">開業直後は、事務所名で検索されることがありません。地域名＋業種と、悩みの言葉で見つけてもらう設計を、公開の時点で入れておきます。</p>
+    <ul class="checks stagger">
+      <li>ページごとのタイトル・ディスクリプションを、地域名と業務名の組み合わせで 個別に設定</li>
+      <li>税理士事務所の構造化データ（JSON-LD / AccountingService）を全ページに設置</li>
+      <li>XMLサイトマップの自動生成と、Google Search Console への登録・確認まで代行</li>
+      <li>Googleビジネスプロフィール（MEO）の初期登録と、サイトとの相互リンク</li>
+      <li>常時SSL（https）への統一と、http からの301リダイレクト</li>
+      <li>スマホの表示速度・画像の圧縮・見出しタグの階層を公開前に検査して納品</li>
+    </ul>
+    <div class="code" id="jsonld"></div>
+  </div>
+</section>
+
+<!-- 12 スマホ ============================================================ -->
+<section id="mobilesec">
+  <div class="sec rv">
+    <p class="kicker">Mobile</p>
+    <h2>
+      <span class="rl"><span>お問い合わせの7割は、</span></span>
+      <span class="rl"><span>スマホから来ます。</span></span>
+    </h2>
+    <p class="lead" style="margin-bottom:36px">スマホでは、画面の下に「無料相談」のボタンが常に出ています。電話番号はタップでそのまま発信できます。下のボタンで幅を切り替えて、実際の見え方をご確認ください。</p>
+    <div class="devwrap">
+      <div class="devbtns">
+        <button class="wpbtn pri" id="bPC">パソコンの幅</button>
+        <button class="wpbtn" id="bSP">スマホの幅（390px）</button>
+      </div>
+      <div class="dev" id="dev">
+        <iframe id="devframe" src="about:blank" title="表示幅の確認"
+          style="width:100%;height:800px;border:0;display:block"></iframe>
+      </div>
+      <p class="note" style="text-align:center;max-width:620px">
+        ↑ この枠の中は、いま見ているページそのものです。幅を変えると、実際のスマホと同じように組み替わります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 ご提案 ============================================================ -->
+<section class="dark" id="offer">
+  <div class="sec rv">
+    <p class="kicker">Proposal</p>
+    <h2>
+      <span class="rl"><span>ご提案の中身と、</span></span>
+      <span class="rl"><span>お見積り。</span></span>
+    </h2>
+    <dl class="spec stagger" style="margin-top:36px;border-top-color:#4a423a">
+      <div class="r" style="border-bottom-color:#3b342b"><dt>制作費</dt>
+        <dd><b style="color:#fff">80,000円</b>（税込・一括）<br>
+        <span style="font-size:12.5px;color:#a99e8b">通常 200,000円のところ、士業サイトの実績を増やしたい時期のため、
+        今回に限りこの金額でお受けします。値引きの代わりに、<b>公開後に「制作実績として掲載させていただくこと」</b>だけご承諾ください（事務所名を伏せた掲載も可能です）。</span></dd></div>
+      <div class="r" style="border-bottom-color:#3b342b"><dt>ページ数</dt>
+        <dd>6ページ（トップ／事務所案内／サービス案内／料金案内／お知らせ・ブログ／お問い合わせ）＋ プライバシーポリシー</dd></div>
+      <div class="r" style="border-bottom-color:#3b342b"><dt>含まれるもの</dt>
+        <dd>WordPress構築（ブロックテーマ）／スマホ・タブレット対応／お問い合わせフォーム＋自動返信＋スパム対策／ブログ機能／SEO基本設定・構造化データ／常時SSL化／写真素材の用意／操作マニュアル（PDF）＋操作動画3本／30分のオンライン操作レクチャー</dd></div>
+      <div class="r" style="border-bottom-color:#3b342b"><dt>納期</dt>
+        <dd><b style="color:#fff">3週間</b>（ご契約日から）<br>
+        <span style="font-size:12.5px;color:#a99e8b">内訳：構成のすり合わせ3日 → デザイン案の確認4日 → 構築7日 → 修正・検査4日 → 公開。原稿は当方でたたき台を書きます。</span></dd></div>
+      <div class="r" style="border-bottom-color:#3b342b"><dt>保守契約</dt>
+        <dd><b style="color:#fff">不要です。</b>管理者権限を全てお渡しし、月額はいただきません。サーバー・ドメインも先生のご契約のままです。必要なときだけスポットでご依頼ください（1回 5,500円〜）。</dd></div>
+      <div class="r" style="border-bottom-color:#3b342b"><dt>修正</dt>
+        <dd>公開前は回数無制限。公開後1か月間の不具合対応は無償です。</dd></div>
+      <div class="r" style="border-bottom-color:#3b342b"><dt>お支払い</dt>
+        <dd>ランサーズの仮払いに準じます。着手金なし、納品後の一括で構いません。</dd></div>
+    </dl>
+    <p class="lead" style="margin-top:36px;font-size:13.5px;color:#a99e8b">
+      なお、写真は現時点で事務所の実物をお預かりしていないため、AIで生成したイメージ写真を使用しています。
+      本番では、先生の事務所で撮影したお写真か、権利処理済みのストックフォトに差し替えます。
+      ロゴは他社様で制作中とのことでしたので、支給いただき次第、配色をロゴに合わせて調整します。</p>
+  </div>
+</section>
+
+<!-- footer =============================================================== -->
+<footer>
+  <div class="fin">
+    <div>
+      <p class="fb">白岩税理士事務所</p>
+      <p style="font-size:12.5px;color:#8f867a">東京都練馬区豊玉北5丁目<br>練馬駅 徒歩4分<br>平日 9:00–18:00</p>
+    </div>
+    <div>
+      <h5>Menu</h5>
+      <a href="#about">事務所案内</a>
+      <a href="#service">サービス案内</a>
+      <a href="#price">料金案内</a>
+    </div>
+    <div>
+      <h5>Information</h5>
+      <a href="#blog">お知らせ・ブログ</a>
+      <a href="#faq">よくあるご質問</a>
+      <a href="#access">アクセス</a>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <a href="#contact">無料相談のお申し込み</a>
+      <p>03-0000-0000</p>
+      <p style="font-size:12px">プライバシーポリシー</p>
+    </div>
+  </div>
+  <div class="fbot">
+    このページは、ランサーズの案件「税理士事務所のホームページ作成」へのご提案として制作したデモです。
+    事務所名・代表者名・所在地・電話番号・料金・ブログ記事はすべて架空で、実在の事務所とは関係ありません。写真はAIで生成したイメージです。<br>
+    制作：Lスタジオ（平野 淳一）／ l-studiojp.com
+  </div>
+</footer>
+
+<a class="spcta" href="#contact">初回相談（60分）は無料です</a>
+
+<script>
+/* ---- 幕を上げる ---- */
+const lift=()=>document.body.classList.add('loaded');
+if(document.readyState==='complete') lift(); else addEventListener('load',lift);
+setTimeout(lift,2200);
+
+/* ---- ナビ ---- */
+const nav=document.getElementById('nav');
+let lastY=0;
+const navTick=()=>{
+  const y=window.scrollY;
+  nav.classList.toggle('solid', y>window.innerHeight*.6);
+  nav.classList.toggle('hide', y>lastY+6 && y>window.innerHeight);
+  if(Math.abs(y-lastY)>6) lastY=y;
+};
+addEventListener('scroll',navTick,{passive:true}); navTick();
+
+/* ---- 出現 ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}
+}),{rootMargin:'0px 0px -10% 0px',threshold:.05});
+document.querySelectorAll('.rv,.stagger,.band,.divider').forEach(el=>io.observe(el));
+
+/* ---- 画像の幕開け ----
+   注意：clip-path をかけた要素そのものを IntersectionObserver で見ると、
+   完全にクリップされているせいで永久に isIntersecting=false になり発火しない。
+   必ず「親」を観測して、クラスは .ib 側に付ける。 */
+document.querySelectorAll('.ib').forEach(ib=>{
+  const host=ib.parentElement||ib;
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ ib.classList.add('in'); o.disconnect(); }
+  }),{rootMargin:'0px 0px -8% 0px',threshold:.02});
+  o.observe(host);
+});
+
+/* ---- 帯の視差 ---- */
+const bands=[...document.querySelectorAll('.band')];
+let raf=0;
+const parallax=()=>{
+  raf=0;
+  const vh=innerHeight;
+  for(const b of bands){
+    const r=b.getBoundingClientRect();
+    if(r.bottom<-120||r.top>vh+120) continue;
+    const p=(r.top+r.height/2-vh/2)/vh;
+    const img=b.querySelector('img');
+    if(img) img.style.transform='translate3d(0,'+(p*-7).toFixed(2)+'%,0) scale(1.14)';
+  }
+};
+const onPar=()=>{ if(!raf) raf=requestAnimationFrame(parallax); };
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  addEventListener('scroll',onPar,{passive:true});
+  addEventListener('resize',onPar);
+  onPar();
+}
+
+/* ---- お問い合わせフォーム（デモ） ---- */
+document.getElementById('cf').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.getElementById('sent').classList.add('show');
+});
+
+/* ---- WordPress 管理画面の再現 ---- */
+const pipe=document.getElementById('pipe');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+let started=false;
+function pline(t,ok){ pipe.innerHTML+=(started?'<br>':'')+(ok?'<b>'+t+'</b>':t); started=true; }
+function resetPipe(){ pipe.innerHTML=''; started=false; }
+
+document.getElementById('bPost').onclick=async()=>{
+  resetPipe();
+  document.getElementById('wpTitle').classList.add('edit');
+  pline('［公開する］を押した');
+  await wait(500); pline('投稿を保存  ID 0042  ok',1);
+  await wait(500);
+  const list=document.getElementById('postlist');
+  if(!document.getElementById('newpost')){
+    const el=document.createElement('article');
+    el.className='post new'; el.id='newpost';
+    el.innerHTML='<div class="ib in" style="clip-path:none"><img src="img/window.jpg" alt="" loading="lazy" style="transform:none"></div>'+
+      '<div class="meta"><time>2026.09.03</time><span class="tag">お知らせ</span></div>'+
+      '<h3>9月の受付時間と、年末調整のご案内</h3>'+
+      '<p>9月は第2・第4土曜の午前も面談枠をお取りしています。年末調整の資料は11月上旬にご案内します。</p>';
+    list.insertBefore(el,list.firstElementChild);
+  }
+  pline('お知らせ一覧の先頭に反映  ← 上の「お知らせ」の欄をご覧ください',1);
+  await wait(450); pline('サイトマップを更新して Google に通知',1);
+};
+
+document.getElementById('bPrice').onclick=async()=>{
+  resetPipe();
+  pline('料金案内ページを編集  11,000 → 13,200');
+  await wait(500); pline('更新を保存  ok',1);
+  const rows=document.querySelectorAll('#price .rate .row');
+  rows.forEach(r=>{
+    if(r.querySelector('b') && r.querySelector('b').textContent.indexOf('記帳代行')>=0){
+      const em=r.querySelector('em');
+      em.innerHTML='13,200<i>円／月〜</i>';
+      em.classList.add('flash');
+      setTimeout(()=>em.classList.remove('flash'),1700);
+    }
+  });
+  const cardPrice=document.querySelectorAll('#service .card .price')[2];
+  if(cardPrice){ cardPrice.innerHTML='¥13,200〜<i>／月（仕訳50件まで）</i>'; }
+  pline('料金表とサービスカードの両方に反映  ← 上の「料金」の欄をご覧ください',1);
+};
+
+document.getElementById('bReset').onclick=()=>{
+  resetPipe();
+  document.getElementById('wpTitle').classList.remove('edit');
+  const np=document.getElementById('newpost'); if(np) np.remove();
+  document.querySelectorAll('#price .rate .row').forEach(r=>{
+    if(r.querySelector('b') && r.querySelector('b').textContent.indexOf('記帳代行')>=0){
+      r.querySelector('em').innerHTML='11,000<i>円／月〜</i>';
+    }
+  });
+  const cardPrice=document.querySelectorAll('#service .card .price')[2];
+  if(cardPrice){ cardPrice.innerHTML='¥11,000〜<i>／月（仕訳50件まで）</i>'; }
+  pline('元に戻しました');
+};
+
+/* ---- JSON-LD の実物 ---- */
+document.getElementById('jsonld').innerHTML=
+'{\n'+
+'  <span class="k">"@context"</span>: <span class="s">"https://schema.org"</span>,\n'+
+'  <span class="k">"@type"</span>: <span class="s">"AccountingService"</span>,\n'+
+'  <span class="k">"name"</span>: <span class="s">"白岩税理士事務所"</span>,\n'+
+'  <span class="k">"description"</span>: <span class="s">"練馬区の税理士事務所。法人顧問・確定申告・記帳代行・相続税申告。初回相談60分無料。"</span>,\n'+
+'  <span class="k">"address"</span>: {\n'+
+'    <span class="k">"@type"</span>: <span class="s">"PostalAddress"</span>,\n'+
+'    <span class="k">"addressRegion"</span>: <span class="s">"東京都"</span>,\n'+
+'    <span class="k">"addressLocality"</span>: <span class="s">"練馬区"</span>,\n'+
+'    <span class="k">"streetAddress"</span>: <span class="s">"豊玉北5-0-0"</span>,\n'+
+'    <span class="k">"postalCode"</span>: <span class="s">"176-0012"</span>\n'+
+'  },\n'+
+'  <span class="k">"telephone"</span>: <span class="s">"+81-3-0000-0000"</span>,\n'+
+'  <span class="k">"openingHours"</span>: <span class="s">"Mo-Fr 09:00-18:00"</span>,\n'+
+'  <span class="k">"areaServed"</span>: [<span class="s">"練馬区"</span>, <span class="s">"板橋区"</span>, <span class="s">"西東京市"</span>, <span class="s">"杉並区"</span>],\n'+
+'  <span class="k">"priceRange"</span>: <span class="s">"¥¥"</span>,\n'+
+'  <span class="k">"knowsAbout"</span>: [<span class="s">"法人税務顧問"</span>, <span class="s">"確定申告"</span>, <span class="s">"記帳代行"</span>, <span class="s">"相続税申告"</span>, <span class="s">"会社設立"</span>],\n'+
+'  <span class="k">"founder"</span>: { <span class="k">"@type"</span>: <span class="s">"Person"</span>, <span class="k">"name"</span>: <span class="s">"白岩 直人"</span>, <span class="k">"jobTitle"</span>: <span class="s">"税理士"</span> }\n'+
+'}';
+
+/* ---- 幅の切替（このページ自身を枠の中に読み込む） ---- */
+const dev=document.getElementById('dev'),frame=document.getElementById('devframe'),
+      bPC=document.getElementById('bPC'),bSP=document.getElementById('bSP');
+let framed=false;
+const loadFrame=()=>{ if(!framed){ framed=true; frame.src='index.html?embed=1'; } };
+new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting){ loadFrame(); o.disconnect(); } },
+  {threshold:.15}).observe(dev);
+bPC.onclick=()=>{loadFrame();dev.classList.remove('sp');bPC.classList.add('pri');bSP.classList.remove('pri')};
+bSP.onclick=()=>{loadFrame();dev.classList.add('sp');bSP.classList.add('pri');bPC.classList.remove('pri')};
+
+/* 枠の中で開かれたときは、帯と枠の入れ子を消す */
+if(new URLSearchParams(location.search).get('embed')==='1'){
+  document.documentElement.style.setProperty('--ribbon','0px');
+  const rb=document.querySelector('.ribbon'); if(rb) rb.remove();
+  const cur=document.getElementById('curtain'); if(cur) cur.remove();
+  /* 枠の中はサイト本体だけを見せる（制作の説明は外す） */
+  ['mobilesec','update','seo','offer'].forEach(function(id){
+    var e=document.getElementById(id); if(e) e.remove();
+  });
+  var dv=document.querySelector('.divider'); if(dv) dv.remove();
+}
+
+window.demo={post:()=>document.getElementById('bPost').click(),
+             price:()=>document.getElementById('bPrice').click(),
+             reset:()=>document.getElementById('bReset').click(),
+             sp:()=>bSP.click(), pc:()=>bPC.click()};
+</script>
+</body>
+</html>
