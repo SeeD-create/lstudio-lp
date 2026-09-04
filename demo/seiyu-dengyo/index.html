@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>電気工事会社のホームページ｜ご提案用モック｜Lスタジオ</title>
+<meta name="description" content="電気設備工事会社のコーポレートサイト＋採用サイトのデザイン提案モック。Lスタジオが制作。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="電気工事会社のホームページ｜ご提案用モック">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   参照：Freitag（全幅写真＋特大コンデンス大文字＋ヘアライン＋ピル）
+        ON.energy（工業グレーの上に黄は1点だけ）
+   DO   : 写真は全幅で断ち切る／見出しは特大で詰める／罫は1pxのヘアライン
+          アクセントは1画面に1つ／面は白と黒を交互に
+   NG   : 角丸の多用（4px上限・ピルは例外）／影の重ね／黄を広い面にベタ塗り
+          色を3色以上同時に出すこと
+   ========================================================================== */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+img,video{max-width:100%;display:block}
+:root{
+  --ink:#12141A; --ink2:#242932; --sub:#5C626B; --paper:#fff;
+  --steel:#F2F3F5; --line:#DDE0E5;
+  --y:#FFD400; --y-d:#E0B400; --o:#FF6A13;
+  --jp:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;
+  --body:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;
+  --lat:"Barlow Condensed",Oswald,"Arial Narrow",sans-serif;
+  --ez:cubic-bezier(.16,1,.3,1);
+  --ribbon:46px; --nav:60px;
+}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);
+  line-height:1.9;font-size:15px;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---- 帯（提案モックの断り） ---- */
+.ribbon{background:var(--ink);color:#fff;font-size:12px;line-height:1.6;
+  padding:10px 20px;text-align:center;min-height:var(--ribbon);
+  display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap}
+.ribbon b{color:var(--y)}
+@media(max-width:700px){.ribbon{font-size:11px;line-height:1.5;padding:8px 14px}}
+.ribbon span{color:rgba(255,255,255,.6)}
+
+/* ---- nav ---- */
+#nav{position:sticky;top:0;z-index:60;height:var(--nav);
+  display:flex;align-items:center;gap:26px;padding:0 24px;
+  transition:background .4s var(--ez),transform .45s var(--ez),border-color .4s;
+  border-bottom:1px solid transparent}
+#nav.solid{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom-color:var(--line)}
+#nav.hide{transform:translateY(-100%)}
+#nav .brand{font-family:var(--jp);font-weight:900;font-size:17px;letter-spacing:.04em;
+  color:#fff;transition:color .4s;white-space:nowrap;text-decoration:none}
+#nav.solid .brand{color:var(--ink)}
+#nav .brand i{font-style:normal;display:block;font-family:var(--lat);font-weight:500;
+  font-size:9px;letter-spacing:.3em;opacity:.62;margin-top:-4px;text-transform:uppercase}
+#nav .links{display:flex;gap:22px;margin-left:auto;align-items:center}
+#nav .links a{font-family:var(--jp);font-size:13.5px;font-weight:700;letter-spacing:.04em;
+  text-decoration:none;color:rgba(255,255,255,.88);transition:color .4s}
+#nav.solid .links a{color:var(--sub)}
+#nav .links a:hover{color:var(--o)}
+#nav .pill{background:var(--y);color:#12141A !important;border-radius:100px;padding:9px 20px;font-size:13px}
+@media(max-width:900px){#nav .links a:not(.pill){display:none}}
+
+/* ---- HERO ---- */
+.hero{position:relative;height:calc(100svh - var(--ribbon));
+  min-height:520px;margin-top:calc(var(--nav) * -1);overflow:hidden;background:#0C0E12}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.02);opacity:.88}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(78deg,rgba(9,11,15,.92) 0%,rgba(9,11,15,.58) 46%,rgba(9,11,15,.10) 100%)}
+.hero .in{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;
+  justify-content:center;padding:var(--nav) 24px 0;max-width:1180px;margin:0 auto;left:0;right:0}
+.hero .eyebrow{font-family:var(--lat);font-size:13px;letter-spacing:.3em;color:var(--y);
+  font-weight:600;margin:0 0 18px;text-transform:uppercase;opacity:0;transform:translateY(10px);
+  transition:opacity .9s .75s var(--ez),transform .9s .75s var(--ez)}
+body.loaded .hero .eyebrow{opacity:1;transform:none}
+.hero h1{font-family:var(--jp);font-weight:900;color:#fff;margin:0;
+  font-size:clamp(31px,7.2vw,84px);line-height:1.16;letter-spacing:0;
+  word-break:keep-all;overflow-wrap:anywhere}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero .sub{color:rgba(255,255,255,.84);font-size:15px;line-height:2;margin:24px 0 0;max-width:30em;
+  opacity:0;transform:translateY(12px);transition:opacity .9s 1.3s var(--ez),transform .9s 1.3s var(--ez)}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;
+  opacity:0;transform:translateY(12px);transition:opacity .9s 1.45s var(--ez),transform .9s 1.45s var(--ez)}
+body.loaded .hero .sub,body.loaded .hero .cta{opacity:1;transform:none}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--jp);font-weight:700;
+  font-size:15px;text-decoration:none;padding:15px 28px;border-radius:100px;
+  background:var(--y);color:#12141A;border:1px solid var(--y);transition:color .3s,border-color .3s;
+  white-space:nowrap;position:relative;overflow:hidden;z-index:0}
+.btn::before{content:"";position:absolute;inset:0;background:var(--o);z-index:-1;
+  transform:scaleY(0);transform-origin:bottom;transition:transform .4s var(--ez)}
+.btn:hover{color:#fff;border-color:var(--o)}
+.btn:hover::before{transform:scaleY(1)}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.44)}
+.btn.ghost:hover{color:#fff;border-color:var(--o)}
+.hero .facts{margin-top:34px;display:flex;gap:26px;flex-wrap:wrap;
+  font-size:13px;color:rgba(255,255,255,.72);opacity:0;transition:opacity 1s 1.65s var(--ez)}
+body.loaded .hero .facts{opacity:1}
+.hero .facts b{color:#fff;font-weight:700;font-family:var(--lat);font-size:16px;letter-spacing:.03em}
+.scrollhint{position:absolute;left:50%;bottom:18px;z-index:3;transform:translateX(-50%);
+  font-family:var(--lat);font-size:10px;letter-spacing:.34em;color:rgba(255,255,255,.6);
+  text-transform:uppercase;opacity:0;transition:opacity 1s 1.95s}
+body.loaded .scrollhint{opacity:1}
+.scrollhint::after{content:"";display:block;width:1px;height:26px;background:rgba(255,255,255,.42);
+  margin:8px auto 0;animation:drip 2.2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}
+  51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---- 見出し共通 ---- */
+.sec{padding:96px 0}
+.sec.dark{background:var(--ink);color:#fff}
+.sec.steel{background:var(--steel)}
+.kicker{font-family:var(--lat);font-size:12px;letter-spacing:.3em;font-weight:600;
+  color:var(--o);margin:0 0 14px;display:flex;align-items:center;gap:14px;text-transform:uppercase}
+.kicker::after{content:"";height:1px;background:currentColor;width:0;transition:width .9s .2s var(--ez)}
+.rv.in .kicker::after{width:60px}
+.sec.dark .kicker{color:var(--y)}
+h2{font-family:var(--jp);font-weight:900;font-size:clamp(26px,3.6vw,42px);
+  line-height:1.34;letter-spacing:.01em;margin:0 0 20px}
+.lead{color:var(--sub);font-size:15px;line-height:2.05;max-width:44em;margin:0}
+.sec.dark .lead{color:rgba(255,255,255,.72)}
+
+/* ---- 数字 ---- */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:44px}
+.nums>div{background:var(--paper);padding:30px 20px;text-align:center}
+.sec.steel .nums>div{background:var(--paper)}
+.nums .v{font-family:var(--lat);font-size:clamp(38px,5.4vw,60px);font-weight:600;line-height:1;
+  letter-spacing:.01em}
+.nums .v small{font-size:.4em;font-weight:500;margin-left:4px;color:var(--o)}
+.nums .k{font-size:12px;color:var(--sub);margin-top:10px;letter-spacing:.06em}
+@media(max-width:760px){.nums{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- 事業カード ---- */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:46px}
+@media(max-width:1000px){.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--paper);border:1px solid var(--line)}
+.tile .ib{aspect-ratio:4/3}
+.tile .ib img{width:100%;height:100%;object-fit:cover}
+.tile .tx{padding:20px 20px 24px}
+.tile .no{font-family:var(--lat);font-size:12px;letter-spacing:.2em;color:var(--o);font-weight:600}
+.tile h3{font-family:var(--jp);font-weight:700;font-size:18px;margin:8px 0 10px;line-height:1.5}
+.tile p{margin:0;font-size:13.5px;line-height:1.95;color:var(--sub)}
+
+/* ---- 帯 ---- */
+.band{position:relative;height:clamp(250px,38vw,400px);overflow:hidden;background:#0C0E12}
+.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.14);opacity:.6;will-change:transform}
+.band .t{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:0 24px}
+.band .t p{font-family:var(--jp);font-weight:900;color:#fff;margin:0;
+  font-size:clamp(21px,3.8vw,42px);line-height:1.5;letter-spacing:.14em;
+  opacity:0;transition:opacity 1.1s var(--ez),letter-spacing 1.4s var(--ez)}
+.band.in .t p{opacity:1;letter-spacing:.03em}
+
+/* ---- 流れ ---- */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);margin-top:46px;border-top:1px solid var(--line)}
+.flow>div{padding:26px 22px 30px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.flow>div:first-child{border-left:1px solid var(--line)}
+.flow .n{font-family:var(--lat);font-size:42px;font-weight:600;line-height:1;color:var(--y-d)}
+.flow h4{font-family:var(--jp);font-weight:700;font-size:16px;margin:12px 0 8px}
+.flow p{margin:0;font-size:13px;line-height:1.9;color:var(--sub)}
+@media(max-width:860px){.flow{grid-template-columns:repeat(2,1fr)}
+  .flow>div:nth-child(3){border-left:1px solid var(--line)}}
+@media(max-width:520px){.flow{grid-template-columns:1fr}.flow>div{border-left:1px solid var(--line)}}
+
+/* ---- 採用 ---- */
+.recgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start;margin-top:46px}
+@media(max-width:940px){.recgrid{grid-template-columns:1fr;gap:34px}}
+.recgrid .ib{aspect-ratio:4/3}
+.recgrid .ib img{width:100%;height:100%;object-fit:cover}
+table.spec{width:100%;border-collapse:collapse;font-size:14px}
+table.spec th,table.spec td{text-align:left;padding:14px 4px;vertical-align:top;line-height:1.85;
+  border-bottom:1px solid var(--line)}
+table.spec th{width:9em;font-weight:700;color:var(--o);font-size:13px;letter-spacing:.04em}
+.sec.dark table.spec th,.sec.dark table.spec td{border-bottom-color:rgba(255,255,255,.17)}
+.sec.dark table.spec th{color:var(--y)}
+.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+@media(max-width:860px){.voices{grid-template-columns:1fr}}
+.voice{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);padding:24px}
+.voice .who{font-family:var(--lat);font-size:12px;letter-spacing:.18em;color:var(--y);font-weight:600;
+  text-transform:uppercase}
+.voice h4{font-family:var(--jp);font-weight:700;font-size:16.5px;margin:10px 0 12px;line-height:1.6;color:#fff}
+.voice p{margin:0;font-size:13.5px;line-height:2;color:rgba(255,255,255,.72)}
+
+/* ---- 実績 ---- */
+.works{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+@media(max-width:860px){.works{grid-template-columns:1fr}}
+.work .ib{aspect-ratio:4/3}
+.work .ib img{width:100%;height:100%;object-fit:cover}
+.work .tag{display:inline-block;font-family:var(--lat);font-size:11px;letter-spacing:.16em;
+  font-weight:600;background:var(--o);color:#fff;padding:4px 11px;margin:16px 0 8px;
+  text-transform:uppercase}
+.work h3{font-family:var(--jp);font-weight:700;font-size:17px;margin:0 0 8px;line-height:1.55}
+.work p{margin:0;font-size:13.5px;color:var(--sub);line-height:1.95}
+
+/* ---- FAQ ---- */
+.faq{margin-top:40px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 44px 20px 34px;position:relative;
+  font-family:var(--jp);font-weight:700;font-size:15.5px;line-height:1.7}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q";position:absolute;left:0;top:19px;
+  font-family:var(--lat);font-weight:700;color:var(--o);font-size:17px}
+.faq summary::after{content:"";position:absolute;right:6px;top:28px;width:10px;height:10px;
+  border-right:1.5px solid var(--sub);border-bottom:1.5px solid var(--sub);
+  transform:rotate(45deg);transition:transform .3s var(--ez)}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq .a{padding:0 44px 22px 34px;color:var(--sub);font-size:14px;line-height:2.05;margin:0}
+
+/* ---- 会社概要 ---- */
+.compgrid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;margin-top:46px}
+@media(max-width:940px){.compgrid{grid-template-columns:1fr;gap:32px}}
+.compgrid .ib{aspect-ratio:4/3}
+.compgrid .ib img{width:100%;height:100%;object-fit:cover}
+
+/* ---- CTA帯 ---- */
+.contact{background:var(--y);color:var(--ink);padding:72px 0;text-align:center}
+.contact h2{margin:0 0 12px}
+.contact .tel{font-family:var(--lat);font-size:clamp(34px,5.6vw,60px);font-weight:600;
+  line-height:1.1;letter-spacing:.02em;margin:20px 0 6px;display:block;text-decoration:none}
+.contact .hours{font-size:13px;color:rgba(18,20,26,.66);margin:0 0 26px}
+.contact .btn{background:var(--ink);border-color:var(--ink);color:#fff}
+.contact .btn::before{background:#000}
+
+/* ---- 仕切り ---- */
+.hazard{height:9px;background:repeating-linear-gradient(-45deg,var(--y) 0 15px,var(--ink) 15px 30px)}
+.divider{background:var(--ink2);color:#fff;text-align:center;padding:58px 24px}
+.divider .n{font-family:var(--lat);font-size:11px;letter-spacing:.34em;color:var(--y);opacity:0;
+  transition:opacity .8s var(--ez);text-transform:uppercase}
+.divider p{margin:12px 0 0;font-family:var(--jp);font-weight:700;font-size:clamp(17px,2.4vw,23px);
+  opacity:0;transform:translateY(12px);transition:opacity .8s var(--ez),transform .8s var(--ez)}
+.divider.in .n{opacity:1}
+.divider.in p{opacity:1;transform:none;transition-delay:.15s}
+
+/* ---- 仕組みの説明 ---- */
+.demo2{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:44px}
+@media(max-width:940px){.demo2{grid-template-columns:1fr}}
+.screenbox{border:1px solid var(--line);background:#fff}
+.screenbox .bar{background:var(--steel);border-bottom:1px solid var(--line);padding:8px 12px;
+  display:flex;align-items:center;gap:8px}
+.screenbox .bar i{width:9px;height:9px;border-radius:50%;background:#C9CDD4;display:block}
+.screenbox .bar .u{flex:1;background:#fff;border:1px solid var(--line);border-radius:100px;
+  font-size:11px;color:var(--sub);padding:3px 12px;font-family:var(--lat);letter-spacing:.02em}
+.screenbox .body{padding:18px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--sub);margin-bottom:6px}
+.field input,.field textarea,.field select{width:100%;font:inherit;font-size:13.5px;
+  border:1px solid var(--line);border-radius:3px;padding:9px 11px;background:#fff;color:var(--ink)}
+.field textarea{height:62px;resize:vertical}
+.wpbtn{font:inherit;font-family:var(--jp);font-weight:700;font-size:14px;background:var(--o);
+  color:#fff;border:0;border-radius:3px;padding:11px 22px;cursor:pointer}
+.wpbtn:hover{filter:brightness(1.08)}
+.previewlist{border:1px solid var(--line)}
+.previewlist .row{display:flex;gap:14px;padding:13px 15px;border-bottom:1px solid var(--line);
+  align-items:baseline;font-size:13.5px}
+.previewlist .row:last-child{border-bottom:0}
+.previewlist .row.new{background:#FFFBE6;animation:pop .8s var(--ez)}
+@keyframes pop{from{background:var(--y)}to{background:#FFFBE6}}
+.previewlist .d{font-family:var(--lat);color:var(--sub);font-size:12.5px;flex:none;width:6.4em}
+.previewlist .c{font-family:var(--lat);font-size:11px;letter-spacing:.12em;font-weight:600;
+  color:var(--o);flex:none;text-transform:uppercase}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:34px}
+@media(max-width:700px){.checks{grid-template-columns:1fr}}
+.checks>div{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.85;
+  background:var(--paper);border:1px solid var(--line);padding:15px 17px}
+.checks .ck{color:#1E7A4C;font-weight:700;flex:none}
+pre.code{background:var(--ink);color:#D8DEE9;font-size:11.5px;line-height:1.75;padding:18px 20px;
+  overflow-x:auto;margin:26px 0 0;font-family:ui-monospace,Menlo,Consolas,monospace;
+  border-left:3px solid var(--y)}
+pre.code b{color:var(--y);font-weight:400}
+
+/* ---- スマホ幅の確認 ---- */
+.spwrap{display:flex;gap:30px;align-items:flex-start;margin-top:40px;flex-wrap:wrap}
+.spframe{border:10px solid var(--ink);border-radius:26px;overflow:hidden;width:320px;
+  height:560px;flex:none;background:#000;max-width:100%}
+.sponly{display:none}
+/* 画面が狭いときは、スマホ枠そのものが入らないので出さない（見ている画面が実物） */
+@media(max-width:420px){.spframe{display:none}.sponly{display:block}}
+.spframe iframe{width:390px;height:683px;border:0;transform:scale(.8205);transform-origin:0 0}
+
+/* ---- 5ページの内訳 ---- */
+.pages{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+@media(max-width:900px){.pages{grid-template-columns:repeat(2,1fr)}}
+.pages>div{border:1px solid var(--line);padding:18px 16px;background:var(--paper)}
+.pages .n{font-family:var(--lat);font-size:11px;letter-spacing:.2em;color:var(--o);font-weight:600}
+.pages h4{font-family:var(--jp);font-weight:700;font-size:15px;margin:8px 0 7px}
+.pages p{margin:0;font-size:12.5px;color:var(--sub);line-height:1.85}
+
+/* ---- footer ---- */
+footer{background:var(--ink);color:rgba(255,255,255,.62);padding:64px 0 108px;font-size:13px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
+@media(max-width:860px){footer .cols{grid-template-columns:1fr 1fr}}
+footer h5{font-family:var(--lat);font-size:12px;letter-spacing:.24em;color:var(--y);
+  margin:0 0 14px;font-weight:600;text-transform:uppercase}
+footer a{color:rgba(255,255,255,.62);text-decoration:none;display:block;padding:4px 0}
+footer a:hover{color:#fff}
+footer .brand{font-family:var(--jp);font-weight:900;font-size:19px;color:#fff;margin-bottom:10px}
+footer .fine{border-top:1px solid rgba(255,255,255,.2);margin-top:42px;padding-top:22px;
+  font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.95}
+.spcta{position:fixed;left:0;right:0;bottom:0;z-index:55;display:none;
+  background:var(--y);color:#12141A;text-align:center;padding:15px;text-decoration:none;
+  font-family:var(--jp);font-weight:700;font-size:15px}
+@media(max-width:860px){.spcta{display:block}}
+
+/* ==========================================================================
+   MOTION（全部 prefers-reduced-motion で止まる）
+   ========================================================================== */
+#curtain{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;
+  align-items:center;justify-content:center;opacity:1;visibility:visible;
+  transition:opacity .8s .45s var(--ez),visibility .8s .45s}
+#curtain .w{font-family:var(--jp);font-weight:900;font-size:24px;color:#fff;text-align:center;
+  opacity:0;letter-spacing:.5em;animation:cw 1.05s .1s var(--ez) forwards}
+#curtain .w i{font-style:normal;display:block;font-family:var(--lat);font-size:9px;
+  letter-spacing:.4em;font-weight:500;color:var(--y);margin-top:9px;text-transform:uppercase}
+@keyframes cw{0%{opacity:0;letter-spacing:.62em}60%{opacity:1}100%{opacity:1;letter-spacing:.13em}}
+body.loaded #curtain{opacity:0;visibility:hidden}
+body.loaded .hero>img{animation:kb 26s 1.1s ease-out forwards}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.13)}}
+.rl{display:block;overflow:hidden;padding-bottom:.06em}
+.rl>span{display:block;transform:translateY(112%);transition:transform 1.05s var(--ez)}
+body.loaded .hero h1 .rl>span{transform:none}
+.hero h1 .rl:nth-of-type(1)>span{transition-delay:.88s}
+.hero h1 .rl:nth-of-type(2)>span{transition-delay:1s}
+.rv.in .rl>span{transform:none}
+.rv .rl:nth-of-type(1)>span{transition-delay:.06s}
+.rv .rl:nth-of-type(2)>span{transition-delay:.15s}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .85s var(--ez),transform .85s var(--ez)}
+.rv.in{opacity:1;transform:none}
+.ib{overflow:hidden;position:relative;clip-path:inset(0 0 100% 0);transition:clip-path 1.1s var(--ez)}
+.ib.in{clip-path:inset(0 0 0 0)}
+.ib>img{transform:scale(1.14);transition:transform 1.6s var(--ez)}
+.ib.in>img{transform:none}
+.tile:hover .ib>img,.work:hover .ib>img{transform:scale(1.06)}
+.stagger>*{opacity:0;transform:translateY(20px);
+  transition:opacity .8s var(--ez),transform .8s var(--ez)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(2){transition-delay:.09s}
+.stagger.in>*:nth-child(3){transition-delay:.18s}
+.stagger.in>*:nth-child(4){transition-delay:.27s}
+.stagger.in>*:nth-child(5){transition-delay:.36s}
+.stagger.in>*:nth-child(6){transition-delay:.45s}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){
+  #curtain{display:none}
+  .hero>img,body.loaded .hero>img{animation:none;transform:none}
+  .rl>span,.rv,.ib,.ib>img,.hero .eyebrow,.hero .sub,.hero .cta,.hero .facts,.scrollhint,
+  .band .t p,.stagger>*,.divider p,.divider .n,.btn::before{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important;animation:none !important}
+  .band .t p{letter-spacing:.03em}
+  .kicker::after{width:60px;transition:none}
+  html{scroll-behavior:auto}
+}
+/* JSが無効な環境では、隠す系の初期状態を全部解除する（本文が読めなくなるのを防ぐ） */
+html:not(.js) #curtain{display:none}
+html:not(.js) .rv,html:not(.js) .stagger>*,html:not(.js) .band .t p,
+html:not(.js) .hero .eyebrow,html:not(.js) .hero .sub,html:not(.js) .hero .cta,
+html:not(.js) .hero .facts,html:not(.js) .scrollhint,
+html:not(.js) .divider p,html:not(.js) .divider .n{opacity:1;transform:none}
+html:not(.js) .rl>span{transform:none}
+html:not(.js) .ib{clip-path:none}
+html:not(.js) .ib>img{transform:none}
+html:not(.js) .kicker::after{width:60px}
+html.spmode .divider,html.spmode .divider ~ section,html.spmode .divider ~ footer{display:none}
+</style>
+</head>
+<body>
+<script>document.documentElement.className+=' js'</script>
+
+<div id="curtain"><div class="w">晴佑電業<i>Seiyu Dengyo</i></div></div>
+
+<div class="ribbon">
+  <b>Lスタジオ</b>が制作した<b>ご提案用の非公式モック</b>です（公式サイトではありません）。
+  <span>写真は<b>AI生成のイメージ</b>。<b>社名以外の記載内容はすべて仮のサンプル</b>で、実際の対応内容・料金・雇用条件とは関係ありません。</span>
+</div>
+
+<nav id="nav">
+  <a class="brand" href="#top">晴佑電業<i>Seiyu Dengyo</i></a>
+  <div class="links">
+    <a href="#work">事業内容</a>
+    <a href="#works">施工実績</a>
+    <a href="#recruit">採用情報</a>
+    <a href="#company">会社概要</a>
+    <a class="pill" href="#contact">お問い合わせ</a>
+  </div>
+</nav>
+
+<!-- ===== 01 HERO ===== -->
+<header class="hero" id="top">
+  <img src="img/hero.jpg" alt="夕方の現場で高所作業車から電柱まわりの工事をしている様子">
+  <div class="in">
+    <p class="eyebrow">Electrical Works &amp; Facility</p>
+    <h1><span class="rl"><span>電気を、<em>止めない</em>。</span></span><span class="rl"><span>それだけの仕事です。</span></span></h1>
+    <p class="sub">住宅の一室から、工場の受変電設備まで。<br>
+      「つかない」「増やしたい」「点検してほしい」に、その日のうちに動きます。</p>
+    <div class="cta">
+      <a class="btn" href="#contact">工事のご相談・お見積り</a>
+      <a class="btn ghost" href="#recruit">採用情報を見る</a>
+    </div>
+    <div class="facts">
+      <span><b>7:30</b> 〜 <b>19:00</b> 受付</span>
+      <span>年中無休・<b>緊急対応</b>あり</span>
+      <span>第一種電気工事士 在籍</span>
+    </div>
+  </div>
+  <div class="scrollhint">Scroll</div>
+</header>
+
+<!-- ===== 02 数字 ===== -->
+<section class="sec rv">
+  <div class="wrap">
+    <p class="kicker">Numbers</p>
+    <h2>数字で見る、晴佑電業。</h2>
+    <p class="lead">規模の大きさではなく、断らない範囲の広さで選ばれてきました。以下の数値はレイアウト確認用のサンプルです。</p>
+    <div class="nums stagger">
+      <div><div class="v">28<small>年</small></div><div class="k">創業からの年数</div></div>
+      <div><div class="v">1,200<small>件</small></div><div class="k">年間の施工件数</div></div>
+      <div><div class="v">14<small>名</small></div><div class="k">有資格者の数</div></div>
+      <div><div class="v">34<small>歳</small></div><div class="k">社員の平均年齢</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 事業内容 ===== -->
+<section class="sec steel rv" id="work">
+  <div class="wrap">
+    <p class="kicker">Our Work</p>
+    <h2>電気のことなら、まるごと。</h2>
+    <p class="lead">「どこに頼めばいいか分からない」をなくすために、住宅から高圧設備まで一社で受けています。他社が断る小さな工事も、うちの仕事です。</p>
+    <div class="tiles stagger">
+      <div class="tile">
+        <div class="ib"><img src="img/board.jpg" alt="分電盤の中の色分けされた配線" loading="lazy"></div>
+        <div class="tx"><div class="no">01</div><h3>一般電気工事</h3>
+        <p>コンセントの増設、分電盤の交換、漏電の調査。住宅も店舗も、一室ぶんから伺います。</p></div>
+      </div>
+      <div class="tile">
+        <div class="ib"><img src="img/ceiling.jpg" alt="オフィス天井へのLED照明の取り付け作業" loading="lazy"></div>
+        <div class="tx"><div class="no">02</div><h3>照明・空調・動力</h3>
+        <p>LEDへの切り替え、エアコンの新設、機械の動力配線。営業を止めない夜間施工にも対応します。</p></div>
+      </div>
+      <div class="tile">
+        <div class="ib"><img src="img/cubicle.jpg" alt="屋外に設置された高圧受電設備キュービクル" loading="lazy"></div>
+        <div class="tx"><div class="no">03</div><h3>高圧受変電設備</h3>
+        <p>キュービクルの設置、更新、年次点検。設備の寿命を見ながら、更新の時期からご相談ください。</p></div>
+      </div>
+      <div class="tile">
+        <div class="ib"><img src="img/solar.jpg" alt="住宅の屋根への太陽光パネル設置作業" loading="lazy"></div>
+        <div class="tx"><div class="no">04</div><h3>太陽光・蓄電池</h3>
+        <p>設置から、その後の発電量の確認まで。売って終わりにせず、動き続けるところまで見ます。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BAND ===== -->
+<div class="band">
+  <img src="img/cable.jpg" alt="結束された電線の束" loading="lazy">
+  <div class="t"><p>その明かりの裏に、誰かの手がある。</p></div>
+</div>
+
+<!-- ===== 04 ご依頼の流れ ===== -->
+<section class="sec rv">
+  <div class="wrap">
+    <p class="kicker">Flow</p>
+    <h2>ご依頼から完了まで、4つ。</h2>
+    <p class="lead">見積りは無料です。金額に納得いただいてから着工しますので、聞くだけでも構いません。</p>
+    <div class="flow stagger">
+      <div><div class="n">01</div><h4>お電話・フォーム</h4><p>症状と場所をお聞きします。急ぎの場合はその日のうちに伺います。</p></div>
+      <div><div class="n">02</div><h4>現地調査・お見積り</h4><p>現場を見てから金額を出します。追加が出そうな箇所は先にお伝えします。</p></div>
+      <div><div class="n">03</div><h4>施工</h4><p>作業前後の写真をお渡しします。見えなくなる部分こそ記録に残します。</p></div>
+      <div><div class="n">04</div><h4>お引き渡し・点検</h4><p>使い方をご説明して完了。以降の定期点検もお任せください。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 採用 ===== -->
+<div class="hazard"></div>
+<section class="sec dark rv" id="recruit">
+  <div class="wrap">
+    <p class="kicker">Recruit</p>
+    <h2>未経験から、手に職を。</h2>
+    <p class="lead">電気工事士の資格は、働きながら取れます。実際、いま現場に出ている社員の半分以上が、入社時は未経験でした。資格の取得費用は会社が持ちます。</p>
+    <div class="recgrid">
+      <div>
+        <div class="ib"><img src="img/team.jpg" alt="朝の現場で朝礼をしている作業員たち" loading="lazy"></div>
+        <div class="ib" style="margin-top:22px;aspect-ratio:4/3"><img src="img/mentor.jpg" alt="ベテランが若手に工具の使い方を教えている手元" loading="lazy"></div>
+      </div>
+      <div>
+        <table class="spec">
+          <tr><th>職種</th><td>電気工事スタッフ（正社員）／ 未経験可・経験者優遇</td></tr>
+          <tr><th>仕事内容</th><td>住宅・店舗・工場の電気設備工事。先輩と2名1組で現場に入り、できることから覚えていきます。</td></tr>
+          <tr><th>給与</th><td>月給 24万円 〜 38万円（経験・資格による）／ 賞与 年2回</td></tr>
+          <tr><th>勤務時間</th><td>8:00 〜 17:00（現場により変動）／ 残業は月平均15時間</td></tr>
+          <tr><th>休日</th><td>日曜・祝日／ 隔週土曜／ 夏季・年末年始／ 年間休日 110日</td></tr>
+          <tr><th>待遇</th><td>社会保険完備・資格取得支援（受験料と講習費は全額会社負担）・作業着貸与・車通勤可</td></tr>
+          <tr><th>選考</th><td>書類 → 現場見学 → 面接1回。現場を見てから決めていただいて構いません。</td></tr>
+        </table>
+        <div style="margin-top:26px"><a class="btn" href="#contact">応募・見学を申し込む</a></div>
+      </div>
+    </div>
+    <div class="voices stagger">
+      <div class="voice"><div class="who">Staff 01 ／ 入社4年目</div>
+        <h4>飲食店から転職。<br>いまは現場を任されています。</h4>
+        <p>工具の名前も知らないところからでした。半年は先輩の後ろで見ているだけ。1年で第二種を取って、いまは小さい現場なら一人で回しています。</p></div>
+      <div class="voice"><div class="who">Staff 02 ／ 入社11年目</div>
+        <h4>教えるのが、<br>いちばん自分の勉強になる。</h4>
+        <p>新しく入った子には、まず「なぜこの配線なのか」から話します。手順だけ覚えても、現場が変わると詰まるからです。</p></div>
+      <div class="voice"><div class="who">Staff 03 ／ 入社2年目</div>
+        <h4>定時で上がれる日が<br>思っていたより多い。</h4>
+        <p>工事は段取りが8割で、朝の打ち合わせがきちんとしていると夕方には終わります。日曜は確実に休めています。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 施工実績 ===== -->
+<section class="sec rv" id="works">
+  <div class="wrap">
+    <p class="kicker">Works</p>
+    <h2>直近の施工から。</h2>
+    <p class="lead">工場、店舗、住宅。規模も業種もばらばらですが、共通しているのは「止められない設備」を扱っているということです。</p>
+    <div class="works stagger">
+      <div class="work">
+        <div class="ib"><img src="img/factory.jpg" alt="工場内の動力設備の配線工事" loading="lazy"></div>
+        <div class="tag">Factory</div>
+        <h3>食品工場／動力設備の増設</h3>
+        <p>新しい製造ラインに合わせて動力盤を増設。稼働を止められないため、日曜の停電作業で1日完結としました。</p>
+      </div>
+      <div class="work">
+        <div class="ib"><img src="img/night.jpg" alt="投光器に照らされた夜間の道路工事現場" loading="lazy"></div>
+        <div class="tag">Night Work</div>
+        <h3>市道／道路照明の一斉更新</h3>
+        <p>通行量の落ちる深夜に施工。水銀灯からLEDへ全灯を切り替え、消費電力を約4割まで下げました。</p>
+      </div>
+      <div class="work">
+        <div class="ib"><img src="img/office.jpg" alt="事務所で配線図面を確認している手元" loading="lazy"></div>
+        <div class="tag">Office</div>
+        <h3>オフィス／レイアウト変更に伴う配線</h3>
+        <p>席替えのたびに配線がやり直しになっていたため、床下の配線経路そのものを組み直しました。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 FAQ ===== -->
+<section class="sec steel rv">
+  <div class="wrap">
+    <p class="kicker">FAQ</p>
+    <h2>よくいただくご質問。</h2>
+    <div class="faq">
+      <details open><summary>コンセント1個の増設でも来てもらえますか。</summary>
+        <p class="a">伺います。小さい工事だからと断ることはありません。むしろそういうご依頼から、長いお付き合いになることが多いです。</p></details>
+      <details><summary>見積りは無料ですか。</summary>
+        <p class="a">無料です。現地を見てからお出しします。金額にご納得いただけなければ、そこでお断りいただいて構いません。</p></details>
+      <details><summary>営業を止めずに工事できますか。</summary>
+        <p class="a">できます。夜間や定休日での施工に対応しています。停電が必要な作業も、時間を区切って計画します。</p></details>
+      <details><summary>急に電気が消えました。すぐ来てもらえますか。</summary>
+        <p class="a">受付時間内であれば、その日のうちに伺うことを基本にしています。状況をお電話でお聞かせください。</p></details>
+      <details><summary>未経験でも採用されますか。</summary>
+        <p class="a">されます。現在の社員の半分以上が未経験で入社しています。資格は働きながら、費用は会社負担で取得できます。</p></details>
+      <details><summary>他社で断られた工事なのですが。</summary>
+        <p class="a">一度ご相談ください。古い設備や図面が残っていない現場でも、調査からお引き受けした実績があります。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 会社概要 ===== -->
+<section class="sec rv" id="company">
+  <div class="wrap">
+    <p class="kicker">Company</p>
+    <h2>会社概要</h2>
+    <div class="compgrid">
+      <div><div class="ib"><img src="img/building.jpg" alt="事務所兼倉庫の外観" loading="lazy"></div>
+        <div class="ib" style="margin-top:22px;aspect-ratio:16/9"><img src="img/van.jpg" alt="車庫に並ぶ作業車" loading="lazy"></div></div>
+      <div>
+        <table class="spec">
+          <tr><th>商号</th><td>株式会社 晴佑電業</td></tr>
+          <tr><th>所在地</th><td>（サンプル）〒000-0000 ◯◯県◯◯市◯◯ 0-0-0</td></tr>
+          <tr><th>電話</th><td>（サンプル）000-0000-0000</td></tr>
+          <tr><th>設立</th><td>（サンプル）1998年4月</td></tr>
+          <tr><th>資本金</th><td>（サンプル）1,000万円</td></tr>
+          <tr><th>事業内容</th><td>一般電気工事／照明・空調・動力設備工事／高圧受変電設備工事／太陽光発電・蓄電池設置／電気設備の保守点検</td></tr>
+          <tr><th>許可・資格</th><td>（サンプル）電気工事業登録／第一種電気工事士／第二種電気工事士／電気主任技術者</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09 お問い合わせ ===== -->
+<div class="hazard"></div>
+<section class="contact rv" id="contact">
+  <div class="wrap">
+    <p class="kicker" style="justify-content:center;color:#12141A">Contact</p>
+    <h2>まずは、電話一本で。</h2>
+    <p class="lead" style="margin:0 auto;color:rgba(18,20,26,.72)">工事のご相談も、採用のご応募も、この番号で受けています。</p>
+    <a class="tel" href="#contact">000-0000-0000</a>
+    <p class="hours">受付 7:30 〜 19:00 ／ 年中無休（すべて仮の内容です。<b>このモックでは発信も送信もされません</b>）</p>
+    <a class="btn" href="#contact">フォームから問い合わせる</a>
+  </div>
+</section>
+
+<!-- ===== 仕切り ===== -->
+<div class="divider">
+  <div class="n">For Seiyu Dengyo</div>
+  <p>ここから下は、Lスタジオからの仕組みのご説明です。</p>
+</div>
+
+<!-- ===== 10 更新の仕組み ===== -->
+<section class="sec rv">
+  <div class="wrap">
+    <p class="kicker">CMS</p>
+    <h2>施工実績は、御社で増やせます。</h2>
+    <p class="lead">WordPressの管理画面から、写真と文章を入れて公開を押すだけ。制作会社に連絡しなくても、施工実績と採用情報は御社側で更新できる形で納品します。下は実際の操作の再現です。入力して「公開する」を押してみてください。</p>
+    <div class="demo2">
+      <div class="screenbox">
+        <div class="bar"><i></i><i></i><i></i><div class="u">seiyu-dengyo.co.jp/wp-admin</div></div>
+        <div class="body">
+          <div class="field"><label>施工実績のタイトル</label>
+            <input id="wp-title" type="text" value="◯◯マンション／共用部のLED化"></div>
+          <div class="field"><label>分類</label>
+            <select id="wp-cat"><option>Office</option><option>Factory</option><option selected>Housing</option><option>Night Work</option></select></div>
+          <div class="field"><label>本文</label>
+            <textarea id="wp-body">共用廊下と階段の照明を全灯LEDへ交換しました。</textarea></div>
+          <button class="wpbtn" id="wp-go">公開する</button>
+        </div>
+      </div>
+      <div>
+        <p style="margin:0 0 12px;font-size:13px;color:var(--sub)">サイト側の「施工実績」一覧（公開を押すと、いちばん上に増えます）</p>
+        <div class="previewlist" id="wp-list">
+          <div class="row"><span class="d">2026.08</span><span class="c">Factory</span><span>食品工場／動力設備の増設</span></div>
+          <div class="row"><span class="d">2026.07</span><span class="c">Night</span><span>市道／道路照明の一斉更新</span></div>
+          <div class="row"><span class="d">2026.07</span><span class="c">Office</span><span>オフィス／レイアウト変更に伴う配線</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 11 SEO・見つけてもらう ===== -->
+<section class="sec steel rv">
+  <div class="wrap">
+    <p class="kicker">SEO / MEO</p>
+    <h2>「◯◯市 電気工事」で見つかるように。</h2>
+    <p class="lead">きれいなだけのサイトは、誰にも見られないまま終わります。制作の段階で以下を組み込んで納品します。検索エンジンにも、地図にも、AIの回答にも拾われる状態を初期状態にします。</p>
+    <div class="checks stagger">
+      <div><span class="ck">済</span><span><b>構造化データ</b>を全ページに埋め込み。会社情報・営業時間・対応エリア・FAQを検索エンジンが読める形に</span></div>
+      <div><span class="ck">済</span><span><b>Googleビジネスプロフィール</b>との連携。地図から電話までを1タップに</span></div>
+      <div><span class="ck">済</span><span><b>表示速度1.5秒以内</b>。画像は自動で軽量化。速度は検索順位に直結します</span></div>
+      <div><span class="ck">済</span><span><b>スマホからの電話</b>を最優先。全画面に固定の発信ボタン</span></div>
+      <div><span class="ck">済</span><span><b>採用ページの構造化</b>。求人検索エンジンに職種・給与・勤務地を渡す</span></div>
+      <div><span class="ck">済</span><span><b>お名前ドットコム</b>のサーバーとドメインへの設定・常時SSL化まで込み</span></div>
+    </div>
+    <pre class="code">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": <b>"Electrician"</b>,
+  "name": "株式会社 晴佑電業",
+  "telephone": "000-0000-0000",
+  "areaServed": ["◯◯市","◯◯郡"],
+  "openingHours": "Mo-Su 07:30-19:00",
+  "hasOfferCatalog": { "@type":"OfferCatalog","name":"電気設備工事" }
+}
+&lt;/script&gt;</pre>
+  </div>
+</section>
+
+<!-- ===== 12 スマホ ===== -->
+<section class="sec rv">
+  <div class="wrap">
+    <p class="kicker">Mobile</p>
+    <h2>ご依頼の多くは、スマホから来ます。</h2>
+    <p class="lead">現場の職人さんも、採用に応募する20代も、見るのはスマホです。右のとおり、このページはそのままスマホ幅で動きます（実機と同じ390pxで表示しています）。</p>
+    <div class="spwrap">
+      <div class="spframe"><iframe id="spframe" title="スマートフォン表示"></iframe></div>
+      <p class="sponly" style="margin:0 0 18px;font-size:14px;line-height:2;color:var(--sub);background:var(--steel);border-left:3px solid var(--y);padding:14px 16px">いまご覧いただいている、この画面そのものがスマートフォン表示です。下に固定された黄色いボタンから、どこを見ていても電話に進めます。</p>
+      <div style="flex:1;min-width:260px">
+        <p style="margin:0 0 18px;font-size:14px;line-height:2;color:var(--sub)">
+          画面の下に固定された黄色いボタンから、どこを見ていても電話に進めます。
+          採用の応募も同じ導線に載せます。<br><br>
+          縦にスクロールするだけで、事業内容 → 実績 → 採用 → 電話まで一本道になるよう並べています。</p>
+        <p class="kicker" style="color:var(--o)">Pages</p>
+        <h2 style="font-size:20px;margin:0">納品するのは、この5ページです。</h2>
+        <div class="pages" style="grid-template-columns:1fr 1fr">
+          <div><div class="n">01</div><h4>トップ</h4><p>いまご覧のページ。全部の入口</p></div>
+          <div><div class="n">02</div><h4>事業内容</h4><p>4分野を1ページずつ詳しく</p></div>
+          <div><div class="n">03</div><h4>施工実績</h4><p>御社で追加できる一覧</p></div>
+          <div><div class="n">04</div><h4>採用情報</h4><p>募集要項と応募フォーム</p></div>
+          <div><div class="n">05</div><h4>会社概要・問い合わせ</h4><p>地図・沿革・フォーム</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="brand">株式会社 晴佑電業</div>
+        <p style="margin:0;line-height:1.95">（サンプル）〒000-0000<br>◯◯県◯◯市◯◯ 0-0-0<br>TEL 000-0000-0000</p>
+      </div>
+      <div><h5>Work</h5>
+        <a href="#work">一般電気工事</a><a href="#work">照明・空調・動力</a>
+        <a href="#work">高圧受変電設備</a><a href="#work">太陽光・蓄電池</a></div>
+      <div><h5>About</h5>
+        <a href="#works">施工実績</a><a href="#company">会社概要</a><a href="#contact">お問い合わせ</a></div>
+      <div><h5>Recruit</h5>
+        <a href="#recruit">募集要項</a><a href="#recruit">先輩の声</a><a href="#contact">現場見学のお申し込み</a></div>
+    </div>
+    <p class="fine">
+      このページは <b>Lスタジオ</b>（平野 淳一）が、株式会社 晴佑電業様へのご提案のために制作した非公式のデザイン案です。公式サイトではありません。
+      掲載中の写真はすべてAIで生成したイメージであり、実際の現場・社員・設備ではありません。
+      社名を除く<b>すべての記載内容</b>（対応時間、緊急対応の可否、見積りの条件、募集要項、給与、休日、資格取得支援、施工実績、社員の声、数値、住所、電話番号）は、
+      レイアウトと文章量を確認するために私が仮で置いたサンプルであり、株式会社 晴佑電業様の実際の事業内容・雇用条件を示すものではありません。
+      ご確認後は速やかに取り下げます。<br>
+      Lスタジオ ／ https://l-studiojp.com/
+    </p>
+  </div>
+</footer>
+
+<a class="spcta" href="#contact">電話する ／ 7:30-19:00 受付<small style="font-weight:400;font-size:10px;display:block;opacity:.62">モックのため発信されません</small></a>
+
+<script>
+/* ---- 帯の実高さを --ribbon に反映（折り返しでヒーローがずれるのを防ぐ） ---- */
+const rb=document.querySelector('.ribbon');
+const setRibbon=()=>{
+  const h=rb?Math.round(rb.getBoundingClientRect().height):0;
+  document.documentElement.style.setProperty('--ribbon',h+'px');
+};
+setRibbon(); addEventListener('resize',setRibbon);
+addEventListener('load',setRibbon);
+
+/* ---- 幕を上げる ---- */
+const lift=()=>document.body.classList.add('loaded');
+if(document.readyState==='complete') lift(); else addEventListener('load',lift);
+setTimeout(lift,2200);
+
+/* ---- スマホ枠の中で開いたときは、帯とナビと最後の説明を隠す ---- */
+if(new URLSearchParams(location.search).get('sp')==='1'){
+  document.documentElement.classList.add('spmode');
+  document.querySelector('.ribbon').remove();
+  document.documentElement.style.setProperty('--ribbon','0px');
+}
+
+/* ---- ナビ：下で隠れ、上で戻る ---- */
+const nav=document.getElementById('nav');
+let lastY=0;
+const navTick=()=>{
+  const y=window.scrollY;
+  nav.classList.toggle('solid', y>window.innerHeight*.6);
+  nav.classList.toggle('hide', y>lastY+6 && y>window.innerHeight);
+  if(Math.abs(y-lastY)>6) lastY=y;
+};
+addEventListener('scroll',navTick,{passive:true}); navTick();
+
+/* ---- 出現 ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in'); io.unobserve(e.target);}
+}),{rootMargin:'0px 0px -10% 0px',threshold:.05});
+document.querySelectorAll('.rv,.stagger,.band,.divider').forEach(el=>io.observe(el));
+
+/* ---- 画像の幕開け ----
+   注意：clip-path をかけた要素そのものを観測すると永久に発火しない。
+   必ず親を観測して、クラスは .ib 側に付ける。 */
+document.querySelectorAll('.ib').forEach(ib=>{
+  const host=ib.parentElement||ib;
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ ib.classList.add('in'); o.disconnect(); }
+  }),{rootMargin:'0px 0px -8% 0px',threshold:.02});
+  o.observe(host);
+});
+
+/* ---- 帯の視差 ---- */
+const bands=[...document.querySelectorAll('.band')];
+let raf=0;
+const parallax=()=>{
+  raf=0;
+  const vh=innerHeight;
+  for(const b of bands){
+    const r=b.getBoundingClientRect();
+    if(r.bottom<-120||r.top>vh+120) continue;
+    const p=(r.top+r.height/2-vh/2)/vh;
+    const img=b.querySelector('img');
+    if(img) img.style.transform='translate3d(0,'+(p*-7).toFixed(2)+'%,0) scale(1.14)';
+  }
+};
+const onPar=()=>{ if(!raf) raf=requestAnimationFrame(parallax); };
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  addEventListener('scroll',onPar,{passive:true});
+  addEventListener('resize',onPar);
+  onPar();
+}
+
+/* ---- スマホ枠：自分自身を sp=1 付きで読み込む ---- */
+(()=>{const f=document.getElementById('spframe');
+  if(f && !new URLSearchParams(location.search).get('sp')){
+    f.src=location.pathname+'?sp=1';
+  }})();
+
+/* ---- WordPressの更新デモ ---- */
+const CATS={Office:'Office',Factory:'Factory',Housing:'Housing','Night Work':'Night'};
+document.getElementById('wp-go').addEventListener('click',()=>{
+  const t=document.getElementById('wp-title').value.trim()||'（無題の施工実績）';
+  const c=document.getElementById('wp-cat').value;
+  const list=document.getElementById('wp-list');
+  const now=new Date();
+  const d=now.getFullYear()+'.'+String(now.getMonth()+1).padStart(2,'0');
+  const row=document.createElement('div');
+  row.className='row new';
+  row.innerHTML='<span class="d"></span><span class="c"></span><span></span>';
+  row.children[0].textContent=d;
+  row.children[1].textContent=CATS[c]||c;
+  row.children[2].textContent=t;
+  list.prepend(row);
+  setTimeout(()=>row.classList.remove('new'),900);
+});
+</script>
+</body>
+</html>
