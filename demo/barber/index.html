@@ -12,7 +12,13 @@
 <meta property="og:url" content="https://l-studiojp.com/demo/barber/">
 <style>*{box-sizing:border-box}html,body{margin:0;padding:0}img,video{max-width:100%}</style>
 </head>
-<body><style>
+<body>
+<svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+  <defs><linearGradient id="brass" x1="8" y1="5" x2="49" y2="53" gradientUnits="userSpaceOnUse"><stop stop-color="#E3C88B"/><stop offset=".52" stop-color="#B98F3E"/><stop offset="1" stop-color="#7C5A22"/></linearGradient></defs>
+  <symbol id="mark-mini" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8.8" fill="#0A0B0D" stroke="url(#brass)" stroke-width=".7"/><circle cx="10" cy="10" r="7.2" fill="none" stroke="#705424" stroke-width=".35"/><path d="M7.6 5.1v9.7h5.8v-1.9H9.8V5.1z" fill="url(#brass)"/></symbol>
+  <symbol id="mark-full" viewBox="0 0 56 56"><path d="M28 2.7 48.7 10v16.8c0 13.2-8.6 21.9-20.7 26.5C15.9 48.7 7.3 40 7.3 26.8V10z" fill="#0A0B0D" stroke="url(#brass)" stroke-width="1"/><path d="M28 5.9 45.6 12v14.3c0 11.3-7.2 18.8-17.6 23.1-10.4-4.3-17.6-11.8-17.6-23.1V12z" fill="none" stroke="#705424" stroke-width=".55"/><path d="M23.2 13.2v27.6h14v-4.4h-8.7V13.2z" fill="url(#brass)"/><path d="M16.5 14.2v23.4M18.9 14.2v23.4M16.5 19.2l2.4-2.4m-2.4 7.2 2.4-2.4m-2.4 7.2 2.4-2.4m-2.4 7.2 2.4-2.4" fill="none" stroke="url(#brass)" stroke-width=".85"/><path d="M12.8 39.5c7.4-1 15.4-6.8 24.9-22.9l4.7-1.4-2.1 4.4C31 34.3 21.9 40.7 12.8 41.3z" fill="none" stroke="url(#brass)" stroke-width=".8" stroke-linejoin="round"/></symbol>
+</svg>
+<style>
   :root {
     --paper:        #F7F8FA;
     --surface:      #FFFFFF;
@@ -37,6 +43,7 @@
     --r:            8px;
     --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic",
             "Noto Sans JP", "Segoe UI", system-ui, sans-serif;
+    --serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif JP", "Georgia", serif;
   }
 
   body {
@@ -119,38 +126,46 @@
     background: #101418; border-radius: 34px; padding: 12px;
     box-shadow: var(--shadow); max-width: 390px; margin: 0 auto;
   }
-  .screen { background: #8CABD8; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; height: 640px; }
+  .screen {
+    background:
+      repeating-linear-gradient(115deg, transparent 0 22px, rgba(255,255,255,.014) 22px 23px),
+      linear-gradient(180deg, #1B1D21, #121418 62%, #0E1013);
+    border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; height: 640px;
+  }
   .lhead {
-    background: rgba(16,20,24,.92); color: #fff; padding: 10px 14px;
-    display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 700;
+    min-height: 47px; box-sizing: border-box;
+    background: linear-gradient(180deg, #111317, #090A0C); color: #F2ECDD; padding: 7px 14px;
+    display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #8A692D;
   }
-  .lhead .back { opacity: .7; font-weight: 400; }
-  .lhead .pole {
-    width: 20px; height: 20px; border-radius: 50%;
-    background: repeating-linear-gradient(135deg, #B3383D 0 3px, #fff 3px 6px, #2B4C7E 6px 9px, #fff 9px 12px);
-    border: 1px solid rgba(255,255,255,.5);
-  }
+  .lhead .back { opacity: .62; font-weight: 400; font-size: 16px; }
+  .lhead-mark { width: 20px; height: 20px; flex: none; }
+  .lhead-name { display: flex; flex-direction: column; line-height: 1.15; }
+  .lhead-name b { font-family: var(--serif); font-size: 12.5px; font-weight: 600; letter-spacing: .18em; }
+  .lhead-name small { margin-top: 3px; color: #A9A69F; font-family: var(--serif); font-size: 8px; font-weight: 400; letter-spacing: .16em; }
+  .lhead-menu { margin-left: auto; color: #B99A5A; font: 12px/1 var(--serif); letter-spacing: .15em; opacity: .75; }
   .chat { flex: 1; overflow-y: auto; padding: 12px 10px 16px; scroll-behavior: smooth; }
   .msg { display: flex; margin: 7px 0; align-items: flex-end; gap: 6px; }
   .msg.user { justify-content: flex-end; }
   .avatar {
     width: 30px; height: 30px; border-radius: 50%; flex: none;
-    background: repeating-linear-gradient(135deg, #B3383D 0 4px, #fff 4px 8px, #2B4C7E 8px 12px, #fff 12px 16px);
-    border: 1px solid rgba(0,0,0,.15);
+    background-color: #0A0B0D;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='5' y1='3' x2='25' y2='27' gradientUnits='userSpaceOnUse'%3E%3Cstop stop-color='%23E3C88B'/%3E%3Cstop offset='.52' stop-color='%23B98F3E'/%3E%3Cstop offset='1' stop-color='%237C5A22'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='15' cy='15' r='14.3' fill='%230A0B0D' stroke='%234B3B22' stroke-width='.7'/%3E%3Cpath d='M11 7.5v14.7h9.2v-3.1h-5.8V7.5z' fill='url(%23g)'/%3E%3Cpath d='M9.2 6.1h6.9' stroke='url(%23g)' stroke-width='.8'/%3E%3C/svg%3E");
+    background-size: 30px 30px; border: 1px solid rgba(185,143,62,.55);
+    box-shadow: 0 1px 5px rgba(0,0,0,.24);
   }
   .bubble {
     max-width: 76%; padding: 9px 12px; border-radius: 14px;
-    font-size: 13px; line-height: 1.65; background: #fff; color: var(--ink);
+    font-size: 13px; line-height: 1.65; background: #F4F1E9; color: #1A1C1F;
     border-bottom-left-radius: 4px; white-space: pre-line;
     box-shadow: 0 1px 1px rgba(0,0,0,.08);
   }
-  .msg.user .bubble { background: #7CD16A; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
-  .sysline { text-align: center; font-size: 10.5px; color: rgba(20,26,35,.55); margin: 12px 0 4px; }
-  .sysline b { background: rgba(255,255,255,.7); border-radius: 100px; padding: 2px 12px; font-weight: 600; }
+  .msg.user .bubble { background: #6FA95E; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
+  .sysline { text-align: center; font-size: 10.5px; color: rgba(255,255,255,.45); margin: 12px 0 4px; }
+  .sysline b { background: rgba(255,255,255,.09); color: rgba(255,255,255,.72); border-radius: 100px; padding: 2px 12px; font-weight: 600; }
 
   /* flex card */
   .fcard {
-    max-width: 82%; background: #fff; border-radius: 14px; overflow: hidden;
+    max-width: 82%; background: #F4F1E9; border-radius: 14px; overflow: hidden;
     box-shadow: 0 1px 1px rgba(0,0,0,.08); font-size: 12.5px; line-height: 1.6;
   }
   .fcard .fhead { background: var(--navy); color: #fff; padding: 8px 12px; font-weight: 700; font-size: 12px; letter-spacing: .04em; }
@@ -173,29 +188,40 @@
   .qr::-webkit-scrollbar { display: none; }
   .qrb {
     flex: none; font: inherit; font-size: 12px; font-weight: 600;
-    background: rgba(255,255,255,.95); color: var(--navy-2);
-    border: 1px solid rgba(34,53,89,.35); border-radius: 100px;
+    background: rgba(244,241,233,.94); color: #23262B;
+    border: 1px solid rgba(255,255,255,.28); border-radius: 100px;
     padding: 7px 13px; cursor: pointer; white-space: nowrap;
   }
-  .qrb:hover { background: #fff; }
+  .qrb:hover { background: #FBF9F4; }
   .qrb small { color: var(--ink-3); font-weight: 400; }
   .qrb:disabled { opacity: .4; cursor: default; }
 
   /* rich menu */
   .rich {
-    background: var(--navy); padding: 8px; display: grid; gap: 6px;
-    grid-template-columns: repeat(3, 1fr);
+    position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
+    background: repeating-linear-gradient(132deg, transparent 0 15px, rgba(227,200,139,.018) 15px 16px), linear-gradient(180deg, #16181C, #0B0C0E);
+    padding: 37px 0 0; gap: 0; border-top: 1px solid #957334;
   }
+  .richbrand { position: absolute; inset: 0 0 auto; height: 36px; display: flex; align-items: center; justify-content: center; gap: 9px; color: #C6A45F; border-bottom: 1px solid rgba(185,143,62,.36); pointer-events: none; }
+  .richbrand svg { width: 40px; height: 40px; margin-top: 4px; }
+  .richbrand span { font: 600 9px/1 var(--serif); letter-spacing: .28em; }
   .richb {
-    font: inherit; font-size: 11px; font-weight: 700; line-height: 1.4;
-    color: #fff; background: var(--navy-2);
-    border: 1px solid rgba(255,255,255,.16); border-radius: 8px;
-    padding: 9px 4px 8px; cursor: pointer; text-align: center;
+    min-width: 0; height: 56px; padding: 4px 3px 3px; cursor: pointer; text-align: center;
+    color: #C6A45F; background: transparent; border: 0; border-radius: 0;
+    border-right: 1px solid rgba(185,143,62,.32); border-bottom: 1px solid rgba(185,143,62,.32);
+    font-family: var(--serif); transition: color .18s ease, border-color .18s ease, background-color .18s ease;
   }
-  .richb .ic { display: block; font-size: 16px; margin-bottom: 2px; }
-  .richb:hover { background: #2C4370; }
-  .richb.main { background: var(--amber); color: #241802; border-color: var(--amber); }
-  .richb.main:hover { filter: brightness(1.06); }
+  .richb:nth-of-type(3n) { border-right: 0; }
+  .richb:nth-of-type(n+4) { border-bottom: 0; }
+  .richb .ricon { display: block; width: 23px; height: 23px; margin: 0 auto 2px; fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+  .richb .ja { display: block; font-size: 10.5px; line-height: 1.1; font-weight: 500; letter-spacing: .08em; color: #E0D6C0; }
+  .richb .en { display: block; margin-top: 2px; font-family: "Didot", "Bodoni MT", "Georgia", "Times New Roman", serif; font-size: 6px; line-height: 1; font-weight: 400; letter-spacing: .25em; color: #93783F; }
+  .richb:hover { color: #E3C88B; background-color: rgba(255,255,255,.025); border-color: rgba(227,200,139,.58); }
+  .richb:hover .ja { color: #F4EFE4; }
+  .richb:hover .en { color: #C3A35F; }
+  .richb.main { background: linear-gradient(135deg, #E3C88B 0%, #B98F3E 54%, #7C5A22 100%); color: #111214; border-color: #5D451C; }
+  .richb.main .ja, .richb.main .en { color: #111214; }
+  .richb.main:hover { background: linear-gradient(135deg, #E9D29E 0%, #C49B48 54%, #866328 100%); color: #050607; border-color: #D4B66F; }
   .phonefoot { text-align: center; font-size: 11.5px; color: var(--ink-3); margin: 10px auto 0; max-width: 390px; }
   .phonefoot button { font: inherit; font-size: 11.5px; color: var(--accent); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
 
@@ -422,15 +448,16 @@
         <p class="paneltitle"><span class="tag">お客様側</span>LINEでの予約体験（タップで進みます）</p>
         <div class="phone">
           <div class="screen">
-            <div class="lhead"><span class="back">〈</span><span class="pole"></span>BARBER L（デモ店舗）<span style="margin-left:auto;opacity:.55">≡</span></div>
+            <div class="lhead"><span class="back">〈</span><svg class="lhead-mark" aria-hidden="true"><use href="#mark-mini"></use></svg><span class="lhead-name"><b>BARBER L</b><small>（デモ店舗）</small></span><span class="lhead-menu">— &nbsp;—</span></div>
             <div class="chat" id="chat"></div>
             <div class="rich" id="rich">
-              <button class="richb main" data-act="reserve"><span class="ic">✂</span>ご予約</button>
-              <button class="richb" data-act="menu"><span class="ic">💈</span>メニュー・料金</button>
-              <button class="richb" data-act="check"><span class="ic">📅</span>予約の確認</button>
-              <button class="richb" data-act="hours"><span class="ic">🕐</span>営業時間</button>
-              <button class="richb" data-act="access"><span class="ic">📍</span>アクセス</button>
-              <button class="richb" data-act="talk"><span class="ic">💬</span>お店に相談</button>
+              <div class="richbrand" aria-hidden="true"><svg><use href="#mark-full"></use></svg><span>BARBER L</span></div>
+              <button class="richb main" data-act="reserve"><svg class="ricon" viewBox="0 0 28 28" aria-hidden="true"><path d="M10.3 14.6 21.8 4.9c1.9-1.6 3.4-.6 2.4 1.6L17 19.3a3 3 0 0 1-2.6 1.6h-3.4z"/><path d="M20.9 7.2 13.4 17.6"/><circle cx="9.1" cy="19.3" r="1.5"/><path d="M8.2 21.6 3.4 25.4M9.9 22.9 5.1 26.7"/></svg><span class="ja">ご予約</span><span class="en">RESERVE</span></button>
+              <button class="richb" data-act="menu"><svg class="ricon" viewBox="0 0 28 28" aria-hidden="true"><path d="m5 22 15.5-15.5M8.1 6.8l13.8 14.4M4.6 19.8l3.6 3.6M18.9 5l4 4"/><circle cx="6.8" cy="6" r="2.1"/><circle cx="22" cy="22" r="2.1"/><path d="M10.5 21.5 22 10m-8.4 2.9 1.8 1.8m-4.1.5 1.8 1.8m-4.2.5 1.8 1.8"/></svg><span class="ja">メニュー</span><span class="en">MENU</span></button>
+              <button class="richb" data-act="check"><svg class="ricon" viewBox="0 0 28 28" aria-hidden="true"><rect x="4.5" y="6.5" width="19" height="17" rx="1"/><path d="M9 4.5v4M19 4.5v4M4.5 11h19M8.5 15h3m2.5 0h2.5m2.5 0h1M8.5 19h3m2.5 0h2.5"/></svg><span class="ja">予約確認</span><span class="en">BOOKING</span></button>
+              <button class="richb" data-act="hours"><svg class="ricon" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10"/><circle cx="14" cy="14" r="1"/><path d="M14 8v6l4.5 3M14 4v1.5M24 14h-1.5M14 24v-1.5M4 14h1.5"/></svg><span class="ja">営業時間</span><span class="en">HOURS</span></button>
+              <button class="richb" data-act="access"><svg class="ricon" viewBox="0 0 28 28" aria-hidden="true"><path d="M22 12.1c0 5.9-8 12-8 12s-8-6.1-8-12a8 8 0 1 1 16 0z"/><circle cx="14" cy="12" r="2.7"/></svg><span class="ja">アクセス</span><span class="en">ACCESS</span></button>
+              <button class="richb" data-act="talk"><svg class="ricon" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 6.5h18v13H12l-5.5 3v-3H5z"/><path d="M9 11h10M9 15h7"/></svg><span class="ja">ご相談</span><span class="en">CONTACT</span></button>
             </div>
           </div>
         </div>
@@ -740,7 +767,7 @@ function quicks(items, handler) {
 async function startReserve() {
   flow = {};
   user('ご予約');
-  await bot('ご来店ありがとうございます✂\nご希望のメニューをお選びください。');
+  await bot('ご来店ありがとうございます\nご希望のメニューをお選びください。');
   quicks(MENUS.map(m => ({ label: `${m.name}<br><small>${yen(m.price)}・${m.min}分</small>`, m })), async it => {
     flow.menu = it.m;
     user(it.m.name);
@@ -812,14 +839,14 @@ async function fixReserve() {
   await bot('ご予約ありがとうございます。<b>→ 右の管理画面の予約台帳に、この予約がいま載りました。</b>ご確認ください。', 500);
   await new Promise(r => setTimeout(r, 900));
   sys('前日 19:00（自動送信されるリマインドの実物）');
-  await bot(`【ご予約前日のご案内】\n${flow.day === 0 ? '本日' : '明日'} ${fmt(flow.start)}〜 ${flow.menu.name} でお待ちしております✂\nご都合が悪くなった場合は、こちらから変更・キャンセルができます。`, 400);
-  await bot('──体験は以上です✂ 「メニュー・料金」など他のボタンも動きます。', 600);
+  await bot(`【ご予約前日のご案内】\n${flow.day === 0 ? '本日' : '明日'} ${fmt(flow.start)}〜 ${flow.menu.name} でお待ちしております\nご都合が悪くなった場合は、こちらから変更・キャンセルができます。`, 400);
+  await bot('──体験は以上です 「メニュー・料金」など他のボタンも動きます。', 600);
 }
 
 /* other rich menu actions */
 async function actMenu() {
   user('メニュー・料金');
-  await bot(MENUS.map(m => `✂ ${m.name}　${yen(m.price)}（${m.min}分）`).join('\n') + '\n\nすべて税込表示です。ご予約は「ご予約」ボタンからどうぞ。');
+  await bot(MENUS.map(m => `— ${m.name}　${yen(m.price)}（${m.min}分）`).join('\n') + '\n\nすべて税込表示です。ご予約は「ご予約」ボタンからどうぞ。');
 }
 async function actCheck() {
   user('予約の確認');
@@ -850,7 +877,7 @@ document.getElementById('reset').addEventListener('click', () => {
   renderLedger(); greet();
 });
 async function greet() {
-  await bot('BARBER L（デモ店舗）へようこそ✂\nこれは実際に動くデモです。下の「ご予約」をタップして、予約の流れをお試しください。', 200);
+  await bot('BARBER L（デモ店舗）へようこそ\nこれは実際に動くデモです。下の「ご予約」をタップして、予約の流れをお試しください。', 200);
 }
 
 /* init */
