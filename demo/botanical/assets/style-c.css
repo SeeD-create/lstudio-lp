@@ -20,8 +20,8 @@
 
 :root{
   /* ---- 地 ---- */
-  --ink:#0C0D0E;          /* 黒セクション */
-  --ink-2:#141618;        /* 黒セクションの中の一段明るい面 */
+  --ink:#141414;          /* 黒セクション */
+  --ink-2:#1A1A1A;        /* 黒セクションの中の一段明るい面 */
   --ink-3:#1C1F22;        /* カード */
   --paper:#FFFFFF;        /* 白セクション */
   --paper-2:#F6F4F1;      /* 生成りの白（区切り用） */
@@ -47,7 +47,7 @@
   --green-d:#3C7527;      /* 文字が乗る面（白文字で 5.1:1） */
   --green-l:#86B94A;      /* 上端のツヤだけ */
 
-  --radius:3px;           /* かっこいい系＝角はほぼ立てる */
+  --radius:2px;           /* かっこいい系＝角はほぼ立てる */
   --ov:.58;               /* 写真に重ねる黒の濃さ。ここ1行で全体の暗さを調整 */
 }
 
@@ -58,14 +58,14 @@ body{
   background:var(--paper);
   color:var(--text);
   font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",
-              "Yu Gothic",YuGothic,"Noto Sans JP",Meiryo,sans-serif;
+              Meiryo,"Yu Gothic",YuGothic,sans-serif;
   font-size:16px;
   line-height:1.9;
   letter-spacing:.015em;
   line-break:strict;   /* 行頭の「ー」「っ」などを禁止＝日本語の折返しを整える */
   word-break:normal;
   -webkit-font-smoothing:antialiased;
-  padding-bottom:84px; /* 固定CTA分 */
+  padding-bottom:72px; /* 固定CTA分 */
 }
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
@@ -73,7 +73,7 @@ h1,h2,h3,p,ul,figure,table{margin:0}
 ul{padding:0;list-style:none}
 
 /* 出現アニメ（lp.js が .in を付ける） */
-.js .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+.js .rv{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
 .js .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){ .js .rv{opacity:1;transform:none;transition:none} }
 
@@ -82,14 +82,14 @@ ul{padding:0;list-style:none}
    ========================================================= */
 .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
 .wrap.narrow{max-width:760px}
-section{padding:40px 0}
+section{padding:32px 0}
 section.tight{padding:32px 0}
 .dark{background:var(--ink);color:var(--on-ink)}
 .dark2{background:var(--ink-2);color:var(--on-ink)}
 .soft{background:var(--paper-2)}
 
 /* 見出しブロック */
-.sec-head{margin-bottom:20px}
+.sec-head{margin-bottom:24px}
 .eyebrow{
   display:inline-flex;align-items:center;gap:10px;
   font-size:11px;font-weight:700;letter-spacing:.2em;
@@ -101,14 +101,15 @@ section.tight{padding:32px 0}
 .dark .eyebrow::before,.dark2 .eyebrow::before{background:var(--gold-ink)}
 
 h2{
-  font-size:24px;line-height:1.45;font-weight:700;letter-spacing:.005em;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho",serif;
+  font-size:24px;line-height:1.5;font-weight:600;letter-spacing:.025em;
   color:var(--text);
 }
 .dark h2,.dark2 h2{color:#fff}
 h2 .thin{font-weight:400}
 h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent 66%,rgba(176,141,78,.28) 66%)}
-.dark h2 em,.dark2 h2 em{color:var(--gold-ink);background:none}
-.sec-head p{margin-top:20px;font-size:15.5px;color:var(--text-2);line-height:1.95}
+.dark h2 em,.dark2 h2 em{color:var(--on-ink);background:none}
+.sec-head p{margin-top:16px;font-size:15px;color:var(--text-2);line-height:1.8}
 .dark .sec-head p,.dark2 .sec-head p{color:var(--on-ink-2)}
 .note{margin-top:16px;font-size:12px;line-height:1.8;color:var(--text-2)}
 .dark .note,.dark2 .note{color:#8E9297}
@@ -151,9 +152,9 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   width:100%;max-width:430px;
   padding:17px 44px 17px 20px;
   border-radius:var(--radius);
-  background:linear-gradient(180deg,var(--green-l) 0%,var(--green) 32%,var(--green-d) 100%);
+  background:linear-gradient(180deg,#427D2C 0%,var(--green-d) 100%);
   color:#fff;font-size:16px;font-weight:700;line-height:1.45;letter-spacing:.02em;
-  box-shadow:0 10px 24px rgba(12,13,14,.22);
+  box-shadow:0 4px 12px rgba(12,13,14,.14);
   transition:transform .18s ease,box-shadow .18s ease;
 }
 /* 明るい緑は上端3pxのツヤだけ。文字が乗る面は基準色より濃くしてある */
@@ -161,7 +162,9 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   content:"";position:absolute;left:0;right:0;top:0;height:3px;
   background:var(--green-l);border-radius:var(--radius) var(--radius) 0 0;
 }
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(12,13,14,.3)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(12,13,14,.2)}
+.btn:active{transform:translateY(1px);box-shadow:0 1px 4px rgba(12,13,14,.16)}
+:where(a,summary):focus-visible{outline:2px solid currentColor;outline-offset:4px}
 .btn .li{width:19px;height:19px;flex:none;fill:currentColor}
 .btn .arw{
   position:absolute;right:16px;top:50%;transform:translateY(-50%);
@@ -173,7 +176,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 /* サブCTA（ゴールドの細線＋文字）＝黒地専用 */
 .btn.gold{
   background:transparent;box-shadow:none;
-  border:1px solid rgba(203,170,108,.6);color:var(--gold-ink);font-weight:600;font-size:15px;
+  border:1px solid rgba(203,170,108,.6);color:var(--on-ink);font-weight:600;font-size:15px;
 }
 .btn.gold::before{display:none}
 .btn.gold .arw svg{stroke:var(--gold-ink)}
@@ -197,7 +200,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
    ========================================================= */
 .topbar{
   position:relative;z-index:5;
-  padding:11px 0 0;
+  padding:12px 0;
 }
 @media(min-width:900px){
   /* PCはロゴをFVの写真の上に重ねる（カンプどおり） */
@@ -221,42 +224,42 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
   position:relative;overflow:hidden;
   background:
     radial-gradient(120% 80% at 100% 0%,#FFFFFF 0%,#F8F5F0 55%,#F1EDE6 100%);
-  padding-bottom:34px;
+  padding-bottom:32px;
 }
-.hero-inner{padding-top:18px}
+.hero-inner{padding-top:16px}
 .hero-grid{display:flex;flex-direction:column}
 .hero-copy{display:contents}         /* スマホだけ順番を組み替えるため */
 .hero-kicker{
   order:1;
-  font-size:9.5px;font-weight:700;letter-spacing:.15em;color:#8A7043;
+  font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--text-2);
   margin-bottom:12px;white-space:nowrap;          /* 2行に折れると締まらないので1行固定 */
 }
 .hero h1{
   order:2;
   font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho","Noto Serif JP",serif;
-  font-size:30px;line-height:1.5;font-weight:600;letter-spacing:.02em;color:#1A1713;
+  font-size:30px;line-height:1.45;font-weight:600;letter-spacing:.02em;color:#1A1713;
 }
 /* カンプでは強調のマーカーは無く、見出しとリードの間にゴールドの細線が1本入る */
-.hero-photo{order:3;margin:16px 0 0;aspect-ratio:16/11;box-shadow:0 18px 36px rgba(12,13,14,.1)}
+.hero-photo{order:3;margin:16px 0 0;aspect-ratio:16/10;box-shadow:none}
 .hero-lead{
-  order:4;margin-top:18px;padding-top:16px;font-size:15px;line-height:1.9;color:#4A463F;
-  border-top:1px solid rgba(176,141,78,.55);max-width:24em;
+  order:4;margin-top:16px;padding-top:16px;font-size:14px;line-height:1.8;color:#4A463F;
+  border-top:1px solid rgba(176,141,78,.55);max-width:none;
 }
 .hero-lead b{color:var(--text);font-weight:700}
-.hero-cta{order:5;margin-top:18px}
-.hero-pills{order:6;margin-top:22px}
+.hero-cta{order:5;margin-top:16px}
+.hero-pills{order:6;margin-top:24px}
 
 /* BOTANICAL / AI / BUSINESS の3つ */
 .pills{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .pill{text-align:center}
 .pill .cir{
-  width:78px;height:78px;margin:0 auto 8px;border-radius:50%;
-  border:1px solid rgba(176,141,78,.55);
+  width:100%;height:32px;margin:0 0 8px;border-radius:0;
+  border:0;border-top:1px solid rgba(176,141,78,.55);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
-  font-size:9.5px;font-weight:700;letter-spacing:.12em;color:#8A7043;
-  background:rgba(255,253,250,.72);
+  font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--text-2);
+  background:transparent;
 }
-.pill .cir::after{content:"";width:16px;height:1px;background:rgba(176,141,78,.75)}
+.pill .cir::after{content:none}
 .pill p{font-size:11px;line-height:1.6;color:var(--text-2)}
 
 /* =========================================================
@@ -280,16 +283,16 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
    7. ソリューション（白地・01/02/03）
    ========================================================= */
 .sol-photo{aspect-ratio:16/10;margin:0 0 24px}
-.cards{display:grid;gap:14px}
+.cards{display:grid;gap:24px}
 .card{
   background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
   overflow:hidden;
 }
 .card .ph{border-radius:0;aspect-ratio:16/9}
 .card .ph.fit{background-color:#fff}
-.card .bd{padding:14px 14px 16px}
+.card .bd{padding:16px}
 .card .no{
-  display:block;font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--gold);
+  display:block;font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--text-2);
   margin-bottom:6px;
 }
 .card h3{font-size:16px;font-weight:700;line-height:1.6;margin-bottom:6px}
@@ -298,12 +301,12 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 /* =========================================================
    8. 選ばれる理由（黒地・3列）
    ========================================================= */
-.reasons{display:grid;gap:18px}
+.reasons{display:grid;gap:24px}
 .reason{padding-top:24px;border-top:1px solid var(--line-why)}
 .reason .ico{
   width:52px;height:52px;border-radius:50%;
   border:1px solid rgba(203,170,108,.5);
-  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
 }
 .reason .ico svg{width:23px;height:23px;stroke:var(--gold-ink);fill:none}
 .reason h3{font-size:16.5px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:.01em}
@@ -370,15 +373,15 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
 /* =========================================================
    12. 受講生の声
    ========================================================= */
-.voices{display:grid;gap:14px}
+.voices{display:grid;gap:16px}
 .voice{
   background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-  display:grid;grid-template-columns:104px 1fr;   /* スマホは写真を左に小さく置く */
+  display:grid;grid-template-columns:96px 1fr;   /* スマホは写真を左に小さく置く */
 }
 .voice .ph{border-radius:0;height:100%;min-height:118px}
-.voice .bd{padding:13px 14px}
-.voice h3{font-size:15.5px;font-weight:700;line-height:1.6;margin-bottom:8px}
-.voice p{font-size:14px;line-height:1.8;color:var(--text-2)}
+.voice .bd{padding:16px}
+.voice h3{font-size:15px;font-weight:700;line-height:1.6;margin-bottom:8px}
+.voice p{font-size:13px;line-height:1.8;color:var(--text-2)}
 .voice .who{
   margin-top:12px;padding-top:10px;border-top:1px solid var(--line);
   font-size:11px;letter-spacing:.06em;color:var(--text-2);
@@ -416,7 +419,7 @@ h2 em{font-style:normal;color:var(--text);background:linear-gradient(transparent
    ========================================================= */
 .cta-band{
   position:relative;overflow:hidden;background:var(--ink);color:var(--on-ink);
-  padding:52px 0;
+  padding:48px 0;
 }
 .cta-band .bg{
   position:absolute;inset:0;background:#111 center/cover no-repeat;
@@ -458,18 +461,18 @@ footer .fl .nm{font-size:12px;font-weight:700;letter-spacing:.14em;color:#fff;ma
 footer .ttl{margin-bottom:10px;color:#fff;font-size:13px;font-weight:700;letter-spacing:.04em}
 footer .links{display:flex;gap:18px;margin:14px 0 12px;flex-wrap:wrap}
 footer .links a{border-bottom:1px solid rgba(203,170,108,.5);padding-bottom:2px;color:var(--on-ink)}
-footer .copy{font-size:10.5px;color:#7E8287}
+footer .copy{font-size:10.5px;color:#A9ADB2}
 
 .sticky{
   position:fixed;left:0;right:0;bottom:0;z-index:60;
   background:rgba(12,13,14,.94);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  padding:8px 20px calc(8px + env(safe-area-inset-bottom));
   border-top:1px solid var(--line-ink);
   transform:translateY(115%);transition:transform .3s ease;
 }
 .sticky.show{transform:translateY(0)}
-.sticky .btn{margin:0 auto;padding:14px 44px 14px 18px;font-size:15.5px;max-width:520px}
+.sticky .btn{min-height:48px;margin:0 auto;padding:12px 32px 12px 12px;font-size:14px;max-width:520px}
 
 /* =========================================================
    17. PC（900px以上）
@@ -503,7 +506,7 @@ footer .copy{font-size:10.5px;color:#7E8287}
   /* 写真は .hero の背景に回すので、要素としての写真は出さない */
   .hero-photo{display:none}
   .hero-pills{margin-top:30px;max-width:430px}
-  .pill .cir{width:88px;height:88px;font-size:10.5px}
+  .pill .cir{width:100%;height:40px;font-size:10.5px}
   .pill p{font-size:12px}
 
   /* ---- お悩み：左に人物／右にリスト ---- */
@@ -550,10 +553,10 @@ footer .copy{font-size:10.5px;color:#7E8287}
   .gift{padding:26px 20px}
 
   /* ---- 最終CTA ---- */
-  .cta-band{padding:96px 0;text-align:center}
+  .cta-band{padding:96px 0;text-align:left}
   .cta-band h2{font-size:34px}
-  .cta-band .btn{margin-left:auto;margin-right:auto}
-  .cta-band .btn-sub{text-align:center}
+  .cta-band .btn{margin-left:0;margin-right:0}
+  .cta-band .btn-sub{text-align:left}
   .cta-band .giftbar{margin-bottom:20px}
 
   .band{height:220px}
@@ -567,4 +570,26 @@ footer .copy{font-size:10.5px;color:#7E8287}
      後ろから .hero-inner などの上下paddingを 0 に潰してしまう（2026-08-11にFVが崩れた原因）。 */
 @media(min-width:1180px){
   .wrap{padding-left:28px;padding-right:28px}
+}
+
+/* C refinement: restrained surfaces and consistent mobile rhythm. */
+.dark{background:linear-gradient(120deg,#1A1A1A,var(--ink) 65%)}
+.dark :is(h2,h3,.check,.vlist){letter-spacing:.035em}
+.btn{font-size:15px;letter-spacing:0;padding:16px 36px 16px 16px;min-height:56px}
+.btn::before{height:2px}
+.reason .ico{border-radius:2px;width:40px;height:40px;margin-bottom:12px}
+.reason h3{margin-bottom:12px}
+.card{border:0;border-bottom:1px solid var(--line)}
+.card .bd{padding-left:0;padding-right:0}
+.hero-photo{border-radius:2px}
+footer{border-top:1px solid var(--line-ink)}
+.logo .mark,footer .fl .mark{
+  font-family:"Helvetica Neue",Arial,"Yu Gothic",YuGothic,sans-serif;
+}
+@media(min-width:900px){
+  .hero-kicker{white-space:normal;max-width:40em}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.sticky,.vframe .play span,.faq summary::after{transition:none}
 }

@@ -8,8 +8,24 @@
 var LINE_URL = "https://lin.ee/XXXXXXX"; // ←★講座用LINE公式の友だち追加URLに差し替え
 var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だけ。例: "123456789"）
 
+/* ★計測（Meta Pixel / GA4）のマスタースイッチ -----------------------------
+   2026-09-02 先方回答＝保守のみ契約（計測は今回見送り）につき false で無効化。
+   ・false のあいだ、計測イベント（LPView / ViewContent / ClickLINE …）は一切飛ばない
+   ・<head> のピクセルタグ（現在コメントアウト中）を誤って有効化しても、
+     ここが false なら送信されない＝二重ロック
+   ・再有効化の手順は README.md「計測（Meta広告）の再有効化手順」を見る */
+var TRACKING_ENABLED = false;
+
 (function () {
   "use strict";
+
+  /* 計測の一本口。fbq / gtag への送信は必ずここを通す（個別に直接呼ばない）。
+     TRACKING_ENABLED=false なら何もしない。タグ未設置（fbq/gtag未定義）でも安全 */
+  function lpTrack(fbType, fbName, fbParams, gaName, gaParams) {
+    if (!TRACKING_ENABLED) return;
+    if (typeof window.fbq === "function" && fbName) window.fbq(fbType, fbName, fbParams);
+    if (typeof window.gtag === "function" && gaName) window.gtag("event", gaName, gaParams || fbParams);
+  }
 
   /* 0) A/Bパターンの判定 -------------------------------------------
      ・各HTMLの <body data-lp-variant="a"> / "b" が既定値
@@ -21,8 +37,7 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
   window.LP_VARIANT = variant;
   document.documentElement.setAttribute("data-lp-variant", variant);
   try { sessionStorage.setItem("lp_variant", variant); } catch (e) {}
-  if (typeof window.fbq === "function") window.fbq("trackCustom", "LPView", { lp_variant: variant });
-  if (typeof window.gtag === "function") window.gtag("event", "lp_view", { lp_variant: variant });
+  lpTrack("trackCustom", "LPView", { lp_variant: variant }, "lp_view");
 
   /* 0-2) ページ内リンクにも ?v= を引き継ぐ（A↔B切替・法務ページ） */
   if (q) {
@@ -72,8 +87,7 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
       vf.innerHTML = "";
       vf.classList.add("playing");
       vf.appendChild(f);
-      if (typeof window.fbq === "function") window.fbq("track", "ViewContent", { content_name: "movie-play", lp_variant: variant });
-      if (typeof window.gtag === "function") window.gtag("event", "movie_play", { lp_variant: variant });
+      lpTrack("track", "ViewContent", { content_name: "movie-play", lp_variant: variant }, "movie_play", { lp_variant: variant });
     };
     vf.addEventListener("click", play);
     vf.addEventListener("keydown", function (e) {
@@ -87,14 +101,13 @@ var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だ�
     if (!a) return;
     var pos = a.getAttribute("data-cta") || "unknown";
     var kind = a.getAttribute("data-act") || "";   // line / movie
-    // Meta Pixel（<head>のタグを有効化したときだけ動く）
-    if (typeof window.fbq === "function") {
-      window.fbq("track", "Lead", { content_name: pos, lp_variant: variant, cta_type: kind });
-    }
-    // GA4（gtag.jsを入れたときだけ動く）
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "line_friend_add", { cta_position: pos, lp_variant: variant, cta_type: kind });
-    }
+    // ⚠️ 2026-09-02 付け替え：CTAクリックは Lead ではなく ClickLINE（カスタムイベント）。
+    //    Lead は「実際の登録」用に温存する（クリックにLeadを付けたままAdvantage+を回すと
+    //    「クリックしただけの人」に最適化される誤学習の既知バグ＝docs/18の指摘）。
+    lpTrack("trackCustom", "ClickLINE",
+            { content_name: pos, lp_variant: variant, cta_type: kind },
+            "line_friend_add",
+            { cta_position: pos, lp_variant: variant, cta_type: kind });
   });
 
   /* 3) スクロールで出現 -------------------------------------------- */
