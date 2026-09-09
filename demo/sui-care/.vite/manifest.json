@@ -51,7 +51,7 @@
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "_next/static/chunks/index-BbJM_azj.js",
+    "file": "_next/static/chunks/index-BbJM_azj-domain.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
