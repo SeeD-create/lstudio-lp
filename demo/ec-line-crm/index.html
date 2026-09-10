@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>購買データを、配信シナリオに変える ｜ Shopify×LINE 導入設計サンプル ｜ Lスタジオ</title>
+<meta name="description" content="Shopifyの購買データをLINEのタグ・セグメント・配信シナリオへ落とすまでを、架空ショップ1件分の設計書として最後まで書き切ったサンプルです。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="購買データを、配信シナリオに変える ｜ Shopify×LINE 導入設計サンプル">
+<meta property="og:description" content="連携マッピング・7セグメント・5シナリオ・友だち追加導線・2週間の工程表・検収リストまで。">
+<meta property="og:url" content="https://l-studiojp.com/demo/ec-line-crm/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<style>
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+:root{
+  --paper:#F6F7F9; --surface:#fff; --sunk:#EEF1F4;
+  --line:#DDE2E8; --line-soft:#E9EDF1;
+  --ink:#151C24; --ink2:#454F5B; --ink3:#78838F;
+  --accent:#2A5C8A; --accent-deep:#1C4468; --accent-soft:#E6EEF5; --accent-line:#A9C5DC;
+  --ok:#1E7A4C; --ok-soft:#E5F3EB; --ok-line:#AFD9C2;
+  --bad:#B03A3A; --bad-soft:#FBECEC; --bad-line:#EDC0C0;
+  --warn:#A9682A; --warn-soft:#FAF1E5; --warn-line:#E8CFAB;
+  --line-green:#06C755;
+}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  line-height:1.85;-webkit-text-size-adjust:100%}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+section{padding:44px 0;border-top:1px solid var(--line-soft)}
+
+.hero{background:linear-gradient(155deg,#22405C,#16293B 62%,#101B27);color:#fff;padding:42px 0 34px}
+.hero .tag{display:inline-block;font-size:12px;letter-spacing:.1em;font-weight:700;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:4px 13px}
+.hero h1{font-size:29px;line-height:1.45;margin:15px 0 12px;font-weight:900}
+.hero h1 em{font-style:normal;color:#8FD0FF}
+.hero p{font-size:15px;color:#C6D5E2;margin:0;max-width:820px}
+.hero .lead2{margin-top:16px;font-size:13.5px;color:#9FB6C8;border-top:1px solid rgba(255,255,255,.16);padding-top:14px}
+.hero .lead2 b{color:#CFE2F0}
+
+h2{font-size:21px;font-weight:900;margin:0 0 6px;line-height:1.5}
+h2 .num{display:inline-block;font-size:12px;font-weight:800;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;
+  padding:2px 9px;margin-right:10px;vertical-align:3px}
+.sub{font-size:14px;color:var(--ink2);margin:0 0 22px;max-width:860px}
+h3.mini{font-size:14px;font-weight:900;margin:24px 0 9px;color:var(--accent-deep)}
+
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:700px}
+th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{background:var(--sunk);font-size:12px;color:var(--ink2);font-weight:800;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td b{color:var(--accent-deep)}
+code{background:rgba(0,0,0,.055);border-radius:4px;padding:1px 5px;font-size:12px;
+  font-family:Consolas,"Courier New",monospace}
+
+.pill{display:inline-block;font-size:11px;font-weight:800;border-radius:5px;padding:2px 8px;white-space:nowrap;
+  background:var(--accent-soft);color:var(--accent-deep);border:1px solid var(--accent-line)}
+.pill.g{background:var(--ok-soft);color:var(--ok);border-color:var(--ok-line)}
+.pill.r{background:var(--bad-soft);color:var(--bad);border-color:var(--bad-line)}
+.pill.w{background:var(--warn-soft);color:var(--warn);border-color:var(--warn-line)}
+
+.note{font-size:13px;color:var(--ink2);background:var(--sunk);border-left:3px solid var(--accent-line);
+  border-radius:0 9px 9px 0;padding:11px 14px;margin-top:14px}
+.note b{color:var(--accent-deep)}
+.note.warn{background:var(--warn-soft);border-left-color:var(--warn)}
+.note.warn b{color:var(--warn)}
+
+/* セグメント */
+.segs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+.seg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 13px;
+  cursor:pointer;transition:all .15s;text-align:left;font:inherit;color:inherit}
+.seg:hover{border-color:var(--accent-line);background:var(--accent-soft)}
+.seg.on{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent-soft)}
+.seg .nm{font-size:13.5px;font-weight:900;display:block;line-height:1.5}
+.seg .cnt{font-size:19px;font-weight:900;color:var(--accent-deep);display:block;margin-top:3px}
+.seg .cnt small{font-size:11px;font-weight:700;color:var(--ink3);margin-left:2px}
+.segout{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.segout h4{margin:0 0 4px;font-size:16px;font-weight:900;color:var(--accent-deep)}
+.segout .cond{font-size:12.5px;color:var(--ink3);margin:0 0 12px}
+.segout .cond code{font-size:11.5px}
+.segout .say{font-size:14px;margin:0 0 10px}
+.segout ul{margin:0;padding-left:1.2em;font-size:13.5px}
+.segout li{margin-bottom:5px}
+
+/* シナリオ */
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 13px;
+  font:inherit;font-size:12.5px;font-weight:800;color:var(--ink2);cursor:pointer;transition:all .15s}
+.tab:hover{border-color:var(--accent-line);color:var(--accent-deep)}
+.tab.on{background:var(--accent);border-color:var(--accent-deep);color:#fff}
+.flowbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.flowhead{font-size:15px;font-weight:900;color:var(--accent-deep);margin:0 0 3px}
+.flowaim{font-size:13px;color:var(--ink2);margin:0 0 16px}
+.step{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:start;padding:12px 0;
+  border-top:1px dashed var(--line)}
+.step:first-of-type{border-top:0;padding-top:2px}
+.when{font-size:12px;font-weight:900;color:#fff;background:var(--accent);border-radius:7px;
+  padding:5px 6px;text-align:center;line-height:1.45}
+.when.br{background:var(--warn)}
+.when.st{background:var(--bad)}
+.msg{background:var(--sunk);border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.8}
+.msg .t{font-weight:900;display:block;margin-bottom:3px;color:var(--ink)}
+.msg .body{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:9px;
+  padding:9px 11px;margin-top:7px;font-size:13px;color:var(--ink2)}
+.msg .why{font-size:12px;color:var(--ink3);margin-top:7px;border-top:1px dotted var(--line);padding-top:6px}
+.msg .why b{color:var(--accent-deep)}
+
+/* 試算 */
+.sim{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
+.simbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.fld{margin-bottom:15px}
+.fld label{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:800;margin-bottom:5px}
+.fld label span{font-size:15px;font-weight:900;color:var(--accent-deep)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.out{background:linear-gradient(155deg,#22405C,#16293B);color:#fff;border-radius:14px;padding:18px}
+.out .k{font-size:11.5px;letter-spacing:.06em;color:#9FB6C8;font-weight:800}
+.out .v{font-size:29px;font-weight:900;line-height:1.3;margin:2px 0 14px}
+.out .v small{font-size:14px;margin-left:3px;color:#C6D5E2}
+.out hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:14px 0}
+.out .sm{font-size:12px;color:#9FB6C8;line-height:1.75}
+
+/* 工程 */
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.day .d{font-size:11px;font-weight:900;color:var(--accent);letter-spacing:.06em}
+.day .h{font-size:13.5px;font-weight:900;margin:2px 0 5px}
+.day p{margin:0;font-size:12.5px;color:var(--ink2);line-height:1.75}
+
+.chk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 18px}
+.chk div{font-size:13.5px;padding:9px 0;border-bottom:1px dashed var(--line-soft);display:flex;gap:9px}
+.chk div:last-child{border-bottom:0}
+.chk div::before{content:"✓";color:var(--ok);font-weight:900;flex:none}
+
+/* 料金 */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.plan.hi{border:2px solid var(--accent);box-shadow:0 6px 22px rgba(42,92,138,.12)}
+.plan .cap{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;padding:2px 9px;display:inline-block}
+.plan h4{font-size:17px;font-weight:900;margin:10px 0 2px}
+.plan .pr{font-size:31px;font-weight:900;color:var(--accent-deep);line-height:1.3}
+.plan .pr small{font-size:13px;color:var(--ink3);font-weight:800;margin-left:3px}
+.plan ul{margin:10px 0 0;padding-left:1.2em;font-size:13.5px}
+.plan li{margin-bottom:5px}
+.plan .x{color:var(--ink3);font-size:12.5px;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+
+.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:11px}
+.work{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:13px 15px;text-decoration:none;color:inherit;transition:all .15s}
+.work:hover{border-color:var(--accent);box-shadow:0 5px 16px rgba(42,92,138,.11);transform:translateY(-1px)}
+.work .wn{font-size:13.5px;font-weight:900;color:var(--accent-deep)}
+.work .wd{font-size:12.5px;color:var(--ink2);margin-top:3px;line-height:1.7}
+.work .wu{font-size:11px;color:var(--ink3);margin-top:6px;word-break:break-all}
+
+footer{background:#101B27;color:#9FB6C8;padding:30px 0;font-size:13px}
+footer b{color:#fff;font-size:15px}
+footer p{margin:6px 0 0;line-height:1.8}
+
+.phonebar{position:fixed;right:14px;bottom:14px;z-index:50}
+.phonebar button{border:1px solid var(--accent-deep);background:var(--accent);color:#fff;
+  border-radius:999px;padding:10px 17px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;
+  box-shadow:0 6px 18px rgba(16,27,39,.28)}
+body.narrow .wrap{max-width:390px}
+body.narrow .sim,body.narrow .plans{grid-template-columns:1fr}
+body.narrow .step{grid-template-columns:1fr}
+body.narrow .when{display:inline-block;padding:4px 12px}
+
+@media(max-width:760px){
+  .hero h1{font-size:23px}
+  .sim,.plans{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr;gap:7px}
+  .when{display:inline-block;padding:4px 12px}
+  h2{font-size:19px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="tag">Shopify × LINE ／ 導入設計サンプル</span>
+    <h1>「設定できます」ではなく、<br><em>購買データのどこを、誰に、いつ出すか</em>まで書きました。</h1>
+    <p>御社の募集要項にあった5項目（初期設定／カート連携／友だち追加導線／購買データを使った配信シナリオ／管理画面レクチャー）を、
+    架空のShopifyショップ1件分の設計書として最後まで作りました。文章だけでは実力が測れないと思いましたので、実物でご覧ください。</p>
+    <p class="lead2"><b>題材：MIYABI ORGANICS（架空）</b>　ShopifyのスキンケアD2C／月間注文600件・平均客単価6,800円・リピート率28%。
+    実在の店舗ではありません。数字はすべて仮置きです。ツールは御社製のものを想定し、特定ツールの画面には触れていません。</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>まず決めるのは、LINEの友だちとShopifyの顧客をどう一致させるか</h2>
+    <p class="sub">ここが決まらないと、あとの連携・セグメント・シナリオが全部宙に浮きます。導入ヒアリングの1問目にしています。
+    店の作り（会員機能を使っているか、同梱物を入れられるか）で答えが変わるので、3方式を用意して選んでいただく形にしています。</p>
+    <div class="tbl">
+      <table>
+        <tr><th>方式</th><th>どうやって結ぶか</th><th>向いている店</th><th>一致率の目安</th></tr>
+        <tr>
+          <td><b>① LINEログイン</b><br><span class="pill">LIFF</span></td>
+          <td>LINE内で開いたページからShopifyアカウントにログインしてもらい、顧客IDとLINEユーザーIDを結ぶ</td>
+          <td>Shopifyの<b>アカウント機能を使っている</b>店。定期購入がある店</td>
+          <td>高い（登録済み客の8割前後）</td>
+        </tr>
+        <tr>
+          <td><b>② 注文番号つき追加URL</b><br><span class="pill g">推奨</span></td>
+          <td>サンキューページに <code>?liff_state=order_1234</code> のように注文番号を載せた友だち追加ボタンを出し、追加と同時に注文と結ぶ</td>
+          <td>ゲスト購入が多い店。<b>実装が一番軽い</b></td>
+          <td>中〜高（注文者の2〜3割が追加）</td>
+        </tr>
+        <tr>
+          <td><b>③ あとから照合</b></td>
+          <td>LINE上で注文番号とメールアドレス下4桁を入力してもらい、照合する</td>
+          <td>①②の<b>取りこぼしを拾う保険</b>。単独では使わない</td>
+          <td>低い（入力してくれる人だけ）</td>
+        </tr>
+      </table>
+    </div>
+    <div class="note"><b>実務でいちばん詰まるところです。</b>
+    ①だけで組むとゲスト購入客がまるごと落ちます。②だけだと購入前の友だちが未紐づけのまま溜まります。
+    このサンプルでは<b>②を主、①を定期購入者向け、③を回収用</b>の三段で置いています。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>連携マッピング：Shopifyの何を、LINE側のどこに落とすか</h2>
+    <p class="sub">「連携しました」で終わらせず、<b>持たせる項目と更新のタイミングまで一枚の表</b>にしておきます。
+    この表が、あとで別の担当者が引き継ぐときの設定台帳になります。</p>
+    <div class="tbl">
+      <table>
+        <tr><th>Shopify側の出どころ</th><th>いつ流すか</th><th>LINE側に持たせるもの</th><th>何に使うか</th></tr>
+        <tr><td><code>orders/create</code></td><td>注文確定の直後</td><td><b>購入回数</b> / 累計購入金額 / 最終購入日</td><td>セグメント判定の土台（全シナリオの前提）</td></tr>
+        <tr><td><code>line_items.product_type</code></td><td>注文確定の直後</td><td>興味タグ（保湿 / 美白 / インナーケア）</td><td>配信の出し分け。同じ内容を全員に送らないため</td></tr>
+        <tr><td>チェックアウト未完了</td><td>60分後に判定</td><td>カゴ落ち_商品名 / 金額</td><td>シナリオB（カゴ落ち）の起動条件</td></tr>
+        <tr><td><code>fulfillments/create</code></td><td>発送処理の直後</td><td>発送済み / 到着予定日</td><td>シナリオC（初回購入後）の時計をここから回す</td></tr>
+        <tr><td>顧客タグ（定期購入）</td><td>1日1回の同期</td><td>定期_継続 / 定期_停止申請</td><td>解約申請が出た人への引き止め配信</td></tr>
+        <tr><td><code>refunds/create</code></td><td>返金処理の直後</td><td><b>配信除外_30日</b></td><td class="">返金した客に販促が飛ぶ事故を防ぐ</td></tr>
+        <tr><td>メール配信の可否</td><td>初回同期のみ</td><td>配信可否フラグ</td><td>拒否した人に送らない。ここは機械的に守る</td></tr>
+      </table>
+    </div>
+    <div class="note warn"><b>返金・キャンセルの除外は、初期設定の時点で入れます。</b>
+    導入して1か月後にいちばん怒られるのが「返品した商品のレビュー依頼が届いた」です。
+    あとから足すと過去分に効かないので、最初から入れておく項目だと考えています。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>セグメント設計：7つの箱に分ける（押すと中身が出ます）</h2>
+    <p class="sub">人数は架空ショップの想定値です。箱を押すと、判定条件・その人に何を言うか・どのシナリオに繋ぐかが出ます。</p>
+    <div class="segs" id="segs"></div>
+    <div class="segout" id="segout"></div>
+    <div class="note"><b>休眠の日数を、90日などの固定値にしません。</b>
+    30日分の内容量の商品なら45日で「そろそろ」、90日では遅すぎます。
+    商品ごとの消費サイクル（＝平均購入間隔）を初回ヒアリングで確認し、その<b>1.5倍</b>を最初の声かけにしています。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">04</span>配信シナリオ 5本（タブで切り替わります）</h2>
+    <p class="sub">分岐と<b>停止条件</b>まで書いています。停止条件が抜けていると、買ったあとにも「お忘れではありませんか」が届いてブロックされます。
+    文面はたたき台です。実際は御社と事業者様の言葉に合わせて書き直します。</p>
+    <div class="tabs" id="tabs"></div>
+    <div class="flowbox" id="flow"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">05</span>友だち追加導線：どこに、何を、どう書くか</h2>
+    <p class="sub">配信シナリオがどれだけ良くても、友だちがいなければ0件です。置き場所と、<b>追加する理由の文言</b>をセットで用意します。</p>
+    <div class="tbl">
+      <table>
+        <tr><th>置き場所</th><th>そこに書く文言（例）</th><th>追加率の目安</th></tr>
+        <tr><td><b>Shopifyのサンキューページ</b><br><span class="pill g">最優先</span></td><td>「配送状況をLINEでお知らせします」＋注文番号つき追加ボタン</td><td>注文者の18〜30%</td></tr>
+        <tr><td><b>同梱カード（QR）</b></td><td>「肌がゆらいだ日の使い方を、3日に分けてお送りします」</td><td>8〜15%</td></tr>
+        <tr><td>注文確認メールのフッター</td><td>「発送・お届け予定日をLINEで受け取る」</td><td>3〜6%</td></tr>
+        <tr><td>商品ページの在庫切れ欄</td><td>「再入荷したらLINEでお知らせ」</td><td>その閲覧者の10%前後</td></tr>
+        <tr><td>リッチメニュー</td><td>注文照会 / 前回と同じものを買う / 相談する / 定期の変更</td><td>（既存客の再訪導線）</td></tr>
+      </table>
+    </div>
+    <div class="note"><b>「友だち追加してね」とだけ書いてあるカードは、ほぼ読まれません。</b>
+    追加すると<b>何が届くのか</b>を一文で書くだけで数字が変わります。上の表の中央列は、そのまま入稿できる形で毎回お渡ししています。
+    リッチメニューの画像は、自分で作った無料ツール（<span class="pill">下のリンク</span>）で作れるので、デザイン外注の待ち時間が発生しません。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">06</span>効果の試算（スライダーを動かせます）</h2>
+    <p class="sub">事業者様への提案時に、この数字をお見せしています。すべて仮定値です。
+    「LINEを入れると売れます」ではなく、<b>どの数字がいくら動けば元が取れるか</b>を先に置く、という考え方の見本としてご覧ください。</p>
+    <div class="sim">
+      <div class="simbox">
+        <div class="fld"><label>月間の注文件数 <span id="v1">600</span></label>
+          <input type="range" id="s1" min="100" max="3000" step="50" value="600"></div>
+        <div class="fld"><label>サンキューページでの友だち追加率 <span id="v2">22%</span></label>
+          <input type="range" id="s2" min="5" max="45" step="1" value="22"></div>
+        <div class="fld"><label>平均客単価 <span id="v3">6,800円</span></label>
+          <input type="range" id="s3" min="2000" max="20000" step="200" value="6800"></div>
+        <div class="fld"><label>2回目購入率の改善幅 <span id="v4">+4.0pt</span></label>
+          <input type="range" id="s4" min="0" max="150" step="5" value="40"></div>
+        <div class="fld" style="margin-bottom:0"><label>休眠掘り起こしの反応率 <span id="v5">1.8%</span></label>
+          <input type="range" id="s5" min="0" max="60" step="1" value="18"></div>
+      </div>
+      <div class="out">
+        <div class="k">月間 増える売上（試算）</div>
+        <div class="v" id="o1">—</div>
+        <hr>
+        <div class="k">1年で</div>
+        <div class="v" id="o2" style="font-size:22px">—</div>
+        <div class="sm" id="o3"></div>
+      </div>
+    </div>
+    <div class="note warn"><b>この試算は営業の道具であって、約束ではありません。</b>
+    事業者様にお見せするときは必ず「仮定値です」と明記し、導入から2か月後に実測値へ置き換えます。
+    ここを曖昧にすると、あとで御社に苦情が返ります。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">07</span>1件あたりの進め方（2週間・ご依頼文の納期目安に合わせています）</h2>
+    <p class="sub">御社のツールの操作は導入時に教えていただく前提です。初回1件は覚える時間を見込んで、下の工程に3日ほど足して考えています。</p>
+    <div class="days">
+      <div class="day"><div class="d">DAY 1</div><div class="h">ヒアリング 60分</div><p>紐づけ方式の決定・商品の消費サイクル・既存の配信状況・NGワード・返品の運用を確認</p></div>
+      <div class="day"><div class="d">DAY 2-3</div><div class="h">設計書の作成</div><p>連携マッピング表・セグメント定義・シナリオ5本の骨子。この時点で御社と事業者様に確認をいただく</p></div>
+      <div class="day"><div class="d">DAY 4-5</div><div class="h">初期設定・カート連携</div><p>アカウント連携、タグ／セグメントの作成、Shopifyからのデータ流入テスト（テスト注文で実際に確認）</p></div>
+      <div class="day"><div class="d">DAY 6-7</div><div class="h">友だち追加導線</div><p>サンキューページ、あいさつメッセージ、リッチメニュー画像の作成と設置、同梱カードの入稿データ</p></div>
+      <div class="day"><div class="d">DAY 8-10</div><div class="h">シナリオ実装</div><p>5本を組み、分岐と停止条件を設定。自分のLINEで全経路を実走させて確認</p></div>
+      <div class="day"><div class="d">DAY 11</div><div class="h">検収チェック</div><p>下のチェックリストを1項目ずつ潰す。結果は一覧にして御社へ提出</p></div>
+      <div class="day"><div class="d">DAY 12</div><div class="h">レクチャー 30分×2</div><p>1回目＝日々の操作、2回目＝1週間使ったあとの質問会。録画をお渡しします</p></div>
+      <div class="day"><div class="d">DAY 13-14</div><div class="h">見守り</div><p>初回配信に立ち会い、エラー・ブロック率・反応を確認して微調整</p></div>
+    </div>
+
+    <h3 class="mini">検収チェックリスト（抜粋。実際は40項目で運用しています）</h3>
+    <div class="chk">
+      <div>テスト注文を1件流し、購入回数タグが実際に1へ変わることを確認した</div>
+      <div>返金したテスト注文で、配信除外タグが立つことを確認した</div>
+      <div>シナリオCの途中で2回目を購入し、以降の配信が<b>止まる</b>ことを確認した</div>
+      <div>カゴ落ち配信が、購入完了した人には飛ばないことを確認した</div>
+      <div>同一の人が2つのシナリオに同時に入って二重配信にならないことを確認した</div>
+      <div>すべての配信文面に、配信停止の導線があることを確認した</div>
+      <div>リッチメニューの全タップ領域を実機で押し、リンク切れがないことを確認した</div>
+      <div>設定台帳（この設計書の最新版）を事業者様と御社の両方へ渡した</div>
+    </div>
+    <div class="note"><b>「同時に2つのシナリオに入る」は、設定作業だけをする人がいちばん見落とすところです。</b>
+    カゴ落ちと休眠掘り起こしが同じ日に飛んだ経験が一度あり、以来この項目を必ず入れています。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">08</span>ご提案：1件ごとのお見積もりを、やめませんか</h2>
+    <p class="sub">継続してお願いできる方をお探しとのことでしたので、案件ごとに金額を相談する形ではなく、
+    <b>月額の定額</b>でお出ししています。御社は原価が読め、こちらは件数の波に強くなります。</p>
+    <div class="plans">
+      <div class="plan">
+        <span class="cap">まず1件</span>
+        <h4>お試し導入</h4>
+        <div class="pr">0<small>円 / 1社</small></div>
+        <ul>
+          <li>上の01〜07を<b>すべて</b>実施します</li>
+          <li>設計書・検収リスト・レクチャー録画つき</li>
+          <li>ここで判断していただき、合わなければ終了で構いません</li>
+        </ul>
+        <div class="x">ご負担いただくのは、御社ツールの操作説明のお時間（1〜2時間）だけです。</div>
+      </div>
+      <div class="plan hi">
+        <span class="cap">2社目から</span>
+        <h4>月額パートナー</h4>
+        <div class="pr">99,000<small>円 / 月（税込）</small></div>
+        <ul>
+          <li><b>毎月1社</b>の導入を、上の01〜07で丸ごと</li>
+          <li>導入から<b>3か月間のフォローと配信改善</b>込み。<b>社数は問いません</b>（積み上がっても月額は変わりません）</li>
+          <li>同じ月に2社目をご依頼の場合のみ ＋88,000円（税込）</li>
+          <li>初期費用・構築費は<b>0円</b>。かかるのは月額だけです</li>
+        </ul>
+        <div class="x">稼働：平日 9:00〜17:00 ／ ご連絡は当日中に返します。<br>
+        含まないもの：LINE公式アカウントの配信従量費、広告費、有料テーマ・アプリの購入費、撮影。</div>
+      </div>
+    </div>
+    <div class="note">御社のご提示は1件10〜30万円でした。月額99,000円は、その<b>いちばん安い枠よりさらに下</b>になります。
+    こう出しているのは、<b>EC×LINEの継続案件を1本、腰を据えて持ちたいから</b>です。
+    そのかわり最低3か月のご契約をお願いしています。1か月では改善の数字が出ず、こちらも見合わないためです。</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">09</span>これまでに作ったもの（実在します。押すと開きます）</h2>
+    <p class="sub">LINE公式アカウントの構築を本業にしています。下は公開できるものだけです。
+    実案件は守秘のため店名を伏せていますが、選考の段階でご希望があれば個別にお見せします。</p>
+    <div class="works">
+      <a class="work" href="https://l-studiojp.com/demo/jonan-line-hubspot/" target="_blank" rel="noopener">
+        <div class="wn">LINE × CRM 連携（不動産）</div>
+        <div class="wd">LINEで聞き取った希望条件をそのままセグメントへ反映し、合う人にだけ配信。顧客情報はHubSpotへ連携して二重入力をなくしました。<b>今回のご依頼と同じ構造です。</b></div>
+        <div class="wu">l-studiojp.com/demo/jonan-line-hubspot/</div>
+      </a>
+      <a class="work" href="https://l-studiojp.com/demo/ec-cs/" target="_blank" rel="noopener">
+        <div class="wn">EC の問い合わせ自動化</div>
+        <div class="wd">LINEとメールの問い合わせを一元化し、FAQで答えられるものは自動、答えられないものはAIが下書き。EC事業者向けに作ったものです。</div>
+        <div class="wu">l-studiojp.com/demo/ec-cs/</div>
+      </a>
+      <a class="work" href="https://l-studiojp.com/demo/kaisuken/" target="_blank" rel="noopener">
+        <div class="wn">回数券・再来店の管理</div>
+        <div class="wd">購入・消化・残数をLINE上で管理し、残りが少ない人にだけ案内を出す仕組み。購買データで配信を出し分ける実例です。</div>
+        <div class="wu">l-studiojp.com/demo/kaisuken/</div>
+      </a>
+      <a class="work" href="https://l-studiojp.com/tools/richmenu/" target="_blank" rel="noopener">
+        <div class="wn">リッチメニュー作成ツール（自作・無料）</div>
+        <div class="wd">友だち追加導線で使うリッチメニュー画像を、その場で作って書き出せます。誰でも使える状態で公開しています。</div>
+        <div class="wu">l-studiojp.com/tools/richmenu/</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>Lスタジオ　平野 淳一</b>
+    <p>公式LINEの構築・運用と、業務の自動化を本業にしています。<br>
+    このページはランサーズ案件「【Shopify×LINE】CRMツールの導入支援」へのご提案用に作成しました。<br>
+    掲載しているショップ名・数値はすべて架空です。検索には出ないよう設定しています。</p>
+  </div>
+</footer>
+
+<div class="phonebar"><button id="pb">スマホ幅で見る</button></div>
+
+<script>
+/* ---------- セグメント ---------- */
+var SEG=[
+ {id:'a',nm:'未購入の友だち',cnt:1240,u:'人',
+  cond:'購入回数 = 0',
+  say:'まだ一度も買っていない人。ここに割引を連打すると、定価で買う人がいなくなります。',
+  li:['初回は「診断」で興味タグを取るところまで。売り込みは4日目から',
+      '割引は7日目に一度だけ。二度目は出さない',
+      '30日反応がなければ、月1の通常配信だけに落とす'],
+  sc:'A'},
+ {id:'b',nm:'カゴ落ち',cnt:86,u:'人/月',
+  cond:'チェックアウト未完了 かつ 60分経過 かつ 未購入',
+  say:'いちばん近いところにいる人。ここだけは速さがすべてです。',
+  li:['60分後に1通。値引きはせず、迷っている理由を2択で聞く',
+      '24時間後に、選んだ理由に沿った答えを1通',
+      '3日で終了。同じ人には30日入れない'],
+  sc:'B'},
+ {id:'c',nm:'初回購入（0〜14日）',cnt:310,u:'人',
+  cond:'購入回数 = 1 かつ 最終購入日 ≦ 14日前',
+  say:'ここの設計でLTVがほぼ決まります。今回いちばん力を入れる箱です。',
+  li:['発送・到着の連絡で開封する習慣を作る',
+      '到着7日目に「合いましたか」を2択で聞き、合わない人は相談へ逃がす',
+      '返品されそうな人を早く見つけるほど、悪いレビューが減ります'],
+  sc:'C'},
+ {id:'d',nm:'2回目待ち（15〜45日）',cnt:268,u:'人',
+  cond:'購入回数 = 1 かつ 最終購入日 15〜45日前',
+  say:'2回目を買った人は3回目も買います。ここを越えられるかが分岐点です。',
+  li:['前回買った商品名を必ず差し込む（「おすすめ商品」では動かない）',
+      'ワンタップで同じものを再注文できる導線を置く',
+      '45日を越えたら休眠予備軍へ移す'],
+  sc:'C'},
+ {id:'e',nm:'定着（3回以上）',cnt:174,u:'人',
+  cond:'購入回数 ≧ 3',
+  say:'この人たちには売り込みより、使い方と新しい情報を。',
+  li:['配信頻度を落とす（月2回まで）','新商品は先に知らせる','クーポンは出さない'],
+  sc:'E'},
+ {id:'f',nm:'VIP',cnt:52,u:'人',
+  cond:'累計購入金額 ≧ 30,000円 または 定期購入 継続中',
+  say:'割引を出してはいけない層。特別なのは値段ではなく、順番です。',
+  li:['新商品の48時間先行','誕生月に小さな贈り物','定期の停止申請が出たら当日中に個別対応'],
+  sc:'E'},
+ {id:'g',nm:'休眠予備軍',cnt:395,u:'人',
+  cond:'最終購入日 ＞ 平均購入間隔 × 1.5',
+  say:'「そろそろ無くなる頃」で声をかけます。日数固定にはしません。',
+  li:['1通目は販促ではなく、残量の確認','2通目で別カテゴリを提案（同じものを勧め続けない）','×4を越えたら月1の通常配信だけ'],
+  sc:'D'},
+];
+var segs=document.getElementById('segs'),segout=document.getElementById('segout');
+SEG.forEach(function(s,i){
+  var b=document.createElement('button');
+  b.className='seg'+(i===2?' on':'');b.type='button';b.dataset.id=s.id;
+  b.innerHTML='<span class="nm">'+s.nm+'</span><span class="cnt">'+s.cnt.toLocaleString()+'<small>'+s.u+'</small></span>';
+  b.onclick=function(){
+    Array.prototype.forEach.call(segs.children,function(c){c.classList.remove('on')});
+    b.classList.add('on');drawSeg(s);
+  };
+  segs.appendChild(b);
+});
+function drawSeg(s){
+  segout.innerHTML='<h4>'+s.nm+'</h4>'+
+   '<p class="cond">判定条件：<code>'+s.cond+'</code>　→　シナリオ '+s.sc+' へ</p>'+
+   '<p class="say">'+s.say+'</p><ul><li>'+s.li.join('</li><li>')+'</li></ul>';
+}
+drawSeg(SEG[2]);
+
+/* ---------- シナリオ ---------- */
+var FLOW=[
+{k:'A',nm:'A：友だち追加直後（未購入）',aim:'目的は初回購入。売り込みの前に、何に困っているかを聞いておく。',
+ st:[
+ {w:'追加 直後',t:'あいさつ＋3問の肌診断',b:'はじめまして。MIYABI ORGANICSです。\nお肌のお悩みを3つだけ教えてください。合うものをお送りします。\n\n［乾燥］［くすみ］［ゆらぎ］',why:'回答をそのまま興味タグにします。ここで取っておくと、以降の配信を全部出し分けられます。'},
+ {w:'翌日',t:'診断結果に沿った1商品だけ',b:'「乾燥」とお答えいただいた方へ。\n最初の1本はこれをおすすめしています。理由は3つあります。',why:'商品を並べません。1つに絞ったほうが動きます。'},
+ {w:'4日後',t:'同じ悩みの人の声',b:'同じ「乾燥」でお悩みだった方の、3週間後のお声です。',why:'まだ買っていない人には、店の言葉より客の言葉が効きます。'},
+ {w:'7日後',t:'初回だけの送料無料',b:'初めての方に限り、今週は送料無料でお試しいただけます。',why:'割引はここ1回だけ。連打すると定価で買われなくなります。',cls:'br'},
+ {w:'停止条件',t:'購入したら即終了 → シナリオCへ',b:'',why:'ここが抜けていると、買った直後に「初めての方へ」が届きます。',cls:'st'}
+]},
+{k:'B',nm:'B：カゴ落ち',aim:'目的は取りこぼしの回収。値引きから入らない。',
+ st:[
+ {w:'60分後',t:'理由を2択で聞く',b:'カートに［商品名］が残っています。\nもしよろしければ、気になっている点を教えてください。\n\n［まだ迷っている］［送料が気になる］',why:'1通目で値引きを出すと、次から必ずカゴ落ちしてから買う人が生まれます。まず理由を聞きます。'},
+ {w:'分岐',t:'選んだ答えに合わせて出し分け',b:'迷っている → 成分と使い方のQ&A\n送料が気になる → 送料無料になる金額と、その組み合わせ',why:'2択の答えもタグに残します。同じ理由の人が多ければ、商品ページ側の改善を提案できます。',cls:'br'},
+ {w:'24時間後',t:'1通だけ追いかける',b:'（上で選ばれた内容に沿った1通）',why:'3通以上追うとブロックされます。2通で切ります。'},
+ {w:'停止条件',t:'購入 または 3日経過で終了。同一人物は30日入れない',b:'',why:'毎週カゴ落ちする常連に毎週送ると、確実に嫌われます。',cls:'st'}
+]},
+{k:'C',nm:'C：初回購入後（LTVの本丸）',aim:'目的は2回目。到着日を起点に、使い方 → 感想 → 再購入の順で組む。',
+ st:[
+ {w:'注文直後',t:'注文の控え',b:'ご注文ありがとうございます。注文番号［1234］\n発送予定は〇月〇日です。',why:'ここで一度開いてもらうと、以降の開封率が上がります。'},
+ {w:'発送時',t:'伝票番号と到着予定',b:'本日発送しました。［伝票番号］\n到着予定は〇月〇日です。',why:'この通知のためにLINEを追加する人がいちばん多いので、必ず出します。'},
+ {w:'到着＋1日',t:'使い方（動画1本）',b:'届きましたでしょうか。最初の1週間の使い方を、90秒の動画にまとめました。',why:'正しく使われないと効果が出ず、悪いレビューになります。返品を減らす投資です。'},
+ {w:'到着＋7日',t:'2択で感想を聞く',b:'1週間お使いになって、いかがでしたか。\n\n［良い感じ］［合わないかも］',why:'ここが分岐点です。',cls:'br'},
+ {w:'分岐',t:'［合わないかも］は販促を止めて相談へ',b:'差し支えなければ、どのあたりが合わなかったか教えていただけますか。\n使い方で変わることもありますし、返品も承ります。',why:'ここで売り込むと星1のレビューが付きます。売らないほうが得です。',cls:'br'},
+ {w:'到着＋14日',t:'［良い感じ］の人にだけレビュー依頼',b:'よろしければ、お声を聞かせていただけませんか。',why:'満足した人だけに絞って聞くので、平均評価が上がります。'},
+ {w:'到着＋24日',t:'残量アラート＋ワンタップ再注文',b:'［前回ご購入の商品名］、そろそろ残り少ない頃でしょうか。\n同じものを1タップで再注文いただけます。',why:'商品名を差し込むこと。「おすすめ商品」では動きません。内容量30日なら24日目です。'},
+ {w:'停止条件',t:'2回目の購入が入った時点で終了 → 定着セグメントへ',b:'',why:'',cls:'st'}
+]},
+{k:'D',nm:'D：休眠の掘り起こし',aim:'目的は再訪。ブロックされずに、何回も声をかけられる状態を保つ。',
+ st:[
+ {w:'間隔×1.5',t:'販促ではなく、残量の確認',b:'［前回の商品名］、残りはいかがでしょうか。',why:'1通目を販促にしないほうが、結果的に戻ってきます。'},
+ {w:'間隔×2.5',t:'別カテゴリを1つだけ',b:'季節が変わりましたので、この時期の方によく選ばれているものを1つだけ。',why:'同じ商品を勧め続けても、買わなかった理由は変わりません。'},
+ {w:'間隔×4',t:'月1の通常配信だけに落とす',b:'',why:'追いかけるのをやめる判断を、設定に入れておきます。ブロック率が下がります。',cls:'br'},
+ {w:'停止条件',t:'購入したらシナリオCへ戻す',b:'',why:'',cls:'st'}
+]},
+{k:'E',nm:'E：定着・VIP',aim:'目的は単価と継続。ここでは割引を出さない。',
+ st:[
+ {w:'新商品時',t:'48時間の先行案内',b:'まだどなたにもお知らせしていない新商品を、先にご案内します。',why:'特別さは値段ではなく順番で作ります。'},
+ {w:'誕生月',t:'小さな贈り物',b:'今月はお誕生月ですね。次回のお届けに、ささやかですが同梱いたします。',why:'値引きではなく現物にします。値引きは価格の基準を壊します。'},
+ {w:'定期の停止申請',t:'当日中に人が出る',b:'（自動配信を止めて、担当者へ通知）',why:'ここだけは自動化しません。理由を聞ければ次の設計に効きます。',cls:'br'},
+ {w:'配信頻度',t:'月2回まで',b:'',why:'よく買う人ほど、送りすぎると離れます。',cls:'st'}
+]}
+];
+var tabs=document.getElementById('tabs'),flow=document.getElementById('flow');
+FLOW.forEach(function(f,i){
+  var b=document.createElement('button');
+  b.className='tab'+(i===2?' on':'');b.type='button';b.textContent=f.nm;
+  b.onclick=function(){
+    Array.prototype.forEach.call(tabs.children,function(c){c.classList.remove('on')});
+    b.classList.add('on');drawFlow(f);
+  };
+  tabs.appendChild(b);
+});
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function drawFlow(f){
+  var h='<p class="flowhead">'+f.nm+'</p><p class="flowaim">'+f.aim+'</p>';
+  f.st.forEach(function(s){
+    h+='<div class="step"><div class="when'+(s.cls?' '+s.cls:'')+'">'+s.w+'</div>'+
+       '<div class="msg"><span class="t">'+s.t+'</span>'+
+       (s.b?'<div class="body">'+esc(s.b)+'</div>':'')+
+       (s.why?'<div class="why"><b>なぜ</b>：'+s.why+'</div>':'')+
+       '</div></div>';
+  });
+  flow.innerHTML=h;
+}
+drawFlow(FLOW[2]);
+
+/* ---------- 試算 ---------- */
+var ids=['s1','s2','s3','s4','s5'];
+function yen(n){return Math.round(n).toLocaleString()+'円'}
+function calc(){
+  var orders=+document.getElementById('s1').value;
+  var add=+document.getElementById('s2').value;
+  var aov=+document.getElementById('s3').value;
+  var lift=+document.getElementById('s4').value/10;
+  var wake=+document.getElementById('s5').value/10;
+  document.getElementById('v1').textContent=orders.toLocaleString();
+  document.getElementById('v2').textContent=add+'%';
+  document.getElementById('v3').textContent=aov.toLocaleString()+'円';
+  document.getElementById('v4').textContent='+'+lift.toFixed(1)+'pt';
+  document.getElementById('v5').textContent=wake.toFixed(1)+'%';
+
+  var newFriends=orders*add/100;
+  var repeat=newFriends*lift/100;
+  var dormant=orders*6;                 /* 過去1年分の顧客プールを注文数の6倍と仮置き */
+  var back=dormant*0.35*wake/100/12;    /* うち休眠35%へ年間で声かけ、月あたりに均す */
+  var gain=(repeat+back)*aov;
+
+  document.getElementById('o1').innerHTML=yen(gain).replace('円','')+'<small>円</small>';
+  document.getElementById('o2').innerHTML=yen(gain*12).replace('円','')+'<small>円</small>';
+  document.getElementById('o3').innerHTML=
+    '内訳（月）<br>・新しくLINEに入る人 '+Math.round(newFriends).toLocaleString()+'人<br>'+
+    '・2回目購入の増分 '+repeat.toFixed(1)+'件<br>'+
+    '・休眠からの復帰 '+back.toFixed(1)+'件<br><br>'+
+    '休眠プールは注文件数の6倍・うち35%が休眠、という仮置きで計算しています。';
+}
+ids.forEach(function(i){document.getElementById(i).addEventListener('input',calc)});
+calc();
+
+/* ---------- スマホ幅 ---------- */
+var pb=document.getElementById('pb');
+pb.onclick=function(){
+  document.body.classList.toggle('narrow');
+  pb.textContent=document.body.classList.contains('narrow')?'パソコン幅に戻す':'スマホ幅で見る';
+  window.scrollTo({top:window.scrollY});
+};
+</script>
+</body>
+</html>
