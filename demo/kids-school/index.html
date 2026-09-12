@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ミライク｜英語・AI・プログラミングの子どもスクール</title>
+<meta name="description" content="小・中・高校生のための英語・AI・プログラミングスクール「ミライク」。無料体験を受付中です。">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ミライク（提案用モック）
+   参照ブランド: Duolingo — flat, solid color, one radius, pressable buttons
+   DO   : 影は使わない／深さは「濃い実線のボーダー」で出す／グラデを使わない／
+          角丸は1種類に統一／イラストは装飾ではなく内容として置く
+   DON'T: box-shadow, gradient, 半径のばらつき, 淡い色を塗りに使う
+   ------------------------------------------------------------------------
+   この案件の肝は「3種類のLP」と「拠点の差し替え」。どちらも文章で説明せず、
+   コース切替で --brand が変わり、ページ全体の色と中身が入れ替わる形で見せる。
+   ========================================================================== */
+:root{
+  --brand:#ff6b35;         /* コース切替で書き換わる */
+  --brand-d:#d94f1e;       /* ボタン下辺の濃い線（押せる感じ） */
+  --brand-l:#fff1eb;       /* 面の淡い敷き */
+  --ink:#22314f;
+  --ink2:#465878;
+  --smoke:#8494b0;
+  --line:#e3e9f3;
+  --paper:#ffffff;
+  --paper2:#f6f9ff;
+  --sun:#ffc531;
+  --r:18px;                /* 角丸はこれ1つだけ */
+  --maru:"Zen Maru Gothic","Hiragino Maru Gothic ProN",sans-serif;
+  --lat:"Baloo 2",sans-serif;
+  --ez:cubic-bezier(.34,1.4,.44,1);   /* 少し跳ねる */
+  --ez2:cubic-bezier(.16,1,.3,1);
+  --ribbon:44px;
+  --nav:64px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+/* グリッドの子は既定で min-width:auto。入力欄やタブが親を押し広げて
+   スマホで横スクロールが出るので、最初に全部 0 に落としておく。 */
+*,*::before,*::after{min-width:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink2);
+  font-family:var(--maru);font-size:16.5px;line-height:1.95;font-weight:500;
+  letter-spacing:.02em;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:none;
+}
+img,svg{display:block;max-width:100%}
+/* viewBox だけの inline SVG は固有サイズを持たない。全要素に min-width:0 を
+   掛けているため、そのままだとスマホのグリッド内で幅0に潰れる（PCでは潰れず、
+   スマホだけイラストが消えるので気づきにくい）。比率を明示して押さえる。 */
+.heroart{width:100%}
+.heroart .art-main{width:100%;height:auto;aspect-ratio:320/300}
+.cgrid .art svg{width:100%;height:auto;aspect-ratio:300/220}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--maru);font-weight:900;color:var(--ink);line-height:1.4;letter-spacing:.01em}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:76px 0;position:relative}
+h2{font-size:clamp(26px,5.4vw,40px);margin-bottom:12px}
+h3{font-size:19px}
+.lead{max-width:36em;font-size:16.5px}
+.kicker{display:inline-block;font-family:var(--lat);font-size:13px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--brand);
+  background:var(--brand-l);border-radius:999px;padding:6px 16px;margin-bottom:14px;
+  transition:color .5s ease,background .5s ease}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+/* ---- 帯 ---- */
+.ribbon{position:fixed;top:0;left:0;right:0;min-height:var(--ribbon);z-index:60;
+  background:var(--ink);color:#dfe7f5;display:flex;align-items:center;justify-content:center;
+  font-size:12.5px;letter-spacing:.02em;padding:9px 14px;text-align:center;line-height:1.55}
+.ribbon b{color:#fff;font-weight:700}
+@media(max-width:680px){.ribbon{font-size:11.5px}.ribbon .more{display:none}}
+
+/* ---- ナビ ---- */
+.nav{position:fixed;top:var(--ribbon);left:0;right:0;height:var(--nav);z-index:55;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 20px;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--line);transition:transform .45s var(--ez2)}
+.nav.hide{transform:translateY(-105%)}
+.logo{display:flex;align-items:center;gap:9px;font-weight:900;font-size:20px;color:var(--ink);white-space:nowrap}
+.logo .mk{width:32px;height:32px;flex:none}
+.navg{display:flex;gap:22px;font-size:15px;font-weight:700;color:var(--ink2)}
+.navg a:hover{color:var(--brand)}
+@media(max-width:940px){.navg{display:none}}
+
+/* ---- ボタン（影は使わず、下辺の濃い線で押せる感じを出す） ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--maru);font-weight:900;font-size:17px;letter-spacing:.03em;
+  padding:16px 30px;border-radius:var(--r);border:0;cursor:pointer;
+  background:var(--brand);color:#fff;border-bottom:4px solid var(--brand-d);
+  transition:transform .12s ease,background .5s ease,border-color .5s ease;
+  text-align:center}
+.btn:active{transform:translateY(3px);border-bottom-width:1px}
+.btn.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand);border-bottom-width:4px}
+.btn.sun{background:var(--sun);color:#4a3400;border-bottom-color:#d9a400}
+.btn.lg{font-size:19px;padding:19px 38px}
+
+/* ---- 01 HERO ---- */
+.hero{position:relative;margin-top:calc(var(--ribbon) + var(--nav));
+  background:var(--brand-l);overflow:hidden;transition:background .6s ease;
+  padding:52px 0 64px}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;
+  gap:40px;align-items:center}
+.hero h1{font-size:clamp(31px,6.4vw,56px);line-height:1.32;margin-bottom:16px}
+.hero h1 .pop{color:var(--brand);transition:color .5s ease}
+.hero .sub{font-size:clamp(15.5px,2.1vw,18px);margin-bottom:26px;color:var(--ink2)}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.hero .badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{background:#fff;border:2px solid var(--line);border-radius:999px;
+  padding:7px 14px;font-size:13.5px;font-weight:700;color:var(--ink2)}
+.badge b{color:var(--brand);transition:color .5s ease}
+.heroart{position:relative}
+/* 背景の浮遊する丸 */
+.blob{position:absolute;border-radius:50%;opacity:.5;pointer-events:none}
+.blob.b1{width:180px;height:180px;background:var(--sun);top:-40px;right:-30px;animation:float1 9s ease-in-out infinite}
+.blob.b2{width:120px;height:120px;background:var(--brand);opacity:.16;bottom:-30px;left:-20px;animation:float2 11s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-14px,18px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(16px,-14px)}}
+@media(max-width:860px){
+  .hero{padding:30px 0 40px}
+  .hero .wrap{grid-template-columns:1fr;gap:20px}
+  .heroart{order:-1;max-width:250px;margin:0 auto}
+  .hero .cta .btn{flex:1 1 100%}
+}
+/* 320px（iPhone SE 第1世代）でも、見出し・本文・申込みボタンが第一画面に入るように。
+   イラストを小さくし、下のバッジは画面外に回す（同じ情報は下の料金にある）。 */
+@media(max-width:480px){
+  .hero{padding:16px 0 22px}
+  .hero .wrap{gap:10px}
+  .heroart{max-width:148px}
+  .hero h1{font-size:27px;margin-bottom:8px;line-height:1.36}
+  .hero .sub{font-size:14.5px;line-height:1.75;margin-bottom:14px}
+  .hero .cta{gap:8px;margin-bottom:0}
+  .hero .cta .btn{flex:1 1 0;font-size:15px;padding:14px 6px;white-space:nowrap}
+  .hero .badges{display:none}
+  .nav{padding:0 14px}
+  .nav>.btn{font-size:13.5px;padding:10px 12px;white-space:nowrap}
+  .logo{font-size:18px}
+  .logo .mk{width:28px;height:28px}
+}
+/* 380px 以下は、横に2つ並べると均等割りではみ出す。ナビのボタンは画面下の
+   固定ボタンと重複するので外し、ヒーローも主ボタン1本に絞る。 */
+@media(max-width:380px){
+  .nav>.btn{display:none}
+  .hero .cta .btn.ghost{display:none}
+  .hero .cta .btn{flex:1 1 100%;font-size:16px;padding:15px 10px}
+}
+
+/* ---- 02 コース切替 ---- */
+.tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0 34px}
+.tab{font-family:var(--maru);font-weight:900;font-size:16px;cursor:pointer;
+  background:#fff;color:var(--ink2);border:2px solid var(--line);border-bottom-width:4px;
+  border-radius:var(--r);padding:13px 22px;display:inline-flex;align-items:center;gap:9px;
+  transition:transform .12s ease,border-color .3s ease,color .3s ease,background .3s ease}
+.tab:active{transform:translateY(3px);border-bottom-width:2px}
+.tab .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.tab[aria-selected="true"]{color:#fff;background:var(--brand);border-color:var(--brand-d)}
+.tab[aria-selected="true"] .dot{background:#fff}
+.panelwrap{position:relative}
+.panel{display:none}
+.panel.on{display:block;animation:panelIn .55s var(--ez) both}
+@keyframes panelIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:none}}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.cgrid .art{background:var(--brand-l);border-radius:var(--r);padding:26px;transition:background .5s ease}
+.clist{list-style:none;display:grid;gap:12px;margin-top:18px}
+.clist li{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;font-size:16px}
+.clist .ck{width:26px;height:26px;border-radius:50%;background:var(--brand);flex:none;
+  display:flex;align-items:center;justify-content:center;transition:background .5s ease}
+.clist .ck svg{width:14px;height:14px}
+@media(max-width:860px){.cgrid{grid-template-columns:1fr;gap:22px}.cgrid .art{order:-1}}
+
+/* ---- カード群 ---- */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
+.card{background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:var(--r);
+  padding:26px 22px;text-align:center;transition:transform .3s var(--ez),border-color .3s ease}
+.card:hover{transform:translateY(-5px);border-color:var(--brand)}
+.card .ic{width:62px;height:62px;margin:0 auto 14px}
+.card h3{margin-bottom:8px;font-size:18px}
+.card p{font-size:14.5px;color:var(--smoke);line-height:1.85}
+@media(max-width:900px){.cards{grid-template-columns:1fr 1fr;gap:14px}}
+@media(max-width:460px){.cards{grid-template-columns:1fr}}
+
+/* ---- 流れ（タイムライン） ---- */
+.flow{margin-top:38px;position:relative;display:grid;gap:0}
+.fitem{display:grid;grid-template-columns:66px 1fr;gap:18px;padding-bottom:28px;position:relative}
+.fitem:last-child{padding-bottom:0}
+.fitem::before{content:"";position:absolute;left:33px;top:60px;bottom:6px;width:3px;
+  background:var(--line);transform:scaleY(0);transform-origin:top;transition:transform .7s var(--ez2)}
+.fitem.in::before{transform:scaleY(1)}
+.fitem:last-child::before{display:none}
+.fnum{width:66px;height:66px;border-radius:50%;background:var(--brand-l);color:var(--brand);
+  border:3px solid var(--brand);display:flex;align-items:center;justify-content:center;
+  font-family:var(--lat);font-size:26px;font-weight:800;transition:background .5s ease,color .5s ease,border-color .5s ease}
+.fitem h3{margin-bottom:5px;padding-top:12px}
+.fitem p{font-size:15.5px;color:var(--ink2)}
+
+/* ---- 料金 ---- */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.price{background:#fff;border:2px solid var(--line);border-bottom-width:5px;border-radius:var(--r);
+  padding:28px 24px;text-align:center;position:relative}
+.price.best{border-color:var(--brand);border-bottom-color:var(--brand-d)}
+.price .tag{position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--sun);color:#4a3400;font-weight:900;font-size:13px;border-radius:999px;padding:5px 16px;white-space:nowrap}
+.price h3{font-size:18px;margin-bottom:6px}
+.price .yen{font-family:var(--lat);font-size:40px;font-weight:800;color:var(--ink);line-height:1.2}
+.price .yen small{font-family:var(--maru);font-size:14px;font-weight:700;color:var(--smoke)}
+.price ul{list-style:none;margin-top:16px;display:grid;gap:8px;font-size:14.5px;text-align:left}
+/* チェック印を別要素にしていないので、grid にすると1列目(20px)に本文が入り、
+   20px 幅で1文字ずつ折り返されてしまう。印は ::before で置く。 */
+.price li{display:block;position:relative;padding-left:24px;color:var(--ink2);line-height:1.8}
+.price li::before{content:"✓";position:absolute;left:0;top:0;color:var(--brand);
+  font-weight:900;transition:color .5s ease}
+@media(max-width:860px){.prices{grid-template-columns:1fr;gap:22px}}
+
+/* ---- 声 ---- */
+.voices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.voice{background:var(--paper2);border-radius:var(--r);padding:24px 22px;position:relative}
+.voice p{font-size:15px;color:var(--ink2)}
+.voice .who{margin-top:14px;font-size:13.5px;color:var(--smoke);font-weight:700}
+.voice::after{content:"";position:absolute;left:26px;bottom:-14px;width:0;height:0;
+  border:7px solid transparent;border-top-color:var(--paper2);border-bottom:0}
+@media(max-width:860px){.voices{grid-template-columns:1fr}}
+
+/* ---- FAQ ---- */
+.faq{margin-top:30px;display:grid;gap:12px}
+.faq details{border:2px solid var(--line);border-bottom-width:4px;border-radius:var(--r);background:#fff;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:18px 52px 18px 20px;position:relative;
+  font-weight:900;color:var(--ink);font-size:16.5px;line-height:1.6}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after,.faq summary::before{content:"";position:absolute;background:var(--brand);
+  border-radius:2px;transition:transform .3s var(--ez),background .5s ease}
+.faq summary::after{right:20px;top:50%;width:15px;height:3px;margin-top:-1.5px}
+.faq summary::before{right:26px;top:50%;width:3px;height:15px;margin-top:-7.5px}
+.faq details[open] summary::before{transform:scaleY(0)}
+.faq .a{padding:0 20px 20px;font-size:15.5px;color:var(--ink2)}
+.faq details[open] .a{animation:faqIn .4s var(--ez2)}
+@keyframes faqIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* ---- 拠点 ---- */
+.spots{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:24px 0 28px}
+.spot{font-family:var(--maru);font-weight:900;font-size:15.5px;cursor:pointer;background:#fff;
+  color:var(--ink2);border:2px solid var(--line);border-bottom-width:4px;border-radius:var(--r);
+  padding:12px 22px;transition:transform .12s ease,border-color .3s,color .3s,background .3s}
+.spot:active{transform:translateY(3px);border-bottom-width:2px}
+.spot[aria-selected="true"]{background:var(--ink);color:#fff;border-color:#0e1830}
+.spotbody{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.spotinfo dl{display:grid;gap:0}
+.spotinfo div{display:grid;grid-template-columns:6.5em 1fr;gap:12px;padding:13px 0;border-bottom:2px solid var(--line);font-size:15.5px}
+.spotinfo dt{color:var(--smoke);font-weight:700}
+.spotinfo dd{color:var(--ink2);font-weight:700}
+.spotmap{border:2px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--paper2)}
+.spotmap iframe{width:100%;height:290px;border:0;display:block}
+.fade{animation:panelIn .5s var(--ez) both}
+@media(max-width:860px){
+  .spotbody{grid-template-columns:1fr;gap:20px}
+  .spotinfo div{grid-template-columns:1fr;gap:2px;padding:11px 0}
+}
+
+/* ---- フォーム ---- */
+.formsec{background:var(--brand-l);transition:background .6s ease}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px;
+  background:#fff;border-radius:var(--r);padding:28px;border:2px solid var(--line);border-bottom-width:5px}
+.f{display:flex;flex-direction:column;gap:7px}
+.f.full{grid-column:1/-1}
+.f label{font-size:14.5px;font-weight:900;color:var(--ink)}
+.f label i{font-style:normal;color:#e8453c;font-size:12px;margin-left:6px}
+.f input,.f select,.f textarea{font-family:var(--maru);font-size:16.5px;color:var(--ink);
+  padding:14px 14px;border:2px solid var(--line);border-radius:12px;background:#fff;
+  transition:border-color .2s ease;width:100%}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--brand)}
+.formnote{grid-column:1/-1;font-size:13.5px;color:var(--smoke)}
+.submit{grid-column:1/-1;display:grid}
+@media(max-width:860px){.form{grid-template-columns:1fr;padding:22px 18px}}
+
+/* ---- 波の区切り ---- */
+.wave{display:block;width:100%;height:54px}
+.wave path{fill:var(--brand-l);transition:fill .6s ease}
+
+/* ---- 仕切り（ここから制作の説明） ---- */
+.divider{background:var(--ink);color:#c9d5ea;text-align:center;padding:66px 20px}
+.divider .k{font-family:var(--lat);font-size:12px;letter-spacing:.3em;color:#7d8fb3}
+.divider p{font-size:clamp(20px,3vw,28px);font-weight:900;color:#fff;margin-top:12px;line-height:1.6;font-family:var(--maru)}
+.divider>span{display:block;margin-top:12px;font-size:14.5px;color:#93a4c4}
+
+/* ---- 制作説明 ---- */
+.dark{background:#16213c;color:#c3cfe6}
+.dark h2,.dark h3{color:#fff}
+.dark .lead{color:#a9b8d4}
+.dark .kicker{background:rgba(255,255,255,.09);color:#fff}
+.code{background:#0d1730;border:2px solid #26355a;border-radius:var(--r);padding:20px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.9;
+  color:#cfe0ff;overflow-x:auto;white-space:pre;margin-top:16px}
+.code .c{color:#7d8fb3}
+.code .s{color:#ffd479}
+.code .t{color:#7fd1ff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-top:30px}
+@media(max-width:860px){.two{grid-template-columns:1fr;gap:22px}}
+.anims{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.anim{background:#1d2b4d;border:2px solid #2b3c66;border-radius:var(--r);padding:16px 18px;font-size:14.5px;color:#c3cfe6}
+.anim b{display:block;color:#fff;font-size:15px;margin-bottom:3px}
+@media(max-width:860px){.anims{grid-template-columns:1fr 1fr;gap:10px}}
+@media(max-width:460px){.anims{grid-template-columns:1fr}}
+.device{max-width:376px;margin:30px auto 0;border:10px solid #0d1730;border-radius:34px;overflow:hidden;background:#0d1730}
+.device iframe{width:100%;height:620px;border:0;display:block;background:#fff}
+
+/* ---- footer ---- */
+footer{background:var(--ink);color:#a9b8d4;padding:56px 0 110px;font-size:14.5px}
+footer .cols{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px}
+footer h4{color:#fff;font-size:16px;margin-bottom:12px}
+footer a{display:block;padding:5px 0}
+footer a:hover{color:#fff}
+footer .ft{margin-top:40px;padding-top:22px;border-top:2px solid #2b3c66;font-size:12.5px;color:#7d8fb3}
+@media(max-width:860px){footer .cols{grid-template-columns:1fr 1fr}}
+
+/* ---- スマホ固定CTA ---- */
+.spcta{position:fixed;left:0;right:0;bottom:0;z-index:56;display:none;
+  grid-template-columns:1fr 1.2fr;gap:8px;padding:9px 12px;background:rgba(255,255,255,.97);
+  border-top:2px solid var(--line);transform:translateY(110%);transition:transform .5s var(--ez2)}
+.spcta.up{transform:none}
+.spcta a{padding:14px 6px;border-radius:14px;text-align:center;font-weight:900;font-size:15.5px}
+.spcta .tel{background:#fff;color:var(--ink);border:2px solid var(--line);border-bottom-width:4px}
+.spcta .go{background:var(--brand);color:#fff;border-bottom:4px solid var(--brand-d)}
+@media(max-width:860px){
+  .spcta{display:grid}
+  body{padding-bottom:70px}
+  section{padding:56px 0}
+}
+
+/* ==========================================================================
+   MOTION（依頼の要「動きが多く、生きている感じ」）
+   全部 prefers-reduced-motion で止まる。
+   ========================================================================== */
+/* JSが動いたときだけ消す。落ちても中身は必ず見える。 */
+html:not(.js) .rv,html:not(.js) .stagger>*{opacity:1 !important;transform:none !important}
+html:not(.js) #curtain{display:none}
+
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--brand);z-index:70;transition:width .1s linear}
+
+#curtain{position:fixed;inset:0;z-index:100;background:var(--brand);display:flex;
+  align-items:center;justify-content:center;transition:opacity .6s .3s var(--ez2),visibility .6s .3s}
+#curtain .w{color:#fff;font-weight:900;font-size:26px;letter-spacing:.2em;
+  animation:cw 1s var(--ez) both}
+@keyframes cw{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
+body.loaded #curtain{opacity:0;visibility:hidden}
+
+/* 出現：少し跳ねて出る */
+.rv{opacity:0;transform:translateY(26px)}
+.rv.in{opacity:1;transform:none;transition:opacity .6s var(--ez2),transform .72s var(--ez)}
+.stagger>*{opacity:0;transform:translateY(22px)}
+.stagger.in>*{opacity:1;transform:none;transition:opacity .55s var(--ez2),transform .7s var(--ez)}
+.stagger.in>*:nth-child(2){transition-delay:.08s}
+.stagger.in>*:nth-child(3){transition-delay:.16s}
+.stagger.in>*:nth-child(4){transition-delay:.24s}
+.stagger.in>*:nth-child(5){transition-delay:.32s}
+.stagger.in>*:nth-child(6){transition-delay:.4s}
+
+/* 見出しを1文字ずつ跳ねさせる（.divider .k などは対象外） */
+.ch{display:inline-block;opacity:0;transform:translateY(.5em) scale(.9)}
+.in .ch,.loaded .ch{opacity:1;transform:none;transition:opacity .45s var(--ez2),transform .6s var(--ez)}
+
+/* ヒーローのイラストがふわふわ */
+.heroart .art-main{animation:bob 4.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-13px) rotate(1deg)}}
+/* きらきら */
+.spark{transform-origin:center;animation:spark 2.6s ease-in-out infinite}
+.spark.s2{animation-delay:.7s}
+.spark.s3{animation-delay:1.4s}
+@keyframes spark{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1.15)}}
+/* ロボットの目・鉛筆の線など、コースごとの小さな動き */
+.blink{animation:blink 3.4s steps(1,end) infinite}
+@keyframes blink{0%,92%,100%{opacity:1}95%{opacity:.15}}
+.dash{stroke-dasharray:120;stroke-dashoffset:120;animation:draw 2.4s var(--ez2) infinite}
+@keyframes draw{0%{stroke-dashoffset:120}55%,100%{stroke-dashoffset:0}}
+
+/* カードのアイコンが順に跳ねる */
+.card.in .ic{animation:pop .6s var(--ez) both}
+@keyframes pop{from{transform:scale(.6) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+
+/* 数字が回る */
+.cnt{font-variant-numeric:tabular-nums}
+
+@media(prefers-reduced-motion:reduce){
+  #curtain,#prog{display:none}
+  .rv,.stagger>*,.ch{opacity:1 !important;transform:none !important;transition:none !important}
+  .heroart .art-main,.spark,.blink,.dash,.card.in .ic,.blob{animation:none !important}
+  .panel.on,.fade{animation:none !important}
+  .fitem::before{transform:scaleY(1) !important}
+  html{scroll-behavior:auto}
+  .spcta{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="curtain"><div class="w">ミライク</div></div>
+
+<div class="ribbon"><span>これは<b>ご提案用のモック</b>です。<span class="more">スクール名・所在地・料金・体験談はすべて架空で、</span>イラストはすべて自作のSVGです。</span></div>
+
+<nav class="nav">
+  <a href="#top" class="logo">
+    <svg class="mk" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" fill="var(--brand)"/>
+      <path d="M12 24l6-9 5 7 3-4 3 6z" fill="#fff"/>
+      <circle cx="27" cy="13" r="3" fill="var(--sun)"/>
+    </svg>
+    ミライク
+  </a>
+  <div class="navg">
+    <a href="#course">コース</a>
+    <a href="#chikara">身につく力</a>
+    <a href="#nagare">レッスンの流れ</a>
+    <a href="#ryokin">料金</a>
+    <a href="#kyoshitsu">教室</a>
+    <a href="#faq">よくある質問</a>
+  </div>
+  <a href="#taiken" class="btn" style="padding:12px 20px;font-size:15px">無料体験に申し込む</a>
+</nav>
+
+<!-- 01 HERO -->
+<header class="hero" id="top">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap">
+    <div>
+      <h1><span class="pop" id="heroWord">英語</span>が、<br>すきになる教室。</h1>
+      <p class="sub" id="heroSub">小学生・中学生・高校生のための、英語・AI・プログラミングのスクールです。まずは60分の無料体験から、お子さまに合うかどうかを確かめてください。</p>
+      <div class="cta">
+        <a href="#taiken" class="btn lg">無料体験に申し込む</a>
+        <a href="#course" class="btn ghost lg">コースを見る</a>
+      </div>
+      <div class="badges">
+        <span class="badge">入会金 <b>0円</b></span>
+        <span class="badge">体験は <b>60分・無料</b></span>
+        <span class="badge">2教室で <b>開講中</b></span>
+      </div>
+    </div>
+    <div class="heroart">
+      <svg class="art-main" viewBox="0 0 320 300" aria-label="学ぶ子どものイラスト">
+        <circle cx="160" cy="150" r="118" fill="#fff" opacity=".85"/>
+        <!-- 本 -->
+        <rect x="76" y="176" width="168" height="20" rx="7" fill="var(--ink)"/>
+        <path d="M80 176c22-16 52-16 78 0v-58c-26-16-56-16-78 0z" fill="#fff" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M240 176c-22-16-52-16-78 0v-58c26-16 56-16 78 0z" fill="#fff" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/>
+        <path class="dash" d="M96 132h52M96 148h44" stroke="var(--brand)" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path class="dash" d="M176 132h52M176 148h44" stroke="var(--brand)" stroke-width="5" stroke-linecap="round" fill="none" style="animation-delay:.5s"/>
+        <!-- 吹き出し -->
+        <g>
+          <rect x="188" y="42" width="96" height="58" rx="18" fill="var(--brand)"/>
+          <path d="M212 100l-4 20 22-20z" fill="var(--brand)"/>
+          <text x="236" y="80" font-family="Baloo 2, sans-serif" font-size="30" font-weight="800" fill="#fff" text-anchor="middle" id="heroBubble">ABC</text>
+        </g>
+        <!-- 鉛筆 -->
+        <g transform="rotate(-24 70 86)">
+          <rect x="48" y="52" width="22" height="72" rx="5" fill="var(--sun)"/>
+          <path d="M48 124h22l-11 18z" fill="var(--ink)"/>
+          <rect x="48" y="52" width="22" height="12" rx="4" fill="#e09b00"/>
+        </g>
+        <!-- きらきら -->
+        <path class="spark" d="M286 130l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="var(--sun)"/>
+        <path class="spark s2" d="M40 166l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="var(--brand)"/>
+        <path class="spark s3" d="M252 208l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="var(--sun)"/>
+        <!-- 顔は出さない（丸いキャラ） -->
+        <g class="blink">
+          <circle cx="128" cy="232" r="30" fill="var(--brand)"/>
+          <circle cx="119" cy="228" r="4.5" fill="#fff"/>
+          <circle cx="137" cy="228" r="4.5" fill="#fff"/>
+          <path d="M120 242q8 7 16 0" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+<svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true"><path d="M0 54V22c180-26 360 26 540 20s360-52 540-34 300 24 360 18v28z"/></svg>
+
+<!-- 02 コース -->
+<section id="course" class="rv">
+  <div class="wrap center">
+    <span class="kicker">Courses</span>
+    <h2>3つのコースがあります</h2>
+    <p class="lead">どれも、つくる・ためす・見せるの順で進みます。押して切り替えてみてください。</p>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" aria-selected="true"  data-c="eigo"><span class="dot" style="background:#ff6b35"></span>英語</button>
+      <button class="tab" role="tab" aria-selected="false" data-c="ai"><span class="dot" style="background:#2b8fff"></span>AI</button>
+      <button class="tab" role="tab" aria-selected="false" data-c="pro"><span class="dot" style="background:#22c55e"></span>プログラミング</button>
+    </div>
+  </div>
+  <div class="wrap panelwrap" id="panels"></div>
+</section>
+
+<!-- 03 身につく力 -->
+<section id="chikara" style="background:var(--paper2)">
+  <div class="wrap center rv">
+    <span class="kicker">Skills</span>
+    <h2>教室で身につく4つの力</h2>
+    <p class="lead">テストの点だけを目的にしていません。大人になっても使えるものを残します。</p>
+  </div>
+  <div class="wrap">
+    <div class="cards stagger">
+      <div class="card"><svg class="ic" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#fff1eb"/><path d="M20 40l8-16 8 12 5-7 5 11z" fill="#ff6b35"/><circle cx="43" cy="20" r="5" fill="#ffc531"/></svg><h3>やりきる力</h3><p>小さく区切った課題を、最後まで自分で終わらせる練習を毎回します。</p></div>
+      <div class="card"><svg class="ic" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#eaf4ff"/><rect x="18" y="22" width="28" height="22" rx="6" fill="#2b8fff"/><circle cx="26" cy="32" r="3.4" fill="#fff"/><circle cx="38" cy="32" r="3.4" fill="#fff"/><path d="M32 22v-7" stroke="#2b8fff" stroke-width="4" stroke-linecap="round"/><circle cx="32" cy="13" r="4" fill="#ffc531"/></svg><h3>つくる力</h3><p>覚えるだけで終わらせず、毎回かならず自分の作品を1つ作って持ち帰ります。</p></div>
+      <div class="card"><svg class="ic" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#eafbf0"/><path d="M22 26h20M22 34h14" stroke="#22c55e" stroke-width="5" stroke-linecap="round"/><rect x="14" y="16" width="36" height="32" rx="8" fill="none" stroke="#22c55e" stroke-width="4"/><path d="M26 48l6 8 6-8z" fill="#22c55e"/></svg><h3>伝える力</h3><p>作ったものを、毎月みんなの前で発表します。話す練習がここに入ります。</p></div>
+      <div class="card"><svg class="ic" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="#fff6e0"/><path d="M32 14l5.8 12.6L51 28l-9.6 9 2.4 13.4L32 44l-11.8 6.4L22.6 37 13 28l13.2-1.4z" fill="#ffc531"/></svg><h3>つづける力</h3><p>できた記録がたまっていく仕組みで、通うこと自体が楽しくなるようにしています。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 レッスンの流れ -->
+<section id="nagare">
+  <div class="wrap rv">
+    <span class="kicker">Lesson</span>
+    <h2>60分のレッスンの流れ</h2>
+    <p class="lead">毎回おなじ順番で進みます。次に何をするかが分かるので、はじめてでも迷いません。</p>
+    <div class="flow" id="flow">
+      <div class="fitem"><div class="fnum">1</div><div><h3>今日のもくひょう</h3><p>今日やることを1つだけ決めます。多くしすぎません。</p></div></div>
+      <div class="fitem"><div class="fnum">2</div><div><h3>やってみる</h3><p>説明は短く。手を動かす時間をいちばん長く取ります。</p></div></div>
+      <div class="fitem"><div class="fnum">3</div><div><h3>つまずきを直す</h3><p>先生が横について、間違えたところをその場で直します。</p></div></div>
+      <div class="fitem"><div class="fnum">4</div><div><h3>作品にする</h3><p>できたものを保存して、おうちの方にも見ていただけるようにします。</p></div></div>
+      <div class="fitem"><div class="fnum">5</div><div><h3>つぎの宿題</h3><p>5分で終わる量だけ出します。続けられる量が正しい量です。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 料金 -->
+<section id="ryokin" style="background:var(--paper2)">
+  <div class="wrap center rv">
+    <span class="kicker">Price</span>
+    <h2>料金</h2>
+    <p class="lead">入会金はいただきません。月のとちゅうからでも、日割りでお受けします。</p>
+  </div>
+  <div class="wrap">
+    <div class="prices stagger">
+      <div class="price"><h3>週1回コース</h3><div class="yen"><span class="num" data-n="8800">8,800</span><small>円／月（税込）</small></div>
+        <ul><li>60分 × 月4回</li><li>教材費こみ</li><li>作品の持ち帰りあり</li></ul></div>
+      <div class="price best"><span class="tag">いちばん人気</span><h3>週2回コース</h3><div class="yen"><span class="num" data-n="15400">15,400</span><small>円／月（税込）</small></div>
+        <ul><li>60分 × 月8回</li><li>教材費こみ</li><li>発表会に参加できます</li><li>家庭学習アプリつき</li></ul></div>
+      <div class="price"><h3>2コース受講</h3><div class="yen"><span class="num" data-n="19800">19,800</span><small>円／月（税込）</small></div>
+        <ul><li>好きな2コースを組み合わせ</li><li>60分 × 月8回</li><li>教材費こみ</li></ul></div>
+    </div>
+    <p class="center" style="margin-top:22px;font-size:14.5px;color:var(--smoke)">きょうだいで通われる場合は、2人目以降の月謝が半額になります。</p>
+  </div>
+</section>
+
+<!-- 06 保護者の声 -->
+<section>
+  <div class="wrap center rv">
+    <span class="kicker">Voice</span>
+    <h2>通われている方の声</h2>
+  </div>
+  <div class="wrap">
+    <div class="voices stagger">
+      <div class="voice"><p>「家で宿題をやりなさいと言わなくなりました。自分から画面を開いて作っています。」</p><p class="who">小4のお母さま</p></div>
+      <div class="voice"><p>「英検の対策だけかと思っていたら、人前で話す練習まで入っていて驚きました。」</p><p class="who">中1のお父さま</p></div>
+      <div class="voice"><p>「体験のときに、うちの子には少し早いと正直に言ってもらえたのが決め手でした。」</p><p class="who">小2のお母さま</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 FAQ -->
+<section id="faq" style="background:var(--paper2)">
+  <div class="wrap rv">
+    <span class="kicker">FAQ</span>
+    <h2>よくあるご質問</h2>
+    <div class="faq">
+      <details open><summary>パソコンを持っていなくても大丈夫ですか。</summary><div class="a">はい。教室のパソコンを使いますので、お持ちいただく必要はありません。ご家庭で復習される場合も、スマートフォンやタブレットでできる内容にしています。</div></details>
+      <details><summary>何年生から通えますか。</summary><div class="a">小学1年生から高校3年生までです。学年ではなく、いまできるところから始めます。体験のときに、お子さまに合う入り口をご提案します。</div></details>
+      <details><summary>途中でコースを変えられますか。</summary><div class="a">変えられます。英語で入られた方がプログラミングに移ることも、両方受けられることもよくあります。手続きは前の月の20日までにお知らせいただくだけです。</div></details>
+      <details><summary>送り迎えが必要ですか。</summary><div class="a">入室と退室のときに、保護者の方へ自動でお知らせが届きます。お子さまだけで通われている方が多数です。</div></details>
+      <details><summary>体験だけ受けて、入会しなくてもいいですか。</summary><div class="a">もちろんです。その場でご返事いただく必要はありませんし、後日こちらから勧誘のお電話をすることもありません。</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 08 教室（拠点切替） -->
+<section id="kyoshitsu">
+  <div class="wrap center rv">
+    <span class="kicker">School</span>
+    <h2>教室のご案内</h2>
+    <p class="lead">2つの教室で開講しています。押すと切り替わります。</p>
+    <div class="spots" role="tablist" id="spots">
+      <button class="spot" role="tab" aria-selected="true"  data-s="0">きたの校</button>
+      <button class="spot" role="tab" aria-selected="false" data-s="1">みなみ台校</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="spotbody">
+      <div class="spotinfo" id="spotinfo"></div>
+      <div class="spotmap"><iframe id="spotmap" title="教室の地図（モックのため仮の場所を表示しています）" loading="lazy"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 申し込み -->
+<svg class="wave" viewBox="0 0 1440 54" preserveAspectRatio="none" aria-hidden="true" style="transform:rotate(180deg)"><path d="M0 54V22c180-26 360 26 540 20s360-52 540-34 300 24 360 18v28z"/></svg>
+<section id="taiken" class="formsec">
+  <div class="wrap center rv">
+    <span class="kicker">Trial</span>
+    <h2>60分の無料体験</h2>
+    <p class="lead">持ち物はいりません。ご都合のよい日を2つほどお知らせください。折り返しご連絡します。</p>
+  </div>
+  <div class="wrap">
+    <form class="form" id="trial" novalidate>
+      <div class="f"><label for="pn">保護者さまのお名前<i>必須</i></label><input id="pn" type="text" placeholder="未来 花子" autocomplete="name"></div>
+      <div class="f"><label for="cn">お子さまのお名前<i>必須</i></label><input id="cn" type="text" placeholder="未来 たろう"></div>
+      <div class="f"><label for="gr">学年<i>必須</i></label>
+        <select id="gr"><option value="">選んでください</option>
+          <option>小1</option><option>小2</option><option>小3</option><option>小4</option><option>小5</option><option>小6</option>
+          <option>中1</option><option>中2</option><option>中3</option><option>高1</option><option>高2</option><option>高3</option></select></div>
+      <div class="f"><label for="cs">気になるコース</label>
+        <select id="cs"><option value="">選んでください</option><option>英語</option><option>AI</option><option>プログラミング</option><option>まだ決めていない</option></select></div>
+      <div class="f"><label for="sc">希望の教室</label>
+        <select id="sc"><option>きたの校</option><option>みなみ台校</option><option>どちらでもよい</option></select></div>
+      <div class="f"><label for="tl">お電話番号<i>必須</i></label><input id="tl" type="tel" inputmode="tel" placeholder="000-0000-0000" autocomplete="tel"></div>
+      <div class="f full"><label for="em">メールアドレス</label><input id="em" type="email" placeholder="example@example.com" autocomplete="email"></div>
+      <div class="f full"><label for="ms">ご希望の日時・ご質問</label><textarea id="ms" rows="4" placeholder="例：土曜の午前がありがたいです。人見知りなのですが大丈夫でしょうか。"></textarea></div>
+      <p class="formnote">いただいた情報は体験のご連絡にのみ使用します。しつこいご案内はいたしません。</p>
+      <div class="submit"><button type="submit" class="btn lg">この内容で申し込む</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- 仕切り -->
+<div class="divider">
+  <span class="k">FOR THE PROPOSAL</span>
+  <p>ここから下は、平野から<br>制作についてのご説明です。</p>
+  <span>ここまでが、納品するLPそのものです。</span>
+</div>
+
+<!-- 10 3種類と拠点差し替え -->
+<section class="dark">
+  <div class="wrap">
+    <span class="kicker">01 — 3種類と、拠点の差し替え</span>
+    <h2>差し替えるのは、<br>この1か所だけです。</h2>
+    <p class="lead">上のコース切替と教室切替は、飾りではなく実際の納品構造です。文言・色・イラスト・地図は、HTMLの先頭にあるこの記述だけを見ています。ここを書き換えれば、3種類にも6種類にも増やせます。</p>
+    <div class="two">
+      <div>
+        <h3 style="margin-bottom:8px">コースを足すとき</h3>
+        <div class="code"><span class="c">// 1コース＝1ブロック。ここに足すだけで、タブも中身も色も増えます。</span>
+{
+  <span class="t">key</span>:   <span class="s">'rika'</span>,
+  <span class="t">name</span>:  <span class="s">'理科実験'</span>,
+  <span class="t">color</span>: <span class="s">'#9b5de5'</span>,
+  <span class="t">catch</span>: <span class="s">'理科が、すきになる教室。'</span>,
+  <span class="t">points</span>: [ <span class="s">'毎回かならず実験をします'</span>, … ]
+}</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px">教室を足すとき</h3>
+        <div class="code"><span class="c">// 教室名・住所・地図・電話も1か所にまとまっています。</span>
+{
+  <span class="t">name</span>:  <span class="s">'ひがし川校'</span>,
+  <span class="t">addr</span>:  <span class="s">'○○市○○町3-1-2'</span>,
+  <span class="t">access</span>:<span class="s">'○○駅 徒歩4分'</span>,
+  <span class="t">tel</span>:   <span class="s">'000-000-0000'</span>,
+  <span class="t">map</span>:   <span class="s">'○○市役所'</span>
+}</div>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:18px">ご自身でHTMLを編集されるとのことでしたので、この形にしています。1ファイルの先頭だけを見ればよく、デザイン側のコードには触れずに済みます。3種類を別々のファイルでお納めすることも、この1ファイルで6種類ぶんを切り替える形でお納めすることも、どちらでも対応できます。</p>
+  </div>
+</section>
+
+<!-- 11 アニメーション -->
+<section class="dark" style="padding-top:0">
+  <div class="wrap">
+    <span class="kicker">02 — 動きの一覧</span>
+    <h2>いま動いているもの</h2>
+    <p class="lead">「賑やかに」というご要望でしたので、上のページには次の動きを入れています。すべて自前のCSSとSVGで、外部のライブラリもGIFも使っていません。読み込みを重くしないためです。</p>
+    <div class="anims stagger">
+      <div class="anim"><b>開くときの幕</b>ロゴが出て、すっと抜けます</div>
+      <div class="anim"><b>イラストの上下</b>キャラと本がゆっくり揺れます</div>
+      <div class="anim"><b>きらきら</b>時間差で3つが光ります</div>
+      <div class="anim"><b>線が描かれる</b>本の文字が左から引かれます</div>
+      <div class="anim"><b>まばたき</b>キャラがときどき目を閉じます</div>
+      <div class="anim"><b>色がまるごと変わる</b>コース切替でページ全体の色が移ります</div>
+      <div class="anim"><b>跳ねて出てくる</b>スクロールに応じて少し跳ねます</div>
+      <div class="anim"><b>アイコンが弾む</b>カードが見えた瞬間に跳ねます</div>
+      <div class="anim"><b>線が伸びる</b>レッスンの流れを上から順につなぎます</div>
+      <div class="anim"><b>数字が回る</b>料金が回って止まります</div>
+      <div class="anim"><b>読み進みバー</b>上端で今どこかが分かります</div>
+      <div class="anim"><b>押し込めるボタン</b>指で押すと沈みます</div>
+    </div>
+    <p class="lead" style="margin-top:18px">端末の設定で「視差効果を減らす」をオンにされている方には、すべての動きが自動で止まります。酔いやすいお子さまや保護者の方への配慮です。</p>
+  </div>
+</section>
+
+<!-- 12 SEO/GEO -->
+<section class="dark" style="padding-top:0">
+  <div class="wrap">
+    <span class="kicker">03 — SEO と GEO（AIO）</span>
+    <h2>AIにも読める形で書きます</h2>
+    <p class="lead">検索エンジン向けの見出し構造・表示速度・スマートフォン対応に加えて、生成AIが引用しやすい形の構造化データを入れます。「○○市 子ども プログラミング教室」のような質問にAIが答えるとき、教室名・料金・場所・よくある質問を、AIが誤らずに拾えるようにしておくためです。</p>
+    <div class="code" style="margin-top:16px"><span class="c">// 実際に入れる構造化データ（抜粋）</span>
+{
+  <span class="s">"@type"</span>: <span class="s">"Course"</span>,
+  <span class="s">"name"</span>: <span class="s">"キッズプログラミング"</span>,
+  <span class="s">"provider"</span>: { <span class="s">"@type"</span>: <span class="s">"EducationalOrganization"</span>, <span class="s">"name"</span>: <span class="s">"ミライク"</span> },
+  <span class="s">"offers"</span>: { <span class="s">"price"</span>: <span class="s">"8800"</span>, <span class="s">"priceCurrency"</span>: <span class="s">"JPY"</span> },
+  <span class="s">"location"</span>: { <span class="s">"@type"</span>: <span class="s">"Place"</span>, <span class="s">"address"</span>: <span class="s">"○○市○○町1-2-3"</span> }
+}</div>
+    <p class="lead" style="margin-top:16px">あわせて FAQPage と LocalBusiness も入れます。拠点を増やされたときは、上の教室ブロックを足すだけで構造化データ側も自動でついてきます。</p>
+  </div>
+</section>
+
+<!-- 13 スマホ -->
+<section class="dark" style="padding-top:0;padding-bottom:80px">
+  <div class="wrap">
+    <span class="kicker">04 — スマートフォン</span>
+    <h2>申込みの大半は、<br>スマートフォンから届きます</h2>
+    <p class="lead">保護者の方がご覧になるのは、ほとんどがスマートフォンです。縮小して詰め込むのではなく、縦に並べ替えて、指で押せる大きさのまま出します。画面の下には、電話と申込みのボタンが出たままになります。</p>
+    <div class="device"><iframe id="mob" title="スマートフォン表示"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>ミライク</h4>
+        <p style="line-height:1.9">英語・AI・プログラミングの子どもスクール<br>きたの校／みなみ台校<br>受付 平日 13:00〜20:00</p>
+      </div>
+      <div><h4>コース</h4><a href="#course">英語</a><a href="#course">AI</a><a href="#course">プログラミング</a></div>
+      <div><h4>ご案内</h4><a href="#ryokin">料金</a><a href="#kyoshitsu">教室</a><a href="#faq">よくあるご質問</a><a href="#taiken">無料体験</a></div>
+    </div>
+    <p class="ft">© ミライク（架空）　／　このページはLスタジオが作成したご提案用のモックです。スクール名・所在地・料金・体験談はすべて架空で、イラストはすべて自作のSVGです。</p>
+  </div>
+</footer>
+
+<div class="spcta">
+  <a href="tel:0000000000" class="tel">電話する</a>
+  <a href="#taiken" class="go">無料体験に申し込む</a>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+const REDUCED = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ==========================================================================
+   ここが納品構造。文言・色・イラスト・地図はすべてこの2つの配列から出ています。
+   コースを足す＝COURSES に1つ足す。教室を足す＝SCHOOLS に1つ足す。
+   ========================================================================== */
+const COURSES = [
+  { key:'eigo', name:'英語', color:'#ff6b35', dark:'#d94f1e', light:'#fff1eb', bubble:'ABC',
+    catch:'英語', sub:'英検の対策から、中学校の教科書の内容まで。読む・書くだけでなく、声に出す時間を必ず取ります。',
+    lead:'英検5級から準2級までの対策と、学校の教科書に沿った学習を組み合わせます。',
+    points:['英検は、級ごとに必要な語彙を分けて覚えます','教科書の本文を、音読してから書きます','週に1回、先生と1対1で話す時間があります','年3回、英検の申込みと対策をこちらで用意します'] },
+  { key:'ai', name:'AI', color:'#2b8fff', dark:'#1a6fd0', light:'#eaf4ff', bubble:'AI',
+    catch:'AI', sub:'AIに何ができて、何が苦手なのか。自分で触って確かめながら、道具として使いこなす練習をします。',
+    lead:'AIを使って「調べる・作る・確かめる」を、自分の手でやってみるコースです。',
+    points:['自分で考えた指示で、絵と文章をつくります','AIの答えが合っているかを自分で確かめます','作ったものを発表して、感想をもらいます','使ってはいけない場面も、あわせて学びます'] },
+  { key:'pro', name:'プログラミング', color:'#22c55e', dark:'#169047', light:'#eafbf0', bubble:'</>',
+    catch:'プログラミング', sub:'ブロックを並べるところから始めて、自分のゲームやアプリを作ります。動かないところを直す時間が、いちばん力になります。',
+    lead:'ブロックから始めて、文字で書くプログラムまで進みます。',
+    points:['はじめの3か月で、自分のゲームが1つ完成します','動かないところは、先生と一緒に原因を探します','作品はおうちからも遊べる形でお渡しします','希望される方は、検定にも挑戦できます'] },
+];
+const SCHOOLS = [
+  { name:'きたの校', addr:'〒000-0000　○○県○○市きたの町1-2-3　きたのビル2階', access:'○○線 きたの駅 徒歩4分',
+    tel:'000-000-0000', open:'平日 13:00〜20:00　土 10:00〜18:00', close:'日曜・祝日', seats:'1クラス 最大6名', map:'大阪市役所' },
+  { name:'みなみ台校', addr:'〒000-0000　○○県○○市みなみ台5-6　みなみ台センター3階', access:'○○線 みなみ台駅 徒歩7分／駐車場4台',
+    tel:'000-000-1111', open:'平日 14:00〜21:00　土 10:00〜18:00', close:'日曜・祝日', seats:'1クラス 最大8名', map:'神戸市役所' },
+];
+
+/* ---- コースの中身を書き出す ---- */
+const panels = document.getElementById('panels');
+COURSES.forEach((c,i)=>{
+  const el = document.createElement('div');
+  el.className = 'panel' + (i===0?' on':'');
+  el.dataset.c = c.key;
+  const li = c.points.map(p=>`<li><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>${p}</span></li>`).join('');
+  el.innerHTML = `<div class="cgrid">
+    <div><h3 style="font-size:24px;margin-bottom:8px">${c.name}コース</h3>
+      <p class="lead">${c.lead}</p><ul class="clist">${li}</ul></div>
+    <div class="art">${courseArt(c)}</div></div>`;
+  panels.appendChild(el);
+});
+function courseArt(c){
+  return `<svg viewBox="0 0 300 220" aria-label="${c.name}コースのイラスト">
+    <rect x="18" y="26" width="264" height="150" rx="18" fill="#fff"/>
+    <rect x="18" y="26" width="264" height="34" rx="18" fill="${c.color}"/>
+    <rect x="18" y="48" width="264" height="14" fill="${c.color}"/>
+    <circle cx="40" cy="43" r="5" fill="#fff" opacity=".9"/><circle cx="58" cy="43" r="5" fill="#fff" opacity=".65"/><circle cx="76" cy="43" r="5" fill="#fff" opacity=".4"/>
+    <text x="150" y="120" font-family="Baloo 2, sans-serif" font-size="46" font-weight="800" fill="${c.color}" text-anchor="middle">${c.bubble}</text>
+    <rect x="60" y="140" width="180" height="10" rx="5" fill="#e3e9f3"/>
+    <rect x="60" y="140" width="110" height="10" rx="5" fill="${c.color}"/>
+    <rect x="96" y="176" width="108" height="12" rx="6" fill="#22314f"/>
+    <path class="spark" d="M268 84l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#ffc531"/>
+    <path class="spark s2" d="M26 150l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="${c.color}"/>
+  </svg>`;
+}
+
+/* ---- コース切替：ページ全体の色と文言が変わる ---- */
+/* 見出しを1文字ずつに割るときに h1 の中身を作り直すため、ノードは毎回取り直す。
+   最初に掴んだ参照を使い回すと、割ったあとの切替が効かなくなる。 */
+function setCourse(key){
+  const c = COURSES.find(x=>x.key===key) || COURSES[0];
+  const r = document.documentElement.style;
+  r.setProperty('--brand', c.color);
+  r.setProperty('--brand-d', c.dark);
+  r.setProperty('--brand-l', c.light);
+  const heroWord=document.getElementById('heroWord');
+  const heroSub=document.getElementById('heroSub');
+  const heroBubble=document.getElementById('heroBubble');
+  if(heroWord)   heroWord.textContent = c.catch;
+  if(heroSub)    heroSub.textContent = c.sub;
+  if(heroBubble) heroBubble.textContent = c.bubble;
+  document.querySelectorAll('#tabs .tab').forEach(t=>t.setAttribute('aria-selected', String(t.dataset.c===key)));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on', p.dataset.c===key));
+}
+document.getElementById('tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.tab'); if(t) setCourse(t.dataset.c);
+});
+
+/* ---- 教室切替 ---- */
+const spotinfo=document.getElementById('spotinfo'), spotmap=document.getElementById('spotmap');
+function setSchool(i){
+  const s=SCHOOLS[i];
+  spotinfo.innerHTML = `<dl>
+    <div><dt>教室名</dt><dd>${s.name}</dd></div>
+    <div><dt>所在地</dt><dd>${s.addr}</dd></div>
+    <div><dt>アクセス</dt><dd>${s.access}</dd></div>
+    <div><dt>電話番号</dt><dd>${s.tel}</dd></div>
+    <div><dt>開講時間</dt><dd>${s.open}</dd></div>
+    <div><dt>休講日</dt><dd>${s.close}</dd></div>
+    <div><dt>定員</dt><dd>${s.seats}</dd></div></dl>`;
+  spotinfo.classList.remove('fade'); void spotinfo.offsetWidth; spotinfo.classList.add('fade');
+  spotmap.src = 'https://www.google.com/maps?q=' + encodeURIComponent(s.map) + '&output=embed';
+  document.querySelectorAll('#spots .spot').forEach(b=>b.setAttribute('aria-selected', String(+b.dataset.s===i)));
+}
+document.getElementById('spots').addEventListener('click',e=>{
+  const b=e.target.closest('.spot'); if(b) setSchool(+b.dataset.s);
+});
+setSchool(0);
+
+/* ---- 幕 ---- */
+addEventListener('load',()=>document.body.classList.add('loaded'));
+setTimeout(()=>document.body.classList.add('loaded'),1900);
+
+/* ---- 帯の実寸を --ribbon へ（スマホで折り返すと高さが変わるため） ---- */
+function syncRibbon(){
+  const r=document.querySelector('.ribbon');
+  const h=(r&&getComputedStyle(r).display!=='none')?Math.ceil(r.getBoundingClientRect().height):0;
+  document.documentElement.style.setProperty('--ribbon',h+'px');
+}
+syncRibbon(); addEventListener('resize',syncRibbon); addEventListener('load',syncRibbon);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(syncRibbon);
+
+/* ---- 見出しを1文字ずつ（<br> は残す） ---- */
+if(!REDUCED){
+  document.querySelectorAll('section h2, .divider p, .hero h1').forEach(h=>{
+    const frag=document.createDocumentFragment(); let i=0;
+    [...h.childNodes].forEach(node=>{
+      if(node.nodeType===3){
+        [...node.textContent].forEach(ch=>{
+          if(ch==='\n'){frag.appendChild(document.createTextNode(ch));return;}
+          const s=document.createElement('span'); s.className='ch'; s.textContent=ch;
+          s.style.transitionDelay=(i*0.026).toFixed(3)+'s'; i++; frag.appendChild(s);
+        });
+      }else{
+        const cl=node.cloneNode(true);
+        if(cl.nodeType===1&&cl.id){ frag.appendChild(cl); }   // #heroWord などは丸ごと残す
+        else frag.appendChild(cl);
+      }
+    });
+    h.textContent=''; h.appendChild(frag);
+  });
+}
+
+/* ---- 出現 ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv,.stagger,.card,.fitem,.divider').forEach(el=>io.observe(el));
+
+/* ---- 数字が回る ---- */
+if(!REDUCED){
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return; cio.unobserve(e.target);
+    const el=e.target, target=+el.dataset.n, t0=performance.now(), dur=850;
+    el.classList.add('cnt');
+    (function tick(now){
+      const p=Math.min(1,(now-t0)/dur), k=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*k).toLocaleString('ja-JP');
+      if(p<1)requestAnimationFrame(tick);
+    })(t0);
+  }),{threshold:.6});
+  document.querySelectorAll('.num').forEach(el=>cio.observe(el));
+}
+
+/* ---- 読み進みバー／ナビ／スマホ固定CTA ---- */
+const prog=document.getElementById('prog'), nav=document.querySelector('.nav'), spcta=document.querySelector('.spcta');
+let last=0;
+addEventListener('scroll',()=>{
+  const y=scrollY, max=document.body.scrollHeight-innerHeight;
+  prog.style.width=(max>0?Math.min(1,y/max)*100:0).toFixed(2)+'%';
+  nav.classList.toggle('hide', y>last && y>300);
+  spcta.classList.toggle('up', y>360);
+  last=y;
+},{passive:true});
+
+/* ---- 送信（モックなので送らない） ---- */
+document.getElementById('trial').addEventListener('submit',e=>{
+  e.preventDefault();
+  alert('ご提案用のモックのため、実際には送信されません。\n本番では教室あてにメールが届き、\n保護者さまにも受付の控えが自動で返信されます。');
+});
+
+/* ---- スマホ枠 ---- */
+const isMobileFrame = location.search.includes('mobile');
+if(isMobileFrame){
+  document.querySelector('.ribbon').style.display='none';
+  document.documentElement.style.setProperty('--ribbon','0px');
+  const dv=document.querySelector('.device');
+  if(dv&&dv.closest('section')) dv.closest('section').remove();
+}else{
+  const mob=document.getElementById('mob');
+  if(mob) mob.src=(location.pathname.split('/').pop()||'index.html')+'?mobile=1';
+}
+
+/* ---- 取りこぼしの保険 ---- */
+setTimeout(()=>{
+  document.querySelectorAll('.rv,.stagger,.card,.fitem,.divider').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');
+  });
+},2400);
+</script>
+</body>
+</html>
