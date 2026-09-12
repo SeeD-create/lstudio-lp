@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>たちばな行政書士事務所｜相続・遺言と建設業許可のご相談</title>
+<meta name="description" content="相続・遺言、建設業許可のご相談を承る行政書士事務所です。報酬額と標準処理期間を先にお示しします。初回のご相談は無料です。">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   たちばな行政書士事務所（提案用モック）
+   参照ブランド: Legora（https://legora.com）— editorial law journal on warm cream
+   DO   : 明朝ディスプレイは細め・大きく／本文は16-17px／面は生成りのまま／
+          仕切りは1pxのヘアラインで、影で浮かせない／CTAは1画面に1つ
+   DON'T: 純白 #fff を面に使わない（臨床的に見える）／ドロップシャドウ／
+          彩度の高い色を複数／見出しを太いゴシックにする
+   ただし読者が50〜70代のため、Legora より本文を大きく・行間を広く取る。
+   ========================================================================== */
+:root{
+  --paper:#f7f4ee;      /* 生成り。純白は使わない */
+  --paper2:#efe9de;     /* 一段沈めた面 */
+  --paper3:#e7dfd1;     /* 表の縞・囲み */
+  --ink:#14120f;        /* 墨 */
+  --ink2:#3f3a33;       /* 本文 */
+  --smoke:#7c7469;      /* 補助 */
+  --line:#ddd4c4;       /* ヘアライン */
+  --ai:#33506b;         /* 藍。1画面に1つだけ */
+  --ai-d:#253c51;
+  --min:"Shippori Mincho B1",serif;
+  --gothic:"Noto Sans JP",system-ui,sans-serif;
+  --lat:"Barlow Condensed",sans-serif;
+  --ez:cubic-bezier(.16,1,.3,1);
+  --ribbon:44px;
+  --nav:66px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+/* グリッドの子は既定で min-width:auto のため、入力欄の固有幅で親を押し広げる。
+   390px で横スクロールが出た原因はここ。全部 0 に落としてから幅を決める。 */
+input,select,textarea{min-width:0;max-width:100%}
+.form,.f,.zip,.two,.info,.admin,.panel .row,.gyomu,.slots,.acc,.flow,.news a{min-width:0}
+.form>*,.two>*,.info>*,.admin>*,.panel .row>*,.gyomu>*,.acc>*{min-width:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink2);
+  font-family:var(--gothic);font-size:17px;line-height:1.95;
+  font-weight:400;letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body.big{font-size:20px}            /* 「文字を大きく」ボタン用 */
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,.num{font-family:var(--min);font-weight:600;color:var(--ink);letter-spacing:.02em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+.eyebrow{font-family:var(--lat);font-size:13px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--smoke);display:block;margin-bottom:14px}
+h2{font-size:clamp(29px,4.2vw,46px);line-height:1.34;margin-bottom:14px}
+h3{font-size:21px;line-height:1.6}
+.lead{color:var(--ink2);max-width:40em}
+.muted{color:var(--smoke)}
+.hr{height:1px;background:var(--line);border:0}
+
+/* 帯（これはモックですの断り） */
+/* 帯の高さは中身で決まる。JS が実測して --ribbon に書き戻すので、
+   ナビの位置とヒーローの高さが常に帯とそろう。 */
+.ribbon{position:fixed;top:0;left:0;right:0;min-height:var(--ribbon);z-index:60;
+  background:var(--ink);color:#f2ece1;display:flex;align-items:center;justify-content:center;
+  font-size:12.5px;letter-spacing:.04em;padding:10px 16px;text-align:center;line-height:1.6}
+.ribbon b{font-weight:500;color:#fff}
+@media(max-width:680px){.ribbon{font-size:11.5px;letter-spacing:0}.ribbon .more{display:none}}
+
+/* ナビ */
+.nav{position:fixed;top:var(--ribbon);left:0;right:0;height:var(--nav);z-index:55;
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+  background:rgba(247,244,238,.93);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  transition:transform .5s var(--ez),background .35s ease}
+.nav.hide{transform:translateY(-101%)}
+.logo{font-family:var(--min);font-size:19px;font-weight:600;color:var(--ink);letter-spacing:.06em;white-space:nowrap}
+.logo small{display:block;font-family:var(--lat);font-size:9.5px;letter-spacing:.3em;color:var(--smoke);margin-top:2px}
+.navg{display:flex;gap:26px;align-items:center;font-size:14.5px}
+.navg a{position:relative;padding-bottom:3px;color:var(--ink2)}
+.navg a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:var(--ai);transition:right .4s var(--ez)}
+.navg a:hover::after{right:0}
+.navtel{font-family:var(--lat);font-size:22px;letter-spacing:.04em;color:var(--ink)}
+@media(max-width:1000px){.navg{display:none}}
+/* 狭い幅では、ロゴと電話番号が同じ行で衝突する。電話は画面下の固定ボタンにあるので、
+   ナビからは外して事務所名だけを残す。 */
+@media(max-width:680px){
+  .nav{padding:0 16px}
+  .logo{font-size:16.5px;letter-spacing:.04em}
+  .logo small{display:none}
+  .navtel{display:none}
+}
+@media(max-width:390px){.logo{font-size:15px}}
+
+/* ボタン */
+.btn,.ghost{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--gothic);font-size:16px;font-weight:500;letter-spacing:.04em;
+  padding:17px 34px;border-radius:2px;cursor:pointer;border:1px solid transparent;
+  position:relative;overflow:hidden;z-index:0;transition:color .3s ease,border-color .3s ease}
+.btn{background:var(--ink);color:#faf7f1}
+.btn::before{content:"";position:absolute;inset:0;background:var(--ai);
+  transform:translateX(-101%);transition:transform .45s var(--ez);z-index:-1}
+.btn:hover::before{transform:none}
+.ghost{background:transparent;border-color:currentColor;color:var(--ink)}
+.ghost::before{content:"";position:absolute;inset:0;background:currentColor;opacity:.08;
+  transform:translateY(101%);transition:transform .4s var(--ez);z-index:-1}
+.ghost:hover::before{transform:none}
+.hero .ghost{color:#f6f1e7}
+
+/* 01 HERO */
+.hero{position:relative;height:calc(100svh - var(--ribbon) - var(--nav));min-height:540px;
+  margin-top:calc(var(--ribbon) + var(--nav));overflow:hidden;display:flex;align-items:flex-end}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% 60%}
+/* 写真が明るいので、読みやすさは「左下からの黒」1枚で作る。全面を暗くしない。 */
+.hero::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(14,11,8,.90) 0%,rgba(14,11,8,.66) 30%,rgba(14,11,8,.30) 58%,rgba(14,11,8,.08) 88%),
+    linear-gradient(to right,rgba(14,11,8,.52) 0%,rgba(14,11,8,.16) 46%,rgba(14,11,8,0) 72%)}
+.hero .in{position:relative;z-index:2;width:100%;padding:0 24px 62px;max-width:1120px;margin:0 auto;color:#f6f1e7}
+.hero .eyebrow{color:#cdbfa6}
+.hero h1{color:#fdfaf4;font-size:clamp(34px,6vw,68px);line-height:1.26;margin-bottom:20px;
+  text-shadow:0 2px 30px rgba(0,0,0,.3)}
+.hero .sub{font-size:clamp(16px,2vw,19px);color:#e6ded0;max-width:28em;margin-bottom:32px;line-height:1.9}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
+.hero .facts{display:flex;gap:30px;flex-wrap:wrap;font-size:14.5px;color:#d8cfbe;
+  border-top:1px solid rgba(246,241,231,.25);padding-top:20px}
+.hero .facts b{font-weight:500;color:#fff}
+.scrollhint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;
+  font-family:var(--lat);font-size:11px;letter-spacing:.3em;color:#cdbfa6}
+
+/* 02 あいさつ */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:center}
+.two .tx p+p{margin-top:1.3em}
+.sign{margin-top:30px;font-family:var(--min);font-size:19px;color:var(--ink)}
+.sign small{display:block;font-family:var(--gothic);font-size:13px;color:var(--smoke);margin-bottom:4px;letter-spacing:.08em}
+@media(max-width:860px){.two{grid-template-columns:1fr;gap:36px}}
+
+/* 03 取扱業務 */
+.gyomu{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:52px}
+.gcard{background:var(--paper2);border:1px solid var(--line);border-radius:2px;overflow:hidden;
+  display:flex;flex-direction:column}
+.gcard .ib{aspect-ratio:16/10}
+.gcard .ib img{width:100%;height:100%;object-fit:cover}
+.gcard .body{padding:30px 30px 34px;flex:1;display:flex;flex-direction:column}
+.gcard h3{margin-bottom:10px;font-size:25px}
+.gcard .desc{font-size:16px;margin-bottom:22px;flex:1}
+.spec{border-top:1px solid var(--line)}
+.spec div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;
+  border-bottom:1px solid var(--line);font-size:15.5px}
+.spec dt{color:var(--smoke);white-space:nowrap}
+.spec dd{font-family:var(--min);color:var(--ink);font-size:18px;text-align:right}
+@media(max-width:860px){.gyomu{grid-template-columns:1fr}}
+
+/* これから増やせる業種 */
+.grow{margin-top:46px;padding:34px 30px;border:1px dashed var(--line);border-radius:2px;background:transparent}
+.grow p.t{font-family:var(--min);font-size:19px;color:var(--ink);margin-bottom:6px}
+.grow p.s{font-size:15px;color:var(--smoke);margin-bottom:22px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.slot{border:1px solid var(--line);border-radius:2px;padding:15px 14px;font-size:15px;
+  color:var(--smoke);background:var(--paper2);display:flex;align-items:center;gap:9px}
+.slot i{font-style:normal;font-family:var(--lat);font-size:15px;color:#b5a891}
+.slot.on{color:var(--ink);border-color:var(--ai);background:#fff}
+.slot.on i{color:var(--ai)}
+@media(max-width:860px){.slots{grid-template-columns:repeat(2,1fr)}}
+
+/* 帯 */
+.band{position:relative;height:62vh;min-height:380px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.band img{position:absolute;inset:0;width:100%;height:118%;object-fit:cover;will-change:transform}
+.band::after{content:"";position:absolute;inset:0;background:rgba(16,13,9,.46)}
+.band .t{position:relative;z-index:2;text-align:center;color:#f6f1e7;padding:0 24px}
+.band .t p{font-family:var(--min);font-size:clamp(22px,3.4vw,36px);line-height:1.7}
+.band .t span{display:block;margin-top:16px;font-size:14.5px;color:#cdbfa6}
+
+/* 04 報酬額 */
+.tbl{width:100%;border-collapse:collapse;margin-top:40px;font-size:16px}
+.tbl th,.tbl td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{font-weight:500;color:var(--smoke);font-size:14.5px;letter-spacing:.06em;
+  border-bottom:1px solid var(--ink)}
+.tbl td.p{font-family:var(--min);font-size:19px;color:var(--ink);white-space:nowrap;text-align:right}
+.tbl td.d{font-size:15px;color:var(--smoke)}
+.tbl tr:nth-child(even) td{background:rgba(231,223,209,.42)}
+.note{margin-top:18px;font-size:14.5px;color:var(--smoke)}
+.tblwrap{overflow-x:auto}
+
+/* 05 手続きの流れ */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
+.step{position:relative;padding:0 18px;text-align:center}
+.step:not(:last-child)::after{content:"";position:absolute;top:29px;right:-29px;width:58px;height:1px;background:var(--line)}
+.step .n{width:58px;height:58px;margin:0 auto 18px;border-radius:50%;border:1px solid var(--ai);
+  color:var(--ai);background:var(--paper);display:flex;align-items:center;justify-content:center;
+  font-family:var(--lat);font-size:24px;letter-spacing:.02em;position:relative;z-index:2}
+.step h3{font-size:18px;margin-bottom:8px}
+.step p{font-size:14.5px;color:var(--smoke);line-height:1.8}
+@media(max-width:860px){
+  .flow{grid-template-columns:1fr;gap:8px}
+  .step{display:grid;grid-template-columns:58px 1fr;gap:18px;text-align:left;padding:0}
+  .step .n{margin:0}
+  .step:not(:last-child)::after{top:58px;left:29px;right:auto;width:1px;height:34px}
+  .step .tx{padding-bottom:26px}
+}
+
+/* 06 事務所紹介 */
+.info{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:start;margin-top:44px}
+.deflist div{display:grid;grid-template-columns:8.5em 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);font-size:16px}
+.deflist dt{color:var(--smoke);font-size:15px}
+.deflist dd{color:var(--ink2)}
+.mapbox{border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--paper2)}
+.mapbox iframe{width:100%;height:300px;border:0;filter:grayscale(.32) sepia(.12)}
+@media(max-width:860px){.info{grid-template-columns:1fr;gap:34px}}
+
+/* 事務所のようす（3枚） */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px;min-width:0}
+.shots>*{min-width:0}
+.shots .ib{aspect-ratio:4/3}
+.shots img{width:100%;height:100%;object-fit:cover}
+.shots figcaption{margin-top:12px;font-size:14.5px;color:var(--smoke)}
+@media(max-width:860px){.shots{grid-template-columns:1fr;gap:28px}}
+
+/* 07 FAQ */
+.faqwrap{display:grid;grid-template-columns:320px 1fr;gap:56px;align-items:start;margin-top:40px;min-width:0}
+.faqwrap>*{min-width:0}
+.faqimg .ib{aspect-ratio:1/1}
+.faqimg img{width:100%;height:100%;object-fit:cover}
+@media(max-width:960px){.faqwrap{grid-template-columns:1fr;gap:30px}.faqimg{display:none}}
+.faq{margin-top:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:24px 46px 24px 0;position:relative;
+  font-family:var(--min);font-size:19px;color:var(--ink);line-height:1.6}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:8px;top:34px;width:13px;height:1px;background:var(--ink);transition:transform .3s}
+.faq summary::before{content:"";position:absolute;right:14px;top:28px;width:1px;height:13px;background:var(--ink);transition:transform .3s}
+.faq details[open] summary::before{transform:scaleY(0)}
+.faq .a{padding:0 0 26px;font-size:16px;color:var(--ink2);max-width:52em;overflow:hidden}
+.faq details[open] .a{animation:faqOpen .45s var(--ez)}
+@keyframes faqOpen{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* 08 お知らせ */
+.news{margin-top:36px;border-top:1px solid var(--line)}
+.news a{display:grid;grid-template-columns:9em 8em 1fr;gap:18px;padding:20px 0;
+  border-bottom:1px solid var(--line);align-items:baseline;font-size:16px;transition:background .3s}
+.news a:hover{background:rgba(231,223,209,.5)}
+.news time{font-family:var(--lat);font-size:16px;color:var(--smoke);letter-spacing:.05em}
+.news .tag{font-size:12.5px;color:var(--ai);border:1px solid var(--ai);border-radius:2px;
+  padding:3px 0;text-align:center;letter-spacing:.08em}
+@media(max-width:640px){.news a{grid-template-columns:7em 7em;row-gap:6px}.news .ttl{grid-column:1/-1}}
+
+/* 09 お問い合わせ */
+.formsec{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:42px}
+.f{display:flex;flex-direction:column;gap:8px}
+.f.full{grid-column:1/-1}
+.f label{font-size:15px;color:var(--ink2);font-weight:500}
+.f label .req{font-size:12px;color:#a4442f;margin-left:8px;letter-spacing:.06em}
+.f input,.f select,.f textarea{font-family:var(--gothic);font-size:17px;color:var(--ink);
+  padding:15px 14px;border:1px solid var(--line);border-radius:2px;background:#fffdf9;
+  transition:border-color .25s ease}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--ai)}
+.f .hint{font-size:13.5px;color:var(--smoke)}
+.zip{display:grid;grid-template-columns:1fr auto;gap:10px}
+.zipbtn{font-size:14.5px;padding:0 18px;border:1px solid var(--ink);background:transparent;
+  border-radius:2px;cursor:pointer;font-family:var(--gothic);color:var(--ink);white-space:nowrap}
+.zipbtn:hover{background:var(--ink);color:var(--paper)}
+.formnote{grid-column:1/-1;font-size:14.5px;color:var(--smoke);margin-top:4px}
+.submit{grid-column:1/-1;display:flex;justify-content:center;margin-top:12px}
+@media(max-width:860px){
+  .form{grid-template-columns:1fr}
+  .zip{grid-template-columns:1fr}
+  .zipbtn{padding:15px 18px}
+}
+
+/* 仕切り */
+.divider{background:var(--ink);color:#f2ece1;text-align:center;padding:80px 24px}
+.divider .k{font-family:var(--lat);font-size:12px;letter-spacing:.34em;color:#9e9484}
+.divider p{font-family:var(--min);font-size:clamp(21px,3vw,30px);line-height:1.7;margin-top:14px;color:#fdfaf4}
+.divider span{display:block;margin-top:14px;font-size:15px;color:#bdb3a1}
+
+/* 10 業種の増やし方（管理画面の再現） */
+.dark{background:#1b1814;color:#ddd5c6}
+.dark h2,.dark h3{color:#fdfaf4}
+.dark .eyebrow{color:#9e9484}
+.dark .lead{color:#c3baa9}
+.admin{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:46px;align-items:start}
+.panel{background:#252119;border:1px solid #3a352b;border-radius:3px;overflow:hidden}
+.panel .ttl{background:#2f2a21;padding:13px 18px;font-size:14px;color:#cdbfa6;letter-spacing:.08em;
+  border-bottom:1px solid #3a352b;display:flex;align-items:center;gap:10px}
+.panel .ttl i{font-style:normal;width:8px;height:8px;border-radius:50%;background:#6d8b5d}
+.panel .in{padding:22px 20px;display:flex;flex-direction:column;gap:14px}
+.panel label{font-size:13.5px;color:#9e9484;display:block;margin-bottom:6px}
+.panel input,.panel textarea{width:100%;font-family:var(--gothic);font-size:15px;color:#f2ece1;
+  background:#1b1814;border:1px solid #3a352b;border-radius:2px;padding:11px 12px}
+.panel input:focus,.panel textarea:focus{outline:0;border-color:#6d8b5d}
+.panel .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.addbtn{background:#6d8b5d;color:#10140d;border:0;border-radius:2px;padding:14px;
+  font-family:var(--gothic);font-size:15.5px;font-weight:500;cursor:pointer;letter-spacing:.06em}
+.addbtn:hover{background:#7d9c6c}
+.preview{background:var(--paper);border-radius:3px;padding:24px 22px;min-height:330px}
+.preview .ph{font-family:var(--min);font-size:17px;color:var(--ink);padding-bottom:12px;
+  border-bottom:1px solid var(--line);margin-bottom:8px}
+.pitem{border-bottom:1px solid var(--line);padding:14px 0;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline}
+.pitem b{font-family:var(--min);font-size:17px;color:var(--ink);font-weight:600}
+.pitem small{display:block;font-size:13.5px;color:var(--smoke);margin-top:3px;line-height:1.7}
+.pitem .pr{font-family:var(--min);font-size:16px;color:var(--ink);white-space:nowrap}
+.pitem.new{animation:pop .6s var(--ez)}
+@keyframes pop{from{opacity:0;transform:translateY(-10px);background:#fff8e0}to{opacity:1;transform:none}}
+.counter{margin-top:16px;font-size:14px;color:var(--smoke);text-align:right}
+@media(max-width:860px){.admin{grid-template-columns:1fr}}
+
+/* 11 スマホ */
+.device{max-width:390px;margin:46px auto 0;border:10px solid #1b1814;border-radius:34px;
+  overflow:hidden;background:#1b1814}
+.device iframe{width:100%;height:660px;border:0;display:block;background:var(--paper)}
+.devnote{text-align:center;font-size:14.5px;color:var(--smoke);margin-top:18px}
+
+/* 12 読みやすさ */
+.acc{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.acard{border:1px solid var(--line);border-radius:2px;padding:28px 26px;background:var(--paper2)}
+.acard .n{font-family:var(--lat);font-size:13px;letter-spacing:.24em;color:var(--ai);margin-bottom:12px;display:block}
+.acard h3{font-size:19px;margin-bottom:10px}
+.acard p{font-size:15px;color:var(--smoke)}
+@media(max-width:860px){.acc{grid-template-columns:1fr}}
+.bigbtn{margin-top:34px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:15px;color:var(--smoke)}
+.bigbtn button{font-family:var(--gothic);font-size:15.5px;padding:13px 26px;border:1px solid var(--ink);
+  background:transparent;border-radius:2px;cursor:pointer;color:var(--ink)}
+.bigbtn button:hover{background:var(--ink);color:var(--paper)}
+
+/* footer */
+footer{background:var(--ink);color:#bdb3a1;padding:70px 0 120px;font-size:14.5px}
+footer .cols{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:38px}
+footer h4{font-family:var(--min);color:#fdfaf4;font-size:16px;margin-bottom:14px;font-weight:600}
+footer a{display:block;padding:5px 0;color:#bdb3a1}
+footer a:hover{color:#fff}
+footer .ft{margin-top:52px;padding-top:26px;border-top:1px solid #332e26;font-size:13px;color:#8d8475}
+@media(max-width:860px){footer .cols{grid-template-columns:1fr 1fr;gap:28px}}
+
+/* スマホ固定CTA */
+.spcta{position:fixed;left:0;right:0;bottom:0;z-index:56;display:none;
+  grid-template-columns:1fr 1fr;background:var(--ink)}
+.spcta a{padding:17px 8px;text-align:center;font-size:16px;font-weight:500;color:#fdfaf4;letter-spacing:.04em}
+.spcta a+a{background:var(--ai)}
+@media(max-width:860px){
+  .spcta{display:grid}
+  section{padding:66px 0}
+  :root{--ribbon:56px}
+  body{padding-bottom:58px}
+}
+
+/* ==========================================================================
+   MOTION（全部 prefers-reduced-motion で止まる）
+   ★ clip-path をかけた .ib 自身を観測しない。親を観測して .ib にクラスを付ける
+   ========================================================================== */
+#curtain{position:fixed;inset:0;z-index:100;background:var(--ink);display:flex;
+  align-items:center;justify-content:center;opacity:1;visibility:visible;
+  transition:opacity .8s .45s var(--ez),visibility .8s .45s}
+#curtain .w{font-family:var(--min);font-size:23px;font-weight:600;color:#fdfaf4;
+  text-align:center;opacity:0;letter-spacing:.5em;animation:curtainWord 1.1s .1s var(--ez) forwards}
+#curtain .w i{display:block;font-style:normal;font-family:var(--lat);font-size:9.5px;
+  letter-spacing:.4em;color:#9e9484;margin-top:9px}
+@keyframes curtainWord{0%{opacity:0;letter-spacing:.62em}60%{opacity:1}100%{opacity:1;letter-spacing:.16em}}
+body.loaded #curtain{opacity:0;visibility:hidden}
+
+.hero>img{transform:scale(1.02)}
+body.loaded .hero>img{animation:kenburns 26s 1.1s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+
+.rl{display:block;overflow:hidden;padding-bottom:.06em}
+.rl>span{display:block;transform:translateY(112%);transition:transform 1.05s var(--ez)}
+body.loaded h1 .rl>span{transform:none}
+h1 .rl:nth-of-type(1)>span{transition-delay:.9s}
+h1 .rl:nth-of-type(2)>span{transition-delay:1.01s}
+h1 .rl:nth-of-type(3)>span{transition-delay:1.12s}
+.rv.in .rl>span{transform:none}
+.rv .rl:nth-of-type(1)>span{transition-delay:.06s}
+.rv .rl:nth-of-type(2)>span{transition-delay:.15s}
+
+.hero .eyebrow,.hero .sub,.hero .cta,.hero .facts,.scrollhint{
+  opacity:0;transform:translateY(14px);transition:opacity .9s var(--ez),transform .9s var(--ez)}
+body.loaded .hero .eyebrow{opacity:1;transform:none;transition-delay:.75s}
+body.loaded .hero .sub{opacity:1;transform:none;transition-delay:1.25s}
+body.loaded .hero .cta{opacity:1;transform:none;transition-delay:1.4s}
+body.loaded .hero .facts{opacity:1;transform:none;transition-delay:1.55s}
+body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.85s;
+  animation:scrollPulse 2.4s 2.5s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.rv.in{opacity:1;transform:none}
+
+.ib{overflow:hidden;position:relative;clip-path:inset(0 0 100% 0);transition:clip-path 1.2s var(--ez)}
+.ib.in{clip-path:inset(0 0 0 0)}
+.ib>img{transform:scale(1.14);transition:transform 1.6s var(--ez)}
+.ib.in>img{transform:none}
+.gcard:hover .ib>img{transform:scale(1.05)}
+
+.band img{will-change:transform}
+.band .t p,.band .t span{opacity:0;transition:opacity 1.1s var(--ez),letter-spacing 1.4s var(--ez)}
+.band .t p{letter-spacing:.22em}
+.band.in .t p{opacity:1;letter-spacing:.05em}
+.band.in .t span{opacity:1;transition-delay:.35s}
+
+.stagger>*{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ez),transform .9s var(--ez)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(2){transition-delay:.09s}
+.stagger.in>*:nth-child(3){transition-delay:.18s}
+.stagger.in>*:nth-child(4){transition-delay:.27s}
+.stagger.in>*:nth-child(5){transition-delay:.36s}
+.stagger.in>*:nth-child(6){transition-delay:.45s}
+.stagger.in>*:nth-child(7){transition-delay:.54s}
+.stagger.in>*:nth-child(8){transition-delay:.63s}
+
+.kicker::after{content:"";display:inline-block;vertical-align:middle;height:1px;
+  background:var(--ai);width:0;margin-left:16px;transition:width 1.1s .25s var(--ez)}
+.rv.in .kicker::after{width:64px}
+
+.divider p,.divider span{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.divider .k{opacity:0;transition:opacity .8s var(--ez)}
+.divider.in p{opacity:1;transform:none;transition-delay:.15s}
+.divider.in span{opacity:1;transform:none;transition-delay:.3s}
+.divider.in .k{opacity:1}
+
+@media(prefers-reduced-motion:reduce){
+  #curtain{display:none}
+  .hero>img,body.loaded .hero>img{animation:none;transform:none}
+  .rl>span,.rv,.ib,.ib>img,.hero .eyebrow,.hero .sub,.hero .cta,.hero .facts,.scrollhint,
+  .band .t p,.band .t span,.stagger>*,.divider p,.divider span,.divider .k{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important;animation:none !important}
+  .band .t p{letter-spacing:.05em}
+  .kicker::after{width:64px;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div id="curtain"><div class="w">たちばな行政書士事務所<i>TACHIBANA</i></div></div>
+
+<div class="ribbon"><span>これは<b>ご提案用のモック</b>です。<span class="more">事務所名・住所・人物・文章はすべて架空で、</span>写真はAIで生成したイメージです。</span></div>
+
+<nav class="nav">
+  <a href="#top" class="logo">たちばな行政書士事務所<small>TACHIBANA</small></a>
+  <div class="navg">
+    <a href="#gyomu">取扱業務</a>
+    <a href="#hoshu">報酬額</a>
+    <a href="#nagare">手続きの流れ</a>
+    <a href="#jimusho">事務所紹介</a>
+    <a href="#faq">よくあるご質問</a>
+    <a href="#news">お知らせ</a>
+  </div>
+  <a href="tel:0120000000" class="navtel">0120-000-000</a>
+</nav>
+
+<!-- 01 HERO -->
+<header class="hero" id="top">
+  <img src="img/hero.jpg" alt="事務所の相談室">
+  <div class="in">
+    <span class="eyebrow">Souzoku &amp; Kensetsugyo</span>
+    <h1>
+      <span class="rl"><span>いくらかかるかを、</span></span>
+      <span class="rl"><span>先にお伝えします。</span></span>
+    </h1>
+    <p class="sub">相続・遺言と、建設業許可のご相談を承ります。報酬額と、終わるまでの日数を、お会いする前にこのページに書いています。初回のご相談は無料です。</p>
+    <div class="cta">
+      <a href="#form" class="btn">無料で相談してみる</a>
+      <a href="#hoshu" class="ghost">報酬額を見る</a>
+    </div>
+    <div class="facts">
+      <span><b>平日</b> 9:00〜18:00　土曜は予約制</span>
+      <span><b>ご相談</b> 初回無料・ご自宅へ伺います</span>
+      <span><b>お電話</b> 0120-000-000</span>
+    </div>
+  </div>
+  <span class="scrollhint">SCROLL</span>
+</header>
+
+<!-- 02 あいさつ -->
+<section class="rv">
+  <div class="wrap two">
+    <div class="ib"><img src="img/window.jpg" alt="事務所の窓辺" loading="lazy"></div>
+    <div class="tx">
+      <span class="eyebrow kicker">Greeting</span>
+      <h2>わからないことを、<br>わからないまま<br>持ってきてください。</h2>
+      <p>相続の手続きも、建設業の許可も、一生に何度も経験することではありません。「何から手をつければいいのか」の段階でお越しくださって構いません。</p>
+      <p>ご相談の前に、このページで報酬額と、終わるまでのおおよその日数をご確認いただけます。あとから費用が増えることのないよう、お引き受けする前に書面でお見積りをお渡しします。</p>
+      <p>ご来所が難しい場合は、ご自宅まで伺います。ご高齢のご家族に代わってお問い合わせいただくことも、よくあります。</p>
+      <p class="sign"><small>行政書士</small>橘　誠一</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 取扱業務 -->
+<section id="gyomu" class="rv" style="background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow kicker">Services</span>
+    <h2>取扱業務</h2>
+    <p class="lead">いまお受けしているのは、次の2つです。それぞれ「何をするのか」「どれくらいで終わるのか」「いくらかかるのか」を先に書いています。</p>
+    <div class="gyomu stagger">
+      <article class="gcard">
+        <div class="ib"><img src="img/docs.jpg" alt="相続の書類" loading="lazy"></div>
+        <div class="body">
+          <h3>相続・遺言</h3>
+          <p class="desc">亡くなられた方の戸籍を集めて相続人を確定し、遺産分割協議書の作成までをお手伝いします。元気なうちに遺言書を残しておきたい、というご相談も承ります。</p>
+          <dl class="spec">
+            <div><dt>標準処理期間</dt><dd>1〜2か月</dd></div>
+            <div><dt>報酬額（目安）</dt><dd>88,000円〜</dd></div>
+            <div><dt>初回相談</dt><dd>無料</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="gcard">
+        <div class="ib"><img src="img/desk2.jpg" alt="事務所の書棚" loading="lazy"></div>
+        <div class="body">
+          <h3>建設業許可</h3>
+          <p class="desc">新規の許可申請から、5年ごとの更新、決算のたびに必要な変更届までを承ります。要件を満たしているかどうかの確認だけのご相談も歓迎します。</p>
+          <dl class="spec">
+            <div><dt>標準処理期間</dt><dd>1〜3か月</dd></div>
+            <div><dt>報酬額（目安）</dt><dd>132,000円〜</dd></div>
+            <div><dt>初回相談</dt><dd>無料</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+
+    <div class="grow rv">
+      <p class="t">この先、業務は増えていきます。</p>
+      <p class="s">下の枠は、これから順次お受けする予定の業務です。準備が整いしだい、このページに並びます。</p>
+      <div class="slots stagger">
+        <div class="slot on"><i>01</i>相続・遺言</div>
+        <div class="slot on"><i>02</i>建設業許可</div>
+        <div class="slot"><i>03</i>準備中</div>
+        <div class="slot"><i>04</i>準備中</div>
+        <div class="slot"><i>05</i>準備中</div>
+        <div class="slot"><i>06</i>準備中</div>
+        <div class="slot"><i>07</i>準備中</div>
+        <div class="slot"><i>08</i>準備中</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 帯 -->
+<div class="band">
+  <img src="img/band-street.jpg" alt="事務所のある街">
+  <div class="t">
+    <p>この街で、長く続ける事務所にします。</p>
+    <span>お車でお越しの方は、建物の前に2台分の駐車場がございます</span>
+  </div>
+</div>
+
+<!-- 04 報酬額 -->
+<section id="hoshu" class="rv">
+  <div class="wrap">
+    <span class="eyebrow kicker">Fee</span>
+    <h2>報酬額</h2>
+    <div class="two" style="margin-top:34px;align-items:center">
+      <div class="tx">
+        <p class="lead">下の金額は税込の目安です。書類の数やご家族の人数で変わりますので、お引き受けする前に、必ず書面でお見積りをお渡しします。</p>
+        <p class="lead" style="margin-top:1.2em">お見積りのあとに金額が増えることはありません。増えるとすれば、ご依頼の範囲そのものが変わったときだけで、そのときは必ず先にご相談します。</p>
+      </div>
+      <div class="ib"><img src="img/desk1.jpg" alt="お見積りの書類" loading="lazy"></div>
+    </div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th style="width:30%">業務</th><th style="width:22%">標準処理期間</th><th class="d" style="width:28%">含まれるもの</th><th style="width:20%;text-align:right">報酬額（税込）</th></tr></thead>
+        <tbody>
+          <tr><td>相続人の調査（戸籍の収集）</td><td>2〜4週間</td><td class="d">戸籍の取り寄せ・相続関係説明図の作成</td><td class="p">44,000円〜</td></tr>
+          <tr><td>遺産分割協議書の作成</td><td>2〜4週間</td><td class="d">協議書の作成・押印のご案内</td><td class="p">55,000円〜</td></tr>
+          <tr><td>相続手続き一式</td><td>1〜2か月</td><td class="d">上記2つをまとめてお引き受けします</td><td class="p">88,000円〜</td></tr>
+          <tr><td>遺言書の作成支援</td><td>3〜4週間</td><td class="d">文案の作成・公証役場との調整</td><td class="p">99,000円〜</td></tr>
+          <tr><td>建設業許可（新規・知事）</td><td>1〜3か月</td><td class="d">要件確認・書類作成・提出代行</td><td class="p">132,000円〜</td></tr>
+          <tr><td>建設業許可（更新）</td><td>1〜2か月</td><td class="d">書類作成・提出代行</td><td class="p">66,000円〜</td></tr>
+          <tr><td>決算変更届</td><td>2〜3週間</td><td class="d">書類作成・提出代行</td><td class="p">44,000円〜</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">※ 上記のほかに、戸籍の取得費用や収入印紙・証紙などの実費がかかります。実費は立て替えたうえで、領収書を添えてご請求します。<br>※ 初回のご相談は無料です。お見積りだけをお聞きになって、お断りいただいても構いません。</p>
+  </div>
+</section>
+
+<!-- 05 手続きの流れ -->
+<section id="nagare" class="rv" style="background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow kicker">Flow</span>
+    <h2>手続きの流れ</h2>
+    <p class="lead">お問い合わせから完了まで、5つの段階で進みます。いまどこにいるのかは、そのつどご連絡します。</p>
+    <div class="ib" style="margin-top:40px;aspect-ratio:21/8"><img src="img/meet1.jpg" alt="ご相談の様子" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 62%"></div>
+    <div class="flow stagger">
+      <div class="step"><div class="n">1</div><div class="tx"><h3>お問い合わせ</h3><p>お電話またはこのページのフォームから。ご家族からのご連絡でも構いません。</p></div></div>
+      <div class="step"><div class="n">2</div><div class="tx"><h3>ご相談（無料）</h3><p>ご来所またはご自宅へ伺います。お話を伺って、必要な手続きをご説明します。</p></div></div>
+      <div class="step"><div class="n">3</div><div class="tx"><h3>お見積り</h3><p>報酬額と実費、終わるまでの日数を書面でお渡しします。ここまで費用はかかりません。</p></div></div>
+      <div class="step"><div class="n">4</div><div class="tx"><h3>ご依頼・着手</h3><p>ご納得いただけましたらご契約。書類の収集と作成を進めます。</p></div></div>
+      <div class="step"><div class="n">5</div><div class="tx"><h3>完了・ご報告</h3><p>提出と受理をご報告し、書類一式をお渡しします。その後のご質問も承ります。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 事務所紹介 -->
+<section id="jimusho" class="rv">
+  <div class="wrap">
+    <span class="eyebrow kicker">Office</span>
+    <h2>事務所紹介</h2>
+    <div class="two" style="margin-top:44px">
+      <div class="ib"><img src="img/concept.jpg" alt="事務所のデスク" loading="lazy"></div>
+      <div class="tx">
+        <h3 style="margin-bottom:14px">橘　誠一（たちばな　せいいち）</h3>
+        <p>建設会社の総務で18年間、許可の申請と更新を担当したのち、行政書士として開業しました。自分が申請する側で困ったことを、依頼される側から減らしたいと考えています。</p>
+        <p style="margin-top:1.2em">相続については、両親の手続きを自分で進めた経験があります。書類の多さよりも、何をどの順番でやるのかが分からないことのほうが負担でした。そこを引き受けます。</p>
+        <p class="muted" style="margin-top:1.2em;font-size:15px">日本行政書士会連合会 登録／○○県行政書士会 所属</p>
+      </div>
+    </div>
+    <div class="info">
+      <div>
+        <dl class="deflist">
+          <div><dt>事務所名</dt><dd>たちばな行政書士事務所</dd></div>
+          <div><dt>所在地</dt><dd>〒000-0000　○○県○○市○○町1-2-3　○○ビル2階</dd></div>
+          <div><dt>電話番号</dt><dd><a href="tel:0120000000" style="font-family:var(--lat);font-size:24px;color:var(--ai)">0120-000-000</a></dd></div>
+          <div><dt>営業時間</dt><dd>9:00〜18:00</dd></div>
+          <div><dt>営業日</dt><dd>月曜〜金曜（土曜は予約制／日曜・祝日は休み）</dd></div>
+          <div><dt>最寄り</dt><dd>○○線 ○○駅 徒歩5分／駐車場2台</dd></div>
+        </dl>
+      </div>
+      <div class="mapbox">
+        <iframe title="所在地の地図（モックのため仮の場所を表示しています）" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=%E5%A4%A7%E9%98%AA%E5%B8%82%E5%BD%B9%E6%89%80&output=embed"></iframe>
+      </div>
+    </div>
+
+    <div class="shots stagger">
+      <figure><div class="ib"><img src="img/entrance.jpg" alt="事務所の入口" loading="lazy"></div><figcaption>入口　—　2階へお上がりください</figcaption></figure>
+      <figure><div class="ib"><img src="img/office-wide.jpg" alt="執務室" loading="lazy"></div><figcaption>執務室　—　書類はすべて施錠して保管します</figcaption></figure>
+      <figure><div class="ib"><img src="img/exterior.jpg" alt="事務所の外観" loading="lazy"></div><figcaption>外観　—　建物の前に駐車場が2台分あります</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 07 FAQ -->
+<section id="faq" class="rv" style="background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow kicker">FAQ</span>
+    <h2>よくあるご質問</h2>
+    <div class="faqwrap">
+    <div class="faqimg"><div class="ib"><img src="img/tea.jpg" alt="お茶をお出しします" loading="lazy"></div>
+      <p class="muted" style="font-size:15px;margin-top:14px">お茶をお出しします。<br>まずは世間話からで構いません。</p></div>
+    <div class="faq">
+      <details open><summary>相談だけでもいいですか。</summary><div class="a">はい。初回のご相談は無料です。お見積りをお聞きになったうえでお断りいただいても、費用は一切かかりません。</div></details>
+      <details><summary>事務所まで行けません。</summary><div class="a">ご自宅まで伺います。○○市内および近隣の市であれば、出張の費用はいただきません。遠方の場合はお見積りの際にお伝えします。</div></details>
+      <details><summary>親の代わりに、子どもが問い合わせてもいいですか。</summary><div class="a">もちろん結構です。実際、ご家族からのお問い合わせが半数以上です。ご本人の意思確認が必要な場面では、その時点でご説明します。</div></details>
+      <details><summary>何を持っていけばいいですか。</summary><div class="a">初回は手ぶらで構いません。お手元に届いている通知や、お亡くなりになった方の戸籍などがあればお持ちください。無くても進められます。</div></details>
+      <details><summary>あとから費用が増えることはありますか。</summary><div class="a">お見積り後に報酬額が増えることはありません。戸籍の取得費用などの実費だけ、領収書を添えて別にご請求します。</div></details>
+      <details><summary>税金や登記のことも聞けますか。</summary><div class="a">相続税は税理士、不動産の名義変更は司法書士の仕事になります。当事務所では扱えませんが、お付き合いのある専門家をご紹介します。ご自身で探していただく必要はありません。</div></details>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 お知らせ -->
+<section id="news" class="rv">
+  <div class="wrap">
+    <span class="eyebrow kicker">News</span>
+    <h2>お知らせ</h2>
+    <div class="news stagger">
+      <a href="#form"><time>2026.09.01</time><span class="tag">お休み</span><span class="ttl">9月21日（月）から23日（水）まで、お休みをいただきます。</span></a>
+      <a href="#form"><time>2026.08.18</time><span class="tag">業務</span><span class="ttl">建設業許可の更新について、無料の要件チェックを始めました。</span></a>
+      <a href="#form"><time>2026.08.04</time><span class="tag">ご案内</span><span class="ttl">相続のご相談は、ご自宅へ伺うかたちにも対応しています。</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- 09 お問い合わせ -->
+<section id="form" class="formsec rv">
+  <div class="wrap">
+    <span class="eyebrow kicker">Contact</span>
+    <h2>お問い合わせ</h2>
+    <p class="lead">下の欄にご記入のうえ、送信してください。2営業日以内にご連絡します。お電話（<a href="tel:0120000000" style="color:var(--ai);font-family:var(--lat);font-size:22px">0120-000-000</a>）でも承ります。</p>
+    <div class="ib" style="margin-top:34px;aspect-ratio:21/7"><img src="img/meet2.jpg" alt="相談机" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:50% 55%"></div>
+    <form class="form" id="contact" novalidate>
+      <div class="f"><label for="n">お名前<span class="req">必須</span></label><input id="n" name="n" type="text" placeholder="橘　誠一" autocomplete="name"></div>
+      <div class="f"><label for="k">ふりがな<span class="req">必須</span></label><input id="k" name="k" type="text" placeholder="たちばな　せいいち"></div>
+      <div class="f full">
+        <label for="zip">郵便番号</label>
+        <div class="zip">
+          <input id="zip" name="zip" type="text" inputmode="numeric" placeholder="000-0000" autocomplete="postal-code">
+          <button type="button" class="zipbtn" id="zipbtn">住所を自動で入れる</button>
+        </div>
+        <span class="hint" id="ziphint">郵便番号を入れて、右のボタンを押すと住所が入ります。</span>
+      </div>
+      <div class="f full"><label for="addr">ご住所</label><input id="addr" name="addr" type="text" placeholder="○○県○○市○○町" autocomplete="street-address"></div>
+      <div class="f"><label for="tel">お電話番号<span class="req">必須</span></label><input id="tel" name="tel" type="tel" inputmode="tel" placeholder="000-0000-0000" autocomplete="tel"></div>
+      <div class="f"><label for="mail">メールアドレス</label><input id="mail" name="mail" type="email" placeholder="example@example.com" autocomplete="email"><span class="hint">お持ちでなければ空欄で構いません。</span></div>
+      <div class="f"><label for="age">年齢</label>
+        <select id="age" name="age">
+          <option value="">選んでください</option>
+          <option>20代</option><option>30代</option><option>40代</option>
+          <option>50代</option><option>60代</option><option>70代</option><option>80代以上</option>
+        </select>
+      </div>
+      <div class="f"><label for="you">ご相談の種類</label>
+        <select id="you" name="you">
+          <option value="">選んでください</option>
+          <option>相続・遺言について</option>
+          <option>建設業許可について</option>
+          <option>どちらか分からない／その他</option>
+        </select>
+      </div>
+      <div class="f full"><label for="msg">ご相談の内容</label><textarea id="msg" name="msg" rows="5" placeholder="わからない段階のままで構いません。ひとことだけでも結構です。"></textarea></div>
+      <p class="formnote">いただいた情報は、ご連絡とご相談の対応にのみ使用します。第三者に提供することはありません。</p>
+      <div class="submit"><button type="submit" class="btn">この内容で送信する</button></div>
+    </form>
+  </div>
+</section>
+
+<!-- 仕切り -->
+<div class="divider">
+  <span class="k">FOR THE PROPOSAL</span>
+  <p>ここから下は、平野から<br>制作についてのご説明です。</p>
+  <span>ここまでが、納品するホームページそのものです。</span>
+</div>
+
+<!-- 10 業種の増やし方 -->
+<section class="dark rv">
+  <div class="wrap">
+    <span class="eyebrow kicker">01 — 増やせる構造</span>
+    <h2>3業種目からは、<br>ご自身で増やせます。</h2>
+    <p class="lead">最初の2業種だけを作り込むと、3業種目を足すたびに制作者へ依頼が必要になります。そうならないように、取扱業務を「1件ずつ追加できるまとまり」として作ります。左が管理画面、右が実際のページです。入力して押してみてください。</p>
+    <div class="admin">
+      <div class="panel">
+        <div class="ttl"><i></i>取扱業務 &rsaquo; 新規追加</div>
+        <div class="in">
+          <div><label for="a1">業務の名前</label><input id="a1" type="text" value="農地転用" placeholder="例：車庫証明"></div>
+          <div><label for="a2">事業の簡単な概要</label><textarea id="a2" rows="2" placeholder="お客様に伝わる短い説明">農地を宅地や駐車場として使うための許可申請を承ります。</textarea></div>
+          <div class="row">
+            <div><label for="a3">標準処理期間</label><input id="a3" type="text" value="1〜2か月"></div>
+            <div><label for="a4">報酬額</label><input id="a4" type="text" value="77,000円〜"></div>
+          </div>
+          <button class="addbtn" id="addbtn">この業務を公開する</button>
+        </div>
+      </div>
+      <div>
+        <div class="preview">
+          <div class="ph">取扱業務（ホームページの表示）</div>
+          <div id="plist">
+            <div class="pitem"><div><b>相続・遺言</b><small>戸籍の収集から遺産分割協議書の作成まで／1〜2か月</small></div><span class="pr">88,000円〜</span></div>
+            <div class="pitem"><div><b>建設業許可</b><small>新規・更新・決算変更届／1〜3か月</small></div><span class="pr">132,000円〜</span></div>
+          </div>
+          <p class="counter" id="counter">2 / 10 業種</p>
+        </div>
+        <p class="lead" style="font-size:15px;margin-top:16px">追加したその場でトップページの一覧にも並び、業務ごとのページも同時にできます。制作会社への連絡も、費用も、必要ありません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 スマホ -->
+<section class="rv">
+  <div class="wrap">
+    <span class="eyebrow kicker">02 — スマートフォン</span>
+    <h2>スマートフォンでも、<br>同じものが読めます。</h2>
+    <p class="lead">お問い合わせの多くはスマートフォンから届きます。文字を小さくして詰め込むのではなく、縦に並べ替えて、指で押せる大きさのまま出します。画面の下には、電話とお問い合わせのボタンが常に出ています。</p>
+    <div class="device"><iframe src="about:blank" id="mob" title="スマートフォン表示"></iframe></div>
+    <p class="devnote">このページ自体をスマートフォンの幅で表示しています。</p>
+  </div>
+</section>
+
+<!-- 12 読みやすさ -->
+<section class="rv" style="background:var(--paper2);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow kicker">03 — 50代〜70代の読者に</span>
+    <h2>読む人の年齢に、<br>作りを合わせています。</h2>
+    <div class="acc stagger">
+      <div class="acard"><span class="n">TYPE</span><h3>本文は17px、行間1.95</h3><p>一般的なサイトより2段階大きく、行の間隔も広く取っています。老眼鏡なしで読める大きさが基準です。</p></div>
+      <div class="acard"><span class="n">CONTRAST</span><h3>生成りの地に、墨の文字</h3><p>純白に薄いグレーの文字は、明るい場所で読めなくなります。紙に近い色にして、文字は濃く置いています。</p></div>
+      <div class="acard"><span class="n">TARGET</span><h3>押す場所を大きく</h3><p>ボタンと電話番号は、指で押し外さない大きさにしています。電話番号はタップでそのまま発信します。</p></div>
+    </div>
+    <div class="bigbtn">
+      <span>ためしに切り替えてみてください：</span>
+      <button id="bigger">文字を大きくする</button>
+      <button id="normal">もとに戻す</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>たちばな行政書士事務所</h4>
+        <p style="line-height:1.9">〒000-0000　○○県○○市○○町1-2-3<br>○○ビル2階<br>電話 0120-000-000<br>平日 9:00〜18:00（土曜は予約制）</p>
+      </div>
+      <div><h4>取扱業務</h4><a href="#gyomu">相続・遺言</a><a href="#gyomu">建設業許可</a><a href="#hoshu">報酬額</a></div>
+      <div><h4>事務所について</h4><a href="#jimusho">事務所紹介</a><a href="#nagare">手続きの流れ</a><a href="#news">お知らせ</a></div>
+      <div><h4>お問い合わせ</h4><a href="#form">相談フォーム</a><a href="#faq">よくあるご質問</a><a href="#">個人情報の取扱いについて</a></div>
+    </div>
+    <p class="ft">© たちばな行政書士事務所（架空）　／　このページはLスタジオが作成したご提案用のモックです。掲載の事務所名・住所・氏名・電話番号・文章はすべて架空のもので、写真はAIで生成したイメージです。</p>
+  </div>
+</footer>
+
+<div class="spcta">
+  <a href="tel:0120000000">電話をかける</a>
+  <a href="#form">相談する</a>
+</div>
+
+<script>
+/* ---- 幕を開ける ---- */
+addEventListener('load',()=>document.body.classList.add('loaded'));
+setTimeout(()=>document.body.classList.add('loaded'),2200);
+
+/* ---- 帯の実寸を --ribbon に書き戻す（スマホで文が折り返すと高さが変わるため） ---- */
+function syncRibbon(){
+  const r=document.querySelector('.ribbon');
+  const h=(r&&getComputedStyle(r).display!=='none')?Math.ceil(r.getBoundingClientRect().height):0;
+  document.documentElement.style.setProperty('--ribbon',h+'px');
+}
+syncRibbon();
+addEventListener('resize',syncRibbon);
+addEventListener('load',syncRibbon);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(syncRibbon);
+
+/* ---- 出現：.rv / .stagger / .band / .divider ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv,.stagger,.band,.divider').forEach(el=>io.observe(el));
+
+/* ---- 画像の幕開け ----
+   注意：clip-path をかけた .ib 自身を観測すると、完全にクリップされているため
+   isIntersecting が永久に false になり一度も発火しない。必ず「親」を観測する。 */
+document.querySelectorAll('.ib').forEach(ib=>{
+  const parent=ib.parentElement||ib;
+  const o=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ib.classList.add('in');o.disconnect();}
+  }),{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  o.observe(parent);
+});
+
+/* ---- ナビ：下スクロールで隠す ---- */
+let last=0;const nav=document.querySelector('.nav');
+addEventListener('scroll',()=>{
+  const y=scrollY;
+  nav.classList.toggle('hide', y>last && y>260);
+  last=y;
+},{passive:true});
+
+/* ---- 帯の視差 ---- */
+const band=document.querySelector('.band');
+if(band&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  const bimg=band.querySelector('img');
+  addEventListener('scroll',()=>{
+    const r=band.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight)return;
+    const p=(innerHeight-r.top)/(innerHeight+r.height);
+    bimg.style.transform='translateY('+((p-.5)*-9).toFixed(2)+'%)';
+  },{passive:true});
+}
+
+/* ---- 郵便番号から住所（zipcloud・無料/キー不要） ---- */
+const zipbtn=document.getElementById('zipbtn'),zip=document.getElementById('zip'),
+      addr=document.getElementById('addr'),ziphint=document.getElementById('ziphint');
+zipbtn.addEventListener('click',async()=>{
+  const z=(zip.value||'').replace(/[^0-9]/g,'');
+  if(z.length!==7){ziphint.textContent='7桁の数字でご入力ください。';return;}
+  ziphint.textContent='調べています…';
+  try{
+    const r=await fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode='+z);
+    const j=await r.json();
+    if(j.results&&j.results[0]){
+      const a=j.results[0];
+      addr.value=a.address1+a.address2+a.address3;
+      ziphint.textContent='住所が入りました。番地から先をご入力ください。';
+      addr.focus();
+    }else{ziphint.textContent='見つかりませんでした。お手数ですが直接ご入力ください。';}
+  }catch(e){ziphint.textContent='通信できませんでした。直接ご入力ください。';}
+});
+
+/* ---- 送信（モックなので送らない） ---- */
+document.getElementById('contact').addEventListener('submit',e=>{
+  e.preventDefault();
+  alert('ご提案用のモックのため、実際には送信されません。\n本番では、ご入力内容が事務所あてにメールで届き、\nご本人にも控えが自動で返信されます。');
+});
+
+/* ---- 業務を増やす（WordPress管理画面の再現） ---- */
+const plist=document.getElementById('plist'),counter=document.getElementById('counter');
+document.getElementById('addbtn').addEventListener('click',()=>{
+  const n=document.getElementById('a1').value.trim()||'新しい業務';
+  const d=document.getElementById('a2').value.trim()||'（概要が入ります）';
+  const t=document.getElementById('a3').value.trim()||'—';
+  const p=document.getElementById('a4').value.trim()||'—';
+  if(plist.children.length>=10){counter.textContent='10 / 10 業種（枠がいっぱいです）';return;}
+  const el=document.createElement('div');
+  el.className='pitem new';
+  const left=document.createElement('div');
+  const b=document.createElement('b');b.textContent=n;
+  const s=document.createElement('small');s.textContent=d+'／'+t;
+  left.appendChild(b);left.appendChild(s);
+  const pr=document.createElement('span');pr.className='pr';pr.textContent=p;
+  el.appendChild(left);el.appendChild(pr);
+  plist.appendChild(el);
+  counter.textContent=plist.children.length+' / 10 業種';
+  document.getElementById('a1').value='';document.getElementById('a2').value='';
+  el.scrollIntoView({block:'nearest',behavior:'smooth'});
+});
+
+/* ---- 文字を大きく ---- */
+document.getElementById('bigger').addEventListener('click',()=>document.body.classList.add('big'));
+document.getElementById('normal').addEventListener('click',()=>document.body.classList.remove('big'));
+
+/* ---- スマホ枠：自分自身を読み込む ----
+   入れ子の中では ?mobile=1 が付くので、枠のセクションごと消して再帰を止める。
+   src は最初に入れる（交差監視に任せると、全画面スクショや低速回線で白いまま残る）。 */
+const isMobileFrame = location.search.includes('mobile');
+if(isMobileFrame){
+  document.querySelector('.ribbon').style.display='none';
+  document.documentElement.style.setProperty('--ribbon','0px');
+  const dv=document.querySelector('.device');
+  if(dv&&dv.closest('section')) dv.closest('section').remove();
+}else{
+  const mob=document.getElementById('mob');
+  if(mob) mob.src=location.pathname.split('/').pop()+'?mobile=1';
+}
+</script>
+</body>
+</html>
