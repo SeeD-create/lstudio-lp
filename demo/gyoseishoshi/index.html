@@ -113,8 +113,11 @@ h3{font-size:21px;line-height:1.6}
 .ghost:hover::before{transform:none}
 .hero .ghost{color:#f6f1e7}
 
-/* 01 HERO */
-.hero{position:relative;height:calc(100svh - var(--ribbon) - var(--nav));min-height:540px;
+/* 01 HERO
+   高さを svh で固定すると、スマホで中身（見出し＋本文＋ボタン2つ＋営業情報）が
+   入りきらず、上へはみ出して overflow:hidden に切られる。実機で見出しがナビの
+   裏に消えていた原因がこれ。高さは中身で決めさせ、svh は下限としてだけ使う。 */
+.hero{position:relative;min-height:calc(100svh - var(--ribbon) - var(--nav));
   margin-top:calc(var(--ribbon) + var(--nav));overflow:hidden;display:flex;align-items:flex-end}
 .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% 60%}
 /* 写真が明るいので、読みやすさは「左下からの黒」1枚で作る。全面を暗くしない。 */
@@ -122,8 +125,8 @@ h3{font-size:21px;line-height:1.6}
   background:
     linear-gradient(to top,rgba(14,11,8,.90) 0%,rgba(14,11,8,.66) 30%,rgba(14,11,8,.30) 58%,rgba(14,11,8,.08) 88%),
     linear-gradient(to right,rgba(14,11,8,.52) 0%,rgba(14,11,8,.16) 46%,rgba(14,11,8,0) 72%)}
-.hero .in{position:relative;z-index:2;width:100%;padding:0 24px 62px;max-width:1120px;margin:0 auto;color:#f6f1e7}
-.hero .eyebrow{color:#cdbfa6}
+.hero .in{position:relative;z-index:2;width:100%;padding:120px 24px 62px;max-width:1120px;margin:0 auto;color:#f6f1e7}
+.hero .eyebrow{color:#e3d6bd;text-shadow:0 1px 12px rgba(14,11,8,.85)}
 .hero h1{color:#fdfaf4;font-size:clamp(34px,6vw,68px);line-height:1.26;margin-bottom:20px;
   text-shadow:0 2px 30px rgba(0,0,0,.3)}
 .hero .sub{font-size:clamp(16px,2vw,19px);color:#e6ded0;max-width:28em;margin-bottom:32px;line-height:1.9}
@@ -187,6 +190,30 @@ h3{font-size:21px;line-height:1.6}
 .tbl tr:nth-child(even) td{background:rgba(231,223,209,.42)}
 .note{margin-top:18px;font-size:14.5px;color:var(--smoke)}
 .tblwrap{overflow-x:auto}
+/* スマホの報酬額
+   4列の表を 390px に入れると、overflow-x:auto を付けていても width:100% の
+   ままでは横に出ず、列が潰れてセルの文字が1文字ずつ縦に折り返される。
+   実機で読めなくなっていたのがこれ。横スクロールさせるのではなく、
+   1件ずつのカードに組み替える。料金表は縦に読むほうが速い。 */
+@media(max-width:720px){
+  .tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr{border:1px solid var(--line);border-radius:2px;background:var(--paper);
+    padding:18px 18px 14px;margin-bottom:14px}
+  .tbl tr:nth-child(even) td{background:transparent}
+  .tbl td{border:0;padding:0}
+  .tbl td:nth-child(1){font-family:var(--min);font-size:20px;color:var(--ink);
+    line-height:1.55;margin-bottom:12px}
+  .tbl td:nth-child(2),.tbl td:nth-child(3){font-size:15px;color:var(--smoke);
+    display:grid;grid-template-columns:7.5em 1fr;gap:10px;padding:7px 0;
+    border-top:1px solid var(--line)}
+  .tbl td:nth-child(2)::before{content:"標準処理期間";color:var(--smoke)}
+  .tbl td:nth-child(3)::before{content:"含まれるもの";color:var(--smoke)}
+  .tbl td.p{text-align:left;font-size:26px;margin-top:12px;padding-top:12px;
+    border-top:1px solid var(--ink);line-height:1.3}
+  .tbl td.p::before{content:"報酬額（税込）";display:block;font-family:var(--gothic);
+    font-size:13px;color:var(--smoke);letter-spacing:.06em;margin-bottom:2px}
+}
 
 /* 05 手続きの流れ */
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
@@ -210,6 +237,10 @@ h3{font-size:21px;line-height:1.6}
 .deflist div{display:grid;grid-template-columns:8.5em 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);font-size:16px}
 .deflist dt{color:var(--smoke);font-size:15px}
 .deflist dd{color:var(--ink2)}
+@media(max-width:720px){
+  .deflist div{grid-template-columns:1fr;gap:4px;padding:13px 0}
+  .deflist dt{font-size:13.5px;letter-spacing:.06em}
+}
 .mapbox{border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--paper2)}
 .mapbox iframe{width:100%;height:300px;border:0;filter:grayscale(.32) sepia(.12)}
 @media(max-width:860px){.info{grid-template-columns:1fr;gap:34px}}
@@ -278,7 +309,9 @@ h3{font-size:21px;line-height:1.6}
 .divider{background:var(--ink);color:#f2ece1;text-align:center;padding:80px 24px}
 .divider .k{font-family:var(--lat);font-size:12px;letter-spacing:.34em;color:#9e9484}
 .divider p{font-family:var(--min);font-size:clamp(21px,3vw,30px);line-height:1.7;margin-top:14px;color:#fdfaf4}
-.divider span{display:block;margin-top:14px;font-size:15px;color:#bdb3a1}
+/* 直下の span だけに効かせる。子孫まで効かせると、見出しを1文字ずつ span に
+   割ったときに全部ブロックになり、文字が縦1列に並んでしまう。 */
+.divider>span{display:block;margin-top:14px;font-size:15px;color:#bdb3a1}
 
 /* 10 業種の増やし方（管理画面の再現） */
 .dark{background:#1b1814;color:#ddd5c6}
@@ -348,6 +381,19 @@ footer .ft{margin-top:52px;padding-top:26px;border-top:1px solid #332e26;font-si
   section{padding:66px 0}
   :root{--ribbon:56px}
   body{padding-bottom:58px}
+  /* 第一画面に「見出し・本文・ボタン2つ」を収める。営業時間と電話は
+     画面下の固定ボタンと重複するので、ここでは出さない。 */
+  /* ヒーローは align-items:flex-end なので、上の余白を削っても中身は下がるだけ。
+     第一画面（画面下の固定ボタン58pxを除いた高さ）に収めるには、中身そのものを
+     減らす必要がある。本文の中一文とキャッチ下の営業情報はここでは出さない。 */
+  .hero .in{padding:40px 24px 70px}
+  .hero .facts{display:none}
+  .hero .sub .more{display:none}
+  .hero .sub{margin-bottom:18px;font-size:15.5px;line-height:1.8}
+  .hero h1{margin-bottom:14px}
+  .hero .cta{margin-bottom:0;gap:11px}
+  .hero .cta a{flex:1;min-width:0;padding:16px 10px;font-size:15.5px;white-space:nowrap}
+  .scrollhint{bottom:10px}
 }
 
 /* ==========================================================================
@@ -423,8 +469,69 @@ body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.
 .divider.in span{opacity:1;transform:none;transition-delay:.3s}
 .divider.in .k{opacity:1}
 
+/* ---- ここから追加のモーション ---------------------------------------- */
+
+/* JSが動いたときだけ「消してから出す」。JSが落ちても中身は必ず見える。 */
+html:not(.js) .rv,html:not(.js) .stagger>*,html:not(.js) .rl>span,
+html:not(.js) .ib,html:not(.js) .band .t p,html:not(.js) .band .t span,
+html:not(.js) .divider p,html:not(.js) .divider span{
+  opacity:1 !important;transform:none !important;clip-path:none !important}
+html:not(.js) #curtain{display:none}
+
+/* 読み進みの線（上端） */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ai);z-index:70;
+  transition:width .12s linear}
+
+/* 見出しを文字単位で立ち上げる */
+.ch{display:inline-block;opacity:0;transform:translateY(.52em) rotate(2.5deg);
+  transition:opacity .62s var(--ez),transform .72s var(--ez)}
+.in .ch,.loaded .ch{opacity:1;transform:none}
+
+/* ヒーローの写真をスクロールでゆっくり送る */
+.hero>img{will-change:transform}
+
+/* 手続きの流れ：丸が描かれ、線が伸びる */
+.step .n{transform:scale(.82);opacity:0;transition:transform .7s var(--ez),opacity .5s var(--ez)}
+.stagger.in .step .n{transform:none;opacity:1}
+.step .n::before{content:"";position:absolute;inset:-1px;border-radius:50%;
+  border:1px solid var(--ai);clip-path:inset(0 100% 0 0);transition:clip-path 1s .2s var(--ez)}
+.stagger.in .step .n::before{clip-path:inset(0 0 0 0)}
+.step:not(:last-child)::after{transform-origin:left center;transform:scaleX(0);
+  transition:transform .8s .35s var(--ez)}
+.flow.in .step:not(:last-child)::after{transform:scaleX(1)}
+@media(max-width:860px){
+  .step:not(:last-child)::after{transform-origin:top center;transform:scaleY(0)}
+  .flow.in .step:not(:last-child)::after{transform:scaleY(1)}
+}
+
+
+/* ナビ：スクロール量で地の濃さが上がる */
+.nav{--navbg:0}
+.nav::before{content:"";position:absolute;inset:0;background:var(--paper);
+  opacity:var(--navbg);transition:opacity .3s ease;z-index:-1}
+
+/* 見出しの脇に縦の罫が降りる */
+h2{position:relative}
+.rv h2::before{content:"";position:absolute;left:-22px;top:.18em;width:1px;height:0;
+  background:var(--line);transition:height .9s .2s var(--ez)}
+.rv.in h2::before{height:calc(100% - .3em)}
+@media(max-width:860px){.rv h2::before{display:none}}
+
+/* カードが出るときに、わずかに寄りが戻る */
+.gcard,.acard,.shots figure{transform:scale(.985);transition:transform .9s var(--ez),box-shadow .3s ease}
+.stagger.in .gcard,.stagger.in .acard,.stagger.in figure{transform:none}
+
+/* スマホの固定CTAは、少し読み進んでからせり上がる */
+.spcta{transform:translateY(101%);transition:transform .55s var(--ez)}
+.spcta.up{transform:none}
+
 @media(prefers-reduced-motion:reduce){
   #curtain{display:none}
+  #prog{display:none}
+  .ch,.step .n,.step .n::before,.step::after,.gcard,.acard,.shots figure,.spcta{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important;animation:none !important}
+  .rv h2::before{display:none}
   .hero>img,body.loaded .hero>img{animation:none;transform:none}
   .rl>span,.rv,.ib,.ib>img,.hero .eyebrow,.hero .sub,.hero .cta,.hero .facts,.scrollhint,
   .band .t p,.band .t span,.stagger>*,.divider p,.divider span,.divider .k{
@@ -438,6 +545,7 @@ body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.
 </head>
 <body>
 
+<div id="prog"></div>
 <div id="curtain"><div class="w">たちばな行政書士事務所<i>TACHIBANA</i></div></div>
 
 <div class="ribbon"><span>これは<b>ご提案用のモック</b>です。<span class="more">事務所名・住所・人物・文章はすべて架空で、</span>写真はAIで生成したイメージです。</span></div>
@@ -461,12 +569,12 @@ body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.
   <div class="in">
     <span class="eyebrow">Souzoku &amp; Kensetsugyo</span>
     <h1>
-      <span class="rl"><span>いくらかかるかを、</span></span>
-      <span class="rl"><span>先にお伝えします。</span></span>
+      <span class="rl"><span>手続きの、</span></span>
+      <span class="rl"><span>その先へ。</span></span>
     </h1>
-    <p class="sub">相続・遺言と、建設業許可のご相談を承ります。報酬額と、終わるまでの日数を、お会いする前にこのページに書いています。初回のご相談は無料です。</p>
+    <p class="sub">相続・遺言と、建設業許可のご相談を承ります。<span class="more">報酬額と、終わるまでの日数は、お会いする前にこのページへ書いています。</span>初回のご相談は無料です。</p>
     <div class="cta">
-      <a href="#form" class="btn">無料で相談してみる</a>
+      <a href="#form" class="btn">無料で相談する</a>
       <a href="#hoshu" class="ghost">報酬額を見る</a>
     </div>
     <div class="facts">
@@ -805,6 +913,9 @@ body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.
 </div>
 
 <script>
+/* JSが動いている印。これが付くまで .rv などは消さない（落ちても中身は見える） */
+document.documentElement.classList.add('js');
+
 /* ---- 幕を開ける ---- */
 addEventListener('load',()=>document.body.classList.add('loaded'));
 setTimeout(()=>document.body.classList.add('loaded'),2200);
@@ -903,6 +1014,68 @@ document.getElementById('addbtn').addEventListener('click',()=>{
   document.getElementById('a1').value='';document.getElementById('a2').value='';
   el.scrollIntoView({block:'nearest',behavior:'smooth'});
 });
+
+/* ================= 追加のモーション ================= */
+const REDUCED = matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* 1. 見出しを1文字ずつに割る（<br> は残す） */
+if(!REDUCED){
+  document.querySelectorAll('section h2, .divider p').forEach(h=>{
+    const frag=document.createDocumentFragment();
+    let i=0;
+    [...h.childNodes].forEach(node=>{
+      if(node.nodeType===3){
+        [...node.textContent].forEach(c=>{
+          if(c==='\n'||c===' '){frag.appendChild(document.createTextNode(c));return;}
+          const s=document.createElement('span');
+          s.className='ch'; s.textContent=c;
+          s.style.transitionDelay=(i*0.028).toFixed(3)+'s';
+          i++; frag.appendChild(s);
+        });
+      }else{ frag.appendChild(node.cloneNode(true)); }
+    });
+    h.textContent=''; h.appendChild(frag);
+  });
+}
+
+/* 2. 読み進みの線 */
+const prog=document.getElementById('prog');
+/* 3. ナビの地の濃さ ／ 4. スマホ固定CTAのせり上がり */
+const spcta=document.querySelector('.spcta');
+function onScroll(){
+  const max=document.body.scrollHeight-innerHeight;
+  const r=max>0?Math.min(1,scrollY/max):0;
+  if(prog)prog.style.width=(r*100).toFixed(2)+'%';
+  nav.style.setProperty('--navbg',Math.min(1,scrollY/260).toFixed(2));
+  if(spcta)spcta.classList.toggle('up',scrollY>420);
+}
+addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* 5. ヒーローの写真をスクロールでゆっくり送る
+   transform は ken burns のアニメーションに上書きされて効かないので、
+   object-position を動かす。こちらならアニメーションとぶつからない。 */
+const heroImg=document.querySelector('.hero>img');
+if(heroImg&&!REDUCED){
+  addEventListener('scroll',()=>{
+    if(scrollY>innerHeight*1.3)return;
+    heroImg.style.objectPosition='38% '+(60+scrollY*0.022).toFixed(2)+'%';
+  },{passive:true});
+}
+
+/* 7. .flow 自体も出現監視に載せる（線を伸ばすため） */
+const fio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');fio.unobserve(e.target);}
+}),{threshold:.15});
+document.querySelectorAll('.flow').forEach(el=>fio.observe(el));
+
+/* 8. 取りこぼしの保険：一定時間たっても出ていない要素は、そのまま見せる */
+setTimeout(()=>{
+  document.querySelectorAll('.rv,.stagger,.band,.divider,.flow').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    if(r.top<innerHeight&&r.bottom>0)el.classList.add('in');
+  });
+},2600);
 
 /* ---- 文字を大きく ---- */
 document.getElementById('bigger').addEventListener('click',()=>document.body.classList.add('big'));
