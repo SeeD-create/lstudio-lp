@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>受発注・売上・請求 一元管理ツール｜デモ</title>
+<meta name="description" content="Excelの受発注・売上・請求書作成を自動化するツールのデモ画面です。">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Barlow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   受発注・売上・請求 一元管理ツール（提案用デモ）
+   ITに詳しくない担当者が毎日使う前提。だから
+   ・入口は大きなボタン3つだけ　・1画面で今日やることが分かる
+   ・専門用語を画面に出さない　・色は「赤＝要対応」だけ意味を持たせる
+   ========================================================================== */
+:root{
+  --bg:#eef2f8; --card:#ffffff; --ink:#16233a; --ink2:#44536e; --smoke:#7e8ca6;
+  --line:#dde5f0; --accent:#2563eb; --accent-d:#1d4ed8; --accent-l:#eaf1ff;
+  --ok:#15803d; --ok-l:#e9f7ee; --warn:#c2261e; --warn-l:#fdeceb; --amber:#b45309; --amber-l:#fdf3e3;
+  --r:12px;
+  --gothic:"Zen Kaku Gothic New",system-ui,sans-serif;
+  --num:"Barlow",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0}
+body{font-family:var(--gothic);background:var(--bg);color:var(--ink2);
+  font-size:14.5px;line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select{font-family:inherit}
+button{cursor:pointer;border:0;background:none;color:inherit}
+b,strong{font-weight:700;color:var(--ink)}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums}
+
+/* ---- 帯 ---- */
+.ribbon{background:#0f1b2e;color:#c9d7ec;font-size:12.5px;text-align:center;padding:9px 14px;line-height:1.55}
+.ribbon b{color:#fff}
+@media(max-width:680px){.ribbon .more{display:none}}
+
+/* ---- ヘッダー ---- */
+.top{background:var(--card);border-bottom:1px solid var(--line);padding:12px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--ink);font-size:17px;white-space:nowrap}
+.brand svg{width:30px;height:30px;flex:none}
+.who{font-size:13px;color:var(--smoke);white-space:nowrap}
+.who b{color:var(--ink2);font-weight:700}
+
+.wrap{max-width:1280px;margin:0 auto;padding:18px 20px 40px}
+
+/* ---- 今日の数字 ---- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.kpi .l{font-size:12.5px;color:var(--smoke);font-weight:500}
+.kpi .v{font-family:var(--num);font-size:27px;font-weight:700;color:var(--ink);line-height:1.3}
+.kpi .v small{font-family:var(--gothic);font-size:13px;font-weight:500;color:var(--smoke);margin-left:3px}
+.kpi.alert{border-color:#f3c9c6;background:var(--warn-l)}
+.kpi.alert .v{color:var(--warn)}
+@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}}
+
+/* ---- 3カラム ---- */
+.cols{display:grid;grid-template-columns:216px 1fr 292px;gap:14px;margin-top:14px;align-items:start}
+@media(max-width:1180px){.cols{grid-template-columns:200px 1fr}.phonecol{grid-column:1/-1}}
+@media(max-width:800px){.cols{grid-template-columns:1fr}}
+
+/* ---- 大きなボタン ---- */
+.bigbtns{display:grid;gap:10px}
+.big{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 14px;
+  display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;text-align:left;
+  transition:transform .12s ease,border-color .2s ease,background .2s ease}
+.big:hover{border-color:var(--accent);background:var(--accent-l)}
+.big:active{transform:translateY(2px)}
+.big .ic{width:40px;height:40px;border-radius:10px;background:var(--accent-l);
+  display:flex;align-items:center;justify-content:center}
+.big .ic svg{width:21px;height:21px}
+.big .t{display:block;font-weight:700;color:var(--ink);font-size:15.5px;line-height:1.4}
+.big .s{display:block;font-size:12px;color:var(--smoke);line-height:1.5}
+.side-note{margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.side-note h4{font-size:13px;color:var(--ink);margin-bottom:6px}
+.side-note p{font-size:12.5px;color:var(--smoke);line-height:1.75}
+
+/* ---- パネル ---- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ph{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;
+  justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ph h3{font-size:15px;color:var(--ink)}
+.ph .sub{font-size:12px;color:var(--smoke)}
+.mini{font-size:12.5px;border:1px solid var(--line);border-radius:8px;padding:7px 12px;color:var(--ink2);background:#fff;white-space:nowrap}
+.mini:hover{border-color:var(--accent);color:var(--accent)}
+.mini.pri{background:var(--accent);color:#fff;border-color:var(--accent-d)}
+.mini.pri:hover{background:var(--accent-d);color:#fff}
+
+/* ---- 表 ---- */
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+th{text-align:left;font-size:11.5px;letter-spacing:.06em;color:var(--smoke);font-weight:700;
+  padding:9px 14px;border-bottom:1px solid var(--line);background:#f8fafd;white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.row{transition:background .15s}
+tr.row:hover{background:#f7faff}
+td.n{font-family:var(--num);text-align:right;white-space:nowrap;color:var(--ink);font-weight:600}
+.cust{font-weight:700;color:var(--ink)}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip.ok{background:var(--ok-l);color:var(--ok)}
+.chip.wait{background:var(--amber-l);color:var(--amber)}
+.chip.bad{background:var(--warn-l);color:var(--warn)}
+.chip.new{background:var(--accent-l);color:var(--accent)}
+tr.flash{animation:flash 1.6s ease}
+@keyframes flash{0%{background:#fff8dc}100%{background:transparent}}
+
+/* ---- スマホ枠（LINE） ---- */
+.phone{background:#0f1b2e;border-radius:26px;padding:10px;border:1px solid #24344f}
+.phone .scr{background:#8aa5c4;border-radius:18px;padding:12px 10px;min-height:420px;display:flex;flex-direction:column;gap:9px}
+.phone .hd{background:#0f1b2e;color:#fff;font-size:12.5px;font-weight:700;text-align:center;
+  border-radius:10px;padding:7px;margin-bottom:2px}
+.msg{background:#fff;border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.7;color:#16233a;
+  opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+.msg.in{opacity:1;transform:none}
+.msg b{display:block;font-size:12.5px;margin-bottom:2px}
+.msg .tm{font-size:10.5px;color:#8b98ad;margin-top:4px}
+.msg.me{background:#93e07c;margin-left:34px}
+.phonecap{text-align:center;font-size:12px;color:var(--smoke);margin-top:9px;line-height:1.6}
+
+/* ---- モーダル ---- */
+.ov{position:fixed;inset:0;background:rgba(11,20,35,.55);z-index:80;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex;animation:ovIn .25s ease}
+@keyframes ovIn{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;border-radius:14px;width:min(680px,100%);max-height:88vh;overflow:auto;
+  animation:mIn .3s cubic-bezier(.16,1,.3,1)}
+@keyframes mIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.mh{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mh h3{font-size:16px;color:var(--ink)}
+.mb{padding:20px}
+.mf{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap}
+
+/* ステップ */
+.steps{display:flex;gap:6px;margin-bottom:18px}
+.stp{flex:1;text-align:center;font-size:12px;font-weight:700;color:var(--smoke);
+  border-bottom:3px solid var(--line);padding-bottom:8px}
+.stp.on{color:var(--accent);border-color:var(--accent)}
+.stp.done{color:var(--ok);border-color:var(--ok)}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pk{border:1px solid var(--line);border-radius:10px;padding:13px 14px;text-align:left;font-size:14px;
+  color:var(--ink);font-weight:700;background:#fff;transition:.15s}
+.pk:hover{border-color:var(--accent);background:var(--accent-l)}
+.pk small{display:block;font-weight:500;color:var(--smoke);font-size:12px}
+.pk.sel{border-color:var(--accent);background:var(--accent-l)}
+@media(max-width:560px){.pick{grid-template-columns:1fr}}
+.qty{display:flex;align-items:center;gap:12px;justify-content:center;margin:18px 0}
+.qty button{width:52px;height:52px;border-radius:12px;border:1px solid var(--line);background:#fff;
+  font-size:24px;font-weight:700;color:var(--ink)}
+.qty button:hover{border-color:var(--accent);color:var(--accent)}
+.qty .v{font-family:var(--num);font-size:36px;font-weight:700;color:var(--ink);min-width:80px;text-align:center}
+.auto{background:var(--ok-l);border:1px solid #bfe6cc;border-radius:10px;padding:11px 14px;
+  font-size:13px;color:var(--ok);margin-top:12px;display:flex;gap:8px;align-items:flex-start}
+.auto svg{width:17px;height:17px;flex:none;margin-top:2px}
+.dupe{background:var(--warn-l);border:1px solid #f3c9c6;border-radius:10px;padding:13px 15px;
+  font-size:13.5px;color:var(--warn);display:flex;gap:9px;align-items:flex-start;line-height:1.75}
+.dupe svg{width:19px;height:19px;flex:none;margin-top:2px}
+
+/* 帳票プレビュー */
+.doc{background:#fff;border:1px solid var(--line);border-radius:8px;padding:26px 28px;font-size:12.5px;color:#16233a}
+.doc .dt{text-align:center;font-size:20px;font-weight:900;letter-spacing:.3em;color:var(--ink);margin-bottom:18px}
+.doc .meta{display:flex;justify-content:space-between;gap:20px;margin-bottom:16px;flex-wrap:wrap}
+.doc .to{font-size:15px;font-weight:700;color:var(--ink);border-bottom:1.5px solid var(--ink);padding-bottom:4px;display:inline-block}
+.doc .from{font-size:11.5px;color:var(--ink2);text-align:right;line-height:1.9;position:relative}
+.doc .seal{position:absolute;right:-6px;bottom:-6px;width:46px;height:46px;border:2px solid #c2261e;
+  border-radius:50%;color:#c2261e;font-size:10px;font-weight:700;display:flex;align-items:center;
+  justify-content:center;transform:rotate(-9deg);opacity:.85;line-height:1.2;text-align:center}
+.doc table{min-width:0;font-size:12px}
+.doc th{background:#f1f5fb;padding:7px 9px;font-size:11px}
+.doc td{padding:7px 9px}
+.doc .total{margin-top:14px;display:flex;justify-content:flex-end}
+.doc .total table{width:auto;min-width:260px}
+.doc .total td{border:0;padding:5px 9px}
+.doc .total .g{font-family:var(--num);font-size:19px;font-weight:700;color:var(--ink)}
+.doc .note{margin-top:14px;font-size:11px;color:var(--smoke);line-height:1.8}
+
+/* Excel取り込み */
+.drop{border:2px dashed var(--line);border-radius:12px;padding:26px;text-align:center;transition:.3s}
+.drop.over{border-color:var(--accent);background:var(--accent-l)}
+.drop .xls{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);
+  border-radius:9px;padding:10px 14px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.drop .xls svg{width:19px;height:19px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:16px}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .9s ease}
+.imported{margin-top:14px;font-size:13px;color:var(--ok);font-weight:700;display:none}
+.imported.on{display:block}
+
+/* 月次グラフ */
+.chart{display:flex;align-items:flex-end;gap:10px;height:170px;padding:10px 4px 0}
+.chart .b{flex:1;background:var(--accent-l);border-radius:6px 6px 0 0;position:relative;
+  height:0;transition:height .9s cubic-bezier(.16,1,.3,1)}
+.chart .b i{position:absolute;inset:auto 0 0 0;display:block;background:var(--accent);
+  border-radius:6px 6px 0 0;height:100%}
+.chart .b span{position:absolute;top:-20px;left:0;right:0;text-align:center;font-family:var(--num);
+  font-size:11.5px;font-weight:700;color:var(--ink2)}
+.chart .b em{position:absolute;bottom:-22px;left:0;right:0;text-align:center;font-size:11px;
+  color:var(--smoke);font-style:normal}
+.chartwrap{padding:8px 16px 34px}
+
+/* トースト */
+.toast{position:fixed;right:18px;bottom:18px;z-index:95;background:#0f1b2e;color:#fff;
+  border-radius:10px;padding:13px 18px;font-size:13.5px;opacity:0;transform:translateY(14px);
+  transition:.35s;max-width:calc(100vw - 36px)}
+.toast.show{opacity:1;transform:none}
+.toast b{color:#7fd1ff}
+
+/* ---- 中央パネルのタブ ---- */
+.tabs{display:flex;gap:2px;padding:0 10px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tb{font-size:13px;font-weight:700;color:var(--smoke);padding:10px 13px;white-space:nowrap;
+  border-bottom:2.5px solid transparent;margin-bottom:-1px;transition:.15s}
+.tb:hover{color:var(--ink2)}
+.tb.on{color:var(--accent);border-color:var(--accent)}
+.tv{display:none}
+.tv.on{display:block}
+
+/* ---- 取引先カルテ ---- */
+.kart{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:620px){.kart{grid-template-columns:1fr}}
+.kbox{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kbox h4{font-size:13px;color:var(--ink);margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.kbox h4 svg{width:15px;height:15px;flex:none}
+.kv{display:grid;grid-template-columns:6.5em 1fr;gap:8px;padding:5px 0;font-size:13px}
+.kv dt{color:var(--smoke)}
+.kv dd{color:var(--ink);font-weight:700}
+.spark{display:flex;align-items:flex-end;gap:5px;height:56px;margin-top:8px}
+.spark i{flex:1;background:var(--accent-l);border-radius:3px 3px 0 0;position:relative}
+.spark i b{position:absolute;inset:auto 0 0 0;background:var(--accent);border-radius:3px 3px 0 0;display:block}
+.spark i em{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:10px;
+  color:var(--smoke);font-style:normal;font-family:var(--num)}
+.warnrow{background:var(--amber-l);border:1px solid #f0dcb4;border-radius:9px;padding:10px 13px;
+  font-size:12.5px;color:var(--amber);margin-top:10px;line-height:1.7}
+
+/* ---- 変更履歴 ---- */
+.hist{display:grid;gap:0}
+.hrow{display:grid;grid-template-columns:74px 92px 1fr;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--line);font-size:12.5px;align-items:baseline}
+.hrow .t{font-family:var(--num);color:var(--smoke)}
+.hrow .w{font-weight:700;color:var(--ink)}
+.hrow .d b{color:var(--warn)}
+.hrow .d i{font-style:normal;color:var(--ok);font-weight:700}
+@media(max-width:560px){.hrow{grid-template-columns:66px 1fr}.hrow .d{grid-column:1/-1}}
+
+/* ---- 設定（締め日・端数） ---- */
+.setrow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;
+  padding:13px 0;border-bottom:1px solid var(--line)}
+.setrow .lbl{font-size:13.5px;color:var(--ink);font-weight:700}
+.setrow .dsc{font-size:12px;color:var(--smoke);line-height:1.7;margin-top:2px}
+.seg{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:none}
+.seg button{font-size:12.5px;padding:8px 13px;color:var(--ink2);background:#fff;white-space:nowrap}
+.seg button.on{background:var(--accent);color:#fff}
+
+/* ---- 権限 ---- */
+.perm{width:100%;font-size:12.5px}
+.perm th,.perm td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:center}
+.perm th:first-child,.perm td:first-child{text-align:left;font-weight:700;color:var(--ink)}
+.perm .y{color:var(--ok);font-weight:700}
+.perm .n{color:#c3ccda;text-align:center}
+
+/* ---- 検索 ---- */
+.search{display:flex;gap:8px;margin-bottom:14px}
+.search input{flex:1;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:14px;color:var(--ink)}
+.search input:focus{outline:0;border-color:var(--accent)}
+.sres{border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.sres .r{padding:11px 13px;border-bottom:1px solid var(--line);font-size:13px;display:flex;
+  justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sres .r:last-child{border:0}
+.sres .r b{color:var(--ink)}
+.sres .r span{font-family:var(--num);color:var(--smoke)}
+.hit{background:#fff3bf;border-radius:3px;padding:0 2px}
+
+/* ---- 在庫・仕入 ---- */
+.stk{width:100%;font-size:13px}
+.stk th,.stk td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.stk td.n{font-family:var(--num);text-align:right;font-weight:600;color:var(--ink)}
+.stk tr.low td{background:var(--warn-l)}
+.stk tr.low td.n{color:var(--warn)}
+
+/* ---- 安全（バックアップ） ---- */
+.safe{display:grid;gap:10px}
+.safeitem{display:grid;grid-template-columns:34px 1fr;gap:12px;border:1px solid var(--line);
+  border-radius:10px;padding:13px 15px}
+.safeitem .ic{width:34px;height:34px;border-radius:9px;background:var(--ok-l);
+  display:flex;align-items:center;justify-content:center}
+.safeitem .ic svg{width:17px;height:17px}
+.safeitem b{display:block;font-size:13.5px;color:var(--ink)}
+.safeitem p{font-size:12.5px;color:var(--smoke);line-height:1.7}
+
+/* ---- 工程表 ---- */
+.gantt{display:grid;gap:7px;margin-top:6px}
+.gline{display:grid;grid-template-columns:132px 1fr;gap:12px;align-items:center;font-size:12.5px}
+.gline .nm{color:var(--ink);font-weight:700}
+.gtrack{background:#f1f5fb;border-radius:6px;height:26px;position:relative;overflow:hidden}
+.gbar{position:absolute;top:4px;bottom:4px;border-radius:5px;background:var(--accent);
+  color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.gbar.s2{background:#0ea5e9}.gbar.s3{background:var(--ok)}
+.gmonth{display:grid;grid-template-columns:132px 1fr;gap:12px;font-size:11px;color:var(--smoke);margin-bottom:2px}
+.gmonth div:last-child{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+@media(max-width:620px){.gline,.gmonth{grid-template-columns:96px 1fr}.gline .nm{font-size:11.5px}}
+
+/* ---- スマホ：比較が目的でない表は1件1カードにする ----
+   overflow-x:auto だけだと画面外に切れて読めない。横スクロールに気づかない人も多い。 */
+@media(max-width:720px){
+  /* インラインの min-width が勝つのでここだけ !important で上書きする。
+     PCでは横スクロールのために min-width が要るため、CSS側では消せない。 */
+  table.cardify{min-width:0 !important}
+  /* 設定は「項目名」と「選択肢」を縦に積む。横並びだと項目名が2文字ずつ折れる */
+  .setrow{grid-template-columns:1fr;gap:9px}
+  .seg{align-self:start}
+  table.cardify thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  table.cardify,table.cardify tbody,table.cardify tr,table.cardify td{display:block;width:100%}
+  table.cardify tbody tr{border:1px solid var(--line);border-radius:10px;padding:11px 13px;
+    margin:0 0 10px;background:#fff}
+  table.cardify tbody tr.low{background:var(--warn-l)}
+  table.cardify td{border:0;padding:4px 0;display:grid;grid-template-columns:7em 1fr;gap:10px;
+    font-size:13.5px;text-align:left}
+  table.cardify td::before{content:attr(data-l);color:var(--smoke);font-size:12.5px;font-weight:500}
+  table.cardify td.n{text-align:left;font-size:15px}
+  table.cardify td:empty{display:none}
+  table.cardify td[data-l=""]{grid-template-columns:1fr;padding-top:8px}
+  table.cardify td[data-l=""]::before{display:none}
+  .tablewrap{padding:12px 14px 4px}
+  /* 表のまま残すもの（列を並べて比べるため）は、横スクロールできると分かるように */
+  .tablewrap:has(table:not(.cardify)){padding:0}
+  .tv .mb .tablewrap{position:relative}
+  .tv .mb .tablewrap::after{content:"→ 横にスクロールできます";display:block;font-size:11.5px;
+    color:var(--smoke);padding:6px 2px 0}
+  .tv .mb .tablewrap:has(table.cardify)::after{display:none}
+  /* タブは端で切れていることが分かるように */
+  .tabs{padding:0 14px;-webkit-overflow-scrolling:touch}
+  .tb{padding:10px 11px;font-size:12.5px}
+  /* LINEの枠はスマホでは細くしない */
+  .phone{max-width:340px;margin:0 auto}
+  .kpi .v{font-size:23px}
+  .wrap{padding:14px 14px 34px}
+  .ph{padding:12px 14px}
+}
+
+/* ツアー */
+#tcur{position:fixed;z-index:100;width:26px;height:26px;border-radius:50%;
+  background:rgba(37,99,235,.85);border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);
+  pointer-events:none;display:none;transform:translate(-50%,-50%);
+  transition:left 1s cubic-bezier(.45,.05,.35,1),top 1s cubic-bezier(.45,.05,.35,1)}
+#tcur.click{animation:cp .45s}
+@keyframes cp{0%{box-shadow:0 0 0 0 rgba(37,99,235,.6)}100%{box-shadow:0 0 0 26px rgba(37,99,235,0)}}
+#cap{position:fixed;z-index:99;left:50%;bottom:30px;transform:translateX(-50%);
+  background:rgba(15,27,46,.94);color:#fff;font-size:16.5px;font-weight:500;letter-spacing:.04em;
+  padding:12px 28px;border-radius:9px;display:none;max-width:92vw;text-align:center;
+  box-shadow:0 6px 24px rgba(0,0,0,.4);line-height:1.7}
+#cap strong{color:#7fd1ff;font-weight:700}
+#endcard{position:fixed;inset:0;z-index:120;background:#0f1b2e;color:#eaf1ff;display:none;
+  flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;transition:opacity 1s;text-align:center;padding:24px}
+#endcard.show{opacity:1}
+#endcard .t{font-size:29px;font-weight:900;color:#fff}
+#endcard .s{font-size:15px;color:#a9bcd8}
+#endcard .u{font-family:var(--num);font-size:14px;color:#7fd1ff;letter-spacing:.06em;margin-top:8px}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+
+<div class="ribbon"><span>これは<b>ご提案用のデモ画面</b>です。<span class="more">会社名・取引先・金額はすべて架空で、</span>実際のデータは入っていません。</span></div>
+
+<div class="top">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="2" y="2" width="28" height="28" rx="8" fill="#2563eb"/>
+      <path d="M9 20l4.5-6 4 5 2.5-3.2L23 20z" fill="#fff"/>
+      <circle cx="21.5" cy="11.5" r="2.6" fill="#7fd1ff"/>
+    </svg>
+    受発注・売上・請求 一元管理
+  </div>
+  <div class="who">ログイン中：<b>営業事務 さん</b>　／　2026年9月12日（金）</div>
+</div>
+
+<div class="wrap">
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">今月の受注</div><div class="v"><span class="num" id="kOrder">38</span><small>件</small></div></div>
+    <div class="kpi"><div class="l">今月の売上（税込）</div><div class="v"><span class="num" id="kSales">4,182,000</span><small>円</small></div></div>
+    <div class="kpi"><div class="l">請求書 未発行</div><div class="v"><span class="num" id="kBill">3</span><small>件</small></div></div>
+    <div class="kpi alert" id="kpiOver"><div class="l">入金期日 超過</div><div class="v"><span class="num">2</span><small>件</small></div></div>
+  </div>
+
+  <div class="cols">
+
+    <!-- 左：大きなボタン3つ -->
+    <div>
+      <div class="bigbtns">
+        <button class="big" id="btnOrder">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+          <span><span class="t">受注を登録</span><span class="s">3回押すだけ</span></span>
+        </button>
+        <button class="big" id="btnBill">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h5"/></svg></span>
+          <span><span class="t">請求書を作る</span><span class="s">PDFが1クリック</span></span>
+        </button>
+        <button class="big" id="btnPay">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4v10h16z"/><path d="M4 11h16"/></svg></span>
+          <span><span class="t">入金を記録</span><span class="s">消込も自動</span></span>
+        </button>
+      </div>
+      <div class="side-note">
+        <h4>今日やること</h4>
+        <p>・請求書の未発行が <b>3件</b><br>・入金期日を過ぎているのが <b>2件</b><br>・明日が期日の請求が <b>1件</b></p>
+      </div>
+      <div class="side-note">
+        <h4>いま入っている元データ</h4>
+        <p>Excel「受注管理.xlsx」<br><b>2026年4月〜9月・612行</b><br>そのまま取り込み済み</p>
+      </div>
+    </div>
+
+    <!-- 中央：受注一覧 -->
+    <div class="panel">
+      <div class="ph">
+        <div><h3>受注一覧</h3><div class="sub">受注 → 売上 → 請求 → 入金 が1件でつながっています</div></div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <button class="mini" id="btnImport">Excelを取り込む</button>
+          <button class="mini" id="btnCsv">会計ソフトへ出力</button>
+          <button class="mini" id="btnChart">月次の売上</button>
+        </div>
+      </div>
+      <div class="tabs" id="tabs">
+        <button class="tb on" data-v="v1">受注</button>
+        <button class="tb" data-v="v2">見積</button>
+        <button class="tb" data-v="v3">取引先</button>
+        <button class="tb" data-v="v4">仕入・在庫</button>
+        <button class="tb" data-v="v5">変更履歴</button>
+        <button class="tb" data-v="v6">検索</button>
+        <button class="tb" data-v="v7">設定</button>
+        <button class="tb" data-v="v8">安全対策</button>
+      </div>
+      <div class="tv on" id="v1">
+      <div class="tablewrap">
+        <table class="cardify">
+          <thead><tr><th>受注番号</th><th>取引先</th><th>品目</th><th>金額（税込）</th><th>入金期日</th><th>状態</th></tr></thead>
+          <tbody id="tbody">
+            <tr class="row"><td class="num" data-l="受注番号">R-2609-041</td><td class="cust" data-l="取引先">株式会社あおば製作所</td><td data-l="品目">ステンレス板 t2.0</td><td class="n" data-l="金額（税込）">385,000</td><td class="num" data-l="入金期日">09/30</td><td data-l="状態"><span class="chip ok">請求済み</span></td></tr>
+            <tr class="row"><td class="num" data-l="受注番号">R-2609-040</td><td class="cust" data-l="取引先">みどり電機株式会社</td><td data-l="品目">制御盤 組立一式</td><td class="n" data-l="金額（税込）">1,265,000</td><td class="num" data-l="入金期日">09/30</td><td data-l="状態"><span class="chip wait">請求書 未発行</span></td></tr>
+            <tr class="row" id="rowOver"><td class="num" data-l="受注番号">R-2608-033</td><td class="cust" data-l="取引先">有限会社さくら工業</td><td data-l="品目">切削加工 200個</td><td class="n" data-l="金額（税込）">176,000</td><td class="num" data-l="入金期日">08/31</td><td data-l="状態"><span class="chip bad">入金期日 超過</span></td></tr>
+            <tr class="row"><td class="num" data-l="受注番号">R-2608-031</td><td class="cust" data-l="取引先">株式会社あおば製作所</td><td data-l="品目">アルミ角パイプ</td><td class="n" data-l="金額（税込）">242,000</td><td class="num" data-l="入金期日">09/30</td><td data-l="状態"><span class="chip ok">入金済み</span></td></tr>
+            <tr class="row"><td class="num" data-l="受注番号">R-2608-028</td><td class="cust" data-l="取引先">ほくと運輸株式会社</td><td data-l="品目">パレット 50枚</td><td class="n" data-l="金額（税込）">93,500</td><td class="num" data-l="入金期日">08/31</td><td data-l="状態"><span class="chip bad">入金期日 超過</span></td></tr>
+            <tr class="row"><td class="num" data-l="受注番号">R-2608-024</td><td class="cust" data-l="取引先">みどり電機株式会社</td><td data-l="品目">端子台 一式</td><td class="n" data-l="金額（税込）">58,300</td><td class="num" data-l="入金期日">09/30</td><td data-l="状態"><span class="chip wait">請求書 未発行</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+
+      <!-- 見積 → 受注への変換 -->
+      <div class="tv" id="v2"><div class="mb">
+        <p style="font-size:13px;color:var(--smoke);margin-bottom:12px">見積書を出した案件です。受注が決まったら<b>「受注にする」を1回押すだけ</b>で、打ち直しなしで受注・売上・請求予定に変わります。</p>
+        <div class="tablewrap"><table class="cardify" style="min-width:560px">
+          <thead><tr><th>見積番号</th><th>取引先</th><th>金額（税込）</th><th>有効期限</th><th>状態</th><th></th></tr></thead>
+          <tbody>
+            <tr class="row" id="mit1"><td class="num" data-l="見積番号">Q-2609-012</td><td class="cust" data-l="取引先">みどり電機株式会社</td><td class="n" data-l="金額（税込）">1,323,300</td><td class="num" data-l="有効期限">09/30</td><td id="q1st" data-l="状態"><span class="chip wait">返事待ち</span></td><td data-l=""><button class="mini pri" id="q2o">受注にする</button></td></tr>
+            <tr class="row"><td class="num" data-l="見積番号">Q-2609-010</td><td class="cust" data-l="取引先">株式会社あおば製作所</td><td class="n" data-l="金額（税込）">385,000</td><td class="num" data-l="有効期限">09/25</td><td data-l="状態"><span class="chip ok">受注済み</span></td><td data-l=""></td></tr>
+            <tr class="row"><td class="num" data-l="見積番号">Q-2608-007</td><td class="cust" data-l="取引先">ほくと運輸株式会社</td><td class="n" data-l="金額（税込）">418,000</td><td class="num" data-l="有効期限">08/31</td><td data-l="状態"><span class="chip bad">期限切れ</span></td><td data-l=""><button class="mini">再提出</button></td></tr>
+          </tbody>
+        </table></div>
+        <div class="warnrow">有効期限が切れた見積は<b>自動で色が変わります</b>。出したまま忘れられていた案件が、そのまま失注になるのを防ぎます。</div>
+      </div></div>
+
+      <!-- 取引先カルテ -->
+      <div class="tv" id="v3"><div class="mb">
+        <div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px">みどり電機株式会社</div>
+        <div class="kart">
+          <div class="kbox">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><path d="M4 20V8l8-4 8 4v12"/></svg>取引の条件</h4>
+            <dl class="kv"><dt>締め日</dt><dd>20日締め</dd></dl>
+            <dl class="kv"><dt>支払日</dt><dd>翌月15日</dd></dl>
+            <dl class="kv"><dt>端数処理</dt><dd>切り捨て</dd></dl>
+            <dl class="kv"><dt>送付方法</dt><dd>メール（PDF）＋郵送</dd></dl>
+            <dl class="kv"><dt>宛先</dt><dd>購買部 ご担当者さま</dd></dl>
+          </div>
+          <div class="kbox">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2"><path d="M4 18l5-6 4 3 7-9"/></svg>この取引先の売上</h4>
+            <div class="spark">
+              <i><b style="height:48%"></b><em>4月</em></i><i><b style="height:62%"></b><em>5月</em></i>
+              <i><b style="height:55%"></b><em>6月</em></i><i><b style="height:80%"></b><em>7月</em></i>
+              <i><b style="height:70%"></b><em>8月</em></i><i><b style="height:100%"></b><em>9月</em></i>
+            </div>
+          </div>
+          <div class="kbox" style="grid-column:1/-1">
+            <h4><svg viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2.2"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>単価の履歴（値上げ交渉の材料になります）</h4>
+            <div class="tablewrap"><table style="min-width:420px">
+              <thead><tr><th>品目</th><th style="text-align:right">2026/04</th><th style="text-align:right">2026/07</th><th style="text-align:right">今回</th></tr></thead>
+              <tbody>
+                <tr><td>制御盤 組立一式</td><td class="n">1,100,000</td><td class="n">1,150,000</td><td class="n">1,150,000</td></tr>
+                <tr><td>端子台 一式</td><td class="n">50,000</td><td class="n">53,000</td><td class="n">53,000</td></tr>
+              </tbody>
+            </table></div>
+            <div class="warnrow">締め日・支払日・端数処理は<b>取引先ごとに設定</b>できます。20日締めと月末締めが混在していても、請求書はそれぞれ正しい期間で作られます。</div>
+          </div>
+        </div>
+      </div></div>
+
+      <!-- 仕入・在庫 -->
+      <div class="tv" id="v4"><div class="mb">
+        <p style="font-size:13px;color:var(--smoke);margin-bottom:12px">「受発注」の<b>発注側</b>です。受注が入ると、必要な材料が自動で引き当てられ、足りない分が赤く出ます。</p>
+        <div class="tablewrap"><table class="stk cardify" style="min-width:560px">
+          <thead><tr><th>材料</th><th style="text-align:right">在庫</th><th style="text-align:right">引当済み</th><th style="text-align:right">残り</th><th>仕入先</th></tr></thead>
+          <tbody>
+            <tr><td data-l="材料">ステンレス板 t2.0</td><td class="n" data-l="在庫">120</td><td class="n" data-l="引当済み">40</td><td class="n" data-l="残り">80</td><td data-l="仕入先">○○鋼材</td></tr>
+            <tr class="low"><td data-l="材料">端子台 TB-20</td><td class="n" data-l="在庫">30</td><td class="n" data-l="引当済み">48</td><td class="n" data-l="残り">−18</td><td data-l="仕入先">△△電材</td></tr>
+            <tr><td data-l="材料">アルミ角パイプ</td><td class="n" data-l="在庫">85</td><td class="n" data-l="引当済み">20</td><td class="n" data-l="残り">65</td><td data-l="仕入先">○○鋼材</td></tr>
+          </tbody>
+        </table></div>
+        <div class="warnrow"><b>端子台 TB-20 が18本足りません。</b>このまま「発注書を作る」を押すと、△△電材あての発注書PDFがその場で出ます。</div>
+        <div style="margin-top:12px"><button class="mini pri" id="btnPo">発注書を作る</button></div>
+      </div></div>
+
+      <!-- 変更履歴 -->
+      <div class="tv" id="v5"><div class="mb">
+        <p style="font-size:13px;color:var(--smoke);margin-bottom:12px">Excelでいちばん困るのが「誰がいつ直したか分からない」ことです。<b>全部の変更が残ります。</b>1クリックで元に戻せます。</p>
+        <div class="hist">
+          <div class="hrow"><span class="t">9/12 10:41</span><span class="w">営業事務</span><span class="d">R-2609-040 の金額を <b>1,150,000</b> → <i>1,265,000</i> に変更</span></div>
+          <div class="hrow"><span class="t">9/12 09:12</span><span class="w">自動</span><span class="d">みどり電機の受注を <i>LINEの発注フォームから自動登録</i></span></div>
+          <div class="hrow"><span class="t">9/11 17:03</span><span class="w">部長</span><span class="d">R-2608-033 の入金期日を <b>08/31</b> → <i>09/30</i> に変更</span></div>
+          <div class="hrow"><span class="t">9/11 14:55</span><span class="w">営業事務</span><span class="d">あおば製作所の単価を <b>235,000</b> → <i>242,000</i> に変更</span></div>
+          <div class="hrow"><span class="t">9/10 11:20</span><span class="w">自動</span><span class="d">銀行明細から <i>3件を消込</i></span></div>
+        </div>
+        <div class="warnrow">削除も履歴に残ります。<b>「消えた」が起きません。</b></div>
+      </div></div>
+
+      <!-- 検索 -->
+      <div class="tv" id="v6"><div class="mb">
+        <p style="font-size:13px;color:var(--smoke);margin-bottom:12px">「去年あそこにいくらで出したか」を、Excelを開かずに探せます。</p>
+        <div class="search"><input id="q" value="制御盤" aria-label="検索"><button class="mini pri" id="btnSearch">探す</button></div>
+        <div class="sres" id="sres">
+          <div class="r"><b>みどり電機株式会社</b>／<span class="hit">制御盤</span> 組立一式<span>2026/09　1,265,000円</span></div>
+          <div class="r"><b>みどり電機株式会社</b>／<span class="hit">制御盤</span> 組立一式<span>2026/07　1,150,000円</span></div>
+          <div class="r"><b>有限会社さくら工業</b>／<span class="hit">制御盤</span> 部材加工<span>2026/05　318,000円</span></div>
+          <div class="r"><b>みどり電機株式会社</b>／<span class="hit">制御盤</span> 組立一式<span>2026/04　1,100,000円</span></div>
+        </div>
+        <div class="warnrow">取引先・品目・金額・期間のどれでも探せます。過去のExcelを取り込んであるので、<b>移行前の分もそのまま出てきます</b>。</div>
+      </div></div>
+
+      <!-- 設定 -->
+      <div class="tv" id="v7"><div class="mb">
+        <p style="font-size:13px;color:var(--smoke);margin-bottom:6px">実務でいちばん揉める2つを、最初に決めておきます。</p>
+        <div class="setrow"><div><div class="lbl">消費税の端数処理</div><div class="dsc">1円合わないだけで請求書は差し戻されます。取引先ごとに変えることもできます。</div></div>
+          <div class="seg" id="segRound"><button class="on">切り捨て</button><button>四捨五入</button><button>切り上げ</button></div></div>
+        <div class="setrow"><div><div class="lbl">締め日</div><div class="dsc">月末締めと20日締めが混在していても、請求期間を自動で分けます。</div></div>
+          <div class="seg" id="segClose"><button class="on">月末</button><button>20日</button><button>15日</button></div></div>
+        <div class="setrow"><div><div class="lbl">請求書の送り方</div><div class="dsc">送信そのものは、必ず人が確認してから押す形にしています。</div></div>
+          <div class="seg"><button class="on">メール</button><button>郵送</button><button>両方</button></div></div>
+        <div class="setrow" style="border:0"><div><div class="lbl">誰が何を見られるか</div><div class="dsc">担当者は自分の取引先だけ。金額の変更は責任者だけ、といった分け方ができます。</div></div></div>
+        <div class="tablewrap"><table class="perm" style="min-width:460px">
+          <thead><tr><th>できること</th><th>担当者</th><th>責任者</th><th>経理</th></tr></thead>
+          <tbody>
+            <tr><td>受注の登録</td><td class="y">○</td><td class="y">○</td><td class="n">−</td></tr>
+            <tr><td>金額の変更</td><td class="n">−</td><td class="y">○</td><td class="n">−</td></tr>
+            <tr><td>請求書の発行</td><td class="n">−</td><td class="y">○</td><td class="y">○</td></tr>
+            <tr><td>入金の消込</td><td class="n">−</td><td class="n">−</td><td class="y">○</td></tr>
+            <tr><td>全社の売上を見る</td><td class="n">−</td><td class="y">○</td><td class="y">○</td></tr>
+          </tbody>
+        </table></div>
+      </div></div>
+
+      <!-- 安全対策 -->
+      <div class="tv" id="v8"><div class="mb">
+        <p style="font-size:13px;color:var(--smoke);margin-bottom:12px">「Excelが壊れた」「上書きしてしまった」を、二度と起こさないための備えです。</p>
+        <div class="safe">
+          <div class="safeitem"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.3" stroke-linecap="round"><path d="M12 4v10M8 10l4 4 4-4M5 19h14"/></svg></span>
+            <div><b>毎日22時に自動バックアップ</b><p>30日分をさかのぼって戻せます。操作は不要です。</p></div></div>
+          <div class="safeitem"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.3" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v5h5"/></svg></span>
+            <div><b>いつでも元に戻せる</b><p>変更履歴から1クリックで復元できます。「誰かが消した」が起きません。</p></div></div>
+          <div class="safeitem"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.3" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <div><b>データは御社のGoogleアカウントの中</b><p>私の手元には置きません。契約が終わってもデータは御社に残ります。</p></div></div>
+          <div class="safeitem"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.3" stroke-linecap="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 13h7"/></svg></span>
+            <div><b>いつでもExcelに戻せる</b><p>全データをExcel形式で書き出せます。乗り換えても、やめても、データは持ち出せます。</p></div></div>
+        </div>
+      </div></div>
+
+    </div>
+
+    <!-- 右：LINE -->
+    <div class="phonecol">
+      <div class="phone">
+        <div class="scr">
+          <div class="hd">公式LINE ／ 社内グループ</div>
+          <div class="msg" id="ln1"><b>受注が入りました</b>みどり電機株式会社<br>制御盤 組立一式　1,265,000円<div class="tm">9:12</div></div>
+          <div class="msg" id="ln2"><b>入金期日のお知らせ</b>さくら工業さまの 176,000円が<br>期日を過ぎています<div class="tm">9:15</div></div>
+          <div class="msg me" id="ln3">請求書おくっておいて<div class="tm">9:16</div></div>
+          <div class="msg" id="ln4"><b>請求書を作成しました</b>PDFを添付しました。送信は担当の方の操作で行われます<div class="tm">9:16</div></div>
+        </div>
+      </div>
+      <p class="phonecap">担当者への通知も、取引先からの発注受付も<br>公式LINEでつなげます</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ モーダル：受注登録 ============ -->
+<div class="ov" id="ovOrder"><div class="modal">
+  <div class="mh"><h3>受注を登録</h3><button class="mini" data-close>閉じる</button></div>
+  <div class="mb">
+    <div class="steps"><div class="stp on" id="s1">1. 取引先</div><div class="stp" id="s2">2. 品目</div><div class="stp" id="s3">3. 数量</div></div>
+
+    <div id="p1">
+      <p style="font-size:13px;color:var(--smoke);margin-bottom:11px">よく使う順に並んでいます。押すだけです。</p>
+      <div class="pick">
+        <button class="pk" data-cust="株式会社あおば製作所">株式会社あおば製作所<small>先月 12件</small></button>
+        <button class="pk" data-cust="みどり電機株式会社">みどり電機株式会社<small>先月 9件</small></button>
+        <button class="pk" data-cust="有限会社さくら工業">有限会社さくら工業<small>先月 6件</small></button>
+        <button class="pk" data-cust="ほくと運輸株式会社">ほくと運輸株式会社<small>先月 4件</small></button>
+      </div>
+    </div>
+
+    <div id="p2" style="display:none">
+      <p style="font-size:13px;color:var(--smoke);margin-bottom:11px">この取引先で過去に出した品目です。</p>
+      <div class="pick">
+        <button class="pk" data-item="制御盤 組立一式" data-price="1150000">制御盤 組立一式<small>前回 1,150,000円</small></button>
+        <button class="pk" data-item="端子台 一式" data-price="53000">端子台 一式<small>前回 53,000円</small></button>
+        <button class="pk" data-item="配線材 まとめ" data-price="88000">配線材 まとめ<small>前回 88,000円</small></button>
+        <button class="pk" data-item="その他（手入力）" data-price="0">その他（手入力）<small>自由に入力できます</small></button>
+      </div>
+    </div>
+
+    <div id="p3" style="display:none">
+      <div style="font-size:13.5px;color:var(--ink2)"><b id="sumCust"></b> ／ <span id="sumItem"></span></div>
+      <div class="qty"><button id="qm">−</button><div class="v num" id="qv">1</div><button id="qp">＋</button></div>
+      <div class="auto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+        <span>単価は前回の取引から自動で入ります。消費税・入金期日（月末締め翌月末）も自動計算です。<br>金額：<b class="num" id="sumYen">1,265,000</b> 円（税込）</span>
+      </div>
+      <div class="dupe" id="dupe" style="margin-top:12px;display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c2261e" stroke-width="2.4" stroke-linecap="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <span><b style="color:var(--warn)">同じ内容が今日すでに登録されています</b><br>R-2609-040／みどり電機株式会社／制御盤 組立一式。二重登録になっていないかご確認ください。</span>
+      </div>
+    </div>
+  </div>
+  <div class="mf"><button class="mini" data-close>やめる</button><button class="mini pri" id="okOrder">この内容で登録する</button></div>
+</div></div>
+
+<!-- ============ モーダル：請求書 ============ -->
+<div class="ov" id="ovBill"><div class="modal" style="width:min(760px,100%)">
+  <div class="mh"><h3>請求書（自動生成）</h3><button class="mini" data-close>閉じる</button></div>
+  <div class="mb">
+    <div class="doc">
+      <div class="dt">請求書</div>
+      <div class="meta">
+        <div>
+          <div class="to">みどり電機株式会社　御中</div>
+          <div style="margin-top:12px;font-size:11.5px;line-height:1.9">
+            請求番号：<span class="num">I-2609-018</span><br>
+            発行日：<span class="num">2026年9月12日</span><br>
+            お支払期限：<span class="num">2026年10月31日</span>
+          </div>
+        </div>
+        <div class="from">
+          ○○産業株式会社<br>
+          〒000-0000 ○○県○○市○○町1-2-3<br>
+          TEL 000-0000-0000<br>
+          登録番号 T0000000000000
+          <span class="seal">○○産業</span>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>品目</th><th style="text-align:right">数量</th><th style="text-align:right">単価</th><th style="text-align:right">金額</th></tr></thead>
+        <tbody>
+          <tr><td>制御盤 組立一式</td><td class="n">1</td><td class="n">1,150,000</td><td class="n">1,150,000</td></tr>
+          <tr><td>端子台 一式</td><td class="n">1</td><td class="n">53,000</td><td class="n">53,000</td></tr>
+        </tbody>
+      </table>
+      <div class="total"><table>
+        <tr><td>小計</td><td class="n">1,203,000</td></tr>
+        <tr><td>消費税（10%）</td><td class="n">120,300</td></tr>
+        <tr><td><b>合計</b></td><td class="n g">1,323,300</td></tr>
+      </table></div>
+      <div class="note">お振込先：○○銀行 ○○支店 普通 0000000 ○○サンギョウ(カ<br>
+      ※ 受注データから自動生成しています。手入力は0か所です。</div>
+    </div>
+  </div>
+  <div class="mf"><button class="mini" data-close>閉じる</button><button class="mini" id="billLine">LINEで担当へ送る</button><button class="mini pri" id="billPdf">PDFで保存</button></div>
+</div></div>
+
+<!-- ============ モーダル：Excel取り込み ============ -->
+<div class="ov" id="ovImport"><div class="modal">
+  <div class="mh"><h3>いま使っているExcelを取り込む</h3><button class="mini" data-close>閉じる</button></div>
+  <div class="mb">
+    <p style="font-size:13.5px;margin-bottom:14px">いまのExcelは捨てません。列の並びが違っていても、こちらで対応表を作って読み込みます。</p>
+    <div class="drop" id="drop">
+      <div class="xls">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12l6 6M15 12l-6 6"/></svg>
+        受注管理.xlsx（612行）
+      </div>
+      <div class="bar"><i id="bar"></i></div>
+      <div class="imported" id="imported">612行を取り込みました。受注38件・売上4,182,000円・請求書 未発行3件に分類しました。</div>
+    </div>
+    <p style="font-size:12.5px;color:var(--smoke);margin-top:14px">取り込んだあとも、これまでどおりExcelで開いて確認できます。移行の途中で止まっても、元のExcelはそのまま残ります。</p>
+  </div>
+  <div class="mf"><button class="mini" data-close>閉じる</button></div>
+</div></div>
+
+<!-- ============ モーダル：月次 ============ -->
+<div class="ov" id="ovChart"><div class="modal">
+  <div class="mh"><h3>月次の売上（自動集計）</h3><button class="mini" data-close>閉じる</button></div>
+  <div class="mb chartwrap">
+    <div class="chart" id="chart">
+      <div class="b" data-h="42"><span>281万</span><i></i><em>4月</em></div>
+      <div class="b" data-h="55"><span>367万</span><i></i><em>5月</em></div>
+      <div class="b" data-h="48"><span>319万</span><i></i><em>6月</em></div>
+      <div class="b" data-h="71"><span>472万</span><i></i><em>7月</em></div>
+      <div class="b" data-h="63"><span>418万</span><i></i><em>8月</em></div>
+      <div class="b" data-h="100"><span>418万</span><i></i><em>9月</em></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--smoke);margin-top:26px">取引先別・品目別の集計も同じ画面から出せます。締め日の集計作業がなくなります。</p>
+  </div>
+  <div class="mf"><button class="mini" data-close>閉じる</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+<div id="tcur"></div>
+<div id="cap"></div>
+<div id="endcard">
+  <div class="t">受発注・売上・請求を、1本に。</div>
+  <div class="s">Excelはそのまま。入口は大きなボタン3つだけ。</div>
+  <div class="u">L-STUDIO　l-studiojp.com</div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function openOv(id){$(id).classList.add('on')}
+function closeOv(){$$('.ov').forEach(o=>o.classList.remove('on'))}
+$$('[data-close]').forEach(b=>b.addEventListener('click',closeOv));
+$$('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeOv()}));
+function toast(html,ms=2600){const t=$('#toast');t.innerHTML=html;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),ms)}
+
+/* ---- 受注登録ウィザード ---- */
+let cust='',item='',price=0,qty=1;
+function goStep(n){
+  ['#p1','#p2','#p3'].forEach((p,i)=>$(p).style.display=(i===n-1?'block':'none'));
+  ['#s1','#s2','#s3'].forEach((s,i)=>{
+    $(s).classList.toggle('on',i===n-1);
+    $(s).classList.toggle('done',i<n-1);
+  });
+}
+$('#btnOrder').addEventListener('click',()=>{cust='';item='';qty=1;goStep(1);
+  $('#dupe').style.display='none';openOv('#ovOrder')});
+$$('#p1 .pk').forEach(b=>b.addEventListener('click',()=>{
+  cust=b.dataset.cust;$$('#p1 .pk').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  setTimeout(()=>goStep(2),260);
+}));
+$$('#p2 .pk').forEach(b=>b.addEventListener('click',()=>{
+  item=b.dataset.item;price=+b.dataset.price;
+  $$('#p2 .pk').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  $('#sumCust').textContent=cust;$('#sumItem').textContent=item;
+  qty=1;updateYen();
+  setTimeout(()=>{goStep(3);
+    if(cust==='みどり電機株式会社'&&item==='制御盤 組立一式')$('#dupe').style.display='flex';
+  },260);
+}));
+function updateYen(){
+  $('#qv').textContent=qty;
+  $('#sumYen').textContent=Math.round(price*qty*1.1).toLocaleString('ja-JP');
+}
+$('#qp').addEventListener('click',()=>{qty++;updateYen()});
+$('#qm').addEventListener('click',()=>{if(qty>1){qty--;updateYen()}});
+$('#okOrder').addEventListener('click',()=>{
+  const tb=$('#tbody');const tr=document.createElement('tr');
+  tr.className='row flash';
+  const yen=Math.round(price*qty*1.1).toLocaleString('ja-JP');
+  tr.innerHTML='<td class="num">R-2609-042</td><td class="cust">'+cust+'</td><td>'+item+
+    '</td><td class="n">'+yen+'</td><td class="num">10/31</td><td><span class="chip new">受注 登録</span></td>';
+  tb.prepend(tr);
+  $('#kOrder').textContent=39;
+  closeOv();
+  toast('受注を登録しました。<b>売上・請求・入金予定</b>にも同時に反映しました');
+});
+
+/* ---- 請求書 ---- */
+$('#btnBill').addEventListener('click',()=>openOv('#ovBill'));
+$('#billPdf').addEventListener('click',()=>{closeOv();
+  toast('請求書 <b>I-2609-018.pdf</b> を保存しました（1クリック・手入力0か所）')});
+$('#billLine').addEventListener('click',()=>{closeOv();
+  [1,2,3,4].forEach((n,i)=>setTimeout(()=>$('#ln'+n).classList.add('in'),i*450));
+  toast('LINEの社内グループへ <b>PDFつきで通知</b> しました')});
+
+/* ---- 入金 ---- */
+$('#btnPay').addEventListener('click',()=>{
+  toast('銀行の入金明細を読み取り、<b>2件を自動で消込</b>しました');
+  const r=$('#rowOver');if(r)r.querySelector('.chip').outerHTML='<span class="chip ok">入金済み</span>';
+  $('#kpiOver').querySelector('.v').innerHTML='<span class="num">1</span><small>件</small>';
+});
+
+/* ---- Excel取り込み ---- */
+$('#btnImport').addEventListener('click',()=>{
+  openOv('#ovImport');$('#bar').style.width='0';$('#imported').classList.remove('on');
+  setTimeout(()=>{$('#drop').classList.add('over');$('#bar').style.width='100%';
+    setTimeout(()=>$('#imported').classList.add('on'),1000)},500);
+});
+
+/* ---- CSV ---- */
+$('#btnCsv').addEventListener('click',()=>toast('会計ソフト向けCSVを書き出しました（<b>freee・マネーフォワード</b>の形式に対応）'));
+
+/* ---- 月次 ---- */
+$('#btnChart').addEventListener('click',()=>{
+  openOv('#ovChart');
+  $$('#chart .b').forEach(b=>b.style.height='0');
+  setTimeout(()=>$$('#chart .b').forEach((b,i)=>setTimeout(()=>b.style.height=b.dataset.h+'%',i*90)),250);
+});
+
+/* ---- LINEメッセージは見えたら順に ---- */
+const lio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){[1,2,3,4].forEach((n,i)=>setTimeout(()=>$('#ln'+n).classList.add('in'),i*500));lio.disconnect();}
+}),{threshold:.3});
+lio.observe($('.phone'));
+
+/* ---- タブ切替 ---- */
+$('#tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tb'); if(!b) return;
+  $$('#tabs .tb').forEach(x => x.classList.toggle('on', x === b));
+  $$('.tv').forEach(v => v.classList.toggle('on', v.id === b.dataset.v));
+});
+function showTab(id){
+  const b = $('#tabs .tb[data-v="' + id + '"]'); if(b) b.click();
+}
+
+/* ---- 見積 → 受注 ---- */
+$('#q2o').addEventListener('click', () => {
+  $('#q1st').innerHTML = '<span class="chip ok">受注済み</span>';
+  $('#q2o').remove();
+  toast('見積 <b>Q-2609-012</b> を受注に変えました。打ち直しは0か所です');
+});
+
+/* ---- 発注書 ---- */
+$('#btnPo').addEventListener('click', () => {
+  toast('<b>△△電材</b>あての発注書PDFを作りました（不足18本ぶん）');
+});
+
+/* ---- 検索 ---- */
+$('#btnSearch').addEventListener('click', () => {
+  const w = ($('#q').value || '').trim();
+  toast('「<b>' + (w || '（空欄）') + '</b>」で過去の取引を検索しました（0.4秒／612行）');
+});
+
+/* ---- 設定のセグメント ---- */
+$$('.seg').forEach(sg => sg.addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  [...sg.children].forEach(x => x.classList.toggle('on', x === b));
+  if(sg.id === 'segRound') toast('消費税の端数処理を <b>' + b.textContent + '</b> にしました。請求書の計算がその場で切り替わります');
+  if(sg.id === 'segClose') toast('締め日を <b>' + b.textContent + '</b> にしました。請求期間が自動で分かれます');
+}));
+
+/* ==========================================================================
+   自動ツアー（?tour=1）。録画はこれを再生するだけ。人の操作はいらない。
+   ========================================================================== */
+const params=new URLSearchParams(location.search);
+if(params.get('tour')){
+  const cur=$('#tcur'), cap=$('#cap');
+  const moveTo=(el,dx=0,dy=0)=>{const r=el.getBoundingClientRect();
+    cur.style.left=(r.left+r.width/2+dx)+'px';cur.style.top=(r.top+r.height/2+dy)+'px'};
+  async function clickEl(el){moveTo(el);await sleep(1050);
+    cur.classList.remove('click');void cur.offsetWidth;cur.classList.add('click');
+    await sleep(300);el.click();await sleep(220)}
+  const say=h=>{cap.innerHTML=h;cap.style.display='block'};
+
+  (async()=>{
+    await sleep(700); cur.style.display='block';
+    cur.style.left='640px'; cur.style.top='400px';
+
+    say('いまExcelでやっている<strong>受発注・売上・見積・請求</strong>を、1本につなぎます');
+    await sleep(3400);
+
+    // ① 移行
+    say('まず、<strong>いまお使いのExcelをそのまま取り込みます</strong>。作り直しはしません');
+    await clickEl($('#btnImport')); await sleep(3200);
+    say('612行を読み込み、<strong>受注・売上・請求の未発行まで自動で仕分け</strong>しました');
+    await sleep(3000);
+    await clickEl($('#ovImport [data-close]'));
+
+    // ② 毎日の入口
+    say('日々の入力は、左の<strong>大きなボタン3つ</strong>だけ。専門用語は画面に出しません');
+    moveTo($('.bigbtns')); await sleep(3200);
+
+    say('受注の登録は<strong>3回押すだけ</strong>です');
+    await clickEl($('#btnOrder')); await sleep(1300);
+    say('① 取引先を選ぶ ── <strong>よく使う順</strong>に並んでいます');
+    await clickEl($$('#p1 .pk')[1]); await sleep(1400);
+    say('② 品目を選ぶ ── <strong>前回の単価</strong>がそのまま出ます');
+    await clickEl($$('#p2 .pk')[0]); await sleep(1700);
+    say('③ 数量を入れる ── <strong>消費税も入金期日も自動</strong>で計算されます');
+    await clickEl($('#qp')); await sleep(1600);
+
+    say('<strong>同じ内容が今日すでに登録されていると、その場で止めます</strong>。二重計上の防止です');
+    moveTo($('#dupe')); await sleep(4400);
+
+    await clickEl($('#okOrder')); await sleep(2400);
+    say('1回の登録が、<strong>受注・売上・請求予定・入金予定</strong>に同時に反映されます');
+    await sleep(3000);
+
+    // ③ 見積 → 受注
+    say('見積は<strong>出しっぱなしにしません</strong>。期限切れは色が変わります');
+    await clickEl($('#tabs .tb[data-v="v2"]')); await sleep(3200);
+    say('返事が来たら<strong>「受注にする」を1回</strong>。打ち直しは0か所です');
+    await clickEl($('#q2o')); await sleep(3000);
+
+    // ④ 請求書
+    say('請求書も<strong>1クリック</strong>。宛名も番号も金額も、手入力は0か所です');
+    await clickEl($('#btnBill')); await sleep(4000);
+    say('<strong>インボイスの登録番号・消費税・振込先・社印</strong>まで入った状態で出ます');
+    await sleep(3600);
+    await clickEl($('#billLine')); await sleep(2400);
+
+    // ⑤ LINE
+    say('できた請求書は<strong>公式LINEで担当者へ</strong>。取引先からの発注もLINEで受けられます');
+    $('.phone').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(1000);
+    moveTo($('.phone')); await sleep(4200);
+
+    // ⑥ 入金
+    window.scrollTo({top:0,behavior:'smooth'}); await sleep(1000);
+    say('入金は<strong>銀行明細を読み取って自動で消込</strong>。期日超過だけが赤く残ります');
+    await clickEl($('#btnPay')); await sleep(3400);
+
+    // ⑦ 取引先カルテ（締め日・端数・単価履歴）
+    say('取引先ごとに<strong>締め日・支払日・端数処理・送り方</strong>を持ちます');
+    await clickEl($('#tabs .tb[data-v="v3"]')); await sleep(3800);
+    say('<strong>単価の履歴</strong>も残ります。値上げのご相談をするときの材料になります');
+    await sleep(3600);
+
+    // ⑧ 仕入・在庫（発注側）
+    say('「受発注」の<strong>発注側</strong>も見ます。受注が入ると材料が自動で引き当てられ');
+    await clickEl($('#tabs .tb[data-v="v4"]')); await sleep(3200);
+    say('<strong>足りない分が赤で出て、そのまま発注書になります</strong>');
+    await clickEl($('#btnPo')); await sleep(3200);
+
+    // ⑨ 変更履歴
+    say('Excelでいちばん困る<strong>「誰がいつ直したか分からない」</strong>を、なくします');
+    await clickEl($('#tabs .tb[data-v="v5"]')); await sleep(4000);
+    say('削除も残ります。<strong>1クリックで元に戻せます</strong>');
+    await sleep(2800);
+
+    // ⑩ 検索
+    say('「去年あそこにいくらで出したか」は、<strong>Excelを開かずに探せます</strong>');
+    await clickEl($('#tabs .tb[data-v="v6"]')); await sleep(2600);
+    await clickEl($('#btnSearch')); await sleep(3000);
+
+    // ⑪ 設定（実務で揉める2つ）
+    say('実務で必ず揉める<strong>端数処理と締め日</strong>は、最初に決めて設定に持たせます');
+    await clickEl($('#tabs .tb[data-v="v7"]')); await sleep(2600);
+    await clickEl($$('#segRound button')[1]); await sleep(3000);
+    say('<strong>誰が何を見られるか</strong>も分けられます。金額の変更は責任者だけ、なども');
+    await sleep(3400);
+
+    // ⑫ 安全対策
+    say('最後に<strong>データの守り方</strong>です。毎日22時に自動バックアップ、30日ぶん戻せます');
+    await clickEl($('#tabs .tb[data-v="v8"]')); await sleep(4000);
+    say('データは<strong>御社のGoogleアカウントの中</strong>。いつでもExcelに戻せます');
+    await sleep(3800);
+
+    // ⑬ 集計
+    await clickEl($('#tabs .tb[data-v="v1"]'));
+    say('締め日の集計も<strong>自動</strong>。会計ソフトへのCSVもここから出せます');
+    await clickEl($('#btnChart')); await sleep(3600);
+    await clickEl($('#ovChart [data-close]'));
+    await clickEl($('#btnCsv')); await sleep(3000);
+
+    cap.style.display='none'; cur.style.display='none';
+    const ec=$('#endcard'); ec.style.display='flex';
+    requestAnimationFrame(()=>ec.classList.add('show'));
+    await sleep(4500);
+  })();
+}
+</script>
+</body>
+</html>
