@@ -140,6 +140,7 @@ td.r{text-align:right;font-family:var(--lat);font-size:16px;color:var(--gold2);f
 @media(max-width:860px){.prow{grid-template-columns:1fr}.price{padding:64px 0}.pcard .v{font-size:36px}}
 
 /* 03 品目 */
+.items .kicker,.flow .kicker,.faq .kicker,.admin .kicker{color:#7d5d13}
 .items{padding:100px 0;background:var(--cream);color:var(--ink)}
 .igrid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 20px;margin-top:34px}
 .item .ib{aspect-ratio:1/1;margin-bottom:12px}
@@ -276,9 +277,11 @@ td.r{text-align:right;font-family:var(--lat);font-size:16px;color:var(--gold2);f
 .wp h3{font-size:16px;margin-bottom:12px}
 .wp .fld{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;padding:9px 0;
   border-bottom:1px solid #eee;font-size:13px}
-.wp .fld span{color:#646970}
+.wp .fld>span,.wp .fld>label{color:#646970}
 .wp input[type=text]{border:1px solid #8c8f94;padding:7px 10px;font-family:var(--lat);font-size:14px;width:140px}
-.wp .sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px}
+.wp .sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;background:none;border:0;
+  font-family:var(--sans);color:inherit;padding:0}
+.wp .sw:focus-visible{outline:2px solid #2271b1;outline-offset:3px}
 .wp .sw i{width:34px;height:19px;background:#c3c4c7;border-radius:99px;position:relative;transition:background .25s}
 .wp .sw i::after{content:"";position:absolute;left:2px;top:2px;width:15px;height:15px;background:#fff;
   border-radius:50%;transition:transform .25s}
@@ -287,6 +290,7 @@ td.r{text-align:right;font-family:var(--lat);font-size:16px;color:var(--gold2);f
 .wp .save{background:#2271b1;color:#fff;border:0;padding:9px 18px;font-size:13px;cursor:pointer;
   font-family:var(--sans);margin-top:14px}
 .wp .msg{display:none;margin-top:12px;background:#edfaef;border-left:4px solid #00a32a;padding:10px 14px;font-size:12.8px}
+.wp .msg.ng{background:#fcf0f1;border-left-color:#d63638}
 .wp .msg.on{display:block}
 @media(max-width:860px){.wp .body{grid-template-columns:1fr}.wp .side{display:flex;overflow-x:auto}
   .wp .side a{white-space:nowrap}.wp .fld{grid-template-columns:1fr}.admin{padding:64px 0}}
@@ -318,7 +322,7 @@ footer h4{font-family:var(--jp);color:#fff;font-size:13.5px;margin-bottom:11px;f
 footer .logo{font-family:var(--lat);font-size:24px;letter-spacing:.3em;color:#fff;margin-bottom:9px}
 footer a{display:block;padding:3px 0;color:#87847d}
 footer a:hover{color:var(--gold)}
-.fend{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;color:#5f5d57;
+.fend{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;color:#918d86;
   display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between}
 @media(max-width:860px){.ff{grid-template-columns:1fr 1fr;gap:22px}}
 
@@ -399,26 +403,26 @@ footer a:hover{color:var(--gold)}
           <tr><td>金 K24</td><td>99.9%</td><td class="num" style="color:#e4867c">+182</td><td class="r">23,179</td></tr>
           <tr><td>金 K22</td><td>91.7%</td><td class="num" style="color:#e4867c">+167</td><td class="r">21,255</td></tr>
           <tr><td>金 K18</td><td>75.0%</td><td class="num" style="color:#e4867c">+136</td><td class="r">17,384</td></tr>
-          <tr><td>金 K14</td><td>58.5%</td><td class="num" style="color:#e4867c">+106</td><td class="r">13,560</td></tr>
-          <tr><td>金 K10</td><td>41.7%</td><td class="num" style="color:#e4867c">+75</td><td class="r">9,666</td></tr>
+          <tr><td>金 K14</td><td>58.5%</td><td class="num" style="color:#e4867c">+107</td><td class="r">13,560</td></tr>
+          <tr><td>金 K10</td><td>41.7%</td><td class="num" style="color:#e4867c">+76</td><td class="r">9,666</td></tr>
           <tr><td>プラチナ Pt900</td><td>90.0%</td><td class="num" style="color:#e4867c">+57</td><td class="r">8,304</td></tr>
           <tr><td>プラチナ Pt850</td><td>85.0%</td><td class="num" style="color:#e4867c">+54</td><td class="r">7,843</td></tr>
-          <tr><td>銀 SV925</td><td>92.5%</td><td class="num" style="color:#89b0d8">−2</td><td class="r">302</td></tr>
+          <tr><td>銀 SV925</td><td>92.5%</td><td class="num" style="color:#89b0d8">−3</td><td class="r">302</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="chart">
-      <div class="ch"><b>金 K24 の推移</b><span class="num">直近30日／円 per g</span><span style="color:#6b6960">高値 23,410　安値 21,980</span></div>
+      <div class="ch"><b>金 K24 の推移</b><span class="num">直近30日／円 per g</span><span style="color:#6b6960">高値 23,410　安値 21,980　※架空の推移です</span></div>
       <svg viewBox="0 0 800 150" preserveAspectRatio="none" role="img" aria-label="金価格の30日推移">
         <defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#c9a44c" stop-opacity=".34"/><stop offset="100%" stop-color="#c9a44c" stop-opacity="0"/></linearGradient></defs>
         <g stroke="#2a2a30" stroke-width="1">
           <line x1="0" y1="30" x2="800" y2="30"/><line x1="0" y1="70" x2="800" y2="70"/><line x1="0" y1="110" x2="800" y2="110"/></g>
-        <path fill="url(#gg)" d="M0,96 L28,102 L55,88 L83,92 L110,78 L138,84 L166,70 L193,74 L221,62 L248,68 L276,58 L303,66 L331,52 L359,60 L386,46 L414,54 L441,44 L469,50 L496,38 L524,44 L551,34 L579,40 L606,30 L634,36 L661,26 L689,32 L716,22 L744,28 L772,18 L800,24 L800,150 L0,150 Z"/>
+        <path fill="url(#gg)" d="M0,96 L28,102 L55,88 L83,92 L110,78 L138,84 L166,70 L193,74 L221,62 L248,68 L276,58 L303,66 L331,52 L359,60 L386,46 L414,54 L441,44 L469,50 L496,38 L524,44 L551,34 L579,40 L606,30 L634,36 L661,26 L689,32 L716,22 L744,28 L772,20 L800,12 L800,150 L0,150 Z"/>
         <polyline fill="none" stroke="#c9a44c" stroke-width="2"
-          points="0,96 28,102 55,88 83,92 110,78 138,84 166,70 193,74 221,62 248,68 276,58 303,66 331,52 359,60 386,46 414,54 441,44 469,50 496,38 524,44 551,34 579,40 606,30 634,36 661,26 689,32 716,22 744,28 772,18 800,24"/>
-        <circle cx="800" cy="24" r="4" fill="#e6cd90"/>
+          points="0,96 28,102 55,88 83,92 110,78 138,84 166,70 193,74 221,62 248,68 276,58 303,66 331,52 359,60 386,46 414,54 441,44 469,50 496,38 524,44 551,34 579,40 606,30 634,36 661,26 689,32 716,26 744,30 772,20 800,12"/>
+        <circle cx="800" cy="12" r="4" fill="#e6cd90"/>
       </svg>
     </div>
   </div>
@@ -542,10 +546,10 @@ footer a:hover{color:var(--gold)}
     <span class="kicker">FAQ</span>
     <h2><span class="rl"><span>よくあるご質問</span></span></h2>
     <details><summary>郵送買取の予約は必要ですか。</summary><div class="a">予約は不要です。フォームから梱包キットをご請求ください。最短で翌日にお届けします。お手持ちの箱で送っていただいても構いません（着払いで結構です）。</div></details>
-    <details><summary>割引がなくても買い取ってもらえますか。</summary><div class="a">はい。鑑定書・保証書・箱がなくても買い取ります。あると査定が早く進み、品によっては金額が上がることがあります。</div></details>
+    <details><summary>鑑定書や箱がなくても買い取ってもらえますか。</summary><div class="a">はい。鑑定書・保証書・箱がなくても買い取ります。あると査定が早く進み、品によっては金額が上がることがあります。</div></details>
     <details><summary>買取品目一覧にない古銭があるのですが。</summary><div class="a">一覧は代表的なものだけです。載っていない品も査定します。ご不明な場合は写真を1枚お送りください。おおよその金額を先にお伝えします。</div></details>
     <details><summary>提示された金額に納得できない場合は。</summary><div class="a">お断りいただけます。キャンセル料も返送料もいただきません。理由をお聞かせいただければ、査定の根拠をご説明します。</div></details>
-    <details><summary>本人以外でも売却できますか。</summary><div class="a">ご本人以外からの買取は、古物営業法上お受けできません。ご家族の遺品については、相続を証明できる書類をご持参ください。詳しくはご相談ください。</div></details>
+    <details><summary>本人以外でも売却できますか。</summary><div class="a">当店では原則として、ご本人からのお申し込みに限らせていただいています。ご家族の代理でお持ちいただく場合や、相続された品の場合は、必要な書類が変わりますので、事前にお電話でご相談ください。ご本人確認は法令にもとづき必ず行います。</div></details>
     <details><summary>価格表はいつ更新されますか。</summary><div class="a">毎朝9時に自動更新しています。取得元のデータが届かなかった日は、前日の価格を表示したまま「更新待ち」と表示し、誤った数字は出さない仕組みにしています。</div></details>
   </div>
 </section>
@@ -562,11 +566,11 @@ footer a:hover{color:var(--gold)}
           <div class="ch">営業カレンダー<span style="margin-left:auto;font-family:var(--lat);font-size:12.5px;color:#8d8b85">2026 / 09</span></div>
           <div class="cg">
             <div class="h">SUN</div><div class="h">MON</div><div class="h">TUE</div><div class="h">WED</div><div class="h">THU</div><div class="h">FRI</div><div class="h">SAT</div>
-            <div></div><div></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+            <div></div><div></div><div>1</div><div class="off">2</div><div>3</div><div>4</div><div>5</div>
             <div>6</div><div>7</div><div>8</div><div class="off">9</div><div>10</div><div>11</div><div>12</div>
-            <div class="today">13</div><div>14</div><div>15</div><div>16</div><div class="off">17</div><div>18</div><div>19</div>
-            <div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div class="off">25</div><div>26</div>
-            <div>27</div><div>28</div><div>29</div><div>30</div><div></div><div></div><div></div>
+            <div class="today">13</div><div>14</div><div>15</div><div class="off">16</div><div>17</div><div>18</div><div>19</div>
+            <div>20</div><div>21</div><div>22</div><div class="off">23</div><div>24</div><div>25</div><div>26</div>
+            <div>27</div><div>28</div><div>29</div><div class="off">30</div><div></div><div></div><div></div>
           </div>
         </div>
       </div>
@@ -639,12 +643,12 @@ footer a:hover{color:var(--gold)}
         </div>
         <div class="main">
           <h3>買取価格の設定</h3>
-          <div class="fld"><span>更新時刻</span><div><input type="text" value="09:00" id="wpTime"> 毎日この時刻に自動取得します</div></div>
-          <div class="fld"><span>K18 の掛け率</span><div><input type="text" value="0.750" id="wpK18"> 相場に掛ける係数</div></div>
-          <div class="fld"><span>Pt900 の掛け率</span><div><input type="text" value="0.900"> 相場に掛ける係数</div></div>
-          <div class="fld"><span>異常値の閾値</span><div><input type="text" value="10" id="wpTh"> ％。前日比がこれを超えたら反映しない</div></div>
-          <div class="fld"><span>自動更新</span><div><label class="sw on" id="sw1"><i></i>有効</label></div></div>
-          <div class="fld"><span>トップに表示</span><div><label class="sw on" id="sw2"><i></i>表示する</label></div></div>
+          <div class="fld"><label for="wpTime">更新時刻</label><div><input type="text" value="09:00" id="wpTime"> 毎日この時刻に自動取得します</div></div>
+          <div class="fld"><label for="wpK18">K18 の掛け率</label><div><input type="text" value="0.750" id="wpK18"> 相場に掛ける係数</div></div>
+          <div class="fld"><label for="wpPt">Pt900 の掛け率</label><div><input type="text" value="0.900" id="wpPt"> 相場に掛ける係数</div></div>
+          <div class="fld"><label for="wpTh">異常値の閾値</label><div><input type="text" value="10" id="wpTh"> ％。前日比がこれを超えたら反映しない</div></div>
+          <div class="fld"><span id="lb-auto">自動更新</span><div><button type="button" class="sw on" id="sw1" aria-pressed="true" aria-labelledby="lb-auto"><i></i>有効</button></div></div>
+          <div class="fld"><span id="lb-top">トップに表示</span><div><button type="button" class="sw on" id="sw2" aria-pressed="true" aria-labelledby="lb-top"><i></i>表示する</button></div></div>
           <button class="save" id="wpSave">変更を保存</button>
           <div class="msg" id="wpMsg">設定を保存しました。次回の自動更新（明日 09:00）から反映されます。</div>
         </div>
@@ -666,20 +670,20 @@ footer a:hover{color:var(--gold)}
         <div class="mrow"><span>いちばん重い画像</span><b class="num">399 KB</b></div>
         <div class="mrow"><span>スマホにもPC用画像を配信</span><b class="num">あり</b></div>
         <div class="mrow"><span>ヒーローの文字</span><b class="num">画像に埋め込み</b></div>
-        <div class="mrow"><span>価格表の構造化データ</span><b class="num">なし</b></div>
+        <div class="mrow"><span>構造化データ</span><b class="num">なし</b></div>
       </div>
       <div class="cc after"><div class="h">このサンプル（実測）</div>
         <div class="mrow"><span>トップの読み込み</span><b class="num">1.3 秒前後</b></div>
         <div class="mrow"><span>いちばん重い画像</span><b class="num">200 KB 台</b></div>
         <div class="mrow"><span>画像は幅に合わせて配信</span><b class="num">あり</b></div>
         <div class="mrow"><span>ヒーローの文字</span><b class="num">テキスト</b></div>
-        <div class="mrow"><span>価格表の構造化データ</span><b class="num">あり</b></div>
+        <div class="mrow"><span>構造化データ</span><b class="num">店舗・FAQ</b></div>
       </div>
     </div>
     <div class="guard" style="margin-top:26px">
       <div class="gd"><b>画像を出し分ける</b><p>スマホに 399KB の画像を送らない。幅ごとに書き出して srcset で出し分けます。既存の投稿画像にも一括で適用できます。</p></div>
       <div class="gd"><b>見出しを文字にする</b><p>いまのヒーローは文字が画像の中にあります。検索にもAIにも読まれません。文字として置き直します。</p></div>
-      <div class="gd"><b>価格に構造化データ</b><p>「金 買取価格」で探す人に、価格と更新日を検索結果側へ渡します。毎日更新される数字は、この情報と相性がよい部分です。</p></div>
+      <div class="gd"><b>構造化データを入れる</b><p>店舗情報とFAQを機械が読める形で持たせます。「地名＋買取」で探す人と、地図アプリ側に効きます（掲載が保証されるものではありません）。</p></div>
     </div>
   </div>
 </section>
@@ -709,12 +713,20 @@ footer a:hover{color:var(--gold)}
 <div class="spcta"><a href="#price">本日の価格</a><a class="g" href="#flow">無料査定を申し込む</a></div>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Product",
- "name":"金 K24 買取価格（1g）","category":"貴金属買取",
- "description":"古銭・貴金属買取店の買取価格（このページは制作サンプルで、架空の店舗です）",
- "offers":{"@type":"Offer","priceCurrency":"JPY","price":"23179",
-   "priceValidUntil":"2026-09-14","availability":"https://schema.org/InStock",
-   "seller":{"@type":"Store","name":"TSUGU 古銭・貴金属買取"}}}
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Store","name":"TSUGU 古銭・貴金属買取",
+  "description":"古銭・記念硬貨・貴金属の買取店（このページは制作サンプルで、架空の店舗です）",
+  "address":{"@type":"PostalAddress","addressCountry":"JP","addressRegion":"東京都"},
+  "telephone":"00-0000-0000","priceRange":"¥",
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification",
+   "dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday","Sunday"],
+   "opens":"11:00","closes":"18:00"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"郵送買取の予約は必要ですか。",
+   "acceptedAnswer":{"@type":"Answer","text":"予約は不要です。フォームから梱包キットをご請求ください。"}},
+  {"@type":"Question","name":"価格表はいつ更新されますか。",
+   "acceptedAnswer":{"@type":"Answer","text":"毎朝9時に自動更新しています。取得元のデータが届かなかった日は前日の価格を表示したまま「更新待ち」と表示します。"}}]}
+]}
 </script>
 
 <script src="assets/motion.js"></script>
@@ -727,7 +739,7 @@ footer a:hover{color:var(--gold)}
   }
   setRib(); addEventListener('resize',setRib); addEventListener('load',setRib);
 
-  var isSP = location.search.indexOf('sp=1')>=0;
+  var isSP = new URLSearchParams(location.search).get('sp')==='1';
   if(isSP){
     document.querySelectorAll('.divider,.auto,.admin,.perf,.spv').forEach(function(e){e.remove();});
     document.querySelectorAll('a[href="#auto"],a[href="#admin"],a[href="#perf"],a[href="#sp"]').forEach(function(a){a.remove();});
@@ -792,17 +804,40 @@ footer a:hover{color:var(--gold)}
   /* 管理画面 */
   document.querySelectorAll('.wp .sw').forEach(function(s){
     s.addEventListener('click',function(){
-      s.classList.toggle('on');
-      s.lastChild.textContent = s.classList.contains('on')
-        ? (s.id==='sw1' ? '有効' : '表示する') : (s.id==='sw1' ? '停止中' : '隠す');
+      var on=!s.classList.contains('on');
+      s.classList.toggle('on', on);
+      s.setAttribute('aria-pressed', on?'true':'false');
+      s.lastChild.textContent = on ? (s.id==='sw1' ? '有効' : '表示する') : (s.id==='sw1' ? '停止中' : '隠す');
     });
   });
   var save=document.getElementById('wpSave');
   if(save) save.addEventListener('click',function(){
     var m=document.getElementById('wpMsg');
-    var k=document.getElementById('wpK18').value, th=document.getElementById('wpTh').value, t=document.getElementById('wpTime').value;
-    m.textContent='設定を保存しました。次回の自動更新（明日 '+t+'）から、K18 は相場×'+k+'、異常値の閾値は±'+th+'％で計算されます。';
+    var t=document.getElementById('wpTime').value.trim();
+    var k=document.getElementById('wpK18').value.trim();
+    var pt=document.getElementById('wpPt').value.trim();
+    var th=document.getElementById('wpTh').value.trim();
+    var ng=[];
+    if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(t)) ng.push('更新時刻は HH:MM で入力してください');
+    [['K18の掛け率',k],['Pt900の掛け率',pt]].forEach(function(x){
+      var v=parseFloat(x[1]);
+      if(isNaN(v)||v<=0||v>1) ng.push(x[0]+'は 0より大きく1以下の数で入力してください');
+    });
+    var tv=parseFloat(th);
+    if(isNaN(tv)||tv<=0||tv>50) ng.push('異常値の閾値は 1〜50 の範囲で入力してください');
     m.classList.add('on');
+    if(ng.length){
+      m.classList.add('ng');
+      m.textContent='保存できませんでした。'+ng.join(' / ');
+      return;
+    }
+    m.classList.remove('ng');
+    var auto=document.getElementById('sw1').classList.contains('on');
+    var shown=document.getElementById('sw2').classList.contains('on');
+    m.textContent='設定を保存しました。'
+      + (auto ? '次回の自動更新（明日 '+t+'）から、K18 は相場×'+k+'、Pt900 は相場×'+pt+'、異常値の閾値は±'+th+'％で計算されます。'
+              : '自動更新は停止中です。再開するまで、価格は手動で更新しない限り変わりません。')
+      + (shown ? '' : ' 価格表はトップに表示されません。');
   });
 })();
 </script>
