@@ -1,0 +1,134 @@
+/* ==========================================================================
+   MOTION — 「高級店の間」を作る動き。全部 prefers-reduced-motion で止まる
+   イージングは cubic-bezier(.16,1,.3,1)（expo out）で統一
+   ========================================================================== */
+:root{--ez:cubic-bezier(.16,1,.3,1)}
+
+/* 幕：ロード時に黒からロゴが立ち上がって抜ける */
+#curtain{position:fixed;inset:0;z-index:100;background:#000;display:flex;
+  align-items:center;justify-content:center;opacity:1;visibility:visible;
+  transition:opacity .8s .5s var(--ez),visibility .8s .5s}
+#curtain .w{font-family:var(--lat);text-transform:uppercase;font-size:26px;font-weight:500;
+  line-height:1;text-align:center;color:#fff;opacity:0;letter-spacing:.5em;
+  animation:curtainWord 1.1s .1s var(--ez) forwards}
+#curtain .w i{font-style:normal;display:block;font-size:9px;letter-spacing:.42em;
+  font-weight:300;color:#8a8a8a;margin-top:8px}
+@keyframes curtainWord{0%{opacity:0;letter-spacing:.62em}60%{opacity:1}100%{opacity:1;letter-spacing:.14em}}
+body.loaded #curtain{opacity:0;visibility:hidden}
+
+/* ヒーロー：ケン・バーンズ（ゆっくり寄る） */
+.hero>img{transform:scale(1.02)}
+body.loaded .hero>img{animation:kenburns 26s 1.2s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+
+/* 見出し：行ごとに下から立ち上げる */
+.rl{display:block;overflow:hidden;padding-bottom:.06em}
+.rl>span{display:block;transform:translateY(112%);transition:transform 1.05s var(--ez)}
+body.loaded h1 .rl>span{transform:none}
+h1 .rl:nth-of-type(1)>span{transition-delay:.95s}
+h1 .rl:nth-of-type(2)>span{transition-delay:1.06s}
+h1 .rl:nth-of-type(3)>span{transition-delay:1.17s}
+.rv.in .rl>span{transform:none}
+.rv .rl:nth-of-type(1)>span{transition-delay:.06s}
+.rv .rl:nth-of-type(2)>span{transition-delay:.15s}
+.rv .rl:nth-of-type(3)>span{transition-delay:.24s}
+
+/* ヒーローの周辺要素を順に */
+.hero .eyebrow,.hero .sub,.hero .btn,.hero .facts,.scrollhint{
+  opacity:0;transform:translateY(14px);transition:opacity .9s var(--ez),transform .9s var(--ez)}
+body.loaded .hero .eyebrow{opacity:1;transform:none;transition-delay:.8s}
+body.loaded .hero .sub{opacity:1;transform:none;transition-delay:1.3s}
+body.loaded .hero .btn{opacity:1;transform:none;transition-delay:1.45s}
+body.loaded .hero .facts{opacity:1;transform:none;transition-delay:1.6s}
+body.loaded .scrollhint{opacity:1;transform:translateX(-50%);transition-delay:1.9s;
+  animation:scrollPulse 2.4s 2.6s infinite}
+@keyframes scrollPulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+/* 出現：フェードアップ */
+.rv{opacity:0;transform:translateY(28px);
+  transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.rv.in{opacity:1;transform:none}
+
+/* 画像：下から幕が開き、同時に寄りが戻る */
+.ib{overflow:hidden;position:relative;clip-path:inset(0 0 100% 0);
+  transition:clip-path 1.2s var(--ez)}
+.ib.in{clip-path:inset(0 0 0 0)}
+.ib>img{transform:scale(1.14);transition:transform 1.6s var(--ez)}
+.ib.in>img{transform:none}
+.tile:hover .ib>img,.seat:hover .ib>img{transform:scale(1.06)}
+
+/* 帯：視差＋文字のトラッキングが締まる */
+.band img{will-change:transform}
+.band .t p,.band .t span{opacity:0;transition:opacity 1.1s var(--ez),letter-spacing 1.4s var(--ez)}
+.band .t p{letter-spacing:.24em}
+.band.in .t p{opacity:1;letter-spacing:.08em}
+.band.in .t span{opacity:1;transition-delay:.35s}
+
+/* ナビ：下スクロールで隠れ、上で戻る／リンクに金の下線 */
+.nav{transition:transform .5s var(--ez),background .35s ease,border-color .35s ease}
+.nav.hide{transform:translateY(-101%)}
+.navg a{position:relative;padding-bottom:3px}
+.navg a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;
+  background:var(--gold);transition:right .4s var(--ez)}
+.navg a:hover::after{right:0}
+
+/* ボタン：白が左から満ちる */
+.btn{position:relative;overflow:hidden;z-index:0}
+.btn::before{content:"";position:absolute;inset:0;background:#fff;
+  transform:translateX(-101%);transition:transform .45s var(--ez);z-index:-1}
+.btn:hover{background:var(--gold)}
+.btn:hover::before{transform:none}
+.ghost{position:relative;overflow:hidden;z-index:0;transition:color .35s ease,border-color .35s ease}
+.ghost::before{content:"";position:absolute;inset:0;background:currentColor;opacity:.12;
+  transform:translateY(101%);transition:transform .4s var(--ez);z-index:-1}
+.ghost:hover::before{transform:none}
+.ghost:hover{opacity:1;border-color:var(--gold);color:var(--gold)}
+.ghost.on::before{display:none}
+
+/* メニューのタブ切替：時間差で立ち上がる */
+.tile.show{animation:tileIn .7s var(--ez) both}
+.tile.show:nth-child(2){animation-delay:.05s}
+.tile.show:nth-child(3){animation-delay:.1s}
+.tile.show:nth-child(4){animation-delay:.15s}
+.tile.show:nth-child(5){animation-delay:.2s}
+.tile.show:nth-child(6){animation-delay:.25s}
+@keyframes tileIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* 席・プラン・FAQ・アクセス：行ごとに時間差 */
+.stagger>*{opacity:0;transform:translateY(20px);
+  transition:opacity .9s var(--ez),transform .9s var(--ez)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(2){transition-delay:.1s}
+.stagger.in>*:nth-child(3){transition-delay:.2s}
+.stagger.in>*:nth-child(4){transition-delay:.3s}
+.stagger.in>*:nth-child(5){transition-delay:.4s}
+.stagger.in>*:nth-child(6){transition-delay:.5s}
+
+/* 見出し脇の金の線が伸びる */
+.kicker::after{content:"";display:inline-block;vertical-align:middle;height:1px;
+  background:var(--gold);width:0;margin-left:16px;transition:width 1.1s .25s var(--ez)}
+.rv.in .kicker::after{width:64px}
+
+/* FAQ：開閉をなめらかに */
+.faq .a{overflow:hidden}
+.faq details[open] .a{animation:faqOpen .5s var(--ez)}
+@keyframes faqOpen{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+/* 仕切り */
+.divider p{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ez),transform 1s var(--ez)}
+.divider .n{opacity:0;transition:opacity .8s var(--ez)}
+.divider.in p{opacity:1;transform:none;transition-delay:.15s}
+.divider.in .n{opacity:1}
+
+/* 動きを止める設定の人には一切動かさない */
+@media(prefers-reduced-motion:reduce){
+  #curtain{display:none}
+  .hero>img,body.loaded .hero>img{animation:none;transform:none}
+  .rl>span,.rv,.ib,.ib>img,.hero .eyebrow,.hero .sub,.hero .btn,.hero .facts,.scrollhint,
+  .band .t p,.band .t span,.stagger>*,.divider p,.divider .n{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important;animation:none !important}
+  .band .t p{letter-spacing:.08em}
+  .kicker::after{width:64px;transition:none}
+  html{scroll-behavior:auto}
+}
