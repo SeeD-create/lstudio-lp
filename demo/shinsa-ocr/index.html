@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>審査書類AI解析ダッシュボード（PoCデモ）</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Barlow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e2038; --navy2:#16304f; --line:#dde5ef; --line2:#eef3f9;
+  --bg:#f4f7fb; --card:#fff; --ink:#16283f; --ink2:#5c7189;
+  --blue:#2563eb; --blue2:#eaf1ff;
+  --ok:#15803d; --ok2:#e8f6ec;
+  --warn:#b45309; --warn2:#fdf3e3;
+  --bad:#c2261e; --bad2:#fdecea;
+}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Zen Kaku Gothic New",system-ui,-apple-system,sans-serif;
+  font-size:14px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.num{font-family:"Barlow",sans-serif;font-variant-numeric:tabular-nums}
+
+/* ---------- ribbon ---------- */
+.ribbon{background:#0a1424;color:#94a9c8;font-size:12px;text-align:center;padding:7px 14px;line-height:1.6}
+.ribbon b{color:#fff}
+
+/* ---------- topbar ---------- */
+.top{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;
+  padding:10px 18px;position:sticky;top:0;z-index:40;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:15px;letter-spacing:.02em}
+.brand .mk{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#3b82f6,#22d3ee);
+  display:grid;place-items:center;font-size:13px;font-weight:700;color:#06182f}
+.top .env{font-size:11px;color:#8fb0d8;border:1px solid #2b445f;padding:2px 8px;border-radius:999px}
+.spacer{flex:1}
+.drive{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#cfe0f7;
+  background:#0a1930;border:1px solid #24405f;border-radius:999px;padding:5px 13px}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.dot.pulse{animation:pl 1.6s infinite}
+@keyframes pl{0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.18)}50%{box-shadow:0 0 0 7px rgba(34,197,94,.04)}}
+.tourbtn{background:#2563eb;color:#fff;border:0;border-bottom:3px solid #1d4ed8;border-radius:9px;
+  font:700 13px/1 "Zen Kaku Gothic New",sans-serif;padding:10px 16px;cursor:pointer}
+.tourbtn.ghost{background:transparent;border:1px solid #33506f;border-bottom-width:3px;color:#cfe0f7}
+
+/* ---------- layout ---------- */
+.shell{display:grid;grid-template-columns:212px 1fr;gap:0;min-height:calc(100vh - 96px)}
+.nav{background:#fff;border-right:1px solid var(--line);padding:14px 10px}
+.nav h6{font-size:10.5px;letter-spacing:.12em;color:#8ea3ba;font-weight:700;padding:8px 10px 4px}
+.nav a{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;color:#2e445e;
+  text-decoration:none;font-size:13.5px;font-weight:500;cursor:pointer}
+.nav a:hover{background:#f2f6fc}
+.nav a.on{background:var(--blue2);color:#14428f;font-weight:700}
+.nav a .ic{width:20px;text-align:center;font-size:14px}
+.nav a .badge{margin-left:auto;background:var(--bad);color:#fff;font-size:10.5px;font-weight:700;
+  border-radius:999px;padding:1px 7px;font-family:"Barlow",sans-serif}
+.main{padding:20px 22px 70px;overflow:hidden}
+.view{display:none}
+.view.on{display:block;animation:fade .32s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+h1{font-size:19px;font-weight:900;letter-spacing:.01em;margin-bottom:3px}
+.lead{color:var(--ink2);font-size:13px;margin-bottom:16px}
+
+/* ---------- cards ---------- */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.kpi .k{font-size:11.5px;color:var(--ink2);font-weight:700;letter-spacing:.02em}
+.kpi .v{font-size:27px;font-weight:700;line-height:1.25;font-family:"Barlow",sans-serif}
+.kpi .v small{font-size:13px;font-weight:600;color:var(--ink2);margin-left:3px}
+.kpi .d{font-size:11.5px;color:var(--ink2)}
+.kpi.good .v{color:var(--ok)} .kpi.warn .v{color:var(--warn)} .kpi.bad .v{color:var(--bad)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.card > h2{font-size:13.5px;font-weight:700;padding:11px 15px;border-bottom:1px solid var(--line2);
+  display:flex;align-items:center;gap:9px}
+.card > h2 .tag{font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:999px;
+  background:var(--blue2);color:#14428f;margin-left:auto}
+.pad{padding:14px 15px}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;background:#f7fafd;color:#59708b;font-weight:700;font-size:11.5px;
+  letter-spacing:.03em;padding:8px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer}
+tr.click:hover{background:#f7fbff}
+tr.hl{background:#fffbea!important;box-shadow:inset 3px 0 0 #f59e0b}
+.r{text-align:right;font-family:"Barlow",sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
+  border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pill.ok{background:var(--ok2);color:var(--ok)}
+.pill.run{background:var(--blue2);color:#14428f}
+.pill.warn{background:var(--warn2);color:var(--warn)}
+.pill.bad{background:var(--bad2);color:var(--bad)}
+.pill.mute{background:#eef2f7;color:#5c7189}
+
+.conf{display:inline-flex;align-items:center;gap:6px;font-family:"Barlow",sans-serif;font-size:12px;font-weight:600}
+.bar{width:44px;height:5px;border-radius:3px;background:#e5ecf4;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.bar.w i{background:var(--warn)} .bar.b i{background:var(--bad)}
+
+/* ---------- doc grid ---------- */
+.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.doc{border:1px solid var(--line);border-radius:11px;background:#fff;overflow:hidden}
+.doc .hd{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--line2);
+  font-size:12.5px;font-weight:700}
+.doc .thumb{height:74px;background:repeating-linear-gradient(135deg,#f3f7fc 0 10px,#eef4fa 10px 20px);
+  display:grid;place-items:center;color:#9db2c9;font-size:11.5px;border-bottom:1px solid var(--line2)}
+.doc .bd{padding:9px 12px;font-size:12.5px;display:grid;gap:5px}
+.doc .row{display:flex;justify-content:space-between;gap:8px}
+.doc .row span:first-child{color:var(--ink2)}
+.doc .row b{font-weight:700;font-family:"Barlow",sans-serif}
+
+/* ---------- diff ---------- */
+.diff{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.diff > div{padding:0}
+.diff h3{font-size:12px;font-weight:700;padding:9px 13px;background:#f7fafd;border-bottom:1px solid var(--line);
+  color:#59708b;letter-spacing:.03em}
+.diff .side + .side{border-left:1px solid var(--line)}
+.dl{display:grid;grid-template-columns:96px 1fr;gap:8px;padding:8px 13px;border-bottom:1px solid var(--line2);font-size:12.5px}
+.dl span{color:var(--ink2)}
+.dl b{font-weight:700}
+.dl.chg{background:#fffbea}
+.dl.chg b{color:var(--warn)}
+.dl.miss{background:var(--bad2)}
+.dl.miss b{color:var(--bad)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.chip{font-size:11.5px;font-weight:700;border-radius:7px;padding:3px 9px;background:#eef2f7;color:#5c7189;
+  font-family:"Barlow",sans-serif}
+.chip.bad{background:var(--bad2);color:var(--bad)}
+.chip.ok{background:var(--ok2);color:var(--ok)}
+
+/* ---------- alerts ---------- */
+.alist{display:grid;gap:8px}
+.al{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:start;
+  border:1px solid var(--line);border-left-width:4px;border-radius:9px;padding:9px 12px;font-size:13px}
+.al.bad{border-left-color:var(--bad);background:#fffafa}
+.al.warn{border-left-color:var(--warn);background:#fffdf7}
+.al.info{border-left-color:var(--blue);background:#fafcff}
+.al .t{font-weight:700}
+.al .s{font-size:12px;color:var(--ink2)}
+.al .ic{font-size:15px;text-align:center}
+.btn-s{border:1px solid var(--line);background:#fff;border-radius:7px;font:700 11.5px/1 inherit;
+  padding:6px 11px;color:#2e445e;cursor:pointer;white-space:nowrap}
+.btn-s:hover{background:#f4f8fd}
+
+/* ---------- json ---------- */
+pre{background:#0e2038;color:#d7e6fb;border-radius:11px;padding:15px 17px;font-size:12.2px;
+  line-height:1.75;overflow-x:auto;font-family:"Barlow",ui-monospace,Menlo,Consolas,monospace}
+pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#7f9ec4}
+
+/* ---------- mail ---------- */
+.mail{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#fff;max-width:680px}
+.mail .mh{padding:11px 15px;border-bottom:1px solid var(--line2);background:#f7fafd;font-size:12.5px}
+.mail .mh b{font-size:14px}
+.mail .mb{padding:15px;font-size:13px;line-height:1.95}
+.mail .mb .box{border:1px solid var(--line);border-radius:8px;padding:10px 13px;margin:10px 0;background:#fafcff}
+
+/* ---------- flow ---------- */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+.fstep{border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:#fff;position:relative}
+.fstep .n{font-family:"Barlow",sans-serif;font-size:11px;font-weight:700;color:#9db2c9}
+.fstep .t{font-size:12.8px;font-weight:700;line-height:1.5;margin:2px 0 3px}
+.fstep .s{font-size:11.5px;color:var(--ink2);line-height:1.6}
+.fstep.act{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.fstep.done{background:#fafdfb;border-color:#bfe3cb}
+
+/* ---------- tour ---------- */
+.spot{position:relative;z-index:35;box-shadow:0 0 0 3px rgba(37,99,235,.28),0 10px 30px rgba(14,32,56,.13);
+  border-radius:12px;transition:box-shadow .3s}
+.cap{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;
+  background:#0e2038;color:#fff;border-radius:12px;padding:13px 20px;max-width:min(760px,92vw);
+  box-shadow:0 16px 40px rgba(6,18,36,.34);display:none;align-items:center;gap:14px}
+.cap.on{display:flex}
+.cap .txt{font-size:14px;line-height:1.7}
+.cap .txt b{color:#7fd1ff}
+.cap .stepn{font-family:"Barlow",sans-serif;font-size:11.5px;color:#8fb0d8;white-space:nowrap;font-weight:600}
+.cap .x{background:transparent;border:1px solid #33506f;color:#cfe0f7;border-radius:7px;
+  font:700 11.5px/1 inherit;padding:7px 10px;cursor:pointer;white-space:nowrap}
+.prog{position:fixed;left:0;top:0;height:3px;background:#2563eb;z-index:61;width:0;transition:width .3s}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;right:18px;top:66px;z-index:55;display:grid;gap:8px}
+.tt{background:#fff;border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:10px;
+  padding:10px 14px;font-size:12.8px;box-shadow:0 10px 26px rgba(14,32,56,.13);
+  animation:slid .4s ease;max-width:310px}
+.tt b{display:block;font-size:13px}
+@keyframes slid{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+.foot{color:#7d8fb3;font-size:12px;padding:18px 22px 40px;border-top:1px solid var(--line);margin-top:10px}
+.foot a{color:#2563eb}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .nav{display:flex;gap:4px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}
+  .nav h6{display:none}
+  .nav a{white-space:nowrap;padding:8px 12px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .docs{grid-template-columns:1fr}
+  .diff{grid-template-columns:1fr}
+  .diff .side + .side{border-left:0;border-top:1px solid var(--line)}
+  .flow{grid-template-columns:1fr 1fr}
+  .main{padding:15px 13px 70px}
+  table{font-size:12.3px}
+  th,td{padding:7px 9px}
+  .hide-sp{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ribbon">これは<b>ご提案用のデモ</b>です。顧客名・金融機関名・金額はすべて<b>架空</b>で、実在の個人・法人の情報は含まれていません。</div>
+
+<div class="top">
+  <div class="brand"><span class="mk">審</span>審査書類 AI解析 <span style="font-weight:500;color:#9fc0e4">PoC</span></div>
+  <div class="drive" id="driveBox"><span class="dot pulse"></span><span id="driveTxt">Google Drive 監視中 ・ 最終検出 2分前</span></div>
+  <div class="spacer"></div>
+  <button class="tourbtn" id="btnTour">自動デモを再生</button>
+  <button class="tourbtn ghost hide-sp" id="btnReset">最初から</button>
+</div>
+
+<div class="shell">
+  <nav class="nav">
+    <h6>審査</h6>
+    <a data-v="dash" class="on"><span class="ic">▤</span>ダッシュボード</a>
+    <a data-v="list"><span class="ic">▦</span>案件一覧<span class="badge num" id="navBadge">3</span></a>
+    <a data-v="detail"><span class="ic">▢</span>書類解析</a>
+    <a data-v="diff"><span class="ic">⇄</span>前回との比較</a>
+    <h6>連携</h6>
+    <a data-v="json"><span class="ic">{ }</span>JSON出力</a>
+    <a data-v="mail"><span class="ic">✉</span>通知メール</a>
+    <a data-v="flow"><span class="ic">◇</span>処理の流れ</a>
+  </nav>
+
+  <div class="main">
+
+    <!-- ============ ダッシュボード ============ -->
+    <section class="view on" id="v-dash">
+      <h1>審査ダッシュボード</h1>
+      <p class="lead">Google Drive に届いた書類を自動で読み取り、<b>審査担当者が「差分と警告だけ」を見れば済む状態</b>にします。判断と送信は人が行います。</p>
+
+      <div class="kpis" id="kpiRow">
+        <div class="kpi"><div class="k">本日の到着案件</div><div class="v num" id="k1">8</div><div class="d">うち解析完了 7件</div></div>
+        <div class="kpi good"><div class="k">自動抽出できた項目</div><div class="v num" id="k2">96.4<small>%</small></div><div class="d">要目視 14項目</div></div>
+        <div class="kpi warn"><div class="k">要確認の警告</div><div class="v num" id="k3">5</div><div class="d">重複2・欠落2・不一致1</div></div>
+        <div class="kpi"><div class="k">1件あたり確認時間</div><div class="v num" id="k4">6<small>分</small></div><div class="d">導入前 28分（実測前の想定値）</div></div>
+      </div>
+
+      <div class="card" id="cardQueue">
+        <h2>Drive 監視の状況<span class="tag">5分ごとに差分を確認</span></h2>
+        <div class="pad" style="padding:0">
+          <table>
+            <thead><tr><th style="width:34%">監視フォルダ</th><th>状態</th><th class="hide-sp">最終検出</th><th class="r">新規ファイル</th></tr></thead>
+            <tbody>
+              <tr><td>/申込/2026-09/ ヒナタ商会</td><td><span class="pill ok">解析完了</span></td><td class="hide-sp">2分前</td><td class="r">6</td></tr>
+              <tr id="rowWait"><td>/申込/2026-09/ みらい建材</td><td><span class="pill run" id="waitPill">追加待ち 03:12</span></td><td class="hide-sp">たった今</td><td class="r">3</td></tr>
+              <tr><td>/申込/2026-09/ 日進フーズ</td><td><span class="pill warn">要確認あり</span></td><td class="hide-sp">18分前</td><td class="r">9</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" id="cardAlerts">
+        <h2>審査担当者が見るべき指摘<span class="tag">AIは指摘まで・判断は人</span></h2>
+        <div class="pad">
+          <div class="alist">
+            <div class="al bad"><div class="ic">!</div>
+              <div><div class="t">別口座の明細が混ざっています</div>
+                <div class="s">みらい建材／銀行明細 3ページ目だけ口座番号が異なります（****4417 → ****9002）。前回提出分は全ページ ****4417 でした。</div></div>
+              <button class="btn-s">該当ページを開く</button></div>
+            <div class="al warn"><div class="ic">!</div>
+              <div><div class="t">請求書と発注書の金額が一致しません</div>
+                <div class="s">日進フーズ／請求書 1,284,000円 に対し、発注書は 1,248,000円。桁の入れ替わりの可能性があります。</div></div>
+              <button class="btn-s">2枚を並べて見る</button></div>
+            <div class="al warn"><div class="ic">!</div>
+              <div><div class="t">明細の期間が1か月抜けています</div>
+                <div class="s">ヒナタ商会／2026年6月分が提出されていません（4月・5月・7月・8月は揃っています）。</div></div>
+              <button class="btn-s">不足書類の依頼文を作る</button></div>
+            <div class="al info"><div class="ic">i</div>
+              <div><div class="t">同じ請求書が2回アップロードされています</div>
+                <div class="s">ヒナタ商会／INV-2026-0731 が 2ファイル。内容は同一のため、片方を重複として除外しました。</div></div>
+              <button class="btn-s">除外を取り消す</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 案件一覧 ============ -->
+    <section class="view" id="v-list">
+      <h1>案件一覧</h1>
+      <p class="lead">申込フォルダ単位で並びます。<b>状態と警告の件数だけ</b>見れば、どれから手を付けるかが決まります。</p>
+      <div class="card">
+        <h2>2026年9月の申込<span class="tag">Drive フォルダと1対1</span></h2>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>申込ID</th><th>申込者（架空）</th><th class="r">書類</th><th>解析</th><th class="r">抽出信頼度</th><th class="r">警告</th><th class="hide-sp">最終更新</th></tr></thead>
+          <tbody id="listBody">
+            <tr class="click" data-go="detail"><td class="num">AP-2609-0148</td><td>株式会社ヒナタ商会</td><td class="r num">6</td><td><span class="pill ok">完了</span></td>
+              <td class="r"><span class="conf"><span class="bar"><i style="width:97%"></i></span>97%</span></td><td class="r num">2</td><td class="hide-sp">2分前</td></tr>
+            <tr class="click" data-go="diff"><td class="num">AP-2609-0147</td><td>みらい建材株式会社</td><td class="r num">3</td><td><span class="pill run">解析中</span></td>
+              <td class="r"><span class="conf"><span class="bar w"><i style="width:82%"></i></span>82%</span></td><td class="r num">1</td><td class="hide-sp">たった今</td></tr>
+            <tr class="click"><td class="num">AP-2609-0146</td><td>日進フーズ株式会社</td><td class="r num">9</td><td><span class="pill warn">要確認</span></td>
+              <td class="r"><span class="conf"><span class="bar"><i style="width:94%"></i></span>94%</span></td><td class="r num">2</td><td class="hide-sp">18分前</td></tr>
+            <tr class="click"><td class="num">AP-2609-0145</td><td>合同会社ケヤキ運輸</td><td class="r num">5</td><td><span class="pill ok">完了</span></td>
+              <td class="r"><span class="conf"><span class="bar"><i style="width:99%"></i></span>99%</span></td><td class="r num">0</td><td class="hide-sp">1時間前</td></tr>
+            <tr class="click"><td class="num">AP-2609-0144</td><td>株式会社ハルカゼ工業</td><td class="r num">7</td><td><span class="pill ok">完了</span></td>
+              <td class="r"><span class="conf"><span class="bar"><i style="width:95%"></i></span>95%</span></td><td class="r num">0</td><td class="hide-sp">3時間前</td></tr>
+            <tr class="click"><td class="num">AP-2609-0143</td><td>有限会社トキワ商店</td><td class="r num">4</td><td><span class="pill bad">読取失敗1</span></td>
+              <td class="r"><span class="conf"><span class="bar b"><i style="width:61%"></i></span>61%</span></td><td class="r num">3</td><td class="hide-sp">昨日</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 書類解析 ============ -->
+    <section class="view" id="v-detail">
+      <h1>書類解析 ― AP-2609-0148 株式会社ヒナタ商会</h1>
+      <p class="lead">ファイルを開かずに、<b>何の書類が何枚あって、どの数字が読めたか</b>が並びます。信頼度が低い項目には自動で印が付きます。</p>
+
+      <div class="card" id="cardDocs">
+        <h2>受領した書類（6件）<span class="tag">種別はAIが自動判定</span></h2>
+        <div class="pad">
+          <div class="docs">
+            <div class="doc"><div class="hd"><span class="pill ok">請求書</span><span class="num" style="font-size:11.5px;color:#8ea3ba">INV-2026-0731.pdf</span></div>
+              <div class="thumb">PDF ・ 1ページ</div>
+              <div class="bd">
+                <div class="row"><span>請求元</span><b>ヒナタ商会</b></div>
+                <div class="row"><span>請求先</span><b>ミナミ電機</b></div>
+                <div class="row"><span>金額</span><b>1,738,000</b></div>
+                <div class="row"><span>支払期日</span><b>2026-10-31</b></div>
+                <div class="row"><span>信頼度</span><span class="conf"><span class="bar"><i style="width:98%"></i></span>98%</span></div>
+              </div></div>
+            <div class="doc"><div class="hd"><span class="pill ok">銀行明細</span><span class="num" style="font-size:11.5px;color:#8ea3ba">meisai_2608.pdf</span></div>
+              <div class="thumb">PDF ・ 4ページ</div>
+              <div class="bd">
+                <div class="row"><span>金融機関</span><b>アカツキ第一銀行</b></div>
+                <div class="row"><span>口座名義</span><b>カ）ヒナタシヨウカイ</b></div>
+                <div class="row"><span>対象期間</span><b>2026-08</b></div>
+                <div class="row"><span>期末残高</span><b>4,182,530</b></div>
+                <div class="row"><span>信頼度</span><span class="conf"><span class="bar"><i style="width:96%"></i></span>96%</span></div>
+              </div></div>
+            <div class="doc" id="docWarn"><div class="hd"><span class="pill warn">通帳写真</span><span class="num" style="font-size:11.5px;color:#8ea3ba">IMG_4471.JPG</span></div>
+              <div class="thumb">JPG ・ 傾き 7.4° 補正済</div>
+              <div class="bd">
+                <div class="row"><span>金融機関</span><b>アカツキ第一銀行</b></div>
+                <div class="row"><span>取引日</span><b>2026-07-14 ほか</b></div>
+                <div class="row"><span>残高</span><b style="color:var(--warn)">3,9?7,120</b></div>
+                <div class="row"><span>信頼度</span><span class="conf"><span class="bar w"><i style="width:71%"></i></span>71%</span></div>
+                <div class="row" style="color:var(--warn);font-size:11.8px">1文字が読み取れません。人の目での確認を推奨します。</div>
+              </div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="cardMatch">
+        <h2>請求書と取引証拠の照合<span class="tag">突合はルール・判断は人</span></h2>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>項目</th><th>請求書</th><th>発注書</th><th>入金明細</th><th>判定</th></tr></thead>
+          <tbody>
+            <tr><td>取引先</td><td>ミナミ電機</td><td>ミナミ電機㈱</td><td>ミナミデンキ(カ</td><td><span class="pill ok">一致（表記ゆれ吸収）</span></td></tr>
+            <tr><td>金額</td><td class="num">1,738,000</td><td class="num">1,738,000</td><td class="num">1,738,000</td><td><span class="pill ok">一致</span></td></tr>
+            <tr class="hl"><td>支払期日 / 入金日</td><td class="num">2026-10-31</td><td class="num">―</td><td class="num">2026-11-07</td><td><span class="pill warn">7日遅れ</span></td></tr>
+            <tr><td>件名</td><td>制御盤一式</td><td>制御盤一式</td><td>―</td><td><span class="pill ok">一致</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 前回比較 ============ -->
+    <section class="view" id="v-diff">
+      <h1>前回提出分との比較 ― みらい建材株式会社</h1>
+      <p class="lead">同じ申込者の<b>前回と今回を機械が突き合わせ</b>ます。審査担当者が見るのは、色の付いた行だけです。</p>
+
+      <div class="card" id="cardDiff">
+        <h2>銀行資料の照合<span class="tag">口座・期間・残高・ページ順</span></h2>
+        <div class="pad">
+          <div class="diff">
+            <div class="side">
+              <h3>前回（2026年6月 提出）</h3>
+              <div class="dl"><span>金融機関</span><b>アカツキ第一銀行 本店</b></div>
+              <div class="dl"><span>口座番号</span><b>****4417</b></div>
+              <div class="dl"><span>口座名義</span><b>カ）ミライケンザイ</b></div>
+              <div class="dl"><span>対象期間</span><b>2026-01 〜 2026-05</b></div>
+              <div class="dl"><span>ページ数</span><b>12</b></div>
+              <div class="dl"><span>期末残高</span><b>2,845,900</b></div>
+              <div class="dl"><span>入金合計</span><b>18,420,000</b></div>
+            </div>
+            <div class="side">
+              <h3>今回（2026年9月 提出）</h3>
+              <div class="dl"><span>金融機関</span><b>アカツキ第一銀行 本店</b></div>
+              <div class="dl miss"><span>口座番号</span><b>****4417 ／ ****9002（3ページ目のみ）</b></div>
+              <div class="dl"><span>口座名義</span><b>カ）ミライケンザイ</b></div>
+              <div class="dl chg"><span>対象期間</span><b>2026-06 〜 2026-08（7月が欠落）</b></div>
+              <div class="dl chg"><span>ページ数</span><b>9（順序が入れ替わり 2件）</b></div>
+              <div class="dl chg"><span>期末残高</span><b>1,004,220 ／ 前回比 −64.7%</b></div>
+              <div class="dl"><span>入金合計</span><b>11,980,000</b></div>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip bad">別口座の混入 1ページ</span>
+            <span class="chip bad">欠落期間 2026-07</span>
+            <span class="chip">ページ順序の入替 2件</span>
+            <span class="chip">重複ページ 0件</span>
+            <span class="chip ok">口座名義 一致</span>
+            <span class="chip ok">金融機関 一致</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>審査担当者への提示文（自動生成・送信前の下書き）</h2>
+        <div class="pad" style="font-size:13.4px;line-height:2">
+          前回提出分と比べ、<b>期末残高が64.7%減少</b>しています。あわせて <b>2026年7月の明細が提出されていません</b>。
+          3ページ目のみ口座番号が異なるため、<b>別口座の資料が混在している可能性</b>があります。
+          以上3点をご確認のうえ、追加資料の依頼要否をご判断ください。
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-s">追加資料の依頼メールを作る</button>
+            <button class="btn-s">確認済みにする</button>
+            <button class="btn-s">この指摘は不要（学習しない設定）</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JSON ============ -->
+    <section class="view" id="v-json">
+      <h1>JSON出力</h1>
+      <p class="lead">画面に出ているものは、<b>すべてこの形で外に出せます</b>。本番の審査システムへ載せ替えるときは、この仕様書がそのまま引き継ぎ資料になります。</p>
+      <div class="card" id="cardJson">
+        <h2>抽出結果スキーマ（抜粋）<span class="tag">1申込 = 1オブジェクト</span></h2>
+        <div class="pad">
+<pre><span class="c">// GET /api/applications/AP-2609-0147</span>
+{
+  <span class="k">"application_id"</span>: <span class="s">"AP-2609-0147"</span>,
+  <span class="k">"drive_folder_id"</span>: <span class="s">"1x9Kd...ZqR"</span>,
+  <span class="k">"detected_at"</span>: <span class="s">"2026-09-13T09:41:22+09:00"</span>,
+  <span class="k">"status"</span>: <span class="s">"needs_review"</span>,
+  <span class="k">"documents"</span>: [
+    {
+      <span class="k">"file"</span>: <span class="s">"meisai_2608.pdf"</span>,
+      <span class="k">"type"</span>: <span class="s">"bank_statement"</span>,
+      <span class="k">"type_confidence"</span>: <span class="n">0.98</span>,
+      <span class="k">"fields"</span>: {
+        <span class="k">"bank_name"</span>:    { <span class="k">"value"</span>: <span class="s">"アカツキ第一銀行"</span>, <span class="k">"confidence"</span>: <span class="n">0.99</span> },
+        <span class="k">"account_no"</span>:   { <span class="k">"value"</span>: <span class="s">"****4417"</span>,   <span class="k">"confidence"</span>: <span class="n">0.97</span> },
+        <span class="k">"period"</span>:       { <span class="k">"value"</span>: <span class="s">"2026-06/2026-08"</span>, <span class="k">"confidence"</span>: <span class="n">0.95</span> },
+        <span class="k">"closing_balance"</span>:{ <span class="k">"value"</span>: <span class="n">1004220</span>,   <span class="k">"confidence"</span>: <span class="n">0.93</span> }
+      },
+      <span class="k">"warnings"</span>: [
+        { <span class="k">"code"</span>: <span class="s">"MIXED_ACCOUNT"</span>, <span class="k">"page"</span>: <span class="n">3</span>, <span class="k">"detail"</span>: <span class="s">"****9002"</span> },
+        { <span class="k">"code"</span>: <span class="s">"PERIOD_GAP"</span>,    <span class="k">"detail"</span>: <span class="s">"2026-07"</span> }
+      ]
+    }
+  ],
+  <span class="k">"comparison_with_previous"</span>: {
+    <span class="k">"previous_application_id"</span>: <span class="s">"AP-2606-0091"</span>,
+    <span class="k">"closing_balance_change_pct"</span>: <span class="n">-64.7</span>,
+    <span class="k">"missing_periods"</span>: [<span class="s">"2026-07"</span>],
+    <span class="k">"page_order_changed"</span>: <span class="n">2</span>,
+    <span class="k">"duplicate_pages"</span>: <span class="n">0</span>
+  },
+  <span class="k">"review"</span>: { <span class="k">"decided_by"</span>: <span class="s">null</span>, <span class="k">"decided_at"</span>: <span class="s">null</span> }
+}</pre>
+          <p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">
+          <b>すべての値に confidence が付きます。</b>しきい値を下回った項目は画面上で印が付き、JSON上も <span class="num">needs_review</span> として区別されます。AIの出力をそのまま確定値として扱わない設計です。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 通知メール ============ -->
+    <section class="view" id="v-mail">
+      <h1>通知メール</h1>
+      <p class="lead">解析が終わった時点で、担当者に<b>「何を見ればよいか」だけ</b>を送ります。全文をメールに載せません（書類本体はDriveから出しません）。</p>
+      <div class="card"><h2>実際に届くメール</h2><div class="pad">
+        <div class="mail">
+          <div class="mh"><b>【要確認 2件】AP-2609-0147 みらい建材株式会社</b><br>
+            <span style="color:var(--ink2)">差出人: shinsa-bot@（貴社ドメイン）　宛先: 審査担当　2026-09-13 09:44</span></div>
+          <div class="mb">
+            書類3件の解析が完了しました。確認をお願いする点が2件あります。
+            <div class="box">
+              <b style="color:var(--bad)">1. 別口座の明細が混在</b><br>
+              銀行明細 3ページ目のみ口座番号が異なります（****4417 → ****9002）<br><br>
+              <b style="color:var(--warn)">2. 明細の欠落</b><br>
+              2026年7月分が提出されていません
+            </div>
+            期末残高は前回比 −64.7%（2,845,900 → 1,004,220）です。<br>
+            <a href="#" style="color:var(--blue)">▸ 審査画面でこの申込を開く</a><br>
+            <a href="#" style="color:var(--blue)">▸ 追加資料の依頼文（下書き）を見る</a>
+            <div style="margin-top:12px;font-size:12px;color:var(--ink2)">
+              ※ 書類の中身はこのメールに含めていません。閲覧には貴社アカウントでのログインが必要です。
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- ============ 処理の流れ ============ -->
+    <section class="view" id="v-flow">
+      <h1>処理の流れ</h1>
+      <p class="lead">ご依頼文に書かれていた5段階を、そのまま実装しています。<b>書類は貴社のGoogle Driveから出ません。</b></p>
+      <div class="card" id="cardFlow"><h2>検出から通知まで</h2><div class="pad">
+        <div class="flow" id="flowRow">
+          <div class="fstep" data-f="0"><div class="n">STEP 1</div><div class="t">Driveの差分を検出</div><div class="s">変更履歴を5分ごとに確認。フォルダごとに最終確認時刻を保持し、取りこぼしと二重処理を防ぎます。</div></div>
+          <div class="fstep" data-f="1"><div class="n">STEP 2</div><div class="t">追加完了を待つ</div><div class="s">最後のファイルから3分静かになるまで待機。1枚ずつ上げられても1回の解析にまとめます。</div></div>
+          <div class="fstep" data-f="2"><div class="n">STEP 3</div><div class="t">解析・再解析</div><div class="s">種別判定 → 項目抽出 → 照合。あとから書類が増えたら、その申込だけ再解析します。</div></div>
+          <div class="fstep" data-f="3"><div class="n">STEP 4</div><div class="t">管理画面に反映</div><div class="s">いまご覧の画面です。担当者は警告と差分だけを見ます。</div></div>
+          <div class="fstep" data-f="4"><div class="n">STEP 5</div><div class="t">担当者へメール</div><div class="s">確認事項だけを本文に。書類の中身はメールに載せません。</div></div>
+        </div>
+        <p style="margin-top:13px;font-size:12.8px;color:var(--ink2)">
+        ※ 解析は貴社のGoogle Cloudプロジェクト内で動かします。書類を社外のサービスへ渡さず、学習にも使いません。</p>
+      </div></div>
+    </section>
+
+  </div>
+</div>
+
+<div class="foot">
+  Lスタジオ（平野 淳一）　<a href="https://l-studiojp.com/">l-studiojp.com</a>　／　このデモに登場する会社名・金融機関名・口座番号・金額はすべて架空のものです。
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="prog" id="prog"></div>
+<div class="cap" id="cap">
+  <div class="stepn num" id="capN">1 / 14</div>
+  <div class="txt" id="capT"></div>
+  <button class="x" id="capX">停止</button>
+</div>
+
+<script>
+(function(){
+  var views = ['dash','list','detail','diff','json','mail','flow'];
+  function show(v){
+    views.forEach(function(x){
+      document.getElementById('v-'+x).classList.toggle('on', x===v);
+    });
+    document.querySelectorAll('.nav a').forEach(function(a){
+      a.classList.toggle('on', a.dataset.v===v);
+    });
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  document.querySelectorAll('.nav a').forEach(function(a){
+    a.addEventListener('click',function(){ stopTour(); show(a.dataset.v); });
+  });
+  document.querySelectorAll('tr.click').forEach(function(tr){
+    tr.addEventListener('click',function(){ if(tr.dataset.go){ stopTour(); show(tr.dataset.go); } });
+  });
+
+  /* 追加待ちカウントダウン */
+  var wait = 192, wp = document.getElementById('waitPill');
+  setInterval(function(){
+    if(wait<=0){ wp.className='pill ok'; wp.textContent='解析完了'; return; }
+    wait--;
+    var m = Math.floor(wait/60), s = wait%60;
+    wp.textContent = '追加待ち 0'+m+':'+(s<10?'0':'')+s;
+  },1000);
+
+  function toast(title, body){
+    var t = document.createElement('div');
+    t.className='tt'; t.innerHTML='<b>'+title+'</b>'+body;
+    document.getElementById('toast').appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .5s'; t.style.opacity=0;
+      setTimeout(function(){ t.remove(); },520); }, 4200);
+  }
+
+  /* ---------- tour ---------- */
+  var cap=document.getElementById('cap'), capT=document.getElementById('capT'),
+      capN=document.getElementById('capN'), prog=document.getElementById('prog');
+  var timer=null, idx=0, spotted=null;
+
+  function spot(sel){
+    if(spotted){ spotted.classList.remove('spot'); spotted=null; }
+    if(!sel) return;
+    var el=document.querySelector(sel);
+    if(!el) return;
+    el.classList.add('spot'); spotted=el;
+    var r=el.getBoundingClientRect();
+    if(r.top<70||r.bottom>window.innerHeight-120){
+      window.scrollTo({top:window.scrollY+r.top-110,behavior:'smooth'});
+    }
+  }
+
+  var steps=[
+    {v:'dash', s:null, t:'Google Drive に申込フォルダが増えるたび、<b>自動で読み取りが走ります</b>。担当者は何も操作しません。', d:5200},
+    {v:'dash', s:'#cardQueue', t:'<b>書類は1枚ずつ上がってきます。</b>最後の1枚から3分静かになるまで待ってから解析するので、途中の半端な状態で走りません。', d:6000},
+    {v:'dash', s:'#kpiRow', t:'読み取れた項目は<b>96.4%</b>。残りは「読めなかった」とはっきり出します。<b>AIに判断させず、人が見る対象を絞る</b>のが目的です。', d:6200},
+    {v:'dash', s:'#cardAlerts', t:'ここが本体です。<b>審査担当者が見るのは、この指摘だけ</b>。別口座の混入、金額の不一致、明細の欠落、重複アップロード。', d:7000},
+    {v:'list', s:null, t:'案件一覧は<b>Driveのフォルダと1対1</b>。状態と警告の数で、どれから手を付けるかが決まります。', d:5600},
+    {v:'detail', s:'#cardDocs', t:'書類を開かずに、<b>何の書類が何枚あって、どの数字が読めたか</b>が並びます。種別の判定もAIです。', d:6200},
+    {v:'detail', s:'#docWarn', t:'通帳の写真は傾き<b>7.4°</b>を補正しても1文字読めませんでした。こういう項目は<b>信頼度71%として印を付け、人の確認へ回します</b>。', d:6600},
+    {v:'detail', s:'#cardMatch', t:'請求書・発注書・入金明細を突き合わせます。<b>取引先名の表記ゆれは吸収</b>し、<b>期日と入金日の7日ずれ</b>だけを指摘します。', d:6800},
+    {v:'diff', s:'#cardDiff', t:'ご依頼文で一番むずかしい<b>「前回提出分との比較」</b>です。口座・期間・残高・ページ順序を機械が突き合わせます。', d:6400},
+    {v:'diff', s:'#cardDiff', t:'色が付いた3行が答えです。<b>3ページ目だけ別口座</b>、<b>7月分が欠落</b>、<b>残高が前回比−64.7%</b>。ここだけ人が見れば済みます。', d:7200},
+    {v:'json', s:'#cardJson', t:'画面の中身は<b>すべてJSONで取り出せます</b>。値ごとに confidence が付き、しきい値を下回れば needs_review として区別されます。', d:7000},
+    {v:'mail', s:null, t:'担当者に届くメールは<b>確認事項だけ</b>。書類の中身は載せません。閲覧には貴社アカウントでのログインが要ります。', d:6400},
+    {v:'flow', s:'#cardFlow', t:'ご依頼文にあった5段階を、そのまま実装しています。<b>解析は貴社のGoogle Cloudプロジェクト内</b>で動き、書類は社外に出ません。', d:6800},
+    {v:'flow', s:null, t:'PoCとしてここまでを <b>4週間・160,000円</b> でお出しします。ご自身でも触れます ― 左のメニューからどうぞ。', d:7600}
+  ];
+
+  function runStep(){
+    if(idx>=steps.length){ stopTour(true); return; }
+    var st=steps[idx];
+    show(st.v);
+    capN.textContent=(idx+1)+' / '+steps.length;
+    capT.innerHTML=st.t;
+    cap.classList.add('on');
+    prog.style.width=((idx+1)/steps.length*100)+'%';
+    setTimeout(function(){ spot(st.s); }, 220);
+    if(idx===3) setTimeout(function(){ toast('新しい申込を検出','みらい建材／銀行明細 3件を解析キューに追加しました'); },1200);
+    if(idx===9) setTimeout(function(){ toast('担当者へ通知を送信','【要確認 2件】AP-2609-0147 を送信しました'); },1400);
+    timer=setTimeout(function(){ idx++; runStep(); }, st.d);
+  }
+  function startTour(){
+    stopTour(); idx=0;
+    document.getElementById('btnTour').textContent='再生中…';
+    runStep();
+  }
+  function stopTour(done){
+    if(timer){ clearTimeout(timer); timer=null; }
+    cap.classList.remove('on');
+    prog.style.width= done?'100%':'0';
+    if(spotted){ spotted.classList.remove('spot'); spotted=null; }
+    document.getElementById('btnTour').textContent='自動デモを再生';
+  }
+  document.getElementById('btnTour').addEventListener('click',startTour);
+  document.getElementById('capX').addEventListener('click',function(){ stopTour(); });
+  document.getElementById('btnReset').addEventListener('click',function(){ stopTour(); show('dash'); });
+
+  if(location.search.indexOf('tour=1')>=0){ setTimeout(startTour,700); }
+})();
+</script>
+</body>
+</html>

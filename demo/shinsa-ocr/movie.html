@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>審査書類AI解析ダッシュボード｜1分32秒の説明動画</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Barlow:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;min-width:0}
+body{background:#0f1b2e;color:#c9d7ec;font-family:"Zen Kaku Gothic New",system-ui,sans-serif;
+  font-size:15px;line-height:1.9;-webkit-font-smoothing:antialiased}
+a{color:#7fd1ff}
+.wrap{max-width:1000px;margin:0 auto;padding:34px 20px 60px}
+.ribbon{background:#0a1424;color:#93a9c9;font-size:12.5px;text-align:center;padding:9px 14px;line-height:1.6}
+.ribbon b{color:#fff}
+h1{color:#fff;font-size:clamp(21px,3.6vw,29px);font-weight:900;line-height:1.5;margin-bottom:8px}
+.sub{color:#93a9c9;font-size:14px;margin-bottom:22px}
+video{width:100%;height:auto;display:block;border-radius:12px;background:#000;border:1px solid #26364f}
+.note{font-size:13px;color:#8fa3c2;margin-top:12px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:#2563eb;color:#fff;
+  font-weight:700;font-size:15px;border-radius:10px;padding:14px 24px;border-bottom:3px solid #1d4ed8;
+  text-decoration:none}
+.btn.g{background:transparent;color:#cfe0ff;border:1px solid #33455f;border-bottom-width:3px}
+.chap{margin-top:34px;border-top:1px solid #26364f;padding-top:22px}
+.chap h2{color:#fff;font-size:16px;margin-bottom:12px}
+.chap ol{list-style:none;display:grid;gap:2px}
+.chap li{display:grid;grid-template-columns:58px 1fr;gap:12px;font-size:14px;padding:6px 0;
+  border-bottom:1px solid #1b2942}
+.chap li:last-child{border:0}
+.chap .t{font-family:"Barlow",sans-serif;color:#7fd1ff;font-weight:700}
+@media(max-width:560px){.chap li{grid-template-columns:50px 1fr;font-size:13.5px}}
+footer{margin-top:34px;font-size:12.5px;color:#7d8fb3;border-top:1px solid #26364f;padding-top:18px}
+</style>
+</head>
+<body>
+<div class="ribbon">これは<b>ご提案用のデモ</b>です。顧客名・金融機関名・口座番号・金額はすべて架空で、実在の個人・法人の情報は含まれていません。</div>
+<div class="wrap">
+  <h1>審査担当者が、差分と警告だけを見れば済む状態へ</h1>
+  <p class="sub">1分32秒 ／ 音声なし・字幕つき ／ 実際に動いている画面をそのまま録画しています</p>
+
+  <video controls preload="metadata" poster="poster.jpg" playsinline>
+    <source src="shinsa-ocr.mp4" type="video/mp4">
+    お使いのブラウザで再生できない場合は、<a href="shinsa-ocr.mp4">こちらからダウンロード</a>してください。
+  </video>
+  <p class="note">動画と同じものを、ご自身のパソコンでそのまま触れます。下のボタンからどうぞ。</p>
+
+  <div class="cta">
+    <a class="btn" href="./?tour=1">同じデモを自動で再生する</a>
+    <a class="btn g" href="./">自分で触ってみる</a>
+  </div>
+
+  <div class="chap">
+    <h2>動画の内容</h2>
+    <ol>
+      <li><span class="t">0:00</span><span>Google Driveに申込フォルダが増えるたび、自動で読み取りが走る</span></li>
+      <li><span class="t">0:06</span><span>書類は1枚ずつ届く ― 最後の1枚から3分待ってから解析する</span></li>
+      <li><span class="t">0:12</span><span>読み取れた項目96.4%／読めなかった項目は、読めないとはっきり出す</span></li>
+      <li><span class="t">0:18</span><span>審査担当者が見るのは「指摘」だけ（別口座の混入・金額不一致・欠落・重複）</span></li>
+      <li><span class="t">0:25</span><span>案件一覧はDriveのフォルダと1対1</span></li>
+      <li><span class="t">0:31</span><span>書類を開かずに、何が何枚あって、どの数字が読めたかが並ぶ</span></li>
+      <li><span class="t">0:37</span><span>傾き7.4°の通帳写真 ― 信頼度71%として人の確認へ回す</span></li>
+      <li><span class="t">0:44</span><span>請求書・発注書・入金明細の突合（表記ゆれは吸収／期日の7日ずれを指摘）</span></li>
+      <li><span class="t">0:50</span><span>前回提出分との比較 ― 口座・期間・残高・ページ順序</span></li>
+      <li><span class="t">0:57</span><span>3ページ目だけ別口座／7月分が欠落／残高が前回比 −64.7%</span></li>
+      <li><span class="t">1:04</span><span>JSONで全項目を取り出せる（値ごとに confidence つき）</span></li>
+      <li><span class="t">1:11</span><span>通知メールは確認事項だけ ― 書類の中身はメールに載せない</span></li>
+      <li><span class="t">1:17</span><span>検出から通知までの5段階／解析は貴社のGoogle Cloud内で完結</span></li>
+      <li><span class="t">1:24</span><span>PoC一式 4週間・160,000円</span></li>
+    </ol>
+  </div>
+
+  <footer>
+    Lスタジオ（平野 淳一）　<a href="https://l-studiojp.com/">l-studiojp.com</a><br>
+    この動画に登場する会社名・金融機関名・口座番号・金額・数値はすべて架空のものです。
+  </footer>
+</div>
+</body>
+</html>
