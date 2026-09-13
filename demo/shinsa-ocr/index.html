@@ -170,6 +170,31 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
 .fstep.act{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .fstep.done{background:#fafdfb;border-color:#bfe3cb}
 
+
+/* ---------- modal ---------- */
+.ov{position:fixed;inset:0;background:rgba(9,20,36,.55);z-index:70;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex;animation:fade .2s ease}
+.mo{background:#fff;border-radius:14px;max-width:760px;width:100%;max-height:86vh;overflow:auto;
+  box-shadow:0 26px 70px rgba(6,18,36,.4)}
+.mo .mh{display:flex;align-items:center;gap:10px;padding:13px 17px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:#fff;z-index:2}
+.mo .mh h3{font-size:14.5px;font-weight:700}
+.mo .mh .cl{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:7px;
+  font:700 12px/1 inherit;padding:8px 12px;cursor:pointer;color:#2e445e}
+.mo .mc{padding:16px 17px}
+.mo .mf{padding:0 17px 16px;display:flex;gap:8px;flex-wrap:wrap}
+.mo .btn-p{background:var(--blue);color:#fff;border:0;border-bottom:3px solid #1d4ed8;border-radius:8px;
+  font:700 13px/1 inherit;padding:11px 17px;cursor:pointer}
+.page{border:1px solid var(--line);border-radius:9px;overflow:hidden;font-size:12.5px}
+.page .ph{background:#f7fafd;padding:7px 12px;border-bottom:1px solid var(--line);font-weight:700;color:#59708b}
+.page table{font-size:12.3px}
+.mark{background:#fde8e6;outline:2px solid var(--bad);border-radius:4px;padding:0 4px;font-weight:700;color:var(--bad)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.two{grid-template-columns:1fr}}
+.draft{border:1px solid var(--line);border-radius:9px;background:#fafcff;padding:13px 15px;
+  font-size:13px;line-height:2;white-space:pre-wrap}
+
 /* ---------- tour ---------- */
 .spot{position:relative;z-index:35;box-shadow:0 0 0 3px rgba(37,99,235,.28),0 10px 30px rgba(14,32,56,.13);
   border-radius:12px;transition:box-shadow .3s}
@@ -272,19 +297,19 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
             <div class="al bad"><div class="ic">!</div>
               <div><div class="t">別口座の明細が混ざっています</div>
                 <div class="s">みらい建材／銀行明細 3ページ目だけ口座番号が異なります（****4417 → ****9002）。前回提出分は全ページ ****4417 でした。</div></div>
-              <button class="btn-s">該当ページを開く</button></div>
+              <button class="btn-s" data-mo="page3">該当ページを開く</button></div>
             <div class="al warn"><div class="ic">!</div>
               <div><div class="t">請求書と発注書の金額が一致しません</div>
                 <div class="s">日進フーズ／請求書 1,284,000円 に対し、発注書は 1,248,000円。桁の入れ替わりの可能性があります。</div></div>
-              <button class="btn-s">2枚を並べて見る</button></div>
+              <button class="btn-s" data-mo="side">2枚を並べて見る</button></div>
             <div class="al warn"><div class="ic">!</div>
               <div><div class="t">明細の期間が1か月抜けています</div>
                 <div class="s">ヒナタ商会／2026年6月分が提出されていません（4月・5月・7月・8月は揃っています）。</div></div>
-              <button class="btn-s">不足書類の依頼文を作る</button></div>
+              <button class="btn-s" data-mo="mailgap">不足書類の依頼文を作る</button></div>
             <div class="al info"><div class="ic">i</div>
               <div><div class="t">同じ請求書が2回アップロードされています</div>
                 <div class="s">ヒナタ商会／INV-2026-0731 が 2ファイル。内容は同一のため、片方を重複として除外しました。</div></div>
-              <button class="btn-s">除外を取り消す</button></div>
+              <button class="btn-s" data-toast="重複の扱いを解除しました|INV-2026-0731 の2ファイル目を解析対象に戻しました">除外を取り消す</button></div>
           </div>
         </div>
       </div>
@@ -304,13 +329,13 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
               <td class="r"><span class="conf"><span class="bar"><i style="width:97%"></i></span>97%</span></td><td class="r num">2</td><td class="hide-sp">2分前</td></tr>
             <tr class="click" data-go="diff"><td class="num">AP-2609-0147</td><td>みらい建材株式会社</td><td class="r num">3</td><td><span class="pill run">解析中</span></td>
               <td class="r"><span class="conf"><span class="bar w"><i style="width:82%"></i></span>82%</span></td><td class="r num">1</td><td class="hide-sp">たった今</td></tr>
-            <tr class="click"><td class="num">AP-2609-0146</td><td>日進フーズ株式会社</td><td class="r num">9</td><td><span class="pill warn">要確認</span></td>
+            <tr class="click" data-go="detail"><td class="num">AP-2609-0146</td><td>日進フーズ株式会社</td><td class="r num">9</td><td><span class="pill warn">要確認</span></td>
               <td class="r"><span class="conf"><span class="bar"><i style="width:94%"></i></span>94%</span></td><td class="r num">2</td><td class="hide-sp">18分前</td></tr>
-            <tr class="click"><td class="num">AP-2609-0145</td><td>合同会社ケヤキ運輸</td><td class="r num">5</td><td><span class="pill ok">完了</span></td>
+            <tr class="click" data-go="detail"><td class="num">AP-2609-0145</td><td>合同会社ケヤキ運輸</td><td class="r num">5</td><td><span class="pill ok">完了</span></td>
               <td class="r"><span class="conf"><span class="bar"><i style="width:99%"></i></span>99%</span></td><td class="r num">0</td><td class="hide-sp">1時間前</td></tr>
-            <tr class="click"><td class="num">AP-2609-0144</td><td>株式会社ハルカゼ工業</td><td class="r num">7</td><td><span class="pill ok">完了</span></td>
+            <tr class="click" data-go="detail"><td class="num">AP-2609-0144</td><td>株式会社ハルカゼ工業</td><td class="r num">7</td><td><span class="pill ok">完了</span></td>
               <td class="r"><span class="conf"><span class="bar"><i style="width:95%"></i></span>95%</span></td><td class="r num">0</td><td class="hide-sp">3時間前</td></tr>
-            <tr class="click"><td class="num">AP-2609-0143</td><td>有限会社トキワ商店</td><td class="r num">4</td><td><span class="pill bad">読取失敗1</span></td>
+            <tr class="click" data-go="detail"><td class="num">AP-2609-0143</td><td>有限会社トキワ商店</td><td class="r num">4</td><td><span class="pill bad">読取失敗1</span></td>
               <td class="r"><span class="conf"><span class="bar b"><i style="width:61%"></i></span>61%</span></td><td class="r num">3</td><td class="hide-sp">昨日</td></tr>
           </tbody>
         </table>
@@ -422,9 +447,9 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
           3ページ目のみ口座番号が異なるため、<b>別口座の資料が混在している可能性</b>があります。
           以上3点をご確認のうえ、追加資料の依頼要否をご判断ください。
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn-s">追加資料の依頼メールを作る</button>
-            <button class="btn-s">確認済みにする</button>
-            <button class="btn-s">この指摘は不要（学習しない設定）</button>
+            <button class="btn-s" data-mo="mailadd">追加資料の依頼メールを作る</button>
+            <button class="btn-s" data-toast="確認済みにしました|AP-2609-0147 を「担当者確認済み」に更新しました">確認済みにする</button>
+            <button class="btn-s" data-toast="この指摘を無効化しました|以後、同じ条件では通知しません（設定はいつでも戻せます）">この指摘は不要（学習しない設定）</button>
           </div>
         </div>
       </div>
@@ -523,7 +548,16 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
 </div>
 
 <div class="foot">
-  Lスタジオ（平野 淳一）　<a href="https://l-studiojp.com/">l-studiojp.com</a>　／　このデモに登場する会社名・金融機関名・口座番号・金額はすべて架空のものです。
+  Lスタジオ（平野 淳一）　<a href="https://l-studiojp.com/">l-studiojp.com</a>　／　このデモに登場する会社名・金融機関名・口座番号・金額はすべて架空のものです。解析エンジンは未接続の<b>画面デモ</b>で、表示されている値は固定です。
+</div>
+
+
+<div class="ov" id="ov">
+  <div class="mo">
+    <div class="mh"><h3 id="moT"></h3><button class="cl" id="moX">閉じる</button></div>
+    <div class="mc" id="moC"></div>
+    <div class="mf" id="moF"></div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -570,7 +604,8 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
       setTimeout(function(){ t.remove(); },520); }, 4200);
   }
 
-  /* ---------- tour ---------- */
+  
+/* ---------- tour ---------- */
   var cap=document.getElementById('cap'), capT=document.getElementById('capT'),
       capN=document.getElementById('capN'), prog=document.getElementById('prog');
   var timer=null, idx=0, spotted=null;
@@ -632,6 +667,90 @@ pre .k{color:#7dd3fc} pre .s{color:#bbf7d0} pre .n{color:#fcd34d} pre .c{color:#
   document.getElementById('btnTour').addEventListener('click',startTour);
   document.getElementById('capX').addEventListener('click',function(){ stopTour(); });
   document.getElementById('btnReset').addEventListener('click',function(){ stopTour(); show('dash'); });
+
+
+  /* ---------- modal ---------- */
+  var ov=document.getElementById('ov'), moT=document.getElementById('moT'),
+      moC=document.getElementById('moC'), moF=document.getElementById('moF');
+  var M = {
+    page3: {
+      t: '銀行明細 3ページ目 ― みらい建材株式会社',
+      c: '<div class="page"><div class="ph">meisai_2608.pdf ／ 3 / 9 ページ ・ アカツキ第一銀行</div>'
+       + '<table><thead><tr><th>取引日</th><th>摘要</th><th class="r">お支払金額</th><th class="r">お預り金額</th><th class="r">残高</th></tr></thead><tbody>'
+       + '<tr><td class="num">2026-07-03</td><td>フリコミ ミナミデンキ(カ</td><td class="r">―</td><td class="r num">842,000</td><td class="r num">2,104,880</td></tr>'
+       + '<tr><td class="num">2026-07-10</td><td>デンキダイ</td><td class="r num">38,420</td><td class="r">―</td><td class="r num">2,066,460</td></tr>'
+       + '<tr><td class="num">2026-07-25</td><td>キユウヨ</td><td class="r num">1,062,240</td><td class="r">―</td><td class="r num">1,004,220</td></tr>'
+       + '</tbody></table>'
+       + '<div style="padding:10px 12px;border-top:1px solid var(--line);background:#fffafa">'
+       + '口座番号 <span class="mark">****9002</span> ／ 1・2ページ目および前回提出分はいずれも <b>****4417</b></div></div>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">ページ画像そのものは貴社のGoogle Drive上にあり、この画面では参照のみを行います（ダウンロードは権限のある方だけ）。</p>',
+      f: [['この1ページを除外して再解析','除外して再解析しました|残り8ページで前回比較をやり直しました'],
+          ['申込者に確認を依頼','mail']]
+    },
+    side: {
+      t: '請求書と発注書を並べて確認 ― 日進フーズ株式会社',
+      c: '<div class="two">'
+       + '<div class="page"><div class="ph">請求書 INV-2026-0812.pdf</div><table><tbody>'
+       + '<tr><td>取引先</td><td>ヤマギシ物流</td></tr><tr><td>件名</td><td>冷凍配送 8月分</td></tr>'
+       + '<tr><td>数量</td><td class="num">214</td></tr><tr><td>単価</td><td class="num">6,000</td></tr>'
+       + '<tr><td>金額</td><td><span class="mark">1,284,000</span></td></tr></tbody></table></div>'
+       + '<div class="page"><div class="ph">発注書 PO-2026-0731.pdf</div><table><tbody>'
+       + '<tr><td>取引先</td><td>ヤマギシ物流㈱</td></tr><tr><td>件名</td><td>冷凍配送 8月分</td></tr>'
+       + '<tr><td>数量</td><td class="num">208</td></tr><tr><td>単価</td><td class="num">6,000</td></tr>'
+       + '<tr><td>金額</td><td><span class="mark">1,248,000</span></td></tr></tbody></table></div></div>'
+       + '<p style="margin-top:11px;font-size:13px">差は <b>36,000円</b>。数量が <b>208 → 214</b> に増えており、桁の誤りではなく <b>数量変更の可能性</b>が高いと判定しました。変更合意の証跡（メール・LINE等）が束の中に無いため、確認事項として上げています。</p>',
+      f: [['数量変更の証跡を依頼','mail'],['一致として扱う','確認済みにしました|金額差 36,000円 を「数量変更・確認済み」に更新しました']]
+    },
+    mailgap: {
+      t: '不足書類の依頼文（下書き・未送信）',
+      c: '<div class="draft">株式会社ヒナタ商会\n ご担当者様\n\nいつもお世話になっております。\nお申込みいただいた件につきまして、ご提出資料を拝見いたしました。\n\n下記の資料が未着となっております。お手数ですが、ご提出をお願いいたします。\n\n・2026年6月分の銀行明細（4月・5月・7月・8月分は受領済みです）\n\n審査はご提出を確認した時点から再開いたします。\nご不明な点がございましたら、本メールへご返信ください。</div>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">文面は自動生成された<b>下書き</b>です。送信ボタンは審査担当者の画面にのみ表示され、AIが直接送ることはありません。</p>',
+      f: [['文面をコピー','copy'],['このまま送信キューへ','送信キューに入れました|担当者の承認待ちとして保存しました（自動送信はしません）']]
+    },
+    mailadd: {
+      t: '追加資料の依頼文（下書き・未送信）',
+      c: '<div class="draft">みらい建材株式会社\n ご担当者様\n\nいつもお世話になっております。\nご提出いただいた銀行資料について、2点ご確認をお願いいたします。\n\n1. 3ページ目のみ、他のページと口座番号が異なっております。\n　 別口座の資料が混在していないかご確認ください。\n\n2. 2026年7月分の明細が見当たりません。\n　 お手数ですが、当該期間の明細をご提出ください。\n\n上記2点の確認をもって、審査を再開いたします。</div>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">残高の減少（前回比 −64.7%）については、申込者への確認文面には含めていません。審査上の評価に関わる情報を、そのまま相手方へ伝えない設計です。</p>',
+      f: [['文面をコピー','copy'],['このまま送信キューへ','送信キューに入れました|担当者の承認待ちとして保存しました（自動送信はしません）']]
+    }
+  };
+  function openMo(key){
+    var m=M[key]; if(!m) return;
+    stopTour();
+    moT.textContent=m.t; moC.innerHTML=m.c; moF.innerHTML='';
+    (m.f||[]).forEach(function(f){
+      var b=document.createElement('button');
+      b.className='btn-p'; b.textContent=f[0];
+      b.addEventListener('click',function(){
+        if(f[1]==='copy'){
+          var tx=moC.querySelector('.draft');
+          if(tx && navigator.clipboard){ navigator.clipboard.writeText(tx.innerText).catch(function(){}); }
+          toast('文面をコピーしました','メールソフトにそのまま貼り付けられます');
+        } else if(f[1]==='mail'){
+          openMo('mailadd'); return;
+        } else {
+          var p=f[1].split('|'); toast(p[0],p[1]||'');
+        }
+        closeMo();
+      });
+      moF.appendChild(b);
+    });
+    ov.classList.add('on');
+  }
+  function closeMo(){ ov.classList.remove('on'); }
+  document.getElementById('moX').addEventListener('click',closeMo);
+  ov.addEventListener('click',function(e){ if(e.target===ov) closeMo(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMo(); });
+
+  document.querySelectorAll('[data-mo]').forEach(function(b){
+    b.addEventListener('click',function(e){ e.stopPropagation(); openMo(b.dataset.mo); });
+  });
+  document.querySelectorAll('[data-toast]').forEach(function(b){
+    b.addEventListener('click',function(e){
+      e.stopPropagation(); stopTour();
+      var p=b.dataset.toast.split('|'); toast(p[0],p[1]||'');
+    });
+  });
 
   if(location.search.indexOf('tour=1')>=0){ setTimeout(startTour,700); }
 })();
