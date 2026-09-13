@@ -1,59 +1,664 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KOMOREBI COFFEE & BAKE｜珈琲と焼き菓子（制作サンプル）</title>
 <meta name="robots" content="noindex,nofollow">
-<title>喫茶こもれび｜架空のカフェ・提案用デモ</title>
-<meta name="description" content="窓辺でひと息。喫茶こもれびという架空のカフェをテーマにした提案用デモです。写真はAI生成、店舗情報とメニューは仮の内容です。">
-<meta name="theme-color" content="#173d32">
-<link rel="icon" href="data:,">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=Zen+Old+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.9b57305f8d.css"><script src="assets/main.9a35f15529.js" defer></script>
+<meta name="description" content="架空のカフェ「KOMOREBI COFFEE & BAKE」の店舗サイト制作サンプル。AIチャットの画面設計とアバターを含みます。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Barlow+Condensed:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/motion.css">
+<style>
+/* ============================================================
+   参照：Limón（limonoslo.no）／ ref-limon/reference.jpg
+   DO   : 写真を全面に敷き、文字は写真の上に直接置く
+   DO   : アクセントは1色だけ。1画面に1つ
+   DO   : 角丸ほぼ0・影は使わない・罫線は髪の毛一本
+   DON'T: 写真枠をグラデーションで代用しない
+   DON'T: 色数を増やさない（生成り／炭／木／柿 の4色）
+   和文はこちらで決定：見出し=Shippori Mincho B1 / 本文=Zen Kaku Gothic New
+   ============================================================ */
+:root{
+  --cream:#f7f3ea;      /* 生成り */
+  --paper:#fffdf8;
+  --ink:#211d19;        /* 炭 */
+  --ink2:#5d564d;
+  --wood:#8a6a45;
+  --gold:#c1541f;       /* 柿＝唯一の差し色 */
+  --line:#ddd5c6;
+  --jp:"Shippori Mincho B1",serif;
+  --sans:"Zen Kaku Gothic New",system-ui,sans-serif;
+  --lat:"Barlow Condensed",sans-serif;
+  --ez:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.95;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{position:relative}
+.kicker{font-family:var(--lat);font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--gold);font-weight:600;display:block;margin-bottom:14px}
+h2{font-family:var(--jp);font-weight:600;font-size:clamp(26px,4vw,40px);line-height:1.5;
+  letter-spacing:.02em;margin-bottom:18px}
+h3{font-family:var(--jp);font-weight:600;font-size:19px;letter-spacing:.02em;line-height:1.6}
+p{color:var(--ink2)}
+.lead{font-size:15.5px;line-height:2.15;max-width:46em}
+
+/* ---------- ribbon ---------- */
+.ribbon{background:var(--ink);color:#cdbfae;font-size:12px;text-align:center;
+  padding:8px 16px;line-height:1.65;position:relative;z-index:60}
+.ribbon b{color:#fff}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:22px;
+  padding:15px 28px;background:transparent;border-bottom:1px solid transparent;
+  margin-bottom:-68px}
+.nav.solid{background:rgba(247,243,234,.94);backdrop-filter:blur(9px);border-bottom-color:var(--line)}
+.nav .logo{font-family:var(--lat);font-size:19px;letter-spacing:.2em;font-weight:600;color:#fff}
+.nav.solid .logo{color:var(--ink)}
+.nav .logo i{font-style:normal;display:block;font-family:var(--jp);font-size:9.5px;
+  letter-spacing:.32em;font-weight:500;opacity:.8}
+.navg{margin-left:auto;display:flex;gap:24px;font-size:13px;color:#fff;letter-spacing:.06em}
+.nav.solid .navg{color:var(--ink)}
+.nav .btn{font-size:12.5px;padding:10px 18px}
+@media(max-width:860px){.navg{display:none}}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  background:var(--gold);color:#fff;font-weight:700;font-size:13.5px;letter-spacing:.08em;
+  padding:15px 30px;border:0;cursor:pointer;font-family:var(--sans)}
+.ghost{display:inline-flex;align-items:center;gap:9px;border:1px solid currentColor;
+  padding:14px 26px;font-size:13px;letter-spacing:.08em;cursor:pointer;background:transparent;
+  font-family:var(--sans);color:inherit}
+
+/* ---------- 01 hero ---------- */
+.hero{position:relative;height:calc(100svh - 33px);min-height:560px;overflow:hidden}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(20,16,12,.80) 0%,rgba(20,16,12,.46) 42%,rgba(20,16,12,.06) 74%)}
+.hero .in{position:absolute;z-index:2;left:0;right:0;bottom:8%;color:#fff}
+.hero .eyebrow{font-family:var(--lat);font-size:12.5px;letter-spacing:.4em;text-transform:uppercase;
+  color:#f0d9c4;margin-bottom:18px}
+.hero h1{font-family:var(--jp);font-weight:600;font-size:clamp(32px,6vw,62px);line-height:1.34;
+  letter-spacing:.03em;margin-bottom:20px;text-shadow:0 2px 30px rgba(0,0,0,.28)}
+.hero .sub{color:#efe6da;font-size:15px;max-width:30em;margin-bottom:28px;line-height:2.05}
+.hero .facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;
+  font-family:var(--lat);font-size:13.5px;letter-spacing:.12em;color:#e7d9c8}
+.hero .facts b{font-weight:500;color:#fff}
+.scrollhint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;
+  color:#fff;font-family:var(--lat);font-size:10.5px;letter-spacing:.34em;
+  animation:scrollPulse 2.4s infinite}
+@media(max-width:860px){
+  .hero{height:calc(100svh - 33px)}
+  .hero .facts{gap:6px 14px;font-size:11.5px;margin-top:22px}
+  .hero .sub{font-size:14px;line-height:1.95;margin-bottom:22px}
+  .hero::after{background:linear-gradient(180deg,rgba(20,16,12,.52) 0%,rgba(20,16,12,.12) 26%,rgba(20,16,12,.58) 58%,rgba(20,16,12,.86) 100%)}
+  .nav{margin-bottom:-58px;padding:12px 18px;gap:10px}
+  .nav .logo{font-size:16px}
+  .nav .btn{margin-left:auto;padding:9px 14px;font-size:11.5px}
+  .hero .in{bottom:calc(6% + 54px)}
+}
+
+/* ---------- 02 concept ---------- */
+.concept{padding:100px 0;background:var(--cream)}
+.c2{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.c2 .ib{aspect-ratio:3/2}
+.c2 .ib img{width:100%;height:100%;object-fit:cover}
+.sign{margin-top:26px;font-family:var(--jp);font-size:14px;color:var(--ink)}
+.sign span{display:block;font-family:var(--lat);font-size:11.5px;letter-spacing:.26em;
+  color:var(--ink2);margin-top:4px}
+@media(max-width:860px){.c2{grid-template-columns:1fr;gap:30px}.concept{padding:64px 0}}
+
+/* ---------- band ---------- */
+.band{position:relative;height:52svh;min-height:330px;overflow:hidden;display:grid;place-items:center}
+.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:rgba(22,17,13,.46)}
+.band .t{position:relative;z-index:2;text-align:center;color:#fff;padding:0 22px}
+.band .t p{font-family:var(--jp);font-size:clamp(19px,3vw,30px);line-height:1.9;color:#fff}
+.band .t span{display:block;margin-top:12px;font-family:var(--lat);font-size:11.5px;
+  letter-spacing:.34em;color:#e8d2bb}
+
+/* ---------- 03 menu ---------- */
+.menu{padding:100px 0;background:var(--paper)}
+.tabs{display:flex;gap:10px;margin:26px 0 34px;flex-wrap:wrap}
+.tabs .ghost{padding:11px 22px;color:var(--ink2)}
+.tabs .ghost.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 22px}
+.tile .ib{aspect-ratio:1/1;margin-bottom:12px}
+.tile .ib img{width:100%;height:100%;object-fit:cover}
+.tile h3{font-size:16px;margin-bottom:4px}
+.tile p{font-size:12.8px;line-height:1.85}
+.tile .price{font-family:var(--lat);font-size:15px;letter-spacing:.06em;color:var(--gold);
+  margin-top:7px;font-weight:600}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){.menu{padding:64px 0}}
+
+/* ---------- 04 seats ---------- */
+.seats{padding:100px 0;background:var(--ink);color:#f3ece2}
+.seats h2,.seats h3{color:#fff}
+.seats p{color:#c7bcae}
+.seats .kicker{color:#e2a377}
+.s3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
+.seat .ib{aspect-ratio:4/3;margin-bottom:15px}
+.seat .ib img{width:100%;height:100%;object-fit:cover}
+.seat .n{font-family:var(--lat);font-size:12px;letter-spacing:.28em;color:#e2a377;margin-bottom:5px}
+.seat p{font-size:13px}
+@media(max-width:860px){.s3{grid-template-columns:1fr}.seats{padding:64px 0}}
+
+/* ---------- 05 plan ---------- */
+.plan{padding:100px 0;background:var(--cream)}
+.p2{display:grid;grid-template-columns:.95fr 1.05fr;gap:52px;align-items:center}
+.p2 .ib{aspect-ratio:3/2}
+.p2 .ib img{width:100%;height:100%;object-fit:cover}
+.rows{margin-top:22px;border-top:1px solid var(--line)}
+.row{display:flex;gap:16px;align-items:baseline;padding:14px 2px;border-bottom:1px solid var(--line)}
+.row b{font-family:var(--jp);font-weight:600;font-size:15px;flex:none;min-width:8.5em}
+.row span{color:var(--ink2);font-size:13.2px;flex:1}
+.row i{font-style:normal;font-family:var(--lat);font-size:15px;color:var(--gold);font-weight:600}
+@media(max-width:860px){.p2{grid-template-columns:1fr;gap:28px}.plan{padding:64px 0}
+  .row{flex-wrap:wrap}.row b{min-width:0;width:100%}}
+
+/* ---------- 06 faq ---------- */
+.faq{padding:100px 0;background:var(--paper)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:19px 40px 19px 30px;position:relative;
+  font-family:var(--jp);font-size:15.5px;font-weight:600}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q";position:absolute;left:0;top:19px;font-family:var(--lat);
+  color:var(--gold);font-size:15px;letter-spacing:.1em}
+.faq summary::after{content:"+";position:absolute;right:6px;top:16px;color:var(--ink2);font-size:19px}
+.faq details[open] summary::after{content:"–"}
+.faq .a{padding:0 30px 20px;font-size:13.6px;color:var(--ink2);line-height:2.05}
+@media(max-width:860px){.faq{padding:64px 0}}
+
+/* ---------- 07 access ---------- */
+.access{padding:100px 0;background:var(--cream)}
+.a2{display:grid;grid-template-columns:.8fr 1.2fr;gap:52px}
+.a2 .ib{aspect-ratio:3/4}
+.a2 .ib img{width:100%;height:100%;object-fit:cover}
+table{width:100%;border-collapse:collapse;font-size:13.6px}
+th,td{text-align:left;padding:13px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--jp);font-weight:600;width:7.5em;color:var(--ink)}
+td{color:var(--ink2)}
+@media(max-width:860px){.a2{grid-template-columns:1fr;gap:28px}.access{padding:64px 0}}
+
+/* ---------- divider ---------- */
+.divider{background:var(--ink);color:#e6d8c8;text-align:center;padding:54px 22px}
+.divider p{font-family:var(--jp);font-size:clamp(16px,2.4vw,21px);color:#fff;line-height:1.8}
+.divider small{display:block;margin-top:10px;font-size:12.5px;color:#b3a696;letter-spacing:.04em}
+
+/* ---------- 08 AIチャット ---------- */
+.ai{padding:100px 0;background:var(--paper)}
+.ai2{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.chat{border:1px solid var(--line);background:var(--cream);display:flex;flex-direction:column;
+  height:520px;overflow:hidden}
+.chat .ch{display:flex;align-items:center;gap:12px;padding:14px 17px;background:var(--ink);color:#fff}
+.chat .ch .av{width:42px;height:42px;flex:none}
+.chat .ch b{font-family:var(--jp);font-size:14.5px;font-weight:600;display:block;line-height:1.5}
+.chat .ch span{font-size:11.5px;color:#c0b2a2;display:block}
+.chat .cb{flex:1;overflow-y:auto;padding:18px 17px;display:flex;flex-direction:column;gap:13px}
+.msg{display:flex;gap:10px;align-items:flex-start;max-width:88%}
+.msg .av{width:32px;height:32px;flex:none}
+.msg .bub{background:#fff;border:1px solid var(--line);padding:11px 14px;font-size:13.4px;
+  line-height:1.9;color:var(--ink)}
+.msg.me{margin-left:auto;flex-direction:row-reverse}
+.msg.me .bub{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chips{display:flex;flex-direction:column;gap:7px;margin-top:2px}
+.chip{border:1px solid var(--gold);color:var(--gold);background:transparent;text-align:left;
+  padding:9px 13px;font-size:12.8px;cursor:pointer;font-family:var(--sans);line-height:1.6}
+.chip:hover{background:var(--gold);color:#fff}
+.chat .cf{display:flex;gap:9px;padding:12px 14px;border-top:1px solid var(--line);background:#fff}
+.chat .cf input{flex:1;border:1px solid var(--line);padding:11px 13px;font-size:13px;
+  font-family:var(--sans);background:var(--cream);color:var(--ink)}
+.chat .cf button{background:var(--ink);color:#fff;border:0;padding:0 18px;font-size:13px;
+  cursor:pointer;font-family:var(--sans);font-weight:700}
+.typing span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ink2);
+  margin-right:3px;animation:tp 1.1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes tp{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.avatars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.avatars figure{border:1px solid var(--line);padding:16px 10px;text-align:center;background:var(--cream)}
+.avatars svg{width:62px;height:62px;margin:0 auto 8px}
+.avatars figcaption{font-size:11.8px;color:var(--ink2);line-height:1.7}
+@media(max-width:860px){.ai2{grid-template-columns:1fr;gap:30px}.ai{padding:64px 0}.chat{height:470px}}
+
+/* ---------- 09 運用 ---------- */
+.ops{padding:100px 0;background:var(--cream)}
+.sheet{border:1px solid var(--line);background:#fff;font-family:var(--lat);font-size:13.5px;
+  letter-spacing:.04em;overflow:hidden}
+.sheet .sh{display:flex;gap:10px;padding:8px 12px;background:#f1ece1;border-bottom:1px solid var(--line);
+  font-size:11.5px;letter-spacing:.16em;color:var(--ink2)}
+.sheet .sr{display:grid;grid-template-columns:1.6fr 1fr .8fr;border-bottom:1px solid var(--line)}
+.sheet .sr>div{padding:9px 12px;border-right:1px solid var(--line);font-family:var(--sans);font-size:13px}
+.sheet .sr>div:last-child{border-right:0}
+.sheet .sr.edit>div:nth-child(2){background:#fdf1e6;color:var(--gold);font-weight:700}
+.ops .out{border:1px solid var(--line);background:#fff;padding:18px;margin-top:0}
+.ops .out .oi{display:flex;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}
+.ops .out .oi:last-child{border:0}
+.ops .out .oi b{font-family:var(--jp);font-size:14.5px}
+.ops .out .oi i{margin-left:auto;font-style:normal;font-family:var(--lat);color:var(--gold);font-size:15px}
+.o2{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;margin-top:34px}
+@media(max-width:860px){.o2{grid-template-columns:1fr}.ops{padding:64px 0}}
+
+/* ---------- 10 seo ---------- */
+.seo{padding:100px 0;background:var(--paper)}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.ck{border:1px solid var(--line);padding:17px 18px;background:var(--cream)}
+.ck b{display:block;font-family:var(--jp);font-size:14.5px;margin-bottom:5px}
+.ck b::before{content:"✓";color:var(--gold);margin-right:8px;font-family:var(--lat)}
+.ck p{font-size:12.6px;line-height:1.85}
+.code{background:var(--ink);color:#e3d6c6;padding:18px 20px;margin-top:26px;overflow-x:auto;
+  font-family:var(--lat);font-size:12.6px;line-height:1.85;letter-spacing:.02em}
+.code .k{color:#e2a377}.code .s{color:#c9d8b4}
+@media(max-width:980px){.checks{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){.checks{grid-template-columns:1fr}.seo{padding:64px 0}}
+
+/* ---------- 11 sp ---------- */
+.spv{padding:100px 0;background:var(--cream);text-align:center}
+.device{margin:34px auto 0;width:330px;max-width:86vw;border:10px solid var(--ink);
+  border-radius:30px;overflow:hidden;background:#000;aspect-ratio:9/19.5}
+.device iframe{width:100%;height:100%;border:0;display:block}
+@media(max-width:860px){.spv{padding:64px 0}}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#bfb2a2;padding:62px 0 34px;font-size:12.8px}
+.f4{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+footer h4{font-family:var(--jp);color:#fff;font-size:13.5px;margin-bottom:11px;font-weight:600}
+footer .logo{font-family:var(--lat);font-size:21px;letter-spacing:.2em;color:#fff;margin-bottom:9px}
+footer a{display:block;padding:3px 0;color:#bfb2a2}
+footer a:hover{color:var(--gold)}
+.fend{margin-top:38px;padding-top:18px;border-top:1px solid #3a332c;font-size:11.5px;color:#8b8073;
+  display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between}
+@media(max-width:860px){.f4{grid-template-columns:1fr 1fr;gap:22px}}
+
+.spcta{position:fixed;left:0;right:0;bottom:0;z-index:45;display:none;gap:1px;background:var(--line)}
+.spcta a{flex:1;text-align:center;padding:15px 4px;font-size:13px;font-weight:700;
+  background:var(--ink);color:#fff}
+.spcta a.g{background:var(--gold)}
+@media(max-width:860px){.spcta{display:flex}body{padding-bottom:52px}}
+</style>
 </head>
 <body>
-<a class="skip" href="#main">本文へ移動</a>
-<div class="demo-ribbon">架空のカフェの提案デモです <span>店名・メニューは仮の内容／写真はAI生成</span></div>
-<header class="header">
-<a class="brand" href="#top" aria-label="喫茶こもれび ページの先頭へ"><small>COFFEE & A LITTLE BREAK</small><span>喫茶 こもれび</span></a>
-<nav class="desktop-nav" aria-label="ページ内メニュー"><a href="#concept">こもれびのこと</a><a href="#menu">メニュー</a><a href="#space">店内</a><a href="#news">お知らせ</a><a class="nav-access" href="#access">店舗案内 <span aria-hidden="true">↗</span></a></nav>
-<button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">メニュー <span aria-hidden="true">☰</span></button>
-<nav id="mobile-nav" class="mobile-nav" aria-label="スマホ用ページ内メニュー" hidden><a href="#concept">こもれびのこと</a><a href="#menu">お食事と飲みもの</a><a href="#space">店内</a><a href="#news">お知らせ</a><a href="#access">店舗案内</a></nav>
-</header>
-<main id="main">
-<section id="top" class="hero" aria-labelledby="hero-title">
-<img class="hero-image" src="assets/hero.jpg" alt="木のテーブルと自然光が心地よいカフェのイメージ。AI生成" width="1600" height="900" fetchpriority="high">
-<div class="hero-shade"></div>
-<div class="hero-copy"><p class="eyebrow light">A QUIET MOMENT, JUST FOR YOU.</p><h1 id="hero-title">いつもの日々に、<br>ひと息のよりみち。</h1><p class="hero-lead">コーヒーの香りと、窓辺の光。<br>今日は、少しゆっくりと。</p><a class="button cream" href="#menu">メニューを見る <span aria-hidden="true">↗</span></a></div>
-<div class="hero-foot"><span>喫茶こもれび <small>FICTIONAL CAFE</small></span><a href="#concept">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
-</section>
-<section id="concept" class="section concept reveal">
-<div class="section-label"><span>01 / ABOUT</span><span>こもれびのこと</span></div>
-<div class="concept-grid"><div><p class="eyebrow">MAKE YOURSELF AT HOME.</p><h2>何もしない時間も、<br>いい時間。</h2></div><div class="prose"><p>予定のない午後。<br>散歩の途中。誰かと話したくなった日。</p><p>扉を開ける理由は、なんでも。<br>お気に入りの一杯と、小さなおやつをそばに。<br>自分のペースに戻れる、そんな場所を。</p><p class="note">このページは、カフェの雰囲気を伝えるための<br>架空のコンセプトです。</p></div></div>
-<div class="concept-bottom"><span class="wordmark" aria-hidden="true">Komorebi.</span><p>COFFEE, SOMETHING SWEET,<br>AND A SLOW AFTERNOON.</p></div>
-</section>
-<section id="menu" class="section menu-section">
-<div class="section-label"><span>02 / MENU</span><span>お食事と飲みもの</span></div>
-<div class="section-heading reveal"><h2>今日は、何にしよう。</h2><p>一杯だけでも、おやつと一緒でも。<br>その日の気分で、お選びください。</p></div>
-<p class="note">掲載メニューは提案用の仮案です。実際のメニュー・価格は未定です。</p>
-<div class="menu-layout reveal"><figure class="menu-photo"><img src="assets/table.jpg" alt="コーヒー、トースト、チーズケーキを並べたメニューイメージ。AI生成" width="1200" height="800" loading="lazy"><figcaption>A LITTLE SOMETHING, A LOVELY DAY.</figcaption></figure><div class="menu-content">
-<div class="tabs" role="tablist" aria-label="メニューの種類"><button id="tab-coffee" role="tab" aria-selected="true" aria-controls="panel-coffee" data-tab="coffee">飲みもの</button><button id="tab-sweets" role="tab" aria-selected="false" aria-controls="panel-sweets" data-tab="sweets" tabindex="-1">おやつ</button><button id="tab-food" role="tab" aria-selected="false" aria-controls="panel-food" data-tab="food" tabindex="-1">軽食</button></div>
-<div id="panel-coffee" role="tabpanel" aria-labelledby="tab-coffee" tabindex="0"><p class="menu-kicker">COFFEE & DRINKS</p><article class="menu-item"><h3>こもれびブレンド <small>HOT / ICED</small></h3><p>ほっとひと息つきたい時の、コーヒーを。</p><span>価格未定</span></article><article class="menu-item"><h3>カフェラテ <small>HOT / ICED</small></h3><p>ミルクとコーヒーを楽しむ、やさしい一杯。</p><span>価格未定</span></article><article class="menu-item"><h3>季節の紅茶 <small>HOT</small></h3><p>香りをゆっくり楽しみたい日に。</p><span>価格未定</span></article></div>
-<div id="panel-sweets" role="tabpanel" aria-labelledby="tab-sweets" tabindex="0" hidden><p class="menu-kicker">SOMETHING SWEET</p><article class="menu-item"><h3>ひと休みのチーズケーキ</h3><p>コーヒーと一緒に楽しむ、おやつの時間。</p><span>価格未定</span></article><article class="menu-item"><h3>今日の小さなおやつ</h3><p>季節に合わせてご紹介するおやつの枠です。</p><span>内容・価格未定</span></article></div>
-<div id="panel-food" role="tabpanel" aria-labelledby="tab-food" tabindex="0" hidden><p class="menu-kicker">A LIGHT BITE</p><article class="menu-item"><h3>よりみちトースト</h3><p>小腹がすいた時に、温かい飲みものと。</p><span>価格未定</span></article></div>
-<p class="menu-hint">アレルギーのご案内は、実際の材料を確認して掲載します。</p></div></div>
-</section>
-<section id="space" class="space-section">
-<div class="space-photo"><img src="assets/space.jpg" alt="窓辺の椅子と緑がある静かな店内イメージ。AI生成" width="1400" height="933" loading="lazy"></div>
-<div class="space-copy reveal"><p class="eyebrow light">03 / THE SPACE</p><h2>窓辺の席で、<br>思い思いに。</h2><p>本をひらいたり、話に花を咲かせたり。<br>流れる時間まで、好きになれる場所へ。</p><p>お一人でも、誰かと一緒でも。<br>居心地のよさを、写真でお届けします。</p><p class="note light-note">店内写真はAI生成のイメージです。<br>実店舗の内装・設備を示すものではありません。</p></div>
-</section>
-<section class="section moments reveal"><div class="section-label"><span>04 / LITTLE MOMENTS</span><span>過ごし方のご提案</span></div><div class="moment-grid"><article><span>01</span><h3>ひとりの時間に。</h3><p>読みかけの本と、好きな飲みもの。<br>自分だけのひと休み。</p></article><article><span>02</span><h3>おしゃべりの途中に。</h3><p>おやつをはさんで、近況を。<br>話したかったことを少しずつ。</p></article><article><span>03</span><h3>散歩のよりみちに。</h3><p>いつもの道を、少しだけ遠回り。<br>気分を変える一杯を。</p></article></div></section>
-<section id="news" class="section news-section reveal"><div class="section-label"><span>05 / JOURNAL</span><span>お知らせ</span></div><div class="news-grid"><h2>こもれび便り。</h2><div><details class="news-item"><summary><span class="news-tag">掲載例</span><span>はじめまして、喫茶こもれびです。</span><span class="plus" aria-hidden="true">+</span></summary><p>オープンのご挨拶やお店への想いを、ここからお届けするイメージです。開業日や営業予定は、決まり次第掲載する想定です。このお知らせは架空の例です。</p></details><details class="news-item"><summary><span class="news-tag">掲載例</span><span>メニューのお知らせについて</span><span class="plus" aria-hidden="true">+</span></summary><p>季節のメニューや営業日の変更をご案内できます。本制作では、ご自身でお知らせを追加できるように設定し、操作方法をご案内します。このデモはWordPress未接続です。</p></details></div></div></section>
-<section id="faq" class="section faq-section reveal"><div class="section-label"><span>06 / BEFORE YOUR VISIT</span><span>ご来店前に</span></div><div class="faq-grid"><h2>気になること。</h2><div><details><summary>オープンはいつですか？<span class="plus" aria-hidden="true">+</span></summary><p>このページは架空のカフェのデモです。実際のサイトでは、確定したオープン日と営業予定をご案内します。</p></details><details><summary>駐車場や子ども用の席はありますか？<span class="plus" aria-hidden="true">+</span></summary><p>設備の内容は未定です。実店舗の情報を確認したうえで、駐車場の場所やお子様連れの方に必要な情報を掲載します。</p></details><details><summary>予約や問い合わせはできますか？<span class="plus" aria-hidden="true">+</span></summary><p>このデモでは、予約やお問い合わせを受け付けていません。本制作では、お店の運用に合わせて電話などのご案内を掲載します。</p></details></div></div></section>
-<section id="access" class="access-section"><div class="access-copy reveal"><p class="eyebrow light">07 / VISIT US</p><h2>また、ひと息。<br>こもれびで。</h2><p class="access-brand">喫茶こもれび <span>架空のカフェ</span></p><dl><div><dt>住所</dt><dd>実店舗の所在地は未掲載</dd></div><div><dt>営業時間</dt><dd>決まり次第ご案内</dd></div><div><dt>定休日</dt><dd>決まり次第ご案内</dd></div><div><dt>駐車場</dt><dd>実店舗の設備を確認して掲載</dd></div></dl><p class="note light-note">実在のお店を案内するページではありません。<br>地図・電話・予約受付は接続していません。</p></div><figure><img src="assets/hero.jpg" alt="コーヒーと木のテーブルのカフェイメージ。AI生成" width="1600" height="900" loading="lazy"><figcaption>SEE YOU IN A QUIET MOMENT.</figcaption></figure></section>
-<section class="demo-about section"><p class="eyebrow">ABOUT THIS DEMO</p><h2>この見本について</h2><p>お店の魅力が伝わる見せ方をご確認いただくための、架空の提案用サイトです。<br>店名・文章・メニューは仮の内容、写真はAI生成です。</p><p>メニューの切り替えやお知らせの開閉をお試しいただけます。<br>本制作では、実際の写真と店舗情報に差し替えます。WordPress・地図・電話は未接続です。</p></section>
-</main>
-<footer><a class="brand" href="#top"><small>COFFEE & A LITTLE BREAK</small><span>喫茶 こもれび</span></a><p>FICTIONAL CAFE / DESIGN PROPOSAL</p><a href="#top">ページの先頭へ ↑</a></footer>
-<div class="mobile-cta"><a href="#menu">メニューを見る</a><a href="#access">店舗案内 <span aria-hidden="true">↗</span></a></div>
-</body></html>
+<div id="curtain"><div class="w">KOMOREBI<i>COFFEE &amp; BAKE</i></div></div>
 
+<div class="ribbon">これは<b>ご提案用の制作サンプル</b>です。店舗・写真・価格はすべて<b>架空</b>で、写真はAIで生成したイメージです。</div>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="logo">KOMOREBI<i>珈琲と焼き菓子</i></a>
+  <div class="navg">
+    <a href="#concept">お店のこと</a>
+    <a href="#menu">メニュー</a>
+    <a href="#seats">店内</a>
+    <a href="#plan">豆とギフト</a>
+    <a href="#faq">よくある質問</a>
+    <a href="#access">アクセス</a>
+  </div>
+  <a href="#access" class="btn">席のご予約</a>
+</nav>
+
+<!-- 01 HERO -->
+<section class="hero rv in" id="top">
+  <img src="img/hero.jpg" alt="木漏れ日の差す店内とコーヒー" fetchpriority="high">
+  <div class="in wrap">
+    <div class="eyebrow">Since 2019 ・ 自家焙煎</div>
+    <h1>木漏れ日の下で、<br>一杯ぶんの時間を。</h1>
+    <p class="sub">毎朝ここで焙煎した豆を、一杯ずつ落としています。焼き菓子も、その日のぶんだけ。小さな店ですが、席の間はゆったり取りました。</p>
+    <a href="#menu" class="btn">メニューを見る</a>
+    <div class="facts">
+      <span><b>8:00–18:00</b> ／ 水曜定休</span>
+      <span><b>16席</b> ＋ テラス4席</span>
+      <span><b>徒歩5分</b> 小坂井駅 北口</span>
+    </div>
+  </div>
+  <div class="scrollhint">SCROLL</div>
+</section>
+
+<!-- 02 CONCEPT -->
+<section class="concept rv" id="concept">
+  <div class="wrap c2">
+    <div>
+      <span class="kicker">Concept</span>
+      <h2><span class="rl"><span>豆を替えるのではなく、</span></span><span class="rl"><span>焼き方を変えています。</span></span></h2>
+      <p class="lead">同じ農園の豆でも、季節で味は動きます。だから焙煎の度合いを毎週すこしずつ変えています。「いつも飲んでいるブレンドが、今日はすこし甘い」——そう言っていただけたら、その週は成功です。</p>
+      <p class="lead" style="margin-top:18px">焼き菓子は、コーヒーに寄り添う甘さに。スコーンは粉と水分の比率を季節で変え、フィナンシェは焦がしバターを深めにしています。お持ち帰りいただいても、翌日まで固くなりません。</p>
+      <p class="lead" style="margin-top:18px">席は16席。詰めれば22席入りますが、それはやめました。長居していただくための店なので。</p>
+      <div class="sign">店主　小坂 佳乃<span>KOMOREBI COFFEE &amp; BAKE</span></div>
+    </div>
+    <div class="ib"><img src="img/interior-table.jpg" alt="窓際のテーブル席" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band">
+  <img src="img/band.jpg" alt="テーブルに並んだコーヒーと焼き菓子" loading="lazy">
+  <div class="t"><p>その日の分だけ、焼いています。</p><span>BAKED THIS MORNING</span></div>
+</section>
+
+<!-- 03 MENU -->
+<section class="menu rv" id="menu">
+  <div class="wrap">
+    <span class="kicker">Menu</span>
+    <h2><span class="rl"><span>メニュー</span></span></h2>
+    <p class="lead">価格はすべて税込です。豆の産地は月ごとに入れ替わります。</p>
+    <div class="tabs">
+      <button class="ghost on" data-cat="all">すべて</button>
+      <button class="ghost" data-cat="coffee">コーヒー</button>
+      <button class="ghost" data-cat="bake">焼き菓子</button>
+      <button class="ghost" data-cat="food">フード</button>
+    </div>
+    <div class="grid" id="menuGrid">
+      <article class="tile" data-cat="coffee"><div class="ib"><img src="img/item-coffee.jpg" alt="ブレンドコーヒー" loading="lazy"></div>
+        <h3>木漏れ日ブレンド</h3><p>いちばん飲まれている一杯。浅めの中煎りで、冷めても酸が立ちません。</p><div class="price">¥520</div></article>
+      <article class="tile" data-cat="coffee"><div class="ib"><img src="img/item-latte.jpg" alt="カフェラテ" loading="lazy"></div>
+        <h3>カフェラテ</h3><p>ミルクは低温殺菌のもの。甘みが残るよう、温度は62度で止めています。</p><div class="price">¥600</div></article>
+      <article class="tile" data-cat="coffee"><div class="ib"><img src="img/beans.jpg" alt="本日のシングルオリジン" loading="lazy"></div>
+        <h3>本日のシングル</h3><p>週替わりで2種。カウンターの黒板に、その日の産地を書いています。</p><div class="price">¥680</div></article>
+      <article class="tile" data-cat="coffee"><div class="ib"><img src="img/drip.jpg" alt="水出しコーヒー" loading="lazy"></div>
+        <h3>水出しコーヒー</h3><p>18時間かけて落としたもの。夏場はこれが一番出ます。</p><div class="price">¥620</div></article>
+      <article class="tile" data-cat="bake"><div class="ib"><img src="img/item-scone.jpg" alt="スコーン" loading="lazy"></div>
+        <h3>スコーン（プレーン）</h3><p>自家製のジャムとクロテッドクリームを添えて。10時以降の焼き上がりです。</p><div class="price">¥480</div></article>
+      <article class="tile" data-cat="bake"><div class="ib"><img src="img/item-financier.jpg" alt="フィナンシェ" loading="lazy"></div>
+        <h3>フィナンシェ</h3><p>焦がしバターを深めに。手土産には3個・6個の箱もご用意しています。</p><div class="price">¥260</div></article>
+      <article class="tile" data-cat="bake"><div class="ib"><img src="img/item-tart.jpg" alt="季節のタルト" loading="lazy"></div>
+        <h3>季節のタルト</h3><p>今月はいちじく。果物が終わり次第、翌月のものに替わります。</p><div class="price">¥620</div></article>
+      <article class="tile" data-cat="food"><div class="ib"><img src="img/item-morning.jpg" alt="モーニングプレート" loading="lazy"></div>
+        <h3>モーニングプレート</h3><p>8時から11時まで。お飲みもの代＋¥400でお付けできます。</p><div class="price">¥400〜</div></article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 SEATS -->
+<section class="seats rv" id="seats">
+  <div class="wrap">
+    <span class="kicker">Seats</span>
+    <h2><span class="rl"><span>店内のこと</span></span></h2>
+    <p class="lead">お一人でも、長くいていただけるように作りました。</p>
+    <div class="s3 stagger">
+      <article class="seat"><div class="ib"><img src="img/interior-counter.jpg" alt="カウンター席" loading="lazy"></div>
+        <div class="n">01</div><h3>カウンター 5席</h3><p>抽出の手元が見える席です。一人で来られた方の指定席のようになっています。電源は各席にあります。</p></article>
+      <article class="seat"><div class="ib"><img src="img/interior-table.jpg" alt="テーブル席" loading="lazy"></div>
+        <div class="n">02</div><h3>テーブル 11席</h3><p>2人がけを4卓、4人がけを1卓。ベビーカーはそのままお入りいただけます。</p></article>
+      <article class="seat"><div class="ib"><img src="img/exterior.jpg" alt="テラス席" loading="lazy"></div>
+        <div class="n">03</div><h3>テラス 4席</h3><p>犬連れの方はこちらへ。水入れをお出しします。雨天は使えません。</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 05 PLAN -->
+<section class="plan rv" id="plan">
+  <div class="wrap p2">
+    <div class="ib"><img src="img/roaster.jpg" alt="焙煎機と生豆" loading="lazy"></div>
+    <div>
+      <span class="kicker">Beans &amp; Gift</span>
+      <h2><span class="rl"><span>豆の販売と、贈りもの</span></span></h2>
+      <p class="lead">店頭でお選びいただければ、その場で挽きます。挽き方はご使用の器具に合わせます。</p>
+      <div class="rows">
+        <div class="row"><b>豆 100g</b><span>その週の焙煎から。挽き方の指定は無料です</span><i>¥780〜</i></div>
+        <div class="row"><b>豆 200g</b><span>2種類を100gずつ、という分け方もできます</span><i>¥1,480〜</i></div>
+        <div class="row"><b>ドリップバッグ 5個</b><span>ちょっとした手土産に。箱入り</span><i>¥1,100</i></div>
+        <div class="row"><b>焼き菓子の詰め合わせ</b><span>6個入り・9個入り。のし対応あり（3日前まで）</span><i>¥1,980〜</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 FAQ -->
+<section class="faq rv" id="faq">
+  <div class="wrap" style="max-width:860px">
+    <span class="kicker">FAQ</span>
+    <h2><span class="rl"><span>よくあるご質問</span></span></h2>
+    <details><summary>予約はできますか。</summary><div class="a">2名様以上のお席のみ、前日までのご予約を承っています。お一人様はご予約なしでお越しください。満席の場合は店頭でお待ちいただく形になります。</div></details>
+    <details><summary>Wi-Fiと電源はありますか。</summary><div class="a">Wi-Fiは全席でお使いいただけます。電源はカウンター5席と、テーブル2卓にご用意しています。長時間のご利用も構いませんが、混雑時のみ2時間でお声がけすることがあります。</div></details>
+    <details><summary>子ども連れでも大丈夫ですか。</summary><div class="a">はい。ベビーカーはそのままお入りいただけます。お子様用の椅子が2脚、小さなカップもあります。おむつ替えの台は店内にありませんので、隣の公園の設備をご案内しています。</div></details>
+    <details><summary>犬を連れて行けますか。</summary><div class="a">テラス席のみお連れいただけます。水入れをお出ししますのでお声がけください。店内は同伴をご遠慮いただいています。</div></details>
+    <details><summary>支払いに使えるものは。</summary><div class="a">現金のほか、クレジットカード、交通系IC、QRコード決済がお使いいただけます。豆の定期購入のみ、口座振替も承っています。</div></details>
+    <details><summary>豆の通信販売はしていますか。</summary><div class="a">店頭販売のみです。ただし、一度ご来店いただいた方にはお電話でのご注文と発送を承っています。発送は焙煎の翌日、火曜と金曜です。</div></details>
+  </div>
+</section>
+
+<!-- 07 ACCESS -->
+<section class="access rv" id="access">
+  <div class="wrap a2">
+    <div class="ib"><img src="img/staff.jpg" alt="豆を計量する店員の手元" loading="lazy"></div>
+    <div>
+      <span class="kicker">Access</span>
+      <h2><span class="rl"><span>お店のご案内</span></span></h2>
+      <table>
+        <tr><th>住所</th><td>（架空）〇〇県〇〇市小坂井町2-14-3</td></tr>
+        <tr><th>最寄り</th><td>小坂井駅 北口から徒歩5分／駐車場3台（店舗の裏手）</td></tr>
+        <tr><th>営業時間</th><td>8:00 – 18:00（ラストオーダー 17:30）<br>モーニングは 8:00 – 11:00</td></tr>
+        <tr><th>定休日</th><td>毎週水曜／第3火曜</td></tr>
+        <tr><th>席数</th><td>店内16席（カウンター5・テーブル11）＋テラス4席</td></tr>
+        <tr><th>支払い</th><td>現金・クレジットカード・交通系IC・QRコード決済</td></tr>
+        <tr><th>電話</th><td>000-000-0000（架空）</td></tr>
+      </table>
+      <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap">
+        <a href="#" class="btn">席を予約する</a>
+        <a href="#ai" class="ghost">AIに質問してみる</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 仕切り -->
+<section class="divider">
+  <div class="wrap"><p>ここから下は、制作側のご説明です。</p>
+  <small>サイト本体は上まで。以下はランサーズ 5601147 のご提案として、AIチャットの画面設計・運用・SEOの考え方をお見せしています。</small></div>
+</section>
+
+<!-- 08 AIチャット -->
+<section class="ai rv" id="ai">
+  <div class="wrap">
+    <span class="kicker">AI Chat</span>
+    <h2><span class="rl"><span>AIチャットは、店の続きに見えること。</span></span></h2>
+    <p class="lead">チャットだけ既定のデザインのままだと、そこで急に「別のサービス」になります。書体・配色・語り口・アバターまでお店側に寄せると、最後まで同じ店の中にいる感覚が続きます。下は実際に押せます。</p>
+    <div class="ai2" style="margin-top:34px">
+      <div class="chat">
+        <div class="ch">
+          <span class="av"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#c1541f"/><path d="M17 34h22a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10z" fill="#f7f3ea"/><path d="M39 36h4.5a4.5 4.5 0 0 0 0-9H39" fill="none" stroke="#f7f3ea" stroke-width="2.6"/><path d="M20 48h22" stroke="#f7f3ea" stroke-width="2.6" stroke-linecap="round"/><path d="M23 22c0-3.4 3.4-3.4 3.4-6.8M30.6 22c0-3.4 3.4-3.4 3.4-6.8" fill="none" stroke="#f6e2d2" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <div><b>コモレビのご案内</b><span>AIが自動で回答します・営業時間外も受付</span></div>
+        </div>
+        <div class="cb" id="cb">
+          <div class="msg"><span class="av"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#c1541f"/><path d="M17 34h22a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10z" fill="#f7f3ea"/><path d="M39 36h4.5a4.5 4.5 0 0 0 0-9H39" fill="none" stroke="#f7f3ea" stroke-width="2.6"/><path d="M23 22c0-3.4 3.4-3.4 3.4-6.8M30.6 22c0-3.4 3.4-3.4 3.4-6.8" fill="none" stroke="#f6e2d2" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+            <div class="bub">こんにちは。KOMOREBI COFFEE &amp; BAKE のご案内です。お店のことなら、だいたいお答えできます。<div class="chips" id="chips">
+              <button class="chip" data-q="今日は何時まで開いていますか？">今日は何時まで開いていますか？</button>
+              <button class="chip" data-q="子ども連れでも入れますか？">子ども連れでも入れますか？</button>
+              <button class="chip" data-q="豆は通販で買えますか？">豆は通販で買えますか？</button>
+              <button class="chip" data-q="4人で行きたいのですが予約できますか？">4人で行きたいのですが予約できますか？</button>
+            </div></div></div>
+        </div>
+        <div class="cf"><input id="cin" placeholder="メッセージを入力…" aria-label="メッセージ"><button id="csend">送信</button></div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px">画面設計でやっていること</h3>
+        <div class="rows" style="margin-top:0">
+          <div class="row"><b>語り口を合わせる</b><span>店主の一人称に寄せ、断定できないことは「店にお尋ねください」で止めます</span></div>
+          <div class="row"><b>最初の4問</b><span>実際に電話で多い質問を置きます。自由入力より先に押される前提で選びます</span></div>
+          <div class="row"><b>答えの先に導線</b><span>予約・地図・電話へ1タップで送ります。答えて終わりにしません</span></div>
+          <div class="row"><b>アバターは店の色で</b><span>汎用の人物イラストを避け、看板の色とロゴの線でつくります</span></div>
+          <div class="row"><b>答えられない時</b><span>作り話をさせず、電話番号と営業時間を出して人へ渡します</span></div>
+        </div>
+        <div class="avatars">
+          <figure><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#f7f3ea" stroke="#c1541f" stroke-width="2"/><path d="M18 38h22a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10z" fill="#c1541f"/><path d="M40 40h4a5 5 0 0 0 0-10h-4" fill="none" stroke="#c1541f" stroke-width="2.4"/><path d="M24 24c0-3 3-3 3-6M31 24c0-3 3-3 3-6" fill="none" stroke="#8a6a45" stroke-width="2.2" stroke-linecap="round"/></svg><figcaption>カフェ・飲食<br>カップ＋湯気</figcaption></figure>
+          <figure><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#f7f3ea" stroke="#c1541f" stroke-width="2"/><path d="M16 44V26l16-10 16 10v18z" fill="none" stroke="#c1541f" stroke-width="2.6" stroke-linejoin="round"/><path d="M27 44V33h10v11" fill="#c1541f"/></svg><figcaption>不動産・工務店<br>家＋扉</figcaption></figure>
+          <figure><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#f7f3ea" stroke="#c1541f" stroke-width="2"/><rect x="19" y="16" width="26" height="32" fill="none" stroke="#c1541f" stroke-width="2.6"/><path d="M25 26h14M25 33h14M25 40h8" stroke="#8a6a45" stroke-width="2.2" stroke-linecap="round"/></svg><figcaption>士業・事務所<br>書類＋罫線</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 運用 -->
+<section class="ops rv" id="ops">
+  <div class="wrap">
+    <span class="kicker">Operation</span>
+    <h2><span class="rl"><span>更新は、お客様の手に返す。</span></span></h2>
+    <p class="lead">納品して終わりにすると、3か月で情報が古くなります。価格と定休日と「本日のシングル」だけは、お店の方がスプレッドシートで直せる形にしておきます。編集画面を触るのは、レイアウトを変えるときだけで済みます。</p>
+    <div class="o2">
+      <div>
+        <div class="sheet">
+          <div class="sh">MENU_MASTER ・ 共有シート</div>
+          <div class="sr"><div>品名</div><div>価格</div><div>掲載</div></div>
+          <div class="sr"><div>木漏れ日ブレンド</div><div>520</div><div>表示</div></div>
+          <div class="sr edit" id="sheetRow"><div>本日のシングル</div><div id="sheetPrice">680</div><div>表示</div></div>
+          <div class="sr"><div>季節のタルト</div><div>620</div><div>表示</div></div>
+          <div class="sr"><div>水出しコーヒー</div><div>620</div><div>休止</div></div>
+        </div>
+        <button class="ghost" id="opsBtn" style="margin-top:16px;color:var(--ink)">価格を 680 → 720 に直す</button>
+      </div>
+      <div class="out">
+        <div class="oi"><b>木漏れ日ブレンド</b><i>¥520</i></div>
+        <div class="oi"><b>本日のシングル</b><i id="outPrice">¥680</i></div>
+        <div class="oi"><b>季節のタルト</b><i>¥620</i></div>
+        <p style="font-size:12.4px;margin-top:12px" id="opsNote">サイト側の表示です。シートを直すと、ここが変わります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 SEO -->
+<section class="seo rv" id="seo">
+  <div class="wrap">
+    <span class="kicker">SEO / MEO / AI</span>
+    <h2><span class="rl"><span>検索にも、AIにも拾わせる。</span></span></h2>
+    <p class="lead">小さなお店の流入は「地名＋業種」と地図アプリ、そして最近は生成AIの回答です。3つとも同じ材料から作れるので、制作時に一度で入れておきます。</p>
+    <div class="checks stagger">
+      <div class="ck"><b>構造化データ</b><p>営業時間・住所・価格帯・定休日を JSON-LD で持たせます。下が実物です。</p></div>
+      <div class="ck"><b>地図アプリとの一致</b><p>店名・住所・電話の表記をGoogleビジネスと1文字単位で揃えます。ゆれが順位を落とします。</p></div>
+      <div class="ck"><b>質問形の見出し</b><p>FAQの見出しを実際の検索語に寄せます。AIの回答に引用されるのはここです。</p></div>
+      <div class="ck"><b>画像の代替文</b><p>全画像に日本語の代替文。写真しかないページは、AIから見ると空白です。</p></div>
+      <div class="ck"><b>表示速度</b><p>画像は幅を実寸に落としてJPEG化。ヒーロー以外は遅延読み込み。</p></div>
+      <div class="ck"><b>電話とルート</b><p>スマホでは画面下に電話と地図を固定。来店直前の指1本を奪いません。</p></div>
+    </div>
+    <div class="code">{ <span class="k">"@type"</span>: <span class="s">"CafeOrCoffeeShop"</span>,
+  <span class="k">"name"</span>: <span class="s">"KOMOREBI COFFEE &amp; BAKE"</span>,
+  <span class="k">"openingHours"</span>: <span class="s">"Mo,Tu,Th,Fr,Sa,Su 08:00-18:00"</span>,
+  <span class="k">"priceRange"</span>: <span class="s">"¥"</span>,
+  <span class="k">"servesCuisine"</span>: <span class="s">"Coffee, Baked goods"</span>,
+  <span class="k">"acceptsReservations"</span>: <span class="s">"True"</span> }</div>
+  </div>
+</section>
+
+<!-- 11 SP -->
+<section class="spv rv" id="sp">
+  <div class="wrap">
+    <span class="kicker">Mobile</span>
+    <h2><span class="rl"><span>スマホでの見え方</span></span></h2>
+    <p class="lead" style="margin:0 auto">店舗サイトは8割がスマホです。第一画面に写真・店名・営業時間・予約ボタンが入っているかだけを、最初に確かめます。</p>
+    <div class="device"><iframe data-src="index.html?sp=1" title="スマホ表示" loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f4">
+      <div>
+        <div class="logo">KOMOREBI</div>
+        <p style="font-size:12.4px;line-height:1.9">珈琲と焼き菓子<br>（架空の店舗です）</p>
+      </div>
+      <div><h4>お店</h4><a href="#concept">お店のこと</a><a href="#menu">メニュー</a><a href="#seats">店内</a><a href="#plan">豆とギフト</a></div>
+      <div><h4>ご案内</h4><a href="#faq">よくある質問</a><a href="#access">アクセス</a><a href="#ai">AIに質問する</a></div>
+      <div><h4>制作</h4><a href="https://l-studiojp.com/">Lスタジオ（平野 淳一）</a><a href="https://l-studiojp.com/">l-studiojp.com</a></div>
+    </div>
+    <div class="fend"><span>© KOMOREBI COFFEE &amp; BAKE（架空）</span><span>制作サンプル ／ 写真はAI生成のイメージです</span></div>
+  </div>
+</footer>
+
+<div class="spcta"><a href="#access">地図・営業時間</a><a class="g" href="#ai">AIに質問する</a></div>
+
+<script src="assets/motion.js"></script>
+<script>
+(function(){
+  /* ---- スマホ枠の中では、装飾を軽くする ---- */
+  if(location.search.indexOf('sp=1')>=0){
+    document.querySelectorAll('.divider,.ai,.ops,.seo,.spv').forEach(function(e){e.remove();});
+    var c=document.getElementById('curtain'); if(c) c.remove();
+    document.body.classList.add('loaded');
+  }
+
+  /* ---- メニューのタブ ---- */
+  var grid=document.getElementById('menuGrid');
+  if(!grid) return;
+  document.querySelectorAll('.tabs .ghost').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.tabs .ghost').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      var c=b.dataset.cat;
+      grid.querySelectorAll('.tile').forEach(function(t){
+        var show=(c==='all'||t.dataset.cat===c);
+        t.style.display=show?'':'none';
+        t.classList.remove('show');
+        if(show) requestAnimationFrame(function(){t.classList.add('show');});
+      });
+    });
+  });
+
+  /* ---- AIチャット ---- */
+  var A={
+    '今日は何時まで開いていますか？':['本日は<b>18時まで</b>営業しています（ラストオーダー17:30）。水曜と第3火曜はお休みです。','地図とルートを見る'],
+    '子ども連れでも入れますか？':['はい、大丈夫です。ベビーカーはそのままお入りいただけます。お子様用の椅子が2脚ございます。<br>おむつ替えの台は店内にないため、隣の公園の設備をご案内しています。','店内の写真を見る'],
+    '豆は通販で買えますか？':['通信販売は行っていません。店頭でのお渡しのみです。<br>ただし一度ご来店いただいた方には、お電話でのご注文と発送を承っています（火・金発送）。','電話をかける'],
+    '4人で行きたいのですが予約できますか？':['2名様以上でしたら、<b>前日まで</b>ご予約を承っています。4人がけのテーブルが1卓ございます。<br>満席の場合はテラス席をご案内することがあります。','席を予約する']
+  };
+  var cb=document.getElementById('cb'), inp=document.getElementById('cin');
+  if(!cb||!inp) return;
+  function add(cls,html){
+    var d=document.createElement('div'); d.className='msg '+cls;
+    var av=cls==='me'?'':'<span class="av"><svg viewBox=\"0 0 64 64\"><circle cx=\"32\" cy=\"32\" r=\"32\" fill=\"#c1541f\"/><path d=\"M17 34h22a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10z\" fill=\"#f7f3ea\"/><path d=\"M39 36h4.5a4.5 4.5 0 0 0 0-9H39\" fill=\"none\" stroke=\"#f7f3ea\" stroke-width=\"2.6\"/><path d=\"M23 22c0-3.4 3.4-3.4 3.4-6.8M30.6 22c0-3.4 3.4-3.4 3.4-6.8\" fill=\"none\" stroke=\"#f6e2d2\" stroke-width=\"2.4\" stroke-linecap=\"round\"/></svg></span>';
+    d.innerHTML=av+'<div class="bub">'+html+'</div>';
+    cb.appendChild(d); cb.scrollTop=cb.scrollHeight; return d;
+  }
+  function ask(q){
+    var chips=document.getElementById('chips'); if(chips) chips.remove();
+    add('me', q);
+    var t=add('', '<span class="typing"><span></span><span></span><span></span></span>');
+    setTimeout(function(){
+      var a=A[q];
+      if(a){ t.querySelector('.bub').innerHTML=a[0]+'<div class="chips"><button class="chip">'+a[1]+'</button></div>'; }
+      else { t.querySelector('.bub').innerHTML='そのご質問は、お店の者にお尋ねいただくのが確実です。<br><b>000-000-0000</b>（8:00–18:00／水曜定休）<div class="chips"><button class="chip">電話をかける</button></div>'; }
+      cb.scrollTop=cb.scrollHeight;
+    },900);
+  }
+  cb.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b) return;
+    if(b.dataset.q) ask(b.dataset.q);
+  });
+  document.getElementById('csend').addEventListener('click',function(){
+    var v=inp.value.trim(); if(!v) return; inp.value=''; ask(v);
+  });
+  inp.addEventListener('keydown',function(e){ if(e.key==='Enter') document.getElementById('csend').click(); });
+
+  /* ---- スマホ枠は見えてから読み込む ---- */
+  var ifr=document.querySelector('.device iframe');
+  if(ifr){
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ ifr.src=ifr.dataset.src; io2.disconnect(); } });
+    },{rootMargin:'200px'});
+    io2.observe(ifr);
+  }
+
+  /* ---- 運用デモ ---- */
+  var ob=document.getElementById('opsBtn'), done=false;
+  if(ob) ob.addEventListener('click',function(){
+    if(done){
+      document.getElementById('sheetPrice').textContent='680';
+      document.getElementById('outPrice').textContent='¥680';
+      ob.textContent='価格を 680 → 720 に直す';
+      document.getElementById('opsNote').textContent='サイト側の表示です。シートを直すと、ここが変わります。';
+      done=false; return;
+    }
+    document.getElementById('sheetPrice').textContent='720';
+    ob.textContent='元に戻す';
+    document.getElementById('opsNote').textContent='反映しました。お店の方の操作はここまでで、編集画面は開いていません。';
+    setTimeout(function(){ document.getElementById('outPrice').textContent='¥720'; },420);
+    done=true;
+  });
+})();
+</script>
+</body>
+</html>
