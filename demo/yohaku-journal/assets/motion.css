@@ -1,0 +1,15 @@
+.cursor-fire{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:100;contain:strict}
+.feature-photo,.article-cover{overflow:hidden}
+.hero-photo img{animation:hero-drift 18s ease-in-out infinite alternate}
+.article-card .card-arrow{transition:transform .4s,background .4s,color .4s}
+.article-card:hover .card-arrow{transform:rotate(45deg);background:var(--orange);color:var(--ink)}
+.story-rows>a h3{transition:transform .35s}
+.story-rows>a:hover h3{transform:translateX(7px)}
+.header nav>a:not(.search-link),.topic-bar a{position:relative}
+.header nav>a:not(.search-link)::after,.topic-bar a::after{content:'';position:absolute;bottom:-5px;left:0;width:100%;height:1px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.header nav>a:hover::after,.topic-bar a:hover::after{transform:scaleX(1)}
+.filters button{transition:background .25s,border-color .25s,transform .25s}
+.filters button:hover{transform:translateY(-2px)}
+@keyframes hero-drift{from{transform:scale(1.025) translateX(-.5%)}to{transform:scale(1.085) translateX(.5%)}}
+@media(prefers-reduced-motion:reduce){.cursor-fire{display:none}.hero-photo img{animation:none}.story-rows>a:hover h3,.filters button:hover{transform:none}*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(hover:none),(pointer:coarse){.cursor-fire{display:none}}
