@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>介護記録AIアドオン（PoCデモ）｜声で話すだけで、記録が終わる</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Barlow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#123a4d; --navy2:#1b4e66; --line:#dbe6ec; --line2:#eef4f7;
+  --bg:#f3f7f9; --card:#fff; --ink:#14303f; --ink2:#5b7484;
+  --teal:#0d7490; --teal2:#e4f2f7;
+  --ok:#157a4c; --ok2:#e6f5ec;
+  --warn:#b1590b; --warn2:#fdf2e4;
+  --bad:#bf2c2c; --bad2:#fdecec;
+}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);
+  font-family:"Zen Kaku Gothic New",system-ui,-apple-system,sans-serif;
+  font-size:14px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.num{font-family:"Barlow",sans-serif;font-variant-numeric:tabular-nums}
+
+.ribbon{background:#0a2230;color:#8fb3c4;font-size:12px;text-align:center;padding:7px 14px;line-height:1.6}
+.ribbon b{color:#fff}
+
+.top{background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;
+  padding:10px 18px;position:sticky;top:0;z-index:40;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;font-size:15px;letter-spacing:.02em}
+.brand .mk{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#0d9488,#38bdf8);
+  display:grid;place-items:center;font-size:13px;font-weight:700;color:#052430}
+.spacer{flex:1}
+.sync{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#c8e2ec;
+  background:#0a2735;border:1px solid #22505f;border-radius:999px;padding:5px 13px}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.dot.pulse{animation:pl 1.6s infinite}
+@keyframes pl{0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.18)}50%{box-shadow:0 0 0 7px rgba(34,197,94,.04)}}
+.tourbtn{background:#0d7490;color:#fff;border:0;border-bottom:3px solid #0a5a70;border-radius:9px;
+  font:700 13px/1 "Zen Kaku Gothic New",sans-serif;padding:10px 16px;cursor:pointer}
+.tourbtn.ghost{background:transparent;border:1px solid #2d5d70;border-bottom-width:3px;color:#c8e2ec}
+
+.shell{display:grid;grid-template-columns:214px 1fr;gap:0;min-height:calc(100vh - 96px)}
+.nav{background:#fff;border-right:1px solid var(--line);padding:14px 10px}
+.nav h6{font-size:10.5px;letter-spacing:.12em;color:#8ba5b4;font-weight:700;padding:8px 10px 4px}
+.nav a{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;color:#2b4759;
+  text-decoration:none;font-size:13.5px;font-weight:500;cursor:pointer}
+.nav a:hover{background:#f1f7f9}
+.nav a.on{background:var(--teal2);color:#0a4f66;font-weight:700}
+.nav a .ic{width:20px;text-align:center;font-size:14px}
+.nav a .badge{margin-left:auto;background:var(--bad);color:#fff;font-size:10.5px;font-weight:700;
+  border-radius:999px;padding:1px 7px;font-family:"Barlow",sans-serif}
+.main{padding:20px 22px 70px;overflow:hidden}
+.view{display:none}
+.view.on{display:block;animation:fade .32s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+h1{font-size:19px;font-weight:900;letter-spacing:.01em;margin-bottom:3px}
+.lead{color:var(--ink2);font-size:13px;margin-bottom:16px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.kpi .k{font-size:11.5px;color:var(--ink2);font-weight:700;letter-spacing:.02em}
+.kpi .v{font-size:27px;font-weight:700;line-height:1.25;font-family:"Barlow",sans-serif}
+.kpi .v small{font-size:13px;font-weight:600;color:var(--ink2);margin-left:3px}
+.kpi .d{font-size:11.5px;color:var(--ink2)}
+.kpi.good .v{color:var(--ok)} .kpi.warn .v{color:var(--warn)} .kpi.bad .v{color:var(--bad)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.card > h2{font-size:13.5px;font-weight:700;padding:11px 15px;border-bottom:1px solid var(--line2);
+  display:flex;align-items:center;gap:9px}
+.card > h2 .tag{font-size:10.5px;font-weight:700;padding:1px 8px;border-radius:999px;
+  background:var(--teal2);color:#0a4f66;margin-left:auto}
+.pad{padding:14px 15px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;background:#f6fafb;color:#55707f;font-weight:700;font-size:11.5px;
+  letter-spacing:.03em;padding:8px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.click{cursor:pointer}
+tr.click:hover{background:#f5fbfc}
+tr.hl{background:#fffbea!important;box-shadow:inset 3px 0 0 #e09b28}
+.r{text-align:right;font-family:"Barlow",sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap}
+.c{text-align:center}
+
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;
+  border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pill.ok{background:var(--ok2);color:var(--ok)}
+.pill.run{background:var(--teal2);color:#0a4f66}
+.pill.warn{background:var(--warn2);color:var(--warn)}
+.pill.bad{background:var(--bad2);color:var(--bad)}
+.pill.mute{background:#eef2f5;color:#5b7484}
+
+.conf{display:inline-flex;align-items:center;gap:6px;font-family:"Barlow",sans-serif;font-size:12px;font-weight:600}
+.bar{width:44px;height:5px;border-radius:3px;background:#e3ebf0;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.bar.w i{background:var(--warn)} .bar.b i{background:var(--bad)}
+
+/* ---------- voice ---------- */
+.mic{display:flex;align-items:center;gap:14px;padding:15px;border:1px solid var(--line);
+  border-radius:12px;background:linear-gradient(180deg,#fbfefe,#f3f9fb)}
+.micbtn{width:56px;height:56px;border-radius:50%;border:0;background:var(--bad);color:#fff;
+  font-size:20px;cursor:pointer;flex:none;box-shadow:0 6px 18px rgba(191,44,44,.25)}
+.micbtn.rec{animation:rec 1.3s infinite}
+@keyframes rec{0%,100%{box-shadow:0 0 0 0 rgba(191,44,44,.35)}50%{box-shadow:0 0 0 13px rgba(191,44,44,0)}}
+.wave{flex:1;height:38px;display:flex;align-items:center;gap:3px;overflow:hidden}
+.wave i{display:block;width:3px;border-radius:2px;background:#9fc6d4;height:6px}
+.wave.on i{animation:wv .9s infinite ease-in-out}
+@keyframes wv{0%,100%{height:5px}50%{height:var(--h,22px)}}
+.mic .st{font-size:12.5px;color:var(--ink2);white-space:nowrap}
+
+.rawtext{border:1px solid var(--line);border-radius:10px;background:#fff;padding:13px 15px;
+  font-size:13.5px;line-height:2.05;min-height:96px}
+.rawtext .fil{color:#9db2bf}
+.rawtext .cur{display:inline-block;width:2px;height:15px;background:var(--teal);
+  vertical-align:-2px;animation:bl .9s step-end infinite}
+@keyframes bl{50%{opacity:0}}
+
+.slot{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;
+  padding:9px 12px;border-bottom:1px solid var(--line2);font-size:13px;opacity:0;transform:translateY(5px)}
+.slot.in{opacity:1;transform:none;transition:all .45s ease}
+.slot:last-child{border-bottom:0}
+.slot .lb{color:var(--ink2);font-size:11.5px;font-weight:700}
+.slot .vl{font-weight:500}
+.slot .vl b{font-weight:700}
+.slot.q{background:#fffdf5}
+
+.nogo{border:1px dashed #c9d7de;border-radius:10px;background:#fafcfd;padding:12px 14px;
+  font-size:12.8px;color:var(--ink2);line-height:1.95}
+.nogo b{color:var(--ink)}
+.strike{color:#a8b8c2;text-decoration:line-through}
+
+.btn-p{background:var(--teal);color:#fff;border:0;border-bottom:3px solid #0a5a70;border-radius:9px;
+  font:700 13px/1 "Zen Kaku Gothic New",sans-serif;padding:11px 17px;cursor:pointer}
+.btn-p.g{background:var(--ok);border-bottom-color:#0f5c39}
+.btn-s{background:#fff;color:#2b4759;border:1px solid var(--line);border-bottom-width:3px;
+  border-radius:9px;font:700 13px/1 "Zen Kaku Gothic New",sans-serif;padding:11px 17px;cursor:pointer}
+.btnrow{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;padding-left:20px}
+.tl:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl .it{position:relative;padding:8px 0 8px 2px;font-size:13px}
+.tl .it:before{content:"";position:absolute;left:-19px;top:15px;width:10px;height:10px;border-radius:50%;
+  background:#fff;border:2px solid var(--teal)}
+.tl .it.w:before{border-color:var(--warn)}
+.tl .it .tm{font-family:"Barlow",sans-serif;font-weight:600;color:var(--ink2);font-size:12px;margin-right:8px}
+
+/* ---------- matrix ---------- */
+.mx td.cell{text-align:center;font-family:"Barlow",sans-serif;font-weight:600;font-size:12px}
+.cell .o{color:var(--ok)}
+.cell .x{display:inline-block;background:var(--bad2);color:var(--bad);border-radius:6px;padding:1px 9px;font-weight:700}
+.cell .a{display:inline-block;background:var(--warn2);color:var(--warn);border-radius:6px;padding:1px 9px;font-weight:700}
+
+/* ---------- flow ---------- */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.fs{border:1px solid var(--line);border-radius:11px;background:#fff;padding:13px 14px}
+.fs .n{font-family:"Barlow",sans-serif;font-size:11px;font-weight:700;color:#8ba5b4;letter-spacing:.08em}
+.fs h4{font-size:13.5px;font-weight:700;margin:3px 0 6px}
+.fs p{font-size:12.4px;color:var(--ink2);line-height:1.85}
+
+.note{background:#f7fbfc;border:1px solid var(--line);border-radius:11px;padding:13px 15px;
+  font-size:12.9px;line-height:1.95;color:var(--ink2)}
+.note b{color:var(--ink)}
+
+.code{background:#0c2634;color:#cfe6ef;border-radius:11px;padding:14px 16px;font-size:12.3px;
+  line-height:1.85;overflow-x:auto;font-family:"Barlow",ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre}
+.code .k{color:#7fd1ff} .code .s{color:#a7e8b5} .code .m{color:#f0b46b} .code .c{color:#6b8b9c}
+
+.draft{border:1px solid var(--line);border-radius:9px;background:#fafdfe;padding:13px 15px;
+  font-size:13px;line-height:2;white-space:pre-wrap}
+
+/* ---------- modal ---------- */
+.ov{position:fixed;inset:0;background:rgba(8,26,36,.52);z-index:70;display:none;
+  align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex}
+.mo{background:#fff;border-radius:14px;max-width:720px;width:100%;max-height:88vh;overflow:auto;
+  box-shadow:0 24px 60px rgba(6,22,32,.35)}
+.mo .h{display:flex;align-items:center;gap:10px;padding:14px 17px;border-bottom:1px solid var(--line);
+  font-size:14px;font-weight:700;position:sticky;top:0;background:#fff}
+.mo .h .x{margin-left:auto;background:transparent;border:0;font-size:19px;color:#8ba5b4;cursor:pointer}
+.mo .b{padding:16px 17px}
+.mo .f{padding:12px 17px 17px;display:flex;gap:9px;flex-wrap:wrap}
+
+/* ---------- tour ---------- */
+.spot{position:relative;z-index:35;box-shadow:0 0 0 3px rgba(13,116,144,.3),0 10px 30px rgba(16,48,64,.14);
+  border-radius:12px;transition:box-shadow .3s}
+.cap{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;
+  background:#123a4d;color:#fff;border-radius:12px;padding:13px 20px;max-width:min(780px,92vw);
+  box-shadow:0 16px 40px rgba(6,22,32,.34);display:none;align-items:center;gap:14px}
+.cap.on{display:flex}
+.cap .txt{font-size:14px;line-height:1.7}
+.cap .txt b{color:#7fe0ff}
+.cap .stepn{font-family:"Barlow",sans-serif;font-size:11.5px;color:#8fb3c4;white-space:nowrap;font-weight:600}
+.cap .x{background:transparent;border:1px solid #2d5d70;color:#c8e2ec;border-radius:7px;
+  font:700 11.5px/1 inherit;padding:7px 10px;cursor:pointer;white-space:nowrap}
+.prog{position:fixed;left:0;top:0;height:3px;background:#0d7490;z-index:61;width:0;transition:width .3s}
+
+.toast{position:fixed;right:18px;top:66px;z-index:55;display:grid;gap:8px}
+.tt{background:#fff;border:1px solid var(--line);border-left:4px solid var(--ok);border-radius:10px;
+  padding:10px 14px;font-size:12.8px;box-shadow:0 10px 26px rgba(16,48,64,.14);
+  animation:slid .4s ease;max-width:320px}
+.tt b{display:block;font-size:13px}
+@keyframes slid{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+.foot{color:#7c93a2;font-size:12px;padding:18px 22px 40px;border-top:1px solid var(--line);margin-top:10px}
+.foot a{color:var(--teal)}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .nav{display:flex;gap:4px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}
+  .nav h6{display:none}
+  .nav a{white-space:nowrap;padding:8px 12px;flex:none}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .flow{grid-template-columns:1fr 1fr}
+  .main{padding:15px 13px 70px}
+  .slot{grid-template-columns:78px 1fr;row-gap:2px}
+  .slot > :last-child{grid-column:1/-1}
+  .mic{flex-wrap:wrap}
+  .mic .st{white-space:normal;flex:1 1 100%;font-size:12px}
+  .wave{flex:1 1 auto;min-width:90px}
+  .nogo b{display:inline-block}
+  .toast{right:10px;left:10px;top:60px}
+  .tt{max-width:none}
+  table{font-size:12.3px}
+  th,td{padding:7px 9px}
+  th{width:auto!important}
+  /* 幅の狭い画面では、補足列を落として本文を読ませる */
+  #cardAlerts th:nth-child(3),#cardAlerts td:nth-child(3),
+  #cardHand th:nth-child(3),#cardHand td:nth-child(3),
+  #cardRenkei th:nth-child(1),#cardRenkei td:nth-child(1),
+  #cardHiyari th:nth-child(1),#cardHiyari td:nth-child(1){display:none}
+  #cardHiyari td:nth-child(2){font-weight:700}
+  /* LIFEのマトリクスだけは横スクロールで全列見せる */
+  table.mx{display:block;overflow-x:auto;white-space:nowrap}
+  .hide-sp{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ribbon">これは<b>ご提案用のデモ</b>です。施設名・ご利用者名・数値はすべて<b>架空</b>で、実在の個人・法人・施設の情報は一切含まれていません。</div>
+
+<div class="top">
+  <div class="brand"><span class="mk">記</span>介護記録AIアドオン <span style="font-weight:500;color:#9ecada">PoC</span></div>
+  <div class="sync"><span class="dot pulse"></span><span id="syncTxt">介護ソフト連携中（CSV/API）・最終同期 3分前</span></div>
+  <div class="spacer"></div>
+  <button class="tourbtn" id="btnTour">自動デモを再生</button>
+  <button class="tourbtn ghost hide-sp" id="btnReset">最初から</button>
+</div>
+
+<div class="shell">
+  <nav class="nav">
+    <h6>現場</h6>
+    <a data-v="dash" class="on"><span class="ic">▤</span>今日の記録</a>
+    <a data-v="voice"><span class="ic">●</span>声で記録</a>
+    <a data-v="hand"><span class="ic">⇄</span>申し送り</a>
+    <a data-v="hiyari"><span class="ic">⚠</span>ヒヤリハット<span class="badge num">3</span></a>
+    <h6>管理</h6>
+    <a data-v="life"><span class="ic">▦</span>LIFE提出チェック<span class="badge num">4</span></a>
+    <a data-v="renkei"><span class="ic">⇪</span>介護ソフト連携</a>
+    <h6>ご提案</h6>
+    <a data-v="flow"><span class="ic">▢</span>進めかた</a>
+  </nav>
+
+  <main class="main">
+
+  <!-- ============ dash ============ -->
+  <section class="view on" data-view="dash">
+    <h1>今日の記録　<span style="font-size:13px;font-weight:500;color:var(--ink2)">さくら台ケアホーム（架空）・ユニット2　2026年9月14日（日）</span></h1>
+    <p class="lead">職員は記録を「書く」のではなく、いつもどおり口で言うだけ。画面を開くのは、下の指摘を見るときだけです。</p>
+
+    <div class="kpis" id="kpiRow">
+      <div class="kpi good"><div class="k">1人あたりの記録入力時間</div><div class="v">11<small>分/日</small></div><div class="d">導入前の実測 47分/日</div></div>
+      <div class="kpi"><div class="k">今日の記録件数</div><div class="v">128<small>件</small></div><div class="d">うち音声から 121件（94.5%）</div></div>
+      <div class="kpi warn"><div class="k">職員の承認待ち</div><div class="v">6<small>件</small></div><div class="d">信頼度が低い項目を含む記録</div></div>
+      <div class="kpi bad"><div class="k">LIFE必須項目の欠測</div><div class="v">4<small>件</small></div><div class="d">提出期限まで 12日</div></div>
+    </div>
+
+    <div class="card" id="cardAlerts">
+      <h2>人が見るべき指摘　<span class="tag">ここだけ見れば済む</span></h2>
+      <table>
+        <thead><tr><th style="width:96px">種別</th><th>内容</th><th style="width:130px">根拠</th><th class="c" style="width:110px"></th></tr></thead>
+        <tbody>
+          <tr class="click hl" data-mo="pattern">
+            <td><span class="pill bad">傾向</span></td>
+            <td><b>S様（居室201）のふらつきが、14日で3回。いずれも15時台です。</b></td>
+            <td class="num" style="font-size:12px;color:var(--ink2)">記録本文から抽出</td>
+            <td class="c"><button class="btn-s" style="padding:6px 11px;font-size:12px">開く</button></td>
+          </tr>
+          <tr class="click" data-mo="vital">
+            <td><span class="pill warn">逸脱</span></td>
+            <td>T様（居室208）の体重が3か月で <b>−3.4kg</b>。栄養の項目が2回連続で未記入です。</td>
+            <td class="num" style="font-size:12px;color:var(--ink2)">LIFE項目と突合</td>
+            <td class="c"><button class="btn-s" style="padding:6px 11px;font-size:12px">開く</button></td>
+          </tr>
+          <tr class="click" data-mo="conf">
+            <td><span class="pill mute">要確認</span></td>
+            <td>音声から起こした記録のうち6件に、<b>時刻や数値があいまいな箇所</b>があります。</td>
+            <td class="num" style="font-size:12px;color:var(--ink2)">信頼度 70%未満</td>
+            <td class="c"><button class="btn-s" style="padding:6px 11px;font-size:12px">開く</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" id="cardLive">
+      <h2>いま入ってきている記録<span class="tag">音声 → 自動</span></h2>
+      <div class="pad">
+        <div class="tl" id="tlBox">
+          <div class="it"><span class="tm num">15:12</span>S様／排泄介助・移動　<span class="pill mute">職員A</span>　<span style="color:var(--ink2)">立ち上がり時にふらつき、手すりで保持。転倒なし。</span></div>
+          <div class="it w"><span class="tm num">15:04</span>K様／食事　<span class="pill mute">職員C</span>　<span style="color:var(--ink2)">おやつ時にむせ込み1回。水分にとろみ追加。</span></div>
+          <div class="it"><span class="tm num">14:50</span>T様／バイタル　<span class="pill mute">看護</span>　<span style="color:var(--ink2)">体温36.4／血圧132-78／SpO2 97</span></div>
+          <div class="it"><span class="tm num">14:31</span>M様／入浴　<span class="pill mute">職員B</span>　<span style="color:var(--ink2)">一般浴。背部に発赤なし。声かけで自立動作。</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      記録の保存先は<b>いま使っている介護ソフトのまま</b>です。この画面はその上に乗る足し算で、置き換えではありません。
+      ご利用者の氏名は<b>施設内でのみ</b>表示され、外部の生成AIに送るテキストからは氏名・生年月日・居室番号を除いて送ります（<a href="#" data-v="renkei" style="color:var(--teal)">介護ソフト連携</a>に実物）。
+    </div>
+  </section>
+
+  <!-- ============ voice ============ -->
+  <section class="view" data-view="voice">
+    <h1>声で記録　<span style="font-size:13px;font-weight:500;color:var(--ink2)">職員がふだん申し送りで言っている言葉そのままを入れます</span></h1>
+    <p class="lead">「きれいな日本語で話す」必要はありません。言い淀み・言い直し・方言が混ざった実際の話し方で試しています。</p>
+
+    <div class="card" id="cardMic">
+      <h2>① 話す<span class="tag">スマホ・インカム・据置マイク</span></h2>
+      <div class="pad">
+        <div class="mic">
+          <button class="micbtn" id="micBtn">●</button>
+          <div class="wave" id="wave"></div>
+          <div class="st" id="micSt">ボタンを押すと、録音の再現が始まります（14秒）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="cardRaw">
+      <h2>② 文字にする<span class="tag">そのまま・整えない</span></h2>
+      <div class="pad"><div class="rawtext" id="rawBox"><span style="color:#9db2bf">― 録音を開始すると、ここに文字が出ます ―</span></div></div>
+    </div>
+
+    <div class="card" id="cardSlot">
+      <h2>③ 記録の形にする<span class="tag">介護ソフトの項目に合わせて</span></h2>
+      <div id="slotBox">
+        <div class="slot in" style="opacity:.45"><div class="lb">―</div><div class="vl" style="color:var(--ink2)">文字起こしが終わると、ここに項目が1つずつ埋まります</div><div></div></div>
+      </div>
+    </div>
+
+    <div class="card" id="cardNogo">
+      <h2>④ 書かなかったこと<span class="tag">ここが一番大事です</span></h2>
+      <div class="pad">
+        <div class="nogo" id="nogoBox">
+          記録が終わってから表示されます。
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="cardApprove">
+      <h2>⑤ 職員が承認して、はじめて記録になります</h2>
+      <div class="pad btnrow">
+        <button class="btn-p g" data-toast="記録を保存しました|介護ソフトへ 1件 反映しました（15:12 S様／排泄・移動）">この内容で記録する</button>
+        <button class="btn-s" data-mo="edit">1か所だけ直す</button>
+        <span style="font-size:12.5px;color:var(--ink2)">AIが自動で保存することはありません。承認していない記録は、誰の目にも記録として出ません。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ hand ============ -->
+  <section class="view" data-view="hand">
+    <h1>申し送り　<span style="font-size:13px;font-weight:500;color:var(--ink2)">日勤 → 夜勤（16:30）</span></h1>
+    <p class="lead">その日の記録128件から、<b>変化があった方だけ</b>を抜いて並べます。全員分を読み上げる時間がなくなります。</p>
+
+    <div class="card" id="cardHand">
+      <h2>夜勤へ引き継ぐこと<span class="tag">3名・自動作成</span></h2>
+      <table>
+        <thead><tr><th style="width:130px">ご利用者</th><th>引き継ぎ</th><th style="width:120px">元の記録</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td><b>S様</b><br><span style="font-size:11.5px;color:var(--ink2)">居室201</span></td>
+            <td>15:12 立ち上がり時に<b>ふらつき</b>（手すりで保持・転倒なし）。<b>14日で3回目</b>、いずれも15時台。<br>夜間のトイレ移動は<b>付き添いを推奨</b>します。</td>
+            <td><span class="pill run">記録2件</span></td></tr>
+          <tr class="hl"><td><b>K様</b><br><span style="font-size:11.5px;color:var(--ink2)">居室205</span></td>
+            <td>15:04 おやつ時に<b>むせ込み1回</b>。水分にとろみを追加済み。<br>夕食時の<b>姿勢と一口量</b>に注意。発熱なし（36.6）。</td>
+            <td><span class="pill run">記録3件</span></td></tr>
+          <tr><td><b>T様</b><br><span style="font-size:11.5px;color:var(--ink2)">居室208</span></td>
+            <td>昼食摂取<b>5割</b>（3日連続で7割未満）。体重は3か月で−3.4kg。<br>水分は現在<b>600ml</b>。就寝前に追加の声かけを。</td>
+            <td><span class="pill run">記録4件</span></td></tr>
+        </tbody>
+      </table>
+      <div class="pad btnrow" style="border-top:1px solid var(--line2)">
+        <button class="btn-p" data-toast="申し送りを配信しました|夜勤メンバー3名のスマホへ通知しました">この内容で申し送る</button>
+        <button class="btn-s" data-mo="hand2">読み上げ用の文章で見る</button>
+        <span style="font-size:12.5px;color:var(--ink2)">残り25名は「特記なし」として1行にまとめています。</span>
+      </div>
+    </div>
+
+    <div class="note">
+      申し送りの文面は、<b>その日の承認済み記録だけ</b>から作ります。承認されていない記録・信頼度の低い値は、申し送りに出しません。
+      「AIが勝手に要約して、大事なことが落ちる」という不安に対する答えが、この線引きです。
+    </div>
+  </section>
+
+  <!-- ============ hiyari ============ -->
+  <section class="view" data-view="hiyari">
+    <h1>ヒヤリハット　<span style="font-size:13px;font-weight:500;color:var(--ink2)">記録の本文から自動で拾います</span></h1>
+    <p class="lead">ヒヤリハットは「書く時間がないから書かれない」。書かせるのではなく、<b>すでに書いてある記録から拾い上げる</b>設計にしています。</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="k">今月の自動検出</div><div class="v">17<small>件</small></div><div class="d">職員の手入力は 2件</div></div>
+      <div class="kpi warn"><div class="k">繰り返しの傾向</div><div class="v">3<small>件</small></div><div class="d">同一のご利用者・同一の時間帯</div></div>
+      <div class="kpi"><div class="k">報告書の下書き</div><div class="v">17<small>件</small></div><div class="d">提出は職員の承認後</div></div>
+      <div class="kpi good"><div class="k">記録→検出までの時間</div><div class="v">8<small>秒</small></div><div class="d">その場で気づける</div></div>
+    </div>
+
+    <div class="card" id="cardHiyari">
+      <h2>検出した言葉と、その背景</h2>
+      <table>
+        <thead><tr><th style="width:120px">検出語</th><th style="width:110px">ご利用者</th><th>並べて分かること</th><th class="c" style="width:100px">回数/14日</th></tr></thead>
+        <tbody>
+          <tr class="click hl" data-mo="pattern"><td><b>ふらつき</b></td><td>S様（201）</td>
+            <td>3回すべて<b>15時台</b>。降圧薬の服用から約2時間後に集中しています。</td><td class="c"><span class="pill bad">3</span></td></tr>
+          <tr class="click" data-mo="muse"><td><b>むせ込み</b></td><td>K様（205）</td>
+            <td>おやつ時のみ。昼食・夕食では検出なし。<b>形態ではなく姿勢</b>の可能性。</td><td class="c"><span class="pill warn">2</span></td></tr>
+          <tr><td><b>皮下出血</b></td><td>M様（212）</td>
+            <td>前腕部1回。移乗時の把持位置を記録から確認できます。</td><td class="c"><span class="pill mute">1</span></td></tr>
+          <tr><td><b>自己抜去</b></td><td>―</td><td>今月の検出なし</td><td class="c"><span class="pill mute">0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <b>AIは「原因」を書きません。</b>上の「降圧薬の服用から約2時間後」も、<b>服薬記録と記録時刻を並べただけ</b>で、因果の判断はしていません。
+      判断するのは看護職員と、必要ならかかりつけ医です。医学的な評価をAIの出力として出さないことを、PoCの設計条件にしています。
+    </div>
+  </section>
+
+  <!-- ============ life ============ -->
+  <section class="view" data-view="life">
+    <h1>LIFE提出チェック　<span style="font-size:13px;font-weight:500;color:var(--ink2)">科学的介護推進体制加算・次回提出まで 12日</span></h1>
+    <p class="lead">提出の直前に事務所で徹夜する作業を、<b>毎日の記録のついでに終わらせます</b>。足りない項目だけを赤で出します。</p>
+
+    <div class="card" id="cardLife">
+      <h2>必須項目の入力状況<span class="tag">ユニット2・28名中 抜粋6名</span></h2>
+      <table class="mx">
+        <thead><tr><th style="width:120px">ご利用者</th><th class="c">身長・体重</th><th class="c">ADL（Barthel）</th><th class="c">口腔・嚥下</th><th class="c">栄養（食事摂取）</th><th class="c">認知症関連</th><th class="c" style="width:96px">状態</th></tr></thead>
+        <tbody>
+          <tr><td>S様（201）</td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="c"><span class="pill ok">提出可</span></td></tr>
+          <tr class="hl"><td><b>T様（208）</b></td><td class="cell"><span class="a">3か月前</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="x">未</span></td><td class="cell"><span class="o">●</span></td><td class="c"><span class="pill bad">2件不足</span></td></tr>
+          <tr><td>K様（205）</td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="x">未</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="c"><span class="pill bad">1件不足</span></td></tr>
+          <tr><td>M様（212）</td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="c"><span class="pill ok">提出可</span></td></tr>
+          <tr><td>H様（215）</td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="x">未</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="c"><span class="pill bad">1件不足</span></td></tr>
+          <tr><td>Y様（219）</td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="cell"><span class="o">●</span></td><td class="c"><span class="pill ok">提出可</span></td></tr>
+        </tbody>
+      </table>
+      <div class="pad btnrow" style="border-top:1px solid var(--line2)">
+        <button class="btn-p" data-mo="lifecsv">不足4件の入力依頼を出す</button>
+        <button class="btn-s" data-mo="lifecsv2">提出用データを書き出す</button>
+        <span style="font-size:12.5px;color:var(--ink2)">ADL・食事摂取は毎日の記録から自動で埋まります。赤は<b>記録からは埋められない項目</b>です。</span>
+      </div>
+    </div>
+
+    <div class="note">
+      LIFEへの提出データは、<b>この仕組みが直接LIFEへ送信することはしません</b>。提出用の形に整えて書き出すところまでを担当し、
+      提出そのものは施設のご担当者が現在の手順で行います。加算の算定に関わる操作を外部の仕組みに握らせない、という考え方です。
+      （提出頻度は少なくとも3か月に1回。項目の構成は、施設の算定している加算に合わせて設定します。）
+    </div>
+  </section>
+
+  <!-- ============ renkei ============ -->
+  <section class="view" data-view="renkei">
+    <h1>介護ソフト連携　<span style="font-size:13px;font-weight:500;color:var(--ink2)">置き換えません。いま使っているものの上に乗ります</span></h1>
+    <p class="lead">この一点が、介護DXがうまくいくかどうかの分かれ目だと考えています。</p>
+
+    <div class="card" id="cardRenkei">
+      <h2>同期のログ</h2>
+      <table>
+        <thead><tr><th style="width:120px">時刻</th><th style="width:150px">方向</th><th>内容</th><th class="c" style="width:100px">結果</th></tr></thead>
+        <tbody>
+          <tr><td class="num">15:12:41</td><td><span class="pill run">当システム → 介護ソフト</span></td><td>ケース記録 1件（S様・排泄/移動）を登録</td><td class="c"><span class="pill ok">成功</span></td></tr>
+          <tr><td class="num">15:10:02</td><td><span class="pill mute">介護ソフト → 当システム</span></td><td>ご利用者マスタ 28件・居室情報を取得</td><td class="c"><span class="pill ok">成功</span></td></tr>
+          <tr><td class="num">15:04:18</td><td><span class="pill run">当システム → 介護ソフト</span></td><td>バイタル 3件（体温・血圧・SpO2）を登録</td><td class="c"><span class="pill ok">成功</span></td></tr>
+          <tr><td class="num">14:58:00</td><td><span class="pill mute">介護ソフト → 当システム</span></td><td>本日のシフト・担当割りを取得</td><td class="c"><span class="pill ok">成功</span></td></tr>
+          <tr><td class="num">14:31:55</td><td><span class="pill run">当システム → 介護ソフト</span></td><td>ケース記録 1件（M様・入浴）を登録</td><td class="c"><span class="pill ok">成功</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" id="cardCode">
+      <h2>外部のAIへ送っている文字列<span class="tag">そのまま載せます</span></h2>
+      <div class="pad">
+        <div class="code"><span class="c">// 職員が話した音声から起こしたテキスト（氏名・居室・生年月日を置換したあと）</span>
+{
+  <span class="k">"staff_id"</span>: <span class="s">"U2-A"</span>,
+  <span class="k">"resident_ref"</span>: <span class="s">"R-0412"</span>,          <span class="c">// 施設内の対応表でのみ氏名に戻せます</span>
+  <span class="k">"spoken_at"</span>: <span class="s">"2026-09-14T15:12:00+09:00"</span>,
+  <span class="k">"text"</span>: <span class="s">"えーっと 3時ごろかな 201の… あ、利用者さんがトイレ行こうとして立ち上がったときに ちょっとふらついて…"</span>
+}
+
+<span class="c">// 返ってくるもの</span>
+{
+  <span class="k">"category"</span>: [<span class="s">"排泄"</span>, <span class="s">"移動"</span>],
+  <span class="k">"occurred_at"</span>: { <span class="k">"value"</span>: <span class="s">"2026-09-14T15:00:00+09:00"</span>, <span class="k">"confidence"</span>: <span class="m">0.62</span>, <span class="k">"needs_review"</span>: <span class="m">true</span> },
+  <span class="k">"vitals"</span>: { <span class="k">"bp"</span>: { <span class="k">"value"</span>: <span class="s">"148/82"</span>, <span class="k">"confidence"</span>: <span class="m">0.97</span> } },
+  <span class="k">"intake"</span>: { <span class="k">"water_ml"</span>: { <span class="k">"value"</span>: <span class="m">300</span>, <span class="k">"confidence"</span>: <span class="m">0.71</span> },
+               <span class="k">"meal_lunch"</span>: { <span class="k">"value"</span>: <span class="s">"5/10"</span>, <span class="k">"confidence"</span>: <span class="m">0.88</span> } },
+  <span class="k">"note"</span>: <span class="s">"立ち上がり時にふらつきあり。手すりを把持し保持。転倒なし。"</span>,
+  <span class="k">"risk_flags"</span>: [<span class="s">"ふらつき"</span>],
+  <span class="k">"inference_blocked"</span>: [<span class="s">"原因の推定"</span>, <span class="s">"医学的評価"</span>, <span class="s">"発言にない数値の補完"</span>]
+}</div>
+      </div>
+    </div>
+
+    <div class="note">
+      氏名・生年月日・居室番号は<b>施設のサーバの外へ出しません</b>。外へ出るのは <b>R-0412</b> のような施設内だけで意味を持つ符号と、発話テキストだけです。
+      音声ファイルそのものも施設内に保管し、文字起こし後に消す／残すは施設の運用に合わせて設定します。
+      使う基盤モデルは<b>入力を学習に使わない契約形態のもの</b>を選び、処理を行う地域も国内に固定します。
+      介護ソフトにAPIがない場合は、CSVの受け渡し（所定フォルダへの書き出し・取り込み）で同じことができます。<b>ソフトを乗り換えていただく必要はありません。</b>
+    </div>
+  </section>
+
+  <!-- ============ flow ============ -->
+  <section class="view" data-view="flow">
+    <h1>進めかた</h1>
+    <p class="lead">いきなり全施設ではなく、<b>1施設・1ユニット・4週間</b>から始めます。うまくいかなければ、そこで止める判断ができる大きさにしています。</p>
+
+    <div class="card" id="cardFlow">
+      <h2>PoCの4週間</h2>
+      <div class="pad">
+        <div class="flow">
+          <div class="fs"><div class="n">WEEK 1</div><h4>現場に入る</h4><p>1ユニットの日勤・夜勤に同行し、記録のどこで手が止まるかを見ます。既存の介護ソフトの項目と、実際の申し送りの言葉を突き合わせます。</p></div>
+          <div class="fs"><div class="n">WEEK 2</div><h4>話し方に合わせる</h4><p>その施設の職員が実際に使う言葉（方言・略語・ご利用者の呼び方）で認識できるよう調整します。ここが精度の大半を決めます。</p></div>
+          <div class="fs"><div class="n">WEEK 3</div><h4>実際に使ってもらう</h4><p>2〜3名の職員に1週間使っていただきます。記録時間を前後で計測し、書き直しが発生した箇所をすべて記録します。</p></div>
+          <div class="fs"><div class="n">WEEK 4</div><h4>数字で判断する</h4><p>記録時間・書き直し率・ヒヤリハット検出数・職員の継続意向を出します。続けるか止めるかを、この4つで決めていただきます。</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>PoCの合格ラインを、先に決めておきます</h2>
+      <table>
+        <thead><tr><th>見るもの</th><th style="width:190px">合格ライン（案）</th><th style="width:230px">未達のときの判断</th></tr></thead>
+        <tbody>
+          <tr><td>1人1日あたりの記録入力時間</td><td><b>半分以下</b>になること</td><td>対象の記録種別を絞って再測定</td></tr>
+          <tr><td>職員による書き直しの発生率</td><td><b>2割以下</b></td><td>用語辞書の作り込みを追加</td></tr>
+          <tr><td>1週間使ったあとの継続意向</td><td>参加職員の<b>過半数</b></td><td>中止。原因を文書化して共有</td></tr>
+          <tr><td>ヒヤリハットの検出数</td><td>手入力時の<b>3倍以上</b></td><td>検出語の見直し</td></tr>
+        </tbody>
+      </table>
+      <div class="pad" style="border-top:1px solid var(--line2);font-size:12.9px;color:var(--ink2);line-height:1.95">
+        数字が出なければ止める、と最初に決めておくほうが、次の施設へ持っていける形になると考えています。
+        <b>「導入できたかどうか」ではなく「職員が翌週も使ったかどうか」</b>を合否にしたいと思っています。
+      </div>
+    </div>
+
+    <div class="note">
+      この画面は、ご依頼文にあった検討テーマのうち<b>「記録業務AI化」の1本だけ</b>を形にしたものです。
+      請求支援・シフト最適化・採用管理・見守り・BCPについても考えはありますが、
+      最初に全部を並べるより、<b>1本を1施設で数字にしてから横に広げる</b>ほうが、御社の施設ネットワークの価値が活きると考えています。
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<div class="foot">
+  Lスタジオ（平野 淳一）／ご提案用デモ　―　画面・操作は実装予定のものと同じです。解析エンジンは未接続のため、表示される値は固定です。<br>
+  施設名・ご利用者名・数値はすべて架空です。　<a href="https://l-studiojp.com/">l-studiojp.com</a>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="prog" id="prog"></div>
+<div class="cap" id="cap"><span class="stepn" id="capN">1 / 1</span><span class="txt" id="capT"></span><button class="x" id="capX">とめる</button></div>
+
+<div class="ov" id="ov">
+  <div class="mo">
+    <div class="h"><span id="moT">―</span><button class="x" id="moX">×</button></div>
+    <div class="b" id="moC"></div>
+    <div class="f" id="moF"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ---------- nav ---------- */
+  function show(v){
+    document.querySelectorAll('.view').forEach(function(s){ s.classList.toggle('on', s.dataset.view===v); });
+    document.querySelectorAll('.nav a').forEach(function(a){ a.classList.toggle('on', a.dataset.v===v); });
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('[data-v]').forEach(function(a){
+    a.addEventListener('click',function(e){ e.preventDefault(); stopTour(); show(a.dataset.v);
+      if(a.dataset.v==='voice') setTimeout(function(){ if(!played) runVoice(); },500); });
+  });
+
+  /* ---------- toast ---------- */
+  function toast(title, body){
+    var t = document.createElement('div');
+    t.className='tt'; t.innerHTML='<b>'+title+'</b>'+(body||'');
+    document.getElementById('toast').appendChild(t);
+    setTimeout(function(){ t.style.transition='opacity .5s'; t.style.opacity=0;
+      setTimeout(function(){ t.remove(); },520); }, 4200);
+  }
+
+  /* ---------- wave bars ---------- */
+  var wave=document.getElementById('wave');
+  for(var i=0;i<64;i++){
+    var b=document.createElement('i');
+    b.style.setProperty('--h',(8+Math.random()*24)+'px');
+    b.style.animationDelay=(Math.random()*0.9)+'s';
+    wave.appendChild(b);
+  }
+
+  /* ---------- voice demo ---------- */
+  var CHUNKS = [
+    {t:'えーっと、', f:true},{t:'3時ごろかな、'},{t:'201の '},{t:'ご利用者さんが、'},
+    {t:'トイレ行こうとして '},{t:'立ち上がったときに '},{t:'ちょっとふらついて、'},
+    {t:'あー、', f:true},{t:'手すりにつかまって持ち直したんで '},{t:'転倒はしてないです。'},
+    {t:'血圧は上が148の下が82。'},{t:'水分は昼から300ccくらい。'},
+    {t:'食欲はちょっと落ちてるかな、'},{t:'お昼は半分くらいでした。'}
+  ];
+  var SLOTS = [
+    {lb:'日時', vl:'2026-09-14 <b>15:00</b> ごろ', q:true, note:'「3時ごろ」＝あいまい', conf:62},
+    {lb:'ご利用者', vl:'<b>S 様</b>（居室201）', note:'居室番号から特定', conf:99},
+    {lb:'区分', vl:'<b>排泄</b>／<b>移動</b>', note:'介護ソフトの分類に対応', conf:95},
+    {lb:'バイタル', vl:'血圧 <b>148 / 82</b>', note:'「上が／下が」を変換', conf:97},
+    {lb:'水分摂取', vl:'<b>300 ml</b>（昼〜）', q:true, note:'「くらい」＝概算', conf:71},
+    {lb:'食事摂取', vl:'昼食 <b>5 / 10</b>', note:'「半分くらい」を10段階へ', conf:88},
+    {lb:'特記事項', vl:'立ち上がり時にふらつきあり。手すりを把持し保持。<b>転倒なし</b>。', note:'話した内容のみ', conf:94},
+    {lb:'自動検出', vl:'<span class="pill bad">ヒヤリハット候補：ふらつき</span>', note:'報告書の下書きを作成', conf:0}
+  ];
+  var played=false, vTimers=[];
+  function clearV(){ vTimers.forEach(clearTimeout); vTimers=[]; }
+  function vT(fn,ms){ vTimers.push(setTimeout(fn,ms)); }
+
+  function runVoice(){
+    played=true; clearV();
+    var raw=document.getElementById('rawBox'), slotBox=document.getElementById('slotBox'),
+        st=document.getElementById('micSt'), btn=document.getElementById('micBtn');
+    raw.innerHTML='<span class="cur"></span>';
+    slotBox.innerHTML='<div class="slot in" style="opacity:.45"><div class="lb">―</div><div class="vl" style="color:var(--ink2)">聞き取り中…</div><div></div></div>';
+    document.getElementById('nogoBox').textContent='記録が終わってから表示されます。';
+    wave.classList.add('on'); btn.classList.add('rec');
+    st.textContent='録音中… 職員が申し送りで話している言葉です';
+
+    var acc='', ms=0;
+    CHUNKS.forEach(function(c,i){
+      ms += 620 + Math.random()*260;
+      vT(function(){
+        acc += c.f ? '<span class="fil">'+c.t+'</span>' : c.t;
+        raw.innerHTML = acc + '<span class="cur"></span>';
+      }, ms);
+    });
+
+    vT(function(){
+      wave.classList.remove('on'); btn.classList.remove('rec');
+      st.textContent='録音おわり（14秒）・記録の形にしています…';
+      document.getElementById('rawBox').innerHTML = acc;
+    }, ms+400);
+
+    vT(function(){
+      slotBox.innerHTML='';
+      SLOTS.forEach(function(s,i){
+        var d=document.createElement('div');
+        d.className='slot'+(s.q?' q':'');
+        var cf = s.conf ? '<span class="conf"><span class="bar'+(s.conf<70?' b':(s.conf<90?' w':''))+'"><i style="width:'+s.conf+'%"></i></span>'+s.conf+'%</span>' : '<span class="pill warn">要対応</span>';
+        d.innerHTML='<div class="lb">'+s.lb+'</div><div class="vl">'+s.vl+
+          '<span style="display:block;font-size:11.5px;color:var(--ink2)">'+s.note+'</span></div><div>'+cf+'</div>';
+        slotBox.appendChild(d);
+        vT(function(){ d.classList.add('in'); }, 180*i);
+      });
+    }, ms+900);
+
+    vT(function(){
+      document.getElementById('nogoBox').innerHTML =
+        '職員は「ふらついた」としか言っていません。ですのでAIも、そこで止めます。<br><br>'+
+        '<span class="strike">「降圧薬の影響によるふらつきと考えられる」</span>　<b>← 書きません（原因の推定）</b><br>'+
+        '<span class="strike">「起立性低血圧の疑いあり」</span>　<b>← 書きません（医学的評価）</b><br>'+
+        '<span class="strike">「水分摂取 300ml（目標1,200ml に対し不足）」</span>　<b>← 書きません（話していない数値の補完）</b><br><br>'+
+        '介護記録は、ご家族への説明や、事故が起きたときの根拠になります。'+
+        'そこに<b>誰も言っていない一文</b>が混ざることが、現場にとって一番こわいことだと考えています。'+
+        'AIに書かせるのは<b>「聞こえたこと」まで</b>。気づきと判断は職員のものです。';
+      document.getElementById('micSt').textContent='記録の下書きができました（話し始めから 19秒）';
+      toast('ヒヤリハットを検出','S様「ふらつき」― 14日で3回目です');
+    }, ms+2900);
+  }
+  document.getElementById('micBtn').addEventListener('click',function(){ stopTour(); runVoice(); });
+
+  /* ---------- tour ---------- */
+  var cap=document.getElementById('cap'), capT=document.getElementById('capT'),
+      capN=document.getElementById('capN'), prog=document.getElementById('prog');
+  var timer=null, idx=0, spotted=null;
+
+  function spot(sel){
+    if(spotted){ spotted.classList.remove('spot'); spotted=null; }
+    if(!sel) return;
+    var el=document.querySelector(sel);
+    if(!el) return;
+    el.classList.add('spot'); spotted=el;
+    var r=el.getBoundingClientRect();
+    if(r.top<70||r.bottom>window.innerHeight-120){
+      window.scrollTo({top:window.scrollY+r.top-110,behavior:'smooth'});
+    }
+  }
+
+  var steps=[
+    {v:'dash', s:null, t:'介護の記録は、<b>書く時間がないから書かれない</b>。書かれないから、事故の予兆も加算の材料も残らない。ここを起点に作りました。', d:5600},
+    {v:'dash', s:'#kpiRow', t:'職員1人あたりの記録入力時間が <b>47分 → 11分</b>。減らすのは「記録」ではなく、<b>キーボードに向かっている時間</b>です。', d:6000},
+    {v:'dash', s:'#cardAlerts', t:'管理者が見る画面はこの3行だけ。<b>全128件を読む必要はありません。</b>並べて初めて見えることだけを上げます。', d:6600},
+    {v:'voice', s:'#cardMic', t:'中身を見ていただきます。職員が<b>申し送りでいつも言っている言葉</b>を、そのまま話します。', d:4200},
+    {v:'voice', s:'#cardRaw', t:'「えーっと」「3時ごろかな」― <b>整った日本語ではありません</b>。現場はこう話します。ここで挫折する仕組みは現場に残りません。', d:9000},
+    {v:'voice', s:'#cardSlot', t:'話し言葉が、<b>介護ソフトの項目の形</b>になります。「上が148の下が82」は血圧に、「半分くらい」は食事摂取 5/10 に。', d:7000},
+    {v:'voice', s:'#cardSlot', t:'値ごとに<b>信頼度</b>が付きます。「3時ごろ」は62%。<b>低い値は確定させず、職員の確認に回します。</b>', d:6400},
+    {v:'voice', s:'#cardNogo', t:'ここが設計の芯です。<b>AIが書かなかったこと</b>を、わざわざ画面に出しています。', d:6000},
+    {v:'voice', s:'#cardNogo', t:'原因の推定も、医学的評価も、言っていない数値の補完も<b>しません</b>。介護記録は事故時の根拠になります。<b>誰も言っていない一文</b>が混ざるのが、現場には一番こわい。', d:8200},
+    {v:'hiyari', s:'#cardHiyari', t:'書かれた記録から、ヒヤリハットを<b>拾い上げます</b>。書かせるのではなく、拾う。今月17件のうち、職員が手で書いたのは2件です。', d:6800},
+    {v:'hiyari', s:'#cardHiyari', t:'S様のふらつきは<b>14日で3回、すべて15時台</b>。1件ずつでは誰も気づきません。<b>並べるまでは、ただの日常です。</b>', d:7000},
+    {v:'life', s:'#cardLife', t:'LIFEの必須項目も、毎日の記録から自動で埋まります。<b>赤いマスだけ</b>が、人の入力が要る場所です。提出前の徹夜が消えます。', d:6800},
+    {v:'renkei', s:'#cardRenkei', t:'そして一番大事な前提 ―<b>いま使っている介護ソフトは置き換えません。</b>上に乗る足し算です。APIが無ければCSVでも同じことができます。', d:7000},
+    {v:'renkei', s:'#cardCode', t:'外部のAIへ送るのは<b>この文字列だけ</b>。氏名・生年月日・居室番号は施設の外に出ません。<b>R-0412</b> を氏名に戻せるのは施設内だけです。', d:7400},
+    {v:'flow', s:'#cardFlow', t:'進めかたは<b>1施設・1ユニット・4週間</b>。合格ラインを先に決め、<b>数字が出なければ止める</b>。そのほうが2施設目に持っていける形になります。', d:7600},
+    {v:'flow', s:null, t:'ご依頼文の検討テーマのうち、まず<b>記録業務の1本</b>だけを形にしました。ご自身でも触れます ― 左のメニューからどうぞ。', d:7600}
+  ];
+
+  function runStep(){
+    if(idx>=steps.length){ stopTour(true); return; }
+    var st=steps[idx];
+    show(st.v);
+    capN.textContent=(idx+1)+' / '+steps.length;
+    capT.innerHTML=st.t;
+    cap.classList.add('on');
+    prog.style.width=((idx+1)/steps.length*100)+'%';
+    setTimeout(function(){ spot(st.s); }, 220);
+    if(idx===3){ setTimeout(function(){ runVoice(); }, 900); }
+    if(idx===11) setTimeout(function(){ toast('入力依頼を送信しました','T様・K様・H様の担当職員へ通知しました'); },1400);
+    timer=setTimeout(function(){ idx++; runStep(); }, st.d);
+  }
+  function startTour(){
+    stopTour(); idx=0;
+    document.getElementById('btnTour').textContent='再生中…';
+    runStep();
+  }
+  function stopTour(done){
+    if(timer){ clearTimeout(timer); timer=null; }
+    cap.classList.remove('on');
+    prog.style.width= done?'100%':'0';
+    if(spotted){ spotted.classList.remove('spot'); spotted=null; }
+    document.getElementById('btnTour').textContent='自動デモを再生';
+  }
+  document.getElementById('btnTour').addEventListener('click',startTour);
+  document.getElementById('capX').addEventListener('click',function(){ stopTour(); });
+  document.getElementById('btnReset').addEventListener('click',function(){ stopTour(); clearV(); played=false; show('dash'); });
+
+  /* ---------- modal ---------- */
+  var ov=document.getElementById('ov'), moT=document.getElementById('moT'),
+      moC=document.getElementById('moC'), moF=document.getElementById('moF');
+  var M = {
+    pattern: {
+      t: 'S様（居室201）― ふらつき 3件を並べたもの',
+      c: '<table><thead><tr><th>日付</th><th>時刻</th><th>場面</th><th>記録した職員</th><th>結果</th></tr></thead><tbody>'
+       + '<tr><td class="num">9/1</td><td class="num">15:20</td><td>トイレへの移動時</td><td>職員B</td><td>手すりで保持・転倒なし</td></tr>'
+       + '<tr><td class="num">9/8</td><td class="num">15:35</td><td>離床・立ち上がり</td><td>職員A</td><td>職員が支持・転倒なし</td></tr>'
+       + '<tr class="hl"><td class="num">9/14</td><td class="num">15:12</td><td>トイレへの移動時</td><td>職員A</td><td>手すりで保持・転倒なし</td></tr>'
+       + '</tbody></table>'
+       + '<div style="margin-top:12px" class="note"><b>並べて分かったこと</b>：3件とも<b>15時台</b>、3件とも<b>立ち上がり動作</b>。'
+       + '服薬記録では降圧薬の服用が<b>13:00</b>です（時刻を並べただけで、因果の判断はしていません）。<br><br>'
+       + '記録した職員はB・A・Aと分かれており、<b>誰か1人の勘では気づけない形</b>になっています。'
+       + '1件ずつは「よくあること」として流れていく情報です。</div>'
+       + '<div style="margin-top:12px" class="note"><b>提案できること</b>：夜勤帯より先に、<b>15時台のトイレ移動に付き添う</b>。'
+       + '看護職員から、服薬時間の見直しをかかりつけ医へ相談する。― どちらを採るかは施設の判断です。</div>',
+      f: [['ヒヤリハット報告書の下書きを見る','draft'],['申し送りに載せる','申し送りに追加しました|夜勤の引き継ぎ項目に入れました']]
+    },
+    draft: {
+      t: 'ヒヤリハット報告書（下書き・未提出）',
+      c: '<div class="draft">【発生日時】2026年9月14日 15時12分ごろ\n【発生場所】ユニット2 居室201前 廊下\n【対象者】S 様（居室201）\n【発見・対応した職員】職員A\n\n【発生した事象】\nトイレへ移動しようと立ち上がった際に、ふらつきが見られた。\n手すりを把持して姿勢を保持し、転倒には至らなかった。\n\n【その後の対応】\nその場で座位に戻り、5分程度の休息ののち、職員が付き添って移動した。\n外傷・疼痛の訴えなし。バイタルは血圧148/82。\n\n【備考（自動付記）】\n同様の事象が直近14日間で3件目（9/1 15:20、9/8 15:35、9/14 15:12）。\nいずれも15時台・立ち上がり動作時に発生している。</div>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">文面は記録から自動生成した<b>下書き</b>です。原因欄・対策欄は空のままにしてあります。'
+       + '<b>そこはAIが埋める欄ではない</b>と考えているためです。職員が加筆して提出します。</p>',
+      f: [['文面をコピー','copy'],['このまま提出箱へ','提出箱に入れました|管理者の承認待ちとして保存しました（自動提出はしません）']]
+    },
+    muse: {
+      t: 'K様（居室205）― むせ込み 2件',
+      c: '<table><thead><tr><th>日付</th><th>時刻</th><th>場面</th><th>提供形態</th><th>姿勢</th></tr></thead><tbody>'
+       + '<tr><td class="num">9/9</td><td class="num">15:05</td><td>おやつ</td><td>常食・お茶（とろみなし）</td><td>車椅子のまま</td></tr>'
+       + '<tr class="hl"><td class="num">9/14</td><td class="num">15:04</td><td>おやつ</td><td>常食・お茶（とろみなし）</td><td>車椅子のまま</td></tr>'
+       + '</tbody></table>'
+       + '<div style="margin-top:12px" class="note">昼食・夕食では検出されていません。食堂での食事は椅子へ移乗しており、<b>おやつのときだけ車椅子のまま</b>という違いが記録に残っています。<br><br>'
+       + '嚥下機能そのものの評価ではなく、<b>「おやつのときだけ条件が違う」という事実</b>までをお出しします。以降の判断は看護職員と言語聴覚士の領域です。</div>',
+      f: [['申し送りに載せる','申し送りに追加しました|夕食時の姿勢確認を引き継ぎました']]
+    },
+    vital: {
+      t: 'T様（居室208）― 体重と食事摂取',
+      c: '<table><thead><tr><th>測定日</th><th class="r">体重</th><th class="r">前回比</th><th>食事摂取（14日平均）</th></tr></thead><tbody>'
+       + '<tr><td class="num">6/12</td><td class="r num">52.8 kg</td><td class="r">―</td><td>8.2 / 10</td></tr>'
+       + '<tr><td class="num">7/10</td><td class="r num">51.6 kg</td><td class="r num">−1.2</td><td>7.4 / 10</td></tr>'
+       + '<tr class="hl"><td class="num">8/14</td><td class="r num">49.4 kg</td><td class="r num">−2.2</td><td>6.1 / 10</td></tr>'
+       + '<tr><td class="num">9/14</td><td class="r">未測定</td><td class="r">―</td><td>5.3 / 10</td></tr>'
+       + '</tbody></table>'
+       + '<div style="margin-top:12px" class="note">食事摂取量は<b>毎日の記録から自動で集計</b>されているため、体重の測定前に傾向が見えています。'
+       + '一方で体重は<b>今月まだ測っていません</b>。LIFEの必須項目でもあるため、提出チェックの画面で赤く出ています。<br><br>'
+       + '低栄養のリスク評価そのものは行いません。<b>「測っていない」「減っている」「食べていない」の3つを並べる</b>ところまでが役割です。</div>',
+      f: [['体重測定の依頼を出す','入力依頼を送信しました|担当職員へ通知しました（本日中）']]
+    },
+    conf: {
+      t: '信頼度が低い6件 ― 職員の確認待ち',
+      c: '<table><thead><tr><th>記録</th><th>あいまいな箇所</th><th>AIの解釈</th><th class="c">信頼度</th></tr></thead><tbody>'
+       + '<tr class="hl"><td>15:12 S様</td><td>「3時ごろかな」</td><td>15:00 ごろ</td><td class="c"><span class="pill bad">62%</span></td></tr>'
+       + '<tr><td>15:12 S様</td><td>「300ccくらい」</td><td>300 ml</td><td class="c"><span class="pill warn">71%</span></td></tr>'
+       + '<tr><td>13:40 M様</td><td>「ちょっと熱っぽい」</td><td class="strike">体温の数値には変換しません</td><td class="c"><span class="pill mute">―</span></td></tr>'
+       + '<tr><td>11:20 H様</td><td>「いつもより少なめ」</td><td class="strike">摂取量には変換しません</td><td class="c"><span class="pill mute">―</span></td></tr>'
+       + '</tbody></table>'
+       + '<div style="margin-top:12px" class="note"><b>「ちょっと熱っぽい」を 37.2℃ に変換しない</b>、という線を引いています。'
+       + '数値にできない言葉は、言葉のまま特記事項へ残します。数字のほうが管理はしやすいのですが、'
+       + '<b>測っていない数字が記録に載ること</b>のほうが、後から取り返しがつきません。</div>',
+      f: [['まとめて確認する画面へ','確認画面を開きました|6件を1画面で修正できます（デモでは省略）']]
+    },
+    edit: {
+      t: '1か所だけ直す ― 日時',
+      c: '<div class="note" style="margin-bottom:12px">信頼度62%の項目です。職員がその場で直せる形にしています。</div>'
+       + '<table><tbody>'
+       + '<tr><td style="width:120px">AIの解釈</td><td>2026-09-14 <b>15:00</b> ごろ</td></tr>'
+       + '<tr><td>元の発話</td><td>「3時ごろかな」</td></tr>'
+       + '<tr><td>直す</td><td><b>15:10</b>（手前の記録が15:05、次が15:20のため）</td></tr>'
+       + '</tbody></table>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">修正した内容は、その職員の話し方の癖として蓄積します。'
+       + '同じ職員が次に「3時ごろ」と言ったときの解釈が、少しずつその人に寄っていきます。</p>',
+      f: [['15:10 に直して記録する','記録を保存しました|介護ソフトへ 1件 反映しました（15:10 S様）']]
+    },
+    hand2: {
+      t: '申し送り ― 読み上げ用',
+      c: '<div class="draft">本日の申し送りです。特記は3名。\n\nまずS様。15時12分、トイレへの移動時に立ち上がりでふらつきがありました。手すりを持って持ち直し、転倒はしていません。同じことが14日で3回目で、3回とも15時台です。夜間のトイレ移動は付き添いをお願いします。\n\n次にK様。15時4分、おやつのときにむせ込みが1回。水分にとろみを追加しています。発熱はなく36度6分。夕食のときの姿勢と一口量に注意をお願いします。\n\n最後にT様。昼食の摂取が5割で、3日続けて7割を切っています。体重は3か月で3.4キロ減っています。水分は現在600ミリリットルです。就寝前にもう一度、水分の声かけをお願いします。\n\n他25名は特記ありません。</div>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">画面を見ながら読み上げる想定の文面です。'
+       + '数字は「36度6分」「3.4キロ」のように、<b>声に出しやすい形</b>へ変換しています。</p>',
+      f: [['文面をコピー','copy']]
+    },
+    lifecsv: {
+      t: '不足4件の入力依頼（下書き・未送信）',
+      c: '<div class="draft">【LIFE提出前の確認】次回提出まで 12日\n\n下記の4件が未入力です。担当の方は本日中にご確認ください。\n\n・T様（208）　身長・体重　― 前回測定から3か月経過\n・T様（208）　栄養（食事摂取の評価）　― 未入力\n・K様（205）　口腔・嚥下　― 未入力\n・H様（215）　ADL（Barthel Index）　― 未入力\n\n※ADL・食事摂取の日々の記録は自動で集計済みです。\n　上記は評価票としての入力が別途必要な項目です。</div>'
+       + '<p style="margin-top:11px;font-size:12.8px;color:var(--ink2)">担当職員のスマートフォンへ通知します。'
+       + '提出直前にまとめて気づくのではなく、<b>期限の2週間前に4件だけ</b>が分かる状態にします。</p>',
+      f: [['入力依頼を送る','入力依頼を送信しました|担当職員3名へ通知しました']]
+    },
+    lifecsv2: {
+      t: '提出用データの書き出し',
+      c: '<div class="code"><span class="c">// LIFE提出用の中間ファイル（施設内フォルダへ書き出し）</span>\n'
+       + 'kagakuteki_2026Q3_unit2.csv　28件　／　必須項目の充足 <span class="m">24</span>/28\n\n'
+       + '<span class="c">// 未充足の4件は書き出しに含めず、一覧で別に出します</span>\n'
+       + 'missing_2026Q3_unit2.csv　4件</div>'
+       + '<div style="margin-top:12px" class="note">この仕組みが<b>LIFEへ直接送信することはしません</b>。'
+       + '提出用の形に整えて施設内に書き出すところまでを担当し、提出操作はご担当者が現在の手順で行います。'
+       + '加算の算定に関わる操作を、外部の仕組みに握らせないためです。</div>',
+      f: [['書き出す','書き出しました|施設内の共有フォルダへ 2ファイルを保存しました']]
+    }
+  };
+  function openMo(key){
+    var m=M[key]; if(!m) return;
+    stopTour();
+    moT.textContent=m.t; moC.innerHTML=m.c; moF.innerHTML='';
+    (m.f||[]).forEach(function(f){
+      var b=document.createElement('button');
+      b.className='btn-p'; b.textContent=f[0];
+      b.addEventListener('click',function(){
+        if(f[1]==='copy'){
+          var tx=moC.querySelector('.draft');
+          if(tx && navigator.clipboard){ navigator.clipboard.writeText(tx.innerText).catch(function(){}); }
+          toast('文面をコピーしました','そのまま貼り付けられます');
+        } else if(f[1]==='draft'){
+          openMo('draft'); return;
+        } else {
+          var p=f[1].split('|'); toast(p[0],p[1]||'');
+        }
+        closeMo();
+      });
+      moF.appendChild(b);
+    });
+    ov.classList.add('on');
+  }
+  function closeMo(){ ov.classList.remove('on'); }
+  document.getElementById('moX').addEventListener('click',closeMo);
+  ov.addEventListener('click',function(e){ if(e.target===ov) closeMo(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMo(); });
+
+  document.querySelectorAll('[data-mo]').forEach(function(b){
+    b.addEventListener('click',function(e){ e.stopPropagation(); openMo(b.dataset.mo); });
+  });
+  document.querySelectorAll('[data-toast]').forEach(function(b){
+    b.addEventListener('click',function(e){
+      e.stopPropagation(); stopTour();
+      var p=b.dataset.toast.split('|'); toast(p[0],p[1]||'');
+    });
+  });
+
+  if(location.search.indexOf('tour=1')>=0){ setTimeout(startTour,700); }
+})();
+</script>
+</body>
+</html>
