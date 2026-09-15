@@ -8,4 +8,5 @@
 @media(min-width:721px) and (max-width:1000px){.hero h1{font-size:8vw}}
 @media(min-width:1001px){html[lang=en] .hero h1{font-size:clamp(60px,6.1vw,100px)}}
 @media(min-width:721px) and (max-width:1000px){html[lang=en] .hero h1{font-size:6.5vw}}
+footer .brand{display:block}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.js-motion .reveal{opacity:1;transform:none}}
