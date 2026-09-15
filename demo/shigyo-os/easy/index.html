@@ -10,6 +10,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23163d65'/%3E%3Cpath d='M16 44V20h10l6 12 6-12h10v24' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 <script src="app.js" defer></script>
+<link rel="stylesheet" href="workflow.css?v=2">
+<script src="workflow.js?v=2" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
@@ -24,6 +26,7 @@
     <a href="#inbox" data-nav="inbox"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="3" y="6" width="22" height="17" rx="3"/><path d="m4 8 10 8L24 8"/></svg></span><span>届いた依頼</span><span class="nav-count" id="inbox-count">3</span></a>
     <a href="#search" data-nav="search"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="12" cy="12" r="8"/><path d="m18 18 7 7"/></svg></span><span>調べる</span></a>
   </nav>
+  <nav class="subnav" aria-label="顧問先と事務所の管理"><a href="#clients" data-extra="clients">顧問先・案件を見る</a><a href="#office" data-extra="office">事務所全体を見る</a><a href="walkthrough.html">説明動画を見る ↗</a></nav>
   <div id="storage-warning" class="notice" hidden></div>
   <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
   <main id="main" tabindex="-1"></main>
