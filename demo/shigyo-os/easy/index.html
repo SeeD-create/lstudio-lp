@@ -5,28 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#163d65">
-<meta name="description" content="今日の仕事、届いた依頼、事務所の手順を、ひとつの分かりやすい画面に。架空データで操作できる士業事務所OSの提案デモ。">
-<title>まどい事務所｜かんたん仕事画面・提案デモ</title>
+<meta name="description" content="今日の業務、受信一覧、事務所の手順を、ひとつの分かりやすい画面に。架空データで操作できる士業事務所OSの提案デモ。">
+<title>まどい事務所｜事務所業務ポータル・提案デモ</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23163d65'/%3E%3Cpath d='M16 44V20h10l6 12 6-12h10v24' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
-<script src="app.js" defer></script>
-<link rel="stylesheet" href="workflow.css?v=2">
-<script src="workflow.js?v=2" defer></script>
+<link rel="stylesheet" href="style.css?v=formal1">
+<script src="app.js?v=formal1" defer></script>
+<link rel="stylesheet" href="workflow.css?v=formal1">
+<script src="workflow.js?v=formal1" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">本文へ移動</a>
 <div class="demo-strip"><span class="demo-dot" aria-hidden="true"></span>架空データで試せる、提案用デモ<span class="demo-desktop">実際の手続き・送信は行いません</span></div>
 <header class="header">
-  <a href="#today" class="brand" aria-label="まどい事務所 今日やることへ"><span class="brand-mark" aria-hidden="true">m.</span><span><strong>まどい事務所<span class="fiction">（架空）</span></strong><span class="brand-sub">かんたん仕事画面</span></span></a>
-  <div class="header-actions"><button id="font-toggle" aria-pressed="false"><span aria-hidden="true" class="text-icon">あ</span><span>文字を大きく</span></button><button id="help-button"><span class="question-icon" aria-hidden="true">?</span><span>使い方</span></button></div>
+  <a href="#today" class="brand" aria-label="まどい事務所 本日の業務へ"><span class="brand-mark" aria-hidden="true">m.</span><span><strong>まどい事務所<span class="fiction">（架空）</span></strong><span class="brand-sub">事務所業務ポータル</span></span></a>
+  <div class="header-actions"><button id="font-toggle" aria-pressed="false"><span aria-hidden="true" class="text-icon">あ</span><span>文字サイズ拡大</span></button><button id="help-button"><span class="question-icon" aria-hidden="true">?</span><span>操作ガイド</span></button></div>
 </header>
 <div class="workspace">
-  <nav class="main-nav" aria-label="仕事のメニュー">
-    <a href="#today" data-nav="today"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="5" y="5" width="18" height="20" rx="3"/><path d="M10 3v5m8-5v5M9 16l3 3 7-7"/></svg></span><span>今日やること</span><span class="nav-count" id="today-count">3</span></a>
-    <a href="#inbox" data-nav="inbox"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="3" y="6" width="22" height="17" rx="3"/><path d="m4 8 10 8L24 8"/></svg></span><span>届いた依頼</span><span class="nav-count" id="inbox-count">3</span></a>
-    <a href="#search" data-nav="search"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="12" cy="12" r="8"/><path d="m18 18 7 7"/></svg></span><span>調べる</span></a>
+  <nav class="main-nav" aria-label="業務のメニュー">
+    <a href="#today" data-nav="today"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="5" y="5" width="18" height="20" rx="3"/><path d="M10 3v5m8-5v5M9 16l3 3 7-7"/></svg></span><span>本日の業務</span><span class="nav-count" id="today-count">3</span></a>
+    <a href="#inbox" data-nav="inbox"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><rect x="3" y="6" width="22" height="17" rx="3"/><path d="m4 8 10 8L24 8"/></svg></span><span>受信一覧</span><span class="nav-count" id="inbox-count">3</span></a>
+    <a href="#search" data-nav="search"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 28 28"><circle cx="12" cy="12" r="8"/><path d="m18 18 7 7"/></svg></span><span>ナレッジ検索</span></a>
   </nav>
-  <nav class="subnav" aria-label="顧問先と事務所の管理"><a href="#clients" data-extra="clients">顧問先・案件を見る</a><a href="#office" data-extra="office">事務所全体を見る</a><a href="walkthrough.html">説明動画を見る ↗</a></nav>
+  <nav class="subnav" aria-label="顧問先と事務所の管理"><a href="#clients" data-extra="clients">顧問先・案件管理</a><a href="#office" data-extra="office">事務所の管理状況</a><a href="walkthrough.html">操作説明動画 ↗</a></nav>
   <div id="storage-warning" class="notice" hidden></div>
   <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
   <main id="main" tabindex="-1"></main>
