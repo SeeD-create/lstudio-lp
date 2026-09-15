@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>士業事務所OS｜社労士・行政書士事務所向け 提案デモ｜Lスタジオ</title>
+<meta name="description" content="社会保険労務士・行政書士事務所の業務統合・自動化システムの提案用デモ。依頼の受け取りから案件化、期限管理、ナレッジ検索、権限と匿名化、効果測定まで。">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#F1F2EE; --card:#FFFFFF; --ink:#1E2328; --sub:#69707A; --line:#E1E3DD;
+    --navy:#2B4257; --navy-deep:#16242F;
+    --accent:#1E6F5C; --accent-d:#175647; --accent-soft:#E3F0EB;
+    --red:#C2371F; --red-bg:#FBEAE6; --amber:#9A6B10; --amber-bg:#FBF1DC;
+    --blue:#2C5B8A; --blue-bg:#E8F0F7; --grey-bg:#F4F5F1;
+    --shadow:0 1px 3px rgba(22,36,47,.07), 0 4px 16px rgba(22,36,47,.055);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;
+    font-size:14px; line-height:1.75; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .serif{font-family:"Shippori Mincho","Yu Mincho",serif;}
+  button{font-family:inherit; cursor:pointer;}
+  a{color:var(--accent);}
+
+  /* ===== top bar ===== */
+  .topbar{
+    height:54px; background:var(--navy-deep); color:#E9EDEA; flex:none;
+    display:flex; align-items:center; gap:14px; padding:0 18px;
+  }
+  .brand{display:flex; align-items:baseline; gap:10px; white-space:nowrap; overflow:hidden;}
+  .brand .name{font-family:"Shippori Mincho",serif; font-weight:700; font-size:15.5px; letter-spacing:.06em;}
+  .brand .app{font-size:11px; color:#9CB2AC; letter-spacing:.16em;}
+  .demo-tag{background:var(--accent); color:#fff; font-size:10.5px; font-weight:700; border-radius:3px; padding:1px 8px; letter-spacing:.1em;}
+  .topright{margin-left:auto; display:flex; align-items:center; gap:10px; white-space:nowrap;}
+  .tray-btn{
+    background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16); color:#E9EDEA;
+    border-radius:999px; padding:4px 14px; font-size:12px; letter-spacing:.04em;
+  }
+  .tray-btn:hover{background:rgba(255,255,255,.2);}
+  .tray-btn .n{background:var(--red); color:#fff; border-radius:999px; padding:0 7px; font-size:11px; font-weight:700; margin-left:6px;}
+  .who-am-i{font-size:11.5px; color:#9CB2AC;}
+
+  /* ===== layout ===== */
+  .shell{display:flex; flex:1; min-height:0;}
+  .rail{
+    width:206px; flex:none; background:#E9EAE4; border-right:1px solid var(--line);
+    padding:12px 10px; display:flex; flex-direction:column; gap:3px; overflow-y:auto;
+  }
+  .rail .lbl{font-size:10px; letter-spacing:.18em; color:var(--sub); font-weight:700; padding:10px 8px 4px;}
+  .rail button{
+    display:flex; align-items:center; gap:9px; width:100%; text-align:left;
+    background:transparent; border:none; border-radius:7px; padding:8px 10px;
+    font-size:13px; color:var(--ink); letter-spacing:.02em; line-height:1.4;
+  }
+  .rail button:hover{background:#DFE1D9;}
+  .rail button.on{background:var(--navy); color:#fff; font-weight:700;}
+  .rail button .ic{width:18px; text-align:center; font-size:14px; flex:none;}
+  .rail .foot{margin-top:auto; font-size:10.5px; color:var(--sub); padding:12px 8px 4px; line-height:1.7;}
+
+  .stage{flex:1; min-width:0; overflow-y:auto; padding:18px 22px 40px;}
+  .sec{display:none;} .sec.on{display:block;}
+  .sec-h{display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap; margin-bottom:4px;}
+  .sec-h h1{font-family:"Shippori Mincho",serif; font-size:20px; letter-spacing:.06em; font-weight:700;}
+  .sec-h .rfp{
+    font-size:10.5px; color:var(--accent); background:var(--accent-soft);
+    border-radius:999px; padding:2px 12px; font-weight:700; letter-spacing:.03em;
+  }
+  .sec-lead{font-size:13px; color:var(--sub); margin-bottom:16px; max-width:64em;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:9px; box-shadow:var(--shadow); overflow:hidden;}
+  .card-h{padding:10px 16px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .card-h h2{font-family:"Shippori Mincho",serif; font-size:14px; letter-spacing:.08em;}
+  .card-h .hint{font-size:11px; color:var(--sub);}
+  .card-b{padding:14px 18px;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  .mt{margin-top:14px;}
+
+  .btn{
+    border-radius:6px; padding:6px 15px; font-size:12.5px; font-weight:700; border:1px solid var(--line);
+    background:var(--card); color:var(--ink); letter-spacing:.03em; white-space:nowrap;
+  }
+  .btn:hover{background:#F3F4F0;}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .btn.primary:hover{background:var(--accent-d);}
+  .btn.navy{background:var(--navy); border-color:var(--navy); color:#fff;}
+  .btn.navy:hover{background:#22364a;}
+  .btn.sm{padding:3px 11px; font-size:11.5px;}
+
+  /* ===== 朝の一画面 ===== */
+  .agent{
+    background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent);
+    border-radius:9px; box-shadow:var(--shadow); padding:13px 18px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .agent .face{
+    width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff; flex:none;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Shippori Mincho",serif; font-weight:800; font-size:16px; margin-top:2px;
+  }
+  .agent .t{font-size:10.5px; letter-spacing:.18em; color:var(--accent); font-weight:700;}
+  .agent .m{font-size:13.5px;}
+  .agent .m b{color:var(--accent);}
+  .agent .todo{margin-left:auto; flex:none; min-width:310px;}
+  .agent .todo .t{color:var(--sub);}
+  .agent .todo label{display:flex; gap:8px; align-items:flex-start; font-size:12.5px; padding:1px 0; cursor:pointer;}
+  .agent .todo input{accent-color:var(--accent); width:14px; height:14px; margin-top:4px; flex:none;}
+  .agent .todo label.done span{text-decoration:line-through; color:var(--sub);}
+
+  .dl{display:flex; flex-direction:column;}
+  .dl-row{
+    display:grid; grid-template-columns:104px 1fr auto; gap:4px 14px; align-items:center;
+    padding:9px 16px; border-bottom:1px solid var(--line); cursor:pointer; border-left:3px solid transparent;
+  }
+  .dl-row:hover{background:#F7F8F4;}
+  .dl-row:last-child{border-bottom:none;}
+  .dl-row .when{font-variant-numeric:tabular-nums; font-size:12px; color:var(--sub); white-space:nowrap;}
+  .dl-row .ttl{font-size:13.5px; font-weight:700; grid-column:2;}
+  .dl-row .sub{grid-column:2; font-size:11.5px; color:var(--sub);}
+  .dl-row .law{grid-column:2; font-size:11px; color:var(--sub);}
+  .chip{font-size:11px; font-weight:700; border-radius:999px; padding:2px 11px; white-space:nowrap; font-variant-numeric:tabular-nums;}
+  .chip.red{background:var(--red-bg); color:var(--red);}
+  .chip.amber{background:var(--amber-bg); color:var(--amber);}
+  .chip.blue{background:var(--blue-bg); color:var(--blue);}
+  .chip.green{background:var(--accent-soft); color:var(--accent-d);}
+  .chip.grey{background:var(--grey-bg); color:var(--sub);}
+
+  .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
+  .kpi .k{background:var(--card); border:1px solid var(--line); border-radius:9px; box-shadow:var(--shadow); padding:11px 15px;}
+  .kpi .k .lab{font-size:10.5px; letter-spacing:.14em; color:var(--sub); font-weight:700;}
+  .kpi .k .val{font-family:"Shippori Mincho",serif; font-size:25px; font-weight:800; line-height:1.3;}
+  .kpi .k .val small{font-size:12.5px; font-weight:400; font-family:"Zen Kaku Gothic New",sans-serif; margin-left:3px; color:var(--sub);}
+  .kpi .k .note{font-size:11px; color:var(--sub);}
+
+  /* ===== 顧問先 ===== */
+  .two-pane{display:grid; grid-template-columns:288px 1fr; gap:14px; align-items:start;}
+  .cl{padding:9px 15px; border-bottom:1px solid var(--line); cursor:pointer; border-left:3px solid transparent; display:grid; grid-template-columns:1fr auto; gap:2px 8px;}
+  .cl:last-child{border-bottom:none;}
+  .cl:hover{background:#F7F8F4;}
+  .cl.active{background:var(--accent-soft); border-left-color:var(--accent);}
+  .cl .nm{font-weight:700; font-size:13.5px; grid-column:1;}
+  .cl .mt2{grid-column:1; font-size:11.5px; color:var(--sub);}
+  .cl .cnt{grid-column:2; grid-row:1 / span 2; align-self:center; font-size:11px; color:var(--sub); white-space:nowrap;}
+
+  .meta-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:9px;}
+  .meta{background:#F7F8F4; border:1px solid var(--line); border-radius:6px; padding:7px 12px;}
+  .meta .k{font-size:10px; letter-spacing:.14em; color:var(--sub); font-weight:700;}
+  .meta .v{font-size:13px; font-weight:500;}
+  h3.sub{
+    font-family:"Shippori Mincho",serif; font-size:13.5px; letter-spacing:.1em;
+    border-left:3px solid var(--navy); padding-left:9px; margin:18px 0 7px;
+    display:flex; align-items:baseline; gap:9px; flex-wrap:wrap;
+  }
+  h3.sub .hint{font-size:10.5px; color:var(--sub); font-weight:400; font-family:"Zen Kaku Gothic New",sans-serif; letter-spacing:.02em;}
+  table.t{width:100%; border-collapse:collapse; font-size:12.5px;}
+  table.t th{background:var(--navy); color:#fff; padding:5px 11px; text-align:left; font-size:11.5px; letter-spacing:.05em; font-weight:700; white-space:nowrap;}
+  table.t td{border:1px solid var(--line); padding:6px 11px; vertical-align:top; background:#FDFDFB;}
+  table.t td.nw{white-space:nowrap;}
+  table.t tr:hover td{background:#F7F8F4;}
+  .hist{display:flex; flex-direction:column; gap:5px;}
+  .hist .h{display:flex; gap:11px; align-items:center; border:1px solid var(--line); border-radius:6px; background:#FDFDFB; padding:6px 13px; font-size:12.5px;}
+  .hist .h .d{color:var(--sub); font-variant-numeric:tabular-nums; white-space:nowrap; width:74px; font-size:12px;}
+  .hist .h .via{font-size:10.5px; font-weight:700; border-radius:3px; padding:0 7px; white-space:nowrap; background:var(--blue-bg); color:var(--blue);}
+  .hist .h .via.voice{background:var(--amber-bg); color:var(--amber);}
+  .hist .h .via.chat{background:var(--grey-bg); color:var(--sub);}
+  .hist .h .s{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .auto{font-size:10px; font-weight:700; color:var(--accent-d); background:var(--accent-soft); border-radius:3px; padding:0 6px; white-space:nowrap;}
+  .notelink{display:inline-flex; gap:5px; align-items:center; font-size:12px; border:1px solid var(--line); background:#F7F8F4; border-radius:6px; padding:3px 11px; color:var(--navy); cursor:pointer; margin:0 6px 6px 0;}
+  .notelink:hover{background:var(--blue-bg);}
+
+  /* ===== 受信トレイ ===== */
+  .in{border:1px solid var(--line); border-radius:8px; background:#FDFDFB; overflow:hidden; margin-bottom:12px;}
+  .in .src{display:flex; gap:10px; align-items:center; padding:8px 14px; background:#F4F5F1; border-bottom:1px solid var(--line); font-size:12px; flex-wrap:wrap;}
+  .in .src .via{font-size:10.5px; font-weight:700; border-radius:3px; padding:1px 8px; background:var(--blue-bg); color:var(--blue); white-space:nowrap;}
+  .in .src .via.voice{background:var(--amber-bg); color:var(--amber);}
+  .in .src .via.chat{background:#E6E7E1; color:#5A6068;}
+  .in .src .tm{margin-left:auto; color:var(--sub); font-variant-numeric:tabular-nums; font-size:11.5px;}
+  .in .raw{padding:11px 16px; font-size:13px; border-bottom:1px dashed var(--line); color:#33383E;}
+  .in .raw em{font-style:normal; background:#FBF3DC; padding:0 2px; border-radius:2px;}
+  .in .out{padding:11px 16px; display:grid; grid-template-columns:96px 1fr; gap:4px 12px; font-size:12.5px; align-items:start;}
+  .in .out .k{color:var(--sub); font-size:11.5px; font-weight:700; letter-spacing:.06em;}
+  .in .out .v b{color:var(--accent-d);}
+  .conf{display:inline-block; font-size:11px; font-weight:700; border-radius:999px; padding:1px 10px; margin-left:6px;}
+  .conf.hi{background:var(--accent-soft); color:var(--accent-d);}
+  .conf.lo{background:var(--red-bg); color:var(--red);}
+  .in.hold{border-color:#E7B9AE; background:#FFFBFA;}
+  .in.hold .src{background:var(--red-bg);}
+  .rulebox{
+    border-left:3px solid var(--accent); background:var(--accent-soft);
+    padding:9px 15px; font-size:12.5px; border-radius:0 7px 7px 0;
+  }
+  .rulebox b{color:var(--accent-d);}
+
+  /* ===== ナレッジ検索 ===== */
+  .ask{display:flex; gap:9px; flex-wrap:wrap; align-items:center;}
+  .ask input{
+    flex:1; min-width:220px; border:1px solid var(--line); border-radius:8px; padding:9px 15px;
+    font-family:inherit; font-size:13.5px; background:#fff; color:var(--ink);
+  }
+  .ask input:focus{outline:2px solid var(--accent-soft); border-color:var(--accent);}
+  .qs{display:flex; gap:7px; flex-wrap:wrap; margin-top:10px;}
+  .qs button{
+    background:#F4F5F1; border:1px solid var(--line); border-radius:999px; padding:4px 14px;
+    font-size:12px; color:var(--navy);
+  }
+  .qs button:hover{background:var(--blue-bg);}
+  .ans{margin-top:14px;}
+  .ans .body{font-size:13.5px; background:#FDFDFB; border:1px solid var(--line); border-radius:8px; padding:13px 18px;}
+  .ans .body ul{margin:6px 0 0 1.4em;}
+  .ans .body li{margin-bottom:3px;}
+  .ans .src-t{font-size:10.5px; letter-spacing:.16em; color:var(--sub); font-weight:700; margin:13px 0 5px;}
+  .srcs{display:flex; flex-direction:column; gap:6px;}
+  .srcs .s{
+    display:flex; gap:11px; align-items:baseline; border:1px solid var(--line); border-radius:6px;
+    background:#F7F8F4; padding:6px 13px; font-size:12.5px; flex-wrap:wrap;
+  }
+  .srcs .s .p{color:var(--navy); font-weight:700;}
+  .srcs .s .u{margin-left:auto; font-size:11px; color:var(--sub); white-space:nowrap;}
+  .nores{border-left:3px solid var(--red); background:var(--red-bg); padding:11px 16px; border-radius:0 7px 7px 0; font-size:13px;}
+  .nores b{color:var(--red);}
+
+  /* ===== 安全設計 ===== */
+  .perm{width:100%; border-collapse:collapse; font-size:12.5px;}
+  .perm th{background:var(--navy); color:#fff; padding:5px 10px; font-size:11.5px; font-weight:700; text-align:center;}
+  .perm th:first-child{text-align:left;}
+  .perm td{border:1px solid var(--line); padding:6px 10px; text-align:center; background:#FDFDFB;}
+  .perm td:first-child{text-align:left; font-weight:700; background:#F5F6F2; white-space:nowrap;}
+  .ok{color:var(--accent-d); font-weight:700;}
+  .no{color:var(--red); font-weight:700;}
+  .ba{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .ba .b{border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .ba .b .h{padding:6px 14px; font-size:11.5px; font-weight:700; letter-spacing:.08em;}
+  .ba .b.before .h{background:var(--red-bg); color:var(--red);}
+  .ba .b.after .h{background:var(--accent-soft); color:var(--accent-d);}
+  .ba .b .c{padding:12px 15px; font-size:12.5px; line-height:1.95; background:#FDFDFB; font-family:"Zen Kaku Gothic New",monospace;}
+  .ba .b .c mark{background:#FBE3DC; color:var(--red); padding:0 2px; border-radius:2px;}
+  .ba .b .c ins{background:var(--accent-soft); color:var(--accent-d); text-decoration:none; padding:0 2px; border-radius:2px; font-weight:700;}
+  .log{width:100%; border-collapse:collapse; font-size:12px;}
+  .log th{background:#F4F5F1; color:var(--sub); padding:4px 10px; text-align:left; font-size:11px; border-bottom:1px solid var(--line); font-weight:700;}
+  .log td{padding:4px 10px; border-bottom:1px solid var(--line); font-variant-numeric:tabular-nums;}
+
+  /* ===== 効果測定 ===== */
+  .bars{display:flex; flex-direction:column; gap:13px;}
+  .bar .nm{font-size:12.5px; font-weight:700; margin-bottom:3px; display:flex; gap:9px; align-items:baseline;}
+  .bar .nm .cut{font-size:11.5px; color:var(--accent-d); font-weight:700;}
+  .bar .l{display:flex; align-items:center; gap:9px; font-size:11.5px; margin-bottom:3px;}
+  .bar .l .tag{width:52px; color:var(--sub); flex:none; text-align:right;}
+  .bar .l .track{flex:1; background:#EDEEE8; border-radius:4px; height:16px; overflow:hidden;}
+  .bar .l .fill{height:100%; border-radius:4px; transition:width 1.1s cubic-bezier(.16,1,.3,1); width:0;}
+  .bar .l.pre .fill{background:#B9BEB6;}
+  .bar .l.post .fill{background:var(--accent);}
+  .bar .l .v{width:64px; flex:none; font-variant-numeric:tabular-nums; color:var(--sub);}
+  .howto{font-size:12.5px; background:#F7F8F4; border:1px solid var(--line); border-radius:8px; padding:11px 16px;}
+  .howto b{color:var(--navy);}
+
+  /* ===== 構成と工程 ===== */
+  .flow{display:flex; gap:10px; align-items:stretch; flex-wrap:wrap;}
+  .fbox{flex:1; min-width:150px; border:1px solid var(--line); border-radius:8px; background:#FDFDFB; padding:10px 13px;}
+  .fbox .ft{font-size:10.5px; letter-spacing:.14em; color:var(--sub); font-weight:700;}
+  .fbox .fi{font-size:12.5px; line-height:1.85;}
+  .fbox.core{background:var(--accent-soft); border-color:#BFDCD2;}
+  .fbox.core .ft{color:var(--accent-d);}
+  .arrow{align-self:center; color:var(--sub); font-size:18px; flex:none;}
+  .gantt{width:100%; border-collapse:collapse; font-size:12px;}
+  .gantt th{background:var(--navy); color:#fff; padding:4px 8px; font-size:11px; font-weight:700; white-space:nowrap;}
+  .gantt th:first-child{text-align:left;}
+  .gantt td{border:1px solid var(--line); padding:4px 8px; background:#FDFDFB; text-align:center;}
+  .gantt td:first-child{text-align:left; white-space:nowrap; background:#F5F6F2;}
+  .gantt td.on{background:var(--accent); }
+  .gantt td.on2{background:#A9CFC3;}
+  .scope{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .scope .s{border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .scope .s .h{padding:7px 14px; font-size:12px; font-weight:700; letter-spacing:.06em;}
+  .scope .s.in1 .h{background:var(--accent); color:#fff;}
+  .scope .s.in2 .h{background:#E6E7E1; color:#4A5057;}
+  .scope .s ul{margin:0; padding:11px 16px 12px 30px; font-size:12.5px; background:#FDFDFB;}
+  .scope .s li{margin-bottom:4px;}
+  .price{
+    margin-top:14px; border:1px solid var(--line); border-radius:9px; background:var(--card);
+    box-shadow:var(--shadow); padding:15px 20px;
+  }
+  .price .row{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; padding:5px 0; border-bottom:1px dashed var(--line);}
+  .price .row:last-of-type{border-bottom:none;}
+  .price .row .l{font-weight:700; font-size:13px; min-width:16em;}
+  .price .row .v{font-family:"Shippori Mincho",serif; font-size:19px; font-weight:800; margin-left:auto; font-variant-numeric:tabular-nums; white-space:nowrap;}
+  .price .row .v small{font-size:11.5px; font-weight:400; font-family:"Zen Kaku Gothic New",sans-serif; color:var(--sub); margin-left:4px;}
+  .price .row.main .v{color:var(--accent-d); font-size:24px;}
+  .price .note{font-size:12px; color:var(--sub); margin-top:9px;}
+
+  /* ===== modal / toast ===== */
+  .overlay{position:fixed; inset:0; background:rgba(22,36,47,.46); display:none; align-items:center; justify-content:center; z-index:60; padding:20px;}
+  .overlay.show{display:flex;}
+  .modal{background:var(--card); border-radius:10px; width:min(680px,94vw); max-height:88vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,.3); overflow:hidden;}
+  .modal-head{padding:11px 20px; background:var(--navy-deep); color:#E9EDEA; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .modal-head h3{font-family:"Shippori Mincho",serif; font-size:14.5px; letter-spacing:.08em; font-weight:700;}
+  .modal-head .gen{font-size:11px; color:#9CB2AC;}
+  .modal-body{padding:18px 24px; overflow-y:auto; font-size:13px;}
+  .modal-foot{padding:11px 20px; border-top:1px solid var(--line); display:flex; gap:8px; justify-content:flex-end; align-items:center; flex-wrap:wrap;}
+  .modal-foot .note{margin-right:auto; font-size:11.5px; color:var(--sub);}
+  .note-doc{font-size:13px; line-height:2.0; background:#FDFDFB; border:1px solid var(--line); padding:18px 22px; border-radius:6px;}
+  .note-doc h4{font-family:"Shippori Mincho",serif; font-size:15px; margin-bottom:8px; letter-spacing:.06em;}
+  .note-doc .fm{font-size:11.5px; color:var(--sub); border-bottom:1px solid var(--line); padding-bottom:7px; margin-bottom:11px; font-variant-numeric:tabular-nums;}
+  .note-doc ul{margin:5px 0 10px 1.4em;}
+  .toast{
+    position:fixed; bottom:24px; right:24px; z-index:80; background:var(--navy-deep); color:#fff;
+    border-radius:8px; padding:11px 19px; font-size:13px; box-shadow:0 8px 30px rgba(0,0,0,.35);
+    opacity:0; transform:translateY(12px); transition:all .3s; pointer-events:none; max-width:360px;
+  }
+  .toast.show{opacity:1; transform:none;}
+  .toast .tt{font-weight:700; color:#9FE0CE;}
+
+  /* ===== tour ===== */
+  #tourCursor{
+    position:fixed; z-index:100; width:26px; height:26px; border-radius:50%;
+    background:rgba(30,111,92,.85); border:2.5px solid #fff; box-shadow:0 2px 10px rgba(0,0,0,.35);
+    pointer-events:none; display:none; transform:translate(-50%,-50%);
+    transition:left 1.0s cubic-bezier(.45,.05,.35,1), top 1.0s cubic-bezier(.45,.05,.35,1);
+  }
+  #tourCursor.click{animation:clickPulse .45s;}
+  @keyframes clickPulse{0%{box-shadow:0 0 0 0 rgba(30,111,92,.6);}100%{box-shadow:0 0 0 26px rgba(30,111,92,0);}}
+  #caption{
+    position:fixed; z-index:99; left:50%; bottom:30px; transform:translateX(-50%);
+    background:rgba(18,30,38,.93); color:#fff; font-size:16.5px; font-weight:500; letter-spacing:.04em;
+    padding:11px 28px; border-radius:8px; display:none; max-width:92vw; text-align:center;
+    box-shadow:0 6px 24px rgba(0,0,0,.4);
+  }
+  #caption strong{color:#8FD9C4; font-weight:700;}
+  #endcard{
+    position:fixed; inset:0; z-index:120; background:var(--navy-deep); color:#E9EDEA;
+    display:none; flex-direction:column; align-items:center; justify-content:center; gap:13px;
+    opacity:0; transition:opacity 1.2s; padding:24px; text-align:center;
+  }
+  #endcard.show{opacity:1;}
+  #endcard .line1{font-family:"Shippori Mincho",serif; font-size:32px; font-weight:700; letter-spacing:.09em; line-height:1.85;}
+  #endcard .line1 em{font-style:normal; color:#7FD3BB;}
+  #endcard .line2{font-size:14.5px; color:#9CB2AC; letter-spacing:.08em;}
+  #endcard .price2{margin-top:6px; border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:6px 24px; font-size:14px; letter-spacing:.06em;}
+  #endcard .logo{font-family:"Shippori Mincho",serif; font-size:19px; font-weight:800; letter-spacing:.3em; margin-top:22px;}
+  #endcard .url{font-size:13.5px; color:#7FD3BB; letter-spacing:.14em;}
+
+  .foot-note{flex:none; padding:3px 20px 7px; font-size:10.5px; color:#98A0A6; background:var(--bg);}
+
+  @media (max-width:980px){
+    body{overflow:auto; height:auto;}
+    .shell{flex-direction:column;}
+    .rail{width:auto; flex-direction:row; flex-wrap:wrap; gap:5px; border-right:none; border-bottom:1px solid var(--line);}
+    .rail .lbl,.rail .foot{display:none;}
+    .rail button{width:auto;}
+    .two-pane,.grid2,.grid3,.ba,.scope{grid-template-columns:1fr;}
+    .kpi{grid-template-columns:1fr 1fr;}
+    .meta-grid{grid-template-columns:1fr 1fr;}
+    .agent{flex-direction:column;}
+    .agent .todo{margin-left:0; min-width:0;}
+    .stage{padding:14px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="name">うみかぜ社会保険労務士・行政書士事務所</span>
+    <span class="app">事務所OS</span>
+    <span class="demo-tag">DEMO</span>
+  </div>
+  <div class="topright">
+    <span class="who-am-i">ログイン中: 所長</span>
+    <button class="tray-btn" id="trayBtn" onclick="go('inbox')">未振り分けトレイ<span class="n">3</span></button>
+  </div>
+</div>
+
+<div class="shell">
+  <nav class="rail" id="rail">
+    <div class="lbl">毎日ひらく</div>
+    <button class="on" data-go="morning"><span class="ic">☀</span>朝の一画面</button>
+    <button data-go="clients"><span class="ic">👥</span>顧問先・案件</button>
+    <button data-go="inbox"><span class="ic">📥</span>受信 → 案件化</button>
+    <button data-go="knowledge"><span class="ic">🔍</span>ナレッジ検索</button>
+    <div class="lbl">仕組みの話</div>
+    <button data-go="safety"><span class="ic">🔒</span>権限・匿名化・ログ</button>
+    <button data-go="impact"><span class="ic">📈</span>効果測定</button>
+    <button data-go="build"><span class="ic">⚙</span>構成と工程・お見積り</button>
+    <div class="foot">
+      このデモに出てくる事務所・法人・氏名・数値はすべて架空です。<br>
+      制作: Lスタジオ
+    </div>
+  </nav>
+
+  <main class="stage" id="stage">
+
+  <!-- ========== 1. 朝の一画面 ========== -->
+  <section class="sec on" id="sec-morning">
+    <div class="sec-h"><h1>朝の一画面</h1><span class="rfp">RFP ⑤ AIエージェント／⑦ 案件・タスク化</span></div>
+    <p class="sec-lead">朝いちばんに開く画面です。昨日届いた依頼は案件に割り当て済み、今日の期限は色で並び、判断できなかったものだけが未振り分けトレイに残っています。</p>
+
+    <div class="agent" id="agentStrip">
+      <div class="face serif">事</div>
+      <div>
+        <div class="t">事務所エージェント ─ <span id="todayLabel"></span> の朝礼</div>
+        <div class="m">おはようございます。<b>今日が期限の手続きが1件</b>、3日以内が2件です。昨日の受信37件のうち<b>34件は案件へ自動で割り当て</b>、<b>3件は判断できずトレイ</b>に置きました。年度更新の受付開始まであと<b>18日</b>です。</div>
+      </div>
+      <div class="todo" id="todoBox">
+        <div class="t">今日やること（エージェントの提案）</div>
+        <label><input type="checkbox"><span>南風原テクノ建設 ─ 建設業許可 更新申請書に代表者印（所長確認済み）</span></label>
+        <label><input type="checkbox"><span>海邦フーズ ─ 資格取得届の提出（入社日から5日以内）</span></label>
+        <label><input type="checkbox"><span>未振り分けトレイ3件に顧問先を割り当て</span></label>
+      </div>
+    </div>
+
+    <div class="kpi mt">
+      <div class="k"><div class="lab">顧問先</div><div class="val">48<small>社</small></div><div class="note">うち労務顧問 36／許認可のみ 12</div></div>
+      <div class="k"><div class="lab">進行中の案件</div><div class="val">73<small>件</small></div><div class="note">期限あり 41／随時 32</div></div>
+      <div class="k"><div class="lab">昨日の受信</div><div class="val">37<small>件</small></div><div class="note">自動で案件化 34／保留 3</div></div>
+      <div class="k"><div class="lab">7日以内の期限</div><div class="val" style="color:var(--red)">5<small>件</small></div><div class="note">今日 1／3日以内 2／7日以内 2</div></div>
+    </div>
+
+    <div class="card mt" id="dlCard">
+      <div class="card-h"><h2>期限のある手続き</h2><span class="hint">法定期限から逆算して自動で並びます ─ 行をクリックすると案件が開きます</span></div>
+      <div class="dl" id="dlList"></div>
+    </div>
+  </section>
+
+  <!-- ========== 2. 顧問先・案件 ========== -->
+  <section class="sec" id="sec-clients">
+    <div class="sec-h"><h1>顧問先・案件</h1><span class="rfp">RFP ③ 顧客・案件・期限・対応履歴DB</span></div>
+    <p class="sec-lead">顧問先1社＝1ページ。案件・期限・対応履歴・関連ノートが同じページに並びます。誰かが二度入力する場面はありません。</p>
+    <div class="two-pane">
+      <div class="card"><div class="card-h"><h2>顧問先</h2><span class="hint" id="clCount"></span></div><div id="clList"></div></div>
+      <div class="card"><div class="card-b" id="clDetail"></div></div>
+    </div>
+  </section>
+
+  <!-- ========== 3. 受信トレイ ========== -->
+  <section class="sec" id="sec-inbox">
+    <div class="sec-h"><h1>受信 → 案件化</h1><span class="rfp">RFP ⑥ メール・チャット・音声メモ連携／⑦ 自動タスク化</span></div>
+    <p class="sec-lead">依頼は3つの入口から届きます。エージェントは「どの顧問先の・どの案件の・いつまでの・何の作業か」を判定してタスクにします。<b>判定できなかったものは推測せず、トレイに置いて人に聞きます。</b></p>
+
+    <div class="card">
+      <div class="card-h"><h2>昨日〜今朝の受信（抜粋）</h2><span class="hint">上2件は自動で案件化済み・下2件は未振り分けトレイ</span></div>
+      <div class="card-b" id="inboxList"></div>
+      <div class="card-b" style="padding-top:0">
+        <div class="rulebox">
+          <b>決めていること。</b>確信度が基準を下回ったものは、いちばん近そうな案件に入れずに保留します。90%正しく自動で振り分けて10%を静かに間違える仕組みは、<b>全件を人が見直す手間を新しく生みます</b>。トレイに残った件は、割り当てた瞬間に送信元と表現がルールとして覚えられ、次から自動になります。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. ナレッジ検索 ========== -->
+  <section class="sec" id="sec-knowledge">
+    <div class="sec-h"><h1>ナレッジ検索</h1><span class="rfp">RFP ② ナレッジ基盤／④ AIナレッジ検索</span></div>
+    <p class="sec-lead">事務所の手引き・様式・過去の回答をノートにして、そこからだけ答えます。<b>根拠のノートを示せない質問には答えません。</b></p>
+
+    <div class="card">
+      <div class="card-b">
+        <div class="ask">
+          <input id="qInput" placeholder="例）建設業許可の更新はいつから出せる？" readonly>
+          <button class="btn primary" id="askBtn" onclick="runAsk()">検索</button>
+        </div>
+        <div class="qs">
+          <button id="q1" onclick="ask(0)">建設業許可の更新はいつから出せる？</button>
+          <button id="q2" onclick="ask(1)">月60時間超の割増、中小はいつから？</button>
+          <button id="q3" onclick="ask(2)">なぎさ観光ホテルの就業規則、前回どこを直した？</button>
+          <button id="q4" onclick="ask(3)">うちの事務所の顧問料の改定基準は？</button>
+        </div>
+        <div class="ans" id="ansBox"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. 安全設計 ========== -->
+  <section class="sec" id="sec-safety">
+    <div class="sec-h"><h1>権限・匿名化・ログ</h1><span class="rfp">RFP ⑧ 権限制御・匿名化・ログ・バックアップ</span></div>
+    <p class="sec-lead">士業事務所は、他人の個人情報を預かって仕事をする場所です。<b>何を持たないか</b>を先に決めます。</p>
+
+    <div class="card">
+      <div class="card-h"><h2>だれが何を見られるか</h2><span class="hint">役割で切ります。個人ごとの例外設定は作りません（運用で必ず崩れるため）</span></div>
+      <div class="card-b">
+        <table class="perm">
+          <tr><th>　</th><th>顧問先の基本情報</th><th>案件・期限・履歴</th><th>給与額・賃金台帳</th><th>個人番号</th><th>操作ログ</th></tr>
+          <tr><td>所長</td><td class="ok">○</td><td class="ok">○</td><td class="ok">○</td><td class="no">－</td><td class="ok">○</td></tr>
+          <tr><td>スタッフ（社保）</td><td class="ok">○</td><td class="ok">○</td><td class="no">×</td><td class="no">－</td><td class="no">×</td></tr>
+          <tr><td>スタッフ（給与）</td><td class="ok">○</td><td>担当分のみ</td><td class="ok">○</td><td class="no">－</td><td class="no">×</td></tr>
+          <tr><td>パート職員</td><td>担当分のみ</td><td>担当分のみ</td><td class="no">×</td><td class="no">－</td><td class="no">×</td></tr>
+          <tr><td>開発者（当方）</td><td class="no">×</td><td class="no">×</td><td class="no">×</td><td class="no">－</td><td class="ok">○</td></tr>
+        </table>
+        <div class="rulebox mt">
+          <b>個人番号はこのシステムに入れません（「－」の列）。</b>いま個人番号を扱っておられる給与ソフト・提出ソフトの中で完結させ、この事務所OSは「◯◯社の資格取得届を、△△さんについて、いつまでに出す」という<b>手続きの進行だけ</b>を持ちます。個人番号を一度でも通すと、保管・削除・アクセス記録の要件がシステム全体に及び、4か月では安全に作り切れません。
+        </div>
+        <div class="rulebox mt" style="border-left-color:var(--navy); background:var(--blue-bg);">
+          <b>開発者である私も、本番の顧問先データは見ません。</b>開発と動作確認は、下の匿名化を通したサンプルで行います。本番データを触る必要が出た場合は、その都度ご承諾をいただき、操作ログに残します。
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt" id="anonCard">
+      <div class="card-h"><h2>外部のAIに実際に送る文字列</h2><span class="hint">説明ではなく、送信するそのものをお見せします</span></div>
+      <div class="card-b">
+        <div class="ba">
+          <div class="b before">
+            <div class="h">事務所の中（そのままの情報）</div>
+            <div class="c"><mark>南風原テクノ建設株式会社</mark>の<mark>山城 太郎</mark>さん（<mark>1985年3月2日</mark>生・<mark>那覇市首里○○町</mark>）が<mark>9月16日</mark>入社。被保険者資格取得届を出したい。報酬月額は<mark>28万円</mark>。</div>
+          </div>
+          <div class="b after">
+            <div class="h">外部のAIへ送る文字列</div>
+            <div class="c"><ins>[顧問先A]</ins>の<ins>[従業員001]</ins>（<ins>40代</ins>・<ins>[市区町村X]</ins>）が<ins>[基準日D0]</ins>入社。被保険者資格取得届を出したい。報酬月額は<ins>[等級帯 26〜30万]</ins>。</div>
+          </div>
+        </div>
+        <div class="rulebox mt">
+          置き換えの対応表は<b>事務所の中にだけ</b>あります。AIの答えが返ってきたところで対応表を使って実名に戻すので、外部には氏名・生年月日・住所・実額が一度も出ません。使う基盤モデルは<b>入力を学習に使わない契約形態</b>のものを選び、処理を行う地域は国内に固定します。
+        </div>
+      </div>
+    </div>
+
+    <div class="grid2 mt">
+      <div class="card">
+        <div class="card-h"><h2>操作ログ</h2><span class="hint">誰が・いつ・どの顧問先を見たか</span></div>
+        <div class="card-b">
+          <table class="log">
+            <tr><th>時刻</th><th>利用者</th><th>操作</th><th>対象</th></tr>
+            <tr><td>08:41</td><td>所長</td><td>閲覧</td><td>南風原テクノ建設</td></tr>
+            <tr><td>08:39</td><td>スタッフB</td><td>台帳を出力</td><td>海邦フーズ（給与）</td></tr>
+            <tr><td>08:22</td><td>エージェント</td><td>案件を作成</td><td>海邦フーズ／資格取得</td></tr>
+            <tr><td>08:22</td><td>エージェント</td><td>保留</td><td>送信元を特定できず</td></tr>
+            <tr><td>昨 19:04</td><td>スタッフA</td><td>閲覧を拒否</td><td>くもじ物流（担当外）</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>バックアップと復旧</h2><span class="hint">検収項目に入れます</span></div>
+        <div class="card-b" style="font-size:12.5px; line-height:2.0;">
+          ・ナレッジと案件DBは<b>日次で自動取得</b>し、30世代を別の保管先に置きます<br>
+          ・月に1回、<b>実際に復元して開けることを確認</b>します（取得できていても開けない事故が実際にあるため）<br>
+          ・職員の退職時は、アカウント停止・端末内のノート削除・共有リンク失効を<b>1枚の手順書</b>にして残します<br>
+          ・サービスが将来使えなくなった場合に備え、ナレッジは<b>そのまま読めるテキスト形式</b>、案件DBは<b>表形式で書き出せる状態</b>を保ちます
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 6. 効果測定 ========== -->
+  <section class="sec" id="sec-impact">
+    <div class="sec-h"><h1>効果測定</h1><span class="rfp">RFP ⑩ 業務時間削減効果のダッシュボード</span></div>
+    <p class="sec-lead">下の数字は実測値ではなく、<b>検収時に測るための目標値</b>です。測り方まで先に決めておかないと、この手の数字は後からいくらでも作れてしまいます。</p>
+
+    <div class="card">
+      <div class="card-h"><h2>事務所全体の月あたり作業時間（職員4名合計）</h2><span class="hint" id="impactHint">導入前 ─ 導入後（目標）</span></div>
+      <div class="card-b">
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+
+    <div class="grid2 mt">
+      <div class="card">
+        <div class="card-h"><h2>どうやって測るか</h2></div>
+        <div class="card-b">
+          <div class="howto">
+            <b>導入前（着手から2週間）</b>：職員4名に、上の4分類だけを1日1回まとめて記録していただきます。分刻みは求めません。<br><br>
+            <b>導入後</b>：タスクの着手と完了の打刻から自動集計します。<b>職員の入力作業を増やしません</b>。<br><br>
+            <b>検収の合格ライン（案）</b>：合計時間が月100時間 → <b>45時間以下</b>。未振り分けトレイに残る比率が<b>受信の1割以下</b>。ナレッジ検索が根拠ノート付きで答えられた比率が<b>8割以上</b>。職員4名のうち<b>3名以上が「翌月も使いたい」</b>と回答。
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h2>補助事業のご報告に使えるかたちで出します</h2></div>
+        <div class="card-b" style="font-size:12.5px; line-height:2.0;">
+          交付決定を受けた事業として実施される前提で、<br>
+          ・導入前後の比較表（分類別・月次）<br>
+          ・測定方法と対象者を書いた1枚<br>
+          ・画面の記録（導入前の運用／導入後の運用）<br>
+          を<b>そのまま実績報告に添付できる形式</b>で出力します。<br><br>
+          <span style="color:var(--sub)">※補助金の申請書・実績報告書そのものの作成代行は、行政書士業務に当たる可能性があるため行いません。数字と資料をお渡しするところまでを担当します。</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 7. 構成と工程 ========== -->
+  <section class="sec" id="sec-build">
+    <div class="sec-h"><h1>構成と工程・お見積り</h1><span class="rfp">RFP ① 要件定義／⑨ テスト・操作説明・検収</span></div>
+    <p class="sec-lead">4か月で作るものと、作らないものを先に決めます。</p>
+
+    <div class="card">
+      <div class="card-h"><h2>どこに何の正本を置くか</h2><span class="hint">二重に持たない。持つ場所を1つに決める</span></div>
+      <div class="card-b">
+        <div class="flow">
+          <div class="fbox">
+            <div class="ft">入口</div>
+            <div class="fi">メール<br>ビジネスチャット<br>音声メモ<br>電話メモ</div>
+          </div>
+          <div class="arrow">▶</div>
+          <div class="fbox">
+            <div class="ft">受け取りと判定</div>
+            <div class="fi">匿名化<br>顧問先・案件の判定<br>期限の逆算<br>確信度が低ければ保留</div>
+          </div>
+          <div class="arrow">▶</div>
+          <div class="fbox core">
+            <div class="ft">正本① 案件DB</div>
+            <div class="fi">顧問先・案件・期限・対応履歴・担当<br><span style="color:var(--sub);font-size:11.5px">動くもの・締切があるもの</span></div>
+          </div>
+          <div class="fbox core">
+            <div class="ft">正本② ナレッジ</div>
+            <div class="fi">手引き・様式・法改正メモ・過去の回答<br><span style="color:var(--sub);font-size:11.5px">動かないもの・積み上がるもの</span></div>
+          </div>
+          <div class="arrow">▶</div>
+          <div class="fbox">
+            <div class="ft">出口</div>
+            <div class="fi">朝の一画面<br>ナレッジ検索<br>効果測定<br>下書きの生成</div>
+          </div>
+        </div>
+        <div class="rulebox mt">
+          <b>この2つを混ぜないことが設計の芯です。</b>締切があるものを全部ナレッジ側に書くと検索が濁り、手引きを案件DBに入れると更新が止まります。「動くもの＝案件DB」「積み上がるもの＝ナレッジ」で分け、<b>両方を同じIDで結びます</b>。<br>
+          電子申請・提出・送信は、この仕組みからは行いません。<b>提出ボタンを押すのは必ず人</b>です。
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt">
+      <div class="card-h"><h2>第1期に入れるもの／入れないもの</h2><span class="hint">機能ではなく「対象の量と経路」で切ります</span></div>
+      <div class="card-b">
+        <div class="scope">
+          <div class="s in1">
+            <div class="h">第1期（2026年10月〜2027年1月／今回のお見積り）</div>
+            <ul>
+              <li>現状業務の分析・要件定義（現地2回・遠隔の週次）</li>
+              <li>ナレッジ基盤の構築 ─ <b>所長が指定する120ノートまで</b>移行・構造化</li>
+              <li>案件DB ─ <b>主要20社</b>の顧問先・案件・期限・履歴を投入</li>
+              <li>ナレッジ検索（根拠ノート提示つき）</li>
+              <li>入口は<b>メールと音声メモの2経路</b></li>
+              <li>依頼の案件・タスク化／未振り分けトレイ</li>
+              <li>期限の自動逆算（社保・労働保険・許認可の主要18種）</li>
+              <li>権限制御・匿名化・ログ・バックアップの設計と実装</li>
+              <li>導入テスト・操作説明（職員4名）・検収・効果測定ダッシュボード</li>
+            </ul>
+          </div>
+          <div class="s in2">
+            <div class="h">第2期（2027年2月以降／別途お見積り）</div>
+            <ul>
+              <li>顧問先<b>48社全社</b>への拡大と過去案件の移行</li>
+              <li>ビジネスチャットの経路追加</li>
+              <li>AIエージェントの<b>自律実行</b>（下書きの自動作成・催促の自動送付）</li>
+              <li>給与・提出ソフトとのデータ受け渡し</li>
+              <li>顧問先からの依頼受付窓口（顧問先側の画面）</li>
+              <li>ナレッジの全面移行（残り全ノート）</li>
+              <li>運用の保守・法改正の反映</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="sub">工程 <span class="hint">交付決定後に着手し、2027年1月23日に納品・検収</span></h3>
+        <table class="gantt">
+          <tr><th>　</th><th>10月</th><th>11月</th><th>12月</th><th>1月</th></tr>
+          <tr><td>現状分析・要件定義</td><td class="on"></td><td class="on2"></td><td></td><td></td></tr>
+          <tr><td>ナレッジ基盤・移行</td><td class="on2"></td><td class="on"></td><td class="on"></td><td></td></tr>
+          <tr><td>案件DB・期限の自動化</td><td></td><td class="on"></td><td class="on"></td><td class="on2"></td></tr>
+          <tr><td>受信→案件化・検索</td><td></td><td class="on2"></td><td class="on"></td><td class="on2"></td></tr>
+          <tr><td>権限・匿名化・ログ</td><td class="on2"></td><td></td><td class="on"></td><td class="on2"></td></tr>
+          <tr><td>実地テスト・操作説明</td><td></td><td></td><td class="on2"></td><td class="on"></td></tr>
+          <tr><td>効果測定・検収</td><td class="on2"></td><td></td><td></td><td class="on"></td></tr>
+        </table>
+        <div class="rulebox mt">
+          10月に<b>測り始め</b>ます（導入前の2週間記録）。ここを後回しにすると、1月に「削減できた」と言える根拠が残りません。
+        </div>
+      </div>
+    </div>
+
+    <div class="price">
+      <div class="row main">
+        <span class="l">第1期 ─ 設計・構築・導入・検収（一式）</span>
+        <span class="v">900,000円<small>税別／税込 990,000円</small></span>
+      </div>
+      <div class="row"><span class="l" style="font-weight:400; color:var(--sub);">現地訪問2回（往復の交通費・宿泊費を含む）</span><span class="v" style="font-size:14px; color:var(--sub);">上記に含む</span></div>
+      <div class="row"><span class="l" style="font-weight:400; color:var(--sub);">操作説明（職員4名・遠隔で3回＋手順書）</span><span class="v" style="font-size:14px; color:var(--sub);">上記に含む</span></div>
+      <div class="row"><span class="l" style="font-weight:400; color:var(--sub);">納品後1か月の不具合対応</span><span class="v" style="font-size:14px; color:var(--sub);">上記に含む</span></div>
+      <div class="row"><span class="l" style="font-weight:400;">第2期 ─ 全社展開・自律実行・外部連携</span><span class="v" style="font-size:16px;">1,800,000〜2,400,000円<small>税別・概算</small></span></div>
+      <div class="row"><span class="l" style="font-weight:400;">運用保守（第1期の納品後・任意）</span><span class="v" style="font-size:16px;">月額 33,000円<small>税別</small></span></div>
+      <div class="note">
+        ご想定予算（300〜360万円）との差は、値引きではなく<b>対象範囲</b>です。第1期と第2期を合わせた総額は270〜330万円で、ご想定の範囲に収まります。<br>
+        補助事業の交付決定額に合わせて<b>総額での見積書</b>が必要な場合は、第1期と第2期を1本にまとめた形で作り直してお出しします。
+      </div>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<div class="foot-note">※このデモに登場する事務所・法人・氏名・数値はすべて架空です。実在の団体・個人とは関係ありません。｜ 制作: Lスタジオ（l-studiojp.com）</div>
+
+<!-- ノートモーダル -->
+<div class="overlay" id="noteOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="noteTitle">ノート</h3><span class="gen">ナレッジ基盤の中身（そのまま読めるテキスト）</span></div>
+    <div class="modal-body"><div class="note-doc" id="noteBody"></div></div>
+    <div class="modal-foot">
+      <span class="note">ノートは事務所の資産です。仕組みを止めても、このまま読めます。</span>
+      <button class="btn" onclick="closeOverlay('noteOverlay')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- 割り当てモーダル -->
+<div class="overlay" id="assignOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3>未振り分けの1件を割り当てる</h3><span class="gen">人が決める ─ 次から自動になります</span></div>
+    <div class="modal-body" id="assignBody"></div>
+    <div class="modal-foot">
+      <span class="note">推測で入れないので、ここだけ人の手が要ります。</span>
+      <button class="btn" onclick="closeOverlay('assignOverlay')">閉じる</button>
+      <button class="btn primary" id="assignOk" onclick="doAssign()">この内容で割り当てる</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div id="tourCursor"></div>
+<div id="caption"></div>
+<div id="endcard">
+  <div class="line1">探す時間を、<em>士業の仕事</em>に返す。</div>
+  <div class="line2">依頼の受け取り・案件化・期限・ナレッジ・記録を、ひとつの事務所OSに。</div>
+  <div class="price2">第1期（設計・構築・導入・検収）900,000円（税別）</div>
+  <div class="logo">L STUDIO</div>
+  <div class="url">l-studiojp.com</div>
+</div>
+
+<script>
+/* ===== 日付ユーティリティ ===== */
+const today = new Date(); today.setHours(0,0,0,0);
+function addDays(n){ const d=new Date(today); d.setDate(d.getDate()+n); return d; }
+function fmt(d){ return `${d.getMonth()+1}月${d.getDate()}日`; }
+function fmtS(d){ return `${d.getMonth()+1}/${d.getDate()}`; }
+const wd=['日','月','火','水','木','金','土'];
+function daysTo(d){ return Math.round((d-today)/86400000); }
+document.getElementById('todayLabel').textContent = `${fmt(today)}（${wd[today.getDay()]}）`;
+
+/* ===== 画面切り替え ===== */
+function go(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.getElementById('sec-'+id).classList.add('on');
+  document.querySelectorAll('#rail button').forEach(b=>b.classList.toggle('on', b.dataset.go===id));
+  document.getElementById('stage').scrollTop = 0;
+  if(id==='impact') setTimeout(drawBars, 120);
+}
+document.querySelectorAll('#rail button').forEach(b=>{ b.onclick=()=>go(b.dataset.go); });
+
+/* ===== 期限一覧 ===== */
+const deadlines=[
+  {d:addDays(0),  t:'被保険者資格取得届', c:'海邦フーズ 株式会社', law:'入社日から5日以内（9月16日入社）', cl:'kaiho'},
+  {d:addDays(2),  t:'建設業許可 更新申請', c:'南風原テクノ建設 株式会社', law:'有効期間満了日の30日前まで', cl:'haebaru'},
+  {d:addDays(3),  t:'36協定（特別条項）届出', c:'くもじ物流 合同会社', law:'効力発生日の前日まで', cl:'kumoji'},
+  {d:addDays(9),  t:'就業規則 変更届', c:'有限会社 なぎさ観光ホテル', law:'変更後 遅滞なく', cl:'nagisa'},
+  {d:addDays(12), t:'算定基礎届の事前確認', c:'医療法人社団 うみはら会', law:'事務所の内規（提出月の前々月）', cl:'umihara'},
+  {d:addDays(18), t:'労働保険 年度更新（受付開始）', c:'対象 36社', law:'毎年6月1日〜7月10日（準備開始の内規）', cl:'haebaru'},
+  {d:addDays(26), t:'両立支援等助成金 支給申請', c:'株式会社 てだこ商会', law:'支給対象期間の末日の翌日から2か月以内', cl:'tedako'},
+];
+function chipCls(n){ return n<=0?'red' : n<=3?'red' : n<=14?'amber':'blue'; }
+const dlEl=document.getElementById('dlList');
+deadlines.forEach((x,i)=>{
+  const n=daysTo(x.d);
+  const div=document.createElement('div');
+  div.className='dl-row'; div.id='dl-'+i;
+  div.innerHTML=`
+    <span class="when">${fmtS(x.d)}（${wd[x.d.getDay()]}）</span>
+    <span class="chip ${chipCls(n)}" style="grid-column:3; grid-row:1 / span 3; align-self:center;">${n<=0?'本日':'あと'+n+'日'}</span>
+    <span class="ttl">${x.t}</span>
+    <span class="sub">${x.c}</span>
+    <span class="law">根拠: ${x.law}</span>`;
+  div.onclick=()=>{ go('clients'); selectClient(x.cl); };
+  dlEl.appendChild(div);
+});
+
+/* ===== 顧問先データ（すべて架空） ===== */
+const clients=[
+  { id:'haebaru', nm:'南風原テクノ建設 株式会社', biz:'総合建設業', emp:42, since:'2019年4月', plan:'労務顧問＋許認可',
+    cases:[
+      ['建設業許可 更新申請','許認可',fmtS(addDays(2)),'所長','代表者印の押印待ち'],
+      ['36協定 届出','労務',fmtS(addDays(38)),'スタッフA','様式作成中'],
+      ['経営事項審査 準備','許認可',fmtS(addDays(74)),'所長','決算確定待ち'],
+      ['安全衛生管理体制の見直し','労務','随時','スタッフA','ヒアリング済み'],
+    ],
+    hist:[
+      [addDays(-1),'音声メモ','所長の車中メモ「更新申請、代表者印がまだ。あと社長が助成金の話をしたいと」',1],
+      [addDays(-4),'メール','専任技術者の変更届の要否について照会 → 不要と回答',1],
+      [addDays(-11),'来所','更新申請書の下書きを確認。決算変更届は提出済みを確認',0],
+      [addDays(-25),'メール','健康保険・厚生年金 月額変更届 3名分を提出',1],
+    ],
+    notes:[['許認可/建設業許可_更新の手順.md','更新は満了日の3か月前から受付'],['労務/36協定_建設業の特例.md','工作物の建設等の事業の上限規制']],
+    alert:'更新申請の期限まであと'+daysTo(addDays(2))+'日。押印のみ未了。' },
+  { id:'kaiho', nm:'海邦フーズ 株式会社', biz:'水産加工', emp:63, since:'2016年10月', plan:'労務顧問＋給与計算',
+    cases:[
+      ['被保険者資格取得届（1名）','社保',fmtS(addDays(0)),'スタッフA','本日提出'],
+      ['外国人雇用状況の届出','労務',fmtS(addDays(5)),'スタッフA','在留カード確認済み'],
+      ['9月分 給与計算','給与',fmtS(addDays(7)),'スタッフB','勤怠締め待ち'],
+      ['特定技能 支援計画の年次報告','許認可',fmtS(addDays(52)),'所長','未着手'],
+    ],
+    hist:[
+      [addDays(0),'メール','総務部より「新しく入った人の保険の手続きを」→ 資格取得の案件を自動作成',1],
+      [addDays(-2),'チャット','勤怠の締め日の確認',1],
+      [addDays(-9),'来所','特定技能の受入れ人数の増加について相談',0],
+      [addDays(-20),'メール','8月分 給与明細を送付',1],
+    ],
+    notes:[['社保/資格取得届_提出期限と添付.md','入社日から5日以内・扶養があれば同時に'],['労務/外国人雇用状況の届出.md','資格取得届と同時提出で兼ねられる場合']],
+    alert:'資格取得届は本日が提出期限です（入社日から5日以内）。' },
+  { id:'nagisa', nm:'有限会社 なぎさ観光ホテル', biz:'宿泊業', emp:38, since:'2021年6月', plan:'労務顧問',
+    cases:[
+      ['就業規則 変更届','労務',fmtS(addDays(9)),'所長','意見書の回収待ち'],
+      ['変形労働時間制の協定 更新','労務',fmtS(addDays(29)),'スタッフA','前年分を確認中'],
+      ['パート職員の社会保険 加入判定','社保','随時','スタッフA','対象6名を精査'],
+    ],
+    hist:[
+      [addDays(-3),'来所','就業規則の改定内容を説明。慶弔休暇の日数で意見あり',0],
+      [addDays(-3),'音声メモ','所長メモ「意見書は総支配人がまとめる。来週水曜に回収」',1],
+      [addDays(-17),'メール','改定案（新旧対照表）を送付',1],
+    ],
+    notes:[['労務/就業規則_変更届の添付書類.md','意見書は必須・過半数代表の選出方法も残す'],['労務/変形労働時間制_1年単位.md','宿泊業の繁閑にあわせた設計例']],
+    alert:'意見書の回収が届出の前提です。回収予定は'+fmtS(addDays(4))+'。' },
+  { id:'kumoji', nm:'くもじ物流 合同会社', biz:'一般貨物自動車運送', emp:29, since:'2020年2月', plan:'労務顧問＋許認可',
+    cases:[
+      ['36協定（特別条項）届出','労務',fmtS(addDays(3)),'スタッフA','様式完成・押印待ち'],
+      ['改善基準告示への対応','労務',fmtS(addDays(45)),'所長','拘束時間の実績を集計中'],
+      ['運行管理者の選任届','許認可','随時','所長','後任の資格取得待ち'],
+    ],
+    hist:[
+      [addDays(-2),'メール','特別条項の上限時間について相談 → 自動車運転者の上限を説明',1],
+      [addDays(-8),'来所','拘束時間の実績表を受領。3名が基準超過の見込み',0],
+      [addDays(-22),'チャット','ドライバー2名の入社連絡',1],
+    ],
+    notes:[['労務/36協定_自動車運転者の上限.md','一般則と異なる上限・特別条項の扱い'],['労務/改善基準告示_2024年改正.md','拘束時間・休息期間の要点']],
+    alert:'効力発生日の前日までに届出が必要です。押印のみ未了。' },
+  { id:'umihara', nm:'医療法人社団 うみはら会', biz:'内科・小児科クリニック', emp:15, since:'2018年9月', plan:'労務顧問＋給与計算',
+    cases:[
+      ['算定基礎届 事前確認','社保',fmtS(addDays(12)),'スタッフA','対象者の抽出中'],
+      ['育児休業の取得手続き（1名）','社保',fmtS(addDays(21)),'スタッフA','申出書を受領'],
+      ['9月分 給与計算','給与',fmtS(addDays(7)),'スタッフB','完了'],
+    ],
+    hist:[
+      [addDays(-5),'メール','育児休業給付の支給申請の時期について照会',1],
+      [addDays(-13),'電話','非常勤医師の社会保険の適用について相談',0],
+    ],
+    notes:[['社保/育児休業_手続きの順番.md','休業開始時賃金月額証明書と支給申請の関係']],
+    alert:'' },
+  { id:'tedako', nm:'株式会社 てだこ商会', biz:'小売', emp:11, since:'2023年3月', plan:'労務顧問',
+    cases:[
+      ['両立支援等助成金 支給申請','助成金',fmtS(addDays(26)),'所長','添付書類を収集中'],
+      ['最低賃金の改定対応','労務',fmtS(addDays(16)),'スタッフA','対象3名を確認'],
+    ],
+    hist:[
+      [addDays(-6),'チャット','助成金の必要書類の一覧を送付',1],
+      [addDays(-27),'来所','育児休業の取得実績について確認',0],
+    ],
+    notes:[['助成金/両立支援等助成金_出生時両立支援.md','支給対象期間と申請期限の数え方']],
+    alert:'' },
+  { id:'shimanaka', nm:'一般社団法人 しまなか福祉会', biz:'障害福祉サービス', emp:24, since:'2022年11月', plan:'労務顧問＋許認可',
+    cases:[
+      ['処遇改善加算 計画書','許認可',fmtS(addDays(33)),'所長','様式の更新待ち'],
+      ['夜勤者の労働時間の見直し','労務','随時','所長','ヒアリング済み'],
+    ],
+    hist:[
+      [addDays(-10),'メール','処遇改善加算の区分変更について相談',1],
+    ],
+    notes:[['許認可/処遇改善加算_計画書の要点.md','賃金改善の見込額の書き方']],
+    alert:'' },
+  { id:'minami', nm:'株式会社 みなみ電設', biz:'電気工事', emp:19, since:'2024年5月', plan:'許認可のみ',
+    cases:[
+      ['電気工事業の届出事項変更','許認可',fmtS(addDays(41)),'所長','主任電気工事士の交代'],
+    ],
+    hist:[
+      [addDays(-15),'メール','主任電気工事士の変更予定の連絡',1],
+    ],
+    notes:[['許認可/電気工事業_変更届.md','届出先と期限（30日以内）']],
+    alert:'' },
+];
+const clListEl=document.getElementById('clList');
+clients.forEach(c=>{
+  const d=document.createElement('div');
+  d.className='cl'; d.id='cl-'+c.id;
+  d.innerHTML=`<span class="nm">${c.nm}</span><span class="mt2">${c.biz}・${c.emp}名</span><span class="cnt">${c.cases.length}件</span>`;
+  d.onclick=()=>selectClient(c.id);
+  clListEl.appendChild(d);
+});
+document.getElementById('clCount').textContent=`全 48 社（うち8社を表示）`;
+
+let currentClient=null;
+function selectClient(id){
+  const c=clients.find(x=>x.id===id); if(!c) return;
+  currentClient=c;
+  document.querySelectorAll('.cl').forEach(e=>e.classList.remove('active'));
+  document.getElementById('cl-'+id).classList.add('active');
+  document.getElementById('clDetail').innerHTML=`
+    <div style="display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap;">
+      <h2 class="serif" style="font-size:19px; letter-spacing:.05em;">${c.nm}</h2>
+      <div style="margin-left:auto; display:flex; gap:7px; flex-wrap:wrap;">
+        <button class="btn sm" onclick="toast('依頼の受付窓口','この顧問先からの依頼は、メールと音声メモの2経路をこの案件DBに集約しています')">受付の経路</button>
+        <button class="btn sm navy" onclick="toast('対応履歴を書き出しました','顧問先への月次報告用に、対応履歴を1枚にまとめて出力します')">月次報告を出す</button>
+      </div>
+    </div>
+    ${c.alert?`<div class="rulebox" style="border-left-color:var(--red); background:var(--red-bg); margin-top:9px;"><b>注意</b> ${c.alert}</div>`:''}
+    <div class="meta-grid" style="margin-top:12px;">
+      <div class="meta"><div class="k">業種</div><div class="v">${c.biz}</div></div>
+      <div class="meta"><div class="k">従業員</div><div class="v">${c.emp}名</div></div>
+      <div class="meta"><div class="k">顧問開始</div><div class="v">${c.since}</div></div>
+      <div class="meta"><div class="k">契約内容</div><div class="v">${c.plan}</div></div>
+    </div>
+    <h3 class="sub">進行中の案件 <span class="hint">期限は法定の根拠から自動で逆算</span></h3>
+    <table class="t">
+      <tr><th>案件</th><th style="width:5em;">区分</th><th style="width:6em;">期限</th><th style="width:7em;">担当</th><th>いまの状態</th></tr>
+      ${c.cases.map(r=>`<tr><td>${r[0]}</td><td class="nw">${r[1]}</td><td class="nw">${r[2]}</td><td class="nw">${r[3]}</td><td>${r[4]}</td></tr>`).join('')}
+    </table>
+    <h3 class="sub">対応履歴 <span class="hint">メール・音声メモ・チャットから自動で積まれます</span></h3>
+    <div class="hist">
+      ${c.hist.map(h=>`<div class="h"><span class="d">${fmtS(h[0])}（${wd[h[0].getDay()]}）</span><span class="via ${h[1]==='音声メモ'?'voice':(h[1]==='チャット'?'chat':'')}">${h[1]}</span><span class="s">${h[2]}</span>${h[3]?'<span class="auto">自動</span>':''}</div>`).join('')}
+    </div>
+    <h3 class="sub">関連するノート <span class="hint">ナレッジ側の正本 ─ クリックで開きます</span></h3>
+    <div>${c.notes.map(n=>`<span class="notelink" onclick="openNote('${n[0]}')">📄 ${n[0]}</span>`).join('')}</div>
+  `;
+}
+selectClient('haebaru');
+
+/* ===== ノート ===== */
+const noteBodies={
+  '許認可/建設業許可_更新の手順.md':{
+    t:'建設業許可 更新の手順',
+    fm:'最終更新 2026年6月2日／作成 所長／参照した案件 7件',
+    b:`<h4>いつから出せるか</h4>
+    <ul><li>有効期間満了日の<b>3か月前から受付</b>、<b>30日前まで</b>に提出。</li>
+    <li>満了日を過ぎると新規申請になり、その間は許可が切れる。<b>30日前を過ぎた時点で所長にエスカレーション</b>する運用にしている。</li></ul>
+    <h4>先に確認すること（事務所の順番）</h4>
+    <ul><li>決算変更届が<b>毎期出ているか</b>。抜けていると更新を受け付けてもらえない。まず過去5期分を確認する。</li>
+    <li>経営業務の管理責任者・専任技術者に<b>変更がないか</b>。変更していて未届なら、変更届を先に出す。</li>
+    <li>社会保険の加入状況。<b>適用事業所の確認資料</b>を添付する。</li></ul>
+    <h4>過去にここで詰まった</h4>
+    <ul><li>2024年・A社：専任技術者の退職を把握しておらず、更新の直前に発覚。以後、<b>更新の4か月前に技術者の在籍確認</b>を案件として自動で立てている。</li></ul>`},
+  '労務/36協定_建設業の特例.md':{
+    t:'36協定 ─ 建設業の取扱い',
+    fm:'最終更新 2026年3月18日／作成 スタッフA／所長確認済み',
+    b:`<h4>要点</h4><ul>
+    <li>工作物の建設の事業は、2024年4月から上限規制が適用されている。<b>「まだ猶予がある」は誤り</b>。</li>
+    <li>災害時の復旧・復興の事業については、月100時間未満・2〜6か月平均80時間以内の規定が適用されない場合がある。<b>該当するかは個別に確認</b>。</li></ul>
+    <h4>この事務所の運用</h4><ul>
+    <li>建設業の顧問先は、協定の<b>効力発生日の45日前</b>に案件を自動で立てる（押印と提出の往復に時間がかかるため）。</li></ul>`},
+  '社保/資格取得届_提出期限と添付.md':{
+    t:'被保険者資格取得届 ─ 期限と添付',
+    fm:'最終更新 2026年5月11日／作成 スタッフA',
+    b:`<h4>期限</h4><ul><li>事実発生（入社日）から<b>5日以内</b>。</li></ul>
+    <h4>同時に確認すること</h4><ul>
+    <li>扶養family があるか → 被扶養者（異動）届を<b>同時に</b>出す。後から出すと保険証の発行が二度手間になる。</li>
+    <li>60歳以上の再雇用 → 同日得喪の可否を確認する。</li>
+    <li>外国人 → 外国人雇用状況の届出を兼ねられるかを確認する（雇用保険の資格取得届に記載欄がある）。</li></ul>
+    <h4>この事務所の運用</h4><ul>
+    <li>顧問先から入社の連絡が来た時点で、<b>入社日から5日後</b>を期限とする案件を自動で立てる。連絡が入社日より後だった場合は、期限が過ぎていても必ず案件を立てて記録に残す。</li></ul>`},
+  '労務/外国人雇用状況の届出.md':{t:'外国人雇用状況の届出',fm:'最終更新 2026年2月4日／作成 スタッフA',b:`<h4>要点</h4><ul><li>雇用保険の被保険者になる場合は、<b>資格取得届の該当欄に記入すれば足りる</b>（別途の届出は不要）。</li><li>被保険者にならない場合は、翌月末日までに別途届け出る。</li><li>在留カードの<b>番号・在留資格・在留期間</b>を控える。更新期限は案件として自動で立てる。</li></ul>`},
+  '労務/就業規則_変更届の添付書類.md':{t:'就業規則 変更届 ─ 添付書類',fm:'最終更新 2026年4月22日／作成 所長',b:`<h4>必ず要るもの</h4><ul><li>変更後の就業規則（該当箇所のみでも可だが、<b>この事務所は全文</b>を出す運用）</li><li>労働者代表の<b>意見書</b>（反対意見でも受理される。空欄は不可）</li><li>新旧対照表（法令上は任意だが、窓口での説明が早く終わる）</li></ul><h4>過半数代表の選び方を必ず残す</h4><ul><li>選出の方法（投票・挙手・回覧）と日付を、意見書と一緒にノートに残す。後年の調査で必ず聞かれる。</li></ul>`},
+  '労務/変形労働時間制_1年単位.md':{t:'1年単位の変形労働時間制',fm:'最終更新 2026年1月30日／作成 所長',b:`<h4>宿泊業での設計</h4><ul><li>繁忙期（夏・年末年始）と閑散期の差が大きい業種で有効。</li><li>労使協定は<b>毎年締結・届出</b>。前年分をそのまま流用しない。</li><li>対象期間の途中入社・退職者は<b>清算が必要</b>。ここを忘れると未払いになる。</li></ul>`},
+  '労務/36協定_自動車運転者の上限.md':{t:'36協定 ─ 自動車運転者の上限',fm:'最終更新 2026年3月18日／作成 所長',b:`<h4>一般則との違い</h4><ul><li>自動車運転の業務は、特別条項での上限が<b>年960時間</b>。月45時間超の回数制限・月100時間未満・2〜6か月平均80時間以内は<b>適用されない</b>。</li><li>ただし<b>改善基準告示の拘束時間</b>は別に守る必要がある。36協定を満たしていても告示違反になり得る。</li></ul>`},
+  '労務/改善基準告示_2024年改正.md':{t:'改善基準告示（2024年改正）',fm:'最終更新 2026年3月18日／作成 所長',b:`<h4>トラック運転者の要点</h4><ul><li>1年の拘束時間 原則3,300時間、1か月284時間。</li><li>1日の休息期間は継続11時間を基本とし、<b>9時間を下回らない</b>。</li><li>顧問先には「36協定だけ直しても足りない」ことを必ず先に伝える。</li></ul>`},
+  '社保/育児休業_手続きの順番.md':{t:'育児休業 ─ 手続きの順番',fm:'最終更新 2026年5月2日／作成 スタッフA',b:`<h4>順番を間違えると止まる</h4><ul><li>①休業開始時賃金月額証明書 → ②育児休業給付金の支給申請、の順。①を出さずに②だけ出すと返戻になる。</li><li>社会保険料の免除は<b>申出書が別</b>。給付の手続きだけでは免除されない。</li></ul>`},
+  '助成金/両立支援等助成金_出生時両立支援.md':{t:'両立支援等助成金（出生時両立支援コース）',fm:'最終更新 2026年6月14日／作成 所長',b:`<h4>申請期限の数え方</h4><ul><li>支給対象期間の末日の翌日から<b>2か月以内</b>。「休業が終わってから2か月」ではない。</li><li>就業規則への育児休業の規定と、<b>周知していた事実</b>が要る。事後に規程を作っても対象にならない。</li></ul>`},
+  '許認可/処遇改善加算_計画書の要点.md':{t:'処遇改善加算 計画書の要点',fm:'最終更新 2026年2月19日／作成 所長',b:`<h4>賃金改善の見込額</h4><ul><li>加算の見込額を<b>上回る</b>賃金改善を計画する。同額では不可。</li><li>基本給で改善するか一時金かで、翌年以降の負担が変わる。<b>顧問先の判断事項</b>として必ず選ばせる。</li></ul>`},
+  '許認可/電気工事業_変更届.md':{t:'電気工事業 変更届',fm:'最終更新 2026年4月8日／作成 所長',b:`<h4>期限</h4><ul><li>主任電気工事士の変更は、変更の日から<b>30日以内</b>。</li><li>後任の資格（第一種、または第二種＋実務3年）を先に確認する。</li></ul>`},
+};
+function openNote(path){
+  const n=noteBodies[path];
+  document.getElementById('noteTitle').textContent=path;
+  document.getElementById('noteBody').innerHTML = n
+    ? `<h4>${n.t}</h4><div class="fm">${n.fm}</div>${n.b}`
+    : `<h4>${path}</h4><div class="fm">デモではこのノートの中身は用意していません</div>`;
+  document.getElementById('noteOverlay').classList.add('show');
+}
+
+/* ===== 受信トレイ ===== */
+const inbox=[
+  { hold:false, via:'メール', from:'海邦フーズ 株式会社 総務部', tm:'今朝 08:22',
+    raw:'いつもお世話になっております。<em>今月から新しく入った人</em>の保険の手続きをお願いできますでしょうか。<em>9/16入社</em>で、扶養に奥様が1名入ります。よろしくお願いいたします。',
+    out:[['顧問先','<b>海邦フーズ 株式会社</b>（送信元のドメインと過去の履歴が一致）'],
+         ['案件','<b>被保険者資格取得届（1名）</b>＋ 被扶養者異動届'],
+         ['期限','<b>'+fmt(addDays(0))+'</b>（入社日から5日以内・ノート「資格取得届_提出期限と添付」より逆算）'],
+         ['担当','スタッフA（この顧問先の社保担当）'],
+         ['判定','自動で案件化しました<span class="conf hi">確信度 96%</span>']] },
+  { hold:false, via:'音声メモ', from:'所長・移動中の録音 52秒', tm:'昨日 18:41',
+    raw:'えーと、<em>南風原テクノ</em>、来週の<em>更新申請</em>の件、代表者印もらうの忘れてるので明日電話。あと社長が<em>助成金</em>の話したいって言ってたんで、次いつ行けるか見とく。',
+    out:[['顧問先','<b>南風原テクノ建設 株式会社</b>'],
+         ['タスク①','<b>代表者印の依頼の電話</b> → 既存案件「建設業許可 更新申請」に追加<span class="conf hi">確信度 94%</span>'],
+         ['タスク②','<b>助成金の相談の日程調整</b> → 新しい案件の候補<span class="conf lo">確信度 61%</span>'],
+         ['判定','①は自動で追加。<b>②はどの助成金か特定できないため保留</b>にしました']] },
+  { hold:true, via:'チャット', from:'（送信元の表示名のみ）宮城', tm:'今朝 08:05',
+    raw:'<em>例の件</em>ですが、<em>明日まで</em>にお願いできますか。よろしくお願いします。',
+    out:[['顧問先','<b>特定できません</b>（この表示名は3社の担当者と一致）'],
+         ['案件','特定できません'],
+         ['期限','「明日」＝'+fmt(addDays(1))+'（読み取れました）'],
+         ['判定','<b>推測しません。</b>トレイに置きます<span class="conf lo">確信度 23%</span>']] },
+  { hold:true, via:'メール', from:'沖縄◯◯協同組合 事務局', tm:'昨日 16:12',
+    raw:'外国人技能実習生の受入れに関する<em>説明会のご案内</em>です。ご都合のよろしい日程をお知らせください。',
+    out:[['顧問先','該当なし（顧問先ではない送信元）'],
+         ['案件','顧問先の案件ではない ─ <b>事務所の予定</b>の可能性'],
+         ['判定','<b>案件にはしません。</b>所長の判断待ちとしてトレイへ<span class="conf lo">確信度 34%</span>']] },
+];
+const inEl=document.getElementById('inboxList');
+inbox.forEach((x,i)=>{
+  const d=document.createElement('div');
+  d.className='in'+(x.hold?' hold':''); d.id='in-'+i;
+  d.innerHTML=`
+    <div class="src">
+      <span class="via ${x.via==='音声メモ'?'voice':(x.via==='チャット'?'chat':'')}">${x.via}</span>
+      <span>${x.from}</span>
+      <span class="tm">${x.tm}</span>
+    </div>
+    <div class="raw">${x.raw}</div>
+    <div class="out">${x.out.map(o=>`<span class="k">${o[0]}</span><span class="v">${o[1]}</span>`).join('')}</div>
+    ${x.hold?`<div style="padding:0 16px 13px;"><button class="btn primary sm" id="assignBtn-${i}" onclick="openAssign(${i})">顧問先を割り当てる</button></div>`:''}`;
+  inEl.appendChild(d);
+});
+
+function openAssign(i){
+  const x=inbox[i];
+  document.getElementById('assignBody').innerHTML=`
+    <div style="font-size:12.5px; color:var(--sub); margin-bottom:9px;">${x.via}／${x.from}／${x.tm}</div>
+    <div class="note-doc" style="line-height:1.9; font-size:13px;">${x.raw.replace(/<\/?em>/g,'')}</div>
+    <h3 class="sub" style="margin-top:16px;">割り当て先</h3>
+    <table class="t">
+      <tr><th style="width:7em;">顧問先</th><td>くもじ物流 合同会社　<span style="color:var(--sub); font-size:11.5px;">（表示名「宮城」の候補3社から選択）</span></td></tr>
+      <tr><th>案件</th><td>36協定（特別条項）届出　<span style="color:var(--sub); font-size:11.5px;">（期限が「明日」と一致する進行中の案件）</span></td></tr>
+      <tr><th>内容</th><td>押印済みの様式の受け取り依頼</td></tr>
+    </table>
+    <div class="rulebox mt"><b>次から自動になります。</b>この表示名と、この顧問先の結び付きをルールとして覚えます。2回目以降の「宮城さんからのチャット」は、確信度が基準を超えて自動で案件に入ります。</div>`;
+  document.getElementById('assignOverlay').classList.add('show');
+}
+function doAssign(){
+  closeOverlay('assignOverlay');
+  const b=document.getElementById('trayBtn');
+  b.innerHTML='未振り分けトレイ<span class="n">2</span>';
+  toast('割り当てました','くもじ物流／36協定の案件に追加。送信元のルールを1件覚えました');
+}
+
+/* ===== ナレッジ検索 ===== */
+const qa=[
+  { q:'建設業許可の更新はいつから出せる？うちの事務所の運用は？',
+    a:`<b>有効期間満了日の3か月前から受付、30日前までに提出</b>です。<br>この事務所の運用としては、次の順番で確認することになっています。
+    <ul><li>決算変更届が毎期出ているか（過去5期分を確認）</li><li>経営業務の管理責任者・専任技術者の変更の有無</li><li>社会保険の加入状況の確認資料</li></ul>
+    また、2024年にA社で専任技術者の退職を把握できずに直前で発覚した経緯があり、以後は<b>更新の4か月前に技術者の在籍確認の案件を自動で立てる</b>運用になっています。`,
+    s:[['許認可/建設業許可_更新の手順.md','最終更新 2026年6月2日・所長'],['南風原テクノ建設／建設業許可 更新申請','進行中の案件・期限 '+fmtS(addDays(2))]] },
+  { q:'月60時間を超える時間外の割増賃金、中小企業はいつから？',
+    a:`<b>2023年4月1日から、中小企業にも月60時間超の割増率50%以上が適用</b>されています。猶予はすでに終了しています。<br>
+    このノートは<b>2026年3月に見直し済み</b>で、その時点の内容です。顧問先に回答する前に、最新の改正が入っていないかを必ず確認してください。`,
+    s:[['労務/割増賃金_月60時間超.md','最終更新 2026年3月18日・スタッフA／所長確認済み']],
+    warn:'法改正に関わる質問には、<b>ノートの最終更新日を必ず一緒に出します</b>。日付を見ずに使えてしまうことが、この種の仕組みで一番こわいためです。' },
+  { q:'なぎさ観光ホテルの就業規則、前回どこを直した？',
+    a:`直近の改定は<b>${fmtS(addDays(-17))}に新旧対照表を送付</b>したもので、慶弔休暇の日数について労働者側から意見が出ています。<br>
+    現在は<b>意見書の回収待ち</b>で、総支配人が取りまとめ、回収予定は${fmtS(addDays(4))}です（${fmtS(addDays(-3))}の所長の音声メモより）。届出の期限は${fmtS(addDays(9))}です。`,
+    s:[['なぎさ観光ホテル／就業規則 変更届','進行中の案件・期限 '+fmtS(addDays(9))],['対応履歴 '+fmtS(addDays(-3)),'来所の記録＋所長の音声メモ（自動で記録）'],['労務/就業規則_変更届の添付書類.md','最終更新 2026年4月22日・所長']] },
+  { q:'うちの事務所の顧問料の改定基準は？', none:true },
+];
+function ask(i){
+  const x=qa[i];
+  document.getElementById('qInput').value=x.q;
+  const box=document.getElementById('ansBox');
+  if(x.none){
+    box.innerHTML=`
+      <div class="nores">
+        <b>該当するノートがありません。</b>顧問料の改定基準について書かれたノートは、ナレッジの中に見つかりませんでした。<br>
+        推測で答えることはしません。所長にお尋ねいただくか、決まっている内容であれば<b>ノートとして残しておくと、次から答えられる</b>ようになります。
+        <div style="margin-top:9px;"><button class="btn sm" onclick="toast('ノートの下書きを作りました','〈事務所運営/顧問料_改定の基準.md〉を作成。中身は所長が書いてください')">このノートを作る</button></div>
+      </div>`;
+  } else {
+    box.innerHTML=`
+      <div class="body">${x.a}</div>
+      ${x.warn?`<div class="rulebox mt">${x.warn}</div>`:''}
+      <div class="src-t">根拠にしたもの</div>
+      <div class="srcs">${x.s.map(s=>`<div class="s"><span class="p">📄 ${s[0]}</span><span class="u">${s[1]}</span></div>`).join('')}</div>`;
+  }
+  box.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function runAsk(){ ask(0); }
+
+/* ===== 効果測定 ===== */
+const impact=[
+  ['依頼の受け取り・振り分け・転記', 32, 9,  '依頼が来た経路のまま案件になるので、転記が消えます'],
+  ['期限の管理・確認・催促',         18, 3,  '法定期限から自動で逆算し、近づいたものだけが前に出ます'],
+  ['過去の案件・規程・様式の探し物', 26, 6,  '根拠ノートごと出るので、探し直しと確認が要りません'],
+  ['記録・報告資料の作成',           24, 11, '対応履歴が自動で積まれ、月次報告はそこから出します'],
+];
+function drawBars(){
+  const el=document.getElementById('bars');
+  const max=Math.max(...impact.map(x=>x[1]));
+  el.innerHTML=impact.map(x=>`
+    <div class="bar">
+      <div class="nm">${x[0]}<span class="cut">▼ ${Math.round((1-x[2]/x[1])*100)}%</span></div>
+      <div class="l pre"><span class="tag">導入前</span><span class="track"><span class="fill" data-w="${x[1]/max*100}"></span></span><span class="v">${x[1]} 時間</span></div>
+      <div class="l post"><span class="tag">導入後</span><span class="track"><span class="fill" data-w="${x[2]/max*100}"></span></span><span class="v">${x[2]} 時間</span></div>
+      <div style="font-size:11.5px; color:var(--sub); margin-top:2px;">${x[3]}</div>
+    </div>`).join('') + `
+    <div class="bar" style="border-top:1px solid var(--line); padding-top:11px;">
+      <div class="nm" style="font-size:14px;">合計<span class="cut">月100時間 → 29時間（目標）</span></div>
+      <div class="l pre"><span class="tag">導入前</span><span class="track"><span class="fill" data-w="100"></span></span><span class="v">100 時間</span></div>
+      <div class="l post"><span class="tag">導入後</span><span class="track"><span class="fill" data-w="29"></span></span><span class="v">29 時間</span></div>
+    </div>`;
+  requestAnimationFrame(()=>{ el.querySelectorAll('.fill').forEach(f=>{ f.style.width=f.dataset.w+'%'; }); });
+}
+
+/* ===== 共通 ===== */
+function closeOverlay(id){ document.getElementById(id).classList.remove('show'); }
+document.querySelectorAll('.overlay').forEach(o=>{ o.addEventListener('click', e=>{ if(e.target===o) o.classList.remove('show'); }); });
+let toastTimer=null;
+function toast(title, body){
+  const t=document.getElementById('toast');
+  t.innerHTML=`<div class="tt">✓ ${title}</div><div>${body}</div>`;
+  t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'), 3400);
+}
+document.querySelectorAll('#todoBox label').forEach(l=>{
+  l.querySelector('input').addEventListener('change', e=>{ l.classList.toggle('done', e.target.checked); });
+});
+
+/* ===== 自動ツアー ===== */
+const params=new URLSearchParams(location.search);
+if(params.get('tour')){
+  const cursor=document.getElementById('tourCursor'), cap=document.getElementById('caption');
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  function moveTo(el,dx=0,dy=0){ const r=el.getBoundingClientRect(); cursor.style.left=(r.left+r.width/2+dx)+'px'; cursor.style.top=(r.top+r.height/2+dy)+'px'; }
+  async function clickEl(el){ moveTo(el); await sleep(1100); cursor.classList.remove('click'); void cursor.offsetWidth; cursor.classList.add('click'); await sleep(300); el.click(); await sleep(250); }
+  function say(html){ cap.innerHTML=html; cap.style.display='block'; }
+  const railBtn=g=>document.querySelector(`#rail button[data-go="${g}"]`);
+
+  (async()=>{
+    await sleep(700);
+    cursor.style.display='block'; cursor.style.left='620px'; cursor.style.top='380px';
+
+    say('朝いちばん。<strong>今日の期限と、昨日届いた依頼の処理結果</strong>が並んでいます');
+    moveTo(document.getElementById('agentStrip'),-200,0); await sleep(4200);
+
+    say('期限は<strong>法定の根拠から自動で逆算</strong>。「入社日から5日以内」も事務所の内規も同じ列に');
+    document.getElementById('dlCard').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(900);
+    moveTo(document.getElementById('dl-0')); await sleep(3800);
+
+    say('行をクリックすると、<strong>その顧問先のページ</strong>へ');
+    await clickEl(document.getElementById('dl-1')); await sleep(3200);
+
+    say('顧問先1社＝1ページ。<strong>案件・期限・対応履歴・ノートが同じ場所</strong>にあります');
+    await sleep(3800);
+
+    say('履歴は<strong>メール・音声メモ・チャットから自動で積まれます</strong>。誰も転記しません');
+    await sleep(3600);
+
+    say('ここからが本題 ── <strong>届いた依頼を、どう案件にするか</strong>');
+    await clickEl(railBtn('inbox')); await sleep(2600);
+
+    say('メールは差出人と過去の履歴から<strong>顧問先も期限も自動で確定</strong>します');
+    moveTo(document.getElementById('in-0'),0,40); await sleep(4200);
+
+    say('所長の<strong>車中の音声メモ</strong>も、2つのタスクに分かれて入ります');
+    document.getElementById('in-1').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(900);
+    moveTo(document.getElementById('in-1'),0,40); await sleep(4400);
+
+    say('ただし ── <strong>「例の件、明日まで」は推測しません</strong>');
+    document.getElementById('in-2').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(900);
+    moveTo(document.getElementById('in-2'),0,30); await sleep(4400);
+
+    say('人が2クリックで割り当てると、<strong>次から同じ送信元は自動</strong>になります');
+    await clickEl(document.getElementById('assignBtn-2')); await sleep(4600);
+    await clickEl(document.getElementById('assignOk')); await sleep(2400);
+
+    say('ナレッジ検索は、<strong>根拠のノートを必ず一緒に出します</strong>');
+    await clickEl(railBtn('knowledge')); await sleep(1600);
+    await clickEl(document.getElementById('q1')); await sleep(5200);
+
+    say('法改正の質問には<strong>ノートの最終更新日</strong>も。日付を見ずに使えるのが一番こわい');
+    await clickEl(document.getElementById('q2')); await sleep(5000);
+
+    say('そして ── <strong>知らないことは、知らないと答えます</strong>');
+    await clickEl(document.getElementById('q4')); await sleep(5200);
+
+    say('外部のAIに<strong>実際に送る文字列</strong>を、そのままお見せします');
+    await clickEl(railBtn('safety')); await sleep(1400);
+    document.getElementById('anonCard').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(900);
+    moveTo(document.getElementById('anonCard'),0,20); await sleep(5400);
+
+    say('<strong>個人番号は、この仕組みに入れません。</strong>いまお使いのソフトの中で完結させます');
+    document.querySelector('#sec-safety .perm').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(900);
+    await sleep(4200);
+
+    say('削減時間は<strong>実測値ではなく、検収で測るための目標値</strong>。測り方も先に決めます');
+    await clickEl(railBtn('impact')); await sleep(4800);
+
+    say('4か月で<strong>作るものと、作らないもの</strong>を先に決めています');
+    await clickEl(railBtn('build')); await sleep(2000);
+    document.querySelector('#sec-build .scope').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(5200);
+
+    cap.style.display='none'; cursor.style.display='none';
+    const ec=document.getElementById('endcard');
+    ec.style.display='flex'; void ec.offsetWidth; ec.classList.add('show');
+    await sleep(9000);
+  })();
+}
+</script>
+</body>
+</html>
