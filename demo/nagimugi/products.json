@@ -1,0 +1,56 @@
+[
+  {
+    "id": "croissant",
+    "category": "bread",
+    "name": "クロワッサン",
+    "english": "Croissant",
+    "image": "table",
+    "crop": "crop-croissant",
+    "description": "幾重にも重なる層と、香ばしい焼き色。コーヒーと合わせたい、シンプルなおいしさ。"
+  },
+  {
+    "id": "country",
+    "category": "bread",
+    "name": "カンパーニュ",
+    "english": "Country bread",
+    "image": "table",
+    "crop": "crop-country",
+    "description": "素朴な姿の食事パン。スライスして、バターやスープと一緒に。"
+  },
+  {
+    "id": "cinnamon",
+    "category": "bread",
+    "name": "シナモンロール",
+    "english": "Cinnamon roll",
+    "image": "table",
+    "crop": "crop-cinnamon",
+    "description": "くるりと巻いた、甘いひと休み。午後のお供に選びたくなるパン。"
+  },
+  {
+    "id": "drip",
+    "category": "coffee",
+    "name": "ドリップコーヒー",
+    "english": "Drip coffee",
+    "image": "coffee",
+    "crop": "",
+    "description": "一杯ずつ淹れるコーヒーのイメージ。豆・産地・焙煎の詳細は実際のメニューに合わせてご紹介します。"
+  },
+  {
+    "id": "latte",
+    "category": "coffee",
+    "name": "カフェラテ",
+    "english": "Cafe latte",
+    "image": "table",
+    "crop": "crop-latte",
+    "description": "コーヒーとミルクのやわらかな組み合わせ。ひと息つきたい時間に。"
+  },
+  {
+    "id": "pair",
+    "category": "pair",
+    "name": "パンとコーヒー",
+    "english": "Bread & coffee",
+    "image": "hero",
+    "crop": "",
+    "description": "お気に入りのパンと、お好みのコーヒーを。組み合わせの表示例です。セット販売を示すものではありません。"
+  }
+]
