@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>公立小学校向け 英語アプリ｜企画・設計・開発 提案デモ｜Lスタジオ</title>
+<meta name="description" content="公立小学校の外国語活動・外国語科で使う英語アプリの提案デモ。児童のタブレット画面、先生の授業中モニタ、学校・教育委員会の管理、開発の進め方までを実際に触れる形でお見せします。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="公立小学校向け 英語アプリ 提案デモ｜Lスタジオ">
+<meta property="og:url" content="https://l-studiojp.com/demo/shogakko-eigo/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Barlow:wght@600;700&display=swap">
+<style>
+:root{
+  --bg:#EFF2EC; --card:#FFFFFF; --sunk:#F5F7F2;
+  --ink:#1E2A32; --sub:#6B7A84; --line:#DEE4DD;
+  --navy:#1D3A4F; --navy2:#102331;
+  --teal:#1E6F5C; --teal-s:#E3F0EB; --teal-l:#A9D2C4;
+  --red:#C2371F; --red-s:#FBEAE6;
+  --amber:#946408; --amber-s:#FBF0D8;
+  --blue:#2C5B8A; --blue-s:#E8F0F7;
+  --shadow:0 1px 3px rgba(18,35,49,.07),0 6px 22px rgba(18,35,49,.06);
+  /* 児童画面 */
+  --k-paper:#FFFCF3; --k-ink:#27323C; --k-line:#27323C;
+  --k-blue:#2E9BD6; --k-green:#4FAE55; --k-orange:#F0913C; --k-pink:#DF6A8B;
+  --k-yellow:#FFD24D; --k-soft:#FFF3D6;
+  --sans:"Zen Kaku Gothic New","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;
+  --maru:"Zen Maru Gothic","Zen Kaku Gothic New",sans-serif;
+  --num:"Barlow","Zen Kaku Gothic New",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--teal)}
+.num{font-family:var(--num);font-weight:700}
+
+/* ========== ribbon / topbar / nav ========== */
+.ribbon{background:#F7E9C8;color:#5B4510;font-size:12px;line-height:1.7;padding:7px 16px;text-align:center;border-bottom:1px solid #E6D5A8}
+.ribbon b{font-weight:700}
+.top{background:var(--navy2);color:#E6EDEA;display:flex;align-items:center;gap:14px;padding:11px 18px;flex-wrap:wrap;position:sticky;top:0;z-index:40}
+.top .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15.5px;letter-spacing:.04em;white-space:nowrap}
+.top .brand .mk{width:30px;height:30px;border-radius:9px;background:var(--k-green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--maru);font-weight:900;font-size:15px;flex:none}
+.top .brand small{font-weight:400;font-size:11px;color:#9BB3AC;letter-spacing:.14em;margin-left:2px}
+.top .sp{flex:1}
+.tourbtn{background:var(--teal);color:#fff;border:0;border-bottom:3px solid #11503F;border-radius:9px;padding:7px 15px;font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.tourbtn:active{transform:translateY(1px);border-bottom-width:2px}
+.tourbtn.ghost{background:transparent;border:1px solid #3A5A6B;border-bottom-width:3px;color:#C3D7D0}
+.nav{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:52px;z-index:39}
+.nav .in{max-width:1240px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 12px}
+.nav button{border:0;background:transparent;font-size:13.5px;font-weight:700;color:var(--sub);padding:13px 15px;white-space:nowrap;border-bottom:3px solid transparent;letter-spacing:.02em}
+.nav button .s{display:block;font-size:10.5px;font-weight:500;color:#9AA7AE;letter-spacing:.08em;line-height:1.3}
+.nav button:hover{color:var(--teal)}
+.nav button.on{color:var(--navy);border-bottom-color:var(--teal)}
+.wrap{max-width:1240px;margin:0 auto;padding:20px 16px 60px}
+.sec{display:none}.sec.on{display:block}
+.sech{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:3px}
+.sech h1{font-size:21px;letter-spacing:.05em;font-weight:700}
+.sech .tag{font-size:10.5px;color:var(--teal);background:var(--teal-s);border:1px solid var(--teal-l);border-radius:999px;padding:1px 12px;font-weight:700;letter-spacing:.04em}
+.lead{color:var(--sub);font-size:13.5px;margin-bottom:18px;max-width:70em}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.card+.card{margin-top:16px}
+.card>.h{padding:11px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.card>.h h2{font-size:14.5px;letter-spacing:.05em;font-weight:700}
+.card>.h .hint{font-size:11.5px;color:var(--sub);font-weight:400}
+.card>.b{padding:15px 17px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--sunk);font-weight:700;font-size:12px;color:var(--sub);letter-spacing:.04em;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;border-radius:999px;padding:1px 10px;font-size:11px;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.p-ok{background:var(--teal-s);color:var(--teal)}
+.p-red{background:var(--red-s);color:var(--red)}
+.p-am{background:var(--amber-s);color:var(--amber)}
+.p-bl{background:var(--blue-s);color:var(--blue)}
+.note{background:var(--sunk);border-left:3px solid var(--teal-l);border-radius:0 8px 8px 0;padding:11px 14px;font-size:12.8px;color:#3C4952;line-height:1.85}
+.note b{color:var(--navy)}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.btn.sub{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.btn.tl{background:var(--teal)}
+.btn:active{transform:translateY(1px)}
+
+/* ========== 児童（タブレット） ========== */
+.pupilwrap{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:start}
+.frame{background:#27323C;border-radius:24px;padding:14px 14px 34px;box-shadow:0 18px 44px rgba(18,35,49,.22);position:relative}
+.frame:after{content:"";position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:74px;height:5px;border-radius:99px;background:#4C5C68}
+.screen{background:var(--k-paper);border-radius:10px;min-height:540px;overflow:hidden;font-family:var(--maru);color:var(--k-ink);display:flex;flex-direction:column;position:relative}
+.kbar{background:#fff;border-bottom:3px solid var(--k-line);padding:9px 14px;display:flex;align-items:center;gap:10px;flex:none}
+.kbar .who{font-weight:700;font-size:13.5px}
+.kbar .who small{display:block;font-size:10.5px;color:#7E8C97;font-weight:500}
+.kbar .sp{flex:1}
+.kbar .timer{background:var(--k-soft);border:2px solid var(--k-line);border-radius:999px;padding:1px 11px;font-size:12px;font-weight:700}
+.kbar .kbtn{background:#fff;border:2px solid var(--k-line);border-bottom-width:4px;border-radius:10px;padding:3px 11px;font-size:12px;font-weight:700;font-family:var(--maru);color:var(--k-ink)}
+.kstage{flex:1;padding:16px 18px 20px;overflow-y:auto}
+.ktitle{font-size:19px;font-weight:900;letter-spacing:.03em;margin-bottom:2px}
+.ksub{font-size:12.5px;color:#76848F;margin-bottom:14px;font-weight:500}
+.kbtn-l{background:#fff;border:3px solid var(--k-line);border-bottom-width:7px;border-radius:16px;padding:12px 20px;font-size:15px;font-weight:700;font-family:var(--maru);color:var(--k-ink);transition:.08s}
+.kbtn-l:active{transform:translateY(3px);border-bottom-width:4px}
+.kbtn-l.go{background:var(--k-green);color:#fff;border-color:#2F7C36;border-bottom-color:#2F7C36}
+.kbtn-l.blue{background:var(--k-blue);color:#fff;border-color:#1D6E9B;border-bottom-color:#1D6E9B}
+.kbtn-l.sm{font-size:13px;padding:8px 15px;border-width:2px;border-bottom-width:5px;border-radius:12px}
+.seats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+.seat{background:#fff;border:3px solid var(--k-line);border-bottom-width:6px;border-radius:14px;padding:9px 4px 7px;text-align:center;font-family:var(--maru);font-weight:700;font-size:12.5px;color:var(--k-ink)}
+.seat .n{display:block;font-family:var(--num);font-size:16px;color:#7E8C97}
+.seat:active{transform:translateY(3px);border-bottom-width:3px}
+.seat.on{background:var(--k-yellow)}
+.pics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pic{background:#fff;border:3px solid var(--k-line);border-bottom-width:7px;border-radius:18px;padding:14px 8px 10px;text-align:center;font-family:var(--maru);font-weight:700;font-size:13.5px;color:var(--k-ink);transition:.08s}
+.pic:active{transform:translateY(3px);border-bottom-width:4px}
+.pic svg{width:66px;height:66px;display:block;margin:0 auto 6px}
+.pic.ok{background:#E6F5E7;border-color:#2F7C36;border-bottom-color:#2F7C36}
+.pic.ng{background:#FBEAE6;border-color:#B4402A;border-bottom-color:#B4402A}
+.pic.dim{opacity:.4}
+.pic .en{display:block;font-size:11.5px;color:#7E8C97;letter-spacing:.06em;font-weight:500}
+.acts{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.act{background:#fff;border:3px solid var(--k-line);border-bottom-width:7px;border-radius:18px;padding:13px 15px;text-align:left;font-family:var(--maru);color:var(--k-ink);display:flex;gap:12px;align-items:center;transition:.08s}
+.act:active{transform:translateY(3px);border-bottom-width:4px}
+.act .ic{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex:none;border:3px solid var(--k-line)}
+.act .ic svg{width:26px;height:26px}
+.act b{display:block;font-size:15px;font-weight:900;letter-spacing:.02em}
+.act small{display:block;font-size:11.5px;color:#76848F;font-weight:500;line-height:1.5}
+.act .bar{display:block;height:7px;border-radius:99px;background:#EAEFE9;border:2px solid var(--k-line);margin-top:5px;overflow:hidden}
+.act .bar i{display:block;height:100%;background:var(--k-green)}
+.act.done{background:#F2FAF2}
+.bubble{background:#fff;border:3px solid var(--k-line);border-radius:18px;padding:13px 17px;font-size:17px;font-weight:700;letter-spacing:.02em;position:relative;margin-bottom:14px}
+.bubble .jp{display:block;font-size:12.5px;color:#76848F;font-weight:500;letter-spacing:0;margin-top:2px}
+.playbtn{background:var(--k-blue);color:#fff;border:3px solid #1D6E9B;border-bottom-width:7px;border-radius:999px;width:74px;height:74px;font-family:var(--maru);font-weight:900;font-size:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex:none}
+.playbtn:active{transform:translateY(3px);border-bottom-width:4px}
+.playbtn .tri{width:0;height:0;border-left:16px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:4px}
+.playbtn.playing{background:#1D6E9B}
+.mic{background:var(--k-pink);color:#fff;border:3px solid #B54D6C;border-bottom-width:7px;border-radius:999px;width:96px;height:96px;font-family:var(--maru);font-weight:900;font-size:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.mic:active{transform:translateY(3px);border-bottom-width:4px}
+.mic.rec{background:#B54D6C;animation:pulse 1.1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(181,77,108,.5)}50%{box-shadow:0 0 0 14px rgba(181,77,108,0)}}
+.mic .dot{width:16px;height:16px;border-radius:99px;background:#fff}
+.wavebox{display:flex;align-items:center;gap:4px;height:42px;flex:1;min-width:60px}
+.wavebox i{flex:none;width:4px;background:var(--k-pink);border-radius:99px;height:5px;transition:height .12s}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff;border:3px solid var(--k-line);border-radius:18px;padding:13px 16px}
+.score .big{font-family:var(--num);font-size:40px;font-weight:700;line-height:1;color:var(--k-green)}
+.score .big.mid{color:var(--k-orange)}
+.heard{font-size:15px;font-weight:700;letter-spacing:.02em;line-height:1.9}
+.heard .ok{color:var(--k-green)}
+.heard .ng{color:#C2371F;text-decoration:underline wavy #C2371F 2px;text-underline-offset:4px}
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.wlist{display:grid;gap:9px}
+.word{background:#fff;border:3px solid var(--k-line);border-bottom-width:6px;border-radius:13px;padding:10px 12px;font-family:var(--maru);font-weight:700;font-size:16px;letter-spacing:.04em;color:var(--k-ink);text-align:left}
+.word:active{transform:translateY(2px);border-bottom-width:4px}
+.word.on{background:var(--k-yellow)}
+.word.ok{background:#E6F5E7;border-color:#2F7C36;border-bottom-color:#2F7C36;opacity:.75}
+.plist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcell{background:#fff;border:3px solid var(--k-line);border-bottom-width:6px;border-radius:14px;padding:8px;display:flex;align-items:center;justify-content:center}
+.pcell svg{width:52px;height:52px}
+.pcell:active{transform:translateY(2px);border-bottom-width:4px}
+.pcell.ok{background:#E6F5E7;border-color:#2F7C36;border-bottom-color:#2F7C36;opacity:.75}
+.pcell.ng{background:#FBEAE6}
+.slots{display:flex;gap:8px;flex-wrap:wrap;background:#fff;border:3px dashed var(--k-line);border-radius:16px;padding:14px;min-height:74px;align-items:center;margin-bottom:12px}
+.slots .ph{color:#A9B5BD;font-size:13px;font-weight:500}
+.chip{background:var(--k-soft);border:3px solid var(--k-line);border-bottom-width:5px;border-radius:12px;padding:6px 13px;font-family:var(--maru);font-weight:700;font-size:15px;color:var(--k-ink);letter-spacing:.03em}
+.chip:active{transform:translateY(2px);border-bottom-width:3px}
+.chip.used{opacity:.3}
+.chip.mine{background:#DDEEF8}
+.tree{text-align:center;padding:6px 0 0}
+.tree svg{width:190px;height:170px}
+.stamps{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.stamp{min-width:62px;height:40px;padding:0 12px;border-radius:13px;border:3px solid var(--k-line);background:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--maru);font-weight:900;font-size:12.5px;color:#A9B5BD;white-space:nowrap}
+.stamp.on{background:var(--k-yellow);color:var(--k-ink)}
+.kcap{background:#FFF;border:2px solid var(--k-line);border-radius:12px;padding:8px 12px;font-size:12.5px;font-weight:500;color:#5A6873;display:flex;gap:8px;align-items:flex-start;margin-top:12px}
+.kcap b{color:var(--k-ink);white-space:nowrap;flex:none}
+.kfoot{border-top:3px solid var(--k-line);background:#fff;padding:8px 14px;display:flex;gap:10px;align-items:center;flex:none;font-size:11.5px;color:#7E8C97;font-weight:500}
+.kfoot .sp{flex:1}
+
+/* 右カラム：設計メモ */
+.memo{position:sticky;top:110px;display:grid;gap:12px}
+.memo .mc{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:13px 15px}
+.memo .mc h3{font-size:12.5px;letter-spacing:.06em;color:var(--teal);margin-bottom:7px;font-weight:700}
+.memo .mc p{font-size:12.5px;color:#3E4B54;line-height:1.85}
+.memo .mc p b{color:var(--navy)}
+.memo .why{display:grid;gap:9px}
+.memo .why li{list-style:none;font-size:12.5px;line-height:1.75;padding-left:18px;position:relative;color:#3E4B54}
+.memo .why li:before{content:"";position:absolute;left:3px;top:8px;width:7px;height:7px;border-radius:2px;background:var(--teal-l)}
+.memo .why li b{color:var(--navy)}
+@media(max-width:1060px){.pupilwrap{grid-template-columns:1fr}.memo{position:static}}
+</style>
+</head>
+<body>
+
+<div class="ribbon">これは<b>ご提案用のデモ</b>です。学校名・学級・児童名・数値はすべて<b>架空</b>で、実在の学校・自治体・個人の情報は含まれていません。<b>画面と操作は、納品物と同じ作りのものです。</b></div>
+
+<div class="top">
+  <div class="brand"><span class="mk">え</span>えいごひろば<small>DEMO BUILD 0.9</small></div>
+  <div class="sp"></div>
+  <button class="tourbtn" id="btnTour">自動デモを再生（約2分）</button>
+  <button class="tourbtn ghost" id="btnReset">最初から</button>
+</div>
+
+<nav class="nav"><div class="in">
+  <button class="on" data-v="pupil">児童の画面<span class="s">TABLET</span></button>
+  <button data-v="teacher">先生の画面<span class="s">TEACHER</span></button>
+  <button data-v="admin">学校・教育委員会<span class="s">ADMIN</span></button>
+  <button data-v="build">作り方と進め方<span class="s">PROCESS</span></button>
+  <button data-v="quote">体制とお見積り<span class="s">ESTIMATE</span></button>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ================= 児童 ================= -->
+<section class="sec on" id="v-pupil">
+  <div class="sech"><h1>児童の画面（1人1台端末）</h1><span class="tag">実際に触れます・音が出ます</span></div>
+  <p class="lead">第5学年 外国語科／Unit「できることをつたえよう（I can 〜.）」の1時間ぶんです。学級の端末でそのまま開く想定で、<b>ログインから先生への提出まで</b>を通して触っていただけます。音声はブラウザ内で合成しているため、音声ファイルのダウンロードは発生しません。</p>
+  <div class="pupilwrap">
+    <div>
+      <div class="frame">
+        <div class="screen">
+          <div class="kbar">
+            <div class="who" id="kWho">ひばり小学校<small>5年2組</small></div>
+            <div class="sp"></div>
+            <div class="timer" id="kTimer">のこり 12:00</div>
+            <button class="kbtn" id="kHome">めあてにもどる</button>
+          </div>
+          <div class="kstage" id="kStage"></div>
+          <div class="kfoot">
+            <span id="kFootL">じどうよう画面（タブレット・よこむき）</span>
+            <span class="sp"></span>
+            <span id="kFootR">音がでない教室でも、字幕だけで進められます</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px" id="cardKidNote">
+        <div class="h"><h2>この画面で、あえてやっていないこと</h2><span class="hint">小学校で実際に詰まる場所です</span></div>
+        <div class="b">
+          <div class="grid3">
+            <div class="note"><b>ローマ字入力をさせない</b><br>3・4年生はローマ字がまだです。入力は<b>すべてタップ</b>。英語を打つ力ではなく、英語を使う力を測る画面にしています。</div>
+            <div class="note"><b>×で終わらせない</b><br>まちがえたら「もう1回きく」→「ヒント」→「答えを見る」の順に出ます。<b>先に進めなくなる作りにしない</b>のが、45分の授業で最も大事です。</div>
+            <div class="note"><b>音声ファイルを配らない</b><br>端末側で読み上げます。40台が同時に開いても、校内Wi-Fiに音声のダウンロードが集中しません。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="memo">
+      <div class="mc">
+        <h3>いま見えている画面について</h3>
+        <p id="memoTxt">左のタブレットの画面に合わせて、<b>設計の意図</b>がここに出ます。まずは出席番号を選んでログインしてみてください。</p>
+      </div>
+      <div class="mc">
+        <h3>設計の前提（公立小学校）</h3>
+        <ul class="why">
+          <li><b>1人1台端末</b>／Chromebook・iPad・Windowsのいずれでも、<b>ブラウザだけ</b>で動きます。インストール作業はありません。</li>
+          <li><b>学級で同時に40台</b>が開く前提の通信量で設計します。</li>
+          <li><b>児童はパスワードを打てません</b>。学級のQRと出席番号、絵のあいことばで入ります。</li>
+          <li><b>氏名を外部サービスに出しません</b>。発音の判定は端末の中で完結します。</li>
+          <li><b>45分の授業に収める</b>。残り時間と、先生の「やめ」の合図が画面に効きます。</li>
+          <li><b>紙を否定しない</b>。同じ内容のワークシートが先生の画面から印刷できます。</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= 先生 ================= -->
+<section class="sec" id="v-teacher">
+  <div class="sech"><h1>先生の画面</h1><span class="tag">授業中に開いたまま使う1画面</span></div>
+  <p class="lead">外国語の授業は、担任の先生とALTが同時に動きます。先生が見るのは点数ではなく「<b>いま、誰が止まっているか</b>」です。下の一覧は児童の端末と連動しており、開いている間も進みます。</p>
+
+  <div class="card" id="cardMonitor">
+    <div class="h"><h2>授業中モニタ（5年2組・32人）</h2><span class="hint">30秒ごとに自動更新。タイルを押すと、その子の様子が出ます</span>
+      <span style="margin-left:auto;display:flex;gap:6px;align-items:center"><span class="pill p-ok">じゅんちょう <b class="num" id="cntOk">0</b></span><span class="pill p-am">おくれ気味 <b class="num" id="cntSlow">0</b></span><span class="pill p-red">とまっている <b class="num" id="cntNg">0</b></span></span>
+    </div>
+    <div class="b">
+      <div id="clsGrid" style="display:grid;grid-template-columns:repeat(8,1fr);gap:7px"></div>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--sub)">
+        <span><i style="display:inline-block;width:11px;height:11px;border-radius:3px;background:#1E6F5C;vertical-align:-1px"></i> できている</span>
+        <span><i style="display:inline-block;width:11px;height:11px;border-radius:3px;background:#E0B33A;vertical-align:-1px"></i> 少しおくれ</span>
+        <span><i style="display:inline-block;width:11px;height:11px;border-radius:3px;background:#C2371F;vertical-align:-1px"></i> 同じところで2回以上つまずいた</span>
+        <span><i style="display:inline-block;width:11px;height:11px;border-radius:3px;background:#C9D2CC;vertical-align:-1px"></i> まだ開いていない</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="cardStuck">
+    <div class="h"><h2>いま声をかける3人</h2><span class="hint">「全員の点数」ではなく、この3行だけを見れば足ります</span></div>
+    <div class="b" style="padding:0">
+      <table>
+        <tr><th style="width:90px">児童</th><th style="width:150px">止まっている場所</th><th>画面が見ているもの</th><th style="width:230px">先生への提案（声かけ）</th></tr>
+        <tr><td><b>7番 ゆいさん</b></td><td><span class="pill p-red">はなす</span><br>I can cook well.</td><td>3回録音して、3回とも <b>cook</b> が <b>look</b> と認識されています。母音ではなく語頭の子音です。</td><td>「クックの“ク”を、のどの奥から短く」。口形カードNo.4を出すと早いです。</td></tr>
+        <tr><td><b>15番 そうたさん</b></td><td><span class="pill p-red">つたえる</span><br>文づくり</td><td>語を並べる画面で <b>92秒</b> 動きがありません。can を選んだあと止まっています。</td><td>言いたい内容が先に決まっていない可能性。「何ができる人になりたい？」から日本語で。</td></tr>
+        <tr><td><b>24番 あおいさん</b></td><td><span class="pill p-am">きく</span><br>第3問</td><td>正答はしていますが、<b>1問あたり28秒</b>（学級平均9秒）。音を聞き直す回数が多い。</td><td>つまずきではなく慎重なだけです。<b>声をかけない</b>という判断もここに出します。</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card" id="cardHaishin">
+      <div class="h"><h2>今日の単元を配る</h2><span class="hint">クリックで動きます</span></div>
+      <div class="b">
+        <table style="margin-bottom:12px">
+          <tr><th style="width:52px">学年</th><th>単元</th><th style="width:96px">活動</th><th style="width:74px">状態</th></tr>
+          <tr><td>5年</td><td><b>Unit 5</b> できることをつたえよう（I can 〜.）</td><td>きく・はなす・よむ・つたえる</td><td><span class="pill p-ok">配信中</span></td></tr>
+          <tr><td>5年</td><td><b>Unit 6</b> 行きたい国をしょうかいしよう</td><td>きく・よむ・つたえる</td><td><span class="pill p-bl">準備ずみ</span></td></tr>
+          <tr><td>3年</td><td><b>Unit 4</b> すきなものをつたえよう（I like 〜.）</td><td>きく・はなす</td><td><span class="pill p-bl">準備ずみ</span></td></tr>
+          <tr><td>6年</td><td><b>Unit 3</b> 夏の思い出（I went to 〜.）</td><td>きく・よむ・つたえる</td><td><span class="pill p-am">下書き</span></td></tr>
+        </table>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn tl" data-toast="Unit 6 を配信しました|5年2組の32台に届きました。児童の画面は次に開いたときから切り替わります">Unit 6 を 5年2組へ配信</button>
+          <button class="btn sub" data-mo="unit">単元の中身を見る</button>
+          <button class="btn sub" data-toast="全端末を「めあて」画面に戻しました|先生の『やめ』の合図です。児童の手が止まります">全員の画面を止める</button>
+        </div>
+        <div class="note" style="margin-top:12px">単元は<b>先生が作れます</b>。絵と語と音声は共通の素材から選ぶだけで、教科書の進度に合わせて並べ替えられます。作った単元は学校内・自治体内で共有できます。</div>
+      </div>
+    </div>
+
+    <div class="card" id="cardHyoka">
+      <div class="h"><h2>記録と評価（3観点）</h2><span class="hint">自動で埋まる欄／先生が入れる欄</span></div>
+      <div class="b" style="padding:0">
+        <table>
+          <tr><th style="width:74px">児童</th><th>知識・技能<span style="display:block;font-weight:400;color:#8FA0AA">自動</span></th><th>思考・判断・表現<span style="display:block;font-weight:400;color:#8FA0AA">自動＋先生</span></th><th>主体的に学習に<br>取り組む態度<span style="display:block;font-weight:400;color:#8FA0AA">先生</span></th></tr>
+          <tr><td>1番 はるとさん</td><td><span class="pill p-ok">A</span> 語彙8/8・文型正答率94%</td><td><span class="pill p-ok">A</span> 自作文3回・語数7</td><td><span class="pill p-ok">A</span></td></tr>
+          <tr><td>7番 ゆいさん</td><td><span class="pill p-am">B</span> 語彙6/8・発音再挑戦5回</td><td><span class="pill p-ok">A</span> 自作文4回・語数9</td><td><span class="pill p-ok">A</span></td></tr>
+          <tr><td>15番 そうたさん</td><td><span class="pill p-ok">A</span> 語彙8/8・文型正答率88%</td><td><span class="pill p-am">B</span> 自作文1回・語数4</td><td><span class="pill p-am">B</span></td></tr>
+        </table>
+        <div style="padding:14px 17px">
+          <div class="note" style="margin-bottom:11px"><b>点数を機械につけさせません。</b>アプリが出すのは「何回やり直したか」「何語で書いたか」といった<b>事実</b>だけです。評定は先生がつけます。7番の児童は正答率だけ見るとBですが、やり直した回数は学級で最多です ― これを消さずに残すのが、外国語の評価では効きます。</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sub" data-mo="shoken">所見の下書きを出す</button><button class="btn sub" data-mo="print">ワークシートを印刷</button><button class="btn sub" data-mo="meibo">名簿を取り込む</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 管理 ================= -->
+<section class="sec" id="v-admin">
+  <div class="sech"><h1>学校・教育委員会の画面</h1><span class="tag">導入と個人情報の扱い</span></div>
+  <p class="lead">公立小学校向けのアプリで最後に止まるのは、たいてい機能ではなく<b>アカウント発行と個人情報の扱い</b>です。先に設計を出しておきます。</p>
+
+  <div class="grid2">
+    <div class="card" id="cardAcct">
+      <div class="h"><h2>アカウントを配る</h2><span class="hint">1校ぶん15分で終わる想定</span></div>
+      <div class="b">
+        <table>
+          <tr><th style="width:104px">手順</th><th>やること</th><th style="width:90px">かかる時間</th></tr>
+          <tr><td><b>① 名簿</b></td><td>校務支援システムから出したCSV（学年・組・出席番号・よみ）をそのまま取り込みます。氏名は<b>学校のサーバ内だけ</b>に置きます。</td><td>3分</td></tr>
+          <tr><td><b>② 学級QR</b></td><td>学級ごとにQRを1枚印刷し、教室に貼ります。児童はQRを読む→出席番号を押す、だけです。</td><td>5分</td></tr>
+          <tr><td><b>③ あいことば</b></td><td>パスワードの代わりに<b>絵を3つ</b>選ばせます。低学年でも自分で入れます。忘れたら担任が画面から作り直せます。</td><td>5分</td></tr>
+          <tr><td><b>④ 進級</b></td><td>4月は新しいCSVを入れるだけ。学習履歴は児童に付いて上がります。卒業時は<b>自動で削除</b>します。</td><td>3分</td></tr>
+        </table>
+        <div class="note" style="margin-top:12px"><b>ID・パスワード方式にしない理由。</b>1人1台端末で最も多い問い合わせは「パスワードを忘れた」です。ここを設計で消さないと、担任の負担が毎朝発生し、アプリは使われなくなります。</div>
+      </div>
+    </div>
+
+    <div class="card" id="cardPriv">
+      <div class="h"><h2>児童の情報が、どこまで出るか</h2><span class="hint">外へ出るものだけを描いています</span></div>
+      <div class="b">
+        <svg viewBox="0 0 520 268" style="width:100%;height:auto;display:block">
+          <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#6B7A84"/></marker></defs>
+          <rect x="6" y="6" width="300" height="256" rx="10" fill="#E3F0EB" stroke="#A9D2C4"/>
+          <text x="20" y="28" font-size="12.5" font-weight="700" fill="#1E6F5C" font-family="sans-serif">学校のなか（校内・自治体の環境）</text>
+          <rect x="22" y="42" width="126" height="56" rx="8" fill="#fff" stroke="#DEE4DD"/>
+          <text x="34" y="64" font-size="11.5" font-weight="700" fill="#1E2A32" font-family="sans-serif">児童の端末</text>
+          <text x="34" y="82" font-size="10.5" fill="#6B7A84" font-family="sans-serif">音声の判定もここ</text>
+          <rect x="164" y="42" width="126" height="56" rx="8" fill="#fff" stroke="#DEE4DD"/>
+          <text x="176" y="64" font-size="11.5" font-weight="700" fill="#1E2A32" font-family="sans-serif">名簿サーバ</text>
+          <text x="176" y="82" font-size="10.5" fill="#6B7A84" font-family="sans-serif">氏名・組・出席番号</text>
+          <rect x="22" y="120" width="268" height="52" rx="8" fill="#fff" stroke="#DEE4DD"/>
+          <text x="34" y="141" font-size="11.5" font-weight="700" fill="#1E2A32" font-family="sans-serif">先生の画面（学習の記録）</text>
+          <text x="34" y="159" font-size="10.5" fill="#6B7A84" font-family="sans-serif">氏名と学習履歴が結びつくのは、この中だけです</text>
+          <rect x="22" y="188" width="268" height="58" rx="8" fill="#FBF0D8" stroke="#E3CE93"/>
+          <text x="34" y="209" font-size="11.5" font-weight="700" fill="#946408" font-family="sans-serif">外へ出るときは、ここで名前を外します</text>
+          <text x="34" y="227" font-size="10.5" fill="#7A5A10" font-family="sans-serif">ゆいさん（5年2組7番）→ <tspan font-weight="700">P-2207</tspan> に置き換え</text>
+          <text x="34" y="241" font-size="10.5" fill="#7A5A10" font-family="sans-serif">P-2207 を氏名に戻せるのは、校内の名簿サーバだけ</text>
+          <line x1="306" y1="217" x2="356" y2="217" stroke="#6B7A84" stroke-width="1.6" marker-end="url(#ar)"/>
+          <rect x="360" y="150" width="152" height="66" rx="8" fill="#fff" stroke="#DEE4DD"/>
+          <text x="372" y="172" font-size="11.5" font-weight="700" fill="#1E2A32" font-family="sans-serif">集計・利用状況</text>
+          <text x="372" y="190" font-size="10.5" fill="#6B7A84" font-family="sans-serif">教育委員会が見る数字</text>
+          <text x="372" y="205" font-size="10.5" fill="#6B7A84" font-family="sans-serif">学校単位・学年単位のみ</text>
+          <rect x="360" y="42" width="152" height="86" rx="8" fill="#FBEAE6" stroke="#E8B9AC"/>
+          <text x="372" y="64" font-size="11.5" font-weight="700" fill="#C2371F" font-family="sans-serif">外部のAIサービス</text>
+          <text x="372" y="84" font-size="10.5" fill="#8C3B28" font-family="sans-serif">既定では<tspan font-weight="700">使いません</tspan>。</text>
+          <text x="372" y="99" font-size="10.5" fill="#8C3B28" font-family="sans-serif">音声認識も読み上げも</text>
+          <text x="372" y="114" font-size="10.5" fill="#8C3B28" font-family="sans-serif">端末の機能で完結します。</text>
+        </svg>
+        <div class="note" style="margin-top:10px"><b>児童の声も、書いた文も、外部のAIには送りません。</b>発音の判定はブラウザに載っている音声認識で行い、録音データは端末に残さず捨てます。所見の下書きのように文章生成が要る機能は、<b>先生がボタンを押したときだけ</b>・<b>氏名を外した形で</b>動かし、設定で丸ごと切れるようにします。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card" id="cardEnv">
+      <div class="h"><h2>端末と回線のこと</h2><span class="hint">導入前にいちばん聞かれるところ</span></div>
+      <div class="b" style="padding:0">
+        <table>
+          <tr><th style="width:120px">項目</th><th>この設計での答え</th></tr>
+          <tr><td>対応端末</td><td>Chromebook／iPad／Windows。<b>ブラウザのみ</b>。アプリの配布・MDM設定は不要です。</td></tr>
+          <tr><td>オフライン</td><td>単元を開いた時点で教材を端末に入れます。<b>授業中に回線が落ちても続けられ</b>、復帰したときに記録を送ります。</td></tr>
+          <tr><td>同時40台</td><td>1時間の授業で1台あたり約2〜4MB。音声を配信しないためです（端末側で合成）。40台でも学級単位の回線に収まります。</td></tr>
+          <tr><td>音の出ない教室</td><td>イヤホンが無い学級のために、<b>すべての音声に字幕</b>を付けます。字幕だけでも全活動が成立します。</td></tr>
+          <tr><td>アクセシビリティ</td><td>文字サイズ3段階、ふりがな切替、色覚に配慮した配色（正誤を色だけで表さない）、読み上げ対応。</td></tr>
+          <tr><td>学習eポータル</td><td>MEXCBT／学習eポータルとの連携（名簿・学習指導要領コード・学習eポータル経由のログイン）は、標準仕様に沿って後から足せる形にしておきます。</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" id="cardShi">
+      <div class="h"><h2>教育委員会の画面（市内12校・架空）</h2><span class="hint">個人は出ません</span></div>
+      <div class="b">
+        <div id="barBox" style="display:grid;gap:9px"></div>
+        <div class="note" style="margin-top:13px"><b>「何回開いたか」は追いません。</b>教育委員会が見るべき数字は利用回数ではなく、<b>使っていない学校がどこか</b>だと考えています。導入した年度に必ず起きるのは「一部の熱心な先生だけが使う」状態で、そこを早く見つけて支援に回せる画面にします。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 進め方 ================= -->
+<section class="sec" id="v-build">
+  <div class="sech"><h1>作り方と、進め方</h1><span class="tag">「スピード重視」への答え</span></div>
+  <p class="lead">ご依頼文に「スピード重視」とありました。私の答えは「急いで全部作る」ではなく、<b>2週間目に、先生が実際に触れるものを出す</b>です。教育現場向けのアプリは、仕様書の上で完成させても、先生が触った瞬間に半分書き換わります。早く触らせることがいちばん速い。</p>
+
+  <div class="card" id="cardWeeks">
+    <div class="h"><h2>12週間の進め方</h2><span class="hint">最初の2週で「動くもの」、最初の6週で「1学年ぶん」が授業で使える状態になります</span></div>
+    <div class="b" style="padding:0">
+      <table>
+        <tr><th style="width:86px">週</th><th style="width:210px">やること</th><th>出るもの（毎週かならず動くものが出ます）</th></tr>
+        <tr><td><b>1週目</b></td><td>企画書・仕様書の読み込みと、決めきれていない点の洗い出し</td><td>仕様の確認リスト（私の経験では、この種のアプリで最初に決まっていないのは<b>ログイン方式・評価の扱い・教材の権利・端末の想定</b>の4つです）／画面一覧／データ設計</td></tr>
+        <tr><td><b>2週目</b></td><td>児童画面の骨格を実装</td><td><b>このデモの精度のものが、御社の仕様で動きます。</b>先生に触っていただき、ここで方向を固定します</td></tr>
+        <tr><td>3–4週目</td><td>4つの活動の作り込み・音声・オフライン対応</td><td>1単元が最後まで通る児童アプリ／実機（Chromebook・iPad）での確認結果</td></tr>
+        <tr><td>5–6週目</td><td>先生の画面（授業中モニタ・配信・記録）</td><td><b>1学級で、1時間の授業が通せる版。</b>ここで協力校での試用をおすすめします</td></tr>
+        <tr><td>7–8週目</td><td>学校・教育委員会の管理／名簿取り込み／アカウント発行</td><td>1校ぶんの導入が15分で終わることの実測</td></tr>
+        <tr><td>9–10週目</td><td>単元をつくる画面（先生が教材を足せる）／印刷</td><td>教科書の進度に合わせて単元を組める状態</td></tr>
+        <tr><td>11週目</td><td>負荷試験（40台同時）・アクセシビリティ・セキュリティ点検</td><td>試験結果レポート／指摘の修正</td></tr>
+        <tr><td>12週目</td><td>受け入れ・マニュアル・引き継ぎ</td><td>先生向け1枚マニュアル／管理者向け手順／ソースと設計書一式</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card" id="cardTech">
+      <div class="h"><h2>技術の選び方</h2><span class="hint">ご依頼文「開発言語は未定・相談したい」への提案</span></div>
+      <div class="b" style="padding:0">
+        <table>
+          <tr><th style="width:96px">層</th><th style="width:150px">提案</th><th>理由</th></tr>
+          <tr><td>児童・先生の画面</td><td><b>TypeScript ＋ React</b><br>（PWA）</td><td>インストール不要で3種類の端末に同時に出せます。PWAにすることで、オフラインと「ホーム画面に置く」が両立します。</td></tr>
+          <tr><td>音声</td><td><b>端末内の音声合成・音声認識</b></td><td>費用が発生せず、児童の声が外に出ません。教材音声の制作費もかかりません。品質を上げたい単元だけ、後から録音音源を差し込めます。</td></tr>
+          <tr><td>サーバ</td><td><b>Node.js（NestJS）＋ PostgreSQL</b><br>国内リージョン</td><td>学習記録は関係データで持つべきものです。学年・学級・単元・観点の集計が素直に書け、後から教育委員会単位の集計が足せます。</td></tr>
+          <tr><td>基盤</td><td>Google Cloud（東京）／または貴社ご指定</td><td>すでにお決まりの環境があれば合わせます。<b>ここは私の好みで決める場所ではありません。</b></td></tr>
+          <tr><td>連携</td><td>学習eポータル標準・学習指導要領コード</td><td>後から「MEXCBTと繋ぎたい」が必ず来ます。最初からコードを持たせておけば、そのとき作り直さずに済みます。</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" id="cardQa">
+      <div class="h"><h2>品質のつくり方</h2></div>
+      <div class="b">
+        <div class="note" style="margin-bottom:11px"><b>実機で確認します。</b>Chromebookの実機、iPad、学校で多いWindows端末の3種類で毎週確認します。教育向けアプリの不具合は、ほとんどが「特定の端末の特定のブラウザでだけ音が出ない」形で出ます。手元のPCだけで作ると必ず取りこぼします。</div>
+        <div class="note" style="margin-bottom:11px"><b>40台同時を、実際に鳴らして確かめます。</b>仮想の負荷試験だけでなく、協力校で1学級ぶんを同時に動かした結果を数字で出します。「たぶん大丈夫」は出しません。</div>
+        <div class="note" style="margin-bottom:11px"><b>アクセシビリティは後付けしません。</b>文字サイズ・ふりがな・色覚・読み上げは、最初の2週間の骨格に入れます。後から入れると全画面を作り直すことになります。</div>
+        <div class="note"><b>セキュリティは自治体の基準に合わせます。</b>「教育情報セキュリティポリシーに関するガイドライン」に沿った構成（通信の暗号化、権限分離、操作ログ、保存期間と卒業時削除、事故時の連絡手順）で設計し、自治体の情報担当に出せる形の資料を納品物に含めます。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="cardRole">
+    <div class="h"><h2>役割分担のご提案</h2><span class="hint">「企画から設計、開発までを一貫して」の担当として</span></div>
+    <div class="b" style="padding:0">
+      <table>
+        <tr><th style="width:150px"></th><th>私がやること</th><th>ご依頼主にお願いすること</th></tr>
+        <tr><td><b>企画</b></td><td>いただく企画書を、画面と動作の形に翻訳します。決まっていない点を先に潰します。</td><td>「誰のどの困りごとを解くか」の最終判断。教材・題材の方針。</td></tr>
+        <tr><td><b>設計</b></td><td>画面設計・データ設計・API設計・権限設計。全部私が書きます。</td><td>週1回30分のレビュー。</td></tr>
+        <tr><td><b>開発</b></td><td>フロント・バックエンド・テストまで実装します。再委託はしません。</td><td>―</td></tr>
+        <tr><td><b>現場</b></td><td>先生向けの説明資料・操作マニュアル・研修用スライドを作ります。</td><td><b>試用させてもらえる学校を1校</b>。ここだけはお力をお借りしたいです。無ければ、私の教室の児童で代替します（後述）。</td></tr>
+        <tr><td><b>チーム</b></td><td>他に開発者が入る場合、設計と規約を私が出し、レビューを担当します。</td><td>体制のご共有。</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 見積り ================= -->
+<section class="sec" id="v-quote">
+  <div class="sech"><h1>私について／体制とお見積り</h1></div>
+  <p class="lead">応募が多い案件だと思いますので、他の方と違う点だけ先に書きます。</p>
+
+  <div class="card" id="cardMe">
+    <div class="h"><h2>私は、学習塾を経営しながら開発しています</h2></div>
+    <div class="b">
+      <div class="grid2" style="gap:14px">
+        <div class="note"><b>毎日、子どもがつまずく場所を見ています。</b>小中学生の学習塾を運営しています。英語アプリの企画で本当に難しいのは技術ではなく、「ここで子どもは手が止まる」「これは先生が続けられない」を知っているかどうかです。私はそれを、画面の向こうではなく教室で見ています。</div>
+        <div class="note"><b>自分の生徒のために、学習アプリを作って運用しています。</b>暗記アプリ、英単語の定着アプリ、一問一答（6,700問）、教材スライド310単元。作って終わりではなく、毎日使われ、毎日文句が来て、直しています。<b>使われ続けるアプリの作り方を、身銭を切って学んでいます。</b></div>
+        <div class="note"><b>受託の実績。</b>法律事務所の業務ダッシュボード、税理士事務所のサイト、不動産会社のメール解析システム、美容ブランドのAI診断（稼働中）、学習塾の公式LINE基盤。企画・設計・実装・納品まで一人で通しています。</div>
+        <div class="note"><b>試用の場を持っています。</b>協力校の確保が難しい場合、私の教室の小学生に実際に使わせて、手が止まった場所を動画と数字でお返しできます。<b>これは他の応募者には用意しにくい部分だと思います。</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="cardQuote">
+    <div class="h"><h2>お見積り</h2><span class="hint">「見積り希望」とのことでしたので、2つの形でお出しします</span></div>
+    <div class="b">
+      <div style="margin-bottom:6px"><span class="pill p-ok">案A（おすすめ）</span> <b style="font-size:15px">企画・開発担当としての参画／月額 600,000円（税別）・週3日相当</b></div>
+      <p style="font-size:13px;color:#3E4B54;margin-bottom:14px">要件定義から設計・実装・現場対応まで、担当として継続的に入ります。上の12週間の進め方であれば、<b>約3か月＝1,800,000円（税別）</b>が目安です。仕様が動く前提の開発なので、この形がいちばん無駄が出ません。<b>初月だけで判断していただいて構いません。</b></p>
+
+      <div style="margin-bottom:6px"><span class="pill p-bl">案B</span> <b style="font-size:15px">段階ごとの請負</b></div>
+      <table style="margin-bottom:14px">
+        <tr><th style="width:190px">段階</th><th style="width:130px">金額（税別）</th><th>期間</th><th>出るもの</th></tr>
+        <tr><td><b>①企画確定＋試作</b></td><td><b class="num">380,000円</b></td><td>3週間</td><td>仕様確認リスト・画面設計一式・<b>先生が触れる児童アプリの試作</b></td></tr>
+        <tr><td><b>②第1版の開発</b></td><td><b class="num">1,480,000円</b></td><td>9週間</td><td>児童／先生／管理の3画面・1学年ぶんの単元・実機検証・マニュアル</td></tr>
+        <tr><td>③運用と改善</td><td><b class="num">120,000円〜</b>／月</td><td>―</td><td>不具合対応・単元追加・年度更新（4月の名簿入替）</td></tr>
+      </table>
+      <div class="note"><b>①だけで止められます。</b>私に任せて大丈夫かの判断は、資料ではなく動くもので決めていただくのが早いと思っています。①の成果物は、仮に②を他の方が担当されることになっても、そのまま使える形（設計書とソース一式）でお渡しします。</div>
+      <div class="note" style="margin-top:10px"><b>稼働について正直に。</b>平日日中を中心に動きます。夕方以降と土曜は自分の教室の現場に入るため即時のお返事はお約束できませんが、いただいたご連絡には<b>翌営業日の午前まで</b>に必ず返信します。緊急時の連絡手段は別途お渡しします。</div>
+    </div>
+  </div>
+
+  <div class="card" id="cardNext">
+    <div class="h"><h2>次の一手のご提案</h2></div>
+    <div class="b">
+      <p style="font-size:13.5px;line-height:1.95"><b>企画書・仕様書をお送りいただければ、それを読んだ上での「確認すべき点リスト」と、御社の仕様に合わせた画面設計を、3営業日で無償でお出しします。</b>このデモは御社の仕様を見る前に、公立小学校の外国語という前提だけで作ったものです。実際の企画書を読めば、もっと具体的なものが出せます。<br><br>いただいた資料は他のいかなる用途にも使わず、検討終了後に破棄します。秘密保持契約は貴社の様式で結ばせていただきます。</p>
+    </div>
+  </div>
+
+  <div style="color:var(--sub);font-size:12px;padding:18px 4px 40px;border-top:1px solid var(--line);margin-top:20px">
+    Lスタジオ（平野 淳一）／<a href="https://l-studiojp.com/">l-studiojp.com</a>　｜　このページは提案用のデモです。学校名・児童名・数値はすべて架空です。
+  </div>
+</section>
+</div><!-- /wrap -->
+
+<div class="toastbox" id="toastBox" style="position:fixed;right:18px;top:96px;z-index:55;display:grid;gap:8px"></div>
+<div class="cap" id="cap" style="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;background:#102331;color:#fff;border-radius:12px;padding:13px 20px;max-width:min(800px,93vw);box-shadow:0 16px 40px rgba(6,22,32,.34);display:none;align-items:center;gap:14px">
+  <span class="stepn num" id="capN" style="font-size:11.5px;color:#8FB3C4;white-space:nowrap">1 / 1</span>
+  <span class="txt" id="capT" style="font-size:14px;line-height:1.7"></span>
+  <button class="x" id="capX" style="background:transparent;border:1px solid #3A5A6B;color:#C3D7D0;border-radius:7px;font:700 11.5px/1 inherit;padding:7px 10px;white-space:nowrap">とめる</button>
+</div>
+<div class="prog" id="prog" style="position:fixed;left:0;top:0;height:3px;background:#1E6F5C;z-index:61;width:0;transition:width .3s"></div>
+<div class="ov" id="ov" style="position:fixed;inset:0;background:rgba(16,35,49,.55);z-index:70;display:none;align-items:center;justify-content:center;padding:20px">
+  <div class="mo" style="background:#fff;border-radius:14px;max-width:760px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 24px 60px rgba(6,22,32,.35)">
+    <div class="h" style="display:flex;align-items:center;gap:10px;padding:14px 17px;border-bottom:1px solid var(--line);font-size:14.5px;font-weight:700;position:sticky;top:0;background:#fff"><span id="moT">―</span><button class="x" id="moX" style="margin-left:auto;background:transparent;border:0;font-size:19px;color:#8BA5B4">×</button></div>
+    <div class="b" id="moC" style="padding:16px 18px"></div>
+    <div class="f" id="moF" style="padding:0 18px 18px;display:flex;gap:9px;flex-wrap:wrap"></div>
+  </div>
+</div>
+
+<style>
+#cardStuck td:first-child,#cardHyoka td:first-child,#cardHyoka th:first-child{white-space:nowrap}
+.spot{position:relative;z-index:35;box-shadow:0 0 0 3px rgba(30,111,92,.32),0 10px 30px rgba(16,48,64,.14);border-radius:12px}
+.cap.on{display:flex!important}
+.ov.on{display:flex!important}
+.tt{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:10px 14px;font-size:12.8px;box-shadow:0 10px 26px rgba(16,48,64,.16);animation:slid .4s ease;max-width:330px}
+.tt b{display:block;font-size:13px}
+@keyframes slid{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@media(max-width:900px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .top{position:static}.nav{top:0}
+  #clsGrid{grid-template-columns:repeat(4,1fr)!important}
+  .seats{grid-template-columns:repeat(4,1fr)}
+  .pics{grid-template-columns:1fr}
+  .acts{grid-template-columns:1fr}
+  .pairs{grid-template-columns:1fr}
+  .frame{padding:9px 9px 26px;border-radius:16px}
+  .screen{min-height:520px}
+  .kstage{padding:13px 13px 16px}
+  table{font-size:12.4px}th,td{padding:7px 8px}
+  .cap{left:10px;right:10px;transform:none;max-width:none;bottom:10px}
+  .toastbox{right:10px;left:10px;top:auto!important;bottom:14px}
+}
+</style>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+/* ---------- view ---------- */
+function show(v){
+  $$('.sec').forEach(function(s){s.classList.toggle('on', s.id==='v-'+v)});
+  $$('.nav button').forEach(function(b){b.classList.toggle('on', b.dataset.v===v)});
+}
+$$('.nav button').forEach(function(b){b.addEventListener('click',function(){stopTour();show(b.dataset.v);window.scrollTo({top:0,behavior:'smooth'})})});
+
+/* ---------- toast ---------- */
+function toast(t,s){
+  var box=$('#toastBox'), d=document.createElement('div');
+  d.className='tt'; d.innerHTML='<b>'+t+'</b>'+(s?'<span style="color:#6B7A84">'+s+'</span>':'');
+  box.appendChild(d); setTimeout(function(){d.style.transition='.4s';d.style.opacity=0;setTimeout(function(){d.remove()},420)},4200);
+}
+$$('[data-toast]').forEach(function(b){b.addEventListener('click',function(){stopTour();var p=b.dataset.toast.split('|');toast(p[0],p[1]||'')})});
+
+/* ---------- icons ---------- */
+var IC={
+ cook:'<path d="M14 34h28v7a11 11 0 0 1-11 11h-6a11 11 0 0 1-11-11z"/><path d="M42 38h13"/><path d="M22 26c0-4 4-4 4-8"/><path d="M32 26c0-4 4-4 4-8"/>',
+ swim:'<circle cx="21" cy="21" r="5"/><path d="M27 26l9-6 9 7"/><path d="M7 40q6-5 12 0t12 0 12 0 12 0"/><path d="M7 50q6-5 12 0t12 0 12 0 12 0"/>',
+ run:'<circle cx="39" cy="14" r="5"/><path d="M37 21l-6 11 8 6 3 12"/><path d="M31 27l-11 3"/><path d="M35 24l11 7"/><path d="M31 32l-9 9"/>',
+ piano:'<rect x="7" y="23" width="50" height="26" rx="3"/><path d="M20 23v26M32 23v26M44 23v26"/><rect x="15" y="23" width="8" height="14" fill="currentColor" stroke="none"/><rect x="28" y="23" width="8" height="14" fill="currentColor" stroke="none"/><rect x="41" y="23" width="8" height="14" fill="currentColor" stroke="none"/>',
+ sing:'<rect x="25" y="9" width="13" height="23" rx="6.5"/><path d="M19 27a12.5 12.5 0 0 0 25 0"/><path d="M31.5 40v9M24 49h15"/><path d="M50 14v12" /><circle cx="47" cy="27" r="3.4"/>',
+ bike:'<circle cx="15" cy="43" r="10"/><circle cx="49" cy="43" r="10"/><path d="M15 43l11-19h10l9 19"/><path d="M25 24h13"/>',
+ soccer:'<circle cx="32" cy="28" r="15"/><path d="M32 19l7 5-2.7 8.4h-8.6L25 24z" fill="currentColor" stroke="none"/><path d="M10 52h44"/>',
+ draw:'<path d="M16 48l4-11 22-22 7 7-22 22z"/><path d="M39 18l7 7"/><path d="M16 48l7-2"/>'
+};
+function icon(k,c){
+  return '<svg viewBox="0 0 64 64" fill="none" stroke="'+(c||'#27323C')+'" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" style="color:'+(c||'#27323C')+'">'+IC[k]+'</svg>';
+}
+var LABEL={cook:['りょうり','cook'],swim:['およぐ','swim'],run:['はしる','run fast'],piano:['ピアノ','play the piano'],sing:['うたう','sing well'],bike:['じてんしゃ','ride a bike'],soccer:['サッカー','play soccer'],draw:['え をかく','draw pictures']};
+
+/* ---------- speech ---------- */
+var voices=[];
+function loadV(){ try{ voices=window.speechSynthesis.getVoices()||[] }catch(e){ voices=[] } }
+if(window.speechSynthesis){ loadV(); window.speechSynthesis.onvoiceschanged=loadV; }
+function say(txt,cb){
+  if(!window.speechSynthesis){ if(cb)setTimeout(cb,900); return; }
+  try{
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(txt);
+    u.lang='en-US'; u.rate=.82; u.pitch=1.05;
+    var v=voices.filter(function(x){return /^en(-|_)?/i.test(x.lang)})[0];
+    if(v) u.voice=v;
+    u.onend=function(){ if(cb)cb() };
+    window.speechSynthesis.speak(u);
+    setTimeout(function(){ if(cb&&!u.__d){u.__d=1;cb()} }, 300+txt.length*95);
+  }catch(e){ if(cb)setTimeout(cb,900) }
+}
+
+/* ================= 児童アプリ ================= */
+var K={screen:'login',seat:null,name:'',pw:[],prog:{listen:0,speak:0,read:0,tell:0},tree:0,tick:null,left:720};
+var NAMES=['はると','りお','ゆうと','ひなた','かいと','めい','ゆい','さくら','かなで','りく','いつき','ひまり','あさひ','こはる','そうた','みお','れん','つむぎ','ゆうき','あかり','はるき','にの','そら','あおい','かい','ひかり','たける','ののか','ゆうま','りん','しょう','みなと'];
+var MEMO={
+ login:'<b>児童はパスワードを打ちません。</b>教室に貼った学級QRを読んで、自分の出席番号を押すだけ。1人1台端末で担任の負担がいちばん増えるのは「パスワードを忘れた」の対応です。ここを設計で消します。',
+ pick:'<b>あいことばは、絵を3つ。</b>自分で決めて自分で入れられます。他人の番号で入られないための最低限であり、かつ低学年でも扱えます。忘れたら担任が画面から作り直せます。',
+ home:'<b>今日のめあてが1枚。</b>子どもが迷子にならないよう、開いた瞬間に「今日やること」しか見えません。4つの活動は先生が並べ替えでき、使わない活動は消せます。',
+ listen:'<b>音声は端末で合成しています。</b>音声ファイルを配らないので、40台が同時に開いても回線が詰まりません。速度を落とす・くり返す・字幕を出すが、その場でできます。',
+ speak:'<b>ここが一番むずかしい機能です。</b>発音の判定は端末の中で動かし、<b>声は外に出しません</b>。そして満点を求めません ― 通じたかどうかを出し、直す場所を1つだけ示します。',
+ read:'<b>ローマ字入力をさせません。</b>語と絵を結ぶ形なら、3年生でも6年生でも同じ操作で成立します。書く力ではなく、読んで意味が取れるかを見ています。',
+ tell:'<b>自分の文を作る場所。</b>語カードを並べるので、綴りが書けなくても表現できます。ここで選んだ語と語数が、そのまま先生の「思考・判断・表現」の材料になります。',
+ done:'<b>ごほうびは控えめに。</b>連続記録や順位で競わせると、外国語が苦手な子から先に離れます。育つのは木だけ、比べるのは過去の自分だけにしています。'
+};
+function memo(k){ var m=$('#memoTxt'); if(m&&MEMO[k]) m.innerHTML=MEMO[k]; }
+
+function kRender(){
+  var s=$('#kStage'); if(!s) return;
+  memo(K.screen);
+  if(K.screen==='login'){
+    $('#kWho').innerHTML='ひばり小学校<small>5年2組</small>';
+    var h='<div class="ktitle">しゅっせきばんごうを おしてね</div><div class="ksub">教室のQRを よみこんだ あとの がめんです</div><div class="seats">';
+    for(var i=1;i<=32;i++) h+='<button class="seat" data-seat="'+i+'"><span class="n">'+i+'</span>'+NAMES[i-1]+'</button>';
+    h+='</div>';
+    s.innerHTML=h;
+    $$('[data-seat]',s).forEach(function(b){b.addEventListener('click',function(){K.seat=+b.dataset.seat;K.name=NAMES[K.seat-1];K.screen='pick';K.pw=[];kRender()})});
+  }
+  else if(K.screen==='pick'){
+    var keys=['cook','swim','piano','bike','soccer','draw'];
+    var h='<div class="ktitle">あいことばを 3つ えらぼう</div><div class="ksub">'+K.seat+'ばん '+K.name+'さん ／ じぶんで きめた じゅんばんに おしてね</div>';
+    h+='<div class="slots" id="pwSlots">'+(K.pw.length?'':'<span class="ph">ここに 3つ ならびます</span>')+'</div>';
+    h+='<div class="pics">';
+    keys.forEach(function(k){h+='<button class="pic" data-pw="'+k+'">'+icon(k)+'</button>'});
+    h+='</div>';
+    s.innerHTML=h;
+    if(K.pw.length){ $('#pwSlots').innerHTML=K.pw.map(function(k){return '<span class="chip" style="padding:4px 8px">'+icon(k)+'</span>'}).join('').replace(/<svg/g,'<svg style="width:34px;height:34px"'); }
+    $$('[data-pw]',s).forEach(function(b){b.addEventListener('click',function(){
+      K.pw.push(b.dataset.pw);
+      if(K.pw.length>=3){ K.screen='home'; startTimer(); kRender(); toast('ログインしました',K.seat+'ばん '+K.name+'さん'); }
+      else kRender();
+    })});
+  }
+  else if(K.screen==='home'){
+    $('#kWho').innerHTML=K.name+'さん<small>5年2組 '+K.seat+'ばん</small>';
+    var A=[['listen','きく','えいごを きいて えらぼう','piano','#2E9BD6'],['speak','はなす','じぶんで いってみよう','sing','#DF6A8B'],['read','よむ','ことばと えを つなごう','draw','#F0913C'],['tell','つたえる','じぶんの ことを つたえよう','soccer','#4FAE55']];
+    var h='<div class="bubble">Unit 5　I can cook well.<span class="jp">きょうの めあて：じぶんが できることを、えいごで つたえよう</span></div>';
+    h+='<div class="acts">';
+    A.forEach(function(a){
+      var p=K.prog[a[0]];
+      h+='<button class="act'+(p>=100?' done':'')+'" data-act="'+a[0]+'"><span class="ic" style="background:'+a[4]+'22;border-color:'+a[4]+'">'+icon(a[3],a[4])+'</span><span style="flex:1"><b>'+a[1]+(p>=100?'　できた！':'')+'</b><small>'+a[2]+'</small><span class="bar"><i style="width:'+p+'%"></i></span></span></button>';
+    });
+    h+='</div>';
+    h+='<div class="kcap"><b>ヒント</b><span>じゅんばんは じゆうです。とちゅうで やめても、つづきから できます。</span></div>';
+    s.innerHTML=h;
+    $$('[data-act]',s).forEach(function(b){b.addEventListener('click',function(){K.screen=b.dataset.act;K.qi=0;K.ok=0;kRender()})});
+  }
+  else if(K.screen==='listen') kListen();
+  else if(K.screen==='speak') kSpeak();
+  else if(K.screen==='read') kRead();
+  else if(K.screen==='tell') kTell();
+  else if(K.screen==='done') kDone();
+}
+
+/* --- きく --- */
+var QL=[
+ {en:'I can play the piano.',jp:'ピアノを ひくことが できます',ans:'piano',ch:['sing','piano','draw']},
+ {en:'I can swim.',jp:'およぐことが できます',ans:'swim',ch:['run','bike','swim']},
+ {en:'Can you ride a bike? — Yes, I can.',jp:'じてんしゃに のれますか',ans:'bike',ch:['bike','soccer','run']},
+ {en:'I can cook well.',jp:'りょうりが じょうずに できます',ans:'cook',ch:['piano','cook','swim']}
+];
+function kListen(){
+  var q=QL[K.qi]||QL[0], s=$('#kStage');
+  var h='<div class="ktitle">きく<span style="float:right;font-family:var(--num);font-size:15px;color:#7E8C97">'+(K.qi+1)+' / '+QL.length+'</span></div><div class="ksub">おとを きいて、あう えを えらぼう</div>';
+  h+='<div style="display:flex;gap:16px;align-items:center;margin-bottom:16px"><button class="playbtn" id="plBtn"><span class="tri"></span>きく</button>';
+  h+='<div class="bubble" style="flex:1;margin:0"><span id="subT" style="font-size:15px">（ボタンを おすと おとが でます）</span><span class="jp" id="subJ">字幕は、先生の設定で 出す／出さない を切り替えられます</span></div></div>';
+  h+='<div class="pics" id="chBox">';
+  q.ch.forEach(function(k){h+='<button class="pic" data-ch="'+k+'">'+icon(k)+LABEL[k][0]+'<span class="en">'+LABEL[k][1]+'</span></button>'});
+  h+='</div><div id="fb"></div>';
+  s.innerHTML=h;
+  $('#plBtn').addEventListener('click',function(){
+    var b=this; b.classList.add('playing');
+    $('#subT').textContent=q.en; $('#subJ').textContent=q.jp;
+    say(q.en,function(){b.classList.remove('playing')});
+  });
+  $$('[data-ch]',s).forEach(function(b){b.addEventListener('click',function(){
+    var ok=b.dataset.ch===q.ans;
+    $$('[data-ch]',s).forEach(function(x){x.classList.add('dim')});
+    b.classList.remove('dim'); b.classList.add(ok?'ok':'ng');
+    if(ok){
+      $('#fb').innerHTML='<div class="kcap" style="border-color:#2F7C36;background:#F2FAF2"><b>せいかい！</b><span>'+q.en+'　'+q.jp+'</span></div>';
+      K.prog.listen=Math.round((K.qi+1)/QL.length*100);
+      setTimeout(function(){
+        K.qi++;
+        if(K.qi>=QL.length){ K.tree++; K.screen='home'; kRender(); toast('「きく」が おわりました','4問すべて正解。先生の画面にも届いています'); }
+        else kListen();
+      },1500);
+    }else{
+      $('#fb').innerHTML='<div class="kcap" style="border-color:#B4402A;background:#FDF4F2"><b>おしい！</b><span>もういちど きいてみよう。</span></div>'+
+        '<div style="display:flex;gap:9px;margin-top:10px;flex-wrap:wrap"><button class="kbtn-l sm blue" id="again">もう1かい きく</button><button class="kbtn-l sm" id="hint">ヒントを みる</button></div>';
+      $('#again').addEventListener('click',function(){ $$('[data-ch]',s).forEach(function(x){x.classList.remove('dim','ng','ok')}); $('#fb').innerHTML=''; $('#plBtn').click(); });
+      $('#hint').addEventListener('click',function(){ $('#fb').innerHTML='<div class="kcap"><b>ヒント</b><span>さいしょの ことばは <b>'+q.en.split(' ')[0]+'</b>。えの なかに、うごきが ひとつ あるよ。</span></div>'; $$('[data-ch]',s).forEach(function(x){x.classList.remove('dim','ng')}); });
+    }
+  })});
+}
+
+/* --- はなす --- */
+var TARGET='I can cook well.';
+function kSpeak(){
+  var s=$('#kStage');
+  var h='<div class="ktitle">はなす</div><div class="ksub">おてほんを きいて、じぶんで いってみよう</div>';
+  h+='<div class="bubble">'+TARGET+'<span class="jp">りょうりが じょうずに できます</span></div>';
+  h+='<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:14px"><button class="playbtn" id="plBtn"><span class="tri"></span>おてほん</button>';
+  h+='<button class="mic" id="micBtn"><span class="dot"></span>いってみる</button>';
+  h+='<div class="wavebox" id="wave"></div></div>';
+  h+='<div id="spRes"></div>';
+  h+='<div class="kcap"><b>この画面の考え方</b><span>点数で順位をつけません。<b>通じたかどうか</b>と、直すところを1つだけ出します。</span></div>';
+  s.innerHTML=h;
+  var wv=$('#wave'); wv.innerHTML=''; for(var i=0;i<22;i++) wv.innerHTML+='<i></i>';
+  $('#plBtn').addEventListener('click',function(){var b=this;b.classList.add('playing');say(TARGET,function(){b.classList.remove('playing')})});
+  $('#micBtn').addEventListener('click',function(){ startRec(); });
+}
+var recTimer=null;
+function waveOn(on){
+  var bars=$$('#wave i');
+  if(recTimer){clearInterval(recTimer);recTimer=null}
+  if(!on){ bars.forEach(function(b){b.style.height='5px'}); return }
+  recTimer=setInterval(function(){ bars.forEach(function(b){ b.style.height=(5+Math.random()*32)+'px' }) },110);
+}
+function startRec(){
+  var btn=$('#micBtn'); if(!btn) return;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  btn.classList.add('rec'); waveOn(true);
+  $('#spRes').innerHTML='<div class="kcap"><b>ききとり中…</b><span>マイクに むかって いってみよう</span></div>';
+  if(!SR){
+    setTimeout(function(){ btn.classList.remove('rec'); waveOn(false); showScore('i can look well',true) },2300);
+    return;
+  }
+  var r=new SR(); r.lang='en-US'; r.interimResults=false; r.maxAlternatives=1;
+  var done=false, guard=null;
+  function fin(txt,sim){
+    if(done) return; done=true;
+    if(guard){clearTimeout(guard);guard=null}
+    try{ r.abort() }catch(e){}
+    btn.classList.remove('rec'); waveOn(false); showScore(txt,sim);
+  }
+  guard=setTimeout(function(){ fin('i can look well',true) },7000);
+  r.onresult=function(e){ fin(((e.results[0][0].transcript)||'').toLowerCase(),false) };
+  r.onerror=function(){ fin('i can look well',true) };
+  r.onend=function(){ fin('i can look well',true) };
+  try{ r.start() }catch(err){ fin('i can look well',true) }
+}
+function showScore(heard,sim){
+  if(K.screen!=='speak'||!document.getElementById('spRes')) return;
+  var tw=TARGET.toLowerCase().replace(/[.,]/g,'').split(/\s+/);
+  var hw=heard.replace(/[.,]/g,'').split(/\s+/).filter(function(x){return x});
+  var hit=0, marks=tw.map(function(w){ var ok=hw.indexOf(w)>=0; if(ok)hit++; return {w:w,ok:ok} });
+  var sc=Math.round(hit/tw.length*100);
+  var bad=marks.filter(function(m){return !m.ok})[0];
+  var h='<div class="score"><div><div class="big'+(sc<80?' mid':'')+'">'+sc+'</div><div style="font-size:11px;color:#7E8C97;text-align:center;font-weight:700">つうじた ど</div></div>';
+  h+='<div style="flex:1;min-width:180px"><div style="font-size:11.5px;color:#7E8C97;font-weight:700;margin-bottom:2px">きこえた ことば</div>';
+  h+='<div class="heard">'+marks.map(function(m){return '<span class="'+(m.ok?'ok':'ng')+'">'+m.w+'</span>'}).join(' ')+'</div>';
+  h+='<div style="font-size:12px;margin-top:5px;color:#5A6873">'+(sc>=80?'よく つうじました。この ちょうしで！':'なおすのは <b>'+(bad?bad.w:'―')+'</b> だけ。ほかは つうじています。')+'</div></div></div>';
+  if(sim) h+='<div class="kcap" style="border-color:#E0B33A;background:#FFFBF0"><b>この端末ではマイクを使えません</b><span>Chrome／Edge以外のブラウザです。上は<b>動きの見本</b>を再生しました。納品時は端末の機能に加え、対応していない端末向けに「先生が聞いて○をつける」代替を用意します。</span></div>';
+  h+='<div style="display:flex;gap:9px;margin-top:12px;flex-wrap:wrap"><button class="kbtn-l sm" id="rt">もう1かい</button><button class="kbtn-l sm go" id="nx">つぎへ すすむ</button></div>';
+  $('#spRes').innerHTML=h;
+  $('#rt').addEventListener('click',startRec);
+  $('#nx').addEventListener('click',function(){ K.prog.speak=100; K.tree++; K.screen='home'; kRender(); toast('「はなす」が おわりました','やり直した回数も、先生の画面に残ります'); });
+}
+
+/* --- よむ --- */
+function kRead(){
+  var s=$('#kStage');
+  var ws=['cook','swim','piano','bike'], ps=['piano','bike','cook','swim'];
+  K.rsel=null; K.rdone=K.rdone&&K.rdone.length===0?[]:[];
+  var h='<div class="ktitle">よむ</div><div class="ksub">ことばを おして、あう えを おそう</div><div class="pairs">';
+  h+='<div class="wlist">'+ws.map(function(w){return '<button class="word" data-w="'+w+'">'+w+'</button>'}).join('')+'</div>';
+  h+='<div class="plist">'+ps.map(function(p){return '<button class="pcell" data-p="'+p+'">'+icon(p)+'</button>'}).join('')+'</div>';
+  h+='</div><div id="rfb" style="margin-top:12px"></div>';
+  s.innerHTML=h;
+  var done=[];
+  $$('[data-w]',s).forEach(function(b){b.addEventListener('click',function(){
+    if(b.classList.contains('ok'))return;
+    $$('[data-w]',s).forEach(function(x){x.classList.remove('on')}); b.classList.add('on'); K.rsel=b.dataset.w;
+    say(b.dataset.w);
+  })});
+  $$('[data-p]',s).forEach(function(b){b.addEventListener('click',function(){
+    if(!K.rsel){ $('#rfb').innerHTML='<div class="kcap"><b>まず ことばを おしてね</b><span>ひだりの えいごを おしてから、えを えらびます。</span></div>'; return }
+    if(b.dataset.p===K.rsel){
+      b.classList.add('ok'); $$('[data-w]',s).forEach(function(x){ if(x.dataset.w===K.rsel){x.classList.remove('on');x.classList.add('ok')} });
+      done.push(K.rsel); K.rsel=null; K.prog.read=Math.round(done.length/4*100);
+      $('#rfb').innerHTML='<div class="kcap" style="border-color:#2F7C36;background:#F2FAF2"><b>できた！</b><span>のこり '+(4-done.length)+'こ</span></div>';
+      if(done.length>=4){ K.tree++; setTimeout(function(){ K.screen='home'; kRender(); toast('「よむ」が おわりました','4つとも つながりました') },900) }
+    }else{
+      b.classList.add('ng'); setTimeout(function(){b.classList.remove('ng')},600);
+      $('#rfb').innerHTML='<div class="kcap" style="border-color:#B4402A;background:#FDF4F2"><b>ちがうよ</b><span>もういちど、えを よく みてみよう。</span></div>';
+    }
+  })});
+}
+
+/* --- つたえる --- */
+function kTell(){
+  var s=$('#kStage');
+  K.sent=[];
+  var chips=['I','can','cook','swim','sing','draw','play soccer','well','fast','pictures','.'];
+  var h='<div class="ktitle">つたえる</div><div class="ksub">カードを ならべて、じぶんの ことを つたえる ぶんを つくろう</div>';
+  h+='<div class="slots" id="slots"><span class="ph">ここに ことばが ならびます</span></div>';
+  h+='<div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px" id="chips">';
+  chips.forEach(function(c,i){h+='<button class="chip'+(i>=2&&i<=6?' mine':'')+'" data-c="'+i+'">'+c+'</button>'});
+  h+='</div>';
+  h+='<div style="display:flex;gap:9px;flex-wrap:wrap"><button class="kbtn-l sm blue" id="readOut">よみあげる</button><button class="kbtn-l sm" id="undo">1つ もどす</button><button class="kbtn-l sm go" id="send">せんせいに おくる</button></div>';
+  h+='<div class="kcap" style="margin-top:12px"><b>つづりを 書かせません</b><span>青いカードが「じぶんの できること」。えらんだ語と語数が、そのまま先生の評価の材料になります。</span></div>';
+  s.innerHTML=h;
+  function draw(){
+    var sl=$('#slots');
+    sl.innerHTML=K.sent.length?K.sent.map(function(w){return '<span class="chip" style="cursor:default">'+w+'</span>'}).join(''):'<span class="ph">ここに ことばが ならびます</span>';
+    $$('#chips .chip').forEach(function(b){ b.classList.toggle('used', K.sent.indexOf(chips[+b.dataset.c])>=0 && chips[+b.dataset.c]!=='.') });
+  }
+  $$('#chips .chip').forEach(function(b){b.addEventListener('click',function(){ K.sent.push(chips[+b.dataset.c]); draw() })});
+  $('#undo').addEventListener('click',function(){K.sent.pop();draw()});
+  $('#readOut').addEventListener('click',function(){ if(!K.sent.length){toast('カードを えらんでね');return} say(K.sent.join(' ').replace(' .','.')) });
+  $('#send').addEventListener('click',function(){
+    var t=K.sent.join(' ').toLowerCase();
+    if(t.indexOf('i')<0||t.indexOf('can')<0||K.sent.length<3){ $('#slots').style.borderColor='#B4402A'; toast('もうすこし ならべてみよう','「I」と「can」を つかって、3つ いじょう'); return }
+    K.prog.tell=100; K.tree++; K.screen='done'; kRender();
+  });
+  draw();
+}
+
+/* --- できた --- */
+function kDone(){
+  var s=$('#kStage');
+  var lv=Math.min(4,K.tree);
+  var leaves='';
+  var L=[[95,70,26],[62,84,20],[128,84,20],[78,52,16],[112,52,16]];
+  for(var i=0;i<Math.max(1,lv+1)&&i<L.length;i++) leaves+='<circle cx="'+L[i][0]+'" cy="'+L[i][1]+'" r="'+L[i][2]+'" fill="#4FAE55" opacity="'+(0.55+i*0.09)+'"/>';
+  var h='<div class="ktitle" style="text-align:center">きょうは ここまで！</div><div class="ksub" style="text-align:center">'+K.name+'さんの き が そだちました</div>';
+  h+='<div class="tree"><svg viewBox="0 0 190 170">'+leaves+
+     '<path d="M95 150 L95 96" stroke="#8A6A45" stroke-width="10" stroke-linecap="round"/>'+
+     '<path d="M95 120 L74 104M95 112 L116 98" stroke="#8A6A45" stroke-width="6" stroke-linecap="round"/>'+
+     '<ellipse cx="95" cy="156" rx="52" ry="7" fill="#DCE6D8"/></svg></div>';
+  h+='<div class="stamps">'+['きく','はなす','よむ','つたえる'].map(function(t,i){var k=['listen','speak','read','tell'][i];return '<div class="stamp'+(K.prog[k]>=100?' on':'')+'">'+t+'</div>'}).join('')+'</div>';
+  h+='<div class="kcap" style="margin-top:14px;justify-content:center"><b>せんせいに とどきました</b><span>つくった ぶん：'+(K.sent?K.sent.join(' ').replace(' .','.'):'―')+'</span></div>';
+  h+='<div style="text-align:center;margin-top:14px"><button class="kbtn-l sm" id="bk">めあてに もどる</button></div>';
+  s.innerHTML=h;
+  $('#bk').addEventListener('click',function(){K.screen='home';kRender()});
+  toast('先生の画面に提出されました','5年2組 '+K.seat+'ばん／作った文と、やり直した回数が届きます');
+}
+
+function startTimer(){
+  if(K.tick) return;
+  K.tick=setInterval(function(){
+    if(K.left>0)K.left--;
+    var m=Math.floor(K.left/60), s2=('0'+(K.left%60)).slice(-2);
+    var t=$('#kTimer'); if(t)t.textContent='のこり '+m+':'+s2;
+  },1000);
+}
+$('#kHome').addEventListener('click',function(){ K.screen=K.seat?'home':'login'; kRender() });
+kRender();
+
+/* ================= 先生：授業中モニタ ================= */
+var PUP=[];
+(function(){
+  for(var i=1;i<=32;i++){
+    var st='ok', p=30+Math.floor(Math.random()*55);
+    if(i===7||i===15){ st='ng'; p=i===7?38:22 }
+    else if(i===24){ st='slow'; p=41 }
+    else if(i%9===0){ st='slow'; p=25+Math.floor(Math.random()*20) }
+    else if(i===11||i===29){ st='none'; p=0 }
+    PUP.push({n:i,name:NAMES[i-1],p:p,st:st});
+  }
+})();
+var CLR={ok:'#1E6F5C',slow:'#E0B33A',ng:'#C2371F',none:'#C9D2CC'};
+function drawCls(){
+  var g=$('#clsGrid'); if(!g) return;
+  g.innerHTML=PUP.map(function(u){
+    return '<button data-p="'+u.n+'" style="background:#fff;border:1px solid var(--line);border-left:4px solid '+CLR[u.st]+';border-radius:8px;padding:7px 8px;text-align:left;font-family:inherit">'+
+    '<span style="font-family:var(--num);font-size:12px;color:#8FA0AA">'+u.n+'</span> <span style="font-size:12px;font-weight:700">'+u.name+'</span>'+
+    '<span style="display:block;height:5px;border-radius:99px;background:#EDF1EC;margin-top:5px;overflow:hidden"><i style="display:block;height:100%;width:'+u.p+'%;background:'+CLR[u.st]+'"></i></span></button>'}).join('');
+  $('#cntOk').textContent=PUP.filter(function(u){return u.st==='ok'}).length;
+  $('#cntSlow').textContent=PUP.filter(function(u){return u.st==='slow'}).length;
+  $('#cntNg').textContent=PUP.filter(function(u){return u.st==='ng'}).length;
+  $$('[data-p]',g).forEach(function(b){b.addEventListener('click',function(){
+    var u=PUP[+b.dataset.p-1];
+    openMo('pupil',u);
+  })});
+}
+drawCls();
+setInterval(function(){
+  var u=PUP[Math.floor(Math.random()*PUP.length)];
+  if(u.st==='ng'||u.st==='none') return;
+  u.p=Math.min(100,u.p+Math.floor(Math.random()*9));
+  if(u.p>=100&&u.st==='slow') u.st='ok';
+  drawCls();
+},1600);
+
+/* ================= 教委：棒グラフ ================= */
+(function(){
+  var D=[['ひばり小',92],['みどり台小',88],['さくらが丘小',84],['第一小',81],['東小',77],['西小',74],['川辺小',68],['山手小',61],['中央小',54],['南小',37],['北小',22],['あおば小',9]];
+  var b=$('#barBox'); if(!b) return;
+  b.innerHTML=D.map(function(d){
+    var c=d[1]>=60?'#1E6F5C':(d[1]>=35?'#E0B33A':'#C2371F');
+    return '<div style="display:flex;align-items:center;gap:10px"><span style="width:88px;font-size:12px;flex:none">'+d[0]+'</span>'+
+    '<span style="flex:1;height:14px;background:#EDF1EC;border-radius:99px;overflow:hidden"><i style="display:block;height:100%;width:'+d[1]+'%;background:'+c+'"></i></span>'+
+    '<span class="num" style="width:38px;text-align:right;font-size:12.5px;color:'+c+'">'+d[1]+'%</span></div>'}).join('')
+    +'<div style="font-size:11.5px;color:var(--sub);margin-top:6px">縦軸：その学校で<b>外国語を担当する先生のうち、今月アプリで単元を配信した先生の割合</b>（架空の数値）</div>';
+})();
+
+/* ================= モーダル ================= */
+var ov=$('#ov'), moT=$('#moT'), moC=$('#moC'), moF=$('#moF');
+function openMo(k,arg){
+  stopTour();
+  var t='', c='', f=[];
+  if(k==='unit'){
+    t='Unit 5「できることをつたえよう」の中身';
+    c='<table><tr><th style="width:92px">活動</th><th style="width:150px">ねらい（5領域）</th><th>語彙・表現</th><th style="width:66px">目安</th></tr>'+
+      '<tr><td><b>きく</b></td><td>聞くこと</td><td>cook / swim / run fast / play the piano / ride a bike / sing well / draw pictures / play soccer</td><td>8分</td></tr>'+
+      '<tr><td><b>はなす</b></td><td>話すこと（やり取り）</td><td>I can 〜. / I can\'t 〜. / Can you 〜? — Yes, I can. No, I can\'t.</td><td>10分</td></tr>'+
+      '<tr><td><b>よむ</b></td><td>読むこと</td><td>語と絵の一致（4語）</td><td>7分</td></tr>'+
+      '<tr><td><b>つたえる</b></td><td>話すこと（発表）／書くこと</td><td>語カードで自己表現文をつくる</td><td>12分</td></tr></table>'+
+      '<div class="note" style="margin-top:12px"><b>教材の権利について、先に申し上げます。</b>教科書本文や付属音源をそのままアプリに入れることはできません。語彙・文型は学習指導要領に沿って独自に作り、絵は自前で描き起こします（このデモの絵もすべて描き起こしです）。ここを曖昧にしたまま作ると、導入直前に止まります。</div>';
+    f=[['閉じる','']];
+  }
+  else if(k==='shoken'){
+    t='所見の下書き（7番 ゆいさん）';
+    c='<div class="note" style="margin-bottom:12px"><b>これは下書きです。</b>アプリが持っている事実だけを文にします。評価も、最終的な文も先生が決めます。氏名は外に出しません。</div>'+
+      '<div class="draft" style="background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:13.5px;line-height:2">外国語では、「できること」を伝え合う学習に意欲的に取り組みました。発音が思うようにいかない場面でも、納得がいくまで五回録音し直す姿が見られ、最後には友達に伝わる発音で言い切ることができました。自分の考えを伝える活動では、九語の文を自分で組み立てるなど、習った表現を進んで使おうとする姿勢が育っています。</div>'+
+      '<div style="font-size:12px;color:var(--sub);margin-top:10px">材料にした事実：発音のやり直し5回（学級最多）／自作文4回・最長9語／単元の全活動を完了</div>';
+    f=[['文面をコピー','copy'],['閉じる','']];
+  }
+  else if(k==='print'){
+    t='ワークシートの印刷（プレビュー）';
+    c='<div class="note" style="margin-bottom:12px"><b>紙を否定しません。</b>端末が使えない日、持ち帰らない学級、保護者に見せたい場面。同じ内容がA4で出ます。</div>'+
+      '<div style="background:#fff;border:1px solid var(--line);border-radius:6px;padding:20px 22px;font-size:13px;box-shadow:var(--shadow)">'+
+      '<div style="display:flex;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px"><b>Unit 5　I can 〜.　ふりかえりシート</b><span style="font-size:11.5px;color:var(--sub)">5年2組　　番　名前（　　　　　　）</span></div>'+
+      '<p style="margin-bottom:10px">① きょう つたえた 文を 書きましょう。</p><div style="border-bottom:1px dashed #99A6AE;height:26px;margin-bottom:6px"></div><div style="border-bottom:1px dashed #99A6AE;height:26px;margin-bottom:14px"></div>'+
+      '<p style="margin-bottom:10px">② 友だちが できること を 1つ 書きましょう。（　　　　　　can　　　　　　.）</p><div style="border-bottom:1px dashed #99A6AE;height:26px;margin-bottom:14px"></div>'+
+      '<p>③ つぎに できるように なりたい ことは？　<span style="color:var(--sub);font-size:12px">（日本語でよい）</span></p><div style="border-bottom:1px dashed #99A6AE;height:26px;margin-top:6px"></div></div>';
+    f=[['印刷する','PDFを作りました|5年2組32人ぶん（名前入り）をまとめて1つのPDFにしました'],['閉じる','']];
+  }
+  else if(k==='meibo'){
+    t='名簿の取り込み';
+    c='<div class="note" style="margin-bottom:12px">校務支援システムから出したCSVを、そのまま置くだけです。<b>氏名は学校の環境の中だけ</b>に保存されます。</div>'+
+      '<table><tr><th style="width:150px">CSVの列</th><th>アプリでの扱い</th></tr>'+
+      '<tr><td>学年 / 組 / 出席番号</td><td>学級と座席の並び。毎年4月に入れ替えます。</td></tr>'+
+      '<tr><td>氏名 / ふりがな</td><td>先生の画面にだけ表示。外部には出しません。</td></tr>'+
+      '<tr><td>児童ID（任意）</td><td>校務システム側のIDがあれば、それを鍵にします。無ければこちらで採番します。</td></tr>'+
+      '<tr><td>―</td><td>学習履歴は進級時に引き継ぎ、<b>卒業した年度末に自動削除</b>します。</td></tr></table>'+
+      '<div style="font-family:var(--num);background:#102331;color:#CFE3DC;border-radius:8px;padding:12px 14px;font-size:12px;margin-top:12px;overflow:auto;white-space:pre">grade,class,no,name,kana\n5,2,1,（氏名）,はると\n5,2,2,（氏名）,あおい\n…32行</div>';
+    f=[['取り込む','32人を取り込みました|5年2組。QRを1枚印刷すれば、次の時間から使えます'],['閉じる','']];
+  }
+  else if(k==='pupil'&&arg){
+    t=arg.n+'番 '+arg.name+'さんの様子';
+    var txt = arg.st==='ng' ? '<b>同じところで2回以上つまずいています。</b>声をかける対象です。' : (arg.st==='slow' ? '少し遅れていますが、進んではいます。' : (arg.st==='none'?'まだ端末を開いていません。欠席か、ログインでつまずいている可能性があります。':'順調に進んでいます。'));
+    c='<div class="note" style="margin-bottom:12px">'+txt+'</div>'+
+      '<table><tr><th style="width:110px">きく</th><td>'+(arg.st==='none'?'―':'正答 '+Math.min(4,Math.round(arg.p/25))+' / 4　平均 '+(8+Math.round(Math.random()*14))+'秒')+'</td></tr>'+
+      '<tr><th>はなす</th><td>'+(arg.st==='none'?'―':'録音 '+(1+Math.round(arg.p/30))+'回／最後の通じた度 '+(arg.st==='ng'?'58':'86')+'%')+'</td></tr>'+
+      '<tr><th>よむ</th><td>'+(arg.st==='none'?'―':(arg.p>60?'4 / 4':'2 / 4')) +'</td></tr>'+
+      '<tr><th>つたえる</th><td>'+(arg.p>80?'提出ずみ（I can play soccer well.／6語）':'未提出')+'</td></tr></table>'+
+      '<div style="font-size:12px;color:var(--sub);margin-top:10px">※ 数値は架空です。実装では端末からの記録をそのまま表示します。</div>';
+    f=[['この子に声をかけた（記録）','記録しました|「声かけ」を残すと、次の時間に先生自身の振り返りに出ます'],['閉じる','']];
+  }
+  else return;
+  moT.textContent=t; moC.innerHTML=c; moF.innerHTML='';
+  f.forEach(function(x){
+    var b=document.createElement('button'); b.className='btn'+(x[1]?'':' sub'); b.textContent=x[0];
+    b.addEventListener('click',function(){
+      if(x[1]==='copy'){ var d=moC.querySelector('.draft'); if(d&&navigator.clipboard){navigator.clipboard.writeText(d.innerText).catch(function(){})} toast('文面をコピーしました','そのまま所見欄に貼り付けられます'); }
+      else if(x[1]){ var p=x[1].split('|'); toast(p[0],p[1]||'') }
+      closeMo();
+    });
+    moF.appendChild(b);
+  });
+  ov.classList.add('on');
+}
+function closeMo(){ ov.classList.remove('on') }
+$('#moX').addEventListener('click',closeMo);
+ov.addEventListener('click',function(e){ if(e.target===ov) closeMo() });
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMo() });
+$$('[data-mo]').forEach(function(b){b.addEventListener('click',function(){openMo(b.dataset.mo)})});
+
+/* ================= 自動デモ ================= */
+var cap=$('#cap'), capT=$('#capT'), capN=$('#capN'), prog=$('#prog');
+var tmr=null, idx=0, spotted=null;
+function spot(sel){
+  if(spotted){spotted.classList.remove('spot');spotted=null}
+  if(!sel)return;
+  var el=$(sel); if(!el)return;
+  el.classList.add('spot'); spotted=el;
+  var r=el.getBoundingClientRect();
+  if(r.top<80||r.bottom>window.innerHeight-140) window.scrollTo({top:window.scrollY+r.top-120,behavior:'smooth'});
+}
+var STEPS=[
+ {v:'pupil',s:null,d:5400,t:'公立小学校の外国語で本当に難しいのは、英語ではありません。<b>40人が同時に、45分で、担任の先生ひとりで回せるか</b>です。そこから設計しました。',a:function(){K.screen='login';K.seat=null;kRender()}},
+ {v:'pupil',s:'.frame',d:6200,t:'まず児童のログイン。<b>パスワードを打たせません。</b>教室のQRを読んで、出席番号を押すだけ。1人1台端末で担任の手を止める原因の第1位が、ここです。',a:function(){setTimeout(function(){var b=$('[data-seat="10"]');if(b)b.click()},1200)}},
+ {v:'pupil',s:'.frame',d:6000,t:'パスワードの代わりは<b>絵を3つ</b>。自分で決めて、自分で入れられます。低学年でも成立し、他人の番号では入れません。',a:function(){var ks=['cook','swim','piano'];ks.forEach(function(k,i){setTimeout(function(){var b=$('[data-pw="'+k+'"]');if(b)b.click()},700+i*900)})}},
+ {v:'pupil',s:'.frame',d:5200,t:'開いた瞬間に見えるのは<b>今日のめあて1枚</b>と、4つの活動だけ。子どもが迷子になる余地を残しません。',a:null},
+ {v:'pupil',s:'.frame',d:7200,t:'「きく」。<b>音声は端末の中で作っています</b> ― 音声ファイルを配らないので、40台が同時に開いても校内Wi-Fiが詰まりません。字幕も同時に出ます。',a:function(){K.screen='listen';K.qi=0;kRender();setTimeout(function(){var b=$('#plBtn');if(b)b.click()},1100)}},
+ {v:'pupil',s:'.frame',d:6600,t:'まちがえても、<b>×で終わらせません</b>。「もう1回きく」→「ヒント」の順に出ます。先に進めなくなった子は、その45分を丸ごと失います。',a:function(){setTimeout(function(){var w=$$('[data-ch]').filter(function(x){return x.dataset.ch!=='piano'})[0];if(w)w.click()},900)}},
+ {v:'pupil',s:'.frame',d:7600,t:'ここが山場、「はなす」。<b>発音の判定は端末の中だけで動かします。</b>児童の声も、名前も、外部のAIサービスには送りません。',a:function(){K.screen='speak';kRender();setTimeout(function(){var b=$('#plBtn');if(b)b.click()},900)}},
+ {v:'pupil',s:'.frame',d:8000,t:'そして<b>満点を求めません</b>。出すのは「通じたかどうか」と、直す場所を1つだけ。英語が苦手な子を最初に脱落させるのは、細かすぎる採点です。',a:function(){setTimeout(function(){var b=$('#micBtn');if(b)b.click()},600)}},
+ {v:'pupil',s:'.frame',d:7000,t:'「つたえる」。<b>ローマ字入力をさせません。</b>語カードを並べるので、綴りが書けない子も自分の文を作れます。選んだ語と語数が、そのまま評価の材料になります。',a:function(){K.screen='tell';kRender();setTimeout(function(){['I','can','play soccer','well','.'].forEach(function(w,i){setTimeout(function(){var bs=$$('#chips .chip').filter(function(b){return b.textContent===w});if(bs[0])bs[0].click()},i*650)})},800)}},
+ {v:'pupil',s:'.frame',d:6400,t:'ごほうびは控えめに。<b>連続記録も、順位も出しません。</b>比べるのは過去の自分だけ。育つのは木だけです。',a:function(){setTimeout(function(){var b=$('#send');if(b)b.click()},900)}},
+ {v:'teacher',s:'#cardMonitor',d:7400,t:'先生の画面に移ります。先生が授業中に見たいのは点数ではなく、<b>いま誰が止まっているか</b>。この一覧は児童の端末と連動して、開いている今も動いています。',a:null},
+ {v:'teacher',s:'#cardStuck',d:8000,t:'そして先生が見るのは、<b>この3行だけ</b>で足ります。32人ぶんの数字を読む時間は、45分の授業にはありません。24番の子は「声をかけなくていい」と書いてあります。',a:null},
+ {v:'teacher',s:'#cardHyoka',d:8200,t:'評価は、<b>アプリが点数をつけません</b>。出すのは「何回やり直したか」「何語で書いたか」という事実だけ。7番の子は正答率だけ見るとBですが、やり直した回数は学級で最多です。',a:null},
+ {v:'admin',s:'#cardPriv',d:8600,t:'導入で最後に止まるのは機能ではなく、個人情報の扱いです。<b>児童の声も、書いた文も、外部のAIには送りません。</b>名前と学習履歴が結びつくのは、学校の中だけです。',a:null},
+ {v:'admin',s:'#cardAcct',d:7200,t:'アカウント配布は<b>1校15分</b>。名簿CSVを入れて、学級QRを印刷して貼る。4月の入れ替えも同じ手順で、卒業時は自動で消えます。',a:null},
+ {v:'build',s:'#cardWeeks',d:8000,t:'ご依頼文の「スピード重視」への答えです。急いで全部作るのではなく、<b>2週目に先生が触れるものを出します。</b>教育向けアプリは、先生が触った瞬間に仕様が半分書き換わるからです。',a:null},
+ {v:'quote',s:'#cardMe',d:8600,t:'最後に。私は<b>学習塾を経営しながら開発しています。</b>子どもがどこで手を止めるかを、画面の向こうではなく教室で見ています。協力校が用意できない場合は、私の教室の小学生で試用できます。',a:null},
+ {v:'quote',s:'#cardNext',d:8000,t:'このデモは、御社の企画書を見る前に作ったものです。<b>資料をいただければ、確認点リストと画面設計を3営業日で無償でお出しします。</b>ご自身でも触ってみてください ― 上のタブからどうぞ。',a:null}
+];
+function runStep(){
+  if(idx>=STEPS.length){ stopTour(true); return }
+  var st=STEPS[idx];
+  show(st.v);
+  capN.textContent=(idx+1)+' / '+STEPS.length;
+  capT.innerHTML=st.t; cap.classList.add('on');
+  prog.style.width=((idx+1)/STEPS.length*100)+'%';
+  if(st.a) st.a();
+  setTimeout(function(){spot(st.s)},260);
+  tmr=setTimeout(function(){idx++;runStep()},st.d);
+}
+function startTour(){ stopTour(); idx=0; $('#btnTour').textContent='再生中…'; window.scrollTo({top:0,behavior:'smooth'}); runStep() }
+function stopTour(done){
+  if(tmr){clearTimeout(tmr);tmr=null}
+  cap.classList.remove('on'); prog.style.width=done?'100%':'0';
+  if(spotted){spotted.classList.remove('spot');spotted=null}
+  var b=$('#btnTour'); if(b)b.textContent='自動デモを再生（約2分）';
+}
+$('#btnTour').addEventListener('click',startTour);
+$('#capX').addEventListener('click',function(){stopTour()});
+$('#btnReset').addEventListener('click',function(){
+  stopTour(); K.seat=null;K.screen='login';K.prog={listen:0,speak:0,read:0,tell:0};K.tree=0;K.left=720;K.sent=null;
+  kRender(); show('pupil'); window.scrollTo({top:0,behavior:'smooth'});
+});
+if(location.search.indexOf('tour=1')>=0) setTimeout(startTour,800);
+})();
+</script>
+</body>
+</html>
