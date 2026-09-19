@@ -7,7 +7,7 @@ const log=text=>{data.logs.unshift({at:new Date().toLocaleString('ja-JP'),text})
 let timer;function toast(t){$('#toast').textContent=t;clearTimeout(timer);timer=setTimeout(()=>$('#toast').textContent='',4500)}
 const total=o=>o.qty*o.unit+Math.floor(o.qty*o.unit*o.tax);
 const included=()=>data.orders.filter(o=>o.status==='shipped'&&o.shipped.startsWith(selectedMonth));
-function title(en,jp,desc){return `<p class="eyebrow">${en}</p><h1>${jp}</h1><p class="intro">${desc}</p>`}
+function title(en,jp,desc){const parts=jp.split('、');return `<p class="eyebrow">${en}</p><h1>${parts.map((s,i)=>`<span style="display:inline-block">${s}${i<parts.length-1?'、':''}</span>`).join('')}</h1><p class="intro">${desc}</p>`}
 function go(v){view=v;document.querySelectorAll('nav button').forEach(b=>b.setAttribute('aria-current',b.dataset.view===v?'page':'false'));render()}
 function ask(title,body,fn,label='確定する'){$('#dialogtitle').textContent=title;$('#dialogbody').innerHTML=body;$('#commit').textContent=label;pending=fn;$('#confirm').showModal()}
 $('#back').onclick=()=>{$('#confirm').close();pending=null};$('#confirm').addEventListener('cancel',()=>pending=null);$('#commit').onclick=()=>{const fn=pending;pending=null;$('#confirm').close();if(fn)fn()};
