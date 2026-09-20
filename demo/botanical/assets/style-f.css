@@ -33,3 +33,20 @@
 @media(max-width:360px){.hero h1{font-size:32px}.hero-copy{padding-top:22px}.hero-image{height:200px}.hero-lead{font-size:11px}.button{font-size:11px;padding-inline:12px}.masthead-note{font-size:8px}.program-banner h2{font-size:23px}.consultation h2{font-size:23px}.closing h2{font-size:25px}.sticky .button{font-size:11px}.wrap{width:calc(100% - 36px)}.method-row figure{width:calc(100% + 36px);margin-inline:-18px}}
 .reading-progress{position:fixed;inset:0 0 auto;height:2px;background:var(--gold);z-index:30;transform-origin:left;pointer-events:none}.button .arrow,.line-link span,.text-link span{transition:transform .3s ease}.button:hover .arrow,.line-link:hover span{transform:translate(3px,-3px)}.text-link:hover span{display:inline-block;transform:translateY(3px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* FV: supplied photograph under a continuous ivory light field. */
+.hero{isolation:isolate;background:var(--paper);overflow:hidden}
+.hero-image{position:absolute;inset:0 0 0 22%;z-index:auto;pointer-events:none;grid-column:auto;grid-row:auto}
+.hero-image img{z-index:-2;object-position:50% 56%}
+.hero::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,#f8f7f3 0%,#f8f7f3 25%,#f8f7f3f5 37%,#f8f7f3d9 45%,#f8f7f380 55%,#f8f7f300 72%)}
+.hero-copy{grid-column:1;grid-row:1}
+.hero-action{grid-column:1;grid-row:2}
+.hero-image figcaption{z-index:1}
+@media(max-width:899px){
+ .hero-image{inset:0;height:100%;overflow:hidden}
+ .hero-image img{position:absolute;height:100%;object-position:50% 60%}
+ .hero::before{background:linear-gradient(180deg,#f8f7f3 0%,#f8f7f3fa 22%,#f8f7f3e0 35%,#f8f7f3b8 42%,#f8f7f300 53%,#f8f7f300 65%,#f8f7f3f5 78%,#f8f7f3 89%)}
+ .hero-action{margin-top:228px}
+ .hero-image figcaption{bottom:192px;right:22px}
+}
+@media(max-width:360px){.hero-action{margin-top:200px}}
