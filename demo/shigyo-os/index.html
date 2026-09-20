@@ -258,7 +258,6 @@
   .howto{font-size:12.5px; background:#F7F8F4; border:1px solid var(--line); border-radius:8px; padding:11px 16px;}
   .howto b{color:var(--navy);}
 
-  /* ===== 構成と工程 ===== */
   .flow{display:flex; gap:10px; align-items:stretch; flex-wrap:wrap;}
   .fbox{flex:1; min-width:150px; border:1px solid var(--line); border-radius:8px; background:#FDFDFB; padding:10px 13px;}
   .fbox .ft{font-size:10.5px; letter-spacing:.14em; color:var(--sub); font-weight:700;}
@@ -384,7 +383,6 @@
     <div class="lbl">仕組みの話</div>
     <button data-go="safety"><span class="ic">🔒</span>権限・匿名化・ログ</button>
     <button data-go="impact"><span class="ic">📈</span>効果測定</button>
-    <button data-go="build"><span class="ic">⚙</span>構成と工程・お見積り</button>
     <div class="foot">
       このデモに出てくる事務所・法人・氏名・数値はすべて架空です。<br>
       制作: Lスタジオ
@@ -580,120 +578,6 @@
     </div>
   </section>
 
-  <!-- ========== 7. 構成と工程 ========== -->
-  <section class="sec" id="sec-build">
-    <div class="sec-h"><h1>構成と工程・お見積り</h1><span class="rfp">RFP ① 要件定義／⑨ テスト・操作説明・検収</span></div>
-    <p class="sec-lead">4か月で作るものと、作らないものを先に決めます。</p>
-
-    <div class="card">
-      <div class="card-h"><h2>どこに何の正本を置くか</h2><span class="hint">二重に持たない。持つ場所を1つに決める</span></div>
-      <div class="card-b">
-        <div class="flow">
-          <div class="fbox">
-            <div class="ft">入口</div>
-            <div class="fi">メール<br>ビジネスチャット<br>音声メモ<br>電話メモ</div>
-          </div>
-          <div class="arrow">▶</div>
-          <div class="fbox">
-            <div class="ft">受け取りと判定</div>
-            <div class="fi">匿名化<br>顧問先・案件の判定<br>期限の逆算<br>確信度が低ければ保留</div>
-          </div>
-          <div class="arrow">▶</div>
-          <div class="fbox core">
-            <div class="ft">正本① 案件DB</div>
-            <div class="fi">顧問先・案件・期限・対応履歴・担当<br><span style="color:var(--sub);font-size:11.5px">動くもの・締切があるもの</span></div>
-          </div>
-          <div class="fbox core">
-            <div class="ft">正本② ナレッジ</div>
-            <div class="fi">手引き・様式・法改正メモ・過去の回答<br><span style="color:var(--sub);font-size:11.5px">動かないもの・積み上がるもの</span></div>
-          </div>
-          <div class="arrow">▶</div>
-          <div class="fbox">
-            <div class="ft">出口</div>
-            <div class="fi">朝の一画面<br>ナレッジ検索<br>効果測定<br>下書きの生成</div>
-          </div>
-        </div>
-        <div class="rulebox mt">
-          <b>この2つを混ぜないことが設計の芯です。</b>締切があるものを全部ナレッジ側に書くと検索が濁り、手引きを案件DBに入れると更新が止まります。「動くもの＝案件DB」「積み上がるもの＝ナレッジ」で分け、<b>両方を同じIDで結びます</b>。<br>
-          電子申請・提出・送信は、この仕組みからは行いません。<b>提出ボタンを押すのは必ず人</b>です。
-        </div>
-      </div>
-    </div>
-
-    <div class="card mt">
-      <div class="card-h"><h2>この見積に入るもの／入らないもの</h2><span class="hint">ご依頼文の10項目は、すべて入っています</span></div>
-      <div class="card-b">
-        <div class="scope">
-          <div class="s in1">
-            <div class="h">お見積りに入るもの（2026年10月〜2027年1月）</div>
-            <ul>
-              <li>① 現状業務の分析・要件定義（現地2回・遠隔の週次）</li>
-              <li>② ナレッジ基盤の構築 ─ <b>既存文書の全面移行</b>と構造化</li>
-              <li>③ 案件DB ─ <b>顧問先48社全社</b>の案件・期限・対応履歴の投入</li>
-              <li>④ ナレッジ検索（根拠ノート提示つき）</li>
-              <li>⑤ AIエージェント実行環境の導入・設定</li>
-              <li>⑥ 入口<b>3経路</b>（メール・ビジネスチャット・音声メモ）の連携</li>
-              <li>⑦ 依頼の案件・タスク化／未振り分けトレイ</li>
-              <li>⑧ 権限制御・匿名化・ログ・バックアップの設計と実装</li>
-              <li>⑨ 導入テスト・操作説明（職員4名）・検収対応</li>
-              <li>⑩ 業務時間削減効果の測定ダッシュボード</li>
-            </ul>
-          </div>
-          <div class="s in2">
-            <div class="h">入らないもの（意図して外しています）</div>
-            <ul>
-              <li>個人番号の取扱い ─ いまお使いのソフトの中で完結させます</li>
-              <li>電子申請・提出・送信の実行 ─ <b>押すのは人</b>です</li>
-              <li>補助金の申請書・実績報告書そのものの作成代行</li>
-              <li>各サービスの利用料（貴所名義のご契約になります）</li>
-              <li>3回目以降の現地訪問（実費にて）</li>
-              <li>納品後2か月目以降の保守（任意・月額でお受けします）</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="rulebox mt">
-          <b>量で範囲を切っていないのは、移行を手作業でやらないからです。</b>既存の文書・顧客台帳がどんな形であっても、変換して流し込むスクリプトを書いて一括で入れます。1件ずつ手で写す前提なら「まず20社だけ」と切る必要がありますが、そうしません。<b>20社でも48社でも、かかる時間はほとんど変わりません。</b>
-        </div>
-
-        <h3 class="sub">工程 <span class="hint">交付決定後に着手し、2027年1月23日に納品・検収</span></h3>
-        <table class="gantt">
-          <tr><th>　</th><th>10月</th><th>11月</th><th>12月</th><th>1月</th></tr>
-          <tr><td>現状分析・要件定義</td><td class="on"></td><td class="on2"></td><td></td><td></td></tr>
-          <tr><td>ナレッジ基盤・移行</td><td class="on2"></td><td class="on"></td><td class="on"></td><td></td></tr>
-          <tr><td>案件DB・期限の自動化</td><td></td><td class="on"></td><td class="on"></td><td class="on2"></td></tr>
-          <tr><td>受信→案件化・検索</td><td></td><td class="on2"></td><td class="on"></td><td class="on2"></td></tr>
-          <tr><td>権限・匿名化・ログ</td><td class="on2"></td><td></td><td class="on"></td><td class="on2"></td></tr>
-          <tr><td>実地テスト・操作説明</td><td></td><td></td><td class="on2"></td><td class="on"></td></tr>
-          <tr><td>効果測定・検収</td><td class="on2"></td><td></td><td></td><td class="on"></td></tr>
-        </table>
-        <div class="rulebox mt">
-          10月に<b>測り始め</b>ます（導入前の2週間記録）。ここを後回しにすると、1月に「削減できた」と言える根拠が残りません。
-        </div>
-      </div>
-    </div>
-
-    <div class="price">
-      <div class="row main">
-        <span class="l">設計・構築・導入・検収　一式（10項目すべて）</span>
-        <span class="v">900,000円<small>税別／税込 990,000円</small></span>
-      </div>
-      <div class="row"><span class="l" style="font-weight:400; color:var(--sub);">現地訪問2回（往復の交通費・宿泊費を含む）</span><span class="v" style="font-size:14px; color:var(--sub);">上記に含む</span></div>
-      <div class="row"><span class="l" style="font-weight:400; color:var(--sub);">操作説明（職員4名・遠隔で3回＋手順書）</span><span class="v" style="font-size:14px; color:var(--sub);">上記に含む</span></div>
-      <div class="row"><span class="l" style="font-weight:400; color:var(--sub);">納品後1か月の不具合対応</span><span class="v" style="font-size:14px; color:var(--sub);">上記に含む</span></div>
-      <div class="row"><span class="l" style="font-weight:400;">運用保守（納品の1か月後から・任意）</span><span class="v" style="font-size:16px;">月額 33,000円<small>税別</small></span></div>
-      <div class="note">
-        ご想定予算（300〜360万円）より小さいのは、範囲を削ったからではありません。<b>再委託がなく、間に入る人がいないからです。</b>値付けの根拠は、この4か月で私が使う時間だけです。<br>
-        補助事業の交付決定額に合わせた<b>総額での見積書</b>が必要な場合は、翌年度の保守と改修を含めた形で作り直してお出しします。
-      </div>
-    </div>
-  </section>
-
-  </main>
-</div>
-
-<div class="foot-note">※このデモに登場する事務所・法人・氏名・数値はすべて架空です。実在の団体・個人とは関係ありません。｜ 制作: Lスタジオ（l-studiojp.com）</div>
-
 <!-- ノートモーダル -->
 <div class="overlay" id="noteOverlay">
   <div class="modal">
@@ -726,7 +610,6 @@
 <div id="endcard">
   <div class="line1">探す時間を、<em>士業の仕事</em>に返す。</div>
   <div class="line2">依頼の受け取り・案件化・期限・ナレッジ・記録を、ひとつの事務所OSに。</div>
-  <div class="price2">設計・構築・導入・検収 一式　900,000円（税別）</div>
   <div class="logo">L STUDIO</div>
   <div class="url">l-studiojp.com</div>
 </div>
@@ -1187,10 +1070,6 @@ if(params.get('tour')){
 
     say('削減時間は<strong>実測値ではなく、検収で測るための目標値</strong>。測り方も先に決めます');
     await clickEl(railBtn('impact')); await sleep(4800);
-
-    say('4か月で<strong>作るものと、作らないもの</strong>を先に決めています');
-    await clickEl(railBtn('build')); await sleep(2000);
-    document.querySelector('#sec-build .scope').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(5200);
 
     cap.style.display='none'; cursor.style.display='none';
     const ec=document.getElementById('endcard');
