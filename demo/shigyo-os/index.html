@@ -418,7 +418,7 @@
     </div>
 
     <div class="card mt" id="dlCard">
-      <div class="card-h"><h2>期限のある手続き</h2><span class="hint">法定期限から逆算して自動で並びます ─ 行をクリックすると案件が開きます</span></div>
+      <div class="card-h"><h2>期限のある手続き</h2><span class="hint">法定の根拠から逆算した期限の候補が並びます ─ 行をクリックすると案件が開きます</span></div>
       <div class="dl" id="dlList"></div>
     </div>
   </section>
@@ -792,7 +792,7 @@ function selectClient(id){
       <div class="meta"><div class="k">顧問開始</div><div class="v">${c.since}</div></div>
       <div class="meta"><div class="k">契約内容</div><div class="v">${c.plan}</div></div>
     </div>
-    <h3 class="sub">進行中の案件 <span class="hint">期限は法定の根拠から自動で逆算</span></h3>
+    <h3 class="sub">進行中の案件 <span class="hint">期限は法定の根拠から逆算。確定するのは人</span></h3>
     <table class="t">
       <tr><th>案件</th><th style="width:5em;">区分</th><th style="width:6em;">期限</th><th style="width:7em;">担当</th><th>いまの状態</th></tr>
       ${c.cases.map(r=>`<tr><td>${r[0]}</td><td class="nw">${r[1]}</td><td class="nw">${r[2]}</td><td class="nw">${r[3]}</td><td>${r[4]}</td></tr>`).join('')}
@@ -965,7 +965,7 @@ function runAsk(){ ask(0); }
 /* ===== 効果測定 ===== */
 const impact=[
   ['依頼の受け取り・振り分け・転記', 32, 9,  '依頼が来た経路のまま案件になるので、転記が消えます'],
-  ['期限の管理・確認・催促',         18, 3,  '法定期限から自動で逆算し、近づいたものだけが前に出ます'],
+  ['期限の管理・確認・催促',         18, 3,  '法定の根拠から逆算した候補が、近づいたものから前に出ます'],
   ['過去の案件・規程・様式の探し物', 26, 6,  '根拠ノートごと出るので、探し直しと確認が要りません'],
   ['記録・報告資料の作成',           24, 11, '対応履歴が自動で積まれ、月次報告はそこから出します'],
 ];
@@ -1018,7 +1018,7 @@ if(params.get('tour')){
     say('朝いちばん。<strong>今日の期限と、昨日届いた依頼の処理結果</strong>が並んでいます');
     moveTo(document.getElementById('agentStrip'),-200,0); await sleep(4200);
 
-    say('期限は<strong>法定の根拠から自動で逆算</strong>。「入社日から5日以内」も事務所の内規も同じ列に');
+    say('期限は<strong>法定の根拠から逆算。確定するのは人</strong>。「入社日から5日以内」も事務所の内規も同じ列に');
     document.getElementById('dlCard').scrollIntoView({behavior:'smooth',block:'center'}); await sleep(900);
     moveTo(document.getElementById('dl-0')); await sleep(3800);
 
@@ -1034,7 +1034,7 @@ if(params.get('tour')){
     say('ここからが本題 ── <strong>届いた依頼を、どう案件にするか</strong>');
     await clickEl(railBtn('inbox')); await sleep(2600);
 
-    say('メールは差出人と過去の履歴から<strong>顧問先も期限も自動で確定</strong>します');
+    say('メールは差出人と過去の履歴から<strong>顧問先を判定し、期限の候補まで出します</strong>。確定は人が行います');
     moveTo(document.getElementById('in-0'),0,40); await sleep(4200);
 
     say('所長の<strong>車中の音声メモ</strong>も、2つのタスクに分かれて入ります');
