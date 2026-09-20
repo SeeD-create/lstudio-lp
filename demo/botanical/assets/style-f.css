@@ -42,11 +42,20 @@
 .hero-copy{grid-column:1;grid-row:1}
 .hero-action{grid-column:1;grid-row:2}
 .hero-image figcaption{z-index:1}
+/* 2026-09-20 平野さん選定＝H案。スマホのFVは、見出しを写真の明るい袖の面に重ね、
+   写真は下へ向かって紙色に溶ける。文字と写真の境目をつくらない。PCは変更していない。 */
 @media(max-width:899px){
- .hero-image{inset:0;height:100%;overflow:hidden}
- .hero-image img{position:absolute;height:100%;object-position:50% 60%}
- .hero::before{background:linear-gradient(180deg,#f8f7f3 0%,#f8f7f3fa 22%,#f8f7f3e0 35%,#f8f7f3b8 42%,#f8f7f300 53%,#f8f7f300 65%,#f8f7f3f5 78%,#f8f7f3 89%)}
- .hero-action{margin-top:228px}
- .hero-image figcaption{bottom:192px;right:22px}
+ .hero{display:flex;flex-direction:column;min-height:0;overflow:hidden;position:relative}
+ .hero::before{background:none}
+ .hero-image{position:absolute;inset:0 0 auto;height:568px;z-index:0;margin:0;pointer-events:none;overflow:hidden}
+ .hero-image img{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:50% 0%}
+ .hero-image::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#f8f7f333 0%,#f8f7f300 40%,#f8f7f300 80%,#f8f7f3 100%)}
+ .hero-image figcaption{display:none}/* スマホは英字タグを出さない。写真の下端でリード文とぶつかり、位置を上げると写真を分断するため。PCでは従来どおり出る。 */
+ .hero-copy{position:relative;z-index:2;padding:24px 22px 0}
+ .hero h1{font-size:30px;line-height:1.35}
+ .hero-lead{color:#48473f;font-size:12px;line-height:1.85;margin-top:365px}
+ .hero-action{position:relative;z-index:2;margin-top:0;padding:22px 22px 24px}
+ .hero .action-note{color:#58564e}
+ .hero-meta{color:#58564e}
 }
-@media(max-width:360px){.hero-action{margin-top:200px}}
+@media(max-width:360px){.hero-image{height:524px}.hero-lead{margin-top:330px}.hero-action{margin-top:0}}
