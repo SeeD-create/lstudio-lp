@@ -31,12 +31,44 @@
     if (url) { status.hidden = false; status.textContent = readyText; }
     return Boolean(url);
   }
-  const emailReady = connect('[data-email-action]', config.EMAIL_REGISTRATION_URL, 'email-status', 'メール登録画面へ進みます。登録後に動画をご視聴いただけます。', 'email');
   connect('[data-line-action]', config.LINE_URL, 'line-status', '講座用の公式LINEへ進みます。', 'line');
-  if (emailReady) {
-    document.querySelectorAll('[data-email-note]').forEach(el => { el.textContent = 'メール登録で今すぐ視聴できます。'; });
-    document.querySelector('.faq-list details p').textContent = 'はい。メール登録後、約30分の講座動画を無料でご覧いただけます。このページの緑のボタンから登録画面へお進みください。';
+
+  /* 動画はこのページで再生する。VIMEO_ID が未設定のときは、押したときだけ「準備中」を出す。
+     登録が済んだ・再生できたように見せる処理は置かない。 */
+  const vid = String(config.VIMEO_ID || '').replace(/\D/g, '');
+  const frame = document.getElementById('movie-frame');
+  const movieStatus = document.getElementById('movie-status');
+  function showMovieStatus() {
+    movieStatus.hidden = false;
+    movieStatus.classList.remove('attention');
+    void movieStatus.offsetWidth;
+    movieStatus.classList.add('attention');
+    movieStatus.setAttribute('tabindex', '-1');
+    movieStatus.focus({ preventScroll: true });
   }
+  document.querySelectorAll('[data-movie-action]').forEach(link => {
+    if (!vid) link.setAttribute('aria-disabled', 'true');
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      if (!vid) {
+        document.getElementById('registration').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(showMovieStatus, 420);
+        return;
+      }
+      if (!frame.dataset.loaded) {
+        const player = document.createElement('iframe');
+        player.src = 'https://player.vimeo.com/video/' + vid + '?autoplay=1&title=0&byline=0&portrait=0';
+        player.title = '講座説明動画';
+        player.allow = 'autoplay; fullscreen; picture-in-picture';
+        player.setAttribute('allowfullscreen', '');
+        frame.appendChild(player);
+        frame.dataset.loaded = '1';
+      }
+      frame.hidden = false;
+      frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
   const sticky = document.querySelector('.sticky');
   const hero = document.querySelector('.hero');
   const register = document.getElementById('registration');
