@@ -82,10 +82,10 @@ font-size:11.5px;color:var(--faint);line-height:1.9}
 </header>
 
 <dl class="env">
-  <div><dt>実施日時</dt><dd>2026年9月19日 16:27 JST</dd></div>
+  <div><dt>実施日時</dt><dd>2026年9月20日 10:54 JST</dd></div>
   <div><dt>データベース</dt><dd>PostgreSQL 17.6</dd></div>
   <div><dt>実行環境</dt><dd>Windows / Python 3.12.10</dd></div>
-  <div><dt>結果</dt><dd>21 項目中 21 項目が想定どおり</dd></div>
+  <div><dt>結果</dt><dd>24 項目中 24 項目が想定どおり</dd></div>
 </dl>
 
 <div class="note">
@@ -103,7 +103,7 @@ font-size:11.5px;color:var(--faint);line-height:1.9}
   架空データを用意し、安全性に関わる論点を先に確かめた記録がこのページです。</p>
   <p class="lede">なお、これは仕様書の受入試験そのものではありません。受入試験は工程9で改めて実施します。
   各項目について、まだ確かめられていない範囲を下に明記しています。</p>
-  <div class="score"><span class="big">21 / 21</span>
+  <div class="score"><span class="big">24 / 24</span>
     <span class="lab">確かめた項目と、想定どおりだった数</span></div>
 </section>
 
@@ -128,7 +128,10 @@ ai_gate.py 以外で外部通信を行うコード = なし
 記録に残る本文 = 【要確認】が退職します。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-4</span><span class="nm">期限の日付は伏せない</span></div><div class="ev">置換後 = 支払期限は2026年10月6日です。
 生年月日と分かる文脈があるときだけ伏せる。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-5</span><span class="nm">宛先の不正値は実行時に弾く</span></div><div class="ev">destination=&#x27;EXTERNAL&#x27;（大文字）で ValueError。
 型注釈は実行時の検証にならないため、明示的に検査している。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-6</span><span class="nm">個人番号はローカル宛でも処理しない</span></div><div class="ev">判定 = horyu / 理由 = 個人番号らしい数字列を検出した。送信先を問わずAI処理を行わない。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-7</span><span class="nm">姓名と姓を取り違えずに復元できる</span></div><div class="ev">置換後 = 【担当者1】さんと【担当者1-2】さんへ連絡してください。
-復元後 = 小松 直人さんと小松さんへ連絡してください。</div></div></div></div>
+復元後 = 小松 直人さんと小松さんへ連絡してください。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-8</span><span class="nm">都道府県を省いた住所を伏せる／地名だけの文は伏せない</span></div><div class="ev">置換後 = 【住所1】。名古屋市で開催します。
+市区郡から始まる住所は対象。番地を伴わない地名は住所として扱わない。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-9</span><span class="nm">退職者は未振り分けも実行履歴も案件も0件</span></div><div class="ev">受付=0件 / AI実行履歴=0件 / 案件=0件
+担当の割り当てが残っていても、在籍の条件で締め出される。</div></div><div class="case"><div class="hd"><span class="badge">想定どおり</span><span class="tid">R-10</span><span class="nm">保留にした依頼も、履歴には実名を残さない</span></div><div class="ev">判定 = horyu
+履歴に残った本文 = 【要確認】が退職します。</div></div></div></div>
 </section>
 
 <section>
@@ -330,9 +333,18 @@ SELECT * FROM urizun.anken WHERE kokyaku_id = 'K002';
   [想定どおり] R-7 姓名と姓を取り違えずに復元できる
          置換後 = 【担当者1】さんと【担当者1-2】さんへ連絡してください。
          復元後 = 小松 直人さんと小松さんへ連絡してください。
+  [想定どおり] R-8 都道府県を省いた住所を伏せる／地名だけの文は伏せない
+         置換後 = 【住所1】。名古屋市で開催します。
+         市区郡から始まる住所は対象。番地を伴わない地名は住所として扱わない。
+  [想定どおり] R-9 退職者は未振り分けも実行履歴も案件も0件
+         受付=0件 / AI実行履歴=0件 / 案件=0件
+         担当の割り当てが残っていても、在籍の条件で締め出される。
+  [想定どおり] R-10 保留にした依頼も、履歴には実名を残さない
+         判定 = horyu
+         履歴に残った本文 = 【要確認】が退職します。
 
 ====================================================================
- 合計 21 項目中 21 項目が想定どおり
+ 合計 24 項目中 24 項目が想定どおり
 
 【この確認で分かっていないこと】
    T08  指示文をAIに実際に処理させたうえでの拒否は、まだ確かめていない。
@@ -363,6 +375,9 @@ SELECT * FROM urizun.anken WHERE kokyaku_id = 'K002';
    ○ R-5  宛先の不正値は実行時に弾く
    ○ R-6  個人番号はローカル宛でも処理しない
    ○ R-7  姓名と姓を取り違えずに復元できる
+   ○ R-8  都道府県を省いた住所を伏せる／地名だけの文は伏せない
+   ○ R-9  退職者は未振り分けも実行履歴も案件も0件
+   ○ R-10  保留にした依頼も、履歴には実名を残さない
 ====================================================================
 </pre>
 </section>
