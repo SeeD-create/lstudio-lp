@@ -136,7 +136,7 @@ section{position:relative}
 }
 .hero__bg--photo{
   position:absolute;inset:0;
-  background-image:url("assets/generated/kobe-street.png");
+  background-image:url("assets/generated/original-hero.jpg");
   background-size:cover;background-position:center;opacity:1;
 }
 .hero__veil{
@@ -412,7 +412,7 @@ section{position:relative}
 
 .footer{
   position:relative;color:#fff;isolation:isolate;
-  background-image:url("assets/generated/kobe-street.png");
+  background-image:url("assets/generated/original-hero.jpg");
   background-size:cover;background-position:center bottom;
 }
 .footer::before{
