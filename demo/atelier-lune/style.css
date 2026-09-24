@@ -5,3 +5,4 @@ main:focus{outline:none}.scroll-reveal{opacity:0;transform:translateY(18px);tran
 @media(max-width:760px){.hero{padding-top:22px}.hero .eyebrow{font-size:9px;letter-spacing:.08em}.hero h1{margin:14px 0}.hero-copy p{margin:12px 0}.hero-copy small{margin-top:12px}.intro p br{display:none}}
 h1,h2{text-wrap:balance}@media(max-width:760px){.filters label{flex:1 1 40%;min-width:105px}.filters>button{width:100%}.filters select{width:100%}.status span{text-wrap:balance}}@media(max-width:350px){.hero h1{font-size:24px}.pagehead h1{font-size:21px}.hero-copy p{font-size:13px}}
 .scroll-reveal{opacity:1;transform:none;transition:none}.scroll-reveal.is-visible{animation:appear .7s ease both}.paused .scroll-reveal{animation:none!important}@media(prefers-reduced-motion:reduce){.scroll-reveal.is-visible{animation:none}}
+@media(max-width:350px){.intro h2{font-size:23px}.wrap>h2{font-size:24px}}
