@@ -1,0 +1,49 @@
+<svg class="fig" viewBox="0 0 1200 820" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="塩化銅水溶液に炭素棒2本をさして電流を流す装置">
+        <defs>
+          <linearGradient id="bGlass" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#FFFFFF"/><stop offset=".28" stop-color="#F1F7FA"/>
+            <stop offset=".7" stop-color="#E1EBF1"/><stop offset="1" stop-color="#FBFDFD"/>
+          </linearGradient>
+          <linearGradient id="bLiq" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4FA3DA"/><stop offset="1" stop-color="#1E6FA8"/>
+          </linearGradient>
+          <clipPath id="bcup"><path d="M372,300 L372,672 A228,48 0 0 0 828,672 L828,300 Z"/></clipPath>
+        </defs>
+
+        <line x1="80" y1="760" x2="1120" y2="760" stroke="#CFCEC8" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- ビーカー（うしろ） -->
+        <path d="M372,300 L372,672 A228,48 0 0 0 828,672 L828,300 Z" fill="#EFF6F9" fill-opacity=".5"/>
+        <ellipse cx="600" cy="300" rx="228" ry="48" fill="#EAF2F6"/>
+        <g clip-path="url(#bcup)"><rect x="368" y="366" width="466" height="360" fill="url(#bLiq)" opacity=".8"/></g>
+        <ellipse cx="600" cy="366" rx="224" ry="46" fill="#5FB0E0" opacity=".92" stroke="#1E6FA8" stroke-width="3"/>
+
+        <!-- 電極（炭素棒） -->
+        <rect x="498" y="236" width="26" height="366" rx="7" fill="#2E2E2C"/>
+        <rect x="676" y="236" width="26" height="366" rx="7" fill="#2E2E2C"/>
+        <rect x="498" y="236" width="9" height="366" fill="#5A5A57"/>
+        <rect x="676" y="236" width="9" height="366" fill="#5A5A57"/>
+
+        <!-- ふたの板（炭素棒をとめる） -->
+        <path d="M352,240 L848,222 L888,258 L392,278 Z" fill="#E4E4E1" stroke="#8B8A88" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M352,240 L848,222 L848,236 L352,254 Z" fill="#FBFBFA"/>
+
+        <!-- 導線 -->
+        <g fill="none" stroke="#2E2E2C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M511,238 L511,172 C511,158 496,150 470,150 L232,150"/>
+          <path d="M689,238 L689,172 C689,158 704,150 730,150 L968,150"/>
+        </g>
+        <text x="196" y="166" font-size="52" font-weight="900" fill="#2E2E2C" text-anchor="middle" style="font-family:'Zen Kaku Gothic New',sans-serif">−</text>
+        <text x="1006" y="166" font-size="52" font-weight="900" fill="#C4161C" text-anchor="middle" style="font-family:'Zen Kaku Gothic New',sans-serif">＋</text>
+
+        <!-- ビーカー（前面の線） -->
+        <path d="M372,300 L372,672 A228,48 0 0 0 828,672 L828,300" fill="none" stroke="#7E858A" stroke-width="5" stroke-linejoin="round"/>
+        <ellipse cx="600" cy="300" rx="228" ry="48" fill="none" stroke="#7E858A" stroke-width="5"/>
+        <path d="M416,400 L416,640" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+
+        <!-- マーカー -->
+        
+        
+        
+        
+      <g class="copper-deposit"><rect x="498" y="390" width="26" height="212" rx="7" fill="#b86d44"/></g><g class="chlorine-bubbles" fill="white" stroke="#628b88" stroke-width="2"><circle cx="661" cy="580" r="5" style="animation-delay:-0s"/><circle cx="720" cy="563" r="6" style="animation-delay:-0.17s"/><circle cx="661" cy="546" r="7" style="animation-delay:-0.34s"/><circle cx="720" cy="529" r="8" style="animation-delay:-0.51s"/><circle cx="661" cy="512" r="5" style="animation-delay:-0.68s"/><circle cx="720" cy="495" r="6" style="animation-delay:-0.85s"/><circle cx="661" cy="478" r="7" style="animation-delay:-1.02s"/><circle cx="720" cy="461" r="8" style="animation-delay:-1.19s"/><circle cx="661" cy="444" r="5" style="animation-delay:-1.36s"/><circle cx="720" cy="427" r="6" style="animation-delay:-1.53s"/><circle cx="661" cy="410" r="7" style="animation-delay:-1.7s"/><circle cx="720" cy="393" r="8" style="animation-delay:-1.87s"/></g><g font-size="40" font-weight="900" text-anchor="middle"><text x="340" y="100">陰極（−）</text><text x="870" y="100">陽極（＋）</text></g></svg>

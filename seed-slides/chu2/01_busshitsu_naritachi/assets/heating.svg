@@ -1,0 +1,90 @@
+<svg class="fig" viewBox="0 0 1536 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="炭酸水素ナトリウムを加熱して気体を水上置換法で集める装置">
+        <defs>
+          <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="#F3F8FA"/>
+            <stop offset=".72" stop-color="#E2ECF1"/><stop offset="1" stop-color="#FAFCFD"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D6EAF6"/><stop offset="1" stop-color="#9CC7DF"/>
+          </linearGradient>
+          <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#2C6489"/><stop offset=".45" stop-color="#4F97C4"/><stop offset="1" stop-color="#BFE0F2"/>
+          </linearGradient>
+          <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#6E6E6B"/><stop offset=".4" stop-color="#B6B6B1"/><stop offset="1" stop-color="#5F5F5C"/>
+          </linearGradient>
+          <clipPath id="ctube"><path d="M0,-46 H-344 A46,46 0 0 0 -344,46 H0 Z"/></clipPath>
+          <clipPath id="ccoll"><path d="M1047,866 L1047,613 A53,53 0 0 1 1153,613 L1153,866 Z"/></clipPath>
+          <clipPath id="ctank"><path d="M930,608 L930,872 A215,42 0 0 0 1360,872 L1360,608 Z"/></clipPath>
+        </defs>
+
+        <!-- 実験台 -->
+        <line x1="60" y1="915" x2="1490" y2="915" stroke="#CFCEC8" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- ===== スタンド ===== -->
+        <rect x="520" y="876" width="280" height="36" rx="10" fill="url(#gMetal)"/>
+        <rect x="620" y="300" width="22" height="580" fill="url(#gMetal)"/>
+        <!-- クランプの腕（試験管の後ろ） -->
+        <rect x="600" y="430" width="120" height="15" rx="7" fill="#5F5F5C"/>
+        <rect x="606" y="418" width="30" height="40" rx="8" fill="#7A7A76"/>
+
+        <!-- ===== ガスバーナー ===== -->
+        <path d="M428,422 C452,470 462,504 444,516 C434,523 422,523 412,516 C394,504 404,470 428,422 Z" fill="url(#gFlame)"/>
+        <path d="M428,458 C441,486 446,504 436,512 C430,517 424,517 419,512 C409,504 415,486 428,458 Z" fill="#DDEEF9" opacity=".9"/>
+        <rect x="405" y="518" width="50" height="312" rx="8" fill="#C2C6C8"/>
+        <rect x="405" y="518" width="16" height="312" fill="#E6E9EA" opacity=".8"/>
+        <rect x="393" y="508" width="74" height="18" rx="7" fill="#9EA3A6"/>
+        <rect x="455" y="600" width="46" height="16" rx="8" fill="#9EA3A6"/>
+        <rect x="455" y="646" width="46" height="16" rx="8" fill="#9EA3A6"/>
+        <ellipse cx="430" cy="842" rx="66" ry="15" fill="#8A9AA5"/>
+        <rect x="364" y="842" width="132" height="30" fill="#6F8290"/>
+        <ellipse cx="430" cy="872" rx="66" ry="15" fill="#5C6E7B"/>
+
+        <!-- ===== 試験管（口を少し下げて固定） ===== -->
+        <g transform="translate(800,458) rotate(13)">
+          <path d="M0,-46 H-344 A46,46 0 0 0 -344,46 H0 Z" fill="url(#gGlass)" fill-opacity=".95"/>
+          <!-- 白い粉（炭酸水素ナトリウム） -->
+          <g clip-path="url(#ctube)">
+            <rect x="-392" y="20" width="150" height="42" fill="#FCFCFA"/>
+            <ellipse cx="-318" cy="21" rx="78" ry="13" fill="#FCFCFA"/>
+            <g fill="#C9C8C3"><circle cx="-360" cy="30" r="3"/><circle cx="-330" cy="26" r="2.6"/><circle cx="-296" cy="31" r="3"/><circle cx="-268" cy="28" r="2.4"/></g>
+          </g>
+          <path d="M-318,8 A78,13 0 0 0 -240,21" fill="none" stroke="#B9B8B3" stroke-width="2.4"/>
+          <path d="M-396,21 A78,13 0 0 0 -318,8" fill="none" stroke="#B9B8B3" stroke-width="2.4"/>
+          <path d="M0,-46 H-344 A46,46 0 0 0 -344,46 H0" fill="none" stroke="#7E858A" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M-300,-30 H-90" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity=".85"/>
+          <!-- ゴム栓 -->
+          <path d="M-4,-46 L42,-33 L42,33 L-4,46 Z" fill="#DCD2B7" stroke="#A79C7C" stroke-width="4" stroke-linejoin="round"/>
+          <!-- クランプの口 -->
+          <rect x="-102" y="-54" width="30" height="108" rx="10" fill="none" stroke="#4E4E4B" stroke-width="9"/>
+        </g>
+
+        <!-- ===== 水そう（円筒） ===== -->
+        <path d="M930,608 L930,872 A215,42 0 0 0 1360,872 L1360,608 Z" fill="#EFF6F9" fill-opacity=".5"/>
+        <g clip-path="url(#ctank)"><rect x="926" y="664" width="440" height="252" fill="url(#gWater)" opacity=".85"/></g>
+        <ellipse cx="1145" cy="664" rx="215" ry="42" fill="#D3E9F6" stroke="#6FA3C2" stroke-width="3.5"/>
+
+        <!-- ===== ガラス管（ゴム栓 → 水そうの中 → 試験管の口へ） ===== -->
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M841,467 C905,478 968,502 1000,552 L1000,820 C1000,858 1032,886 1070,886 C1092,886 1100,872 1100,852" stroke="#7E858A" stroke-width="26"/>
+          <path d="M841,467 C905,478 968,502 1000,552 L1000,820 C1000,858 1032,886 1070,886 C1092,886 1100,872 1100,852" stroke="#F1F6F9" stroke-width="17"/>
+          <path d="M880,478 L968,512" stroke="#FFFFFF" stroke-width="5" opacity=".9"/>
+        </g>
+
+        <!-- ===== 集気用の試験管（さかさま・水で満たしてある） ===== -->
+        <path d="M1047,866 L1047,613 A53,53 0 0 1 1153,613 L1153,866 Z" fill="url(#gGlass)" fill-opacity=".95"/>
+        <g clip-path="url(#ccoll)"><rect x="1042" y="644" width="116" height="240" fill="url(#gWater)" opacity=".9"/></g>
+        <path d="M1047,644 H1153" stroke="#6FA3C2" stroke-width="4"/>
+        <path d="M1047,866 L1047,613 A53,53 0 0 1 1153,613 L1153,866" fill="none" stroke="#7E858A" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M1062,600 L1062,700" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+        <!-- あわ -->
+        <g class="bubbles" fill="#FFFFFF" opacity=".85"><circle cx="1100" cy="820" r="9"/><circle cx="1084" cy="778" r="7"/><circle cx="1112" cy="742" r="8"/><circle cx="1092" cy="700" r="6"/><circle cx="1114" cy="668" r="7"/></g>
+        <!-- 試験管の口（手前のふち） -->
+        <ellipse cx="1100" cy="866" rx="53" ry="12" fill="none" stroke="#7E858A" stroke-width="5"/>
+
+        <!-- 水そうの前面の線 -->
+        <path d="M930,608 L930,872 A215,42 0 0 0 1360,872 L1360,608" fill="none" stroke="#7E858A" stroke-width="5" stroke-linejoin="round"/>
+        <ellipse cx="1145" cy="608" rx="215" ry="42" fill="none" stroke="#7E858A" stroke-width="5"/>
+        <path d="M960,700 L960,846" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity=".65"/>
+
+        </svg>

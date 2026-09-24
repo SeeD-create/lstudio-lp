@@ -1,0 +1,24 @@
+.revision .rev-pair{display:flex;justify-content:center;gap:90px}
+.revision figure{margin:0;text-align:center}
+.revision figcaption{font-size:32px;margin-top:14px;font-weight:700}
+.rev-crop{position:relative;width:500px;height:500px;overflow:hidden;border:2px solid #57534a;background:#faf5eb}
+.rev-crop img{position:absolute;width:200%;height:100%;max-width:none;left:0;top:0}
+.rev-crop.right img{left:-100%}
+.rev-crop.quad{width:650px;height:325px}
+.rev-crop.quad img{height:200%}
+.rev-crop.bottom img{top:-100%}
+.revision .stamp{font-size:49px;margin:8px 0;text-align:center}
+.revision .wide-pair{margin-top:50px;margin-bottom:24px}
+.revision .next{font-size:35px}
+.shaping .safe{gap:24px}
+.shaping-row{display:grid;grid-template-columns:520px 520px 1fr;gap:30px;align-items:center}
+.shaping-row .rev-crop{width:520px;height:260px}
+.shape-copy p{font-size:30px;margin:10px 0}
+.shape-copy b{font-size:45px;color:#bd1522}
+.stone .rev-crop{width:470px;height:470px}
+.rev-equation{display:flex;justify-content:center;gap:65px;align-items:center;margin-top:10px}
+.rev-equation span{font-size:43px}
+.revision .rev-equation strong{font-size:43px}
+.meniscus-layout{display:grid;grid-template-columns:900px 1fr;gap:60px;align-items:center}
+.meniscus-layout>img{width:900px;height:600px;object-fit:contain;border:2px solid #57534a}
+.rev-paper{font-size:33px;line-height:1.65;padding:22px 25px;background:#fffdf8;border-bottom:3px solid #57534a;margin:20px 0}

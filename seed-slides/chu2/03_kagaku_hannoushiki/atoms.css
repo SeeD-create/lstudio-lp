@@ -1,0 +1,79 @@
+.rebuilt .headline{font-size:62px;line-height:1.3}
+.rebuild-layout{display:grid;grid-template-columns:940px minmax(0,1fr);gap:52px;align-items:center;flex:1;min-height:0}
+.rebuild-figure{margin:0;display:flex;flex-direction:column;height:660px;justify-content:center;gap:20px}
+.diagram-area{height:540px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#faf9f5;border-radius:14px;overflow:hidden}
+.diagram-area svg{display:block;width:100%;height:100%;flex:none}
+.diagram-area img{width:100%;height:100%;object-fit:contain}
+.rebuild-figure figcaption{text-align:center;font-size:27px;line-height:1.55;min-height:84px;padding:8px 12px;color:#55534d;box-sizing:border-box}
+.rebuilt .rows{gap:26px;align-content:center}.rebuilt .row{padding:25px 26px}
+.rebuilt .row .h,.rebuilt .row .blank{font-size:36px;line-height:1.55}.rebuilt .row .blank{background:white}
+.element-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px;width:90%}
+.element-cell{text-align:center;border-bottom:1px solid #ccc6ba;padding:24px 8px}
+.element-cell b{display:block;font-family:'Zen Old Mincho',serif;font-size:58px;line-height:1.3;overflow-wrap:anywhere}
+.element-cell span{display:block;font-size:26px;margin-top:16px;line-height:1.5}
+.formula-main{font-family:'Zen Old Mincho',serif;font-size:160px;font-weight:800}.formula-sub{font-size:30px;margin-top:25px}
+.classification{border-collapse:collapse;width:94%;font-size:29px}.classification th,.classification td{border:1px solid #b7b0a3;padding:28px 14px;text-align:center}.classification th{background:#eeeae2}.classification td{font-size:36px}
+.rebuilt-cover{position:relative;flex:1}.rebuilt-cover h1{font-family:'Zen Old Mincho',serif;font-size:94px;margin:18px 0 30px;font-weight:700}.cover-rule{height:1px;background:#aaa396}.rebuilt-cover .cover-sub{position:absolute;left:0;top:265px;width:750px;height:410px;display:flex;align-items:center;justify-content:center;font-family:'Zen Old Mincho',serif;font-size:112px;font-weight:700;line-height:1.2;color:#252525;background:linear-gradient(#252525,#686868) center/100% 135px no-repeat;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.cover-model{position:absolute;right:0;top:235px;width:900px;height:490px;background:#faf9f5}.cover-model svg{width:100%;height:100%}
+.rebuilt[data-id="rebuilt-4"] .molecule:not(:last-child){opacity:.25}
+.rebuilt[data-id="rebuilt-3"] .diagram-area{animation:diagram-enter .7s ease-out}@keyframes diagram-enter{from{opacity:.3;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.rebuilt *{animation:none!important}}
+.rebuilt .row .blank{margin:0;box-sizing:border-box;width:100%}.rebuilt .row .blank b{max-width:100%;overflow-wrap:anywhere}
+.rebuilt[data-id="rebuilt-6"] .molecule .atom-sphere:first-of-type{stroke:#b3262a;stroke-width:6;stroke-dasharray:5 2}
+
+.molecule{filter:drop-shadow(0 5px 4px #39261d20)}
+
+.rebuilt [data-viz]{opacity:0;visibility:hidden;transition:opacity .45s ease}
+.rebuilt [data-viz].viz-on{opacity:1;visibility:visible}
+.rebuilt .memory-layout{display:flex;align-items:center;justify-content:center;flex:1}
+.rebuilt.memory .rows{width:1350px;gap:38px}
+.rebuilt.memory .row{padding:40px 52px}
+.rebuilt.memory .row .h,.rebuilt.memory .row .blank{font-size:55px;line-height:1.6}
+.rebuilt[data-id="rebuilt-6"] .molecule .atom-sphere:first-of-type{stroke-width:.65;stroke-dasharray:none}
+.rebuilt.reference .diagram-area{background:transparent}
+.rebuilt.reference .element-cell b{font-size:76px}
+.rebuilt .reference-layout{display:flex;align-items:center;justify-content:center;flex:1}.rebuilt.reference .rows{display:grid;grid-template-columns:repeat(2,1fr);width:1400px;gap:36px}.rebuilt.reference .row{text-align:center;padding:40px}.rebuilt.reference .row .h{font-family:'Zen Old Mincho',serif;font-size:50px;line-height:1.6}
+.gas-drift{animation:gas-wander 9s ease-in-out infinite alternate}.drift-0{--dx:14px;--dy:17px;animation-delay:-2s}.drift-1{--dx:-13px;--dy:20px;animation-delay:-7s}.drift-2{--dx:18px;--dy:-19px;animation-delay:-4s}.drift-3{--dx:12px;--dy:-15px;animation-delay:-6s}.drift-4{--dx:-19px;--dy:-10px;animation-delay:-1s}@keyframes gas-wander{0%{transform:translate(calc(var(--dx) * -1),0)}50%{transform:translate(0,var(--dy))}100%{transform:translate(var(--dx),calc(var(--dy) * -.4))}}
+.slide[hidden] .gas-drift{animation-play-state:paused}@media(prefers-reduced-motion:reduce){.gas-drift{animation:none!important}}
+.equation-text{font-family:'Zen Old Mincho',serif;font-size:66px;line-height:1.5;text-align:center;font-weight:700;white-space:nowrap}.rebuilt .headline{font-size:61px}.cover-model{background:#faf9f5}.rebuilt-cover .cover-sub{font-size:106px}
+.working-equation{width:96%;display:flex;flex-direction:column;align-items:center;gap:42px}.working-equation .equation-text{font-size:58px}.focus-count{border-top:2px solid #b8b0a3;padding-top:28px;text-align:center;display:grid;gap:22px;width:90%;font-size:33px}.focus-count span{color:#a52c26}.focus-count b{font-size:40px}.rebuilt .equation-text{max-width:100%}
+.rebuilt .long-equation{font-size:48px}
+.formula-and-notes{display:flex;flex-direction:column;gap:32px}
+.formula-panel{background:#faf9f5;border-top:2px solid #b8b0a3;border-bottom:2px solid #b8b0a3;padding:26px 12px 34px}
+.formula-status{height:42px;position:relative;text-align:center;color:#a52c26;font-size:27px;margin-bottom:18px}
+.formula-status>span{position:absolute;inset:0}
+.rebuilt:not([data-step="0"]) .formula-before{visibility:hidden}
+.rebuilt .paired-equation{font-size:47px;line-height:1.6;white-space:nowrap}
+.paired-equation .coefficient{display:inline-block;min-width:0;width:.62em;margin:0;padding:0;border:0;background:transparent;vertical-align:baseline;color:#b3262a}
+.paired-equation .coefficient b{font:inherit;color:inherit}
+.paired-layout .row .h{font-size:34px}
+.four-slide .headline{font-size:57px;line-height:1.25}
+.four-region{display:flex;flex-direction:column;gap:18px;flex:1;min-height:0}
+.four-upper{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;height:430px;flex:none}
+.four-upper .rebuild-figure{height:430px;display:block;margin:0}
+.four-upper .diagram-area{height:430px;position:relative;overflow:visible}
+.diagram-frame{position:absolute;inset:0}
+.diagram-frame svg{width:100%;height:100%}
+.equation-area{position:relative;height:430px;background:#faf9f5;border-top:2px solid #b8b0a3;border-bottom:2px solid #b8b0a3;box-sizing:border-box}
+.equation-frame{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:35px;padding:26px 18px;box-sizing:border-box}
+.equation-status{font-size:27px;color:#a52c26;line-height:1.4;text-align:center}
+.four-slide .equation-text{font-size:56px;line-height:1.7;width:100%;white-space:nowrap}
+.four-slide .long-equation{font-size:42px}
+.four-slide .coefficient{display:inline-block;min-width:0;margin:0;padding:0;border:0;background:transparent;vertical-align:baseline;color:#b3262a}
+.four-slide .coefficient b{font:inherit;color:inherit}
+.four-caption{height:38px;flex:none;font-size:25px;line-height:1.5;color:#65615a;text-align:left;padding-left:12px}
+.four-slide .four-notes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 48px;align-content:start}
+.four-slide .four-notes .row{padding:20px 24px;min-height:106px;box-sizing:border-box;display:flex;align-items:center}
+.four-slide .four-notes .row .h,.four-slide .four-notes .row .blank{font-size:34px;line-height:1.45}
+.four-slide .four-notes .row:nth-child(3){grid-column:1;justify-content:center;min-height:106px}
+.four-slide .four-notes .row:nth-child(3)>.b{width:100%;text-align:center}
+.four-slide [data-viz]{transition:none}
+.four-slide .rotating-notes .row{grid-row:1;min-height:116px}
+.four-slide .rotating-notes .row:nth-child(odd){grid-column:1}
+.four-slide .rotating-notes .row:nth-child(even){grid-column:2}
+.four-slide .rotating-notes .row:nth-child(3)>.b{text-align:left}
+.four-slide .rotating-notes .row:not(.viz-on){visibility:hidden;opacity:0;pointer-events:none}
+.four-slide .rotating-notes .row:not(.viz-on) *{visibility:hidden}
+.four-slide .four-notes:not(.rotating-notes) .row:nth-child(3)>.b{text-align:left}
+.four-slide .overview-text{width:1540px;margin:28px auto 0;display:flex;flex-direction:column;gap:26px}
+.four-slide .overview-text .row{padding:26px 34px;min-height:116px;box-sizing:border-box}
+.four-slide .overview-text .row .h,.four-slide .overview-text .row .blank{font-size:42px;line-height:1.5}

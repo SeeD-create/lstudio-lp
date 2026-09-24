@@ -1,0 +1,79 @@
+<svg class="fig" viewBox="280 100 1180 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="簡易電気分解装置で水に電流を流し、陰極と陽極に気体を集める">
+        <defs>
+          <linearGradient id="eGlass" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#FFFFFF"/><stop offset=".3" stop-color="#F1F7FA"/>
+            <stop offset=".7" stop-color="#E1EBF1"/><stop offset="1" stop-color="#FBFDFD"/>
+          </linearGradient>
+          <linearGradient id="eWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D6EAF6"/><stop offset="1" stop-color="#9CC7DF"/>
+          </linearGradient>
+          <linearGradient id="eBox" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8E938F"/><stop offset="1" stop-color="#5C605D"/>
+          </linearGradient>
+          <clipPath id="etL"><path d="M462,760 L462,222 A53,53 0 0 1 568,222 L568,760 Z"/></clipPath>
+          <clipPath id="etR"><path d="M700,760 L700,222 A53,53 0 0 1 806,222 L806,760 Z"/></clipPath>
+          <clipPath id="etank"><rect x="332" y="560" width="726" height="272" rx="14"/></clipPath>
+        </defs>
+
+        <line x1="60" y1="972" x2="1490" y2="972" stroke="#CFCEC8" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- ===== 水そう（角形の容器） ===== -->
+        <rect x="332" y="560" width="726" height="272" rx="14" fill="#EFF6F9" fill-opacity=".55"/>
+        <g clip-path="url(#etank)"><rect x="330" y="596" width="730" height="240" fill="url(#eWater)" opacity=".85"/></g>
+        <line x1="334" y1="596" x2="1056" y2="596" stroke="#6FA3C2" stroke-width="4"/>
+
+        <!-- ===== 左の管（陰極側） ===== -->
+        <path d="M462,760 L462,222 A53,53 0 0 1 568,222 L568,760 Z" fill="url(#eGlass)" fill-opacity=".95"/>
+        <g clip-path="url(#etL)"><rect class="water-left" x="458" y="356" width="116" height="420" fill="url(#eWater)" opacity=".9"/></g>
+        <line class="water-surface" x1="462" y1="356" x2="568" y2="356" stroke="#6FA3C2" stroke-width="4"/>
+        <path d="M462,760 L462,222 A53,53 0 0 1 568,222 L568,760" fill="none" stroke="#7E858A" stroke-width="5" stroke-linejoin="round"/>
+        <!-- 目盛り -->
+        <g stroke="#8B8A88" stroke-width="3">
+          <line x1="568" y1="252" x2="592" y2="252"/><line x1="568" y1="302" x2="592" y2="302"/>
+          <line x1="568" y1="352" x2="592" y2="352"/><line x1="568" y1="402" x2="592" y2="402"/>
+          <line x1="568" y1="452" x2="592" y2="452"/><line x1="568" y1="502" x2="592" y2="502"/>
+        </g>
+        <!-- 電極（炭素棒） -->
+        <rect x="503" y="470" width="24" height="352" rx="6" fill="#2E2E2C"/>
+        <!-- あわ -->
+        <g class="electro-bubbles" fill="#FFFFFF" opacity=".9"><circle cx="497" cy="500" r="8"/><circle cx="532" cy="540" r="7"/><circle cx="500" cy="590" r="9"/><circle cx="534" cy="640" r="7"/><circle cx="498" cy="690" r="8"/></g>
+
+        <!-- ===== 右の管（陽極側） ===== -->
+        <path d="M700,760 L700,222 A53,53 0 0 1 806,222 L806,760 Z" fill="url(#eGlass)" fill-opacity=".95"/>
+        <g clip-path="url(#etR)"><rect class="water-right" x="696" y="266" width="116" height="510" fill="url(#eWater)" opacity=".9"/></g>
+        <line class="water-surface" x1="700" y1="266" x2="806" y2="266" stroke="#6FA3C2" stroke-width="4"/>
+        <path d="M700,760 L700,222 A53,53 0 0 1 806,222 L806,760" fill="none" stroke="#7E858A" stroke-width="5" stroke-linejoin="round"/>
+        <g stroke="#8B8A88" stroke-width="3">
+          <line x1="806" y1="252" x2="830" y2="252"/><line x1="806" y1="302" x2="830" y2="302"/>
+          <line x1="806" y1="352" x2="830" y2="352"/><line x1="806" y1="402" x2="830" y2="402"/>
+          <line x1="806" y1="452" x2="830" y2="452"/><line x1="806" y1="502" x2="830" y2="502"/>
+        </g>
+        <rect x="741" y="470" width="24" height="352" rx="6" fill="#2E2E2C"/>
+        <g class="electro-bubbles" fill="#FFFFFF" opacity=".9"><circle cx="735" cy="520" r="6"/><circle cx="770" cy="570" r="5"/><circle cx="737" cy="620" r="6"/><circle cx="770" cy="676" r="5"/></g>
+
+        <!-- 容器の前面の線 -->
+        <rect x="332" y="560" width="726" height="272" rx="14" fill="none" stroke="#7E858A" stroke-width="5"/>
+        <path d="M372,620 L372,800" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity=".6"/>
+
+        <!-- ===== 電源装置 ===== -->
+        <rect x="1150" y="640" width="272" height="164" rx="14" fill="url(#eBox)" stroke="#4A4947" stroke-width="4"/>
+        <rect x="1188" y="668" width="196" height="46" rx="8" fill="#2E2E2C"/>
+        <circle cx="1246" cy="762" r="20" fill="#B6B6B1" stroke="#4A4947" stroke-width="4"/>
+        <circle cx="1330" cy="762" r="20" fill="#B6B6B1" stroke="#4A4947" stroke-width="4"/>
+        <circle cx="1150" cy="676" r="15" fill="#E4E4E1" stroke="#2E2E2C" stroke-width="4"/>
+        <circle cx="1150" cy="772" r="15" fill="#E4E4E1" stroke="#2E2E2C" stroke-width="4"/>
+        <text x="1108" y="688" font-size="44" font-weight="900" fill="#2E2E2C" text-anchor="middle" style="font-family:'Zen Kaku Gothic New',sans-serif">−</text>
+        <text x="1108" y="788" font-size="44" font-weight="900" fill="#C4161C" text-anchor="middle" style="font-family:'Zen Kaku Gothic New',sans-serif">＋</text>
+
+        <!-- ===== 導線 ===== -->
+        <g fill="none" stroke="#2E2E2C" stroke-width="9" stroke-linecap="round">
+          <path d="M515,822 L515,884 C515,900 540,908 580,908 L1040,908 C1090,908 1135,876 1135,700 C1135,684 1140,678 1148,676"/>
+          <path d="M753,822 L753,932 C753,948 790,956 850,956 L1060,956 C1108,956 1135,930 1135,800 C1135,782 1140,774 1148,772"/>
+        </g>
+
+        <!-- ===== ①〜④ マーカー ===== -->
+        
+        
+        
+        
+      <g font-size="42" font-weight="900" text-anchor="middle" fill="#20201e"><text x="515" y="135">陰極（−）</text><text x="800" y="135">陽極（＋）</text></g></svg>

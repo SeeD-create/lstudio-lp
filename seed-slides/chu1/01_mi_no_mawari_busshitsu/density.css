@@ -1,0 +1,31 @@
+.density-live h1 { font-size: 62px; }
+.balance-demo { position:relative; height:700px; flex:none; }
+.balance-state { position:absolute; inset:0; display:flex; flex-direction:column; gap:16px; }
+.balance-condition { margin:0; text-align:center; font-size:38px; font-weight:800; }
+.balance-labels { display:grid; grid-template-columns:repeat(3,1fr); text-align:center; font-size:30px; font-weight:800; }
+.balance-state img { width:100%; height:480px; flex:none; object-fit:contain; border:2px solid #59554e; background:#faf7f0; }
+.balance-state .balance-result { font-size:44px; }
+.mass-state { background:var(--paper); }
+.density-live:not([data-step="0"]):not([data-step="1"]) .volume-state { visibility:hidden; opacity:0; }
+.density-recap-grid { display:grid; grid-template-columns:1fr 1fr; gap:38px; margin:auto 0; }
+.density-recap-grid>div { background:#fffdf8; border:2px solid #59554e; padding:24px 16px; }
+.density-recap-grid h2 { font-family:"Zen Old Mincho",serif; font-size:43px; text-align:center; margin:0 0 22px; }
+.density-recap-grid .balance-labels { font-size:23px; }
+.density-recap-grid img { width:100%; height:300px; object-fit:contain; }
+.density-recap-grid p { font-size:40px; color:var(--red); font-weight:900; text-align:center; margin:15px 0; }
+.rate-board { display:grid; grid-template-columns:420px 150px 420px; grid-template-rows:100px 170px 100px; align-items:center; justify-items:center; margin:55px auto 35px; padding:35px 70px; border:2px solid #59554e; background:#fffdf8; font-size:65px; font-weight:800; }
+.rate-dots { color:var(--muted); }
+.rate-down { position:relative; height:150px; width:220px; display:flex; align-items:center; justify-content:flex-end; color:var(--red); font-size:43px; }
+.down-shaft { position:absolute; left:37px; top:8px; height:140px; width:32px; background:linear-gradient(var(--red),var(--red)) center top / 4px 132px no-repeat; }
+.down-shaft:after { content:""; position:absolute; bottom:6px; left:5px; width:22px; height:22px; border-right:4px solid var(--red); border-bottom:4px solid var(--red); transform:rotate(45deg); }
+.rate-bottom { color:var(--red); }
+.unit-rate-slide .stamp { font-size:49px; }
+.material-pair { display:grid; grid-template-columns:1fr 1fr; gap:60px; width:1400px; margin:55px auto 35px; text-align:center; }
+.material-box { border:3px solid #6c7478; background:linear-gradient(135deg,#f0f2f3,#d2d8db); padding:50px 16px; font-size:51px; font-weight:900; }
+.copper-box { border-color:#986042; background:linear-gradient(135deg,#f4dbca,#dba689); }
+.material-pair p { margin:20px 0 0; font-size:39px; font-weight:700; }
+.equal-mass-quiz .material-pair { margin:20px auto 0; }
+.equal-mass-quiz .material-box { padding:28px 16px; }
+.equal-mass-quiz .mass-question { font-size:43px; margin-top:25px; }
+.equal-mass-quiz .calculation { font-size:36px; color:var(--red); }
+.density-quiz .next { font-size:33px; }

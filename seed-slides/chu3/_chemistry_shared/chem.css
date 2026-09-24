@@ -1,0 +1,122 @@
+/* 中3化学6教材の共通版面。式と文章はHTML、実験の外観は生成画像。 */
+.chem .safe{inset:62px 94px 94px}
+.chem .eyebrow{color:var(--chem-accent);margin-bottom:15px}
+.chem .eyebrow:before{background:var(--chem-accent)}
+.chem .headline{font-size:68px;line-height:1.23}
+.chem .headline.long{font-size:57px}
+.chem-layout{display:grid;grid-template-columns:minmax(0,1.47fr) minmax(0,1fr);grid-template-rows:510px 186px;gap:23px 32px;margin-top:27px;height:719px;align-items:stretch}
+.chem .figure{height:510px;border:3px solid #66746b;background:#fffefa;border-radius:20px;box-shadow:0 16px 36px #2d322c20}
+.chem .figure .frame{position:absolute;inset:0;overflow:hidden}
+.chem .right-panel{position:relative;border:2px solid #b9c2b7;border-radius:18px;background:#fbfbf7;box-shadow:0 12px 30px #2d322c10;overflow:hidden}
+.chem .right-frame{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:45px 36px;text-align:center}
+.chem .right-heading{font-family:'Zen Old Mincho','Yu Mincho',serif;font-size:27px;letter-spacing:.09em;color:#69776c;margin-bottom:32px}
+.chem .right-main{font-size:53px;line-height:1.48;font-weight:800;white-space:pre-line;overflow-wrap:anywhere;color:#2d3e36}
+.chem .right-frame:last-child .right-main{color:#af332d}
+.chem .note-stack{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;height:186px;align-content:center}
+.chem .note-stack.count-1{grid-template-columns:minmax(0,1fr)}
+.chem .note-stack.count-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.chem .note{min-height:130px;padding:19px 24px;display:flex;align-items:center}
+.chem .note p{font-size:31px;line-height:1.45}
+.chem .note.red p{color:#b72e2b}
+.chem-photo{position:absolute;inset:0}
+.chem-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.visual-caption{position:absolute;bottom:15px;right:17px;background:#fffc;padding:6px 12px;border-radius:5px;font-size:18px;color:#536056}
+.compare-board{height:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:22px}
+.compare-board.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.compare-board.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.compare-cell{border:2px solid #b8c4ba;background:#f5f7f3;border-radius:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:15px;text-align:center;min-width:0}
+.compare-cell.positive{border-color:#b7c9d2;background:#eef7f9}.compare-cell.negative{border-color:#dbb1ae;background:#fff2ef}.compare-cell.copper{border-color:#d3a895;background:#fff5ee}
+.compare-symbol{font-family:'Zen Old Mincho','Yu Mincho',serif;font-size:92px;line-height:1.2;font-weight:700;color:#40584e}
+.cols-3 .compare-symbol,.cols-4 .compare-symbol{font-size:72px}
+.compare-label{font-size:31px;font-weight:800;line-height:1.4;margin-top:16px}
+.compare-detail{font-size:23px;line-height:1.35;color:#6c786f;margin-top:10px;min-height:31px}
+.flow-board{height:100%;display:flex;justify-content:center;align-items:center;gap:10px;padding:25px}
+.flow-step{flex:1;min-width:0;min-height:230px;border:2px solid #a7b5a7;background:#f8faf6;border-radius:16px;padding:24px 16px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.flow-step-number{font-family:Georgia,serif;font-size:26px;color:#a03931;margin-bottom:12px}
+.flow-step strong{font-size:35px;line-height:1.35;overflow-wrap:anywhere}
+.flow-step small{font-size:22px;line-height:1.5;color:#6d786c;margin-top:12px}
+.flow-arrow{font-size:42px;color:#a03931;flex:none}
+.particle-board{position:absolute;inset:0;background:#f8fbfb}
+.particle-medium{position:absolute;left:8%;right:8%;top:8%;bottom:20%;border:4px solid #a2b8c3;border-top:0;border-radius:0 0 32px 32px;background:linear-gradient(180deg,#eaf8ff 0%,#e1f1f7 100%);overflow:hidden}
+.particle-medium:before{content:'';position:absolute;top:0;left:0;right:0;border-top:4px solid #8ec6dd}
+.particle-label{position:absolute;bottom:16px;left:15px;right:15px;text-align:center;font-size:28px;font-weight:700;color:#586d73}
+.particle{position:absolute;display:grid;place-items:center;transform:translate(-50%,-50%);min-width:96px;height:75px;padding:0 9px;border-radius:50%;border:3px solid #427389;background:#eaf8ff;color:#21546b;font-size:29px;font-weight:800;box-shadow:0 5px 11px #3366771e;white-space:nowrap}
+.particle.anion{border-color:#b07972;background:#fff0ea;color:#9c4c41}.particle.cation,.particle.ion{border-color:#487c98;background:#e5f5fb;color:#225b76}
+.particle.molecule{border-radius:42px;border-color:#898d78;background:#fffaf0;color:#555c50;font-size:23px;min-width:135px}
+.particle.lattice{min-width:82px;height:66px;font-size:25px}
+.particle-board.crystal .particle-medium{border:0;background:#faf8f0}
+.water-dot{position:relative;display:inline-block;margin:6% 4%;color:#9ccad9;font-size:27px;opacity:.55;font-weight:700;transform:rotate(-18deg)}
+.hydration-pair{position:absolute;inset:5% 6% 17%;display:flex;justify-content:space-between;gap:3%}
+.hydration-cluster{position:relative;width:48%;height:100%;border:2px dashed #c1d7dc;border-radius:24px;background:#f5fbfd}
+.hydration-cluster.anion{border-color:#dfc3bd;background:#fffbf8}
+.hydration-ion{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:82px;height:82px;display:grid;place-items:center;border:3px solid #447995;border-radius:50%;background:#e4f4fc;color:#245c78;font-size:32px;font-weight:800;z-index:2}
+.anion .hydration-ion{border-color:#ba817a;background:#ffefeb;color:#9d4c44}
+.hydration-caption{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:25px;font-weight:700;color:#60777a}
+.water-molecule{position:absolute;width:76px;height:76px;z-index:1}
+.water-molecule.top{left:calc(50% - 38px);top:13%}.water-molecule.bottom{left:calc(50% - 38px);top:60%}
+.water-molecule.left{left:10%;top:38%}.water-molecule.right{right:10%;top:38%}
+.water-molecule.cation.top{transform:rotate(180deg)}.water-molecule.cation.right{transform:rotate(-90deg)}.water-molecule.cation.left{transform:rotate(90deg)}
+.water-molecule.anion.bottom{transform:rotate(180deg)}.water-molecule.anion.right{transform:rotate(90deg)}.water-molecule.anion.left{transform:rotate(-90deg)}
+.water-molecule span{position:absolute;display:grid;place-items:center;border-radius:50%;font-weight:800;box-shadow:0 2px 5px #5066782e}
+.water-molecule .oxygen{left:22px;top:3px;width:32px;height:32px;background:#df7165;color:#fff;font-size:22px}
+.water-molecule .hydrogen{width:25px;height:25px;background:#f8f8ef;border:2px solid #adbcb9;color:#63736e;font-size:15px}
+.water-molecule .h1{left:6px;top:40px}.water-molecule .h2{right:6px;top:40px}
+.atom-board{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle,#f7faf8,#eaf0ed)}
+.atom-figure{position:relative;width:350px;height:350px;border-radius:50%}
+.atom-orbit{position:absolute;inset:5%;border:4px dashed #a3b0ac;border-radius:50%}
+.atom-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:158px;height:158px;border-radius:50%;background:#c96654;color:#fff;display:grid;place-items:center;font-size:30px;font-weight:800;text-align:center;box-shadow:0 10px 22px #8c3c2a33}
+.electron{position:absolute;width:30px;height:30px;transform:translate(-50%,-50%);border-radius:50%;background:#287da2;box-shadow:0 0 0 5px #d9f0fa}
+.atom-label{position:absolute;bottom:20px;font-size:26px;color:#697a73}
+.tube-board{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-evenly;gap:15px;background:#f8faf5}
+.tube-item{text-align:center;min-width:0}.tube{width:115px;height:300px;border:6px solid #a5b8bc;border-top:0;border-radius:0 0 42px 42px;margin:0 auto 22px;position:relative;overflow:hidden;background:#ffffff9c;box-shadow:inset 8px 0 12px #ffffffa0}
+.tube-liquid{position:absolute;bottom:0;left:0;right:0;height:61%;opacity:.76;background:#a3a2aa}.tube-liquid.acid{background:#e76271}.tube-liquid.alkali{background:#4688d4}.tube-liquid.neutral{background:#8fbe8d}.tube-liquid.purple{background:#ae8ac4}.tube-liquid.clear{background:#e4f4fb}
+.tube-label{font-size:28px;font-weight:700;color:#43544d}
+.ph-board{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:36px 55px;background:#fdfdfa}
+.ph-head{font:700 52px Georgia,serif;color:#3a4b43;text-align:center;margin-bottom:45px}
+.ph-strip{height:88px;display:grid;grid-template-columns:repeat(15,1fr);position:relative;background:linear-gradient(90deg,#df5666,#ee9f72,#f4db77,#a6c98a,#67ae9d,#5f99c6,#7475ba);border-radius:12px}
+.ph-tick{display:grid;place-items:center;color:#fff;text-shadow:0 1px 4px #3349;font-size:22px;font-weight:700;border-right:1px solid #fff5}.ph-tick:last-of-type{border:0}
+.ph-marker{position:absolute;top:-19px;width:5px;height:126px;transform:translateX(-50%);background:#282e2c;box-shadow:0 0 0 3px #fff}
+.ph-labels{display:flex;justify-content:space-between;font-size:27px;font-weight:700;color:#58645e;margin-top:28px}.ph-current{text-align:center;font-size:35px;font-weight:800;margin-top:40px}
+.bar-board{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:32px;padding:38px 50px}
+.bar-row{display:grid;grid-template-columns:160px 1fr 110px;gap:18px;align-items:center;font-size:30px;font-weight:700}
+.bar-track{height:55px;background:#eef1ec;border-radius:6px;overflow:hidden}.bar-fill{height:100%;background:#6c98ad}.bar-fill.red{background:#c06b5b}.bar-fill.green{background:#83a37e}.bar-fill.copper{background:#ad7457}
+.bar-row b{font-size:29px;text-align:right}
+.data-board{position:absolute;inset:0;display:grid;place-items:center;padding:34px;background:#fffefb}
+.data-board table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:27px;line-height:1.4;color:#34443d}
+.data-board th,.data-board td{border:2px solid #bac7bd;padding:15px 10px;text-align:center;overflow-wrap:anywhere}
+.data-board th{background:#e9f1eb;font-weight:800}
+.data-board tr:nth-child(even) td{background:#f8faf7}
+.metal-board{position:absolute;inset:0;display:flex;justify-content:space-around;align-items:center;background:#fbfbf8;padding:30px}
+.metal-item{display:flex;flex-direction:column;align-items:center;gap:15px;font-size:40px}.metal-strip{height:255px;width:83px;border:2px solid #686d69;border-radius:7px;box-shadow:12px 12px 25px #7774;transform:skewY(-3deg);background:linear-gradient(90deg,#838e95,#d2dadf,#75858d)}
+.metal-fe .metal-strip{background:linear-gradient(90deg,#5d6160,#aab0ab,#646862)}.metal-cu .metal-strip{background:linear-gradient(90deg,#87513d,#dd996e,#9d5b43)}.metal-mg .metal-strip{background:linear-gradient(90deg,#abb2b1,#ecf0ea,#aeb7b5)}
+.battery-board{position:absolute;inset:0;background:#f9fbfa}
+.battery-half{position:absolute;top:31%;width:33%;height:51%;border:5px solid #a1b4b9;border-top:0;border-radius:0 0 30px 30px;background:#f0f9fc;overflow:visible}
+.battery-half.zinc{left:9%}.battery-half.copper{right:9%;background:#d6eff8}
+.battery-half b{position:absolute;bottom:-42px;left:0;right:0;text-align:center;font-size:26px;color:#4b5f5b}
+.battery-metal{position:absolute;left:43%;top:-24%;width:15%;height:100%;background:linear-gradient(90deg,#777,#ccc,#777);border-radius:4px;z-index:2}
+.copper .battery-metal{background:linear-gradient(90deg,#8e503a,#db9268,#a45e46)}
+.battery-board.stage-1 .zinc .battery-metal,.battery-board.stage-2 .zinc .battery-metal,.battery-board.stage-3 .zinc .battery-metal{width:12%}
+.battery-board.stage-1 .zinc .battery-metal,.battery-board.stage-2 .zinc .battery-metal,.battery-board.stage-3 .zinc .battery-metal{animation:zincDissolves 1.2s ease-out both}
+.battery-liquid{position:absolute;inset:15% 0 0;background:#d7edf4a0}
+.copper .battery-liquid{background:#7ac8e880}
+.battery-wire{position:absolute;left:27%;right:27%;top:11%;height:7px;border-top:7px solid #5f625f;border-radius:8px;z-index:3;text-align:center}
+.battery-wire span{position:relative;top:-38px;background:#fffefa;color:#2e7fa1;font-size:25px;font-weight:800;padding:2px 14px}
+.travel-electron{position:absolute;top:-13px;left:0;width:20px;height:20px;border-radius:50%;background:#247da0;border:2px solid #fff;box-shadow:0 0 0 3px #bedfea;animation:electronTravel 2.4s ease-in-out infinite}
+.travel-electron.two{animation-delay:.65s}
+.battery-bridge{position:absolute;left:41%;right:41%;top:23%;height:33%;border:18px solid #bec8bd;border-bottom:0;border-radius:85px 85px 0 0;z-index:2}
+.battery-particle{position:absolute;z-index:4;top:45%;font-size:28px;font-weight:900;color:#376c88;background:#fffdf6;border-radius:30px;padding:8px}
+.battery-particle.zn{left:2%}.battery-particle.cu{right:4%;top:56%}.battery-particle.h{right:1%;top:40%;color:#ad5d52}.battery-particle.cu-solid{right:31%;top:57%;color:#a85b3d}
+.battery-electrons{position:absolute;top:7%;left:59%;z-index:4;color:#267d9f;font-weight:900;font-size:25px}
+.battery-deposit{position:absolute;left:38%;top:22%;width:6%;height:65%;background:#bb673f;z-index:3;box-shadow:0 0 0 2px #e3a377}
+.battery-board.stage-3 .battery-deposit{transform-origin:left center;animation:copperGrows 1.3s ease-out both}
+.battery-board.stage-1 .battery-particle.zn,.battery-board.stage-2 .battery-particle.zn,.battery-board.stage-3 .battery-particle.zn{animation:ionLeaves 1s ease-out both}
+@keyframes zincDissolves{from{width:15%}to{width:12%}}
+@keyframes electronTravel{from{left:0;opacity:0}15%{opacity:1}85%{opacity:1}to{left:calc(100% - 20px);opacity:0}}
+@keyframes copperGrows{from{transform:scaleX(.05)}to{transform:scaleX(1)}}
+@keyframes ionLeaves{from{opacity:0;transform:translate(20px,34px)}to{opacity:1;transform:translate(0,0)}}
+.battery-legend{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:26px;color:#60726d}
+.battery-board.volta .battery-half{background:#e8f5f6}.battery-board.volta .battery-liquid{background:#dbf1f2}.battery-board.volta .battery-bridge{display:none}
+.cover .cover-image{object-position:center;mask-image:linear-gradient(90deg,transparent 0%,black 21%,black 100%)}
+.cover h1{white-space:pre-line;font-size:113px}
+.cover .topics{font-size:28px;line-height:1.6;color:#566b60}
+@media(prefers-reduced-motion:reduce){.chem .note,.chem .note p,.battery-board *{animation:none!important}}

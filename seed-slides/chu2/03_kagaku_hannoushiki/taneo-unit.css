@@ -1,0 +1,315 @@
+/* ==========================================================
+   中1理科 第1章「身の回りの物質とその性質」 単元共通パーツ
+   deck.css の上に重ねて読む（<link> は deck.css → unit.css の順）
+   ========================================================== */
+
+/* ---------- レイアウト ---------- */
+.safe-2col  { inset: 72px 100px 72px; grid-template-columns: 780px 1fr; align-content: center; gap: 44px; align-items: center; }
+.safe-2colR { inset: 72px 100px 72px; grid-template-columns: 1fr 780px; align-content: center; gap: 44px; align-items: center; }
+.safe-2col--wide  { grid-template-columns: 900px 1fr; }
+.safe-2col--narrow{ grid-template-columns: 620px 1fr; }
+.safe-mid   { inset: 72px 110px 78px; align-content: center; gap: 26px; }
+.safe-top   { inset: 66px 110px 78px; align-content: start; gap: 22px; }
+.safe-chk   { inset: 96px 150px 92px; align-content: center; gap: 40px; justify-items: center; }
+
+.head  { display: grid; gap: 10px; }
+.head h1 { font-size: 50px; }
+.head--c { justify-items: center; text-align: center; }
+
+/* ---------- 行カード（説明＋穴） ---------- */
+.rows { display: grid; gap: 14px; align-content: start; }
+.row {
+  display: flex; align-items: flex-start; gap: 18px;
+  background: var(--paper-hi); border-left: 9px solid var(--c, var(--cat));
+  border-radius: 0 16px 16px 0; padding: 16px 24px;
+  box-shadow: 0 8px 20px rgba(40,30,10,.07);
+}
+.row .n {
+  flex: none; width: 46px; height: 46px; border-radius: 50%;
+  background: var(--c, var(--cat)); color: #fff;
+  font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; font-size: 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+.row .b { display: grid; gap: 5px; }
+.row .h { font-size: 28px; font-weight: 900; color: var(--sumi); line-height: 1.38; }
+.row .h .blank { font-size: 30px; min-width: 210px; }
+.row .d { font-size: 21px; line-height: 1.45; color: var(--sumi-mute); font-weight: 600; }
+.row--imp { border-left-color: var(--imp); }
+.row--imp .n { background: var(--imp); }
+
+/* ---------- 手順ステップ ---------- */
+.stepbox { display: grid; gap: 15px; align-content: start; }
+.stp {
+  display: flex; align-items: flex-start; gap: 20px;
+  background: var(--paper-hi); border: 3px solid var(--hair); border-radius: 18px;
+  padding: 17px 26px; box-shadow: 0 8px 20px rgba(40,30,10,.06);
+}
+.stp .sn {
+  flex: none; width: 56px; height: 56px; border-radius: 15px;
+  background: var(--cat); color: #fff;
+  font-family: 'Zen Old Mincho', serif; font-weight: 900; font-size: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.stp .sb { display: grid; gap: 5px; }
+.stp .st { font-size: 29px; font-weight: 900; line-height: 1.42; color: var(--sumi); }
+.stp .st .blank { font-size: 31px; min-width: 220px; }
+.stp .sd { font-size: 21px; color: var(--sumi-mute); font-weight: 600; line-height: 1.42; }
+.stp--imp { border-color: var(--imp); }
+.stp--imp .sn { background: var(--imp); }
+
+/* ---------- 凡例（丸数字→名前の穴） ---------- */
+.lgs { display: grid; gap: 13px; align-content: start; }
+.lg {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--paper-hi); border-left: 8px solid var(--c, var(--cat));
+  border-radius: 0 12px 12px 0; padding: 12px 20px;
+  box-shadow: 0 6px 16px rgba(40,30,10,.06);
+}
+.lg .n {
+  flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--c, var(--cat)); color: #fff;
+  font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; font-size: 23px;
+  display: flex; align-items: center; justify-content: center;
+}
+.lg .t { font-size: 27px; font-weight: 900; color: var(--sumi); line-height: 1.28; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.lg .t .blank { font-size: 29px; min-width: 250px; }
+.lg .t small { font-size: 19px; color: var(--sumi-mute); font-weight: 600; }
+
+/* ---------- 画像・図の枠 ---------- */
+.figbox {
+  position: relative; background: var(--paper-hi);
+  border: 3px solid var(--cat); border-radius: 22px;
+  box-shadow: 0 16px 38px rgba(40,30,10,.13); padding: 12px; overflow: hidden;
+}
+.figbox img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 14px; }
+.figbox--imp { border-color: var(--imp); }
+.figcap { position: absolute; left: 18px; bottom: 16px; background: rgba(20,20,20,.82); color: #fff; font-size: 21px; font-weight: 900; padding: 7px 16px; border-radius: 10px; z-index: 4; }
+.svgbox { background: var(--paper-hi); border: 3px solid var(--sumi-mute); border-radius: 18px; padding: 14px 18px; }
+.svgbox svg { display: block; width: 100%; height: auto; }
+
+/* ---------- 丸数字マーカー＋引き出し線 ---------- */
+.fw { position: relative; }
+.fw > img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.mklayer { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.mk {
+  position: absolute; width: 54px; height: 54px; border-radius: 50%;
+  background: var(--mkc, #C4161C); color: #fff;
+  font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; font-size: 27px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,.4); border: 3px solid #fff;
+  transform: translate(-50%,-50%); z-index: 3;
+}
+
+/* ---------- 黒帯ノート ---------- */
+.note {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--paper-hi); color: var(--sumi); border-radius: 16px;
+  padding:13px 23px; font-size: 24px; line-height: 1.45; border: 3px solid var(--sumi); box-shadow: 0 8px 20px rgba(40,30,10,.07);}
+.note b { color: var(--imp); }
+.note .blank { font-size: 26px; }
+.note > span:first-child { flex: none; white-space: nowrap; font-weight: 900; color: var(--imp); }
+.note--imp { background: var(--imp); }
+.note--imp > span:first-child { color: #FFE3E1; }
+/* 暗い帯の中の穴は、赤字だと沈むので明るくする */
+.note .blank { border-bottom-color: var(--imp); background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04)); }
+.note .blank b { color: #FF9A95; }
+.note .blank.is-filled { background: linear-gradient(180deg, rgba(200,162,75,.10), rgba(200,162,75,.02)); border-bottom-color: var(--imp); }
+.note--imp .blank b { color: #fff; }
+.note--imp .blank.is-filled { background: rgba(255,255,255,.26); border-bottom-color: #fff; }
+
+/* ---------- ★テスト頻出 ---------- */
+.star {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--imp); color: #fff; font-weight: 900; font-size: 24px;
+  padding: 9px 22px; border-radius: 999px; letter-spacing: .06em;
+}
+
+/* ---------- 例のチップ ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.chip {
+  background: var(--paper-hi); border: 3px solid var(--cat); border-radius: 14px;
+  padding: 9px 20px; font-size: 26px; font-weight: 900; color: var(--sumi);
+  box-shadow: 0 6px 16px rgba(40,30,10,.07);
+}
+.chip--imp { border-color: var(--imp); color: var(--imp); }
+.chip--mute { border-color: var(--hair); color: var(--sumi-mute); }
+
+/* ---------- 表 ---------- */
+.tbl { border-collapse: collapse; background: var(--paper-hi); box-shadow: 0 10px 26px rgba(40,30,10,.09); }
+.tbl th, .tbl td { border: 2px solid var(--hair); padding: 9px 18px; font-size: 24px; font-weight: 700; color: var(--sumi); text-align: center; }
+.tbl th { background: var(--sumi); color: var(--paper-hi); font-weight: 900; font-size: 23px; }
+.tbl td.l { text-align: left; }
+.tbl tr.hi td { background: var(--imp-bg); color: var(--imp); font-weight: 900; }
+.tbl td .blank { font-size: 25px; min-width: 130px; }
+
+/* ---------- 計算カード ---------- */
+.calc { background: var(--paper-hi); border: 3px solid var(--sumi-mute); border-radius: 18px; padding: 18px 26px; display: grid; gap: 9px; }
+.calc--imp { border-color: var(--imp); }
+.calc .cq { font-size: 26px; font-weight: 900; color: var(--sumi); line-height: 1.42; }
+.calc .cq .no { color: var(--cat); }
+.calc .cf { font-size: 29px; font-weight: 900; color: var(--sumi-soft); }
+.calc .cf .blank { font-size: 31px; min-width: 160px; }
+.calc .cA { font-size: 28px; font-weight: 900; color: var(--imp); }
+
+/* ---------- ミニ確認 ---------- */
+.qcard { width: 1480px; background: var(--paper-hi); color: var(--sumi); border-radius: 28px; padding:43px 55px; box-shadow: 0 22px 50px rgba(40,30,10,.22); border: 3px solid var(--sumi);}
+.qcard .qlabel { font-family: 'Zen Old Mincho', serif; font-weight: 900; font-size: 30px; color: var(--imp); letter-spacing: .1em; }
+.qcard .qtext { font-size: 43px; line-height: 1.5; font-weight: 700; margin-top: 16px; }
+.qcard .qtext .u { color: var(--sumi); border-bottom: 4px solid var(--sumi-mute); }
+.ans { margin-top: 32px; display: flex; align-items: center; gap: 28px; }
+.ans .mark { font-family: 'Zen Old Mincho', serif; font-weight: 900; font-size: 92px; line-height: 1; color: var(--sumi); }
+.ans .exp { font-size: 30px; line-height: 1.45; color: var(--sumi); }
+.ans .exp b { color: var(--imp); }
+
+/* ---------- 章扉 ---------- */
+.sec-safe { align-content: center; gap: 28px; }
+.sec-no { font-family: 'Zen Old Mincho', serif; font-weight: 900; font-size: 52px; letter-spacing: .3em; color: rgba(255,255,255,.8); }
+.sec-ttl { font-size: 168px; line-height: 1; letter-spacing: .06em; }
+.sec-sub { font-size: 40px; color: rgba(255,255,255,.92); font-weight: 700; }
+.sec-rule { width: 220px; height: 6px; background: rgba(255,255,255,.75); border-radius: 3px; }
+
+/* ---------- 分数（○分の△の見た目） ---------- */
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; line-height: 1.05; font-size: .78em; margin: 0 .12em; }
+.frac i { font-style: normal; }
+.frac i:first-child { border-bottom: 3px solid currentColor; padding: 0 .28em; }
+
+/* ==========================================================
+   中2理科 第1章「物質の成り立ち」 追加パーツ
+   ========================================================== */
+
+/* ---------- 化学式・反応式 ---------- */
+.chem { font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; letter-spacing: .02em; }
+.chem sub { font-size: .62em; vertical-align: baseline; position: relative; top: .22em; margin: 0 .02em; }
+.chem .co { color: var(--imp); }              /* 係数 */
+
+/* 反応式カード（左辺→右辺） */
+.eqbox {
+  background: var(--paper-hi); border: 3px solid var(--sumi-mute); border-radius: 18px;
+  padding: 16px 26px; display: grid; gap: 6px; box-shadow: 0 8px 22px rgba(40,30,10,.07);
+}
+.eqbox--imp { border-color: var(--imp); }
+.eqbox .eqname { font-size: 21px; font-weight: 900; color: var(--sumi-mute); letter-spacing: .06em; }
+.eqrow { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.eqrow .t { font-size: 40px; }
+.eqrow .op { font-size: 34px; font-weight: 900; color: var(--sumi-mute); }
+.eqrow .ar { font-size: 34px; font-weight: 900; color: var(--sumi); letter-spacing: -.1em; }
+.eqrow .blank { font-size: 38px; min-width: 190px; }
+.eqrow .blank b { font-family: 'Zen Kaku Gothic New', sans-serif; }
+.eqsub { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+         font-size: 20px; font-weight: 700; color: var(--sumi-mute); }
+.eqsub span { min-width: 110px; text-align: center; }
+
+/* 言葉の式（物質名で書く式） */
+.wordeq { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.wordeq .w { font-size: 34px; font-weight: 900; color: var(--sumi); }
+.wordeq .op { font-size: 30px; font-weight: 900; color: var(--sumi-mute); }
+.wordeq .ar { font-size: 32px; font-weight: 900; color: var(--sumi); }
+.wordeq .blank { font-size: 33px; min-width: 250px; }
+
+/* ---------- 原子・分子モデル（SVGのかわりにHTMLの丸） ---------- */
+.mols { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
+.mol {
+  background: var(--paper-hi); border: 3px solid var(--hair); border-radius: 18px;
+  padding: 12px 16px 10px; display: grid; justify-items: center; gap: 6px;
+  box-shadow: 0 8px 20px rgba(40,30,10,.07); min-width: 190px;
+}
+.mol--imp { border-color: var(--imp); }
+.mol .pic { display: flex; align-items: center; justify-content: center; height: 92px; }
+.mol .nm { font-size: 22px; font-weight: 900; color: var(--sumi); }
+.mol .nm .chem { font-size: 23px; }
+.mol .cnt { font-size: 19px; font-weight: 700; color: var(--sumi-mute); }
+.mol .cnt .blank { font-size: 22px; min-width: 62px; padding: 0 10px 4px; margin: 0 3px; }
+
+/* 原子の丸 */
+.atom {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900;
+  color: #fff; border: 3px solid rgba(0,0,0,.28); box-shadow: inset -5px -6px 12px rgba(0,0,0,.22), inset 5px 6px 10px rgba(255,255,255,.30);
+}
+.a-H  { background: #E4E4E1; color: #1D1D1B; border-color: #A9A9A4; }
+.a-O  { background: #C4161C; }
+.a-C  { background: #2E2E2C; }
+.a-N  { background: #2C6489; }
+.a-Cu { background: #B4551E; }
+.a-Na { background: #7A5AA8; }
+.a-Cl { background: #3F7A52; }
+.a-Ag { background: #8B8A88; }
+.a-S  { background: #C8A93A; color: #1D1D1B; border-color: #9B8127; }
+.a-Mg { background: #1F6E6E; }
+.a-Fe { background: #4A4947; }
+
+/* ---------- 元素記号カード ---------- */
+.elgrid { display: grid; gap: 12px; }
+.elgrid--4 { grid-template-columns: repeat(4, 1fr); }
+.elgrid--3 { grid-template-columns: repeat(3, 1fr); }
+.el {
+  background: var(--paper-hi); border: 3px solid var(--sumi-mute); border-radius: 14px;
+  padding: 10px 12px 12px; display: grid; justify-items: center; gap: 4px;
+  box-shadow: 0 6px 16px rgba(40,30,10,.07);
+}
+.el .jp { font-size: 22px; font-weight: 900; color: var(--sumi-soft); }
+.el .sy { font-size: 30px; }
+.el .sy .blank { font-size: 32px; min-width: 120px; padding: 0 12px 4px; margin: 0; }
+.el .sy .blank b { font-family: 'Zen Kaku Gothic New', sans-serif; }
+.el--kin { border-color: var(--imp); }
+.el--kin .jp { color: var(--imp); }
+
+/* ---------- 分類の樹形図 ---------- */
+.tree { display: grid; grid-template-columns: 190px 40px 1fr; align-items: center; row-gap: 14px; }
+.tnode {
+  background: var(--sumi); color: #fff; border-radius: 14px; padding: 12px 18px;
+  font-size: 28px; font-weight: 900; text-align: center;
+}
+.tnode--o { background: var(--paper-hi); color: var(--sumi); border: 3px solid var(--sumi); }
+.tbrace { justify-self: center; width: 6px; background: var(--sumi-mute); border-radius: 3px; }
+.tleaf {
+  background: var(--paper-hi); border-left: 9px solid var(--c, var(--cat)); border-radius: 0 14px 14px 0;
+  padding: 12px 20px; display: grid; gap: 4px; box-shadow: 0 6px 16px rgba(40,30,10,.06);
+}
+.tleaf .lt { font-size: 27px; font-weight: 900; color: var(--sumi); display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.tleaf .lt .blank { font-size: 29px; min-width: 220px; }
+.tleaf .ld { font-size: 20px; font-weight: 700; color: var(--sumi-mute); line-height: 1.4; }
+
+/* ---------- 仕分けチップ（答えの記号を穴に） ---------- */
+.sortgrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 11px; }
+.sc {
+  background: var(--paper-hi); border: 3px solid var(--hair); border-radius: 13px;
+  padding: 9px 10px; display: grid; justify-items: center; gap: 3px;
+  box-shadow: 0 5px 14px rgba(40,30,10,.05);
+}
+.sc .q { font-size: 21px; font-weight: 900; color: var(--sumi); white-space: nowrap; }
+.sc .a .blank { font-size: 24px; min-width: 82px; padding: 0 10px 4px; margin: 0; }
+
+/* ---------- 4マスの関係表 ---------- */
+.mtx { display: grid; grid-template-columns: 220px 1fr 1fr; gap: 10px; }
+.mtx .hd { background: var(--sumi); color: #fff; border-radius: 12px; padding: 12px 14px;
+           font-size: 25px; font-weight: 900; text-align: center; display: flex; align-items: center; justify-content: center; }
+.mtx .hd .blank { font-size: 26px; min-width: 150px; }
+.mtx .hd small { display: block; font-size: 17px; font-weight: 700; opacity: .85; }
+.mtx .cell { background: var(--paper-hi); border: 3px solid var(--hair); border-radius: 12px; padding: 10px;
+             display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+.mtx .blankhd { background: var(--paper-hi); color: var(--sumi); border: 3px solid var(--sumi); border-radius: 12px;
+                padding: 12px 10px; font-size: 24px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.mtx .blankhd .blank { font-size: 25px; min-width: 190px; }
+
+/* ---------- 手順の式ブロック（原子の数の勘定） ---------- */
+.count { display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: wrap; font-size: 22px; font-weight: 900; color: var(--sumi-soft); }
+.count .c1 { background: var(--paper-lo); border-radius: 10px; padding: 6px 16px; }
+.count .ng { color: var(--imp); }
+.count .ok { color: #1F6E6E; }
+
+/* ---------- ミニ確認の答えも穴にする（問題PPTXで漏れないように） ---------- */
+.qcard .qlabel { color: #E4E4E1; }
+.ans .mark .blank { font-size: 74px; min-width: 140px; padding: 0 18px 10px; margin: 0; }
+.ans .mark .blank b { font-family: 'Zen Old Mincho', serif; }
+.ans .exp .blank { font-size: 29px; min-width: 160px; }
+.ans .exp .blank b { font-family: 'Zen Kaku Gothic New', sans-serif; }
+/* 解説の段落まるごとの穴（○×は理由が読めると答えが分かるため段落ごと伏せる） */
+.ans .exp .blank--para { font-size: 28px; min-width: 0; margin: 0; }
+.ans .exp .blank--para b { color: var(--imp); font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 700; }
+.ans .exp .blank--para .hl { color: var(--imp); font-weight: 900; }
+
+/* ---------- 分子モデルの配置枠（.atom を絶対配置で置く） ---------- */
+.mp { position: relative; width: 180px; height: 96px; }
+.mp .atom { position: absolute; }
+.elgrid--5 { grid-template-columns: repeat(5, 1fr); }
