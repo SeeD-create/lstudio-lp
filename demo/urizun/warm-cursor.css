@@ -1,0 +1,25 @@
+.warm-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.warm-cursor::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  left: -50px;
+  top: -50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,210,132,.30) 0%, rgba(246,194,102,.17) 25%, rgba(239,182,93,.07) 48%, transparent 72%);
+}
+.warm-cursor.is-visible { opacity: 1; }
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .warm-cursor { display: none; }
+}
