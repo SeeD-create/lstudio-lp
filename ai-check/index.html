@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="10業種以上に対応。10問に答えると、AIで変えられる仕事と最初の30日で着手する改善が分かる無料診断です。">
+  <title>業種別 AI導入診断｜Lスタジオ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css?v=20260930-2">
+</head>
+<body>
+  <header class="site-head">
+    <a class="brand" href="../" aria-label="Lスタジオ トップへ">
+      <span class="brand-mark">L</span>
+      <span><b>L STUDIO</b><small>AI IMPLEMENTATION CHECK</small></span>
+    </a>
+    <span class="head-note">回答内容は送信・保存されません</span>
+  </header>
+
+  <main>
+    <section id="intro" class="screen intro active" aria-labelledby="intro-title">
+      <div class="intro-grid">
+        <div>
+          <p class="eyebrow">FREE / 3 MINUTES / NO REGISTRATION</p>
+          <h1 id="intro-title">「また同じ作業」を、<br><em>一つずつ終わらせる。</em></h1>
+          <p class="lead">返信、転記、集計、記録、予約確認。毎日少しずつ時間を奪う仕事の中から、AIで最初に変えるべき一つを10問で見つけます。</p>
+          <div class="pain-board" aria-label="よくある悩み">
+            <p><span>01</span>同じ問い合わせへ、何度も同じ返信をしている</p>
+            <p><span>02</span>Excelやシステムへ、同じ情報を転記している</p>
+            <p><span>03</span>日報・記録・報告書の作成で、仕事が終わらない</p>
+            <p><span>04</span>期限や進捗を、人の記憶と目視で確認している</p>
+            <p><span>05</span>AIを試したが、現場では誰も使い続けていない</p>
+            <p><span>06</span>ツールが多すぎて、何を選ぶべきか分からない</p>
+          </div>
+          <ul class="intro-points">
+            <li>登録不要・無料</li>
+            <li>その場で結果表示</li>
+            <li>10業種＋その他に対応</li>
+          </ul>
+        </div>
+        <div class="industry-panel" aria-label="業種を選択">
+          <p class="step-label">STEP 01</p>
+          <h2>あなたの現場に近い業種を選んでください</h2>
+          <p class="industry-copy">一般論ではなく、業種ごとの実務に合わせた10問と改善例を表示します。</p>
+          <div class="industry-list">
+            <button class="industry-card" data-industry="professional">
+              <span class="industry-icon">§</span>
+              <span><b>士業事務所</b><small>法律・税務・労務・登記</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="school">
+              <span class="industry-icon">学</span>
+              <span><b>学習塾・スクール</b><small>個別指導・教室・講座</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="salon">
+              <span class="industry-icon">美</span>
+              <span><b>サロン・美容</b><small>美容室・施術・講座事業</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="clinic">
+              <span class="industry-icon">医</span>
+              <span><b>医療・クリニック</b><small>医院・歯科・治療院</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="care">
+              <span class="industry-icon">福</span>
+              <span><b>介護・福祉</b><small>施設・訪問・相談支援</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="realestate">
+              <span class="industry-icon">住</span>
+              <span><b>不動産</b><small>仲介・管理・売買</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="construction">
+              <span class="industry-icon">建</span>
+              <span><b>建設・工務店</b><small>施工・リフォーム・設備</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="food">
+              <span class="industry-icon">食</span>
+              <span><b>飲食店</b><small>店舗・テイクアウト・予約</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="retail">
+              <span class="industry-icon">販</span>
+              <span><b>小売・EC</b><small>店舗・通販・商品販売</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="manufacturing">
+              <span class="industry-icon">製</span>
+              <span><b>製造・卸売</b><small>受発注・在庫・品質管理</small></span><i>→</i>
+            </button>
+            <button class="industry-card" data-industry="general">
+              <span class="industry-icon">＋</span>
+              <span><b>その他の事業</b><small>企業・店舗・個人事業</small></span><i>→</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="screen quiz" aria-labelledby="question-title" hidden>
+      <div class="quiz-top">
+        <button id="backBtn" class="text-btn" type="button">← 戻る</button>
+        <div class="progress-wrap">
+          <div class="progress-meta"><span id="industryLabel"></span><span><b id="currentNum">1</b> / 10</span></div>
+          <div class="progress"><i id="progressBar"></i></div>
+        </div>
+      </div>
+      <div class="question-card">
+        <p id="questionCategory" class="question-category"></p>
+        <h2 id="question-title"></h2>
+        <p id="questionHelp" class="question-help"></p>
+        <div id="answers" class="answers"></div>
+      </div>
+    </section>
+
+    <section id="result" class="screen result" aria-labelledby="result-title" hidden>
+      <div class="result-hero">
+        <div>
+          <p class="eyebrow">YOUR AI IMPLEMENTATION MAP</p>
+          <p id="resultIndustry" class="result-industry"></p>
+          <h1 id="result-title">あなたの現場は、<br><em id="resultHeadline"></em></h1>
+          <p id="resultSummary" class="result-summary"></p>
+        </div>
+        <div class="score-card">
+          <span>AI活用の伸びしろ</span>
+          <strong id="scoreValue">0</strong><small>/ 100</small>
+          <div class="score-bar"><i id="scoreBar"></i></div>
+          <p id="scoreLabel"></p>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <div class="section-head">
+          <p>PRIORITY</p>
+          <h2>最初に変える仕事</h2>
+        </div>
+        <div id="recommendations" class="recommendations"></div>
+      </div>
+
+      <div class="result-section future">
+        <div class="section-head">
+          <p>IMPLEMENTATION MAP</p>
+          <h2>改善を積み重ねた先の状態</h2>
+        </div>
+        <div id="futureGrid" class="future-grid"></div>
+      </div>
+
+      <div class="result-section agents">
+        <div class="section-head">
+          <p>AI AGENTS</p>
+          <h2>Claude Code・Codexで広がること</h2>
+        </div>
+        <p class="section-copy">文章を作るだけでなく、既存ファイルを読み、仕組みを変更し、動作確認まで進められるAIがあります。診断結果に合わせて、現場で使える形へ落とし込みます。</p>
+        <div id="agentExamples" class="agent-grid"></div>
+      </div>
+
+      <aside class="plan">
+        <div>
+          <p class="eyebrow">IMPLEMENTATION SUPPORT</p>
+          <h2>30日で一つ改善し、自社運用の手順を残す。</h2>
+          <p>診断で見つかった優先課題から一つを選び、30日単位で実装します。作った手順・設定・テンプレートは毎回引き渡します。</p>
+        </div>
+        <div class="plan-price">
+          <span>初期費用</span><b>0<small>円</small></b>
+          <span>月額</span><b>33,000<small>円</small></b>
+          <em>1回30日・最低継続期間なし</em>
+        </div>
+        <ul>
+          <li>月1回の打ち合わせ</li>
+          <li>毎月1件の小規模改善</li>
+          <li>手順書・テンプレートを整備</li>
+          <li>翌月以降は継続・終了を選択</li>
+        </ul>
+        <a class="cta" href="../hearing/">30日間の改善支援を相談する <span>→</span></a>
+        <small class="cta-note">診断結果をもとに、対応範囲と開始時期を確認します。無料の個別コンサルティングではありません。</small>
+      </aside>
+
+      <div class="result-actions">
+        <button id="restartBtn" class="secondary-btn" type="button">別の条件でもう一度診断する</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>L STUDIO</span>
+    <p>ホームページ・LINE・AI活用を、現場で使える仕組みに。</p>
+  </footer>
+  <script src="app.js?v=20260930-2"></script>
+</body>
+</html>
