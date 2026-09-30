@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-motion]').forEach(b=>b.addEventListener('click',()=>{const stop=document.documentElement.classList.toggle('stop');b.textContent=stop?'動きを再開':'動きを停止';b.setAttribute('aria-pressed',String(stop))}));
