@@ -1,0 +1,40 @@
+/* Burner-only revision: generated apparatus and sprites, separate readable labels. */
+.motion-focus{position:absolute;left:28px;top:18px;width:555px;height:305px;background:#fffdf3f2;border-left:5px solid #b41920;padding:12px 20px;box-sizing:border-box}
+.focus-heading{font-size:29px;font-weight:800;margin:0}.focus-mechanism{position:absolute;left:20px;top:52px;width:190px;height:190px}.focus-knob{width:190px;height:190px;clip-path:circle(37% at 52% 50%);transition:transform 1.25s cubic-bezier(.25,.7,.2,1)}
+.fixed-index{position:absolute;top:-8px;left:90px;font-size:26px;color:#292824;z-index:2}.rotation-symbol{position:absolute;left:190px;top:45px;font-size:78px;color:#b41920;line-height:1}
+.focus-action{position:absolute;left:280px;top:100px;width:245px;font-size:31px;line-height:1.5;font-weight:700;margin:0;white-space:pre-line}.focus-effect{position:absolute;left:20px;bottom:5px;font-size:23px;line-height:1.5;max-width:510px;margin:0 0 12px}
+.motion-focus[data-kind="tap"],.motion-focus[data-kind="cock"]{height:205px}.motion-focus[data-kind="tap"] .focus-mechanism,.motion-focus[data-kind="cock"] .focus-mechanism{display:none}.motion-focus[data-kind="tap"] .focus-action,.motion-focus[data-kind="cock"] .focus-action{left:20px;top:66px;font-size:50px;color:#b41920}
+.flow-key{position:absolute;left:20px;right:20px;bottom:12px;display:flex;gap:24px;align-items:center;font-size:23px;background:#fffdf4;padding:9px 12px;border-top:1px solid #aaa}.flow-key>span:first-child{color:#a36a00}.flow-key>span:nth-child(2){color:#087fae}.flow-status{font-size:23px;color:#38352f}
+.valve-status{position:absolute;top:524px;padding:4px 12px;background:#f1eee8;font-size:25px;border-bottom:3px solid #777}.main-status{left:60px}.cock-status{left:565px}.valve-status.is-open{border-color:#b17b12}.valve-status.is-focus{outline:3px solid #b41920}
+.burner-flame{left:704px;top:0;width:92px;height:110px;background:none!important;transform:none!important;transform-origin:50% 95%;transition:opacity .4s;animation:none!important;overflow:visible}
+.burner-flame i{display:block;position:absolute;inset:0;background-image:url(assets/parts.png);background-size:200% 185%;transform:scaleY(var(--flame-height,.68));transform-origin:50% 94%;transition:opacity .7s,transform 1s}
+.flame-yellow{background-position:0 0;opacity:1}.flame-blue{background-position:100% 0;opacity:0}.burner-flame.blue .flame-yellow{opacity:0}.burner-flame.blue .flame-blue{opacity:1}
+.burner-flame.on i{animation:flame-breathe .65s ease-in-out infinite alternate}@keyframes flame-breathe{from{filter:brightness(.96)}to{filter:brightness(1.06)}}
+.source-fire{z-index:4;left:28px;top:18px;width:530px;height:302px;box-sizing:border-box;font-size:28px;background:#fffdf3}.source-fire img{height:210px;width:340px;margin:5px auto}
+.instructions .paper.current-operation{border-left-color:#b41920;background:#fbfbfa;box-shadow:0 9px 22px #281e0a18}
+.knob-slide .knob-pair>div{position:relative}.knob-slide .knob-pair>div:before{content:'▼ 基準';position:absolute;left:130px;top:-12px;font-size:26px;z-index:2}.knob-slide .knob{transition:transform 1.4s cubic-bezier(.25,.7,.2,1)}
+.knob-slide[data-step="1"] .knob{transform:rotate(-110deg)}.knob-slide[data-step="3"] .air-knob{transform:rotate(-110deg)}
+.knob-slide .knob-pair:after{display:none}
+.burner-flame .flame-yellow{left:-6px;right:6px}
+@media(prefers-reduced-motion:reduce){.focus-knob,.burner-flame i{transition:none!important;animation:none!important}}
+
+/* A control turns first; only then does the newly opened gas path fill. */
+.focus-knob{transition-duration:.8s}
+.knob{background-image:url(assets/parts-brass.png)}
+.motion-focus[data-kind="tap"],.motion-focus[data-kind="cock"]{height:305px}
+.motion-focus[data-kind="tap"] .focus-mechanism,.motion-focus[data-kind="cock"] .focus-mechanism{display:block}
+.motion-focus[data-kind="tap"] .focus-action,.motion-focus[data-kind="cock"] .focus-action{left:280px;top:110px;font-size:35px}
+.motion-focus[data-kind="tap"] .focus-knob,.motion-focus[data-kind="cock"] .focus-knob{background:none;clip-path:none}
+.motion-focus[data-kind="tap"] .focus-knob:before,.motion-focus[data-kind="cock"] .focus-knob:before{content:'';position:absolute;left:76px;top:22px;width:38px;height:146px;border:3px solid #5d4f35;border-radius:13px;background:linear-gradient(90deg,#343434,#777,#202020);box-sizing:border-box}
+.motion-focus[data-kind="cock"] .focus-knob:before{background:linear-gradient(90deg,#9b6b1a,#f0cc72,#a57220)}
+.motion-focus[data-kind="tap"] .focus-knob:after,.motion-focus[data-kind="cock"] .focus-knob:after{content:'';position:absolute;left:87px;top:33px;width:16px;height:18px;border-radius:50%;background:#b41920;border:2px solid #fff}
+.motion-focus[data-kind="tap"] .focus-effect:after,.motion-focus[data-kind="cock"] .focus-effect:after{content:'（回転は模式表示）';font-size:21px}
+.source-fire{height:200px;white-space:pre-line;line-height:1.7;padding:28px 24px}
+.source-fire img{display:none}
+.burner .ignition-match{position:absolute;inset:auto;left:632px;top:52px;width:180px;height:120px;object-fit:contain;z-index:5;mix-blend-mode:multiply;opacity:0;transform:translate(-90px,85px);transition:transform .8s ease,opacity .2s;pointer-events:none}
+.burner .ignition-match.at-mouth{transform:translate(0,0)}
+.burner .ignition-match.visible{opacity:1}
+.burner .ignition-match{mix-blend-mode:normal}
+.burner.restore-motion .ignition-match{transition:none}
+@media(prefers-reduced-motion:reduce){.burner .ignition-match{transition:none}}
+

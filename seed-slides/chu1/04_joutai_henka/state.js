@@ -1,0 +1,1 @@
+(()=>{function sync(){for(const s of document.querySelectorAll('.slide'))for(const svg of s.querySelectorAll('svg')){if(s.hidden||matchMedia('(prefers-reduced-motion:reduce)').matches)svg.pauseAnimations?.();else svg.unpauseAnimations?.()}}new MutationObserver(sync).observe(document.querySelector('.stage'),{attributes:true,subtree:true,attributeFilter:['hidden']});sync()})();

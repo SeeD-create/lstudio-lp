@@ -1,4 +1,14 @@
 .water-slide .safe{gap:24px}
+.curve-layout{display:grid;grid-template-columns:1050px 600px;gap:50px;align-items:center;flex:1;min-height:0}
+.curve-figure{margin:0;width:1050px}
+.curve-figure canvas{display:block;width:1050px;height:610px;border:2px solid #706b63}
+.curve-legend{display:flex;gap:35px;font-size:25px;margin:0 0 12px}
+.curve-legend .kno{color:#b41920}.curve-legend .nacl{color:#346e89}
+.curve-layout .paper{font-size:30px;padding:17px 22px}
+.water-slide .curve-layout .stamp{font-size:38px;margin:0}
+.curve-layout .stack{gap:18px}
+.curve-question{font-size:32px;line-height:1.6;margin:0 0 12px}
+.curve-rounding{font-size:22px;color:#6e6a63;margin:10px 0 0}
 .water-slide h1{font-size:66px}
 .water-slide .eyebrow{font-size:26px;letter-spacing:.06em}
 .water-slide .stamp{font-size:47px;line-height:1.4}
