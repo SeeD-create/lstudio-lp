@@ -25,7 +25,7 @@ function circuit({parallel=false,two=true,on=true,upperOff=false,switchOpen=null
  const l=145,r=915,top=120;
  line([[415,top],[l,top],[l,lower],[r,lower],[r,top],[645,top]]);
  if(parallel){line([[l,upper],[r,upper]]);circle(l,upper,7,ink);circle(r,upper,7,ink);}
- if(flow&&on){pathDots([[415,top],[l,top],[l,lower],[r,lower],[r,top],[645,top]],1,15,blue,glow);if(parallel&&!upperOff)pathDots([[l,upper],[r,upper]],.6,5);}
+ if(flow&&on){pathDots([[415,top],[l,top],[l,lower],[r,lower],[r,top],[645,top]],1,15,blue,glow);if(parallel&&!upperOff)pathDots([[l,upper],[r,upper]],.6,5,blue,glow);}
  if(style==='symbol'){line([[415,top],[518,top]]);line([[543,top],[645,top]]);}
  battery(530,top,style);
  if(parallel){lamp(530,upper,on&&!upperOff,style);lamp(530,lower,on,style);}else if(two){lamp(365,lower,on,style);lamp(685,lower,on,style);}else lamp(530,lower,on,style);
@@ -42,8 +42,8 @@ function circuit({parallel=false,two=true,on=true,upperOff=false,switchOpen=null
 }
 function inBox(x,y,s,fn){ctx.save();ctx.translate(x,y);ctx.scale(s,s);fn();ctx.restore();}
 function heading(s){text(s,530,43,29,muted);}
-function pumpScene(k,mode){ctx.drawImage(pump,24,0,1012,620);const moving=mode==='pump'?k>0:true;const fast=mode==='pressure'?k>=1:mode==='flow'?k>=2:false;const speed=fast?2.1:.8;
- if(moving){ctx.save();ctx.beginPath();ctx.arc(159,303,43,0,Math.PI*2);ctx.clip();ctx.translate(159,303);ctx.rotate(time*speed*1.2);ctx.drawImage(pump,24-159,-303,1012,620);ctx.restore();const pts=[[159,250],[159,151],[180,123],[217,113],[850,113],[901,149],[901,443],[860,480],[212,480],[159,446],[159,361]];pathDots(pts,speed,20,'#fcffff');}
+function pumpScene(k,mode,reverse=false){ctx.drawImage(pump,24,0,1012,620);const moving=mode==='pump'?k>0:true;const fast=mode==='pressure'?k>=1:mode==='flow'?k>=2:false;const speed=fast?2.1:.8;
+ if(moving){ctx.save();ctx.beginPath();ctx.arc(159,303,43,0,Math.PI*2);ctx.clip();ctx.translate(159,303);ctx.rotate(time*speed*1.2*(reverse?-1:1));ctx.drawImage(pump,24-159,-303,1012,620);ctx.restore();const pts=[[159,250],[159,151],[180,123],[217,113],[850,113],[901,149],[901,443],[860,480],[212,480],[159,446],[159,361]];pathDots(reverse?pts.reverse():pts,speed,20,'#fcffff');}
  if(mode==='flow'){line([[522,91],[522,137]],red,4);text('ここを通る量',525,194,28,red);text(k>=2?'同じ時間に、たくさん通る':'同じ時間に通る量を比べる',540,320,30);}
  if(mode==='pressure'){text(k>=1?'ポンプのはたらき：大':'ポンプのはたらき：小',540,263,32,blue);text('管は同じ',540,330,29,muted);}
 }
@@ -64,17 +64,17 @@ function render(canvas,k){ctx=canvas.getContext('2d');labels=[];ctx.clearRect(0,
  if(mode==='cover'){inBox(60,190,.93,()=>{circuit({two:false,on:true});});return;}
  ctx.fillStyle='#fff';ctx.fillRect(0,0,1060,620);
  if(['pump','flow','pressure'].includes(mode)){pumpScene(k,mode);}
- else if(mode==='bridge'){inBox(225,5,.58,()=>{pumpScene(1,'pump')});inBox(220,300,.58,()=>circuit({two:false,on:true,style:'real',flow:true,glow:true}));}
+ else if(mode==='bridge'){inBox(225,5,.58,()=>{pumpScene(1,'pump',true)});inBox(220,300,.58,()=>circuit({two:false,on:true,style:'real',flow:true,glow:true}));}
  else if(mode==='light'||mode==='break'){const on=mode==='light'?k>=1:k===0;circuit({two:false,on,switchOpen:!on});heading(on?'スイッチを閉じた回路':'スイッチを開いた回路');}
  else if(mode==='direction'){circuit({two:false,on:true,flow:k>=1,glow:true});heading('＋極から出て、−極へ戻る');}
- else if(mode==='current'){circuit({two:false,measurement:k>=3?'A':null});if(k<3)circle(230,430,12,blue);text('この場所を通る量',250,520,31,blue);}
- else if(mode==='voltage'){circuit({two:false,voltage:k>=3?'source':null});if(k<3){circle(400,120,8,red);circle(660,120,8,ink);}text('電池の両端',530,235,34,red);}
+ else if(mode==='current'){circuit({two:false,measurement:k===3?'A':null});if(k<3)circle(230,430,12,blue);if(k>=4){line([[145,250],[145,430],[380,430]],'#fff',10);inBox(40,260,.36,()=>meter('A',0));line([[145,250],[75,250],[75,410],[156,410]],red,4);line([[204,410],[204,490],[380,490],[380,430]],ink,4);}text('この場所を通る量',250,550,31,blue);}
+ else if(mode==='voltage'){circuit({two:false,voltage:k===3?'source':null});if(k>=4){inBox(500,180,.4,()=>meter('V',0));line([[400,120],[400,185],[575,185],[575,346],[629,346]],red,4);line([[660,120],[1020,120],[1020,470],[682,470],[682,346]],ink,4);circle(400,120,6,red);circle(660,120,6,ink);}if(k<3){circle(400,120,8,red);circle(660,120,8,ink);}text('電池の両端',k>=4?410:530,235,34,red);}
  else if(mode==='symbols'){symbols(k);}
  else if(mode==='diagram'){inBox(233,0,.56,()=>circuit({two:false}));inBox(233,310,.56,()=>circuit({two:false,style:'symbol'}));}
- else if(mode==='series'||mode==='parallel'){circuit({parallel:mode==='parallel',flow:k>0});heading(mode==='parallel'?'2つの道に枝分かれ':'枝分かれのない、一本道');}
+ else if(mode==='series'||mode==='parallel'){circuit({parallel:mode==='parallel',flow:k>0,glow:true});heading(mode==='parallel'?'2つの道に枝分かれ':'枝分かれのない、一本道');}
  else if(['compare_paths','summary','meters'].includes(mode)){const y=140;inBox(0,y,.5,()=>circuit({style:'symbol',measurement:mode==='meters'?'A':null,two:mode!=='meters'}));inBox(530,y,.5,()=>circuit({parallel:mode!=='meters',style:'symbol',two:mode!=='meters',voltage:mode==='meters'?'one':null}));text(mode==='meters'?'電流を測る':'枝分かれなし',265,495,31);text(mode==='meters'?'電圧を測る':'枝分かれあり',795,495,31);}
  else if(['ammeter','a_range','a_read','voltmeter','v_range','v_read'].includes(mode)){meter(mode.startsWith('v')?'V':'A',k,mode.endsWith('range'),mode.endsWith('read'));}
- else if(mode==='a_connect'){circuit({two:false,style:'symbol',measurement:k>=1?'A':null,flow:k>=2});text('電源＋極側',340,300,27,red);if(k>=1){text('＋',183,480,27,red);text('−',277,480,27);}}
+ else if(mode==='a_connect'){circuit({two:false,style:'symbol',measurement:k>=1?'A':null,flow:k>=2,glow:true});text('電源＋極側',340,300,27,red);if(k>=1){text('＋',183,480,27,red);text('−',277,480,27);}}
  else if(mode==='v_connect'){circuit({two:true,style:'symbol',voltage:k>=1?'one':null});if(k>=3){text('＋',315,575,27,red);text('−',415,575,27);}}
  else if(mode==='units'){text('1 A',280,235,81,red);text('1000 mA',780,235,69,red);line([[450,235],[543,235]],muted,3);arrow(552,235,0,muted);if(k>=2)text('200 mA = 0.20 A',530,376,43);if(k>=3)text('0.35 A = 350 mA',530,465,43);}
  else if(mode==='series_i'){circuit({points:true,measurement:k?['A','B','C','C'][Math.min(k-1,3)]:null});heading(k>0?'電流計を移して、同じ回路を測る':'A・B・Cで電流を比べる');}
