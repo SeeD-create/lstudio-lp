@@ -27,3 +27,5 @@
 .projection-caption{font-size:25px;line-height:1.4;font-weight:700;text-align:center;margin:5px 0}
 .revised-lens .lens-info strong{font-size:29px}.revised-lens .lens-info{min-height:105px}
 .reflection-canvas{object-fit:contain}
+
+.added-optics{padding:0;background:#fbfaf6}.added-optics canvas{display:block;width:100%;height:100%;object-fit:contain}
