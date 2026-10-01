@@ -13,12 +13,19 @@ function symbol(type,x,y,scale=1,open=false){ctx.save();ctx.translate(x,y);ctx.s
 function lamp(x,y,on=true,style='real',dim=false){if(style==='symbol'){symbol('lamp',x,y);return;}ctx.save();if(dim){pic('off',x-83,y-106,166,160);ctx.globalAlpha=.32;}pic(on?'on':'off',x-83,y-106,166,160);ctx.restore();line([[x-84,y],[x-63,y]],ink,4);line([[x+63,y],[x+84,y]],ink,4);}
 function battery(x,y,style='real'){if(style==='symbol')symbol('battery',x,y);else{pic('battery',x-115,y-54,230,98);line([[x-116,y],[x-102,y]],ink,4);line([[x+102,y],[x+116,y]],ink,4);}}
 function switchAt(x,y,open,style='real',scale=1){if(style==='symbol'){symbol('switch',x,y,1,open);return;}ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);pic(open?'open':'closed',-66,open?-82:-33,132,open?101:74);line([[-67,0],[-43,0]],ink,4);line([[43,0],[67,0]],ink,4);ctx.restore();}
-function pathDots(points,speed=1,count=16,color=blue){let lengths=[],total=0;for(let i=1;i<points.length;i++){const l=Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]);lengths.push(l);total+=l;}for(let j=0;j<count;j++){let d=(j*total/count+time*speed*65)%total;let i=0;while(d>lengths[i]&&i<lengths.length-1){d-=lengths[i++];}const a=points[i],b=points[i+1],f=d/lengths[i];arrow(a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,Math.atan2(b[1]-a[1],b[0]-a[0]),color,9);}}
-function circuit({parallel=false,two=true,on=true,upperOff=false,switchOpen=null,style='real',flow=false,points=false,lower=430,upper=270,measurement=null,voltage=null}={}){
+function lightOrb(x,y){
+ ctx.save();
+ const halo=ctx.createRadialGradient(x,y,3,x,y,30);
+ halo.addColorStop(0,'rgba(255,255,235,1)');halo.addColorStop(.38,'rgba(255,223,100,.95)');halo.addColorStop(.65,'rgba(255,191,43,.38)');halo.addColorStop(1,'rgba(255,181,30,0)');
+ circle(x,y,30,halo);circle(x,y,14,'#ffe189');circle(x,y,9,'#fffef1');
+ ctx.restore();
+}
+function pathDots(points,speed=1,count=16,color=blue,glow=false){let lengths=[],total=0;for(let i=1;i<points.length;i++){const l=Math.hypot(points[i][0]-points[i-1][0],points[i][1]-points[i-1][1]);lengths.push(l);total+=l;}for(let j=0;j<count;j++){let d=(j*total/count+time*speed*65)%total;let i=0;while(d>lengths[i]&&i<lengths.length-1){d-=lengths[i++];}const a=points[i],b=points[i+1],f=d/lengths[i];const x=a[0]+(b[0]-a[0])*f,y=a[1]+(b[1]-a[1])*f;if(glow)lightOrb(x,y);else arrow(x,y,Math.atan2(b[1]-a[1],b[0]-a[0]),color,9);}}
+function circuit({parallel=false,two=true,on=true,upperOff=false,switchOpen=null,style='real',flow=false,glow=false,points=false,lower=430,upper=270,measurement=null,voltage=null}={}){
  const l=145,r=915,top=120;
  line([[415,top],[l,top],[l,lower],[r,lower],[r,top],[645,top]]);
  if(parallel){line([[l,upper],[r,upper]]);circle(l,upper,7,ink);circle(r,upper,7,ink);}
- if(flow&&on){pathDots([[415,top],[l,top],[l,lower],[r,lower],[r,top],[645,top]],1,15);if(parallel&&!upperOff)pathDots([[l,upper],[r,upper]],.6,5);}
+ if(flow&&on){pathDots([[415,top],[l,top],[l,lower],[r,lower],[r,top],[645,top]],1,15,blue,glow);if(parallel&&!upperOff)pathDots([[l,upper],[r,upper]],.6,5);}
  if(style==='symbol'){line([[415,top],[518,top]]);line([[543,top],[645,top]]);}
  battery(530,top,style);
  if(parallel){lamp(530,upper,on&&!upperOff,style);lamp(530,lower,on,style);}else if(two){lamp(365,lower,on,style);lamp(685,lower,on,style);}else lamp(530,lower,on,style);
@@ -57,9 +64,9 @@ function render(canvas,k){ctx=canvas.getContext('2d');labels=[];ctx.clearRect(0,
  if(mode==='cover'){inBox(60,190,.93,()=>{circuit({two:false,on:true});});return;}
  ctx.fillStyle='#fff';ctx.fillRect(0,0,1060,620);
  if(['pump','flow','pressure'].includes(mode)){pumpScene(k,mode);}
- else if(mode==='bridge'){inBox(225,5,.58,()=>{pumpScene(1,'pump')});inBox(220,300,.58,()=>circuit({two:false,on:true,style:'real'}));}
+ else if(mode==='bridge'){inBox(225,5,.58,()=>{pumpScene(1,'pump')});inBox(220,300,.58,()=>circuit({two:false,on:true,style:'real',flow:true,glow:true}));}
  else if(mode==='light'||mode==='break'){const on=mode==='light'?k>=1:k===0;circuit({two:false,on,switchOpen:!on});heading(on?'スイッチを閉じた回路':'スイッチを開いた回路');}
- else if(mode==='direction'){circuit({two:false,on:true,flow:k>=1});heading('＋極から出て、−極へ戻る');}
+ else if(mode==='direction'){circuit({two:false,on:true,flow:k>=1,glow:true});heading('＋極から出て、−極へ戻る');}
  else if(mode==='current'){circuit({two:false,measurement:k>=3?'A':null});if(k<3)circle(230,430,12,blue);text('この場所を通る量',250,520,31,blue);}
  else if(mode==='voltage'){circuit({two:false,voltage:k>=3?'source':null});if(k<3){circle(400,120,8,red);circle(660,120,8,ink);}text('電池の両端',530,235,34,red);}
  else if(mode==='symbols'){symbols(k);}
