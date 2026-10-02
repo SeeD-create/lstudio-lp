@@ -5,7 +5,7 @@
    nav.js の契約（.seed-stage / .seed-slide[data-step] / .seed-progress__dot）は維持。
    ============================================================ */
 
-@import url('./fonts/fonts.css'); /* ローカル化済み（旧: Google Fonts CDN。ネット不通でもレンダリング可・8/2タネオ） */
+@import url('../06_denryu_kairo/fonts/fonts.css'); /* ローカル化済み（旧: Google Fonts CDN。ネット不通でもレンダリング可・8/2タネオ） */
 
 :root {
   /* 紙と墨（モノトーン＝グレースケール） */
