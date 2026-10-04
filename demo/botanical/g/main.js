@@ -30,7 +30,13 @@
 
   
   const lineURL = validURL(config.LINE_URL, 'line');
-  const notes = [...document.querySelectorAll('#line-status, #line-status-2')];
+  const notes = [...document.querySelectorAll('#line-status, #line-status-2, #line-status-3')];
+  
+  const sayNear = (el, text) => {
+    const near = el.closest('.sticky, .hero-copy, .signup-grid > div, .signup') || document;
+    const own = near.querySelector('.status');
+    (own ? [own] : notes).forEach(n => { n.textContent = text; });
+  };
   document.querySelectorAll('[data-line-action]').forEach(link => {
     if (lineURL) {
       link.href = lineURL;
@@ -40,7 +46,22 @@
     link.setAttribute('aria-disabled', 'true');
     link.addEventListener('click', event => {
       event.preventDefault();
-      notes.forEach(n => { n.textContent = '公式LINEは準備中です。もうしばらくお待ちください。'; });
+      sayNear(link, '公式LINEは準備中です。もうしばらくお待ちください。');
+    });
+  });
+
+  
+  const consultURL = validURL(config.CONSULT_URL);
+  document.querySelectorAll('[data-consult-action]').forEach(link => {
+    if (consultURL) {
+      link.href = consultURL;
+      link.removeAttribute('aria-disabled');
+      return;
+    }
+    link.setAttribute('aria-disabled', 'true');
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      sayNear(link, '無料個別相談の受付は準備中です。もうしばらくお待ちください。');
     });
   });
 
@@ -77,6 +98,9 @@
       sticky.style.transform = passed ? 'none' : 'translateY(110%)';
       sticky.style.opacity = passed ? '1' : '0';
       sticky.style.pointerEvents = passed ? '' : 'none';
+      
+      sticky.inert = !passed;
+      if (!('inert' in sticky)) sticky.setAttribute('aria-hidden', passed ? 'false' : 'true');
     };
     update();
     addEventListener('scroll', update, { passive: true });
@@ -121,34 +145,51 @@
     };
     const drop = mk('drop', '<span class="bead"></span><span class="spec"></span><span class="spec2"></span>');
     const bead = mk('dropb', '<span class="bead"></span>');
-    document.documentElement.classList.add('drop-on');
 
     let mx = innerWidth / 2, my = innerHeight / 2;
-    let x = mx, y = my, px = x, py = y, bx = x, by = y, shown = false;
-    let on = false;
-    const show = v => { on = v !== '0'; drop.style.opacity = v; if (!on) bead.style.opacity = '0'; };
-    addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      if (!shown) { x = bx = mx; y = by = my; shown = true; show('1'); }
-    }, { passive: true });
-    addEventListener('mouseleave', () => show('0'));
-    addEventListener('mouseenter', () => { if (shown) show('1'); });
+    let x = mx, y = my, px = x, py = y, bx = x, by = y;
+    let shown = false, running = false, idle = 0;
 
-    const tick = () => {
-      x += (mx - x) * 0.22; y += (my - y) * 0.22;
-      bx += (x - bx) * 0.12; by += (y - by) * 0.12;
+    const loop = () => {
+      
+      x += (mx - x) * 0.45; y += (my - y) * 0.45;
+      bx += (x - bx) * 0.16; by += (y - by) * 0.16;
       const vx = x - px, vy = y - py; px = x; py = y;
       const v = Math.min(Math.hypot(vx, vy), 28);
-      const stretch = 1 + v / 40;
-      const squash = 1 - v / 70;
       const deg = v > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI + 90 : 0;
-      drop.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' + deg + 'deg) scale(' + squash + ',' + stretch + ')';
+      drop.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' + deg + 'deg) scale('
+        + (1 - v / 70) + ',' + (1 + v / 40) + ')';
       bead.style.transform = 'translate3d(' + bx + 'px,' + by + 'px,0) scale(' + (0.7 + v / 34) + ')';
+      bead.style.opacity = shown ? String(Math.min(0.6, v / 13)) : '0';
       
-      bead.style.opacity = on ? String(Math.min(0.6, v / 13)) : '0';
-      requestAnimationFrame(tick);
+      const settled = v < 0.12 && Math.hypot(mx - x, my - y) < 0.4 && Math.hypot(x - bx, y - by) < 0.4;
+      idle = settled ? idle + 1 : 0;
+      if (idle > 6) { running = false; return; }
+      requestAnimationFrame(loop);
     };
-    requestAnimationFrame(tick);
+    const start = () => { if (!running) { running = true; idle = 0; requestAnimationFrame(loop); } };
+
+    addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      if (!shown) {
+        
+        x = bx = mx; y = by = my; shown = true;
+        document.documentElement.classList.add('drop-on');
+        drop.style.opacity = '1';
+      }
+      start();
+    }, { passive: true });
+    addEventListener('mouseleave', () => {
+      drop.style.opacity = '0'; bead.style.opacity = '0';
+      document.documentElement.classList.remove('drop-on');
+      running = false;
+    });
+    addEventListener('mouseenter', () => {
+      if (!shown) return;
+      document.documentElement.classList.add('drop-on');
+      drop.style.opacity = '1'; start();
+    });
+    addEventListener('blur', () => { document.documentElement.classList.remove('drop-on'); running = false; });
 
     
     addEventListener('pointerdown', e => {
@@ -172,6 +213,7 @@
       }
       document.body.appendChild(s);
       setTimeout(() => s.remove(), 800);
+      start();
       drop.animate(
         [{ transform: drop.style.transform + ' scale(1)' },
          { transform: drop.style.transform + ' scale(1.5,.55)' },

@@ -49,8 +49,6 @@ var TRACKING_ENABLED = false;
     vf.setAttribute("tabindex", "0");
     vf.setAttribute("aria-label", "講座説明動画を再生する");
     var play = function () {
-      // 2026-08-11 C案用：再生を押したことをCSSへ伝える（LINE導線を再生後に出すため）。
-      // A案・B案には対応するCSSが無いので影響なし。
       vf.classList.add("tapped");
       if (!VIMEO_ID) {
         var n = vf.parentNode.querySelector(".vnote");
@@ -86,9 +84,6 @@ var TRACKING_ENABLED = false;
     if (!a) return;
     var pos = a.getAttribute("data-cta") || "unknown";
     var kind = a.getAttribute("data-act") || "";   // line / movie
-    // ⚠️ 2026-09-02 付け替え：CTAクリックは Lead ではなく ClickLINE（カスタムイベント）。
-    //    Lead は「実際の登録」用に温存する（クリックにLeadを付けたままAdvantage+を回すと
-    //    「クリックしただけの人」に最適化される誤学習の既知バグ＝docs/18の指摘）。
     lpTrack("trackCustom", "ClickLINE",
             { content_name: pos, lp_variant: variant, cta_type: kind },
             "line_friend_add",
@@ -113,7 +108,6 @@ var TRACKING_ENABLED = false;
   } else {
     for (var k = 0; k < targets.length; k++) targets[k].classList.add("in");
   }
-  // 保険：何かの理由で監視が働かなくても、本文が消えたままにならないようにする
   setTimeout(function () {
     for (var n = 0; n < targets.length; n++) targets[n].classList.add("in");
   }, 2500);
