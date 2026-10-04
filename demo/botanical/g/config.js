@@ -1,4 +1,5 @@
- 
+
+
 window.G_CONFIG = Object.freeze({
   LINE_URL: "",
   VIMEO_ID: "",

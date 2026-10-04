@@ -50,7 +50,8 @@
     });
   });
 
-   
+  
+
   const consultURL = validURL(config.CONSULT_URL);
   document.querySelectorAll('[data-consult-action]').forEach(link => {
     if (consultURL) {
@@ -99,7 +100,8 @@
       sticky.style.transform = passed ? 'none' : 'translateY(110%)';
       sticky.style.opacity = passed ? '1' : '0';
       sticky.style.pointerEvents = passed ? '' : 'none';
-       
+      
+
       if (hasInert) {
         sticky.inert = !passed;
       } else {
@@ -158,7 +160,8 @@
 
     const loop = () => {
       if (!running) { raf = 0; return; }
-       
+      
+
       x += (mx - x) * 0.45; y += (my - y) * 0.45;
       bx += (x - bx) * 0.16; by += (y - by) * 0.16;
       const vx = x - px, vy = y - py; px = x; py = y;

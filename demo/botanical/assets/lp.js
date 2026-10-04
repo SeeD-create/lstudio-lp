@@ -1,22 +1,26 @@
- 
+
+
 
 var LINE_URL = "https://lin.ee/XXXXXXX";  
 var VIMEO_ID = "";                        
 
- 
+
+
 var TRACKING_ENABLED = false;
 
 (function () {
   "use strict";
 
-   
+  
+
   function lpTrack(fbType, fbName, fbParams, gaName, gaParams) {
     if (!TRACKING_ENABLED) return;
     if (typeof window.fbq === "function" && fbName) window.fbq(fbType, fbName, fbParams);
     if (typeof window.gtag === "function" && gaName) window.gtag("event", gaName, gaParams || fbParams);
   }
 
-   
+  
+
   var variant = (document.body.getAttribute("data-lp-variant") || "a").toLowerCase();
   var q = (location.search.match(/[?&]v=([a-z0-9]+)/i) || [])[1];
   if (q) variant = q.toLowerCase();
@@ -42,7 +46,8 @@ var TRACKING_ENABLED = false;
     btns[i].setAttribute("href", LINE_URL);
   }
 
-   
+  
+
   var vf = document.querySelector(".vframe");
   if (vf) {
     vf.setAttribute("role", "button");

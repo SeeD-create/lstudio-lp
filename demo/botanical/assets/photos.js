@@ -1,4 +1,5 @@
- 
+
+
 
 var PHOTO_DIR = "img/photo/";    
 
@@ -12,7 +13,8 @@ var PHOTOS = {
   "03_extracts_wide"    : "03_extracts_wide.jpg",      
   "04_blending"         : "04_blending.jpg",           
   "05_hirao_labo"       : "05_hirao_labo.jpg",         
-   
+  
+
   "05_hirao_labo_learn" : "05_hirao_labo_learn.jpg",   
   "06_products"         : "06_products.jpg",           
   "07_club"             : "07_club.jpg",               
@@ -22,7 +24,8 @@ var PHOTOS = {
   "10_kouza"            : "10_kouza.jpg",              
   "10_kouza_wide"       : "10_kouza_wide.jpg",         
 
-   
+  
+
   "01_counseling_hero"  : "01_counseling_hero.jpg",    
   "10_kouza_hero"       : "10_kouza_hero.jpg",         
   "11_lab_research"     : "11_lab_research.jpg",       
@@ -31,7 +34,8 @@ var PHOTOS = {
    
   "video_thumb"         : "video_thumb.jpg",
 
-   
+  
+
   "c_hero"              : "c6_hero.jpg",           
   "c_worry"             : "c8_worry.jpg",          
   "c_lesson"            : "c9_lesson.jpg",         
@@ -47,13 +51,15 @@ var PHOTOS = {
   "c_voice_c"           : "c15_voice_c.jpg"
 };
 
- 
+
+
 (function () {
   "use strict";
   var me = document.currentScript;
   var base = (me && me.src ? me.src.replace(/[?#].*$/, "").replace(/photos\.js$/, "") : "assets/");
 
-   
+  
+
   function applyPc() {
     var els = document.querySelectorAll("[data-photo-slot-pc]");
     var css = "";

@@ -33,7 +33,8 @@
   }
   connect('[data-line-action]', config.LINE_URL, 'line-status', '講座用の公式LINEへ進みます。', 'line');
 
-   
+  
+
   const vid = String(config.VIMEO_ID || '').replace(/\D/g, '');
   const frame = document.getElementById('movie-frame');
   const movieStatus = document.getElementById('movie-status');
