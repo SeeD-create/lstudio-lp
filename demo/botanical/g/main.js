@@ -106,4 +106,78 @@
   } else {
     document.querySelectorAll(MOVING).forEach(el => el.classList.add('in'));
   }
+
+  
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (fine && !still) {
+    const mk = (id, cls) => {
+      const el = document.createElement('div');
+      el.id = id; el.setAttribute('aria-hidden', 'true');
+      el.innerHTML = cls;
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      return el;
+    };
+    const drop = mk('drop', '<span class="bead"></span><span class="spec"></span><span class="spec2"></span>');
+    const bead = mk('dropb', '<span class="bead"></span>');
+    document.documentElement.classList.add('drop-on');
+
+    let mx = innerWidth / 2, my = innerHeight / 2;
+    let x = mx, y = my, px = x, py = y, bx = x, by = y, shown = false;
+    let on = false;
+    const show = v => { on = v !== '0'; drop.style.opacity = v; if (!on) bead.style.opacity = '0'; };
+    addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      if (!shown) { x = bx = mx; y = by = my; shown = true; show('1'); }
+    }, { passive: true });
+    addEventListener('mouseleave', () => show('0'));
+    addEventListener('mouseenter', () => { if (shown) show('1'); });
+
+    const tick = () => {
+      x += (mx - x) * 0.22; y += (my - y) * 0.22;
+      bx += (x - bx) * 0.12; by += (y - by) * 0.12;
+      const vx = x - px, vy = y - py; px = x; py = y;
+      const v = Math.min(Math.hypot(vx, vy), 28);
+      const stretch = 1 + v / 40;
+      const squash = 1 - v / 70;
+      const deg = v > 0.6 ? Math.atan2(vy, vx) * 180 / Math.PI + 90 : 0;
+      drop.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) rotate(' + deg + 'deg) scale(' + squash + ',' + stretch + ')';
+      bead.style.transform = 'translate3d(' + bx + 'px,' + by + 'px,0) scale(' + (0.7 + v / 34) + ')';
+      
+      bead.style.opacity = on ? String(Math.min(0.6, v / 13)) : '0';
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+
+    
+    addEventListener('pointerdown', e => {
+      if (e.pointerType !== 'mouse') return;
+      const s = document.createElement('div');
+      s.className = 'splash';
+      s.style.transform = 'translate3d(' + e.clientX + 'px,' + e.clientY + 'px,0)';
+      s.appendChild(document.createElement('b'));
+      const n = 8;
+      for (let i = 0; i < n; i++) {
+        const a = (Math.PI * 2 * i) / n + Math.random() * 0.45;
+        const d = 18 + Math.random() * 22;
+        const r = 2.6 + Math.random() * 3.4;
+        const b = document.createElement('i');
+        b.style.width = b.style.height = r * 2 + 'px';
+        b.style.margin = -r + 'px 0 0 ' + -r + 'px';
+        b.style.setProperty('--x', Math.cos(a) * d + 'px');
+        b.style.setProperty('--y', Math.sin(a) * d + 'px');
+        b.style.animationDelay = Math.random() * 45 + 'ms';
+        s.appendChild(b);
+      }
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 800);
+      drop.animate(
+        [{ transform: drop.style.transform + ' scale(1)' },
+         { transform: drop.style.transform + ' scale(1.5,.55)' },
+         { transform: drop.style.transform + ' scale(1)' }],
+        { duration: 340, easing: 'cubic-bezier(.2,1.5,.4,1)' });
+    }, { passive: true });
+  }
+
 })();
