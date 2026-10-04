@@ -1,4 +1,4 @@
-﻿/* E案専用。先方案内のメール登録フォームURLを設定する。未設定時に登録や再生の成功を装わない。 */
+﻿
 const REGISTRATION_URL = "";
 const registerLink = document.querySelector('.register-link');
 if (REGISTRATION_URL) {

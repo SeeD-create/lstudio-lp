@@ -1,36 +1,22 @@
-/* =========================================================
-   ボタニカルビューティデザイナー養成講座 LP  共通スクリプト
-   Lスタジオ 2026-08
-   ---------------------------------------------------------
-   ★ LINE登録URLはここ1か所だけ直せば全ボタンに反映されます。
-   ========================================================= */
+
 
 var LINE_URL = "https://lin.ee/XXXXXXX"; // ←★講座用LINE公式の友だち追加URLに差し替え
 var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だけ。例: "123456789"）
 
-/* ★計測（Meta Pixel / GA4）のマスタースイッチ -----------------------------
-   2026-09-02 先方回答＝保守のみ契約（計測は今回見送り）につき false で無効化。
-   ・false のあいだ、計測イベント（LPView / ViewContent / ClickLINE …）は一切飛ばない
-   ・<head> のピクセルタグ（現在コメントアウト中）を誤って有効化しても、
-     ここが false なら送信されない＝二重ロック
-   ・再有効化の手順は README.md「計測（Meta広告）の再有効化手順」を見る */
+
 var TRACKING_ENABLED = false;
 
 (function () {
   "use strict";
 
-  /* 計測の一本口。fbq / gtag への送信は必ずここを通す（個別に直接呼ばない）。
-     TRACKING_ENABLED=false なら何もしない。タグ未設置（fbq/gtag未定義）でも安全 */
+  
   function lpTrack(fbType, fbName, fbParams, gaName, gaParams) {
     if (!TRACKING_ENABLED) return;
     if (typeof window.fbq === "function" && fbName) window.fbq(fbType, fbName, fbParams);
     if (typeof window.gtag === "function" && gaName) window.gtag("event", gaName, gaParams || fbParams);
   }
 
-  /* 0) A/Bパターンの判定 -------------------------------------------
-     ・各HTMLの <body data-lp-variant="a"> / "b" が既定値
-     ・URLに ?v=a / ?v=b が付いていれば、そちらを優先（広告側で付けられる）
-     判定結果は、下のCTA計測イベントに lp_variant として必ず乗ります。 */
+  
   var variant = (document.body.getAttribute("data-lp-variant") || "a").toLowerCase();
   var q = (location.search.match(/[?&]v=([a-z0-9]+)/i) || [])[1];
   if (q) variant = q.toLowerCase();
@@ -39,7 +25,7 @@ var TRACKING_ENABLED = false;
   try { sessionStorage.setItem("lp_variant", variant); } catch (e) {}
   lpTrack("trackCustom", "LPView", { lp_variant: variant }, "lp_view");
 
-  /* 0-2) ページ内リンクにも ?v= を引き継ぐ（A↔B切替・法務ページ） */
+  
   if (q) {
     var inner = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="http"]):not([data-act="line"])');
     for (var z = 0; z < inner.length; z++) {
@@ -50,14 +36,13 @@ var TRACKING_ENABLED = false;
     }
   }
 
-  /* 1) LINE URL を「LINEへ行くボタン」だけに流し込む ---------------- */
+  
   var btns = document.querySelectorAll('[data-act="line"]');
   for (var i = 0; i < btns.length; i++) {
     btns[i].setAttribute("href", LINE_URL);
   }
 
-  /* 1-2) 動画：サムネをクリックしたらVimeoを読み込んで再生 ---------
-     最初からiframeを置かないのは、ページの表示を重くしないため。 */
+  
   var vf = document.querySelector(".vframe");
   if (vf) {
     vf.setAttribute("role", "button");
@@ -95,7 +80,7 @@ var TRACKING_ENABLED = false;
     });
   }
 
-  /* 2) CTAクリック計測（広告の最適化に使う） ----------------------- */
+  
   document.addEventListener("click", function (e) {
     var a = e.target.closest ? e.target.closest("[data-cta]") : null;
     if (!a) return;
@@ -110,7 +95,7 @@ var TRACKING_ENABLED = false;
             { cta_position: pos, lp_variant: variant, cta_type: kind });
   });
 
-  /* 3) スクロールで出現 -------------------------------------------- */
+  
   var targets = document.querySelectorAll(".rv");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(
@@ -133,7 +118,7 @@ var TRACKING_ENABLED = false;
     for (var n = 0; n < targets.length; n++) targets[n].classList.add("in");
   }, 2500);
 
-  /* 4) 固定CTAバー（ファーストビューを抜けたら出す / フッター手前で引っ込める） */
+  
   var sticky = document.querySelector(".sticky");
   var hero = document.querySelector(".hero") || document.querySelector(".bhero");
   var lastCta = document.querySelector("#cta-last");
@@ -153,7 +138,7 @@ var TRACKING_ENABLED = false;
     onScroll();
   }
 
-  /* 5) FAQ：ひとつ開いたら他は閉じる ------------------------------- */
+  
   var ds = document.querySelectorAll(".faq details");
   for (var m = 0; m < ds.length; m++) {
     ds[m].addEventListener("toggle", function () {
