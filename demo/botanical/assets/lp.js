@@ -1,7 +1,7 @@
 
 
-var LINE_URL = "https://lin.ee/XXXXXXX"; // ←★講座用LINE公式の友だち追加URLに差し替え
-var VIMEO_ID = "";                       // ←★Vimeoの動画ID（数字だけ。例: "123456789"）
+var LINE_URL = "https://lin.ee/XXXXXXX"; 
+var VIMEO_ID = "";                       
 
 
 var TRACKING_ENABLED = false;
@@ -49,6 +49,8 @@ var TRACKING_ENABLED = false;
     vf.setAttribute("tabindex", "0");
     vf.setAttribute("aria-label", "講座説明動画を再生する");
     var play = function () {
+      
+      
       vf.classList.add("tapped");
       if (!VIMEO_ID) {
         var n = vf.parentNode.querySelector(".vnote");
@@ -83,7 +85,10 @@ var TRACKING_ENABLED = false;
     var a = e.target.closest ? e.target.closest("[data-cta]") : null;
     if (!a) return;
     var pos = a.getAttribute("data-cta") || "unknown";
-    var kind = a.getAttribute("data-act") || "";   // line / movie
+    var kind = a.getAttribute("data-act") || "";   
+    
+    
+    
     lpTrack("trackCustom", "ClickLINE",
             { content_name: pos, lp_variant: variant, cta_type: kind },
             "line_friend_add",
@@ -108,6 +113,7 @@ var TRACKING_ENABLED = false;
   } else {
     for (var k = 0; k < targets.length; k++) targets[k].classList.add("in");
   }
+  
   setTimeout(function () {
     for (var n = 0; n < targets.length; n++) targets[n].classList.add("in");
   }, 2500);

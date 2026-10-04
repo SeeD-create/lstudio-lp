@@ -91,6 +91,7 @@
   
   const sticky = document.querySelector('.sticky');
   const heroCta = document.querySelector('.hero-copy .actions');
+  const hasInert = 'inert' in HTMLElement.prototype;
   if (sticky && heroCta) {
     sticky.style.transition = 'transform .25s ease, opacity .25s ease';
     const update = () => {
@@ -99,8 +100,13 @@
       sticky.style.opacity = passed ? '1' : '0';
       sticky.style.pointerEvents = passed ? '' : 'none';
       
-      sticky.inert = !passed;
-      if (!('inert' in sticky)) sticky.setAttribute('aria-hidden', passed ? 'false' : 'true');
+      if (hasInert) {
+        sticky.inert = !passed;
+      } else {
+        sticky.setAttribute('aria-hidden', passed ? 'false' : 'true');
+        
+        sticky.style.visibility = passed ? 'visible' : 'hidden';
+      }
     };
     update();
     addEventListener('scroll', update, { passive: true });
@@ -148,9 +154,10 @@
 
     let mx = innerWidth / 2, my = innerHeight / 2;
     let x = mx, y = my, px = x, py = y, bx = x, by = y;
-    let shown = false, running = false, idle = 0;
+    let shown = false, running = false, idle = 0, raf = 0;
 
     const loop = () => {
+      if (!running) { raf = 0; return; }
       
       x += (mx - x) * 0.45; y += (my - y) * 0.45;
       bx += (x - bx) * 0.16; by += (y - by) * 0.16;
@@ -164,32 +171,38 @@
       
       const settled = v < 0.12 && Math.hypot(mx - x, my - y) < 0.4 && Math.hypot(x - bx, y - by) < 0.4;
       idle = settled ? idle + 1 : 0;
-      if (idle > 6) { running = false; return; }
-      requestAnimationFrame(loop);
+      if (idle > 6) { stop(); return; }
+      raf = requestAnimationFrame(loop);
     };
-    const start = () => { if (!running) { running = true; idle = 0; requestAnimationFrame(loop); } };
+    
+    function stop() {
+      running = false;
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    }
+    const start = () => { if (!running) { running = true; idle = 0; raf = requestAnimationFrame(loop); } };
 
+    const wake = () => {
+      
+      document.documentElement.classList.add('drop-on');
+      drop.style.opacity = '1';
+      start();
+    };
     addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
       if (!shown) {
         
         x = bx = mx; y = by = my; shown = true;
-        document.documentElement.classList.add('drop-on');
-        drop.style.opacity = '1';
       }
-      start();
+      wake();
     }, { passive: true });
-    addEventListener('mouseleave', () => {
+    const sleep = () => {
       drop.style.opacity = '0'; bead.style.opacity = '0';
       document.documentElement.classList.remove('drop-on');
-      running = false;
-    });
-    addEventListener('mouseenter', () => {
-      if (!shown) return;
-      document.documentElement.classList.add('drop-on');
-      drop.style.opacity = '1'; start();
-    });
-    addEventListener('blur', () => { document.documentElement.classList.remove('drop-on'); running = false; });
+      stop();
+    };
+    addEventListener('mouseleave', sleep);
+    addEventListener('blur', sleep);
+    addEventListener('mouseenter', () => { if (shown) wake(); });
 
     
     addEventListener('pointerdown', e => {
