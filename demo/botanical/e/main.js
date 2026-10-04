@@ -1,4 +1,4 @@
-﻿
+﻿ 
 const REGISTRATION_URL = "";
 const registerLink = document.querySelector('.register-link');
 if (REGISTRATION_URL) {

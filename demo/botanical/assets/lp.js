@@ -1,22 +1,22 @@
+ 
 
+var LINE_URL = "https://lin.ee/XXXXXXX";  
+var VIMEO_ID = "";                        
 
-var LINE_URL = "https://lin.ee/XXXXXXX"; 
-var VIMEO_ID = "";                       
-
-
+ 
 var TRACKING_ENABLED = false;
 
 (function () {
   "use strict";
 
-  
+   
   function lpTrack(fbType, fbName, fbParams, gaName, gaParams) {
     if (!TRACKING_ENABLED) return;
     if (typeof window.fbq === "function" && fbName) window.fbq(fbType, fbName, fbParams);
     if (typeof window.gtag === "function" && gaName) window.gtag("event", gaName, gaParams || fbParams);
   }
 
-  
+   
   var variant = (document.body.getAttribute("data-lp-variant") || "a").toLowerCase();
   var q = (location.search.match(/[?&]v=([a-z0-9]+)/i) || [])[1];
   if (q) variant = q.toLowerCase();
@@ -25,7 +25,7 @@ var TRACKING_ENABLED = false;
   try { sessionStorage.setItem("lp_variant", variant); } catch (e) {}
   lpTrack("trackCustom", "LPView", { lp_variant: variant }, "lp_view");
 
-  
+   
   if (q) {
     var inner = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="http"]):not([data-act="line"])');
     for (var z = 0; z < inner.length; z++) {
@@ -36,21 +36,21 @@ var TRACKING_ENABLED = false;
     }
   }
 
-  
+   
   var btns = document.querySelectorAll('[data-act="line"]');
   for (var i = 0; i < btns.length; i++) {
     btns[i].setAttribute("href", LINE_URL);
   }
 
-  
+   
   var vf = document.querySelector(".vframe");
   if (vf) {
     vf.setAttribute("role", "button");
     vf.setAttribute("tabindex", "0");
     vf.setAttribute("aria-label", "講座説明動画を再生する");
     var play = function () {
-      
-      
+       
+       
       vf.classList.add("tapped");
       if (!VIMEO_ID) {
         var n = vf.parentNode.querySelector(".vnote");
@@ -80,22 +80,22 @@ var TRACKING_ENABLED = false;
     });
   }
 
-  
+   
   document.addEventListener("click", function (e) {
     var a = e.target.closest ? e.target.closest("[data-cta]") : null;
     if (!a) return;
     var pos = a.getAttribute("data-cta") || "unknown";
-    var kind = a.getAttribute("data-act") || "";   
-    
-    
-    
+    var kind = a.getAttribute("data-act") || "";    
+     
+     
+     
     lpTrack("trackCustom", "ClickLINE",
             { content_name: pos, lp_variant: variant, cta_type: kind },
             "line_friend_add",
             { cta_position: pos, lp_variant: variant, cta_type: kind });
   });
 
-  
+   
   var targets = document.querySelectorAll(".rv");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(
@@ -113,12 +113,12 @@ var TRACKING_ENABLED = false;
   } else {
     for (var k = 0; k < targets.length; k++) targets[k].classList.add("in");
   }
-  
+   
   setTimeout(function () {
     for (var n = 0; n < targets.length; n++) targets[n].classList.add("in");
   }, 2500);
 
-  
+   
   var sticky = document.querySelector(".sticky");
   var hero = document.querySelector(".hero") || document.querySelector(".bhero");
   var lastCta = document.querySelector("#cta-last");
@@ -138,7 +138,7 @@ var TRACKING_ENABLED = false;
     onScroll();
   }
 
-  
+   
   var ds = document.querySelectorAll(".faq details");
   for (var m = 0; m < ds.length; m++) {
     ds[m].addEventListener("toggle", function () {

@@ -13,7 +13,7 @@
   }
 
 
-  
+   
   const burger = document.querySelector('.burger');
   const menu = document.getElementById('menu');
   if (burger && menu) {
@@ -28,10 +28,10 @@
     addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   }
 
-  
+   
   const lineURL = validURL(config.LINE_URL, 'line');
   const notes = [...document.querySelectorAll('#line-status, #line-status-2, #line-status-3')];
-  
+   
   const sayNear = (el, text) => {
     const near = el.closest('.sticky, .hero-copy, .signup-grid > div, .signup') || document;
     const own = near.querySelector('.status');
@@ -50,7 +50,7 @@
     });
   });
 
-  
+   
   const consultURL = validURL(config.CONSULT_URL);
   document.querySelectorAll('[data-consult-action]').forEach(link => {
     if (consultURL) {
@@ -65,7 +65,7 @@
     });
   });
 
-  
+   
   const vimeo = String(config.VIMEO_ID || '').trim();
   const frame = document.getElementById('movie-frame');
   const movieNote = document.getElementById('movie-status');
@@ -88,7 +88,7 @@
   });
 
 
-  
+   
   const sticky = document.querySelector('.sticky');
   const heroCta = document.querySelector('.hero-copy .actions');
   const hasInert = 'inert' in HTMLElement.prototype;
@@ -99,12 +99,12 @@
       sticky.style.transform = passed ? 'none' : 'translateY(110%)';
       sticky.style.opacity = passed ? '1' : '0';
       sticky.style.pointerEvents = passed ? '' : 'none';
-      
+       
       if (hasInert) {
         sticky.inert = !passed;
       } else {
         sticky.setAttribute('aria-hidden', passed ? 'false' : 'true');
-        
+         
         sticky.style.visibility = passed ? 'visible' : 'hidden';
       }
     };
@@ -113,7 +113,7 @@
     addEventListener('resize', update);
   }
 
-  
+   
   const MOVING = '.rv, .stagger, .ib, .up, .bubble, .pill, .reason';
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
@@ -121,12 +121,12 @@
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
-    
+     
     const hero = document.querySelector('.hero-photo');
     if (hero) requestAnimationFrame(() => hero.classList.add('in'));
     document.querySelectorAll(MOVING).forEach(el => { if (el !== hero) io.observe(el); });
 
-    
+     
     const shine = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) { e.target.classList.add('shine'); shine.unobserve(e.target); }
@@ -137,7 +137,7 @@
     document.querySelectorAll(MOVING).forEach(el => el.classList.add('in'));
   }
 
-  
+   
   const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (fine && !still) {
@@ -158,7 +158,7 @@
 
     const loop = () => {
       if (!running) { raf = 0; return; }
-      
+       
       x += (mx - x) * 0.45; y += (my - y) * 0.45;
       bx += (x - bx) * 0.16; by += (y - by) * 0.16;
       const vx = x - px, vy = y - py; px = x; py = y;
@@ -168,13 +168,13 @@
         + (1 - v / 70) + ',' + (1 + v / 40) + ')';
       bead.style.transform = 'translate3d(' + bx + 'px,' + by + 'px,0) scale(' + (0.7 + v / 34) + ')';
       bead.style.opacity = shown ? String(Math.min(0.6, v / 13)) : '0';
-      
+       
       const settled = v < 0.12 && Math.hypot(mx - x, my - y) < 0.4 && Math.hypot(x - bx, y - by) < 0.4;
       idle = settled ? idle + 1 : 0;
       if (idle > 6) { stop(); return; }
       raf = requestAnimationFrame(loop);
     };
-    
+     
     function stop() {
       running = false;
       if (raf) { cancelAnimationFrame(raf); raf = 0; }
@@ -182,7 +182,7 @@
     const start = () => { if (!running) { running = true; idle = 0; raf = requestAnimationFrame(loop); } };
 
     const wake = () => {
-      
+       
       document.documentElement.classList.add('drop-on');
       drop.style.opacity = '1';
       start();
@@ -190,7 +190,7 @@
     addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
       if (!shown) {
-        
+         
         x = bx = mx; y = by = my; shown = true;
       }
       wake();
@@ -204,7 +204,7 @@
     addEventListener('blur', sleep);
     addEventListener('mouseenter', () => { if (shown) wake(); });
 
-    
+     
     addEventListener('pointerdown', e => {
       if (e.pointerType !== 'mouse') return;
       const s = document.createElement('div');
