@@ -345,10 +345,11 @@ html.drop-on input,html.drop-on textarea,html.drop-on select{cursor:text}
 .n-market h2{font-size:max(17px,calc(17 * var(--nu)));line-height:1.35;letter-spacing:-.06em;white-space:normal;overflow-wrap:anywhere}
 .n-market-copy p{margin-top:calc(10 * var(--nu));font-size:max(10px,calc(10 * var(--nu)));line-height:1.6;letter-spacing:-.025em;overflow-wrap:anywhere}
 .n-market-photos{min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:calc(3 * var(--nu))}
-.n-market-photos figure{position:relative;min-width:0;padding-bottom:calc(105 * var(--nu))}
-.n-market-photos img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;object-position:center}
+.n-market-photos figure{position:relative;min-width:0}
+.n-market-photos img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;object-position:45% 50%}
+.n-market-photos figure:nth-child(2) img{object-position:85% 50%}
 .n-badge{position:absolute;z-index:2;border-radius:50%;background:color-mix(in srgb,var(--tint) 88%,transparent);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.65}
-#beauty-work .n-market-photos .n-badge{bottom:auto;top:calc(105 * var(--nu));left:50%;transform:translateX(-50%);width:calc(82 * var(--nu));max-width:85%;height:calc(96 * var(--nu));font-size:calc(7 * var(--nu));background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);color:var(--muted)}
+#beauty-work .n-market-photos .n-badge{bottom:calc(4 * var(--nu));left:50%;transform:translateX(-50%);width:calc(76 * var(--nu));max-width:85%;aspect-ratio:1;font-size:calc(7 * var(--nu));background:color-mix(in srgb,var(--paper) 88%,transparent);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);color:var(--muted)}
 .n-label{display:block;font-family:var(--serif);font-weight:600;line-height:1.4}
 #beauty-work .n-market-photos .n-label{font-size:calc(10 * var(--nu));margin-bottom:calc(4 * var(--nu));color:var(--ink)}
 .n-turn{padding:calc(7 * var(--nu)) 0 0;text-align:center;font-family:var(--serif);font-weight:600;font-size:calc(14 * var(--nu));line-height:1.6}
