@@ -399,7 +399,8 @@ html.drop-on input,html.drop-on textarea,html.drop-on select{cursor:text}
 .n-future-copy{display:contents}
 .n-future h2{position:relative;grid-area:1/1;z-index:2;padding:calc(3 * var(--nu)) calc(3 * var(--nu)) 0;font-size:calc(21 * var(--nu));line-height:1.5}
 .n-future h2 em{font-size:calc(27 * var(--nu));white-space:nowrap;letter-spacing:-.065em}
-.n-promises{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(4 * var(--nu));width:calc((100% - 6 * var(--nu)) * .68);margin:0 0 0 calc(3 * var(--nu));grid-area:2/1;align-self:center;position:relative;z-index:2}
+/**/
+.n-promises{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:calc(4 * var(--nu));width:calc((100% - 6 * var(--nu)) * .66);margin:0 auto calc(4 * var(--nu));grid-area:2/1;align-self:end;justify-self:center;position:relative;z-index:2}
 .n-promises li{aspect-ratio:1;border-radius:50%;background:color-mix(in srgb,var(--paper) 94%,transparent);text-align:center;align-content:center;font-family:var(--serif);font-weight:600;font-size:calc(10 * var(--nu));line-height:1.6;padding:calc(4 * var(--nu)) 0}
 /**/
 .n-market.section:before,.n-proposal.section:before,.n-future.section:before{width:calc(105 * var(--nu));height:calc(200 * var(--nu));opacity:.65;left:calc(-50 * var(--nu));right:auto;top:0;bottom:auto;background:url(img/photo/leaf_a.webp) 5% 65%/400% no-repeat;filter:contrast(1.5) saturate(1.3) brightness(.85);mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M42 100Q35 50 14 5L17 5Q39 49 45 100ZM22 32Q-4 31 2 4Q28 9 22 32ZM28 44Q30 15 61 14Q59 43 28 44ZM34 60Q4 65 0 38Q25 34 34 60ZM39 73Q49 41 80 46Q73 73 39 73ZM42 87Q16 94 6 69Q30 62 42 87ZM44 93Q63 69 95 76Q79 99 44 93Z'/%3E%3C/svg%3E");mask-size:100% 100%}
