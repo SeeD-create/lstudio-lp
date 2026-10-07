@@ -434,3 +434,25 @@ img[src*='/n03_ai.'],img[src*='/n05_personal.'],img[src*='/n07_cosme.'],img[src*
  #signup-title .phrase{display:block}
  .sticky .btn{font-size:11px;gap:8px;padding-inline:10px}
 }
+
+/**/
+@media(min-width:1000px){
+ .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;max-width:1440px;margin-inline:auto}
+ .hero-photo{grid-column:2;grid-row:1;width:100%;max-width:none;margin:0;align-self:stretch;position:relative;min-height:640px}
+ .hero-photo img{position:absolute;inset:0;width:100%;height:100%;min-height:0;max-height:none;aspect-ratio:auto;object-fit:cover;object-position:50% 43%}
+ .hero-copy{grid-column:1;grid-row:1;padding:48px clamp(28px,3vw,52px);text-align:center}
+ .hero-kicker{width:100%;max-width:460px}
+ .hero-lede{font-size:clamp(24px,2.1vw,30px);transform:none;line-height:1.5}
+ .hero h1{font-size:clamp(54px,5.05vw,73px);margin-top:24px;line-height:1.2}
+ .hero-formula{width:100%;max-width:470px;font-size:clamp(15px,1.4vw,20px);gap:22px;margin-top:22px}
+ .hero-formula i{font-size:14px}
+ .hero-lead{font-size:clamp(15px,1.25vw,18px);line-height:1.8;margin-top:20px}
+ .hero .actions{max-width:490px;margin-top:26px}
+ .hero .btn{min-height:86px;font-size:clamp(16px,1.55vw,22px);padding:16px 22px;gap:16px}
+ .hero .ico{width:46px;height:42px;font-size:13px}
+ .hero .btn>span:nth-child(2){padding-left:16px}
+ .hero .arrow{width:9px;height:9px}
+ .hero-copy:before,.hero-copy:after{width:95px;opacity:.4;top:-10px;bottom:-10px}
+ .hero-copy:before{left:-35px}
+ .hero-copy:after{right:-35px}
+}
