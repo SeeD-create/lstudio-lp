@@ -317,6 +317,23 @@ img[src*='/n03_ai.'],img[src*='/n05_personal.'],img[src*='/n07_cosme.'],img[src*
 .hero .ico{width:40px;height:36px;position:relative;font-size:11px}
 .hero .ico:after{content:'';position:absolute;bottom:-4px;left:12px;width:9px;height:10px;background:var(--paper);clip-path:polygon(0 0,100% 0,0 100%)}
 .hero .btn>span:nth-child(2){border-left:1px solid color-mix(in srgb,var(--paper) 55%,transparent);padding-left:12px;white-space:nowrap}
+/**/
+@media(max-width:599px){
+ .hero-photo img{height:38svh;max-height:353px;object-fit:cover;object-position:center 58%}
+ .hero-copy{padding:20px 24px 24px}
+ .hero-kicker{margin-inline:12px}
+ .hero-lede{font-size:clamp(21px,6.667vw,26px);line-height:1.5}
+ .hero h1{font-size:clamp(56px,18.718vw,73px);line-height:1.08;margin:12px -12px 0}
+ .hero-title-line+ .hero-title-line{font-size:.85em}
+ .hero-formula{font-size:10px;gap:14px;padding:5px 10px;margin-top:16px}
+ .hero-formula i{font-size:10px}
+ .hero-lead{font-size:11.6px;line-height:2;margin-top:12px}
+ .hero .btn{height:68px;min-height:68px}
+ /**/
+ .hero-copy:before,.hero-copy:after{top:-34px;bottom:auto;height:188px;width:74px;opacity:.92;background-size:58px auto,44px auto}
+ .hero-copy:before{left:-28px;background-image:url('img/photo/leaf_c.webp'),url('img/photo/leaf_c.webp');background-position:left top,left bottom}
+ .hero-copy:after{right:-28px;background-image:url('img/photo/leaf_d.webp'),url('img/photo/leaf_d.webp');background-position:right top,right bottom}
+}
 @media(min-width:600px) and (max-width:899px){
  .hero-photo{max-width:540px;margin:auto}
  .hero-copy{max-width:540px;margin:auto;padding-bottom:32px}
