@@ -1,0 +1,6 @@
+const form=document.querySelector('#wizard'),fields=document.querySelector('#fields'),result=document.querySelector('#result');
+form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const data=new FormData(form);document.querySelector('#selection').textContent=data.get('place')+' / '+data.get('symptom');fields.hidden=true;result.hidden=false;result.focus();});
+document.querySelector('#edit').addEventListener('click',()=>{result.hidden=true;fields.hidden=false;form.querySelector('input').focus();});
+document.querySelector('#clear').addEventListener('click',()=>{form.reset();result.hidden=true;fields.hidden=false;document.querySelector('#selection').textContent='';form.querySelector('input').focus();});
+document.querySelectorAll('[data-symptom]').forEach(link=>link.addEventListener('click',()=>{fields.hidden=false;result.hidden=true;form.querySelectorAll('[name="symptom"]').forEach(input=>input.checked=input.value===link.dataset.symptom);}));
+document.querySelector('#motion').addEventListener('click',e=>{const stopped=document.documentElement.classList.toggle('paused');e.currentTarget.textContent=stopped?'動きを再開':'動きを停止';e.currentTarget.setAttribute('aria-pressed',String(stopped));});
