@@ -456,3 +456,53 @@ img[src*='/n03_ai.'],img[src*='/n05_personal.'],img[src*='/n07_cosme.'],img[src*
  .hero-copy:before{left:-35px}
  .hero-copy:after{right:-35px}
 }
+
+/**/
+.hero{--rose:#b76b77;--ink:#303b32;background:#f7f6f0}
+.hero-copy{background:none}
+.hero-copy:before,.hero-copy:after{display:none}
+.hero-kicker{margin-left:0;margin-right:0}
+.hero-lede{border:0;display:flex;align-items:center;gap:14px;color:#5c695d}
+.hero-lede:before{content:'';display:block;width:28px;height:1px;background:#7a8974;flex:none}
+.hero-formula{border-radius:0;background:none;border-top:1px solid #dcded4;border-bottom:1px solid #dcded4;color:#5c695d}
+.hero .btn{background:#365744;border-radius:4px;box-shadow:none;font-family:var(--sans)}
+.hero .btn:hover,.hero .btn:focus-visible{background:#284734;box-shadow:0 8px 22px #2d4e3820}
+.hero .ico{background:none;color:inherit;border:1px solid #ffffff66;border-radius:50%;font-family:var(--sans)}
+.hero .ico:after{display:none}
+.hero .btn>span:nth-child(2){border-left:0}
+@media(min-width:1000px){
+ .hero{grid-template-columns:48% 52%;padding:28px 32px 32px;max-width:1480px;gap:0}
+ .hero-photo{min-height:620px;border-radius:100px 4px 4px 4px;overflow:hidden}
+ .hero-photo img{object-position:50% 43%}
+ .hero-copy{padding:38px clamp(30px,4vw,64px) 38px clamp(20px,2.5vw,40px);text-align:left}
+ .hero-copy:before{display:block;content:'BOTANICAL BEAUTY / K-LABO';position:static;width:auto;opacity:1;background:none;color:#71806f;font:400 10px/1.6 var(--sans);letter-spacing:.2em;margin-bottom:28px}
+ .hero-kicker{max-width:none}
+ .hero-lede{font-family:var(--sans);font-size:15px;font-weight:400;letter-spacing:.09em;padding:0;line-height:1.8}
+ .hero h1{font-size:clamp(47px,4.45vw,65px);line-height:1.45;letter-spacing:-.035em;margin:23px 0 0}
+ .hero-title-line+ .hero-title-line{font-size:1em;margin-top:0}
+ .hero h1 small{font-size:.52em}
+ .hero-formula{justify-content:flex-start;max-width:400px;margin:26px 0 0;padding:12px 0;font-family:var(--sans);font-size:13px;font-weight:400;gap:20px;letter-spacing:.04em}
+ .hero-formula i{font-size:10px;color:#9a9d91}
+ .hero-lead{font-family:var(--sans);font-size:14px;font-weight:400;line-height:2.05;letter-spacing:.025em;margin-top:23px;color:#64695e}
+ .hero .actions{max-width:400px;margin:28px 0 0}
+ .hero .btn{min-height:80px;font-size:17px;font-weight:400;padding:15px 20px;gap:12px;letter-spacing:.02em}
+ .hero .ico{width:36px;height:36px;font-size:9px}
+ .hero .btn>span:nth-child(2){padding-left:0}
+ .hero .btn-caption{font-size:11px;letter-spacing:.06em;margin-bottom:4px}
+ .hero .duration{border:0;padding:0;margin-left:7px}
+ .hero .arrow{width:8px;height:8px}
+}
+@media(max-width:599px){
+ .hero-copy{text-align:left;padding:30px 26px 34px}
+ .hero-kicker{margin:0}
+ .hero-lede{font-family:var(--sans);font-size:13px;font-weight:400;letter-spacing:.04em;padding:0}
+ .hero h1{font-size:clamp(40px,12.3vw,68px);line-height:1.4;margin:18px 0 0}
+ .hero-title-line+ .hero-title-line{font-size:1em}
+ .hero-formula{margin:22px 0 0;padding:10px 0;font-family:var(--sans);font-weight:400;font-size:11px;gap:13px}
+ .hero-lead{font-family:var(--sans);font-weight:400;font-size:13px;line-height:1.95;margin-top:19px}
+ .hero .actions{margin-top:24px}
+ .hero .btn{border-radius:4px;min-height:76px;padding:12px 14px;gap:10px;font-size:clamp(12px,3.4vw,17px)}
+ .hero .btn>span:nth-child(2){padding-left:0}
+ .hero .ico{width:32px;height:32px;font-size:9px}
+ .hero .btn-caption{font-size:10px}
+}
