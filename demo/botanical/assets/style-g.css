@@ -372,3 +372,65 @@ img[src*='/n03_ai.'],img[src*='/n05_personal.'],img[src*='/n07_cosme.'],img[src*
  .hero-lead{font-size:18px}
 }
 .n-promises li{box-shadow:inset 0 1px 2px var(--paper),inset 0 0 0 1px color-mix(in srgb,var(--paper) 70%,transparent),0 10px 30px -12px color-mix(in srgb,var(--ink) 18%,transparent)}
+
+/**/
+.copy-line{display:block}
+.phrase{display:inline-block}
+.hero-btn-label{min-width:0}
+.btn-caption,.btn-main{display:block}
+.btn-caption{font-size:.72em;line-height:1.5;margin-bottom:5px}
+.duration{display:inline-block;font-size:.85em;border:1px solid #ffffff80;border-radius:3px;padding:0 5px;margin-left:5px;vertical-align:1px}
+.n-job strong .job-part{display:inline;font:inherit;color:inherit;margin:0}
+@media(max-width:599px){
+ body{font-size:15px;line-height:1.85}
+ .wrap{width:calc(100% - 40px)}
+ .masthead{padding:12px 20px}
+ .section{padding-block:56px}
+ h2,h3{line-height:1.55;letter-spacing:.015em;text-wrap:balance;line-break:strict}
+ p{line-break:strict;text-wrap:pretty}
+ .hero-copy{padding:18px 20px 28px}
+ .hero-lede{font-size:clamp(20px,5.8vw,28px);line-height:1.45;padding-bottom:9px;letter-spacing:0;transform:none}
+ .hero h1{font-size:clamp(43px,13.8vw,74px);line-height:1.22;margin:18px -2px 0;letter-spacing:-.035em}
+ .hero-title-line+ .hero-title-line{margin-top:0}
+ .hero-formula{font-size:clamp(11px,3.05vw,16px);gap:clamp(9px,3vw,16px);padding:6px 10px;margin:18px 4px 0}
+ .hero-lead{font-size:14px;line-height:1.8;margin:16px 0 0;letter-spacing:.01em}
+ .hero-lead .phrase{display:block}
+ .hero .actions{margin-top:20px}
+ .hero .btn{min-height:78px;padding:12px 16px;gap:12px;border-radius:44px;font-family:var(--sans);font-size:clamp(13px,3.65vw,18px);line-height:1.5}
+ .hero .ico{width:38px;height:35px;font-size:11px}
+ .hero .btn>span:nth-child(2){padding-left:12px}
+ .hero .btn-caption{font-size:12px;font-weight:400;margin-bottom:3px}
+ .hero .btn-main{font-weight:600;white-space:nowrap}
+ .hero .arrow{width:7px;height:7px}
+ .hero-copy:before,.hero-copy:after{opacity:.42;width:14vw}
+ .n-market h2{font-size:clamp(21px,5.9vw,29px);line-height:1.65;letter-spacing:0}
+ .n-market-copy p{margin-top:20px;line-height:1.9}
+ .n-turn{font-size:clamp(15px,4.1vw,19px);line-height:1.85;margin-top:32px}
+ .n-turn strong{font-size:clamp(23px,6vw,30px);line-height:1.55}
+ .n-proposal h2{font-size:clamp(26px,7vw,34px)}
+ .n-trio figure{grid-template-columns:96px minmax(0,1fr);gap:20px}
+ .n-panel{width:96px}
+ .n-trio figure:not(:last-child):after{left:48px}
+ .n-trio .n-label{font-size:19px;line-height:1.5}
+ .n-trio-caption{line-height:1.7}
+ .n-description{font-size:15px;line-height:1.95}
+ .n-job{margin:36px 0}
+ .n-job strong{font-size:clamp(27px,7.5vw,36px);line-height:1.5}
+ .n-job strong .job-part{display:block}
+ .n-job>span{font-size:14px;margin-top:12px;line-height:1.7}
+ .n-card{grid-template-columns:minmax(0,1fr);gap:16px;padding-top:24px}
+ .n-card h3{font-size:clamp(21px,5.8vw,29px);line-height:1.5;padding-left:34px;text-wrap:pretty}
+ .n-card h3 span{font-size:13px;line-height:1.7;margin-bottom:7px}
+ .n-card figure{width:100%}
+ .n-card p{font-size:15px;line-height:1.85}
+ .n-future h2{font-size:clamp(19px,5.35vw,27px);line-height:1.65}
+ .sec-head h2,.since-head h2{font-size:clamp(23px,6vw,30px);line-height:1.6}
+ #define-title .keep,#since-title .keep{display:block}
+ .formula{font-size:clamp(17px,4.5vw,23px);line-height:1.65;text-wrap:balance}
+ .reason-body h3{font-size:clamp(21px,5.7vw,27px);line-height:1.5;gap:10px}
+ .reason-body p{line-height:1.85;margin-top:12px}
+ .movie .sec-head h2{font-size:clamp(22px,5.8vw,29px);line-height:1.65}
+ .signup .sec-head h2{font-size:clamp(22px,5.8vw,29px);line-height:1.6}
+ #signup-title .phrase{display:block}
+ .sticky .btn{font-size:11px;gap:8px;padding-inline:10px}
+}
