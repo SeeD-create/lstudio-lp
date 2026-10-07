@@ -340,27 +340,27 @@ img[src*='/n03_ai.'],img[src*='/n05_personal.'],img[src*='/n07_cosme.'],img[src*
  .hero-copy:before{left:-5vw;background-image:url('img/photo/leaf_c.webp'),url('img/photo/leaf_c.webp'),url('img/photo/leaf_d.webp');background-position:left top,left center,left bottom}
  .hero-copy:after{right:-5vw;background-image:url('img/photo/leaf_d.webp'),url('img/photo/leaf_d.webp'),url('img/photo/leaf_c.webp');background-position:right top,right center,right bottom}
 }
-@media(min-width:600px) and (max-width:899px){
- .hero-photo{max-width:540px;margin:auto}
- .hero-copy{max-width:540px;margin:auto;padding-bottom:32px}
- .hero-lead{font-size:16px}
- .hero-formula{font-size:18px}
- .hero .btn{font-size:18px}
+/**/
+@media(min-width:600px){
+ .hero{display:block;width:540px;max-width:100%;margin-inline:auto;container-type:inline-size}
+ .hero-photo{width:100%;margin:0}
+ .hero-photo img{width:100%;height:auto;max-height:none;aspect-ratio:940/850;object-fit:contain}
+ .hero-copy{width:100%;padding:14px 6.6% 29px;text-align:center}
+ .hero-kicker{margin-inline:6.5%}
+ .hero-lede{font-size:6.5cqw;line-height:1.5;padding-bottom:7px;letter-spacing:-.045em;transform:rotate(-3deg)}
+ .hero h1{font-size:15cqw;line-height:1.16;margin:18px -7px 0;letter-spacing:-.045em}
+ .hero-title-line+ .hero-title-line{font-size:.91em;margin-top:3px}
+ .hero h1 small{font-size:.6em}
+ .hero-formula{font-size:3.1cqw;gap:3.3cqw;padding:4px 11px;margin:14px 6% 0}
+ .hero-formula i{font-size:2.7cqw}
+ .hero-lead{font-size:3.35cqw;line-height:1.6;margin:11px -8px 0;letter-spacing:-.025em}
+ .hero .actions{margin-top:15px}
+ .hero .btn{height:auto;min-height:17.2cqw;padding:3cqw 4.7cqw;gap:3.4cqw;font-size:3.65cqw}
+ .hero .ico{width:10.1cqw;height:9cqw;font-size:2.75cqw}
+ .hero .btn>span:nth-child(2){padding-left:3.4cqw}
+ .hero .arrow{width:11px;height:11px}
+ .hero-copy:before,.hero-copy:after{top:-42px;bottom:-14px;height:auto;width:17cqw;opacity:.8;background-size:100% auto,90% auto,100% auto}
+ .hero-copy:before{left:-5cqw;background-image:url('img/photo/leaf_c.webp'),url('img/photo/leaf_c.webp'),url('img/photo/leaf_d.webp');background-position:left top,left center,left bottom}
+ .hero-copy:after{right:-5cqw;background-image:url('img/photo/leaf_d.webp'),url('img/photo/leaf_d.webp'),url('img/photo/leaf_c.webp');background-position:right top,right center,right bottom}
 }
-@media(min-width:900px){
- .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:600px;max-width:1600px;margin-inline:auto}
- .hero-photo{grid-column:2;grid-row:1;width:100%;align-self:center}
- .hero-photo img{width:100%;height:auto;max-height:720px;object-fit:contain}
- .hero-copy{grid-column:1;grid-row:1;width:100%;max-width:640px;justify-self:end;padding:56px 36px;text-align:left}
- .hero-kicker{margin:0;max-width:430px}
- .hero-lede{font-size:26px}
- .hero h1{font-size:clamp(47px,4.65vw,68px);margin:24px 0 0}
- .hero-formula{max-width:430px;margin:24px 0 0;font-size:18px;gap:20px}
- .hero-lead{font-size:15px;margin:20px 0 0}
- .hero .actions{max-width:430px;margin-top:24px}
- .hero .btn{font-size:17px;min-height:78px;padding-inline:22px}
- .hero-copy:before{top:-4px;left:0;width:100px;opacity:.35}
- .hero-copy:after{top:0;right:-24px;width:90px;opacity:.45}
-}
-
 .n-promises li{box-shadow:inset 0 1px 2px var(--paper),inset 0 0 0 1px color-mix(in srgb,var(--paper) 70%,transparent),0 10px 30px -12px color-mix(in srgb,var(--ink) 18%,transparent)}
