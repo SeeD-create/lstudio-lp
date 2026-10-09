@@ -58,3 +58,32 @@ body[data-design=c] .scene:nth-child(3) h2{font-size:26px;letter-spacing:.06em}
 
 body.embedded-story{max-width:none}body.embedded-story>header,body.embedded-story>footer{display:none}body.embedded-story .film{height:100svh;min-height:0;max-height:none}
 body .disclosure{font-size:14px;line-height:1.5}body .film-controls .pause,body .dots button,body[data-design=c] .region{font-size:14px}
+/* Closing scene: quiet signature and a clearly separated invitation. */
+body[data-design=c] .ending{background:#f6f4e9}
+body[data-design=c] .ending .end-content{padding:35px 28px 98px;max-width:1160px;margin:0 auto;gap:0}
+body[data-design=c] .ending .end-intro{font-size:clamp(22px,6.4vw,29px);line-height:1.7;letter-spacing:.01em;margin:0 0 26px}
+body[data-design=c] .ending .end-intro span:first-child{font-size:16px;font-weight:400;letter-spacing:.16em;margin-bottom:12px}
+body[data-design=c] .ending h2{margin:0 0 28px;line-height:1.5}
+body[data-design=c] .ending h2::before{content:"";display:block;width:36px;height:1px;background:#9da78a;margin:0 auto 22px}
+body[data-design=c] .ending .end-name{font-size:34px;letter-spacing:.16em;padding-left:.16em;font-weight:500}
+body[data-design=c] .ending .end-service{font-family:"Yu Gothic",Meiryo,sans-serif;font-size:16px;letter-spacing:.12em;font-weight:500;margin-top:7px}
+body[data-design=c] .ending .cta{max-width:340px;border-radius:3px;padding:18px 21px;min-height:62px;font-size:16px;background:#34533b;box-shadow:0 5px 13px #243d2b0c}
+body[data-design=c] .ending .cta span{font-size:22px;font-weight:400;margin-left:16px}
+body[data-design=c] .ending .free{font-size:21px;letter-spacing:.06em;margin:16px 0 0;font-weight:600}
+@media(min-width:761px){
+body[data-design=c] .ending .end-content{display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:auto auto auto;align-content:center;align-items:center;text-align:left;column-gap:70px;padding:60px 65px 100px}
+body[data-design=c] .ending .end-intro{grid-column:1;grid-row:1/3;align-self:end;font-size:clamp(26px,2.7vw,38px);line-height:1.8;margin:0 0 28px;letter-spacing:0}
+body[data-design=c] .ending .end-intro span:first-child{font-size:21px;margin-bottom:16px;letter-spacing:.18em}
+body[data-design=c] .ending .end-intro span:last-child{max-width:12em;text-wrap:balance}
+body[data-design=c] .ending h2{grid-column:1;grid-row:3;align-self:start;margin:0}
+body[data-design=c] .ending h2::before{margin:0 0 22px;width:48px}
+body[data-design=c] .ending .end-name{font-size:41px;padding-left:0;letter-spacing:.15em}
+body[data-design=c] .ending .end-service{font-size:17px;margin-top:8px}
+body[data-design=c] .ending .cta{grid-column:2;grid-row:2;max-width:none;align-self:center;padding:23px;font-size:18px;position:relative}
+body[data-design=c] .ending .cta::before{content:"";position:absolute;width:1px;height:220px;left:-35px;top:50%;transform:translateY(-50%);background:#cbd1c0}
+body[data-design=c] .ending .free{grid-column:2;grid-row:3;text-align:center;align-self:start;margin-top:20px;font-size:24px}
+}
+@media(max-width:350px){body[data-design=c] .ending .end-content{padding-inline:20px}body[data-design=c] .ending .end-intro{font-size:22px}body[data-design=c] .ending .end-name{font-size:30px}}
+
+.ending .promise-phrase{display:inline-block;font-weight:inherit;white-space:nowrap}
+@media(min-width:761px){body[data-design=c] .ending .end-intro span:last-child{max-width:none;text-wrap:wrap}.ending .promise-phrase{display:block}}
