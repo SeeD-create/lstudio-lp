@@ -76,3 +76,23 @@
 }
 @keyframes headline-impact{from{opacity:0;transform:translateY(20px) scale(1.2)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes headline-rule{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:.65}}
+
+/* Stable hero: no photograph zoom or scroll-driven resize. */
+.hero-art{animation:none!important;transform:none!important;scale:1!important;translate:none!important;will-change:auto}
+.hero-light{animation:none!important}
+.philosophy{min-height:440px;isolation:isolate;background:#f7f5e9}
+.poster-art{position:absolute;inset:0;z-index:-1}.poster-art img{width:100%;height:100%;object-fit:cover;object-position:center;transform:none;translate:none;scale:1;mask-image:none;-webkit-mask-image:none}
+.philosophy-copy{position:relative;width:55%;margin:0 0 0 auto;padding:48px 7% 60px 0;text-align:right}
+.philosophy-copy h2{font-family:var(--serif);font-size:clamp(34px,4vw,58px);font-weight:700;letter-spacing:.08em;line-height:1.6;color:#25452e;white-space:normal;text-shadow:0 1px 12px #fff9}
+.philosophy-copy h2 span{display:block}.philosophy-copy p{font-size:13px;line-height:2.2;margin-top:22px;color:#304c35}
+.nav-cta{font-size:11px;padding:9px 14px}.nav-cta span{margin-left:7px}.final-cta .cta{font-size:11px;gap:7px}.hero .cta{font-size:12px}
+@media(max-width:760px){
+.hero{height:calc(var(--stable-screen-height,100svh) - 127px - env(safe-area-inset-bottom))}
+.hero-copy{top:calc(var(--stable-screen-height,100svh)/2 - 62px)}
+.scenery{display:none}.mobile-cta{backdrop-filter:none}.mobile-cta .cta{font-size:clamp(10px,3.2vw,14px);gap:9px;white-space:nowrap;padding:10px 8px}
+.philosophy{min-height:0;aspect-ratio:3/4}.philosophy-copy{position:absolute;top:8%;right:7%;width:86%;margin:0;padding:0;text-align:right}
+.philosophy-copy h2{font-size:clamp(27px,8.1vw,52px);line-height:1.6;letter-spacing:.08em}
+.philosophy-copy p{font-size:clamp(9px,2.55vw,15px);line-height:1.9;margin-top:15px}
+.final-cta .cta{font-size:clamp(10px,2.85vw,13px);gap:5px;white-space:nowrap;padding:15px 8px}
+nav .nav-cta{font-size:12px}
+}

@@ -1,3 +1,7 @@
+// Keep mobile browser toolbar changes from resizing the opening scene on scroll.
+let heroViewportWidth=0;
+function lockHeroViewport(){if(Math.abs(innerWidth-heroViewportWidth)>8){heroViewportWidth=innerWidth;document.documentElement.style.setProperty('--stable-screen-height',innerHeight+'px');}}
+lockHeroViewport();addEventListener('resize',lockHeroViewport,{passive:true});
 const $=s=>document.querySelector(s);document.body.classList.add('js');
 const mq=matchMedia('(prefers-reduced-motion: reduce)');let stopped=mq.matches;
 function motion(){document.body.classList.toggle('motion-off',stopped);$('.motion').setAttribute('aria-pressed',String(stopped));$('.motion').textContent=stopped?'▶ 動きを再開':'Ⅱ 動きを止める';}
