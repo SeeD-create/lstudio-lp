@@ -1,0 +1,27 @@
+/* 2026-10-08: natural line wrapping and consistent reading rhythm. */
+.home-preview .services>.wrap>.section-heading{display:block}
+.home-preview .services .section-heading h2{max-width:none;font-size:clamp(25px,2.65vw,36px);line-height:1.5;letter-spacing:.015em;text-wrap:balance}
+.home-preview .services .section-heading>p{max-width:48em;margin:18px 0 0;font-size:16px;line-height:1.9}
+.home-preview .service-row{grid-template-columns:minmax(310px,.9fr) minmax(0,1.5fr);gap:40px}
+.home-preview .service-title h3{font-size:clamp(23px,2.1vw,28px);line-height:1.55;letter-spacing:0;text-wrap:balance}
+.home-preview .service-row dl>div{grid-template-columns:128px minmax(0,1fr);gap:20px}
+.home-preview .service-row dd{font-size:16px;line-height:1.9;overflow-wrap:break-word}
+.home-preview .service-row dt{line-height:1.9}
+.home-preview main h2,.home-preview .service-consult h3{word-break:normal;overflow-wrap:break-word;text-wrap:balance}
+.home-preview .services .scope{line-height:1.9}
+@media(max-width:1000px){.home-preview .service-row{grid-template-columns:1fr;gap:22px}.home-preview .service-title h3{font-size:26px}}
+@media(max-width:760px){
+ .home-preview .services .section-heading h2{font-size:clamp(24px,6vw,30px);max-width:none;line-height:1.5}
+ .home-preview .services .section-heading>p{margin-top:16px;font-size:15px;line-height:1.9}
+ .home-preview .service-title h3{font-size:clamp(22px,5.6vw,26px);line-height:1.55}
+ .home-preview .service-row{gap:18px;padding:28px 0}
+ .home-preview .service-row dl>div{grid-template-columns:1fr;gap:6px;padding-bottom:20px}
+ .home-preview .service-row dd{font-size:15px;line-height:1.9}
+ .home-preview .service-consult h3{font-size:22px;line-height:1.6}
+}
+
+.home-preview .heading-phrase{display:inline-block}
+.home-preview .service-row dl>div{grid-template-columns:max-content minmax(0,1fr)}
+.home-preview .service-row dt{min-width:9em;white-space:nowrap}
+.home-preview #support{scroll-margin-top:155px}
+@media(max-width:760px){.home-preview .service-row dl>div{grid-template-columns:1fr}.home-preview #support{scroll-margin-top:85px}}

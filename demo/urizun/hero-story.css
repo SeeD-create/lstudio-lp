@@ -1,0 +1,60 @@
+*{box-sizing:border-box}body{margin:0;color:#243d2b;background:#f6f5ee;font-family:"Yu Gothic",Meiryo,sans-serif;max-width:480px;margin:auto}header{height:60px;padding:10px 16px;display:flex;align-items:center;gap:8px;background:#fff}header img{width:26px;height:34px;object-fit:contain}header b{font-size:13px}header>span{margin-left:auto;font-size:19px}.film{height:calc(100svh - 116px);min-height:540px;max-height:820px;position:relative;isolation:isolate;overflow:hidden}.scene{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .9s,visibility .9s;pointer-events:none}.scene.current{opacity:1;visibility:visible;z-index:2;pointer-events:auto}.scene .photo{position:absolute;width:100%;height:100%;object-fit:cover;object-position:center 43%;inset:0}.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(250,249,237,.87),rgba(250,249,237,.56) 18%,transparent 35%,transparent 77%,rgba(30,41,23,.32))}.region{position:absolute;left:25px;top:24px;margin:0;font-size:14px;letter-spacing:.06em}h1,h2{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-weight:600}.scene:not(.ending) h1,.scene:not(.ending) h2{position:absolute;left:25px;right:15px;top:57px;margin:0;font-size:clamp(26px,7.6vw,36px);line-height:1.65;letter-spacing:-.04em;text-shadow:0 1px 14px #fff9}.scene h1 span,.scene h2 span{display:block}.film-controls{position:absolute;bottom:32px;left:18px;right:18px;display:flex;align-items:center;justify-content:center;gap:9px;z-index:5;color:#fff;text-shadow:0 1px 5px #000;background:#20302655;border-radius:3px;padding:3px}.film-controls button{font:inherit;background:none;border:0;color:inherit;cursor:pointer;min-height:36px;min-width:32px}.film-controls .pause{font-size:13px;min-width:66px}.dots{display:flex;gap:3px}.dots button{font-size:12px;opacity:.6}.dots button[aria-current=true]{opacity:1;border-bottom:2px solid currentColor}.disclosure{position:absolute;bottom:9px;right:12px;z-index:5;color:#fff;font-size:11px;text-shadow:0 1px 4px #000;background:#20302666;padding:2px 5px}footer{height:56px;display:flex;justify-content:space-between;align-items:center;padding:0 17px;background:#294630;color:#fff;font-size:13px}footer a{color:#fff;text-decoration:none;font-size:15px;font-weight:700}.ending{background:#f6f4e9}.end-photo{display:none}.end-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px 23px 80px;text-align:center}.logo{width:64px;height:78px;object-fit:contain;margin-bottom:20px}.end-intro{font-size:18px;margin:0 0 12px}.ending h2{font-size:29px;line-height:1.65;margin:0}.rule{width:34px;height:1px;background:#8c9c77;margin:25px 0}.invitation{font-size:15px;margin:0 0 22px}.cta{display:flex;justify-content:space-between;align-items:center;width:100%;padding:18px;background:#34552c;color:white;text-decoration:none;font-size:16px;font-weight:700}.free{font-size:14px;margin:12px 0 22px}.office{font-size:12px;line-height:1.8;margin:0}.film.finished .film-controls{background:#32492a0e;color:#30442c;text-shadow:none}.film.finished .disclosure{color:#52634d;background:transparent;text-shadow:none}
+/* B: photo-wide, top and bottom titles, a green final signature. */
+body[data-design=b] .shade{background:linear-gradient(180deg,#15291d66,transparent 34%,transparent 53%,#12291dbb 95%)}body[data-design=b] .region{color:#fff;top:24px;left:0;width:100%;text-align:center;text-shadow:0 1px 5px #000}body[data-design=b] .scene:not(.ending) h1,body[data-design=b] .scene:not(.ending) h2{inset:62px 15px 116px;color:white;text-align:center;text-shadow:0 2px 12px #203020;font-size:32px;display:flex;flex-direction:column;justify-content:space-between}body[data-design=b] .ending{background:#263d31;color:#f6f3e5}body[data-design=b] .logo{background:#f6f4e9;border-radius:50%;width:94px;height:94px;padding:13px}body[data-design=b] .ending .cta{background:#eeeedc;color:#263d31}body[data-design=b] .rule{background:#b7c4a4}body[data-design=b] .finished .film-controls,body[data-design=b] .finished .disclosure{color:#eeeedc}
+/* C: vertical lettering at upper left, soft image as the final background. */
+body[data-design=c] .shade{background:linear-gradient(90deg,rgba(246,245,232,.9),rgba(246,245,232,.5) 24%,transparent 45%),linear-gradient(0deg,#1c2e2066,transparent 25%)}body[data-design=c] .region{left:auto;right:17px;top:20px;writing-mode:vertical-rl;font-size:13px;background:#f7f6eecc;padding:9px 5px}body[data-design=c] .scene:not(.ending) h1,body[data-design=c] .scene:not(.ending) h2{writing-mode:vertical-rl;inset:28px auto auto 20px;height:auto;font-size:29px;line-height:1.8;letter-spacing:.1em}body[data-design=c] .scene:not(.ending) h1 span,body[data-design=c] .scene:not(.ending) h2 span{display:block}body[data-design=c] .end-photo{display:block;width:100%;height:100%;object-fit:cover;filter:blur(3px);opacity:.13}body[data-design=c] .ending .end-content{margin:20px 15px 78px;padding:22px 16px;border:1px solid #879a7455}body[data-design=c] .logo{width:50px;height:60px;margin-bottom:18px}body[data-design=c] .ending h2{font-size:27px}body[data-design=c] .office{font-size:12px}
+@media(max-width:350px){header{padding-inline:10px}header b{font-size:12px}.scene:not(.ending) h1,.scene:not(.ending) h2{font-size:26px;left:20px}.ending h2{font-size:25px}.invitation{font-size:14px}.end-content{padding-inline:18px}.logo{margin-bottom:12px}.rule{margin:18px 0}body[data-design=b] .scene:not(.ending) h1,body[data-design=b] .scene:not(.ending) h2{font-size:27px}body[data-design=c] .scene:not(.ending) h1,body[data-design=c] .scene:not(.ending) h2{font-size:25px}.free{margin-bottom:12px}}
+@media(prefers-reduced-motion:reduce){.scene{transition:none}}
+body[data-design=c] .scene:nth-child(2) h2{writing-mode:horizontal-tb;top:27px;left:22px;right:38px;font-size:26px;line-height:1.65;letter-spacing:-.03em}body[data-design=c] .scene:nth-child(2) .shade{background:linear-gradient(180deg,#f6f5e8df,transparent 32%),linear-gradient(0deg,#1c2e2066,transparent 25%)}
+/* Selected vertical design: localized softness and a minimal final scene. */
+body[data-design=c] .scene:nth-child(3) h2{z-index:1;color:#203923;text-shadow:0 1px 8px #ffffffe0}
+body[data-design=c] .scene:nth-child(3) h2::before{content:"";position:absolute;inset:-28px -32px;z-index:-1;pointer-events:none;background:rgba(248,247,236,.36);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);mask-image:radial-gradient(ellipse,black 42%,transparent 73%);-webkit-mask-image:radial-gradient(ellipse,black 42%,transparent 73%)}
+body[data-design=c] .ending .logo,body[data-design=c] .ending .rule,body[data-design=c] .ending .invitation,body[data-design=c] .ending .office,body[data-design=c] .ending .end-photo{display:none}
+body[data-design=c] .ending .end-content{margin:0;padding:35px 26px 90px;border:0}
+body[data-design=c] .ending .end-intro{font-size:18px;margin-bottom:22px}
+body[data-design=c] .ending h2{font-size:29px;line-height:1.8;margin-bottom:44px}
+body[data-design=c] .ending .cta{font-size:16px;max-width:340px}
+body[data-design=c] .ending .free{margin:14px 0 0}
+@media(max-width:350px){body[data-design=c] .ending h2{font-size:25px}body[data-design=c] .ending .end-content{padding-inline:20px}}
+/* Phrases appear one by one after each photograph settles. */
+@keyframes storyPhraseFade{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:no-preference){
+.scene:not(.ending) h1>span,.scene:not(.ending) h2>span{opacity:0}
+.scene.current:not(.ending) h1>span,.scene.current:not(.ending) h2>span{animation:storyPhraseFade .95s ease both;animation-delay:.45s}
+.scene.current:not(.ending) h1>span:nth-child(2),.scene.current:not(.ending) h2>span:nth-child(2){animation-delay:1.55s}
+.ending.current .end-intro{animation:storyPhraseFade .8s ease both;animation-delay:.25s}
+.ending.current h2{animation:storyPhraseFade 1s ease both;animation-delay:1.35s}
+.ending.current .cta,.ending.current .free{animation:storyPhraseFade .85s ease both;animation-delay:2.5s}
+}
+body[data-design=c] .ending .end-intro{font-family:"Yu Mincho","Hiragino Mincho ProN",serif;font-size:clamp(29px,8.4vw,38px);font-weight:600;letter-spacing:-.04em;line-height:1.5;margin-bottom:30px}
+body[data-design=c] .ending h2{font-size:26px;line-height:1.8}
+@media(max-width:350px){body[data-design=c] .ending .end-intro{font-size:28px}body[data-design=c] .ending h2{font-size:23px}}
+/* Larger free-consultation message on both screen sizes. */
+body[data-design=c] .ending .free{font-size:21px;font-weight:700;letter-spacing:.04em;margin-top:18px}
+footer>span{font-size:16px;font-weight:700}
+@media(min-width:761px){
+body{max-width:none}header{height:80px;padding:14px clamp(30px,5vw,100px);gap:12px}header img{width:38px;height:48px}header b{font-size:19px}
+.film{height:calc(100svh - 148px);min-height:580px;max-height:900px}.scene .photo{object-position:center center}
+body[data-design=c] .scene:not(.ending) h1,body[data-design=c] .scene:not(.ending) h2{writing-mode:vertical-rl;left:clamp(50px,9vw,160px);right:auto;top:65px;bottom:auto;font-size:clamp(32px,3.1vw,48px);line-height:1.95;letter-spacing:.09em}
+body[data-design=c] .scene:nth-child(2) h2{writing-mode:horizontal-tb;top:105px;left:clamp(35px,5vw,100px);font-size:clamp(28px,3vw,45px);line-height:1.9;letter-spacing:0}
+body[data-design=c] .region{top:38px;right:38px;font-size:16px;padding:13px 8px}
+body[data-design=c] .shade{background:linear-gradient(90deg,#f6f5e8e6,rgba(246,245,232,.45) 25%,transparent 47%),linear-gradient(0deg,#1c2e2033,transparent 20%)}
+body[data-design=c] .scene:nth-child(2) .shade{background:linear-gradient(90deg,#f6f5e8ed,rgba(246,245,232,.65) 23%,transparent 43%)}
+body[data-design=c] .scene:nth-child(3) h2::before{inset:-40px -45px;backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px)}
+body[data-design=c] .ending .end-content{padding:35px 40px 75px}
+body[data-design=c] .ending .end-intro{font-size:44px;margin-bottom:22px}
+body[data-design=c] .ending h2{font-size:36px;margin-bottom:30px}
+body[data-design=c] .ending .cta{max-width:410px;font-size:19px;padding:20px 25px}
+body[data-design=c] .ending .free{font-size:25px;margin-top:18px}
+.film-controls{left:auto;right:35px;bottom:37px;width:305px}.disclosure{right:35px;bottom:10px;font-size:12px}
+footer{height:68px;padding:0 max(35px,calc((100% - 1060px)/2));gap:45px;justify-content:center}footer>span{font-size:20px}footer a{font-size:18px}
+}
+/* Revised closing message: one shared wording for portrait and landscape. */
+.ending .end-intro span{display:block}
+body[data-design=c] .ending .end-intro{font-size:clamp(21px,5.7vw,28px);line-height:1.9;letter-spacing:-.04em;margin-bottom:30px}
+body[data-design=c] .scene:nth-child(3) h2{font-size:26px;letter-spacing:.06em}
+@media(max-width:350px){body[data-design=c] .scene:nth-child(3) h2{font-size:23px}body[data-design=c] .ending .end-intro{font-size:21px}}
+@media(min-width:761px){body[data-design=c] .ending .end-intro{font-size:40px;line-height:1.7;margin-bottom:25px}body[data-design=c] .scene:nth-child(3) h2{font-size:clamp(30px,2.8vw,42px);letter-spacing:.06em}}
+
+body.embedded-story{max-width:none}body.embedded-story>header,body.embedded-story>footer{display:none}body.embedded-story .film{height:100svh;min-height:0;max-height:none}
+body .disclosure{font-size:14px;line-height:1.5}body .film-controls .pause,body .dots button,body[data-design=c] .region{font-size:14px}

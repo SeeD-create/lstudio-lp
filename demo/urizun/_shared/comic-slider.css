@@ -1,0 +1,23 @@
+#urizun-comic-demo{margin:38px 0;padding:0;color-scheme:light}
+#urizun-comic-demo *{box-sizing:border-box}
+#urizun-comic-demo .uc-surface{background:#f7f3e9;color:#343e2e;padding:28px 22px;font:16px/1.7 'Yu Gothic',Meiryo,sans-serif}
+#urizun-comic-demo h2{font:500 25px/1.5 'Yu Mincho',serif;margin:0 0 14px}
+#urizun-comic-demo [hidden]{display:none!important}
+#urizun-comic-demo .uc-click-help{text-align:center;font-size:14px;margin:0 0 22px;color:#626a57}
+#urizun-comic-demo .uc-single-book{position:relative;width:min(100%,600px);margin:auto;background:#fff;box-shadow:3px 4px 0 #e6decb,6px 8px 0 #dcd4c1,0 14px 35px #413a2328;touch-action:pan-y;isolation:isolate;cursor:pointer}
+#urizun-comic-demo .uc-single-page{display:block;width:100%;height:auto;aspect-ratio:620/876;object-fit:contain;background:white}
+#urizun-comic-demo .uc-curl-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#urizun-comic-demo .uc-corner-hint{position:absolute;right:0;top:0;width:26px;height:26px;background:linear-gradient(225deg,#f7f3e9 49%,#d9d2bf 50%,#fffdf5 70%);filter:drop-shadow(-2px 2px 2px #0002);pointer-events:none;transition:width .2s,height .2s}
+#urizun-comic-demo .uc-single-book:hover .uc-corner-hint{width:38px;height:38px}
+#urizun-comic-demo .is-turning .uc-corner-hint{visibility:hidden}
+#urizun-comic-demo .uc-book-navigation{display:flex;align-items:center;justify-content:space-between;gap:18px;max-width:600px;margin:26px auto 0}
+#urizun-comic-demo .uc-book-navigation>div{text-align:center}
+#urizun-comic-demo .uc-book-title{font-size:17px;line-height:1.6;margin:3px 0}
+#urizun-comic-demo .uc-book-count{font-size:13px;color:#626a57;font-variant-numeric:tabular-nums}
+#urizun-comic-demo .uc-nav{border:1px solid #c8cbb8;background:#fff;padding:10px 16px;min-height:44px;border-radius:3px;font:inherit;font-size:14px;color:#466620;cursor:pointer;white-space:nowrap}
+#urizun-comic-demo .uc-nav:disabled{opacity:.35;cursor:default}
+#urizun-comic-demo button:focus-visible,#urizun-comic-demo .uc-single-book:focus-visible{outline:3px solid #55782a;outline-offset:5px}
+@media(max-width:480px){#urizun-comic-demo .uc-surface{padding:24px 12px}#urizun-comic-demo h2{font-size:22px}#urizun-comic-demo .uc-click-help{font-size:12px}#urizun-comic-demo .uc-book-navigation{gap:8px}#urizun-comic-demo .uc-book-title{font-size:14px}#urizun-comic-demo .uc-nav{font-size:12px;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){#urizun-comic-demo .uc-corner-hint{transition:none}}
+
+#urizun-comic-demo .uc-single-book[aria-disabled="true"]{cursor:default}
