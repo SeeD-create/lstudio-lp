@@ -32,3 +32,21 @@
 @media(max-width:760px){.drifting-leaves i:nth-child(n+4){display:none}.drifting-leaves{opacity:.65}.js .growth-visual.reveal{transform:translateY(22px)}}
 .motion-off .drifting-leaves{display:none}.motion-off *, .motion-off *:before,.motion-off *:after{animation:none!important;transition:none!important}.motion-off .reveal{opacity:1!important;transform:none!important}.motion-off .heading h2:after{transform:scaleX(1)}
 @media(prefers-reduced-motion:reduce){.drifting-leaves{display:none}.hero-copy>*{filter:none}.heading h2:after{transform:scaleX(1)}.js .motion-card.reveal,.js .growth-visual.reveal{transform:none}}
+
+/* Mobile portrait key visual: a single framed scene with a centered message. */
+.mobile-hero-title,.mobile-hero-cta{display:none}
+@media(max-width:760px){
+.hero{height:auto;min-height:0;aspect-ratio:9/16;max-height:none}
+.hero-art{height:100%;width:100%;object-fit:cover;object-position:center;mask-image:none;-webkit-mask-image:none}
+.hero-copy{top:36%;left:8%;width:84%;text-align:center}
+.hero-location{font-size:9px;letter-spacing:.12em;margin:0 0 12px;padding:0;background:none}
+.hero h1 .mobile-hero-title{display:block;font-family:var(--serif);font-size:clamp(35px,10.7vw,72px);line-height:1.5;letter-spacing:.035em;text-shadow:0 2px 16px #fff,0 0 30px #fff}
+.mobile-hero-title>span{display:block}.mobile-hero-title>span:first-child{color:#397e40}.mobile-hero-title>span:last-child{color:#124978}
+.hero h1 small{display:inline;font-size:12px;letter-spacing:.1em;vertical-align:baseline;margin-right:6px}
+.hero .seed-word{display:inline-block;font-size:38px;line-height:1.2;letter-spacing:-.055em;margin-top:10px}
+.hero .tagline,.hero-sub,.hero-copy>.cta{display:none}
+.hero .mobile-hero-cta{display:flex;position:absolute;z-index:5;bottom:25px;left:50%;transform:translateX(-50%);width:max-content;font-size:12px;padding:10px 23px;min-height:44px;white-space:nowrap}
+.hero .mobile-hero-cta:hover{transform:translateX(-50%) translateY(-3px)}
+.hero .ai-label{font-size:7px;top:8px;right:8px;padding:1px 6px}
+}
+@media(min-width:500px) and (max-width:760px){.hero-location{font-size:13px}.hero .seed-word{font-size:52px}.hero h1 small{font-size:17px}.hero .mobile-hero-cta{bottom:40px;font-size:16px;padding:15px 30px}}
