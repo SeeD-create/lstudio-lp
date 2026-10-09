@@ -53,3 +53,15 @@
 /* Softer portrait composition: headline centered in the open sky. */
 @media(max-width:760px){.hero-copy{top:39.5%}.hero-location{display:none}.hero h1 .mobile-hero-title{line-height:1.42;letter-spacing:.015em;font-size:clamp(35px,10.9vw,72px);text-shadow:0 2px 12px #fff9}.hero .seed-word{font-size:32px;margin-top:16px}.hero h1 small{font-size:10px}.hero-copy h1{animation-name:portrait-title-arrive}.hero-light{background:transparent}}
 @keyframes portrait-title-arrive{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+
+/* Center the message in the complete mobile first screen, including header. */
+@media(max-width:760px){
+.hero{height:calc(100svh - 127px - env(safe-area-inset-bottom));min-height:440px;aspect-ratio:auto}
+.hero-copy{top:calc(50svh - 62px);left:3%;width:94%;transform:translateY(-50%)}
+.hero h1 .mobile-hero-title{font-size:clamp(42px,13vw,88px);font-weight:800;line-height:1.24;letter-spacing:-.045em;text-shadow:0 2px 0 #fff,0 0 18px #ffffffe6;-webkit-text-stroke:.35px currentColor}
+.mobile-hero-title>span:first-child{color:#276e35}.mobile-hero-title>span:last-child{font-size:1.2em;letter-spacing:.035em;color:#0d426c;margin-top:8px}
+.hero h1>small,.hero h1>.seed-word,.hero .mobile-hero-cta{display:none}
+}
+@media(max-width:760px) and (max-height:620px){.hero-copy{top:45%}}
+
+@media(max-width:760px){.hero-art{object-fit:fill}}
