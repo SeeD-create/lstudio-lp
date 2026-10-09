@@ -1,0 +1,261 @@
+/* ============================================================
+   SeeD 塾スライド v2 "COLLECTION" — プレミアム・デザイン基盤
+   コンセプト：権利や知識を1枚ずつ集める「カタログ／カード」。
+   方針：1スライド=1メッセージ（分散）。象牙紙＋墨＋金＋分類色。
+   nav.js の契約（.seed-stage / .seed-slide[data-step] / .seed-progress__dot）は維持。
+   ============================================================ */
+
+@import url('./fonts/fonts.css'); /* ローカル化済み（旧: Google Fonts CDN。ネット不通でもレンダリング可・8/2タネオ） */
+
+:root {
+  /* 紙と墨（モノトーン＝グレースケール） */
+  --paper:      #F2F1EF;
+  --paper-hi:   #FBFBFA;
+  --paper-lo:   #E6E5E2;
+  --sumi:       #141414;
+  --sumi-soft:  #4A4947;
+  --sumi-mute:  #8B8A88;
+  --hair:       #D8D7D3;
+  /* かつての金アクセント → グレー階調（変数名は据え置き、値だけ無彩色化） */
+  --gold:       #9A9995;   /* 罫・細線 */
+  --gold-deep:  #1B1B1A;   /* 強調＝最も濃い墨 */
+  --gold-soft:  #CBCAC6;   /* 淡いグレー */
+  /* 分類色 → 墨の濃淡だけで差をつける（無彩色） */
+  --eq:  #1A1A1A; --eq-bg:  #E7E6E3;
+  --lib: #3A3A39; --lib-bg: #E7E6E3;
+  --soc: #535250; --soc-bg: #E7E6E3;
+  --par: #6B6A67; --par-bg: #E7E6E3;
+  --new: #848380; --new-bg: #E7E6E3;
+  /* カレント分類（[data-cat]で上書き） */
+  --cat: var(--sumi);
+  --cat-bg: var(--paper-lo);
+  /* 重要＝赤（モノトーンの中で“大事なところ”だけ赤字） */
+  --imp: #C4161C;
+  --imp-bg: #FBE6E4;
+}
+[data-cat="eq"]  { --cat: var(--eq);  --cat-bg: var(--eq-bg); }
+[data-cat="lib"] { --cat: var(--lib); --cat-bg: var(--lib-bg); }
+[data-cat="soc"] { --cat: var(--soc); --cat-bg: var(--soc-bg); }
+[data-cat="par"] { --cat: var(--par); --cat-bg: var(--par-bg); }
+[data-cat="new"] { --cat: var(--new); --cat-bg: var(--new-bg); }
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; width: 100%; height: 100%;
+  background: #17130d; overflow: hidden;
+  font-family: 'Zen Kaku Gothic New', 'BIZ UDPGothic', system-ui, sans-serif;
+  font-feature-settings: "palt"; letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+
+/* ステージ（nav.jsがscaleする） */
+.seed-stage { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); transform-origin: center; will-change: transform; }
+
+/* スライド 1920×1080 —— 象牙紙の質感 */
+.seed-slide {
+  width: 1920px; height: 1080px; position: relative; overflow: hidden;
+  color: var(--sumi);
+  background:
+    radial-gradient(120% 80% at 15% 0%, var(--paper-hi) 0%, rgba(255,255,255,0) 55%),
+    radial-gradient(120% 90% at 100% 100%, var(--paper-lo) 0%, rgba(255,255,255,0) 45%),
+    var(--paper);
+  box-shadow: 0 0 90px rgba(0,0,0,.45);
+}
+/* 紙の微細ノイズ（極薄） */
+.seed-slide::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .04;
+  background-image: radial-gradient(var(--sumi) 0.5px, transparent 0.5px);
+  background-size: 6px 6px;
+}
+/* 上辺の金の細ライン */
+.seed-slide::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold), var(--gold-soft), var(--gold));
+  opacity: .9;
+}
+
+/* セーフエリア */
+.seed-safe {
+  position: absolute; inset: 96px 150px 92px;
+  display: grid; align-content: start; gap: 34px;
+}
+.seed-safe.center { align-content: center; justify-items: center; text-align: center; }
+
+/* ------- ヘッダ部品 ------- */
+.kicker {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 700;
+  font-size: 25px; letter-spacing: .28em; color: var(--cat);
+  text-transform: none;
+}
+.kicker::before { content: ""; width: 46px; height: 3px; background: var(--cat); border-radius: 2px; }
+.kicker .num { font-family: 'Zen Old Mincho', serif; font-weight: 900; color: var(--gold-deep); letter-spacing: .05em; }
+
+.headline {
+  font-family: 'Zen Old Mincho', serif; font-weight: 900;
+  font-size: 96px; line-height: 1.12; letter-spacing: .02em; color: var(--sumi);
+  margin: 0;
+}
+.headline.xl { font-size: 132px; }
+.headline .em { color: var(--cat); }
+.headline .goldem { color: var(--gold-deep); }
+
+.lead {
+  font-size: 38px; line-height: 1.6; color: var(--sumi-soft); font-weight: 500; margin: 0;
+  max-width: 1180px;
+}
+.lead .strong { color: var(--sumi); font-weight: 900; }
+
+/* ------- 分類バッジ（カード集の“属性”） ------- */
+.cat-badge {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 12px 30px 12px 20px; border-radius: 999px;
+  background: var(--cat-bg); color: var(--cat);
+  font-weight: 900; font-size: 30px; letter-spacing: .06em;
+  border: 2.5px solid var(--cat);
+}
+.cat-badge .dot { width: 20px; height: 20px; border-radius: 50%; background: var(--cat); }
+
+/* テスト頻出・条文などのタグ */
+.tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 22px; border-radius: 12px; font-weight: 900; font-size: 26px; letter-spacing: .05em;
+}
+.tag--gold { background: var(--paper-lo); color: var(--sumi); box-shadow: inset 0 0 0 2px var(--sumi-mute); }
+.tag--article { background: var(--sumi); color: var(--paper-hi); }
+.tag--cat { background: var(--cat); color: #fff; }
+
+/* ------- 汎用リビール（deck.js が .is-in を付ける） ------- */
+[data-at] { opacity: 0; transform: translateY(34px); transition: opacity .5s ease, transform .6s cubic-bezier(.2,.9,.3,1); }
+[data-at].is-in { opacity: 1; transform: none; }
+[data-anim="fade"]  { transform: none; }
+[data-anim="left"]  { transform: translateX(-46px); }
+[data-anim="right"] { transform: translateX(46px); }
+[data-anim="pop"]   { transform: scale(.82); }
+[data-anim="pop"].is-in { transform: scale(1); }
+[data-at][data-until].is-out { opacity: 0 !important; transform: translateY(-20px) !important; }
+
+/* ------- カード（コレクション） ------- */
+.rcard {
+  position: relative; background: var(--paper-hi); border-radius: 26px;
+  border: 3px solid var(--cat); box-shadow: 0 18px 40px rgba(40,30,10,.12);
+  padding: 40px 46px; overflow: hidden;
+}
+.rcard::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: var(--cat); }
+.rcard[data-anim="flip"] { transform-origin: left center; transform: perspective(1400px) rotateY(-38deg); opacity: 0; }
+.rcard[data-anim="flip"].is-in { transform: perspective(1400px) rotateY(0); opacity: 1; }
+.rcard__label { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--cat); letter-spacing:.08em; }
+.rcard__title { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:58px; color:var(--sumi); margin:.1em 0 .15em; }
+.rcard__body  { font-size:32px; line-height:1.55; color:var(--sumi-soft); }
+
+/* ------- 穴埋め（“ポン”とスタンプ） ------- */
+.blank {
+  position: relative; display: inline-flex; align-items: baseline; gap: 12px;
+  min-width: 200px; padding: 2px 20px 6px; margin: 0 6px;
+  border-bottom: 5px solid var(--gold); border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, rgba(200,162,75,.10), rgba(200,162,75,.02));
+  text-align: center; white-space: nowrap; vertical-align: bottom;
+}
+.blank .bnum {
+  font-family: 'Zen Old Mincho', serif; font-weight: 900; font-size: .62em;
+  color: #fff; background: var(--gold-deep); border-radius: 50%;
+  width: 1.7em; height: 1.7em; display: inline-flex; align-items: center; justify-content: center;
+  transform: translateY(-.15em);
+}
+.blank b {
+  font-family: 'Zen Old Mincho', serif; font-weight: 900; color: var(--imp);   /* 答え＝赤字 */
+  visibility: hidden;
+}
+.blank.is-filled { border-bottom-color: var(--imp); background: var(--imp-bg); }
+.blank.is-filled b { visibility: visible; display: inline-block; animation: stamp .5s cubic-bezier(.4,1.7,.5,1); }
+.blank.is-filled::after {
+  content: ""; position: absolute; inset: -10px -6px; border: 4px solid var(--imp); border-radius: 14px;
+  opacity: 0; animation: ring .6s ease-out;
+}
+/* ------- SVGの文字が縁取りされる事故を防ぐ -------
+   図を <g stroke="#C4161C"> でまとめて色付けすると、中の <text> にも stroke がかかって
+   文字が赤い塊に見える（中2第6章で発生）。stroke を自分で持っている <text> は
+   意図的な縁取り（paint-order のハロー等）なので触らない。 */
+.seed-slide svg text:not([stroke]) { stroke: none; }
+
+/* ------- 段落まるごとの穴（○×クイズの解説など） -------
+   ○/× だけ穴にしても隣の解説文が読めると答えが分かってしまう。
+   解説の段落そのものを .blank.blank--para で包むと、問題版では段落全体が伏せられる。 */
+.blank--para { display: block; white-space: normal; text-align: left; min-width: 0; margin: 0; padding: 9px 16px; }
+.blank--para b { display: inline !important; font-weight: 700; }
+.blank--para.is-filled b { display: inline !important; animation: none; }
+.blank--para .hl { font-weight: 900; color: var(--imp); }
+.on-dark .blank--para b { color: rgba(251,246,236,.96); }
+.on-dark .blank--para .hl { color: var(--gold-soft); }
+
+/* ------- 暗い背景の上で使うとき（投影対策・opt-in） -------
+   黒帯・黒カードの中では赤 #C4161C が沈んで教室のプロジェクタでほぼ読めない。
+   暗い背景の要素に class="on-dark" を足すと、中の穴・赤字が明るい赤／白に切り替わる。
+   既存スライドの見た目は変えない（付けた所だけ効く）。 */
+.on-dark .blank { border-bottom-color: rgba(255,255,255,.55);
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.04)); }
+.on-dark .blank b { color: #FF8A80; }
+.on-dark .blank.is-filled { background: rgba(255,255,255,.18); border-bottom-color: #fff; }
+.on-dark .blank.is-filled::after { border-color: #FF8A80; }
+.on-dark .imp, .on-dark .em { color: #FF8A80; }
+
+/* 重要語ユーティリティ（穴以外の“大事なところ”） */
+.imp { color: var(--imp); font-weight: 900; }
+.headline .em { color: var(--imp); }
+@keyframes stamp { 0%{transform:scale(1.7) rotate(-5deg); opacity:0;} 60%{opacity:1;} 100%{transform:scale(1) rotate(0); opacity:1;} }
+@keyframes ring  { 0%{opacity:.9; transform:scale(.6);} 100%{opacity:0; transform:scale(1.15);} }
+
+/* ------- 「身近な例」帯 ------- */
+.example {
+  display: flex; align-items: center; gap: 26px;
+  background: var(--paper-hi); border-left: 10px solid var(--cat); border-radius: 0 16px 16px 0;
+  padding: 26px 34px; font-size: 30px; line-height: 1.5; color: var(--sumi-soft); box-shadow: 0 10px 26px rgba(40,30,10,.08);
+}
+.example .ex-key { color: var(--cat); font-weight: 900; }
+.example .ex-tag { flex: none; font-weight: 900; color: var(--cat); font-size: 26px; letter-spacing: .1em; }
+
+/* ------- ミニ確認（○×・一問） -------
+   黒カード→白カード＋墨枠（2026-09-01）。黒背景の穴は印刷した問題プリントに
+   書き込めないため（8/21 平野さん指摘の全体適用）。 */
+.quiz { background: var(--paper-hi); color: var(--sumi); border-radius: 24px; padding: 37px 45px;
+        border: 3px solid var(--sumi); box-shadow: 0 8px 20px rgba(40,30,10,.07); }
+.quiz__q { font-size: 40px; font-weight: 700; line-height: 1.5; }
+.quiz__a { margin-top: 24px; font-family:'Zen Old Mincho',serif; font-weight:900; font-size:46px; color: var(--imp); }
+.quiz__a .mark { color: var(--sumi); font-weight: 900; }
+
+/* ------- 画像フレーム ------- */
+.figure { border-radius: 22px; overflow: hidden; box-shadow: 0 20px 50px rgba(40,30,10,.18); background: var(--paper-hi); }
+.figure img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.figure--soft { box-shadow: 0 12px 30px rgba(40,30,10,.10); }
+
+/* ------- フッタ ------- */
+.seed-foot {
+  position: absolute; left: 150px; right: 150px; bottom: 44px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 22px; color: var(--sumi-mute); border-top: 2px solid var(--hair); padding-top: 14px;
+}
+.seed-foot .brand { font-family:'Zen Old Mincho',serif; letter-spacing:.3em; color: var(--gold-deep); font-weight:700; }
+
+/* ------- 進捗ドット（金） ------- */
+.seed-progress { position: absolute; top: 40px; right: 44px; display: flex; gap: 12px; z-index: 10; }
+.seed-progress__dot { width: 14px; height: 14px; border-radius: 999px; background: var(--paper-lo); box-shadow: inset 0 0 0 2px var(--gold-soft); transition: all .3s; }
+.seed-progress__dot.is-active { background: var(--gold); width: 44px; box-shadow: none; }
+
+/* ------- 章扉（全画面カラー） ------- */
+.seed-slide.section { background: var(--cat); color: var(--paper-hi); }
+.seed-slide.section::before { opacity: .06; }
+.section .seed-safe { align-content: center; }
+.section .headline { color: #fff; }
+.section .kicker { color: rgba(255,255,255,.85); }
+.section .kicker::before { background: rgba(255,255,255,.85); }
+.section .kicker .num { color: #fff; }   /* 2026-08-22 修正: 章扉は暗い背景なので .num の墨色(--gold-deep)では黒地に黒字で読めなかった（数学・理科・社会・英語の全章扉に共通の書き忘れ） */
+.section .lead { color: rgba(255,255,255,.9); }
+.section .seed-foot { color: rgba(255,255,255,.7); border-color: rgba(255,255,255,.25); }
+.section .seed-foot .brand { color: #fff; }
+
+/* 装飾：大きな囲み番号（カード番号っぽく） */
+.plate {
+  font-family:'Zen Old Mincho',serif; font-weight:900; font-size:300px; line-height:.8;
+  color: var(--cat); opacity: .10; position: absolute; right: 90px; bottom: 40px; pointer-events: none;
+}

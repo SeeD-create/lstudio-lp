@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>正距方位図法 ── 中心からの距離と方位が正しい（航空図）｜中1地理 第1章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .zf-safe { inset: 80px 130px 80px; grid-template-columns: 560px 1fr; align-content: center; gap: 56px; align-items: center; }
+  .zf-fig { background:var(--paper-hi); border:3px solid var(--sumi); border-radius:24px; box-shadow:0 16px 38px rgba(40,30,10,.12); padding:22px; display:grid; justify-items:center; gap:10px; }
+  .zf-fig svg { width:460px; height:460px; }
+  .zf-fig .cap { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:26px; color:var(--sumi); }
+  .zf-txt { display:grid; gap:18px; }
+  .zf-head { display:grid; gap:10px; }
+  .row { display:grid; grid-template-columns:140px 1fr; gap:20px; align-items:center; background:var(--paper-hi); border:3px solid var(--cat); border-radius:18px; padding:18px 26px; box-shadow:0 12px 26px rgba(40,30,10,.08); }
+  .row .yr { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:27px; color:var(--cat); text-align:center; line-height:1.15; }
+  .row .tx { font-size:27px; line-height:1.5; color:var(--sumi); font-weight:700; }
+  .row .tx .blank { font-size:29px; min-width:120px; }
+  .row.hot { border-color:var(--imp); } .row.hot .yr { color:var(--imp); }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="par">
+  <div class="seed-safe zf-safe">
+    <div class="zf-fig" data-at="1" data-anim="left">
+      <svg viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="230" cy="230" r="200" fill="#DCEBF5" stroke="#2c6489" stroke-width="4"/>
+        <g stroke="#9db8cc" stroke-width="1.6" fill="none"><circle cx="230" cy="230" r="150"/><circle cx="230" cy="230" r="100"/><circle cx="230" cy="230" r="50"/></g>
+        <g stroke="#9db8cc" stroke-width="1.4"><line x1="30" y1="230" x2="430" y2="230"/><line x1="230" y1="30" x2="230" y2="430"/><line x1="88" y1="88" x2="372" y2="372"/><line x1="372" y1="88" x2="88" y2="372"/></g>
+        <text x="230" y="22" text-anchor="middle" font-size="20" font-weight="900" fill="#2c6489">北</text>
+        <!-- 中心＝東京 -->
+        <circle cx="230" cy="230" r="9" fill="#C4161C"/>
+        <text x="230" y="258" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-size="20" font-weight="900" fill="#C4161C">東京</text>
+        <!-- ニューヨーク（北東） -->
+        <circle cx="326" cy="150" r="7" fill="#1a1a1a"/>
+        <text x="352" y="145" text-anchor="middle" font-size="16" font-weight="800" fill="#1a1a1a">ニューヨーク</text>
+        <!-- ブエノスアイレス（最遠・外周） -->
+        <circle cx="245" cy="418" r="7" fill="#8a52a0"/>
+        <text x="245" y="440" text-anchor="middle" font-size="15" font-weight="800" fill="#8a52a0">ブエノスアイレス</text>
+      </svg>
+      <div class="cap">この図法（中心＝東京）</div>
+    </div>
+    <div class="zf-txt">
+      <div class="zf-head" data-at="0">
+        <span class="kicker"><span class="num">Ⅳ-2</span>　まるい世界地図</span>
+        <h1 class="headline" style="font-size:44px;">中心からの<span class="em">2つ</span>が正しい図法</h1>
+      </div>
+      <div class="row" data-at="2" data-anim="left"><span class="yr">名前</span><span class="tx"><span class="blank" data-fill="2"><span class="bnum">①</span><b>正距方位図法</b></span></span></div>
+      <div class="row" data-at="3" data-anim="left"><span class="yr">正しい</span><span class="tx">中心からの<span class="blank" data-fill="3"><span class="bnum">②</span><b>距離</b></span>と<span class="blank" data-fill="3"><span class="bnum">③</span><b>方位</b></span>が正しい。</span></div>
+      <div class="row" data-at="4" data-anim="left"><span class="yr">ゆがみ</span><span class="tx">図の<b>外側</b>ほど、形や面積が大きくゆがむ。</span></div>
+      <div class="row hot" data-at="5" data-anim="left"><span class="yr">用途</span><span class="tx"><span class="blank" data-fill="5"><span class="bnum">④</span><b>航空機</b></span>の航路に利用される。</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 世界の様子</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

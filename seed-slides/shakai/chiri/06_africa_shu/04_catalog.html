@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>アフリカ州カタログ ── 集める3枚｜中1地理 第6章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .ct-safe { align-content: center; gap: 40px; }
+  .ct-head { display:grid; gap:12px; justify-items:center; text-align:center; }
+  .ct-row { display:grid; grid-template-columns: repeat(3,1fr); gap: 40px; }
+  .ct-card { position:relative; background: var(--paper-hi); border:3px solid var(--cat); border-radius:26px; padding:40px 40px 34px; box-shadow:0 16px 36px rgba(40,30,10,.12); display:grid; gap:16px; overflow:hidden; }
+  .ct-card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:14px; background:var(--cat); }
+  .ct-card .rn { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--cat); letter-spacing:.06em; }
+  .ct-card .rt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:50px; color:var(--sumi); }
+  .ct-card .rb { font-size:27px; color:var(--sumi-soft); line-height:1.5; }
+  .ct-card .rk { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
+  .ct-card .rk span { font-size:22px; font-weight:800; color:var(--sumi); background:var(--paper-lo); border-radius:10px; padding:6px 16px; }
+  .ct-plate { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:150px; color:var(--cat); opacity:.09; position:absolute; right:20px; bottom:-30px; line-height:1; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide">
+  <div class="seed-safe ct-safe">
+    <div class="ct-head" data-at="0">
+      <span class="kicker"><span class="num">CATALOG</span>　集める3枚</span>
+      <h1 class="headline" style="font-size:70px;">この3枚がそろえば、アフリカは<span class="em">完成</span></h1>
+    </div>
+    <div class="ct-row">
+      <div class="ct-card" data-cat="eq" data-at="1" data-anim="pop">
+        <span class="rn">CARD Ⅰ</span><span class="rt">自然と気候</span>
+        <span class="rb">サハラ砂漠・ナイル川。赤道を中心に、気候帯が南北にならぶ。</span>
+        <span class="rk"><span>サハラ砂漠</span><span>ナイル川</span><span>サバナ</span><span>砂漠化</span></span>
+        <span class="ct-plate">Ⅰ</span>
+      </div>
+      <div class="ct-card" data-cat="lib" data-at="2" data-anim="pop">
+        <span class="rn">CARD Ⅱ</span><span class="rt">歩みと国々</span>
+        <span class="rb">奴隷貿易・植民地支配・独立。歴史が国のかたちを決めた。</span>
+        <span class="rk"><span>植民地</span><span>アフリカの年</span><span>AU</span><span>公用語</span></span>
+        <span class="ct-plate">Ⅱ</span>
+      </div>
+      <div class="ct-card" data-cat="soc" data-at="3" data-anim="pop">
+        <span class="rn">CARD Ⅲ</span><span class="rt">産業と資源</span>
+        <span class="rb">カカオ・石油・レアメタル。ゆたかな資源と、かたよった経済。</span>
+        <span class="rk"><span>プランテーション</span><span>モノカルチャー</span><span>レアメタル</span></span>
+        <span class="ct-plate">Ⅲ</span>
+      </div>
+    </div>
+    <p class="lead" data-at="4" style="justify-self:center;text-align:center;font-size:32px;">まずは <span class="strong">CARD Ⅰ・自然と気候</span> から集めていこう。</p>
+  </div>
+  <div class="seed-foot"><span>第6章 アフリカ州</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

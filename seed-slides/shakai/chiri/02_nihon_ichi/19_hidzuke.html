@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>日付変更線 ── 西側が最も進み、東側が最も遅れる｜中1地理 第2章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .hd-safe { inset: 84px 130px 84px; align-content: center; gap: 34px; }
+  .hd-head { display:grid; gap:10px; }
+  .figbox { background:#EAF2F8; border:3px solid var(--sumi); border-radius:22px; box-shadow:0 14px 32px rgba(40,30,10,.12); padding:16px; }
+  .figbox svg { display:block; width:100%; height:auto; }
+  .fl { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; }
+  .two { display:grid; grid-template-columns: repeat(2,1fr); gap:26px; }
+  .hb { background:var(--paper-hi); border:3px solid var(--c); border-radius:16px; padding:22px 28px; display:grid; gap:6px; box-shadow:0 10px 24px rgba(40,30,10,.08); }
+  .hb .ht { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--c); }
+  .hb .hd2 { font-size:26px; color:var(--sumi-soft); font-weight:600; line-height:1.4; }
+  .note { display:flex; align-items:center; gap:20px; background:var(--sumi); color:var(--paper-hi); border-radius:16px; padding:18px 30px; font-size:26px; line-height:1.45; }
+  .note b { color:var(--gold-soft); }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe hd-safe">
+    <div class="hd-head" data-at="0">
+      <span class="cat-badge"><span class="dot"></span>Ⅱ-3　日付変更線</span>
+      <h1 class="headline" style="font-size:48px;margin-top:10px;">時間の「境目」＝<span class="em">日付変更線</span></h1>
+    </div>
+    <div class="figbox" data-at="0" data-anim="pop">
+      <svg viewBox="0 0 1560 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="1560" height="300" fill="#EAF2F8"/>
+        <!-- 帯 -->
+        <rect x="60" y="90" width="1440" height="120" fill="#CFE0EC" stroke="#2c6489" stroke-width="2"/>
+        <!-- 目盛り -->
+        <line x1="60" y1="90" x2="60" y2="210" stroke="#7a0d11" stroke-width="5" data-at="1"/>
+        <line x1="1500" y1="90" x2="1500" y2="210" stroke="#7a0d11" stroke-width="5" data-at="1"/>
+        <line x1="780" y1="80" x2="780" y2="220" stroke="#4a4947" stroke-width="3" stroke-dasharray="8 6"/>
+        <line x1="1020" y1="85" x2="1020" y2="215" stroke="#C4161C" stroke-width="3"/>
+        <!-- ラベル -->
+        <text class="fl" x="60" y="70" fill="#7a0d11" font-size="24" text-anchor="middle" data-at="1">日付変更線</text>
+        <text class="fl" x="60" y="248" fill="#7a0d11" font-size="20" text-anchor="middle" data-at="1">西経180°</text>
+        <text class="fl" x="1500" y="70" fill="#7a0d11" font-size="24" text-anchor="middle" data-at="1">日付変更線</text>
+        <text class="fl" x="1500" y="248" fill="#7a0d11" font-size="20" text-anchor="middle" data-at="1">東経180°</text>
+        <text class="fl" x="780" y="255" fill="#4a4947" font-size="20" text-anchor="middle">本初子午線 0°</text>
+        <text class="fl" x="1020" y="255" fill="#C4161C" font-size="20" text-anchor="middle">日本 東経135°</text>
+        <!-- 進む/遅れる -->
+        <text class="fl" x="300" y="155" fill="#1c4a66" font-size="30" text-anchor="middle" data-at="2">← 西側は最も進む</text>
+        <text class="fl" x="1260" y="155" fill="#1c4a66" font-size="30" text-anchor="middle" data-at="3">東側は最も遅れる →</text>
+      </svg>
+    </div>
+    <div class="two">
+      <div class="hb" style="--c:#2c6489" data-at="2" data-anim="left"><span class="ht">西側 ＝ 進んでいる</span><span class="hd2">日付変更線のすぐ西が、地球でいちばん時間が進んでいる。</span></div>
+      <div class="hb" style="--c:#b5433f" data-at="3" data-anim="right"><span class="ht">東側 ＝ 遅れている</span><span class="hd2">日付変更線のすぐ東が、地球でいちばん時間が遅れている。</span></div>
+    </div>
+    <div class="note" data-at="4" data-anim="fade"><span style="font-family:'Zen Old Mincho',serif;font-weight:900;color:var(--gold-soft);white-space:nowrap;">ポイント</span><span>日付変更線は<b>経度180°</b>を通る線。ここを東→西にこえると日付を<b>1日進める</b>、西→東にこえると<b>1日もどす</b>。</span></div>
+  </div>
+  <div class="seed-foot"><span>第2章 日本の位置と地域</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

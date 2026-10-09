@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>日本の自然カタログ ── 集める6枚｜中1地理 第11章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .cat-safe { inset: 96px 100px 96px; align-content: center; gap: 44px; }
+  .cat-head { display: grid; gap: 12px; }
+  .deck-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .cc { position: relative; background: var(--paper-hi); border-radius: 22px; border: 3px solid var(--cat);
+        box-shadow: 0 16px 34px rgba(40,30,10,.12); padding: 30px 18px 30px; min-height: 452px; display: grid; align-content: start; gap: 14px; }
+  .cc::before { content:""; position:absolute; left:0; top:0; right:0; height:12px; background:var(--cat); border-radius:19px 19px 0 0; }
+  .cc__no { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:38px; color:var(--cat); opacity:.35; }
+  .cc__ttl { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:35px; color:var(--sumi); line-height:1.15; margin-top:2px; }
+  .cc__ess { font-size:22px; color:var(--sumi-soft); line-height:1.45; font-weight:500; }
+  .cc__pill { justify-self:start; margin-top:auto; padding:7px 14px; border-radius:999px; background:var(--cat-bg); color:var(--cat); font-weight:900; font-size:19px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide">
+  <div class="seed-safe cat-safe">
+    <div class="cat-head" data-at="0">
+      <span class="kicker"><span class="num">11</span>　日本の自然カタログ</span>
+      <h1 class="headline" style="font-size:60px;">日本の地形と自然は、<span class="em">6枚</span>のカードで整理できる</h1>
+    </div>
+    <div class="deck-row">
+      <div class="cc" data-cat="eq"  data-at="1" data-anim="pop"><div class="cc__no">Ⅰ</div><div class="cc__ttl">変動帯と<br>山地</div><div class="cc__ess">プレートの境目に日本はある。国土の約4分の3が山地。</div><span class="cc__pill">日本アルプス</span></div>
+      <div class="cc" data-cat="lib" data-at="2" data-anim="pop"><div class="cc__no">Ⅱ</div><div class="cc__ttl">日本の川</div><div class="cc__ess">世界の川にくらべて短く、流れが急。信濃川と利根川。</div><span class="cc__pill">流域面積</span></div>
+      <div class="cc" data-cat="soc" data-at="3" data-anim="pop"><div class="cc__no">Ⅲ</div><div class="cc__ttl">平野・盆地<br>台地</div><div class="cc__ess">せまい平地に人が集まる。扇状地と三角州のでき方。</div><span class="cc__pill">関東平野</span></div>
+      <div class="cc" data-cat="par" data-at="4" data-anim="pop"><div class="cc__no">Ⅳ</div><div class="cc__ttl">日本の海と<br>海岸</div><div class="cc__ess">4つの海にかこまれる。リアス海岸・大陸棚・海溝。</div><span class="cc__pill">リアス海岸</span></div>
+      <div class="cc" data-cat="new" data-at="5" data-anim="pop"><div class="cc__no">Ⅴ</div><div class="cc__ttl">海流と<br>季節風</div><div class="cc__ess">暖流2・寒流2。冬は北西、夏は南東の季節風。災害も。</div><span class="cc__pill">やませ・台風</span></div>
+      <div class="cc" data-cat="eq"  data-at="6" data-anim="pop"><div class="cc__no">Ⅵ</div><div class="cc__ttl">日本の気候</div><div class="cc__ess">世界では冷帯と温帯。国内は6つの気候に分けられる。</div><span class="cc__pill">雨温図</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第11章 日本の地形・自然の特色</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(7);</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>北から飛驒・木曽・赤石 ── 順番を図でつかむ｜中1地理 第16章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+
+  .az-safe { inset: 84px 120px 84px; align-content: start; gap: 30px; }
+  .az-head { display: grid; gap: 10px; }
+  .figbox { background: var(--paper-hi); border: 3px solid var(--sumi); border-radius: 22px; box-shadow: 0 14px 32px rgba(40,30,10,.10); padding: 16px 24px; }
+  .figbox svg { display:block; width:100%; height:auto; }
+  .az-row { display:grid; grid-template-columns: repeat(3,1fr); gap: 26px; }
+  .az { background:var(--paper-hi); border-radius:18px; border:3px solid var(--c); padding:20px 26px; display:grid; gap:8px; box-shadow:0 10px 24px rgba(40,30,10,.08); }
+  .az .ah { font-weight:900; font-size:27px; color:var(--c); }
+  .az .ab { font-size:31px; font-weight:900; color:var(--sumi); }
+  .az .ab .blank { font-size:31px; min-width:220px; }
+  .az .as { font-size:21px; color:var(--sumi-mute); font-weight:700; }
+  .az-note { display:flex; align-items:center; gap:22px; background:var(--imp); color:#fff; border-radius:16px; padding:20px 32px; font-size:28px; line-height:1.45; }
+  .az-note > span:first-child { flex:none; white-space:nowrap; font-weight:900; opacity:.85; letter-spacing:.1em; }
+  .fg-row { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: stretch; }
+  .fg-photo { border-radius: 22px; border: 3px solid var(--cat); box-shadow: 0 14px 32px rgba(40,30,10,.10); overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe az-safe">
+    <div class="az-head" data-at="0">
+      <span class="kicker"><span class="num">Ⅰ-2</span>　日本アルプス</span>
+      <h1 class="headline" style="font-size:54px;">北から<span class="em">飛驒 → 木曽 → 赤石</span>の順にならぶ</h1>
+    </div>
+    <div class="fg-row" data-at="1">
+      <div class="figbox">
+        <svg viewBox="0 0 1620 300" xmlns="http://www.w3.org/2000/svg">
+          <line x1="40" y1="250" x2="1580" y2="250" stroke="#4A4947" stroke-width="4"/>
+          <text x="40" y="288" font-size="24" font-weight="900" fill="#4A4947" style="font-family:'Zen Kaku Gothic New',sans-serif">← 北（日本海側）</text>
+          <text x="1580" y="288" font-size="24" font-weight="900" fill="#4A4947" text-anchor="end" style="font-family:'Zen Kaku Gothic New',sans-serif">南（太平洋側）→</text>
+          <line x1="40" y1="70" x2="1580" y2="70" stroke="#C4161C" stroke-width="3" stroke-dasharray="14 9"/>
+          <text x="52" y="58" font-size="24" font-weight="900" fill="#C4161C" style="font-family:'Zen Kaku Gothic New',sans-serif">3000ｍ</text>
+          <path d="M180,250 L330,52 L480,250 Z" fill="#C3B2DE" stroke="#4A3273" stroke-width="4"/>
+          <path d="M620,250 L770,58 L920,250 Z" fill="#A9D8A2" stroke="#2F5A22" stroke-width="4"/>
+          <path d="M1060,250 L1210,48 L1360,250 Z" fill="#F0C08A" stroke="#8E4411" stroke-width="4"/>
+          <text x="330" y="228" font-size="30" font-weight="900" fill="#4A3273" text-anchor="middle" paint-order="stroke" stroke="#fff" stroke-width="5" style="font-family:'Zen Kaku Gothic New',sans-serif">北アルプス</text>
+          <text x="770" y="228" font-size="30" font-weight="900" fill="#2F5A22" text-anchor="middle" paint-order="stroke" stroke="#fff" stroke-width="5" style="font-family:'Zen Kaku Gothic New',sans-serif">中央アルプス</text>
+          <text x="1210" y="228" font-size="30" font-weight="900" fill="#8E4411" text-anchor="middle" paint-order="stroke" stroke="#fff" stroke-width="5" style="font-family:'Zen Kaku Gothic New',sans-serif">南アルプス</text>
+        </svg>
+      </div>
+      <div class="figure fg-photo"><img src="assets/alps.webp" alt="日本アルプス ── 3000ｍ級の岩と雪の山なみ"></div>
+    </div>
+    <div class="az-row">
+      <div class="az" style="--c:#4A3273" data-at="2" data-anim="pop"><div class="ah">北アルプス</div><div class="ab"><span class="blank" data-fill="2"><b>飛驒山脈</b></span></div><div class="as">富山・長野・岐阜の境。立山・穂高岳</div></div>
+      <div class="az" style="--c:#2F5A22" data-at="3" data-anim="pop"><div class="ah">中央アルプス</div><div class="ab"><span class="blank" data-fill="3"><b>木曽山脈</b></span></div><div class="as">長野県の中央。木曽川の東側</div></div>
+      <div class="az" style="--c:#8E4411" data-at="4" data-anim="pop"><div class="ah">南アルプス</div><div class="ab"><span class="blank" data-fill="4"><b>赤石山脈</b></span></div><div class="as">長野・山梨・静岡の境。北岳</div></div>
+    </div>
+    <div class="az-note" data-at="4"><span>覚え方</span><span>「<b>ひ・き・あ</b>」＝<b>飛</b>驒・<b>木</b>曽・<b>赤</b>石。北から南へこの順。3つまとめて<b>日本アルプス</b>。</span></div>
+  </div>
+  <div class="seed-foot"><span>第16章 中部地方</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

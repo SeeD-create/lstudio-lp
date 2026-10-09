@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>北アメリカ州｜ 地理 全30スライド</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #2a2018;
+      font-family: 'BIZ UDPGothic', 'Hiragino Sans', sans-serif; overflow: hidden; }
+    .viewer { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .frame-wrap { flex: 1; position: relative; overflow: hidden; background: white; }
+    iframe.slide-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 上部の一覧バー（スライド名＋ドット）は出さない。
+       投影中に画面の上へかぶって授業の邪魔になるため撤去（8/28 平野さん指示）。
+       移動は下のボタンと PageUp/Down で足りる。 */
+
+    /* ─── 下部コントロール ─── */
+    .controls { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+    .ctrl-btn { background: white; border: 0; padding: 8px 14px; border-radius: 999px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #422C18; cursor: pointer; transition: background .2s, transform .15s; }
+    .ctrl-btn:hover { background: #fff7e0; }
+    .ctrl-btn:active { transform: scale(.96); }
+    .ctrl-btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .ctrl-info { color: white; font-weight: 700; font-size: 13px; min-width: 70px; text-align: center; letter-spacing: .04em; }
+    .help-hint { color: rgba(255,255,255,.7); font-size: 12px; margin-left: 4px; }
+
+  </style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="frame-wrap">
+      <iframe class="slide-frame" id="frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="controls"><a class="ctrl-btn" id="seed-catalog-link" href="../../../index.html" style="text-decoration:none;white-space:nowrap">↩ 教材一覧へ戻る</a>
+      <button class="ctrl-btn" id="prev-btn">◀ 前のスライド</button>
+      <span class="ctrl-info" id="counter">1 / 30</span>
+      <button class="ctrl-btn" id="next-btn">次のスライド ▶</button>
+      <span class="help-hint">スライド内: ←→ ／ スライド切替: PageUp/Down</span>
+    </div>
+
+  </div>
+
+  <script>
+    const SLIDES = [
+  {
+    "file": "01_cover.html",
+    "title": "表紙 ── 世界の食料庫と最大の経済大国・北アメリカ州",
+    "sub": ""
+  },
+  {
+    "file": "02_hook.html",
+    "title": "北アメリカってどんな州？ ── 世界をリードする2つの顔",
+    "sub": ""
+  },
+  {
+    "file": "03_catalog.html",
+    "title": "集める4枚 ── 自然・民族・農業・工業",
+    "sub": ""
+  },
+  {
+    "file": "04_ichi_map.html",
+    "title": "北アメリカの位置 ── アメリカ・カナダ・メキシコ",
+    "sub": ""
+  },
+  {
+    "file": "05_sec_shizen.html",
+    "title": "自然と気候",
+    "sub": ""
+  },
+  {
+    "file": "06_chikei_map.html",
+    "title": "北アメリカの地形 ── 2つの山脈・大河・五大湖",
+    "sub": ""
+  },
+  {
+    "file": "07_chikei_list.html",
+    "title": "地形カタログ ── 東西の山脈と中央の大平原",
+    "sub": ""
+  },
+  {
+    "file": "08_kikou_map.html",
+    "title": "北アメリカの気候 ── 南北にならぶ4つの気候帯",
+    "sub": ""
+  },
+  {
+    "file": "09_check1.html",
+    "title": "ミニ確認 ── 自然と気候",
+    "sub": ""
+  },
+  {
+    "file": "10_sec_usa.html",
+    "title": "アメリカ合衆国",
+    "sub": ""
+  },
+  {
+    "file": "11_usa_profile.html",
+    "title": "アメリカ合衆国のプロフィール ── 世界第3位の国土",
+    "sub": ""
+  },
+  {
+    "file": "12_minzoku.html",
+    "title": "多民族国家アメリカ ── 4つの人々が暮らす",
+    "sub": ""
+  },
+  {
+    "file": "13_rekishi.html",
+    "title": "アメリカの歩み ── 13州から西へ広がった国",
+    "sub": ""
+  },
+  {
+    "file": "14_slum.html",
+    "title": "人種差別とスラム ── 奴隷制がのこした課題",
+    "sub": ""
+  },
+  {
+    "file": "15_check2.html",
+    "title": "ミニ確認 ── 民族と歴史",
+    "sub": ""
+  },
+  {
+    "file": "16_sec_nogyo.html",
+    "title": "農業",
+    "sub": ""
+  },
+  {
+    "file": "17_nogyo_tokushoku.html",
+    "title": "アメリカ農業の特色 ── 適地適作と企業的農業",
+    "sub": ""
+  },
+  {
+    "file": "18_nogyo_map.html",
+    "title": "適地適作の地図 ── 5つの農業地帯",
+    "sub": ""
+  },
+  {
+    "file": "19_center_feedlot.html",
+    "title": "大農業の技術 ── センターピボット・フィードロット",
+    "sub": ""
+  },
+  {
+    "file": "20_seisan.html",
+    "title": "世界の食料庫 ── 農産物の生産と輸出",
+    "sub": ""
+  },
+  {
+    "file": "21_check3.html",
+    "title": "ミニ確認 ── アメリカの農業",
+    "sub": ""
+  },
+  {
+    "file": "22_sec_kogyo.html",
+    "title": "工業と都市",
+    "sub": ""
+  },
+  {
+    "file": "23_toshi_map.html",
+    "title": "アメリカの都市 ── 東から西へ広がる産業",
+    "sub": ""
+  },
+  {
+    "file": "24_toshi_hokutobu.html",
+    "title": "北東部・五大湖の都市 ── 古い工業のまち",
+    "sub": ""
+  },
+  {
+    "file": "25_toshi_nanseibu.html",
+    "title": "南部・太平洋岸の都市 ── 新しい産業のまち",
+    "sub": ""
+  },
+  {
+    "file": "26_sunbelt_silicon.html",
+    "title": "サンベルトとシリコンバレー ── 先端産業の南進",
+    "sub": ""
+  },
+  {
+    "file": "27_takoku_usmca.html",
+    "title": "多国籍企業・ドル・USMCA ── 世界とつながる経済",
+    "sub": ""
+  },
+  {
+    "file": "28_check4.html",
+    "title": "ミニ確認 ── 工業と都市",
+    "sub": ""
+  },
+  {
+    "file": "29_summary.html",
+    "title": "北アメリカ州・まるごとカタログ",
+    "sub": ""
+  },
+  {
+    "file": "30_check_final.html",
+    "title": "総仕上げ ── 北アメリカ州○×クイズ",
+    "sub": ""
+  }
+];
+
+    const frame    = document.getElementById('frame');
+    const counter  = document.getElementById('counter');
+    const prevBtn  = document.getElementById('prev-btn');
+    const nextBtn  = document.getElementById('next-btn');
+    let cur = 0;
+
+    function show(i) {
+      cur = Math.max(0, Math.min(SLIDES.length - 1, i));
+      frame.src = SLIDES[cur].file;
+      counter.textContent = `${cur + 1} / ${SLIDES.length}`;
+      prevBtn.disabled = (cur === 0);
+      nextBtn.disabled = (cur === SLIDES.length - 1);
+      setTimeout(() => { try { frame.contentWindow.focus(); } catch(e) {} }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => show(cur - 1));
+    nextBtn.addEventListener('click', () => show(cur + 1));
+
+    // 目次（ホーム画面）は出さない。授業のたびに一覧が挟まって邪魔になるため撤去（8/21 平野さん指示）。
+    // 移動はドット・前後ボタン・PageUp/Downで足りる。
+    function handleKey(e) {
+      if (e.key === 'PageDown') { if (cur < SLIDES.length - 1) show(cur + 1); e.preventDefault(); }
+      else if (e.key === 'PageUp') { if (cur > 0) show(cur - 1); e.preventDefault(); }
+    }
+    window.addEventListener('keydown', handleKey);
+
+    frame.addEventListener('load', () => {
+      // フォーカスはスライド側へ（←→でステップが動くように）
+      try { frame.contentWindow.focus(); } catch(e) {}
+    });
+
+    // スライド側（nav.js）から届く PageUp/PageDown を受けてスライドを送る。
+    // file:// では iframe のキーを親から直接拾えないので、この経路が本線。
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || d.seed !== 'slide-nav') return;
+      if (d.dir === 'next' && cur < SLIDES.length - 1) show(cur + 1);
+      else if (d.dir === 'prev' && cur > 0) show(cur - 1);
+    });
+
+    // 開いたらそのまま1枚目から始める（目次は挟まない）
+    show(0);
+  </script>
+</body>
+</html>

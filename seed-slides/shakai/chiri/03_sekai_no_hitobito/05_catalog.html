@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>世界の人々カタログ ── 5つの気候帯＋高山｜中1地理 第3章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .cat-safe { inset: 90px 120px 86px; align-content: start; gap: 34px; }
+  .cat-head { display: grid; gap: 12px; }
+  .deck-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+  .cc { position: relative; background: var(--paper-hi); border-radius: 20px; border: 3px solid var(--sumi);
+        box-shadow: 0 14px 30px rgba(40,30,10,.12); padding: 26px 20px 30px; min-height: 420px; display: grid; align-content: start; gap: 14px; text-align:center; justify-items:center; }
+  .cc::before { content:""; position:absolute; left:0; top:0; right:0; height:12px; border-radius:17px 17px 0 0; }
+  .cc.z1::before{background:#3FA05A;} .cc.z2::before{background:#E8B94A;} .cc.z3::before{background:#E67E22;}
+  .cc.z4::before{background:#5B8DB8;} .cc.z5::before{background:#9FB8CC;} .cc.z6::before{background:#9B6B4A;}
+  .cc .sw { width:70px; height:70px; border-radius:16px; }
+  .cc.z1 .sw{background:#3FA05A;} .cc.z2 .sw{background:#E8B94A;} .cc.z3 .sw{background:#E67E22;}
+  .cc.z4 .sw{background:#5B8DB8;} .cc.z5 .sw{background:#9FB8CC;} .cc.z6 .sw{background:#9B6B4A;}
+  .cc__ttl { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:40px; color:var(--sumi); line-height:1.1; }
+  .cc__ess { font-size:24px; color:var(--sumi-soft); line-height:1.45; font-weight:500; }
+  .cc__pill { margin-top:auto; padding:6px 16px; border-radius:999px; background:var(--paper-lo); color:var(--sumi); font-weight:900; font-size:21px; }
+  .cat-note { display:flex; align-items:center; gap:24px; background: var(--sumi); color: var(--paper-hi); border-radius:18px; padding:22px 36px; font-size:29px; line-height:1.5; }
+  .cat-note .k { font-family:'Zen Old Mincho',serif; font-weight:900; color: var(--gold-soft); white-space:nowrap; }
+  .cat-note b { color:#ff9a9d; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide">
+  <div class="seed-safe cat-safe">
+    <div class="cat-head" data-at="0">
+      <span class="kicker"><span class="num">CARD Ⅰ</span>　世界の気候帯カタログ</span>
+      <h1 class="headline" style="font-size:60px;">集める気候帯は、<span class="em">5つ＋高山</span></h1>
+    </div>
+    <div class="deck-row">
+      <div class="cc z1" data-at="1" data-anim="pop"><div class="sw"></div><div class="cc__ttl">熱帯</div><div class="cc__ess">一年中暑い。ジャングルやサバナ。</div><span class="cc__pill">赤道付近</span></div>
+      <div class="cc z2" data-at="2" data-anim="pop"><div class="sw"></div><div class="cc__ttl">乾燥帯</div><div class="cc__ess">雨が少ない。砂漠と草原。</div><span class="cc__pill">回帰線付近</span></div>
+      <div class="cc z3" data-at="3" data-anim="pop"><div class="sw"></div><div class="cc__ttl">温帯</div><div class="cc__ess">四季があり暮らしやすい。</div><span class="cc__pill">中緯度</span></div>
+      <div class="cc z4" data-at="4" data-anim="pop"><div class="sw"></div><div class="cc__ttl">冷帯<br>（亜寒帯）</div><div class="cc__ess">冬が長く寒い。タイガ。</div><span class="cc__pill">高緯度</span></div>
+      <div class="cc z5" data-at="5" data-anim="pop"><div class="sw"></div><div class="cc__ttl">寒帯</div><div class="cc__ess">一年中氷や雪。木が育たない。</div><span class="cc__pill">極付近</span></div>
+      <div class="cc z6" data-at="5" data-anim="pop"><div class="sw"></div><div class="cc__ttl">高山</div><div class="cc__ess">標高が高く一年中すずしい。</div><span class="cc__pill">アンデス等</span></div>
+    </div>
+    <div class="cat-note" data-at="5" data-anim="fade">
+      <span class="k">読み方</span>
+      <span>気候帯は<b>赤道から極に向かって</b>、熱帯→乾燥帯→温帯→冷帯→寒帯と、緯度の順にならんでいる。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第3章 世界の人々</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>日本の地形・自然の特色｜中1地理 第11章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .cover-safe { inset: 120px 150px 120px; grid-template-columns: 1fr 640px; align-content: center; gap: 72px; align-items: center; }
+  .cover-txt { display: grid; gap: 32px; }
+  .cover-kicker { font-size: 30px; letter-spacing:.3em; }
+  .cover-title { font-size: 112px; line-height: 1.04; }
+  .cover-title .goldem { color: var(--imp); }
+  .cover-lead { font-size: 36px; }
+  .seal { display:inline-flex; align-items:center; gap:16px; font-family:'Zen Old Mincho',serif; font-weight:900; color:var(--gold-deep); font-size:27px; letter-spacing:.06em; }
+  .seal .ring { width:56px;height:56px;border-radius:50%;border:4px solid var(--sumi-mute);display:inline-flex;align-items:center;justify-content:center;color:var(--gold-deep);font-size:28px; }
+  .cover-fig { height: 700px; border-radius: 32px; display:grid; place-content:center;
+    background: radial-gradient(120% 90% at 30% 10%, var(--paper-hi), var(--paper-lo));
+    border:3px solid var(--sumi); box-shadow:0 20px 50px rgba(40,30,10,.18); position:relative; overflow:hidden; }
+  .cover-fig::before { content:""; position:absolute; inset:16px; border:2px solid var(--hair); border-radius:24px; }
+  .cover-fig svg { width:540px; height:640px; z-index:1; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide">
+  <div class="seed-safe cover-safe">
+    <div class="cover-txt">
+      <span class="kicker cover-kicker">中1 地理　<span class="num">第11章</span></span>
+      <h1 class="headline cover-title">日本の<span class="goldem">地形</span><br>自然の特色</h1>
+      <p class="lead cover-lead">国土の約<span class="strong">4分の3</span>が山地。川は<span class="strong">短くて急</span>。まわりは<span class="strong">4つの海</span>と<span class="strong">4つの海流</span>。日本の自然を、6枚のカードにして集めよう。</p>
+      <span class="seal"><span class="ring">地</span>変動帯・山地・川・平野・海・気候</span>
+    </div>
+    <div class="cover-fig" data-at="0" data-anim="right">
+      <svg viewBox="0 0 540 640" xmlns="http://www.w3.org/2000/svg">
+        <!-- 断面イメージ：海溝→山地→平野→海 -->
+        <rect x="30" y="30" width="480" height="580" rx="18" fill="#F6F3EC" stroke="#3a3a39" stroke-width="4"/>
+        <!-- 海(左) -->
+        <path d="M50,470 H240 V590 H50 Z" fill="#D6E6F2"/>
+        <!-- 山と平野の断面 -->
+        <path d="M50,470 L110,455 L165,300 L215,400 L268,175 L330,395 L395,440 L490,452 L490,590 L50,590 Z" fill="#E3DFD6" stroke="#3a3a39" stroke-width="3.5" stroke-linejoin="round"/>
+        <!-- 川 -->
+        <path d="M268,182 L250,290 L232,360 L205,410 L150,452" fill="none" stroke="#1F6FB2" stroke-width="6" stroke-linecap="round"/>
+        <!-- 扇状地 -->
+        <path d="M330,395 L395,440 L490,452" fill="none" stroke="#B3541E" stroke-width="6" stroke-linecap="round"/>
+        <text x="268" y="150" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="27" fill="#C4161C">山地・山脈</text>
+        <text x="143" y="518" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="25" fill="#144e80">海</text>
+        <text x="430" y="500" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="24" fill="#7A4B12">平野</text>
+        <text x="205" y="345" text-anchor="start" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="24" fill="#1F6FB2">川</text>
+        <!-- プレートの矢印 -->
+        <g stroke="#C4161C" stroke-width="6" fill="none" stroke-linecap="round">
+          <path d="M90,110 H190" marker-end="url(#a1)"/>
+          <path d="M450,110 H350" marker-end="url(#a1)"/>
+        </g>
+        <defs><marker id="a1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#C4161C"/></marker></defs>
+        <text x="270" y="118" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="26" fill="#C4161C">プレート</text>
+        <text x="270" y="80" text-anchor="middle" font-family="'Zen Old Mincho',serif" font-weight="900" font-size="30" fill="#3a3a39">変動帯</text>
+      </svg>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第11章 日本の地形・自然の特色</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(1);</script>
+</body>
+</html>

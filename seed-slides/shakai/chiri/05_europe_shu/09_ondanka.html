@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>高緯度なのに暖かい理由 ── 北大西洋海流と偏西風｜中1地理 第5章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .od-safe { inset: 74px 120px 92px; grid-template-columns: 860px 1fr; align-content:center; gap:52px; align-items:center; }
+  .od-map { background:#D9E6F0; border:3px solid var(--sumi); border-radius:22px; box-shadow:0 16px 36px rgba(40,30,10,.14); padding:12px; }
+  .od-map svg { display:block; width:100%; height:auto; }
+  .cty { stroke:#6d6c6a; stroke-width:2; fill:#E2E0D6; }
+  .sea { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:800; fill:#6f93b3; font-size:20px; text-anchor:middle; }
+  .ov { opacity:0; transition:opacity .55s; }
+  .lblc { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; font-size:24px; fill:#c0392b; }
+  .lblw { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; font-size:24px; fill:#1d6fa5; }
+  .od-txt { display:grid; gap:20px; }
+  .od-txt .cat-badge { justify-self:start; }
+  .od-def { font-size:32px; line-height:1.5; color:var(--sumi); font-weight:700; }
+  .od-def .blank { font-size:35px; } .od-def .blank b { font-size:34px; }
+  .od-note { font-size:26px; color:var(--sumi-soft); line-height:1.5; }
+  .od-note .em { color:var(--imp); font-weight:900; }
+  .od-star { display:flex; align-items:center; gap:18px; background:var(--sumi); color:var(--paper-hi); border-radius:16px; padding:16px 26px; font-size:24px; line-height:1.45; }
+  .od-star .k { font-family:'Zen Old Mincho',serif; font-weight:900; color:var(--gold-soft); }
+  .od-star b { color:#ff8a8f; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe od-safe">
+    <div class="od-map" data-at="0" data-anim="left">
+      <svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arw-c" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/></marker>
+          <marker id="arw-w" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1d6fa5"/></marker>
+        </defs>
+        <rect x="0" y="0" width="900" height="620" fill="#D9E6F0"/>
+        <text class="sea" x="140" y="330">大西洋</text>
+        <!-- Europe blocks (right side) -->
+        <path class="cty" d="M470,60 Q498,50 514,74 L548,186 Q532,204 512,196 L476,100 Q466,78 470,60 Z"/>
+        <path class="cty" d="M514,84 Q550,74 566,104 L582,206 Q566,226 540,218 L516,140 Q508,108 514,84 Z"/>
+        <path class="cty" d="M540,250 Q600,240 636,266 L654,326 Q628,362 582,356 L540,320 Q528,282 540,250 Z"/>
+        <path class="cty" d="M548,220 Q600,212 630,230 L636,286 Q612,304 578,298 L548,268 Q540,240 548,220 Z"/>
+        <path class="cty" d="M430,300 Q456,290 470,314 L474,382 Q462,404 438,396 L426,342 Q420,312 430,300 Z"/>
+        <ellipse class="cty" cx="392" cy="352" rx="24" ry="30"/>
+        <!-- warm current -->
+        <g class="ov" data-at="1">
+          <path d="M120,540 Q260,520 360,440 Q430,380 470,300 Q490,250 500,190" fill="none" stroke="#c0392b" stroke-width="9" stroke-linecap="round" marker-end="url(#arw-c)" opacity=".85"/>
+          <text class="lblc" x="150" y="512">あたたかい海水</text>
+        </g>
+        <!-- westerly wind -->
+        <g class="ov" data-at="2">
+          <path d="M120,220 Q280,205 420,215 Q520,222 560,235" fill="none" stroke="#1d6fa5" stroke-width="8" stroke-linecap="round" stroke-dasharray="20 12" marker-end="url(#arw-w)" opacity=".85"/>
+          <text class="lblw" x="150" y="196">西から吹く風</text>
+        </g>
+      </svg>
+    </div>
+    <div class="od-txt">
+      <span class="cat-badge" data-at="0"><span class="dot"></span>暖かさのしくみ</span>
+      <p class="od-def" data-at="1">① 大西洋を北上する暖流<br>＝<span class="blank" data-fill="1"><b>北大西洋海流</b></span></p>
+      <p class="od-def" data-at="2">② その暖かさを陸へ運ぶ、1年中西から吹く風<br>＝<span class="blank" data-fill="2"><b>偏西風</b></span></p>
+      <p class="od-note" data-at="3">この<span class="em">2つ</span>のダブルの働きで、高緯度のわりに<span class="em">冬でも寒くなりすぎない</span>。とくに西ヨーロッパの<b>西岸海洋性気候</b>をつくる。</p>
+      <div class="od-star" data-at="4"><span class="k">★頻出</span><span>「なぜ高緯度なのに暖かい？」の答えは、<b>暖流の名前</b>と<b>風の名前</b>のセット。必ず2つ書く。</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第5章 ヨーロッパ州</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5, function(step){
+  document.querySelectorAll('svg .ov[data-at]').forEach(function(el){
+    el.style.opacity = (step >= +el.dataset.at) ? 1 : 0;
+  });
+});</script>
+</body>
+</html>

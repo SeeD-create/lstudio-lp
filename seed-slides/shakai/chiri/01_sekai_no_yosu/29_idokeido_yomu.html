@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>緯度と経度を読む ── A〜D地点の位置を答える｜中1地理 第1章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .yg-safe { inset: 78px 120px 78px; grid-template-columns: 1fr 500px; align-content: center; gap: 46px; align-items: center; }
+  .yg-fig { background:var(--paper-hi); border:3px solid var(--sumi); border-radius:22px; box-shadow:0 16px 36px rgba(40,30,10,.12); padding:16px; }
+  .yg-fig svg { display:block; width:100%; height:auto; }
+  .yg-txt { display:grid; gap:14px; }
+  .yg-head { display:grid; gap:10px; }
+  .arow { display:grid; grid-template-columns:66px 1fr; gap:16px; align-items:center; background:var(--paper-hi); border-left:8px solid var(--imp); border-radius:0 14px 14px 0; padding:14px 20px; box-shadow:0 8px 18px rgba(40,30,10,.06); }
+  .arow .lt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--imp); text-align:center; }
+  .arow .rd { font-size:26px; font-weight:800; color:var(--sumi); }
+  .arow .rd .blank { font-size:28px; min-width:130px; }
+  .yg-cap { font-size:22px; color:var(--sumi-soft); font-weight:700; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="new">
+  <div class="seed-safe yg-safe">
+    <div class="yg-fig" data-at="1" data-anim="left">
+      <svg viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="960" height="560" fill="#fff"/>
+        <rect x="80" y="70" width="800" height="420" fill="#EAF2F8" stroke="#2c6489" stroke-width="3"/>
+        <g stroke="#b9cdd9" stroke-width="1.4">
+          <line x1="146.7" y1="70" x2="146.7" y2="490"/><line x1="213.3" y1="70" x2="213.3" y2="490"/><line x1="280" y1="70" x2="280" y2="490"/><line x1="346.7" y1="70" x2="346.7" y2="490"/><line x1="413.3" y1="70" x2="413.3" y2="490"/><line x1="546.7" y1="70" x2="546.7" y2="490"/><line x1="613.3" y1="70" x2="613.3" y2="490"/><line x1="680" y1="70" x2="680" y2="490"/><line x1="746.7" y1="70" x2="746.7" y2="490"/><line x1="813.3" y1="70" x2="813.3" y2="490"/>
+          <line x1="80" y1="140" x2="880" y2="140"/><line x1="80" y1="210" x2="880" y2="210"/><line x1="80" y1="350" x2="880" y2="350"/><line x1="80" y1="420" x2="880" y2="420"/>
+        </g>
+        <!-- 赤道・本初子午線 -->
+        <line x1="80" y1="280" x2="880" y2="280" stroke="#C4161C" stroke-width="3"/>
+        <line x1="480" y1="70" x2="480" y2="490" stroke="#C4161C" stroke-width="3"/>
+        <!-- 経度ラベル -->
+        <g font-size="17" font-weight="800" fill="#2c6489" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif">
+          <text x="80" y="58">西経90</text><text x="280" y="58">西経45</text><text x="480" y="58">0°</text><text x="680" y="58">東経45</text><text x="880" y="58">東経90</text>
+        </g>
+        <!-- 緯度ラベル -->
+        <g font-size="16" font-weight="800" fill="#2c6489" text-anchor="end" font-family="'Zen Kaku Gothic New',sans-serif">
+          <text x="72" y="146">北緯30</text><text x="72" y="286">0°</text><text x="72" y="426">南緯30</text>
+        </g>
+        <!-- 地点 -->
+        <g font-family="'Zen Old Mincho',serif" font-weight="900">
+          <circle cx="813.3" cy="140" r="12" fill="#C4161C"/><text x="813.3" y="122" text-anchor="middle" font-size="26" fill="#C4161C">A</text>
+          <circle cx="280" cy="350" r="12" fill="#C4161C"/><text x="280" y="332" text-anchor="middle" font-size="26" fill="#C4161C">B</text>
+          <circle cx="546.7" cy="420" r="12" fill="#C4161C"/><text x="560" y="412" text-anchor="middle" font-size="26" fill="#C4161C">C</text>
+          <circle cx="346.7" cy="140" r="12" fill="#C4161C"/><text x="346.7" y="122" text-anchor="middle" font-size="26" fill="#C4161C">D</text>
+        </g>
+      </svg>
+    </div>
+    <div class="yg-txt">
+      <div class="yg-head" data-at="0">
+        <span class="kicker"><span class="num">Ⅴ-3</span>　緯度・経度を読む</span>
+        <h1 class="headline" style="font-size:40px;">A〜Dの<span class="em">位置</span>を答える</h1>
+      </div>
+      <div class="yg-cap" data-at="1">緯線・経線とも15°ごと。まず南北（緯度）、次に東西（経度）。</div>
+      <div class="arow" data-at="2" data-anim="left"><span class="lt">A</span><span class="rd"><span class="blank" data-fill="2"><b>北緯30°</b></span>・<span class="blank" data-fill="2"><b>東経75°</b></span></span></div>
+      <div class="arow" data-at="3" data-anim="left"><span class="lt">B</span><span class="rd"><span class="blank" data-fill="3"><b>南緯15°</b></span>・<span class="blank" data-fill="3"><b>西経45°</b></span></span></div>
+      <div class="arow" data-at="4" data-anim="left"><span class="lt">C</span><span class="rd"><span class="blank" data-fill="4"><b>南緯30°</b></span>・<span class="blank" data-fill="4"><b>東経15°</b></span></span></div>
+      <div class="arow" data-at="5" data-anim="left"><span class="lt">D</span><span class="rd"><span class="blank" data-fill="5"><b>北緯30°</b></span>・<span class="blank" data-fill="5"><b>西経30°</b></span></span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 世界の様子</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

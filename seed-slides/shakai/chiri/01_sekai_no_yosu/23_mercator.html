@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>メルカトル図法 ── 角度が正しい・高緯度ほど拡大（航海図）｜中1地理 第1章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .mc-safe { inset: 80px 130px 80px; grid-template-columns: 620px 1fr; align-content: center; gap: 54px; align-items: center; }
+  .mc-fig { background:var(--paper-hi); border:3px solid var(--sumi); border-radius:24px; box-shadow:0 16px 38px rgba(40,30,10,.12); padding:22px; display:grid; justify-items:center; gap:10px; }
+  .mc-fig svg { width:540px; height:auto; }
+  .mc-fig .cap { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:26px; color:var(--sumi); }
+  .mc-fig .cap b { color:var(--imp); }
+  .mc-txt { display:grid; gap:16px; }
+  .mc-head { display:grid; gap:10px; }
+  .row { display:grid; grid-template-columns:140px 1fr; gap:20px; align-items:center; background:var(--paper-hi); border:3px solid var(--cat); border-radius:18px; padding:16px 26px; box-shadow:0 12px 26px rgba(40,30,10,.08); }
+  .row .yr { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:27px; color:var(--cat); text-align:center; line-height:1.15; }
+  .row .tx { font-size:26px; line-height:1.5; color:var(--sumi); font-weight:700; }
+  .row .tx .blank { font-size:28px; min-width:120px; }
+  .row.hot { border-color:var(--imp); } .row.hot .yr { color:var(--imp); }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="par">
+  <div class="seed-safe mc-safe">
+    <div class="mc-fig" data-at="1" data-anim="left">
+      <svg viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="20" width="480" height="360" fill="#DCEBF5" stroke="#2c6489" stroke-width="3"/>
+        <g stroke="#9db8cc" stroke-width="1.4">
+          <line x1="20" y1="80" x2="500" y2="80"/><line x1="20" y1="140" x2="500" y2="140"/><line x1="20" y1="260" x2="500" y2="260"/><line x1="20" y1="320" x2="500" y2="320"/>
+          <line x1="116" y1="20" x2="116" y2="380"/><line x1="212" y1="20" x2="212" y2="380"/><line x1="308" y1="20" x2="308" y2="380"/><line x1="404" y1="20" x2="404" y2="380"/>
+        </g>
+        <line x1="20" y1="200" x2="500" y2="200" stroke="#C4161C" stroke-width="3"/>
+        <text x="486" y="192" text-anchor="end" font-size="16" font-weight="900" fill="#C4161C">緯度0°</text>
+        <!-- 同じ大きさの3円 -->
+        <circle cx="400" cy="78" r="30" fill="#E79A9A" stroke="#b5433f" stroke-width="3"/><text x="400" y="88" text-anchor="middle" font-size="26" font-weight="900" fill="#7a0d11">A</text>
+        <circle cx="300" cy="150" r="30" fill="#F2DE9E" stroke="#b79328" stroke-width="3"/><text x="300" y="160" text-anchor="middle" font-size="26" font-weight="900" fill="#8a6a15">B</text>
+        <circle cx="170" cy="248" r="30" fill="#8FC69B" stroke="#3f7d55" stroke-width="3"/><text x="170" y="258" text-anchor="middle" font-size="26" font-weight="900" fill="#2f6a2f">C</text>
+      </svg>
+      <div class="mc-fig cap" style="border:none;box-shadow:none;padding:0;">A・B・Cは<b>同じ大きさ</b>の円　→　実際の面積は C＞B＞A</div>
+    </div>
+    <div class="mc-txt">
+      <div class="mc-head" data-at="0">
+        <span class="kicker"><span class="num">Ⅳ-3</span>　四角い世界地図</span>
+        <h1 class="headline" style="font-size:44px;">経線と緯線が直角・<span class="em">高緯度</span>ほど拡大</h1>
+      </div>
+      <div class="row" data-at="2" data-anim="left"><span class="yr">名前</span><span class="tx"><span class="blank" data-fill="2"><span class="bnum">①</span><b>メルカトル図法</b></span></span></div>
+      <div class="row" data-at="3" data-anim="left"><span class="yr">正しい</span><span class="tx">経線と緯線が直角に交わり、<span class="blank" data-fill="3"><span class="bnum">②</span><b>角度</b></span>が正しい。</span></div>
+      <div class="row hot" data-at="4" data-anim="left"><span class="yr">ゆがみ</span><span class="tx"><b>高緯度（極に近い）ほど</b>、面積が実際より大きく表される。</span></div>
+      <div class="row" data-at="5" data-anim="left"><span class="yr">用途</span><span class="tx"><span class="blank" data-fill="5"><span class="bnum">③</span><b>航海図</b></span>に利用される。</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 世界の様子</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

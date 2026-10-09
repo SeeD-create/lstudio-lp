@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>雨温図の見方 ── 気温は折れ線、降水量は棒｜中1地理 第3章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .uz-safe { inset: 90px 140px 86px; grid-template-columns: 640px 1fr; align-content:center; gap: 70px; align-items:center; }
+  .uz-graph { background:var(--paper-hi); border:3px solid var(--sumi); border-radius:22px; box-shadow:0 16px 34px rgba(40,30,10,.12); padding:24px; }
+  .uz-graph svg { display:block; width:100%; height:auto; }
+  .uz-txt { display:grid; gap:26px; }
+  .uz-row { display:flex; align-items:flex-start; gap:20px; font-size:33px; line-height:1.5; color:var(--sumi-soft); }
+  .uz-row .b { flex:none; width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:900; color:#fff; font-size:30px; }
+  .uz-row b { color:var(--imp); font-weight:900; }
+  .uz-note { display:flex; align-items:center; gap:20px; background:var(--sumi); color:var(--paper-hi); border-radius:16px; padding:22px 34px; font-size:29px; line-height:1.5; }
+  .uz-note .k { font-family:'Zen Old Mincho',serif; font-weight:900; color:var(--gold-soft); white-space:nowrap; }
+  .uz-note b { color:#ff9a9d; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide">
+  <div class="seed-safe uz-safe">
+    <div class="uz-graph" data-at="1" data-anim="left">
+      <svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg">
+        <!-- 枠 -->
+        <line x1="70" y1="30" x2="70" y2="360" stroke="#333" stroke-width="2"/>
+        <line x1="490" y1="30" x2="490" y2="360" stroke="#333" stroke-width="2"/>
+        <line x1="70" y1="360" x2="490" y2="360" stroke="#333" stroke-width="2"/>
+        <text x="40" y="40" font-size="20" fill="#C4161C" font-weight="900" text-anchor="middle">℃</text>
+        <text x="520" y="40" font-size="20" fill="#2b6a90" font-weight="900" text-anchor="middle">mm</text>
+        <!-- 降水量 棒（青） -->
+        <g fill="#6AA6D6" stroke="#2b6a90" stroke-width="1">
+          <rect x="82"  y="250" width="26" height="110"/>
+          <rect x="116" y="270" width="26" height="90"/>
+          <rect x="150" y="230" width="26" height="130"/>
+          <rect x="184" y="200" width="26" height="160"/>
+          <rect x="218" y="170" width="26" height="190"/>
+          <rect x="252" y="150" width="26" height="210"/>
+          <rect x="286" y="160" width="26" height="200"/>
+          <rect x="320" y="190" width="26" height="170"/>
+          <rect x="354" y="220" width="26" height="140"/>
+          <rect x="388" y="250" width="26" height="110"/>
+          <rect x="422" y="270" width="26" height="90"/>
+          <rect x="456" y="260" width="26" height="100"/>
+        </g>
+        <!-- 気温 折れ線（赤） -->
+        <polyline points="95,300 129,290 163,255 197,215 231,175 265,150 299,140 333,160 367,200 401,245 435,280 469,300"
+                  fill="none" stroke="#C4161C" stroke-width="4"/>
+        <g fill="#C4161C">
+          <circle cx="95" cy="300" r="5"/><circle cx="163" cy="255" r="5"/><circle cx="231" cy="175" r="5"/>
+          <circle cx="299" cy="140" r="5"/><circle cx="367" cy="200" r="5"/><circle cx="435" cy="280" r="5"/>
+        </g>
+        <!-- 月ラベル -->
+        <text x="95"  y="385" font-size="18" fill="#555" text-anchor="middle">1月</text>
+        <text x="265" y="385" font-size="18" fill="#555" text-anchor="middle">6月</text>
+        <text x="469" y="385" font-size="18" fill="#555" text-anchor="middle">12月</text>
+      </svg>
+    </div>
+    <div class="uz-txt">
+      <div data-at="0"><span class="kicker"><span class="num">気候②</span>　雨温図の見方</span>
+        <h1 class="headline" style="font-size:56px; margin-top:14px;">2つの情報を<span class="em">1枚</span>で読む</h1></div>
+      <div class="uz-row" data-at="2"><span class="b" style="background:#C4161C;">温</span><span><b>気温</b>は「折れ線グラフ」。<br>山の高さで暑い・寒いがわかる（左の目もりが℃）。</span></div>
+      <div class="uz-row" data-at="3"><span class="b" style="background:#2b6a90;">水</span><span><b>降水量</b>は「棒グラフ」。<br>棒の高さで雨の多い・少ないがわかる（右の目もりがmm）。</span></div>
+      <div class="uz-note" data-at="3"><span class="k">コツ</span><span>折れ線が山型なら<b>北半球</b>、谷型なら<b>南半球</b>。折れ線が真横なら赤道付近か高山。</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第3章 世界の人々</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(4);</script>
+</body>
+</html>

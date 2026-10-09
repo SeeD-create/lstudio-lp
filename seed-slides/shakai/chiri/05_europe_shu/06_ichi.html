@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>ヨーロッパの位置 ── 高緯度に広がる小さな大陸｜中1地理 第5章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .ic-safe { inset: 92px 130px 88px; grid-template-columns: 1fr 780px; align-content:center; gap:64px; align-items:center; }
+  .ic-txt { display:grid; gap:30px; }
+  .ic-lead { font-size:36px; line-height:1.6; color:var(--sumi-soft); font-weight:500; }
+  .ic-lead .strong { color:var(--sumi); font-weight:900; }
+  .ic-lead .em { color:var(--imp); font-weight:900; }
+  .ic-fact { display:flex; align-items:center; gap:22px; background:var(--paper-hi); border-left:10px solid var(--cat); border-radius:0 16px 16px 0; padding:24px 30px; box-shadow:0 10px 24px rgba(40,30,10,.08); }
+  .ic-fact .k { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--cat); white-space:nowrap; }
+  .ic-fact .v { font-size:30px; color:var(--sumi-soft); line-height:1.45; }
+  .ic-fact .v b { color:var(--imp); }
+  .ic-map { background:#D9E6F0; border:3px solid var(--sumi); border-radius:24px; box-shadow:0 16px 36px rgba(40,30,10,.14); padding:14px; }
+  .ic-map svg { display:block; width:100%; height:auto; }
+  .cty { stroke:#6d6c6a; stroke-width:2; fill:#DCCF9E; }
+  .lat { stroke:#c46; stroke-width:2.2; stroke-dasharray:10 8; }
+  .latlbl { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; fill:#b23; font-size:20px; }
+  .sea { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:800; fill:#6f93b3; font-size:20px; text-anchor:middle; }
+  .pin { fill:var(--imp); }
+  .pinlbl { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; fill:#222; font-size:20px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe ic-safe">
+    <div class="ic-txt">
+      <span class="cat-badge" data-at="0"><span class="dot"></span>位置と大きさ</span>
+      <p class="ic-lead" data-at="1">ヨーロッパ州は、ユーラシア大陸の<span class="strong">西のはし</span>。<br>面積は<span class="strong">日本より少し大きい程度</span>なのに、その中に約40か国がひしめいている。</p>
+      <div class="ic-fact" data-at="2"><span class="k">高緯度</span><span class="v">パリやロンドンは、<b>北緯40〜50度</b>より北。北海道の札幌（北緯43度）よりさらに北にある都市も多い。</span></div>
+      <p class="ic-lead" data-at="3">それなのに、冬でもそれほど寒くない。<br>この<span class="em">「高緯度なのに暖かい」</span>ふしぎが、ヨーロッパの気候の最大のポイントだ。</p>
+    </div>
+    <div class="ic-map" data-at="0" data-anim="right">
+      <svg viewBox="0 0 780 720" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="780" height="720" fill="#D9E6F0"/>
+        <text class="sea" x="90" y="360">大西洋</text>
+        <!-- latitude lines -->
+        <line class="lat" x1="0" y1="150" x2="780" y2="150"/><text class="latlbl" x="10" y="142">北緯60°</text>
+        <line class="lat" x1="0" y1="330" x2="780" y2="330"/><text class="latlbl" x="10" y="322">北緯50°</text>
+        <line class="lat" x1="0" y1="510" x2="780" y2="510"/><text class="latlbl" x="10" y="502">北緯40°</text>
+        <!-- schematic Europe -->
+        <path class="cty" d="M330,60 Q360,48 378,74 L416,196 Q400,214 380,206 L338,102 Q326,80 330,60 Z"/>
+        <path class="cty" d="M378,84 Q416,74 432,106 L448,214 Q432,234 406,226 L382,142 Q374,108 378,84 Z"/>
+        <ellipse class="cty" cx="150" cy="300" rx="26" ry="34"/>
+        <path class="cty" d="M186,250 Q214,240 228,266 L232,336 Q220,358 196,350 L182,294 Q176,262 186,250 Z"/>
+        <path class="cty" d="M244,378 Q306,366 340,392 L360,458 Q334,496 286,490 L244,452 Q232,410 244,378 Z"/>
+        <path class="cty" d="M140,478 Q218,462 268,486 L282,548 Q248,588 186,582 L142,550 Q132,506 140,478 Z"/>
+        <path class="cty" d="M354,340 Q406,330 436,352 L446,412 Q424,434 388,428 L358,392 Q348,362 354,340 Z"/>
+        <path class="cty" d="M450,326 Q506,318 536,340 L544,400 Q520,420 486,414 L452,382 Q442,352 450,326 Z"/>
+        <path class="cty" d="M392,420 Q420,412 434,432 L448,502 L476,562 Q470,582 454,574 L426,510 L400,470 Q386,440 392,420 Z"/>
+        <path class="cty" d="M546,384 Q604,376 630,402 L638,458 Q614,480 576,472 L546,440 Q538,408 546,384 Z"/>
+        <path class="cty" d="M620,140 Q740,124 780,168 L780,360 Q740,410 660,410 L624,360 Q612,240 620,140 Z"/>
+        <!-- pins -->
+        <circle class="pin" cx="256" cy="308" r="8"/><text class="pinlbl" x="270" y="304">ロンドン</text>
+        <circle class="pin" cx="316" cy="352" r="8"/><text class="pinlbl" x="330" y="348">パリ</text>
+        <circle class="pin" cx="330" cy="200" r="7"/><text class="pinlbl" x="342" y="196" font-size="17">札幌と同じ緯度帯</text>
+      </svg>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第5章 ヨーロッパ州</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(4);</script>
+</body>
+</html>

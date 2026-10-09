@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>中部地方｜ 第16章 全53スライド</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #2a2018;
+      font-family: 'BIZ UDPGothic', 'Hiragino Sans', sans-serif; overflow: hidden; }
+    .viewer { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .frame-wrap { flex: 1; position: relative; overflow: hidden; background: white; }
+    iframe.slide-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 上部の一覧バー（スライド名＋ドット）は出さない。
+       投影中に画面の上へかぶって授業の邪魔になるため撤去（8/28 平野さん指示）。
+       移動は下のボタンと PageUp/Down で足りる。 */
+
+    /* ─── 下部コントロール ─── */
+    .controls { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+    .ctrl-btn { background: white; border: 0; padding: 8px 14px; border-radius: 999px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #422C18; cursor: pointer; transition: background .2s, transform .15s; }
+    .ctrl-btn:hover { background: #fff7e0; }
+    .ctrl-btn:active { transform: scale(.96); }
+    .ctrl-btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .ctrl-info { color: white; font-weight: 700; font-size: 13px; min-width: 70px; text-align: center; letter-spacing: .04em; }
+    .help-hint { color: rgba(255,255,255,.7); font-size: 12px; margin-left: 4px; }
+
+  </style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="frame-wrap">
+      <iframe class="slide-frame" id="frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="controls"><a class="ctrl-btn" id="seed-catalog-link" href="../../../index.html" style="text-decoration:none;white-space:nowrap">↩ 教材一覧へ戻る</a>
+      <button class="ctrl-btn" id="prev-btn">◀ 前のスライド</button>
+      <span class="ctrl-info" id="counter">1 / 53</span>
+      <button class="ctrl-btn" id="next-btn">次のスライド ▶</button>
+      <span class="help-hint">スライド内: ←→ ／ スライド切替: PageUp/Down</span>
+    </div>
+
+  </div>
+
+  <script>
+    const SLIDES = [
+  {
+    "file": "01_cover.html",
+    "title": "表紙 ── 中部地方を4枚のカードで集める",
+    "sub": ""
+  },
+  {
+    "file": "02_hook.html",
+    "title": "1つの地方に「3つの地方」が入っている",
+    "sub": ""
+  },
+  {
+    "file": "03_catalog.html",
+    "title": "中部地方カタログ ── 集める4枚",
+    "sub": ""
+  },
+  {
+    "file": "04_kenmei_a.html",
+    "title": "中部の9県① ── 日本海側の4県（北陸）",
+    "sub": ""
+  },
+  {
+    "file": "05_kenmei_b.html",
+    "title": "中部の9県② ── 内陸と太平洋側の5県",
+    "sub": ""
+  },
+  {
+    "file": "06_kenchou.html",
+    "title": "県名とちがう県庁所在地は3つだけ",
+    "sub": ""
+  },
+  {
+    "file": "07_sanku.html",
+    "title": "中部地方は北陸・中央高地・東海に分けられる",
+    "sub": ""
+  },
+  {
+    "file": "08_sec1.html",
+    "title": "CARD Ⅰ 自然",
+    "sub": ""
+  },
+  {
+    "file": "09_alps.html",
+    "title": "日本アルプス ── 3000ｍ級の山が連なる3つの山脈",
+    "sub": ""
+  },
+  {
+    "file": "10_alps_zu.html",
+    "title": "北から飛驒・木曽・赤石 ── 順番を図でつかむ",
+    "sub": ""
+  },
+  {
+    "file": "11_heiya.html",
+    "title": "平野と川 ── 越後・富山・濃尾と3つの川",
+    "sub": ""
+  },
+  {
+    "file": "12_shinano.html",
+    "title": "信濃川 ── 日本一長い川（367km）",
+    "sub": ""
+  },
+  {
+    "file": "13_bonchi.html",
+    "title": "盆地と火山 ── 長野・甲府・諏訪と八ヶ岳",
+    "sub": ""
+  },
+  {
+    "file": "14_kaigan.html",
+    "title": "海岸・半島・湖・台地 ── 若狭湾から牧ノ原まで",
+    "sub": ""
+  },
+  {
+    "file": "15_kikou.html",
+    "title": "中部の気候 ── 北陸・中央高地・東海で3つ",
+    "sub": ""
+  },
+  {
+    "file": "16_uonzu.html",
+    "title": "雨温図でくらべる ── 新潟・長野・静岡",
+    "sub": ""
+  },
+  {
+    "file": "17_tansaku.html",
+    "title": "米の単作地帯 ── 冬は雪で、米しか作れない",
+    "sub": ""
+  },
+  {
+    "file": "18_check1.html",
+    "title": "ミニ確認 ── 中部の自然",
+    "sub": ""
+  },
+  {
+    "file": "19_sec2.html",
+    "title": "CARD Ⅱ 農林水産業",
+    "sub": ""
+  },
+  {
+    "file": "20_kome.html",
+    "title": "越後平野・富山平野 ── 北陸は米の単作地帯",
+    "sub": ""
+  },
+  {
+    "file": "21_nagano.html",
+    "title": "長野盆地 ── りんごは青森に次いで全国2位",
+    "sub": ""
+  },
+  {
+    "file": "22_kourei.html",
+    "title": "高冷地農業 ── すずしさを武器にして高く売る",
+    "sub": ""
+  },
+  {
+    "file": "23_kofu.html",
+    "title": "甲府盆地 ── 扇状地でもも・ぶどうが全国1位",
+    "sub": ""
+  },
+  {
+    "file": "24_mikan.html",
+    "title": "静岡県の丘陵地 ── みかんは和歌山に次ぐ産地",
+    "sub": ""
+  },
+  {
+    "file": "25_cha.html",
+    "title": "牧ノ原台地 ── 茶の生産は静岡が全国1位",
+    "sub": ""
+  },
+  {
+    "file": "26_unagi.html",
+    "title": "浜名湖 ── うなぎの養殖で知られる湖",
+    "sub": ""
+  },
+  {
+    "file": "27_graph_kudamono.html",
+    "title": "グラフで確認 ── 中部のくだものは全国何位？",
+    "sub": ""
+  },
+  {
+    "file": "28_graph_yasai.html",
+    "title": "グラフで確認 ── 野菜・茶・うなぎの全国順位",
+    "sub": ""
+  },
+  {
+    "file": "29_yousui.html",
+    "title": "愛知の用水 ── 水不足の半島に水を引く",
+    "sub": ""
+  },
+  {
+    "file": "30_sansen.html",
+    "title": "木曽三川と濃尾平野 ── 3本の川が1か所に集まる",
+    "sub": ""
+  },
+  {
+    "file": "31_wajuu.html",
+    "title": "輪中 ── 堤防でぐるりと囲まれた集落",
+    "sub": ""
+  },
+  {
+    "file": "32_check2.html",
+    "title": "ミニ確認 ── 中部の農林水産業",
+    "sub": ""
+  },
+  {
+    "file": "33_sec3.html",
+    "title": "CARD Ⅲ 工業",
+    "sub": ""
+  },
+  {
+    "file": "34_kogyo_chiiki.html",
+    "title": "中部の工業地帯・工業地域 ── まず場所をつかむ",
+    "sub": ""
+  },
+  {
+    "file": "35_chukyo.html",
+    "title": "中京工業地帯 ── 製造品出荷額が全国1位",
+    "sub": ""
+  },
+  {
+    "file": "36_chukyo_graph.html",
+    "title": "数字で見る中京 ── 機械が68.3%",
+    "sub": ""
+  },
+  {
+    "file": "37_chukyo_rekishi.html",
+    "title": "中京のあゆみ ── 繊維・窯業から自動車へ",
+    "sub": ""
+  },
+  {
+    "file": "38_toyota.html",
+    "title": "豊田市 ── 自動車工業の企業城下町",
+    "sub": ""
+  },
+  {
+    "file": "39_aichi_rank.html",
+    "title": "全国順位に必ず出てくる愛知・静岡",
+    "sub": ""
+  },
+  {
+    "file": "40_toshi_chukyo.html",
+    "title": "工業都市カタログ① ── 東海の6都市",
+    "sub": ""
+  },
+  {
+    "file": "41_tokai.html",
+    "title": "東海工業地域 ── 静岡県にのびる工業のおび",
+    "sub": ""
+  },
+  {
+    "file": "42_toshi_hokuriku.html",
+    "title": "工業都市カタログ② ── 北陸と中央高地の4都市",
+    "sub": ""
+  },
+  {
+    "file": "43_hokuriku_kogyo.html",
+    "title": "北陸工業地域 ── 雪国の電力と水がささえる",
+    "sub": ""
+  },
+  {
+    "file": "44_seimitsu.html",
+    "title": "諏訪盆地 ── 製糸業から精密機械、そして電子部品へ",
+    "sub": ""
+  },
+  {
+    "file": "45_kuko_denryoku.html",
+    "title": "中部国際空港と若狭湾の原子力発電所",
+    "sub": ""
+  },
+  {
+    "file": "46_check3.html",
+    "title": "ミニ確認 ── 中部の工業",
+    "sub": ""
+  },
+  {
+    "file": "47_sec4.html",
+    "title": "CARD Ⅳ 伝統産業・地場産業",
+    "sub": ""
+  },
+  {
+    "file": "48_dentou.html",
+    "title": "伝統産業 ── 北陸に集まる「昔からの技」",
+    "sub": ""
+  },
+  {
+    "file": "49_jiba.html",
+    "title": "地場産業 ── 燕・富山・鯖江",
+    "sub": ""
+  },
+  {
+    "file": "50_hokuriku_naze.html",
+    "title": "なぜ北陸に産業が育ったのか ── 雪がつくった副業",
+    "sub": ""
+  },
+  {
+    "file": "51_check4.html",
+    "title": "ミニ確認 ── 伝統産業・地場産業",
+    "sub": ""
+  },
+  {
+    "file": "52_summary.html",
+    "title": "集めた4枚 ── 中部地方まるごとカタログ",
+    "sub": ""
+  },
+  {
+    "file": "53_check_final.html",
+    "title": "総仕上げ ── 中部地方○×クイズ",
+    "sub": ""
+  }
+];
+
+    const frame    = document.getElementById('frame');
+    const counter  = document.getElementById('counter');
+    const prevBtn  = document.getElementById('prev-btn');
+    const nextBtn  = document.getElementById('next-btn');
+    let cur = 0;
+
+    function show(i) {
+      cur = Math.max(0, Math.min(SLIDES.length - 1, i));
+      frame.src = SLIDES[cur].file;
+      counter.textContent = `${cur + 1} / ${SLIDES.length}`;
+      prevBtn.disabled = (cur === 0);
+      nextBtn.disabled = (cur === SLIDES.length - 1);
+      setTimeout(() => { try { frame.contentWindow.focus(); } catch(e) {} }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => show(cur - 1));
+    nextBtn.addEventListener('click', () => show(cur + 1));
+
+    // 目次（ホーム画面）は出さない。授業のたびに一覧が挟まって邪魔になるため撤去（8/21 平野さん指示）。
+    // 移動はドット・前後ボタン・PageUp/Downで足りる。
+    function handleKey(e) {
+      if (e.key === 'PageDown') { if (cur < SLIDES.length - 1) show(cur + 1); e.preventDefault(); }
+      else if (e.key === 'PageUp') { if (cur > 0) show(cur - 1); e.preventDefault(); }
+    }
+    window.addEventListener('keydown', handleKey);
+
+    frame.addEventListener('load', () => {
+      // フォーカスはスライド側へ（←→でステップが動くように）
+      try { frame.contentWindow.focus(); } catch(e) {}
+    });
+
+    // スライド側（nav.js）から届く PageUp/PageDown を受けてスライドを送る。
+    // file:// では iframe のキーを親から直接拾えないので、この経路が本線。
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || d.seed !== 'slide-nav') return;
+      if (d.dir === 'next' && cur < SLIDES.length - 1) show(cur + 1);
+      else if (d.dir === 'prev' && cur > 0) show(cur - 1);
+    });
+
+    // 開いたらそのまま1枚目から始める（目次は挟まない）
+    show(0);
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>例題③ ── 日付と時刻を求める｜中1地理 第2章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .rx-safe { inset: 90px 150px 90px; align-content: center; gap: 30px; }
+  .rx-head { display:grid; gap:10px; }
+  .qbar { background:var(--sumi); color:var(--paper-hi); border-radius:16px; padding:24px 34px; font-size:32px; font-weight:700; line-height:1.5; }
+  .qbar b { color:var(--gold-soft); }
+  .steps { display:grid; gap:18px; }
+  .rstep { display:grid; grid-template-columns: 80px 1fr; align-items:center; gap:26px; background:var(--paper-hi); border:3px solid var(--cat); border-radius:16px; padding:22px 30px; box-shadow:0 10px 24px rgba(40,30,10,.08); }
+  .rstep .sn { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:46px; color:var(--cat); text-align:center; }
+  .rstep .sc { font-size:31px; font-weight:700; color:var(--sumi); line-height:1.45; }
+  .rstep .sc .r { color:var(--imp); font-weight:900; }
+  .ansbox { display:flex; align-items:center; gap:20px; background:var(--paper-hi); border:3px solid var(--imp); border-radius:16px; padding:22px 34px; box-shadow:0 12px 28px rgba(40,30,10,.10); }
+  .ansbox .lab { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:32px; color:var(--sumi-mute); }
+  .ansbox .blank { font-size:46px; min-width:520px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe rx-safe">
+    <div class="rx-head" data-at="0">
+      <span class="cat-badge"><span class="dot"></span>Ⅱ-7　例題③　日付と時刻</span>
+      <h1 class="headline" style="font-size:46px;margin-top:10px;">「何月何日の何時？」を求める</h1>
+    </div>
+    <div class="qbar" data-at="1">日本（東経135°）が<b>4月10日 午後6時</b>のとき、イギリス（0°）は何月何日の何時？</div>
+    <div class="steps">
+      <div class="rstep" data-at="2" data-anim="left"><span class="sn">1</span><span class="sc">時差を求める：135 ÷ 15 ＝ <span class="r">9時間</span></span></div>
+      <div class="rstep" data-at="3" data-anim="left"><span class="sn">2</span><span class="sc">イギリスは日本より<span class="r">西＝遅れている</span>ので引く：午後6時（18時）− 9時間 ＝ <span class="r">午前9時</span></span></div>
+    </div>
+    <div class="ansbox" data-at="4"><span class="lab">答え</span><span class="blank" data-fill="4"><b>4月10日 午前9時</b></span></div>
+  </div>
+  <div class="seed-foot"><span>第2章 日本の位置と地域</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

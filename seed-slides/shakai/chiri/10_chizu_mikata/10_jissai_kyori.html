@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>実際の距離の求め方 ── 地図上の長さ×分母｜中1地理 第10章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .jk-safe { inset: 84px 140px 80px; align-content: center; gap: 30px; }
+  .jk-head { display:grid; gap:12px; }
+  .formula { display:flex; align-items:center; justify-content:center; gap:26px; background:var(--sumi); color:var(--paper-hi); border-radius:22px; padding:38px 46px; font-family:'Zen Old Mincho',serif; font-weight:900; font-size:50px; box-shadow:0 18px 40px rgba(40,30,10,.22); flex-wrap:wrap; }
+  .formula .eq { color:var(--gold-soft); }
+  .formula .box { color:#ff8a8f; }
+  .jk-ex { background:var(--paper-hi); border:3px solid var(--cat); border-radius:20px; padding:30px 40px; box-shadow:0 14px 30px rgba(40,30,10,.10); display:grid; gap:16px; }
+  .jk-ex .q { font-size:32px; font-weight:900; color:var(--sumi); }
+  .jk-ex .calc { font-size:38px; font-weight:900; color:var(--sumi-soft); font-family:'Zen Old Mincho',serif; line-height:1.4; }
+  .jk-ex .calc .imp { color:var(--imp); }
+  .jk-ex .blank { font-size:38px; min-width:150px; }
+  .jk-warn { display:flex; align-items:center; gap:20px; background:var(--imp-bg); border-radius:16px; padding:20px 32px; font-size:28px; line-height:1.5; color:var(--sumi); font-weight:700; }
+  .jk-warn b { color:var(--imp); }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe jk-safe">
+    <div class="jk-head" data-at="0">
+      <span class="kicker"><span class="num">Ⅱ-2</span>　実際の距離</span>
+      <h1 class="headline" style="font-size:56px;">公式は、たったこれだけ</h1>
+    </div>
+    <div class="formula" data-at="1" data-anim="pop">
+      <span>実際の距離</span><span class="eq">＝</span><span>地図上の長さ</span><span class="eq">×</span><span class="box">縮尺の分母</span>
+    </div>
+    <div class="jk-ex" data-at="2">
+      <div class="q">例）2万5千分の1の地図で、地図上の長さが4cmのとき、実際の距離は？</div>
+      <div class="calc">4cm × <span class="imp">25000</span> ＝ 100000cm ＝ <span class="blank" data-fill="3"><span class="bnum">答</span><b>1000m</b></span></div>
+    </div>
+    <div class="jk-warn" data-at="4"><span style="font-family:'Zen Old Mincho',serif;font-weight:900;color:var(--imp);white-space:nowrap;">注意</span><span>計算はまず<b>cm</b>のまま。最後に<b>100cm＝1m／100000cm＝1km</b>で単位をなおす。</span></div>
+  </div>
+  <div class="seed-foot"><span>第10章 地図の見方</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

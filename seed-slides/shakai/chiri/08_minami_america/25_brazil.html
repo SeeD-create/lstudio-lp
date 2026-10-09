@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>ブラジルは世界の生産大国 ── 大豆・鉄鉱石・とうもろこし｜中1地理 第8章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .bz-safe { align-content:center; gap:26px; }
+  .bz-head { display:grid; gap:10px; }
+  .bz-charts { display:grid; gap:20px; background:var(--paper-hi); border:3px solid var(--sumi); border-radius:22px; padding:28px 40px; box-shadow:0 14px 32px rgba(40,30,10,.10); }
+  .bz-charts svg { display:block; width:100%; height:auto; }
+  .bz-note { display:flex; gap:20px; align-items:center; }
+  .bz-note .example { flex:1; font-size:27px; }
+  .leg { font-family:'Zen Kaku Gothic New',sans-serif; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="new">
+  <div class="seed-safe bz-safe">
+    <div class="bz-head" data-at="0">
+      <span class="kicker"><span class="num">Ⅴ-2</span>　世界の生産大国ブラジル</span>
+      <h1 class="headline" style="font-size:50px;">ブラジルの<span class="em">「世界一・世界有数」</span>を確かめる</h1>
+    </div>
+    <div class="bz-charts" data-at="0">
+      <svg viewBox="0 0 1500 360" xmlns="http://www.w3.org/2000/svg" class="leg">
+        <!-- 大豆 data-at 1 -->
+        <g class="cz" data-at="1">
+          <text x="0" y="40" font-size="30" font-weight="900" fill="#141414">大豆の生産量（2022年）</text>
+          <g transform="translate(360,16)">
+            <rect x="0"   y="0" width="380" height="42" fill="#C4161C"/>
+            <rect x="380" y="0" width="367" height="42" fill="#b8b6b1"/>
+            <rect x="747" y="0" width="139" height="42" fill="#cfcdc8"/>
+            <rect x="886" y="0" width="214" height="42" fill="#e2e0db"/>
+            <text x="10"  y="29" font-size="24" font-weight="900" fill="#fff">ブラジル 34.6%</text>
+            <text x="390" y="29" font-size="22" font-weight="800" fill="#4A4947">アメリカ 33.4</text>
+            <text x="757" y="29" font-size="19" font-weight="800" fill="#4A4947">アルゼンチン12.6</text>
+          </g>
+          <text x="360" y="14" font-size="20" fill="#8B8A88">▶ 世界1位</text>
+        </g>
+        <!-- 鉄鉱石 data-at 2 -->
+        <g class="cz" data-at="2">
+          <text x="0" y="160" font-size="30" font-weight="900" fill="#141414">鉄鉱石の生産量（2021年）</text>
+          <g transform="translate(360,136)">
+            <rect x="0"   y="0" width="376" height="42" fill="#b8b6b1"/>
+            <rect x="376" y="0" width="182" height="42" fill="#C4161C"/>
+            <rect x="558" y="0" width="164" height="42" fill="#cfcdc8"/>
+            <rect x="722" y="0" width="112" height="42" fill="#dad8d3"/>
+            <rect x="834" y="0" width="266" height="42" fill="#e2e0db"/>
+            <text x="10"  y="29" font-size="22" font-weight="800" fill="#4A4947">オーストラリア34.2</text>
+            <text x="386" y="29" font-size="22" font-weight="900" fill="#fff">ブラジル16.5</text>
+            <text x="565" y="29" font-size="19" font-weight="800" fill="#4A4947">中国14.9</text>
+          </g>
+          <text x="360" y="134" font-size="20" fill="#8B8A88">▶ 世界2位</text>
+        </g>
+        <!-- とうもろこし data-at 3 -->
+        <g class="cz" data-at="3">
+          <text x="0" y="280" font-size="28" font-weight="900" fill="#141414">とうもろこし（2022年）</text>
+          <g transform="translate(360,256)">
+            <rect x="0"   y="0" width="994" height="42" fill="#e2e0db"/>
+            <rect x="994" y="0" width="106" height="42" fill="#C4161C"/>
+            <text x="10"  y="29" font-size="22" font-weight="800" fill="#4A4947">アメリカ・中国ほか</text>
+            <text x="900" y="29" font-size="20" font-weight="900" fill="#C4161C" text-anchor="end">ブラジル 9.4%</text>
+          </g>
+          <text x="360" y="254" font-size="20" fill="#8B8A88">▶ 世界3位</text>
+        </g>
+      </svg>
+    </div>
+    <div class="bz-note">
+      <div class="example" data-at="4"><span class="imp">★ここが重要</span>：ブラジルは<b>大豆が世界1位</b>、<b>鉄鉱石が世界2位</b>の生産大国。産業が発展し、<b>BRICS</b>の1つに数えられる。</div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第8章 南アメリカ州</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5, function(step){
+  document.querySelectorAll('svg .cz[data-at]').forEach(function(el){
+    el.style.opacity = (step >= +el.dataset.at) ? 1 : 0;
+    el.style.transition = 'opacity .5s';
+  });
+});</script>
+</body>
+</html>

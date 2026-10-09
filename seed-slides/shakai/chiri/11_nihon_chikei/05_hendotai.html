@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>変動帯 ── プレートの境界に日本はある｜中1地理 第11章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .hd-safe { inset: 78px 120px 74px; grid-template-columns: 760px 1fr; align-content: center; gap: 56px; align-items: center; }
+  .fig { background:var(--paper-hi); border:3px solid var(--sumi); border-radius:24px; box-shadow:0 16px 38px rgba(40,30,10,.12); padding:20px; }
+  .fig svg { width:100%; height:auto; display:block; }
+  .fleg { display:flex; gap:40px; justify-content:center; margin-top:14px; }
+  .fleg span { font-size:25px; font-weight:700; color:var(--sumi-soft); display:flex; align-items:center; gap:8px; }
+  .fleg span b { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; font-size:28px; }
+  .fleg .blank { font-size:26px; min-width:170px; }
+  .tx { display:grid; gap:24px; }
+  .hd { display:grid; gap:10px; }
+  .ln { font-size:32px; color:var(--sumi-soft); font-weight:600; line-height:1.55; }
+  .ln .blank { font-size:34px; }
+  .pt { display:grid; gap:12px; margin:0; padding:0; }
+  .pt li { list-style:none; font-size:29px; font-weight:700; color:var(--sumi); display:flex; gap:14px; align-items:baseline; }
+  .pt li::before { content:"▶"; color:var(--cat); font-size:22px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe hd-safe">
+    <div class="fig" data-at="0" data-anim="left">
+      <svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#C4161C"/></marker></defs>
+        <rect x="4" y="4" width="712" height="462" rx="14" fill="#F6F3EC" stroke="#d8d7d3" stroke-width="2"/>
+        <!-- 海 -->
+        <rect x="20" y="150" width="680" height="120" fill="#D6E6F2"/>
+        <!-- 海洋プレート(右)が大陸プレート(左)の下へ沈み込む -->
+        <path d="M20,270 L330,270 L520,430 L20,430 Z" fill="#CFCBBF" stroke="#3a3a39" stroke-width="3"/>
+        <path d="M700,250 L360,268 L540,440 L700,440 Z" fill="#B9C6CF" stroke="#3a3a39" stroke-width="3"/>
+        <!-- 海溝 -->
+        <path d="M330,270 L348,300 L362,268" fill="#1b3d55" stroke="#1b3d55" stroke-width="2"/>
+        <text x="348" y="240" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="24" fill="#1b3d55">海溝</text>
+        <!-- 陸地・山と火山 -->
+        <path d="M120,270 L190,190 L235,238 L285,150 L330,270 Z" fill="#E3DFD6" stroke="#3a3a39" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M285,150 l-16,-26 l16,10 l14,-10 z" fill="#C4161C"/>
+        <text x="286" y="118" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="22" fill="#C4161C">火山</text>
+        <text x="180" y="170" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="23" fill="#3a3a39">日本列島</text>
+        <!-- 動き矢印 -->
+        <path d="M660,330 L500,330" fill="none" stroke="#C4161C" stroke-width="7" marker-end="url(#ar)"/>
+        <path d="M60,330 L200,330" fill="none" stroke="#C4161C" stroke-width="7" marker-end="url(#ar)"/>
+        <!-- 地震 -->
+        <circle cx="420" cy="345" r="11" fill="#C4161C"/>
+        <text x="440" y="352" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="22" fill="#C4161C">地震</text>
+        <text x="150" y="415" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="40" fill="#3a3a39">Ａ</text>
+        <text x="600" y="415" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="40" fill="#1b3d55" text-anchor="middle">Ｂ</text>
+      </svg>
+      <div class="fleg" data-at="0">
+        <span><b style="color:#3a3a39">Ａ</b>大陸<span class="blank" data-fill="1"><b>プレート</b></span></span>
+        <span><b style="color:#1b3d55">Ｂ</b>海洋<span class="blank" data-fill="1"><b>プレート</b></span></span>
+      </div>
+    </div>
+    <div class="tx">
+      <div class="hd" data-at="0">
+        <span class="kicker"><span class="num">Ⅰ-1</span>　ゆれ動く大地</span>
+        <h1 class="headline" style="font-size:54px;">日本は<span class="em">岩ばん</span>の<br>境界にある</h1>
+      </div>
+      <p class="ln" data-at="1"><span class="blank" data-fill="1"><span class="bnum">①</span><b>プレート</b></span>の境界付近では、その動きによって地震や火山活動がみられたり、<span class="imp">海溝</span>などの大地形がつくられたりする。</p>
+      <p class="ln" data-at="2">このような動きがみられる境界沿いの一帯を<span class="blank" data-fill="3"><span class="bnum">②</span><b>変動帯</b></span>という。</p>
+      <ul class="pt" data-at="4">
+        <li>日本は世界有数の<span class="imp">地震・火山</span>の国</li>
+        <li>海底には日本海溝・伊豆小笠原海溝</li>
+      </ul>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第11章 日本の地形・自然の特色</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

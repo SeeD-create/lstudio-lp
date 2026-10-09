@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>集めた3枚 ── 位置・領域・時差・都道府県で日本をつかむ｜中1地理 第2章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .sm-safe { inset: 70px 130px 70px; align-content: start; gap: 26px; }
+  .sm-head { display: grid; gap: 8px; justify-items: center; text-align: center; }
+  .sm-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .col { position: relative; background: var(--paper-hi); border-radius: 20px; border: 3px solid var(--c);
+         box-shadow: 0 14px 30px rgba(40,30,10,.10); overflow: hidden; display: grid; align-content: start; min-height: 600px; }
+  .col-h { background: var(--c); color: #fff; padding: 18px 24px; display: grid; gap: 4px; }
+  .col-h .rn { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:22px; opacity:.85; }
+  .col-h .nm { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:36px; line-height:1.1; }
+  .col-b { padding: 22px 26px; display: grid; gap: 14px; }
+  .keys { display:grid; gap:12px; margin:0; padding:0; }
+  .keys li { list-style:none; font-size:26px; line-height:1.35; color:var(--sumi); font-weight:700; }
+  .keys li .imp { color: var(--imp); }
+  .keys li .blank { min-width:36px; padding:0 5px 0; margin:0 2px; border-bottom-width:2px; }
+  .keys li .blank b { font-family:inherit; }
+  .sm-bar .blank { min-width:60px; padding:0 8px 1px; margin:0 4px; border-bottom-width:2px; }
+  .sm-bar .blank b { font-family:inherit; }
+  .keys li small { display:block; font-size:20px; color:var(--sumi-mute); font-weight:500; }
+  .sm-bar { display:flex; align-items:center; gap:24px; background: var(--paper-hi); color: var(--sumi);
+            border-radius:18px; padding:19px 31px; border: 3px solid var(--sumi); box-shadow: 0 8px 20px rgba(40,30,10,.07);}
+  .sm-bar .bt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:28px; color: var(--imp); white-space:nowrap; }
+  .sm-bar .bb { font-size:25px; line-height:1.45; color: var(--sumi); }
+  .sm-bar .bb b { color: var(--imp); }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe sm-safe">
+    <div class="sm-head" data-at="0">
+      <span class="kicker"><span class="num">まとめ</span>　日本の位置と地域</span>
+      <h1 class="headline" style="font-size:50px;">日本を<span class="em">数字と線</span>でつかんだ ── 集めた<span class="em">3枚</span></h1>
+    </div>
+    <div class="sm-row">
+      <div class="col" style="--c:#1A1A1A" data-at="1" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅰ</div><div class="nm">位置と領域</div></div>
+        <div class="col-b"><ul class="keys">
+          <li><span class="blank" data-fill="1"><b>ユーラシア大陸の東</b></span><small>面積約38万km²の島国</small></li>
+          <li><span class="blank" data-fill="1"><b>北海道・本州・四国・九州</b></span><small>4つの大きな島</small></li>
+          <li>端＝<span class="blank" data-fill="1"><b>択捉・南鳥・沖ノ鳥・与那国</b></span><small>北・東・南・西</small></li>
+          <li><span class="blank" data-fill="1"><b>領海12海里・EEZ200海里</b></span><small>領土・領海・領空</small></li>
+          <li>領土問題＝<span class="blank" data-fill="1"><b>北方領土/竹島/尖閣</b></span><small>ロシア/韓国/中国台湾</small></li>
+        </ul></div>
+      </div>
+      <div class="col" style="--c:#3A3A39" data-at="2" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅱ</div><div class="nm">時差</div></div>
+        <div class="col-b"><ul class="keys">
+          <li>標準時＝<span class="blank" data-fill="2"><b>東経135度・明石市</b></span><small>時刻の基準</small></li>
+          <li><span class="blank" data-fill="2"><b>経度15度で1時間</b></span><small>360°÷24時間</small></li>
+          <li><span class="blank" data-fill="2"><b>日付変更線</b></span><small>西側が進み・東側が遅れる</small></li>
+          <li>求め方＝<span class="blank" data-fill="2"><b>経度差÷15</b></span><small>同じ側は引く・またぐと足す</small></li>
+          <li>東が<span class="blank" data-fill="2"><b>進んでいる</b></span><small>日本＞イギリスは9時間</small></li>
+        </ul></div>
+      </div>
+      <div class="col" style="--c:#535250" data-at="3" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅲ</div><div class="nm">都道府県</div></div>
+        <div class="col-b"><ul class="keys">
+          <li><span class="blank" data-fill="3"><b>47都道府県</b></span><small>1都1道2府43県</small></li>
+          <li>都＝東京／道＝北海道<small>府＝大阪・京都</small></li>
+          <li><span class="blank" data-fill="3"><b>7地方区分</b></span><small>北海道〜九州（中国四国を分けて8）</small></li>
+          <li>名前がちがう＝<span class="blank" data-fill="3"><b>仙台/横浜/名古屋</b></span><small>宮城/神奈川/愛知</small></li>
+          <li>三重＝<span class="blank" data-fill="3"><b>津</b></span>／兵庫＝<span class="blank" data-fill="3"><b>神戸</b></span><small>沖縄＝那覇</small></li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="sm-bar" data-at="4" data-anim="fade">
+      <span class="bt">ここだけは落とすな</span>
+      <span class="bb">日本＝<span class="blank" data-fill="4"><b>大陸の東の島国（38万km²）</b></span>、領海<span class="blank" data-fill="4"><b>12海里</b></span>・EEZ<span class="blank" data-fill="4"><b>200海里</b></span>、標準時<span class="blank" data-fill="4"><b>東経135度・明石市</b></span>、経度<span class="blank" data-fill="4"><b>15度で1時間</b></span>、<span class="blank" data-fill="4"><b>47都道府県</b></span>。数字と地図をセットで。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第2章 日本の位置と地域</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

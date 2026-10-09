@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>世界の様子カタログ ── 集める5枚｜中1地理 第1章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .cat-safe { inset: 96px 120px 96px; align-content: start; gap: 40px; }
+  .cat-head { display: grid; gap: 12px; }
+  .deck-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+  .cc { position: relative; background: var(--paper-hi); border-radius: 22px; border: 3px solid var(--cat);
+        box-shadow: 0 16px 34px rgba(40,30,10,.12); padding: 30px 24px 32px; min-height: 470px; display: grid; align-content: start; gap: 16px; }
+  .cc::before { content:""; position:absolute; left:0; top:0; right:0; height:12px; background:var(--cat); border-radius:19px 19px 0 0; }
+  .cc__no { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:40px; color:var(--cat); opacity:.35; }
+  .cc__ttl { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:42px; color:var(--sumi); line-height:1.15; margin-top:4px; }
+  .cc__ess { font-size:25px; color:var(--sumi-soft); line-height:1.45; font-weight:500; }
+  .cc__pill { justify-self:start; margin-top:auto; padding:7px 16px; border-radius:999px; background:var(--cat-bg); color:var(--cat); font-weight:900; font-size:21px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide">
+  <div class="seed-safe cat-safe">
+    <div class="cat-head" data-at="0">
+      <span class="kicker"><span class="num">04</span>　世界の様子カタログ</span>
+      <h1 class="headline" style="font-size:62px;">集めるカードは、大きく<span class="em">5種類</span></h1>
+    </div>
+    <div class="deck-row">
+      <div class="cc" data-cat="eq"  data-at="1" data-anim="pop"><div class="cc__no">Ⅰ</div><div class="cc__ttl">大陸と海</div><div class="cc__ess">6つの大陸と3つの海洋。地球の大きさの数字。</div><span class="cc__pill">海：陸＝7：3</span></div>
+      <div class="cc" data-cat="lib" data-at="2" data-anim="pop"><div class="cc__no">Ⅱ</div><div class="cc__ttl">地域区分</div><div class="cc__ess">世界全体を6つの州に分けてとらえる。</div><span class="cc__pill">6つの州</span></div>
+      <div class="cc" data-cat="soc" data-at="3" data-anim="pop"><div class="cc__no">Ⅲ</div><div class="cc__ttl">いろいろな国</div><div class="cc__ess">面積・人口・内陸国と島国。世界の国の数。</div><span class="cc__pill">約197か国</span></div>
+      <div class="cc" data-cat="par" data-at="4" data-anim="pop"><div class="cc__no">Ⅳ</div><div class="cc__ttl">いろいろな<br>地図</div><div class="cc__ess">丸い地球を平面にうつす。用途で図法を使い分ける。</div><span class="cc__pill">正距方位・メルカトル</span></div>
+      <div class="cc" data-cat="new" data-at="5" data-anim="pop"><div class="cc__no">Ⅴ</div><div class="cc__ttl">緯度と経度</div><div class="cc__ess">地球上の位置を数字で表す。赤道と本初子午線が基準。</div><span class="cc__pill">緯線・経線</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 世界の様子</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

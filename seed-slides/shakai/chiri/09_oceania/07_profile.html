@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>オーストラリアのプロフィール｜中1地理 第9章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .pr-safe { inset: 90px 150px 88px; grid-template-columns: 500px 1fr; align-content: center; gap: 56px; align-items: center; }
+  .pr-head { display: grid; gap: 18px; align-content: start; }
+  .pr-fig { width: 440px; height: 296px; border-radius: 20px; border: 3px solid var(--cat);
+    box-shadow: 0 16px 34px rgba(40,30,10,.14); }
+  .flag { width: 440px; height: 288px; border-radius: 16px; background:#0A2A6B; border:3px solid var(--sumi); box-shadow:0 16px 34px rgba(40,30,10,.16); position:relative; overflow:hidden; }
+  .flag .uj { position:absolute; left:0; top:0; width:200px; height:130px; background:
+      linear-gradient(#fff,#fff) 0 0/100% 100%,
+      #26438f; }
+  .flag .uj::before { content:""; position:absolute; inset:0; background:
+      linear-gradient(to bottom right, transparent calc(50% - 4px), #C8102E calc(50% - 4px), #C8102E calc(50% + 4px), transparent calc(50% + 4px)),
+      linear-gradient(to bottom left, transparent calc(50% - 4px), #C8102E calc(50% - 4px), #C8102E calc(50% + 4px), transparent calc(50% + 4px)); }
+  .flag .uj::after { content:""; position:absolute; left:50%; top:0; width:26px; height:100%; transform:translateX(-50%); background:#C8102E; box-shadow:0 -65px 0 -52px #fff,0 65px 0 -52px #fff; }
+  .flag .ujc { position:absolute; left:0; top:50%; width:200px; height:26px; transform:translateY(-50%); background:#C8102E; }
+  .flag .star { position:absolute; color:#fff; font-size:34px; }
+  .pr-rows { display: grid; gap: 15px; }
+  .prow { display:flex; align-items:center; gap:24px; background: var(--paper-hi); border-left: 9px solid var(--cat); border-radius: 0 16px 16px 0; padding: 17px 30px; box-shadow: 0 8px 20px rgba(40,30,10,.07); }
+  .prow .k { flex:none; width:160px; font-size:27px; font-weight:900; color:var(--cat); }
+  .prow .v { font-size:30px; font-weight:700; color:var(--sumi); line-height:1.3; }
+  .prow .v small { color:var(--sumi-mute); font-size:23px; font-weight:600; }
+  .prow .v .blank { font-size:32px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe pr-safe">
+    <div class="pr-head" data-at="0">
+      <span class="kicker"><span class="num">Ⅰ-1</span>　オーストラリア</span>
+      <h1 class="headline" style="font-size:52px;">大陸まるごと<br><span class="em">1つの国</span></h1>
+      <div class="figure pr-fig" data-at="0" data-anim="pop"><img src="assets/toshi_minato.webp" alt="南東部の海ぞいに広がる大都市 ── 湾に面したビル街と港"></div>
+      <div class="flag"><span class="uj"></span><span class="ujc"></span><span class="star" style="right:26px;bottom:24px;">★</span><span class="star" style="right:96px;top:34px;font-size:22px;">★</span><span class="star" style="right:60px;top:96px;font-size:22px;">★</span></div>
+    </div>
+    <div class="pr-rows">
+      <div class="prow" data-at="1" data-anim="left"><span class="k">首都</span><span class="v"><span class="blank" data-fill="1"><b>キャンベラ</b></span>　<small>最大都市はシドニー、次いでメルボルン</small></span></div>
+      <div class="prow" data-at="2" data-anim="left"><span class="k">面積</span><span class="v">約769万km²　<small>日本の約20倍・大陸まるごとが1つの国</small></span></div>
+      <div class="prow" data-at="3" data-anim="left"><span class="k">位置</span><span class="v"><span class="blank" data-fill="3"><b>南半球</b></span>にある　<small>日本と季節が逆。12月は真夏</small></span></div>
+      <div class="prow" data-at="4" data-anim="left"><span class="k">人口</span><span class="v">約2600万人　<small>大部分が南東部の海ぞいに集中</small></span></div>
+      <div class="prow" data-at="5" data-anim="left"><span class="k">もとの本国</span><span class="v"><span class="blank" data-fill="5"><b>イギリス</b></span>の植民地だった　<small>今も英語が公用語</small></span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第9章 オセアニア州</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

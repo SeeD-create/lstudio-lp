@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>ドーナツ化現象と都心回帰 ── 出ていって、また戻る｜中1地理 第12章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .std-safe{inset:86px 118px 96px;align-content:start;gap:28px}
+  .std-head{display:grid;gap:12px}
+  .h2{font-size:60px}.h3{font-size:52px}.h4{font-size:44px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{position:relative;background:var(--paper-hi);border-radius:22px;border:3px solid var(--c,var(--cat));box-shadow:0 14px 32px rgba(40,30,10,.10);padding:28px 30px 26px;display:grid;gap:12px;align-content:start;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;right:0;height:10px;background:var(--c,var(--cat))}
+  .card .cn{font-family:'Zen Old Mincho',serif;font-weight:900;font-size:28px;color:var(--c,var(--cat));opacity:.65;line-height:1}
+  .card .ct{font-family:'Zen Old Mincho',serif;font-weight:900;font-size:34px;color:var(--sumi);line-height:1.2}
+  .card .cb{font-size:25px;line-height:1.5;color:var(--sumi-soft)}
+  .card .cb b{color:var(--sumi)}
+  .rowl{display:flex;align-items:center;gap:20px;background:var(--paper-hi);border-left:9px solid var(--c,var(--cat));border-radius:0 14px 14px 0;padding:16px 24px;box-shadow:0 8px 20px rgba(40,30,10,.07)}
+  .rowl .rt{flex:none;font-weight:900;color:var(--sumi);font-size:28px;white-space:nowrap}
+  .rowl .rb{color:var(--sumi-soft);font-size:24px;line-height:1.35}
+  .rowl .chip{flex:none;width:34px;height:34px;border-radius:8px;background:var(--c,var(--cat));border:2px solid rgba(0,0,0,.18)}
+  .note{display:flex;align-items:center;gap:24px;background:var(--sumi);color:var(--paper-hi);border-radius:16px;padding:20px 32px;font-size:27px;line-height:1.45}
+  .note .nt{flex:none;font-family:'Zen Old Mincho',serif;font-weight:900;font-size:25px;color:var(--gold-soft);letter-spacing:.08em;white-space:nowrap}
+  .note b{color:#fff}
+  .figbox{background:#fff;border:3px solid var(--sumi);border-radius:20px;box-shadow:0 14px 34px rgba(40,30,10,.12);padding:14px 16px}
+  .figbox svg{display:block;width:100%;height:auto}
+  .mapbox{background:#E4EEF5;border:3px solid var(--sumi);border-radius:20px;box-shadow:0 14px 34px rgba(40,30,10,.12);padding:10px}
+  .mapbox svg{display:block;width:100%;height:auto}
+  .hint{font-size:23px;color:var(--sumi-mute);line-height:1.4}
+  .star{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:999px;background:var(--imp);color:#fff;font-weight:900;font-size:22px;letter-spacing:.06em}
+  .yeartag{display:inline-flex;padding:5px 14px;border-radius:8px;background:var(--paper-lo);color:var(--sumi-soft);font-weight:900;font-size:21px}
+  .chk-safe{align-content:center;gap:38px;justify-items:center}
+  .qcard{width:1520px;background:var(--sumi);color:var(--paper-hi);border-radius:28px;padding:46px 58px;box-shadow:0 22px 50px rgba(40,30,10,.22)}
+  .qcard .qlabel{font-family:'Zen Old Mincho',serif;font-weight:900;font-size:30px;color:var(--gold-soft);letter-spacing:.1em}
+  .qcard .qtext{font-size:44px;line-height:1.5;font-weight:700;margin-top:16px}
+  .qcard .qtext .u{color:var(--gold-soft);border-bottom:4px solid var(--gold-deep)}
+  .ans{margin-top:32px;display:flex;align-items:center;gap:26px}
+  .ans .mark{font-family:'Zen Old Mincho',serif;font-weight:900;font-size:86px;line-height:1;color:#fff}
+  .ans .exp{font-size:31px;line-height:1.45;color:rgba(251,246,236,.92)}
+  .ans .exp b{color:var(--gold-soft)}
+  .qrow{display:flex;align-items:center;gap:24px;background:var(--sumi);color:var(--paper-hi);border-radius:18px;padding:20px 30px}
+  .qrow .qn{flex:none;width:52px;height:52px;border-radius:50%;background:var(--gold-soft);color:var(--sumi);font-family:'Zen Old Mincho',serif;font-weight:900;font-size:28px;display:flex;align-items:center;justify-content:center}
+  .qrow .qq{flex:1;font-size:28px;font-weight:700;line-height:1.4}
+  .qrow .qq .u{color:var(--gold-soft)}
+  .qrow .qa{flex:none;display:flex;align-items:center;gap:14px;min-width:280px;justify-content:flex-end}
+  .qrow .qa .mk{font-family:'Zen Old Mincho',serif;font-weight:900;font-size:50px;line-height:1;color:#fff}
+  .qrow .qa .fix{font-size:23px;color:var(--gold-soft);font-weight:900;max-width:250px;line-height:1.3;text-align:right}
+.dn-safe{inset:86px 120px 96px;align-content:start;gap:26px}
+    .dfig{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+    .figbox2{background:#fff;border:3px solid var(--sumi);border-radius:20px;box-shadow:0 14px 34px rgba(40,30,10,.12);padding:12px}
+    .figbox2 svg{display:block;width:100%;height:auto}</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe dn-safe">
+    <div class="std-head" data-at="0">
+      <span class="kicker"><span class="num">05</span>　都心の人口</span>
+      <h1 class="headline" style="font-size:54px;">出ていって、また<span class="em">戻ってきた</span></h1>
+    </div>
+    <div class="dfig">
+      <div class="figbox2" data-at="1" data-anim="left">
+        <svg viewBox="0 0 640 300" width="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img">
+          <text x="320" y="34" font-size="26" fill="#1A1A1A" font-weight="900" text-anchor="middle" style="font-family:'Zen Old Mincho',serif">⑧　現象</text>
+          <circle cx="320" cy="170" r="118" fill="#E7EFF5" stroke="#7f838a" stroke-width="2"/>
+          <circle cx="320" cy="170" r="56" fill="#F2D7D5" stroke="#B3261E" stroke-width="3"/>
+          <text x="320" y="178" font-size="24" fill="#B3261E" font-weight="900" text-anchor="middle">都心</text>
+          <text x="320" y="112" font-size="21" fill="#2C6489" font-weight="900" text-anchor="middle">郊外</text>
+          <g stroke="#C4161C" stroke-width="5" fill="none" stroke-linecap="round">
+            <path d="M355 140 L410 96"/><path d="M285 140 L230 96"/><path d="M355 200 L410 244"/><path d="M285 200 L230 244"/>
+          </g>
+          <g fill="#C4161C">
+            <path d="M410 96 l-16 2 l10 10 Z"/><path d="M230 96 l16 2 l-10 10 Z"/><path d="M410 244 l-16 -2 l10 -10 Z"/><path d="M230 244 l16 -2 l-10 -10 Z"/>
+          </g>
+          <text x="320" y="288" font-size="22" fill="#4A4947" font-weight="700" text-anchor="middle">都心の人口がへり、郊外の人口がふえる</text>
+        </svg>
+      </div>
+      <div class="figbox2" data-at="4" data-anim="right">
+        <svg viewBox="0 0 640 300" width="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img">
+          <text x="320" y="34" font-size="26" fill="#1A1A1A" font-weight="900" text-anchor="middle" style="font-family:'Zen Old Mincho',serif">都心回帰</text>
+          <circle cx="320" cy="170" r="118" fill="#E7EFF5" stroke="#7f838a" stroke-width="2"/>
+          <circle cx="320" cy="170" r="56" fill="#D8ECDF" stroke="#2E8B57" stroke-width="3"/>
+          <text x="320" y="178" font-size="24" fill="#1F5F3C" font-weight="900" text-anchor="middle">都心</text>
+          <g stroke="#2E8B57" stroke-width="5" fill="none" stroke-linecap="round">
+            <path d="M410 96 L355 140"/><path d="M230 96 L285 140"/><path d="M410 244 L355 200"/><path d="M230 244 L285 200"/>
+          </g>
+          <g fill="#2E8B57">
+            <path d="M355 140 l16 -2 l-10 -10 Z"/><path d="M285 140 l-16 -2 l10 -10 Z"/><path d="M355 200 l16 2 l-10 10 Z"/><path d="M285 200 l-16 2 l10 10 Z"/>
+          </g>
+          <text x="320" y="288" font-size="22" fill="#4A4947" font-weight="700" text-anchor="middle">⑨によって、都心に近いところの人口がふえる</text>
+        </svg>
+      </div>
+    </div>
+    <div class="rowl" style="--c:#B3261E" data-at="2"><span class="rb" style="font-size:29px">郊外の人口が増える<span class="blank" data-fill="3"><span class="bnum">⑧</span><b>ドーナツ化</b></span>現象が起きた。</span></div>
+    <div class="rowl" style="--c:#2E8B57" data-at="5"><span class="rb" style="font-size:29px">その後、都心の<span class="blank" data-fill="6"><span class="bnum">⑨</span><b>再開発</b></span>で都心に近いところで人口が増加（＝都心回帰）。</span></div>
+  </div>
+  <div class="seed-foot"><span>中1 社会（地理）　｜　第12章 日本の人口・産業・交通</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(7);</script>
+</body>
+</html>

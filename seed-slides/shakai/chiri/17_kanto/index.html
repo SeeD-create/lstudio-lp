@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>関東地方｜ 第17章 全46スライド</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #2a2018;
+      font-family: 'BIZ UDPGothic', 'Hiragino Sans', sans-serif; overflow: hidden; }
+    .viewer { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .frame-wrap { flex: 1; position: relative; overflow: hidden; background: white; }
+    iframe.slide-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 上部の一覧バー（スライド名＋ドット）は出さない。
+       投影中に画面の上へかぶって授業の邪魔になるため撤去（8/28 平野さん指示）。
+       移動は下のボタンと PageUp/Down で足りる。 */
+
+    /* ─── 下部コントロール ─── */
+    .controls { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+    .ctrl-btn { background: white; border: 0; padding: 8px 14px; border-radius: 999px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #422C18; cursor: pointer; transition: background .2s, transform .15s; }
+    .ctrl-btn:hover { background: #fff7e0; }
+    .ctrl-btn:active { transform: scale(.96); }
+    .ctrl-btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .ctrl-info { color: white; font-weight: 700; font-size: 13px; min-width: 70px; text-align: center; letter-spacing: .04em; }
+    .help-hint { color: rgba(255,255,255,.7); font-size: 12px; margin-left: 4px; }
+
+  </style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="frame-wrap">
+      <iframe class="slide-frame" id="frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="controls"><a class="ctrl-btn" id="seed-catalog-link" href="../../../index.html" style="text-decoration:none;white-space:nowrap">↩ 教材一覧へ戻る</a>
+      <button class="ctrl-btn" id="prev-btn">◀ 前のスライド</button>
+      <span class="ctrl-info" id="counter">1 / 46</span>
+      <button class="ctrl-btn" id="next-btn">次のスライド ▶</button>
+      <span class="help-hint">スライド内: ←→ ／ スライド切替: PageUp/Down</span>
+    </div>
+
+  </div>
+
+  <script>
+    const SLIDES = [
+  {
+    "file": "01_cover.html",
+    "title": "表紙 ── 関東地方を5枚のカードで集める",
+    "sub": ""
+  },
+  {
+    "file": "02_hook.html",
+    "title": "関東地方は、日本の「いまの中心」",
+    "sub": ""
+  },
+  {
+    "file": "03_catalog.html",
+    "title": "関東地方カタログ ── 集める5枚",
+    "sub": ""
+  },
+  {
+    "file": "04_token.html",
+    "title": "1都6県と都県庁所在地",
+    "sub": ""
+  },
+  {
+    "file": "05_sec1.html",
+    "title": "CARD Ⅰ 自然",
+    "sub": ""
+  },
+  {
+    "file": "06_chikei.html",
+    "title": "地形① ── 越後山脈・関東山地・東京湾・房総半島",
+    "sub": ""
+  },
+  {
+    "file": "07_kantoheiya.html",
+    "title": "関東平野 ── 日本一広い平野と関東ローム",
+    "sub": ""
+  },
+  {
+    "file": "08_tonegawa.html",
+    "title": "利根川 ── 流域面積が日本一の川",
+    "sub": ""
+  },
+  {
+    "file": "09_karakkaze.html",
+    "title": "からっ風 ── 冬に吹く乾燥した北西の季節風",
+    "sub": ""
+  },
+  {
+    "file": "10_check1.html",
+    "title": "ミニ確認 ── 関東の自然",
+    "sub": ""
+  },
+  {
+    "file": "11_sec2.html",
+    "title": "CARD Ⅱ 東京の中心部",
+    "sub": ""
+  },
+  {
+    "file": "12_shuto.html",
+    "title": "東京 ── 明治時代からの日本の首都",
+    "sub": ""
+  },
+  {
+    "file": "13_toshin.html",
+    "title": "都心 ── 商業地・官庁街・オフィス街",
+    "sub": ""
+  },
+  {
+    "file": "14_fukutoshin.html",
+    "title": "副都心 ── 池袋・新宿・渋谷",
+    "sub": ""
+  },
+  {
+    "file": "15_kamitsu.html",
+    "title": "過密 ── 集まりすぎて起きる問題",
+    "sub": ""
+  },
+  {
+    "file": "16_chuya.html",
+    "title": "昼間人口と夜間人口 ── 都心はどちらが多い？",
+    "sub": ""
+  },
+  {
+    "file": "17_toshinkaiki.html",
+    "title": "再開発と都心回帰 ── 臨海部が変わる",
+    "sub": ""
+  },
+  {
+    "file": "18_check2.html",
+    "title": "ミニ確認 ── 東京の中心部",
+    "sub": ""
+  },
+  {
+    "file": "19_sec3.html",
+    "title": "CARD Ⅲ 農林水産業",
+    "sub": ""
+  },
+  {
+    "file": "20_kinko.html",
+    "title": "近郊農業 ── 大都市のとなりで野菜と花",
+    "sub": ""
+  },
+  {
+    "file": "21_yasai.html",
+    "title": "野菜カタログ ── きゅうり・ほうれんそう・はくさい・ねぎ",
+    "sub": ""
+  },
+  {
+    "file": "22_tsumagoi.html",
+    "title": "嬬恋村の高原野菜 ── 夏でもすずしい高原でキャベツ",
+    "sub": ""
+  },
+  {
+    "file": "23_meisan.html",
+    "title": "キャベツ全国1位と、千葉のらっかせい・群馬のこんにゃくいも",
+    "sub": ""
+  },
+  {
+    "file": "24_check3.html",
+    "title": "ミニ確認 ── 関東の農林水産業",
+    "sub": ""
+  },
+  {
+    "file": "25_sec4.html",
+    "title": "CARD Ⅳ 都市開発",
+    "sub": ""
+  },
+  {
+    "file": "26_kaihatsu_map.html",
+    "title": "都市開発カタログ地図 ── どこに何をつくったか",
+    "sub": ""
+  },
+  {
+    "file": "27_newtown.html",
+    "title": "ニュータウン ── 郊外に計画的につくった住宅地",
+    "sub": ""
+  },
+  {
+    "file": "28_tsukuba.html",
+    "title": "筑波研究学園都市 ── 大学と研究所を集めた都市",
+    "sub": ""
+  },
+  {
+    "file": "29_kuko.html",
+    "title": "2つの国際空港 ── 成田と羽田",
+    "sub": ""
+  },
+  {
+    "file": "30_makuhari.html",
+    "title": "幕張新都心 ── 千葉市の埋め立て地",
+    "sub": ""
+  },
+  {
+    "file": "31_minatomirai.html",
+    "title": "みなとみらい21 ── 横浜市の埋め立て地",
+    "sub": ""
+  },
+  {
+    "file": "32_saitama.html",
+    "title": "さいたま新都心 ── さいたま市の再開発",
+    "sub": ""
+  },
+  {
+    "file": "33_waterfront.html",
+    "title": "ウォーターフロント ── 開発の盛んな海岸沿い",
+    "sub": ""
+  },
+  {
+    "file": "34_check4.html",
+    "title": "ミニ確認 ── 都市開発",
+    "sub": ""
+  },
+  {
+    "file": "35_sec5.html",
+    "title": "CARD Ⅴ 商工業",
+    "sub": ""
+  },
+  {
+    "file": "36_kogyo_map.html",
+    "title": "工業地帯・工業都市カタログ",
+    "sub": ""
+  },
+  {
+    "file": "37_keihin.html",
+    "title": "京浜工業地帯 ── 東京・神奈川・埼玉",
+    "sub": ""
+  },
+  {
+    "file": "38_keihin_graph.html",
+    "title": "数字で見る京浜 ── 約39.3兆円・機械45.8%",
+    "sub": ""
+  },
+  {
+    "file": "39_shuppan.html",
+    "title": "出版・印刷は東京が全国1位 ── 京浜だけの特色",
+    "sub": ""
+  },
+  {
+    "file": "40_keiyo.html",
+    "title": "京葉工業地域 ── 埋め立て地の石油化学と鉄鋼",
+    "sub": ""
+  },
+  {
+    "file": "41_kitakanto.html",
+    "title": "北関東工業地域 ── 内陸に広がる工業団地",
+    "sub": ""
+  },
+  {
+    "file": "42_riyu.html",
+    "title": "京浜工業地帯が発展した理由",
+    "sub": ""
+  },
+  {
+    "file": "43_daitoshiken.html",
+    "title": "東京大都市圏と第三次産業",
+    "sub": ""
+  },
+  {
+    "file": "44_check5.html",
+    "title": "ミニ確認 ── 関東の商工業",
+    "sub": ""
+  },
+  {
+    "file": "45_summary.html",
+    "title": "集めた5枚 ── 関東地方まるごとカタログ",
+    "sub": ""
+  },
+  {
+    "file": "46_check_final.html",
+    "title": "総仕上げ ── 関東地方 一問一答6",
+    "sub": ""
+  }
+];
+
+    const frame    = document.getElementById('frame');
+    const counter  = document.getElementById('counter');
+    const prevBtn  = document.getElementById('prev-btn');
+    const nextBtn  = document.getElementById('next-btn');
+    let cur = 0;
+
+    function show(i) {
+      cur = Math.max(0, Math.min(SLIDES.length - 1, i));
+      frame.src = SLIDES[cur].file;
+      counter.textContent = `${cur + 1} / ${SLIDES.length}`;
+      prevBtn.disabled = (cur === 0);
+      nextBtn.disabled = (cur === SLIDES.length - 1);
+      setTimeout(() => { try { frame.contentWindow.focus(); } catch(e) {} }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => show(cur - 1));
+    nextBtn.addEventListener('click', () => show(cur + 1));
+
+    // 目次（ホーム画面）は出さない。授業のたびに一覧が挟まって邪魔になるため撤去（8/21 平野さん指示）。
+    // 移動はドット・前後ボタン・PageUp/Downで足りる。
+    function handleKey(e) {
+      if (e.key === 'PageDown') { if (cur < SLIDES.length - 1) show(cur + 1); e.preventDefault(); }
+      else if (e.key === 'PageUp') { if (cur > 0) show(cur - 1); e.preventDefault(); }
+    }
+    window.addEventListener('keydown', handleKey);
+
+    frame.addEventListener('load', () => {
+      // フォーカスはスライド側へ（←→でステップが動くように）
+      try { frame.contentWindow.focus(); } catch(e) {}
+    });
+
+    // スライド側（nav.js）から届く PageUp/PageDown を受けてスライドを送る。
+    // file:// では iframe のキーを親から直接拾えないので、この経路が本線。
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || d.seed !== 'slide-nav') return;
+      if (d.dir === 'next' && cur < SLIDES.length - 1) show(cur + 1);
+      else if (d.dir === 'prev' && cur > 0) show(cur - 1);
+    });
+
+    // 開いたらそのまま1枚目から始める（目次は挟まない）
+    show(0);
+  </script>
+</body>
+</html>

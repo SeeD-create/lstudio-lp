@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>時差のしくみ ── 経度15度で1時間のずれ｜中1地理 第2章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .js-safe { inset: 84px 130px 84px; grid-template-columns: 1fr 560px; align-content: center; gap: 54px; align-items: center; }
+  .js-txt { display:grid; gap:22px; }
+  .js-head { display:grid; gap:10px; }
+  .def { font-size: 40px; font-weight: 700; color: var(--sumi); line-height: 1.6; }
+  .def .blank { font-size: 42px; }
+  .def .em { color: var(--imp); font-weight:900; }
+  .formula { display:flex; align-items:center; justify-content:center; gap:20px; background:var(--paper-hi); border:3px solid var(--imp); border-radius:18px; padding:24px 30px; box-shadow:0 12px 28px rgba(40,30,10,.10); }
+  .formula .fx { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:44px; color:var(--sumi); }
+  .formula .fx .r { color:var(--imp); }
+  .figbox { background:#EAF2F8; border:3px solid var(--sumi); border-radius:24px; box-shadow:0 16px 38px rgba(40,30,10,.12); padding:16px; }
+  .figbox svg { display:block; width:100%; height:auto; }
+  .fl { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe js-safe">
+    <div class="js-txt">
+      <div class="js-head" data-at="0">
+        <span class="cat-badge"><span class="dot"></span>Ⅱ-2　時刻のずれ　授業ノート2</span>
+        <h1 class="headline" style="font-size:46px;margin-top:10px;">なぜ<span class="em">時刻のずれ</span>が生まれるのか</h1>
+      </div>
+      <p class="def" data-at="1">地球は24時間で1回転（360°）する。だから経度がちがうと時間がずれる。これを
+        <span class="blank" data-fill="1"><span class="bnum">①</span><b>時差</b></span> という。</p>
+      <p class="def" data-at="3">経度が
+        <span class="blank" data-fill="3"><span class="bnum">②</span><b>15度</b></span>ちがうと、ずれはちょうど1時間になる。</p>
+      <div class="formula" data-at="4" data-anim="pop">
+        <span class="fx">360° ÷ 24時間 = <span class="r">15°で1時間</span></span>
+      </div>
+    </div>
+    <div class="figbox" data-at="0" data-anim="right">
+      <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="500" height="500" fill="#EAF2F8"/>
+        <circle cx="250" cy="250" r="180" fill="#CFE0EC" stroke="#2c6489" stroke-width="4" data-at="2"/>
+        <!-- 24分割の線 -->
+        <g stroke="#7fa6c0" stroke-width="1.6" data-at="2">
+          <line x1="250" y1="70" x2="250" y2="430"/>
+          <line x1="70" y1="250" x2="430" y2="250"/>
+          <line x1="123" y1="123" x2="377" y2="377"/>
+          <line x1="377" y1="123" x2="123" y2="377"/>
+          <line x1="160" y1="88" x2="340" y2="412"/>
+          <line x1="340" y1="88" x2="160" y2="412"/>
+          <line x1="88" y1="160" x2="412" y2="340"/>
+          <line x1="88" y1="340" x2="412" y2="160"/>
+        </g>
+        <!-- 中心 -->
+        <text class="fl" x="250" y="240" fill="#1c4a66" font-size="26" text-anchor="middle" data-at="2">24時間で</text>
+        <text class="fl" x="250" y="275" fill="#1c4a66" font-size="30" text-anchor="middle" data-at="2">360°回転</text>
+        <!-- 回転矢印 -->
+        <path d="M250,50 A200,200 0 0 1 430,180" fill="none" stroke="#C4161C" stroke-width="5" data-at="2"/>
+        <polygon points="430,180 412,168 434,152" fill="#C4161C" data-at="2"/>
+        <!-- 15度のくさび強調 -->
+        <path d="M250,250 L250,70 A180,180 0 0 1 297,76 Z" fill="#C4161C" opacity=".8" data-at="3"/>
+        <g data-at="3"><line x1="285" y1="96" x2="330" y2="34" stroke="#7a0d11" stroke-width="2.5"/><circle cx="344" cy="26" r="24" fill="#fff" stroke="#7a0d11" stroke-width="4"/><text class="fl" x="344" y="36" fill="#7a0d11" font-size="30" text-anchor="middle">②</text></g>
+      </svg>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第2章 日本の位置と地域</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>日本の東西南北の端 ── 択捉・南鳥・沖ノ鳥・与那国｜中1地理 第2章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .tn-safe { inset: 84px 130px 84px; align-content: center; gap: 34px; }
+  .tn-head { display:grid; gap:10px; }
+  .grid { display:grid; grid-template-columns: 300px 1fr; gap: 44px; align-items:center; }
+  .compass { display:grid; place-content:center; }
+  .compass svg { width:280px; height:280px; }
+  .cards { display:grid; grid-template-columns: repeat(2,1fr); gap:22px; }
+  .tc { background:var(--paper-hi); border:3px solid var(--c); border-radius:18px; padding:22px 26px; display:grid; gap:8px; box-shadow:0 12px 26px rgba(40,30,10,.10); position:relative; }
+  .tc::before { content:""; position:absolute; left:0; top:0; bottom:0; width:12px; background:var(--c); border-radius:15px 0 0 15px; }
+  .tc .dir { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:30px; color:var(--c); }
+  .tc .nm { font-size:38px; font-weight:900; color:var(--sumi); display:flex; align-items:baseline; }
+  .tc .nm .blank { font-size:38px; min-width:280px; }
+  .tc .me { font-size:23px; color:var(--sumi-soft); font-weight:600; line-height:1.4; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe tn-safe">
+    <div class="tn-head" data-at="0">
+      <span class="cat-badge"><span class="dot"></span>Ⅰ-3　東西南北の端</span>
+      <h1 class="headline" style="font-size:52px;margin-top:12px;">日本の<span class="em">はし</span>にある4つの島</h1>
+    </div>
+    <div class="grid">
+      <div class="compass" data-at="0" data-anim="left">
+        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="140" cy="140" r="120" fill="#DCE7EF" stroke="#2c6489" stroke-width="3"/>
+          <polygon points="140,26 156,140 140,254 124,140" fill="#E79A9A" stroke="#b5433f" stroke-width="2"/>
+          <polygon points="26,140 140,124 254,140 140,156" fill="#9FCBE0" stroke="#2c6489" stroke-width="2"/>
+          <circle cx="140" cy="140" r="18" fill="#fff" stroke="#2c6489" stroke-width="3"/>
+          <text x="140" y="18" fill="#8a2f2b" font-size="26" font-weight="900" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif">北</text>
+          <text x="140" y="276" fill="#8a2f2b" font-size="26" font-weight="900" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif">南</text>
+          <text x="268" y="150" fill="#20516f" font-size="26" font-weight="900" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif">東</text>
+          <text x="12" y="150" fill="#20516f" font-size="26" font-weight="900" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif">西</text>
+        </svg>
+      </div>
+      <div class="cards">
+        <div class="tc" style="--c:#b5433f" data-at="1" data-anim="pop"><span class="dir">北端</span><span class="nm"><span class="blank" data-fill="1"><b>択捉島</b></span></span><span class="me">えとろふとう／北方領土のひとつ</span></div>
+        <div class="tc" style="--c:#2c6489" data-at="2" data-anim="pop"><span class="dir">東端</span><span class="nm"><span class="blank" data-fill="2"><b>南鳥島</b></span></span><span class="me">みなみとりしま／東京都・太平洋上</span></div>
+        <div class="tc" style="--c:#b78a2a" data-at="3" data-anim="pop"><span class="dir">南端</span><span class="nm"><span class="blank" data-fill="3"><b>沖ノ鳥島</b></span></span><span class="me">おきのとりしま／東京都・護岸工事で守る</span></div>
+        <div class="tc" style="--c:#3f7a3f" data-at="4" data-anim="pop"><span class="dir">西端</span><span class="nm"><span class="blank" data-fill="4"><b>与那国島</b></span></span><span class="me">よなぐにじま／沖縄県・台湾に近い</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;background:var(--sumi);color:var(--paper-hi);border-radius:16px;padding:18px 30px;font-size:25px;line-height:1.45;" data-at="5" data-anim="fade">
+      <span style="font-family:'Zen Old Mincho',serif;font-weight:900;color:var(--gold-soft);white-space:nowrap;">覚え方</span>
+      <span>北の<b style="color:#fff;">択捉</b>だけが北方領土、東と南の<b style="color:#fff;">南鳥・沖ノ鳥</b>は東京都、西の<b style="color:#fff;">与那国</b>は沖縄県。「鳥」が2つ（南鳥・沖ノ鳥）で東と南、とセットで覚える。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第2章 日本の位置と地域</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(6);</script>
+</body>
+</html>

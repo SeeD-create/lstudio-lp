@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>断面図のつくり方 ── 高さを移して結ぶ｜中1地理 第10章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .dm-safe { inset: 72px 120px 70px; grid-template-columns: 760px 1fr; align-content: center; gap: 50px; align-items: center; }
+  .dm-fig { background:var(--paper-hi); border:3px solid var(--sumi); border-radius:24px; box-shadow:0 16px 38px rgba(40,30,10,.12); padding:16px; }
+  .dm-fig svg { width:100%; height:auto; display:block; }
+  .dm-txt { display:grid; gap:20px; }
+  .dm-head { display:grid; gap:10px; }
+  .step { display:grid; grid-template-columns:56px 1fr; gap:18px; align-items:center; background:var(--paper-hi); border:3px solid var(--cat); border-radius:16px; padding:18px 24px; box-shadow:0 10px 22px rgba(40,30,10,.07); }
+  .step .n { width:52px; height:52px; border-radius:50%; background:var(--cat); color:#fff; font-family:'Zen Old Mincho',serif; font-weight:900; font-size:30px; display:flex; align-items:center; justify-content:center; }
+  .step .t { font-size:27px; line-height:1.45; color:var(--sumi); font-weight:700; }
+  .step .t .imp { color:var(--imp); font-weight:900; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="soc">
+  <div class="seed-safe dm-safe">
+    <div class="dm-fig" data-at="0" data-anim="left">
+      <svg viewBox="0 0 720 560" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="712" height="552" rx="14" fill="#F6F3EC" stroke="#d8d7d3" stroke-width="2"/>
+        <!-- 等高線マップ -->
+        <g fill="none" stroke="#9c7a3c" stroke-width="2.4">
+          <ellipse cx="360" cy="150" rx="280" ry="110"/>
+          <ellipse cx="360" cy="150" rx="190" ry="74"/>
+          <ellipse cx="360" cy="150" rx="95"  ry="38"/>
+        </g>
+        <g font-family="'Zen Kaku Gothic New',sans-serif" font-weight="700" font-size="18" fill="#9c7a3c">
+          <text x="360" y="75">100</text><text x="360" y="112">200</text><text x="360" y="145">300</text>
+        </g>
+        <!-- XY線 -->
+        <line x1="60" y1="180" x2="660" y2="180" stroke="#c4161c" stroke-width="3"/>
+        <text x="46" y="186" text-anchor="end" font-family="'Zen Old Mincho',serif" font-weight="900" font-size="24" fill="#c4161c">X</text>
+        <text x="674" y="186" font-family="'Zen Old Mincho',serif" font-weight="900" font-size="24" fill="#c4161c">Y</text>
+        <!-- 投影線 -->
+        <g stroke="#8b8a88" stroke-width="1.4" stroke-dasharray="4 5" data-at="2">
+          <line x1="90.6" y1="180" x2="90.6" y2="490"/><line x1="186.3" y1="180" x2="186.3" y2="440"/>
+          <line x1="301.7" y1="180" x2="301.7" y2="390"/><line x1="360" y1="180" x2="360" y2="373"/>
+          <line x1="418.3" y1="180" x2="418.3" y2="390"/><line x1="533.7" y1="180" x2="533.7" y2="440"/>
+          <line x1="629.4" y1="180" x2="629.4" y2="490"/>
+        </g>
+        <!-- 断面図グリッド -->
+        <g stroke="#d8d7d3" stroke-width="1.6">
+          <line x1="60" y1="540" x2="660" y2="540"/><line x1="60" y1="490" x2="660" y2="490"/>
+          <line x1="60" y1="440" x2="660" y2="440"/><line x1="60" y1="390" x2="660" y2="390"/>
+        </g>
+        <g font-family="'Zen Kaku Gothic New',sans-serif" font-weight="700" font-size="17" fill="#8b8a88">
+          <text x="52" y="546" text-anchor="end">0</text><text x="52" y="496" text-anchor="end">100</text>
+          <text x="52" y="446" text-anchor="end">200</text><text x="52" y="396" text-anchor="end">300(m)</text>
+        </g>
+        <line x1="60" y1="390" x2="60" y2="540" stroke="#8b8a88" stroke-width="2"/>
+        <!-- 断面の点 -->
+        <g fill="#c4161c" data-at="2">
+          <circle cx="90.6" cy="490" r="5"/><circle cx="186.3" cy="440" r="5"/><circle cx="301.7" cy="390" r="5"/>
+          <circle cx="360" cy="373" r="5"/><circle cx="418.3" cy="390" r="5"/><circle cx="533.7" cy="440" r="5"/>
+          <circle cx="629.4" cy="490" r="5"/>
+        </g>
+        <!-- 断面曲線 -->
+        <path d="M60,540 Q75,515 90.6,490 Q140,460 186.3,440 Q245,410 301.7,390 Q335,378 360,373 Q385,378 418.3,390 Q475,410 533.7,440 Q582,462 629.4,490 Q645,515 660,540"
+              fill="none" stroke="#2b2b2a" stroke-width="4" data-at="3"/>
+      </svg>
+    </div>
+    <div class="dm-txt">
+      <div class="dm-head" data-at="0">
+        <span class="kicker"><span class="num">Ⅲ-4</span>　断面図のつくり方</span>
+        <h1 class="headline" style="font-size:46px;">高さを下へ<span class="em">移して結ぶ</span></h1>
+      </div>
+      <div class="step" data-at="1"><span class="n">1</span><span class="t">切りたい線<span class="imp">X〜Y</span>を引く。</span></div>
+      <div class="step" data-at="2"><span class="n">2</span><span class="t">線が等高線と交わる点の高さを、<span class="imp">真下のグリッド</span>に点で移す。</span></div>
+      <div class="step" data-at="3"><span class="n">3</span><span class="t">点を<span class="imp">なめらかな線</span>で結べば断面図の完成。</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第10章 地図の見方</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(4);</script>
+</body>
+</html>

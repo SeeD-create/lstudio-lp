@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>集めた5枚 ── 地図の見方を1単元でつかむ｜中1地理 第10章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .sm-safe { inset: 56px 80px 56px; align-content: start; gap: 18px; }
+  .sm-head { display: grid; gap: 8px; justify-items: center; text-align: center; }
+  .sm-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .col { position: relative; background: var(--paper-hi); border-radius: 18px; border: 3px solid var(--c);
+         box-shadow: 0 14px 30px rgba(40,30,10,.10); overflow: hidden; display: grid; align-content: start; min-height: 580px; }
+  .col-h { background: var(--c); color: #fff; padding: 14px 18px; display: grid; gap: 4px; }
+  .col-h .rn { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:19px; opacity:.85; }
+  .col-h .nm { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:28px; line-height:1.1; }
+  .col-b { padding: 16px 18px; display: grid; gap: 10px; }
+  .keys { display:grid; gap:10px; margin:0; padding:0; }
+  .keys li { list-style:none; font-size:21px; line-height:1.3; color:var(--sumi); font-weight:700; }
+  .keys li .imp { color: var(--imp); }
+  .keys li small { display:block; font-size:16px; color:var(--sumi-mute); font-weight:500; }
+  .sm-bar { display:flex; align-items:center; gap:24px; background: var(--paper-hi); color: var(--sumi); border-radius:18px; padding:15px 31px; border: 3px solid var(--sumi); box-shadow: 0 8px 20px rgba(40,30,10,.07);}
+  .sm-bar .bt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:24px; color: var(--imp); white-space:nowrap; }
+  .sm-bar .bb { font-size:22px; line-height:1.45; color: var(--sumi); }
+  .sm-bar .bb b { color: var(--imp); }
+  .keys li .blank { min-width:30px; padding:0 5px 0; margin:0 2px; border-bottom-width:2px; }
+  .keys li .blank b { font-family:inherit; }
+  .sm-bar .blank { min-width:52px; padding:0 8px 1px; margin:0 4px; border-bottom-width:2px; }
+  .sm-bar .blank b { font-family:inherit; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="soc">
+  <div class="seed-safe sm-safe">
+    <div class="sm-head" data-at="0">
+      <span class="kicker"><span class="num">まとめ</span>　地図の見方</span>
+      <h1 class="headline" style="font-size:44px;">この<span class="em">5つの道具</span>で、どんな地形図も読める</h1>
+    </div>
+    <div class="sm-row">
+      <div class="col" style="--c:#1A1A1A" data-at="1" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅰ</div><div class="nm">方位</div></div>
+        <div class="col-b"><ul class="keys">
+          <li><span class="blank" data-fill="1"><b>8方位</b></span><small>北・北東・東・南東・南・南西・西・北西</small></li>
+          <li>基本は<span class="blank" data-fill="1"><b>上が北・下が南</b></span></li>
+          <li>左が西・右が東</li>
+        </ul></div>
+      </div>
+      <div class="col" style="--c:#3A3A39" data-at="2" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅱ</div><div class="nm">縮尺</div></div>
+        <div class="col-b"><ul class="keys">
+          <li><span class="blank" data-fill="2"><b>2万5千分の1・5万分の1</b></span></li>
+          <li>実際＝<span class="blank" data-fill="2"><b>長さ×分母</b></span><small>例)25000で4cm→1000m</small></li>
+          <li>つくるのは<span class="blank" data-fill="2"><b>国土地理院</b></span></li>
+        </ul></div>
+      </div>
+      <div class="col" style="--c:#535250" data-at="3" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅲ</div><div class="nm">等高線</div></div>
+        <div class="col-b"><ul class="keys">
+          <li><span class="blank" data-fill="3"><b>計曲線</b></span>(太)<small>2.5万=50m/5万=100mごと</small></li>
+          <li><span class="blank" data-fill="3"><b>主曲線</b></span>(細)<small>2.5万=10m/5万=20mごと</small></li>
+          <li>間隔せまい＝<span class="blank" data-fill="3"><b>急</b></span></li>
+          <li><span class="blank" data-fill="3"><b>尾根</b></span>と<span class="blank" data-fill="3"><b>谷</b></span>・断面図</li>
+        </ul></div>
+      </div>
+      <div class="col" style="--c:#6B6A67" data-at="4" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅳ</div><div class="nm">地図記号</div></div>
+        <div class="col-b"><ul class="keys">
+          <li>文＝<span class="blank" data-fill="4"><b>学校</b></span>／卍＝<span class="blank" data-fill="4"><b>寺院</b></span></li>
+          <li>鳥居＝<span class="blank" data-fill="4"><b>神社</b></span></li>
+          <li>‖＝<span class="blank" data-fill="4"><b>田</b></span>／vv＝<span class="blank" data-fill="4"><b>畑</b></span></li>
+          <li>○•＝<span class="blank" data-fill="4"><b>果樹園</b></span></li>
+        </ul></div>
+      </div>
+      <div class="col" style="--c:#848380" data-at="5" data-anim="pop">
+        <div class="col-h"><div class="rn">CARD Ⅴ</div><div class="nm">地形図を読む</div></div>
+        <div class="col-b"><ul class="keys">
+          <li>山ぎわ＝<span class="blank" data-fill="5"><b>扇状地</b></span></li>
+          <li>河口＝<span class="blank" data-fill="5"><b>三角州</b></span></li>
+          <li>方位・距離・高さ・土地利用を<br>まとめて読みとる</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="sm-bar" data-at="6" data-anim="fade">
+      <span class="bt">ここだけは落とすな</span>
+      <span class="bb">地図は<span class="blank" data-fill="6"><b>上が北</b></span>。実際の距離＝<span class="blank" data-fill="6"><b>地図上の長さ×縮尺の分母</b></span>。等高線は<span class="blank" data-fill="6"><b>せまい所ほど急</b></span>。<span class="blank" data-fill="6"><b>文＝学校／卍＝寺院</b></span>を逆にしない。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第10章 地図の見方</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(7);</script>
+</body>
+</html>
