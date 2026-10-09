@@ -50,3 +50,6 @@
 .hero .ai-label{font-size:7px;top:8px;right:8px;padding:1px 6px}
 }
 @media(min-width:500px) and (max-width:760px){.hero-location{font-size:13px}.hero .seed-word{font-size:52px}.hero h1 small{font-size:17px}.hero .mobile-hero-cta{bottom:40px;font-size:16px;padding:15px 30px}}
+/* Softer portrait composition: headline centered in the open sky. */
+@media(max-width:760px){.hero-copy{top:39.5%}.hero-location{display:none}.hero h1 .mobile-hero-title{line-height:1.42;letter-spacing:.015em;font-size:clamp(35px,10.9vw,72px);text-shadow:0 2px 12px #fff9}.hero .seed-word{font-size:32px;margin-top:16px}.hero h1 small{font-size:10px}.hero-copy h1{animation-name:portrait-title-arrive}.hero-light{background:transparent}}
+@keyframes portrait-title-arrive{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
