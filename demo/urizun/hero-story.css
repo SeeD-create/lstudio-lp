@@ -87,3 +87,13 @@ body[data-design=c] .ending .free{grid-column:2;grid-row:3;text-align:center;ali
 
 .ending .promise-phrase{display:inline-block;font-weight:inherit;white-space:nowrap}
 @media(min-width:761px){body[data-design=c] .ending .end-intro span:last-child{max-width:none;text-wrap:wrap}.ending .promise-phrase{display:block}}
+
+/* Approved desktop option 03: office name and booking form a single group. */
+@media(min-width:761px){
+body[data-design=c] .ending .end-content{grid-template-columns:1fr 1fr;column-gap:70px}
+body[data-design=c] .ending .end-intro{grid-column:1;grid-row:1/4;align-self:center;margin:0}
+body[data-design=c] .ending h2{grid-column:2;grid-row:1;align-self:end;text-align:center;margin:0 0 28px;white-space:nowrap;line-height:1.5}
+body[data-design=c] .ending h2::before{display:none}
+body[data-design=c] .ending h2 .end-name,body[data-design=c] .ending h2 .end-service{display:inline;font-family:"Yu Mincho",serif;font-size:clamp(19px,2vw,26px);font-weight:600;letter-spacing:0;padding:0;margin:0}
+body[data-design=c] .ending .free{margin-top:18px}
+}
