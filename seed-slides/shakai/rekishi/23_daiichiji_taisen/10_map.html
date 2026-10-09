@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>対立の地図 ── 同盟と協商で色分けする｜中2歴史 第23章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .mp-safe { inset: 70px 110px 70px; align-content: start; gap: 16px; }
+  .mp-head { display: grid; gap: 8px; justify-items: center; text-align: center; }
+  .mp-wrap { position: relative; width: 1500px; justify-self: center; background: #EAF1F5;
+             border: 3px solid var(--sumi); border-radius: 22px; box-shadow: 0 16px 38px rgba(40,30,10,.12); padding: 10px; }
+  .mp-wrap svg { display: block; width: 100%; height: auto; }
+  .legend { display:flex; gap: 44px; justify-content:center; align-items:center; font-size: 26px; font-weight:800; color:var(--sumi); }
+  .legend span { display:inline-flex; align-items:center; gap:12px; }
+  .lg-box { width:34px; height:24px; border-radius:6px; border:2px solid var(--sumi); }
+  .cname { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:900; fill: #1A1A1A; }
+  .cnote { font-family:'Zen Kaku Gothic New',sans-serif; font-weight:700; fill: #fff; }
+  .g-at { opacity:0; transition: opacity .5s ease; }
+  .g-at.on { opacity:1; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe mp-safe">
+    <div class="mp-head" data-at="0">
+      <span class="kicker"><span class="num">授業ノート1</span>　大戦前夜のヨーロッパ</span>
+      <h1 class="headline" style="font-size:48px;"><span style="color:#C4161C;">三国同盟</span>と<span style="color:#2E4A7A;">三国協商</span> ── 火薬庫バルカンで対立</h1>
+    </div>
+    <div class="mp-wrap" data-at="0" data-anim="fade">
+      <svg viewBox="0 0 1500 720" xmlns="http://www.w3.org/2000/svg">
+        <!-- base countries in gray (step 0) -->
+        <path d="M980,90 L1440,110 L1450,470 L1080,520 L1010,300 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+        <path d="M600,250 L760,240 L790,360 L640,400 L590,330 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+        <path d="M640,410 L860,390 L900,500 L720,540 L640,470 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+        <path d="M370,400 L580,370 L590,520 L420,560 L360,480 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+        <path d="M600,470 L690,470 L700,560 L660,660 L620,660 L640,560 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+        <path d="M300,190 L400,180 L410,290 L320,320 L290,250 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+        <path d="M720,545 L905,505 L950,610 L800,660 L720,610 Z" fill="#D7D6D2" stroke="#9A9995" stroke-width="3"/>
+
+        <!-- STEP1: 三国同盟 (red) : Germany + Austria + Italy -->
+        <g class="g-at" data-mstep="1">
+          <path d="M600,250 L760,240 L790,360 L640,400 L590,330 Z" fill="#E0555A" stroke="#9A2126" stroke-width="3"/>
+          <path d="M640,410 L860,390 L900,500 L720,540 L640,470 Z" fill="#E0555A" stroke="#9A2126" stroke-width="3"/>
+          <path d="M600,470 L690,470 L700,560 L660,660 L620,660 L640,560 Z" fill="#E0555A" stroke="#9A2126" stroke-width="3"/>
+        </g>
+        <!-- STEP2: 三国協商 (blue) : Britain + France + Russia -->
+        <g class="g-at" data-mstep="2">
+          <path d="M300,190 L400,180 L410,290 L320,320 L290,250 Z" fill="#4E77AE" stroke="#243F63" stroke-width="3"/>
+          <path d="M370,400 L580,370 L590,520 L420,560 L360,480 Z" fill="#4E77AE" stroke="#243F63" stroke-width="3"/>
+          <path d="M980,90 L1440,110 L1450,470 L1080,520 L1010,300 Z" fill="#4E77AE" stroke="#243F63" stroke-width="3"/>
+        </g>
+        <!-- STEP3: Balkan highlight (amber) -->
+        <g class="g-at" data-mstep="3">
+          <path d="M720,545 L905,505 L950,610 L800,660 L720,610 Z" fill="#E8A33D" stroke="#9A6A17" stroke-width="4"/>
+        </g>
+        <!-- STEP4: サラエボ ★ -->
+        <g class="g-at" data-mstep="4">
+          <polygon points="778,600 784,616 801,616 787,627 793,643 778,633 763,643 769,627 755,616 772,616"
+                   fill="#C4161C" stroke="#7A0E12" stroke-width="2"/>
+          <text class="cname" x="778" y="592" text-anchor="middle" font-size="22" fill="#C4161C">サラエボ</text>
+        </g>
+
+        <!-- country labels (always, on top) -->
+        <text class="cname" x="345" y="245" text-anchor="middle" font-size="26">イギリス</text>
+        <text class="cname" x="470" y="465" text-anchor="middle" font-size="26">フランス</text>
+        <text class="cname" x="680" y="315" text-anchor="middle" font-size="26">ドイツ</text>
+        <text class="cname" x="795" y="455" text-anchor="middle" font-size="23">オーストリア</text>
+        <text class="cname" x="650" y="555" text-anchor="middle" font-size="22">イタリア</text>
+        <text class="cname" x="1210" y="300" text-anchor="middle" font-size="30">ロシア</text>
+        <text class="cname g-at" data-mstep="3" x="875" y="556" text-anchor="middle" font-size="26" fill="#7A4E00">バルカン半島</text>
+        <text class="cname g-at" data-mstep="3" x="872" y="640" text-anchor="middle" font-size="22" fill="#9A2126">＝ヨーロッパの火薬庫</text>
+      </svg>
+    </div>
+    <div class="legend" data-at="0">
+      <span><i class="lg-box" style="background:#E0555A;"></i>三国同盟（ド・イ・オ）</span>
+      <span><i class="lg-box" style="background:#4E77AE;"></i>三国協商（イ・フ・ロ）</span>
+      <span><i class="lg-box" style="background:#E8A33D;"></i>火薬庫バルカン半島</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第23章 第一次世界大戦</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5, function(step){
+  document.querySelectorAll('.g-at').forEach(function(g){
+    g.classList.toggle('on', step >= +g.dataset.mstep);
+  });
+});</script>
+</body>
+</html>

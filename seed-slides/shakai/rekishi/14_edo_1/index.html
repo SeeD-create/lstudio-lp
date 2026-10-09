@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>江戸時代（１）｜ 第14章 全31スライド</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #2a2018;
+      font-family: 'BIZ UDPGothic', 'Hiragino Sans', sans-serif; overflow: hidden; }
+    .viewer { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .frame-wrap { flex: 1; position: relative; overflow: hidden; background: white; }
+    iframe.slide-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 上部の一覧バー（スライド名＋ドット）は出さない。
+       投影中に画面の上へかぶって授業の邪魔になるため撤去（8/28 平野さん指示）。
+       移動は下のボタンと PageUp/Down で足りる。 */
+
+    /* ─── 下部コントロール ─── */
+    .controls { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+    .ctrl-btn { background: white; border: 0; padding: 8px 14px; border-radius: 999px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #422C18; cursor: pointer; transition: background .2s, transform .15s; }
+    .ctrl-btn:hover { background: #fff7e0; }
+    .ctrl-btn:active { transform: scale(.96); }
+    .ctrl-btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .ctrl-info { color: white; font-weight: 700; font-size: 13px; min-width: 70px; text-align: center; letter-spacing: .04em; }
+    .help-hint { color: rgba(255,255,255,.7); font-size: 12px; margin-left: 4px; }
+
+  </style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="frame-wrap">
+      <iframe class="slide-frame" id="frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="controls"><a class="ctrl-btn" id="seed-catalog-link" href="../../../index.html" style="text-decoration:none;white-space:nowrap">↩ 教材一覧へ戻る</a>
+      <button class="ctrl-btn" id="prev-btn">◀ 前のスライド</button>
+      <span class="ctrl-info" id="counter">1 / 31</span>
+      <button class="ctrl-btn" id="next-btn">次のスライド ▶</button>
+      <span class="help-hint">スライド内: ←→ ／ スライド切替: PageUp/Down</span>
+    </div>
+
+  </div>
+
+  <script>
+    const SLIDES = [
+  {
+    "file": "01_cover.html",
+    "title": "表紙 ── 徳川がつくった、天下泰平のはじまり",
+    "sub": ""
+  },
+  {
+    "file": "02_hook.html",
+    "title": "戦国の乱世を、たった一つの家が支配したら？",
+    "sub": ""
+  },
+  {
+    "file": "03_edo_towa.html",
+    "title": "江戸時代とは ── 徳川家康が開いた武家政権",
+    "sub": ""
+  },
+  {
+    "file": "04_catalog.html",
+    "title": "江戸時代（１）カタログ ── 集める3枚",
+    "sub": ""
+  },
+  {
+    "file": "05_nenpyo.html",
+    "title": "江戸時代（１）年表 ── 8つの年号を通して見る",
+    "sub": ""
+  },
+  {
+    "file": "06_sec_seiritsu.html",
+    "title": "CARD Ⅰ 江戸幕府の成立",
+    "sub": ""
+  },
+  {
+    "file": "07_sekigahara.html",
+    "title": "関ヶ原の戦い ── 1600年・天下分け目（徳川家康×石田三成）",
+    "sub": ""
+  },
+  {
+    "file": "08_kaifu.html",
+    "title": "江戸幕府を開く ── 1603年・征夷大将軍",
+    "sub": ""
+  },
+  {
+    "file": "09_bakuryo.html",
+    "title": "幕府の領地 ── 全国の約4分の1（天領・藩）",
+    "sub": ""
+  },
+  {
+    "file": "10_check1.html",
+    "title": "ミニ確認 ── 関ヶ原・江戸幕府",
+    "sub": ""
+  },
+  {
+    "file": "11_daimyo.html",
+    "title": "大名の3種類 ── 親藩・譜代・外様（1万石以上）",
+    "sub": ""
+  },
+  {
+    "file": "12_hatamoto.html",
+    "title": "旗本と御家人 ── 将軍直属・1万石未満の武士",
+    "sub": ""
+  },
+  {
+    "file": "13_check2.html",
+    "title": "ミニ確認 ── 大名・旗本・御家人",
+    "sub": ""
+  },
+  {
+    "file": "14_shikumi.html",
+    "title": "江戸幕府のしくみ ── 老中を中心とした役職（授業ノート1）",
+    "sub": ""
+  },
+  {
+    "file": "15_toyotomi.html",
+    "title": "豊臣氏の滅亡 ── 大阪冬の陣・夏の陣（1614〜15）",
+    "sub": ""
+  },
+  {
+    "file": "16_hatto.html",
+    "title": "大名と朝廷の統制 ── 武家諸法度・禁中並公家諸法度（1615）",
+    "sub": ""
+  },
+  {
+    "file": "17_sankin.html",
+    "title": "参勤交代 ── 1635年・徳川家光が制度化",
+    "sub": ""
+  },
+  {
+    "file": "18_check3.html",
+    "title": "ミニ確認 ── 法度・参勤交代",
+    "sub": ""
+  },
+  {
+    "file": "19_sec_sakoku.html",
+    "title": "CARD Ⅱ 鎖国の完成",
+    "sub": ""
+  },
+  {
+    "file": "20_shuinsen.html",
+    "title": "朱印船貿易 ── 徳川家康・朱印状・日本町",
+    "sub": ""
+  },
+  {
+    "file": "21_kinkyo.html",
+    "title": "キリスト教の禁止 ── 島原・天草一揆・絵踏・宗門改帳",
+    "sub": ""
+  },
+  {
+    "file": "22_check4.html",
+    "title": "ミニ確認 ── 朱印船・禁教",
+    "sub": ""
+  },
+  {
+    "file": "23_sakoku.html",
+    "title": "鎖国の完成 ── 1639ポルトガル禁止・1641出島",
+    "sub": ""
+  },
+  {
+    "file": "24_kokkou.html",
+    "title": "鎖国下の窓口 ── 国交のあった国（オランダ・清・朝鮮）",
+    "sub": ""
+  },
+  {
+    "file": "25_check5.html",
+    "title": "ミニ確認 ── 鎖国・国交",
+    "sub": ""
+  },
+  {
+    "file": "26_sec_mibun.html",
+    "title": "CARD Ⅲ 身分制度",
+    "sub": ""
+  },
+  {
+    "file": "27_mibun.html",
+    "title": "身分制度 ── 武士・百姓・町人・えた・ひにん",
+    "sub": ""
+  },
+  {
+    "file": "28_hyakusho.html",
+    "title": "百姓のくらし ── 本百姓と水呑百姓",
+    "sub": ""
+  },
+  {
+    "file": "29_mura.html",
+    "title": "村のしくみ ── 村役人（庄屋・組頭・百姓代）と五人組",
+    "sub": ""
+  },
+  {
+    "file": "30_check6.html",
+    "title": "ミニ確認 ── 身分・村のしくみ",
+    "sub": ""
+  },
+  {
+    "file": "31_summary.html",
+    "title": "260年の泰平をつくった3枚 ── 成立・鎖国・身分",
+    "sub": ""
+  }
+];
+
+    const frame    = document.getElementById('frame');
+    const counter  = document.getElementById('counter');
+    const prevBtn  = document.getElementById('prev-btn');
+    const nextBtn  = document.getElementById('next-btn');
+    let cur = 0;
+
+    function show(i) {
+      cur = Math.max(0, Math.min(SLIDES.length - 1, i));
+      frame.src = SLIDES[cur].file;
+      counter.textContent = `${cur + 1} / ${SLIDES.length}`;
+      prevBtn.disabled = (cur === 0);
+      nextBtn.disabled = (cur === SLIDES.length - 1);
+      setTimeout(() => { try { frame.contentWindow.focus(); } catch(e) {} }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => show(cur - 1));
+    nextBtn.addEventListener('click', () => show(cur + 1));
+
+    // 目次（ホーム画面）は出さない。授業のたびに一覧が挟まって邪魔になるため撤去（8/21 平野さん指示）。
+    // 移動はドット・前後ボタン・PageUp/Downで足りる。
+    function handleKey(e) {
+      if (e.key === 'PageDown') { if (cur < SLIDES.length - 1) show(cur + 1); e.preventDefault(); }
+      else if (e.key === 'PageUp') { if (cur > 0) show(cur - 1); e.preventDefault(); }
+    }
+    window.addEventListener('keydown', handleKey);
+
+    frame.addEventListener('load', () => {
+      // フォーカスはスライド側へ（←→でステップが動くように）
+      try { frame.contentWindow.focus(); } catch(e) {}
+    });
+
+    // スライド側（nav.js）から届く PageUp/PageDown を受けてスライドを送る。
+    // file:// では iframe のキーを親から直接拾えないので、この経路が本線。
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || d.seed !== 'slide-nav') return;
+      if (d.dir === 'next' && cur < SLIDES.length - 1) show(cur + 1);
+      else if (d.dir === 'prev' && cur > 0) show(cur - 1);
+    });
+
+    // 開いたらそのまま1枚目から始める（目次は挟まない）
+    show(0);
+  </script>
+</body>
+</html>

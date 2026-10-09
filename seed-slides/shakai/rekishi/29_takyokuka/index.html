@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>世界の多極化｜ 第30章 全28スライド</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #2a2018;
+      font-family: 'BIZ UDPGothic', 'Hiragino Sans', sans-serif; overflow: hidden; }
+    .viewer { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .frame-wrap { flex: 1; position: relative; overflow: hidden; background: white; }
+    iframe.slide-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 上部の一覧バー（スライド名＋ドット）は出さない。
+       投影中に画面の上へかぶって授業の邪魔になるため撤去（8/28 平野さん指示）。
+       移動は下のボタンと PageUp/Down で足りる。 */
+
+    /* ─── 下部コントロール ─── */
+    .controls { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+    .ctrl-btn { background: white; border: 0; padding: 8px 14px; border-radius: 999px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #422C18; cursor: pointer; transition: background .2s, transform .15s; }
+    .ctrl-btn:hover { background: #fff7e0; }
+    .ctrl-btn:active { transform: scale(.96); }
+    .ctrl-btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .ctrl-info { color: white; font-weight: 700; font-size: 13px; min-width: 70px; text-align: center; letter-spacing: .04em; }
+    .help-hint { color: rgba(255,255,255,.7); font-size: 12px; margin-left: 4px; }
+
+  </style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="frame-wrap">
+      <iframe class="slide-frame" id="frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="controls"><a class="ctrl-btn" id="seed-catalog-link" href="../../../index.html" style="text-decoration:none;white-space:nowrap">↩ 教材一覧へ戻る</a>
+      <button class="ctrl-btn" id="prev-btn">◀ 前のスライド</button>
+      <span class="ctrl-info" id="counter">1 / 28</span>
+      <button class="ctrl-btn" id="next-btn">次のスライド ▶</button>
+      <span class="help-hint">スライド内: ←→ ／ スライド切替: PageUp/Down</span>
+    </div>
+
+  </div>
+
+  <script>
+    const SLIDES = [
+  {
+    "file": "01_cover.html",
+    "title": "表紙 ── 二つの超大国から、多くの主役へ",
+    "sub": ""
+  },
+  {
+    "file": "02_hook.html",
+    "title": "もし、世界の主役が「米ソ二つ」から増えていったら？",
+    "sub": ""
+  },
+  {
+    "file": "03_towa.html",
+    "title": "この単元とは ── 冷戦の終わりと、多極化する世界",
+    "sub": ""
+  },
+  {
+    "file": "04_takyoku.html",
+    "title": "多極化とは ── 二極（米ソ）から、多くの極へ",
+    "sub": ""
+  },
+  {
+    "file": "05_catalog.html",
+    "title": "世界の多極化カタログ ── 集める4枚",
+    "sub": ""
+  },
+  {
+    "file": "06_map.html",
+    "title": "多極化の世界地図 ── 力の中心が分かれていく",
+    "sub": ""
+  },
+  {
+    "file": "07_sec1.html",
+    "title": "CARD Ⅰ 民族の独立とアジアの戦火",
+    "sub": ""
+  },
+  {
+    "file": "08_africa.html",
+    "title": "アフリカの年 ── 1960・17ヶ国が独立",
+    "sub": ""
+  },
+  {
+    "file": "09_vietnam.html",
+    "title": "ベトナム戦争 ── 1965・アメリカの北爆が始まる",
+    "sub": ""
+  },
+  {
+    "file": "10_check1.html",
+    "title": "ミニ確認 ── 独立とベトナム戦争",
+    "sub": ""
+  },
+  {
+    "file": "11_sec2.html",
+    "title": "CARD Ⅱ ヨーロッパの統合と石油危機",
+    "sub": ""
+  },
+  {
+    "file": "12_ec.html",
+    "title": "EC → EU ── 1967結成・1993ヨーロッパ連合へ",
+    "sub": ""
+  },
+  {
+    "file": "13_chuto.html",
+    "title": "第四次中東戦争とオイルショック ── 1973",
+    "sub": ""
+  },
+  {
+    "file": "14_summit.html",
+    "title": "サミット ── 1975・第1回先進国首脳会議",
+    "sub": ""
+  },
+  {
+    "file": "15_check2.html",
+    "title": "ミニ確認 ── ヨーロッパと石油危機",
+    "sub": ""
+  },
+  {
+    "file": "16_sec3.html",
+    "title": "CARD Ⅲ 冷戦の終結",
+    "sub": ""
+  },
+  {
+    "file": "17_beichu.html",
+    "title": "米中接近とアフガニスタン ── 1979・ゆらぐ二極",
+    "sub": ""
+  },
+  {
+    "file": "18_pere.html",
+    "title": "ペレストロイカ ── 1986・ゴルバチョフの改革",
+    "sub": ""
+  },
+  {
+    "file": "19_berlin.html",
+    "title": "ベルリンの壁とマルタ会談 ── 1989・冷戦の終結",
+    "sub": ""
+  },
+  {
+    "file": "20_soren.html",
+    "title": "ソ連解体とEU ── 1991〜1993・冷戦後の世界へ",
+    "sub": ""
+  },
+  {
+    "file": "21_check3.html",
+    "title": "ミニ確認 ── 冷戦はどう終わったか",
+    "sub": ""
+  },
+  {
+    "file": "22_sec4.html",
+    "title": "CARD Ⅳ 21世紀の世界",
+    "sub": ""
+  },
+  {
+    "file": "23_terro.html",
+    "title": "米国同時多発テロ ── 2001・報復のアフガニスタン侵攻",
+    "sub": ""
+  },
+  {
+    "file": "24_iraq.html",
+    "title": "イラク戦争と軍縮 ── 2003イラク戦争・2011新START",
+    "sub": ""
+  },
+  {
+    "file": "25_check4.html",
+    "title": "ミニ確認 ── テロとイラク戦争",
+    "sub": ""
+  },
+  {
+    "file": "26_nenpyo.html",
+    "title": "世界の多極化 年表 ── 1960から2011へ",
+    "sub": ""
+  },
+  {
+    "file": "27_summary.html",
+    "title": "集めた4枚 ── 二極から多極へ、そして冷戦の終わり",
+    "sub": ""
+  },
+  {
+    "file": "28_owari.html",
+    "title": "歴史のゴール ── 古代から現代まで、走りきった",
+    "sub": ""
+  }
+];
+
+    const frame    = document.getElementById('frame');
+    const counter  = document.getElementById('counter');
+    const prevBtn  = document.getElementById('prev-btn');
+    const nextBtn  = document.getElementById('next-btn');
+    let cur = 0;
+
+    function show(i) {
+      cur = Math.max(0, Math.min(SLIDES.length - 1, i));
+      frame.src = SLIDES[cur].file;
+      counter.textContent = `${cur + 1} / ${SLIDES.length}`;
+      prevBtn.disabled = (cur === 0);
+      nextBtn.disabled = (cur === SLIDES.length - 1);
+      setTimeout(() => { try { frame.contentWindow.focus(); } catch(e) {} }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => show(cur - 1));
+    nextBtn.addEventListener('click', () => show(cur + 1));
+
+    // 目次（ホーム画面）は出さない。授業のたびに一覧が挟まって邪魔になるため撤去（8/21 平野さん指示）。
+    // 移動はドット・前後ボタン・PageUp/Downで足りる。
+    function handleKey(e) {
+      if (e.key === 'PageDown') { if (cur < SLIDES.length - 1) show(cur + 1); e.preventDefault(); }
+      else if (e.key === 'PageUp') { if (cur > 0) show(cur - 1); e.preventDefault(); }
+    }
+    window.addEventListener('keydown', handleKey);
+
+    frame.addEventListener('load', () => {
+      // フォーカスはスライド側へ（←→でステップが動くように）
+      try { frame.contentWindow.focus(); } catch(e) {}
+    });
+
+    // スライド側（nav.js）から届く PageUp/PageDown を受けてスライドを送る。
+    // file:// では iframe のキーを親から直接拾えないので、この経路が本線。
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || d.seed !== 'slide-nav') return;
+      if (d.dir === 'next' && cur < SLIDES.length - 1) show(cur + 1);
+      else if (d.dir === 'prev' && cur > 0) show(cur - 1);
+    });
+
+    // 開いたらそのまま1枚目から始める（目次は挟まない）
+    show(0);
+  </script>
+</body>
+</html>

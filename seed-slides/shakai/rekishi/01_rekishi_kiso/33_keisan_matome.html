@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>世紀計算の公式まとめ｜中1歴史 §1</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .km-safe { inset: 90px 150px 90px; align-content: center; gap: 34px; }
+  .km-head { display: grid; gap: 12px; }
+  .km-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .fc { position:relative; background:var(--paper-hi); border:3px solid var(--new); border-radius:22px; padding:30px 32px 34px;
+        box-shadow:0 14px 32px rgba(40,30,10,.10); display:grid; gap:14px; }
+  .fc::before { content:""; position:absolute; left:0; top:0; right:0; height:12px; background:var(--new); border-radius:19px 19px 0 0; }
+  .fc .cs { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--new); }
+  .fc .rule { font-size:29px; line-height:1.5; color:var(--sumi); font-weight:600; }
+  .fc .rule .imp { color:var(--imp); font-weight:900; }
+  .fc .eg.blank { white-space:normal; min-width:0; display:block; text-align:left; }
+  .fc .rule .hl, .fc .eg b { color:var(--imp); font-weight:900; }
+  .fc .eg { margin-top:auto; background:var(--paper-lo); border-radius:14px; padding:14px 18px; font-family:'Zen Old Mincho',serif; font-weight:900; font-size:26px; color:var(--sumi); }
+  .km-bar { display:flex; align-items:center; gap:26px; background:var(--sumi); color:var(--paper-hi); border-radius:20px; padding:24px 40px; }
+  .km-bar .bt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:30px; color:var(--gold-soft); white-space:nowrap; }
+  .km-bar .bb { font-size:29px; line-height:1.5; } .km-bar .bb b { color:#fff; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="new">
+  <div class="seed-safe km-safe">
+    <div class="km-head" data-at="0">
+      <span class="kicker"><span class="num">まとめ</span>　世紀の計算</span>
+      <h1 class="headline" style="font-size:58px;">世紀の出し方は、この<span class="em">3パターン</span></h1>
+    </div>
+    <div class="km-row">
+      <div class="fc" data-at="1" data-anim="pop">
+        <div class="cs">① ふつうの年</div>
+        <div class="rule blank blank--para" data-fill="1"><b>下2けたを消して、その数に<span class="hl">＋1</span>する。</b></div>
+        <div class="eg blank" data-fill="1"><b>1894年 → 18＋1 ＝ 19世紀</b></div>
+      </div>
+      <div class="fc" data-at="2" data-anim="pop">
+        <div class="cs">② ちょうど◯00年</div>
+        <div class="rule blank blank--para" data-fill="2"><b><span class="hl">＋1しない</span>。上のけたがそのまま世紀。</b></div>
+        <div class="eg blank" data-fill="2"><b>1600年 → 16 ＝ 16世紀</b></div>
+      </div>
+      <div class="fc" data-at="3" data-anim="pop">
+        <div class="cs">③ 紀元前の年</div>
+        <div class="rule blank blank--para" data-fill="3"><b>計算は①②と同じ。頭に<span class="hl">「紀元前」</span>をつける。</b></div>
+        <div class="eg blank" data-fill="3"><b>紀元前240年 → 2＋1 ＝ 紀元前3世紀</b></div>
+      </div>
+    </div>
+    <div class="km-bar" data-at="4" data-anim="fade">
+      <span class="bt">★ テスト頻出</span>
+      <span class="bb">迷ったら「<b>下2けたを消して＋1</b>」。<b>◯00年だけ＋1しない</b>、<b>紀元前は紀元前をつける</b>。この3つで世紀の問題は全部解ける。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 歴史学習の基礎</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>文化は時代順・影響で覚える｜社会（歴史）§11</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .fl-safe { inset: 96px 130px 92px; align-content: center; gap: 30px; }
+  .fl-head { display: grid; gap: 12px; }
+  .band { display: grid; grid-template-columns: 250px 1fr; gap: 26px; align-items: center;
+          background: var(--paper-hi); border: 3px solid var(--cat); border-radius: 22px; padding: 24px 32px;
+          box-shadow: 0 14px 30px rgba(40,30,10,.10); }
+  .band .bl { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:40px; color:var(--cat); }
+  .band .bl small { display:block; font-size:22px; color:var(--sumi-mute); font-weight:500; letter-spacing:0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .chip { display:inline-flex; flex-direction:column; align-items:center; gap:2px;
+          background:var(--cat-bg); border:2px solid var(--cat); border-radius:14px; padding:10px 20px; }
+  .chip b { font-family:'Zen Old Mincho',serif; font-size:30px; color:var(--sumi); }
+  .chip span { font-size:19px; color:var(--sumi-soft); }
+  .arrow { color: var(--sumi-mute); font-size: 28px; font-weight: 900; }
+  .fl-bar { display:flex; align-items:center; gap:26px; background:var(--sumi); color:var(--paper-hi); border-radius:20px; padding:24px 38px; }
+  .fl-bar .bt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:30px; color:var(--gold-soft); white-space:nowrap; }
+  .fl-bar .bb { font-size:28px; line-height:1.5; color:rgba(251,251,250,.94); }
+  .fl-bar .bb b { color:#fff; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe fl-safe">
+    <div class="fl-head" data-at="0">
+      <span class="kicker"><span class="num">この単元の地図</span>　文化の並べ方</span>
+      <h1 class="headline" style="font-size:56px;">文化は<span class="em">時代の名前</span>で並び、<span class="em">影響</span>でちがいが出る</h1>
+    </div>
+    <div class="band" data-cat="eq" data-at="1" data-anim="left">
+      <div class="bl">原始<small>げんし</small></div>
+      <div class="chips">
+        <div class="chip"><b>縄文</b><span>土器・土偶</span></div><span class="arrow">→</span>
+        <div class="chip"><b>弥生</b><span>米づくり</span></div><span class="arrow">→</span>
+        <div class="chip"><b>古墳</b><span>豪族の墓</span></div>
+      </div>
+    </div>
+    <div class="band" data-cat="lib" data-at="2" data-anim="left">
+      <div class="bl">古代<small>こだい</small></div>
+      <div class="chips">
+        <div class="chip"><b>飛鳥</b><span>仏教の影響</span></div><span class="arrow">→</span>
+        <div class="chip"><b>天平</b><span>唐の影響</span></div><span class="arrow">→</span>
+        <div class="chip"><b>国風</b><span>日本独自</span></div>
+      </div>
+    </div>
+    <div class="band" data-cat="soc" data-at="3" data-anim="left">
+      <div class="bl">中世<small>ちゅうせい</small></div>
+      <div class="chips">
+        <div class="chip"><b>鎌倉</b><span>武士＋貴族</span></div><span class="arrow">→</span>
+        <div class="chip"><b>北山</b><span>金閣・足利義満</span></div><span class="arrow">→</span>
+        <div class="chip"><b>東山</b><span>銀閣・足利義政</span></div>
+      </div>
+    </div>
+    <div class="fl-bar" data-at="4" data-anim="fade">
+      <span class="bt">覚え方の軸</span>
+      <span class="bb">名前ではなく<b>「いつ・だれの・どこの影響か」</b>をセットで覚える。飛鳥＝仏教、天平＝唐、国風＝遣唐使停止で日本独自 ── ここがブレなければ全部つながる。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>社会（歴史）　｜　第11章 室町時代までの文化</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

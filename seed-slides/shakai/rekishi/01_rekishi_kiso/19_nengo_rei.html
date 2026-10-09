@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>年号の使い方｜中1歴史 §1</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .rei-safe { inset: 96px 150px 96px; align-content: center; gap: 40px; }
+  .rei-head { display: grid; gap: 12px; }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .card { background:var(--paper-hi); border:3px solid var(--cat); border-radius:22px; padding:32px 40px;
+          box-shadow:0 14px 32px rgba(40,30,10,.10); display:flex; align-items:center; gap:24px; position:relative; }
+  .card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:12px; background:var(--cat); border-radius:19px 0 0 19px; }
+  .card .kb { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:30px; color:var(--cat); white-space:nowrap; }
+  .card .tx { font-size:40px; font-weight:500; color:var(--sumi); }
+  .card .blank { font-size:42px; min-width:170px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="soc">
+  <div class="seed-safe rei-safe">
+    <div class="rei-head" data-at="0">
+      <span class="kicker"><span class="num">授業ノート1</span>　③ 年号</span>
+      <h1 class="headline" style="font-size:58px;">年号は<span class="em">できごとの名前</span>にも入る</h1>
+    </div>
+    <div class="grid">
+      <div class="card" data-at="0"><span class="kb">例1</span><span class="tx"><span class="blank" data-fill="1"><b>大化</b></span>の改新</span></div>
+      <div class="card" data-at="0"><span class="kb">例2</span><span class="tx"><span class="blank" data-fill="2"><b>寛政</b></span>の改革</span></div>
+      <div class="card" data-at="0"><span class="kb">例3</span><span class="tx"><span class="blank" data-fill="3"><b>明治</b></span>維新</span></div>
+      <div class="card" data-at="0"><span class="kb">例4</span><span class="tx"><span class="blank" data-fill="4"><b>平成</b></span>20年生まれ</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 歴史学習の基礎</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

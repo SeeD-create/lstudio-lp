@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>紀元前と紀元後｜中1歴史 §1</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .bc-safe { inset: 90px 150px 90px; align-content: center; gap: 40px; }
+  .bc-head { display: grid; gap: 12px; }
+  .axis { position: relative; height: 260px; }
+  .line { position:absolute; left:0; right:0; top:130px; height:8px; background:var(--sumi); border-radius:4px; }
+  .zero { position:absolute; left:50%; top:40px; transform:translateX(-50%); width:6px; height:180px; background:var(--imp); border-radius:3px; }
+  .zerolb { position:absolute; left:50%; top:0; transform:translateX(-50%); font-family:'Zen Old Mincho',serif; font-weight:900; font-size:28px; color:var(--imp); white-space:nowrap; }
+  .side { position:absolute; top:150px; display:flex; align-items:center; gap:18px; }
+  .side.l { right:52%; flex-direction: row; }
+  .side.r { left:52%; }
+  .arw { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:40px; color:var(--sumi-mute); }
+  .years { position:absolute; top:70px; display:flex; gap:40px; font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--sumi); }
+  .years.l { right:53%; }
+  .years.r { left:53%; }
+  .years span { opacity:.55; }
+  .bigl { display:flex; align-items:baseline; gap:14px; }
+  .bigl .jp { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:46px; color:var(--sumi); }
+  .cap { position:absolute; top:210px; font-size:26px; color:var(--sumi-soft); }
+  .cap.l { right:53%; } .cap.r { left:53%; }
+  .bar { display:flex; align-items:center; gap:26px; background:var(--sumi); color:var(--paper-hi); border-radius:20px; padding:26px 40px; }
+  .bar .bt { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:32px; color:var(--gold-soft); white-space:nowrap; }
+  .bar .bb { font-size:29px; line-height:1.5; } .bar .bb b { color:#fff; }
+  .blank { min-width: 220px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe bc-safe">
+    <div class="bc-head" data-at="0">
+      <span class="kicker"><span class="num">授業ノート1</span>　① 西暦</span>
+      <h1 class="headline" style="font-size:60px;">起点の<span class="em">前</span>と<span class="em">後</span>で、よび名が変わる</h1>
+    </div>
+
+    <div class="axis" data-at="1" data-anim="fade">
+      <div class="line"></div>
+      <div class="zero"></div>
+      <div class="zerolb">紀元（起点）</div>
+      <div class="years l"><span>…3年</span><span>2年</span><span>1年</span></div>
+      <div class="years r"><span>1年</span><span>2年</span><span>3年…</span></div>
+      <div class="bigl l"><span class="arw">◀</span><span class="jp">紀元前 <span class="blank" data-fill="2"><b>B.C.</b></span></span></div>
+      <div class="bigl r"><span class="jp">紀元後 <span class="blank" data-fill="3"><b>A.D.</b></span></span><span class="arw">▶</span></div>
+      <div class="cap l">起点より前の時代（数字が大きいほど昔）</div>
+      <div class="cap r">起点より後の時代（いま＝ここ）</div>
+    </div>
+
+    <div class="bar" data-at="4" data-anim="fade">
+      <span class="bt">★ ルール</span>
+      <span class="bb">紀元前のときは「<b>紀元前</b>」をつける。紀元後のときは<b>何もつけない</b>（ただ「◯年」と書く）。<b>0年は無い</b>＝紀元前1年の次がいきなり紀元後1年。</span>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 歴史学習の基礎</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

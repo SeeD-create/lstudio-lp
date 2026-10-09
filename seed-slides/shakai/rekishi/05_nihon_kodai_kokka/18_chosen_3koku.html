@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>朝鮮半島の三国 ── 高句麗・百済・新羅と伽耶｜中1歴史 第5章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .cm-safe { inset: 92px 150px 92px; align-content: center; gap: 30px; }
+  .cm-head { display: grid; gap: 10px; justify-items: center; text-align: center; }
+  .cm-wrap { display: grid; grid-template-columns: 900px 1fr; gap: 56px; align-items: center; }
+  /* 模式図（AI地図ではなく、位置関係を示すダイアグラム） */
+  .map { position: relative; width: 900px; height: 620px; margin: 0 auto; }
+  .china { position:absolute; left:0; top:60px; width:210px; height:470px; background:var(--paper-lo);
+           border:3px dashed var(--sumi-mute); border-radius:20px; display:flex; align-items:center; justify-content:center;
+           font-family:'Zen Old Mincho',serif; font-weight:900; font-size:30px; color:var(--sumi-mute); writing-mode:vertical-rl; letter-spacing:.1em; }
+  .penin { position:absolute; left:300px; top:20px; width:330px; height:560px; background:var(--paper-hi);
+           border:3px solid var(--sumi); border-radius:120px 120px 60px 60px / 90px 90px 60px 60px; box-shadow:0 14px 32px rgba(40,30,10,.12); }
+  .sea { position:absolute; right:0; bottom:0; width:250px; height:230px; background:var(--paper-lo);
+         border:3px dashed var(--sumi-mute); border-radius:20px; display:flex; align-items:center; justify-content:center;
+         font-family:'Zen Old Mincho',serif; font-weight:900; font-size:28px; color:var(--sumi-mute); }
+  .pin { position:absolute; background: var(--paper-hi); color: var(--sumi); border-radius:14px; padding:9px 3px;
+         display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow:0 8px 20px rgba(0,0,0,.25); border: 3px solid var(--sumi);}
+  .pin .rn { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:20px; color: var(--sumi); }
+  .pin .blank { font-size:26px; min-width:120px; margin:0; border-bottom-color: var(--imp); background: linear-gradient(180deg, rgba(200,162,75,.10), rgba(200,162,75,.02)); }
+  .pin.p1 { left:360px; top:70px; }
+  .pin.p2 { left:315px; top:340px; }
+  .pin.p3 { left:500px; top:340px; }
+  .pin.p4 { left:415px; top:470px; }
+  .pin.p4 .blank { min-width:96px; }
+  .cm-legend { display: grid; gap: 16px; }
+  .lg { display:flex; align-items:flex-start; gap:16px; background:var(--paper-hi); border-left:8px solid var(--cat);
+        border-radius:0 14px 14px 0; padding:16px 22px; box-shadow:0 8px 20px rgba(40,30,10,.08); }
+  .lg .n { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:26px; color:var(--cat); white-space:nowrap; }
+  .lg .b { font-size:26px; line-height:1.4; color:var(--sumi-soft); }
+  .lg .b b { color: var(--imp); }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="soc">
+  <div class="seed-safe cm-safe">
+    <div class="cm-head" data-at="0">
+      <span class="kicker"><span class="num">授業ノート2</span>　東アジアと日本</span>
+      <h1 class="headline" style="font-size:54px;">朝鮮半島は<span class="em">3つの国</span>に分かれていた</h1>
+    </div>
+    <div class="cm-wrap">
+      <div class="map" data-at="0" data-anim="fade">
+        <div class="china">中国（南朝・北朝）</div>
+        <div class="penin"></div>
+        <div class="sea">日本</div>
+        <div class="pin p1" data-at="1" data-anim="pop"><span class="rn">北部</span><span class="blank" data-fill="1"><span class="bnum">①</span><b>高句麗</b></span></div>
+        <div class="pin p2" data-at="2" data-anim="pop"><span class="rn">南西部</span><span class="blank" data-fill="2"><span class="bnum">②</span><b>百済</b></span></div>
+        <div class="pin p3" data-at="3" data-anim="pop"><span class="rn">南東部</span><span class="blank" data-fill="3"><span class="bnum">③</span><b>新羅</b></span></div>
+        <div class="pin p4" data-at="4" data-anim="pop"><span class="rn">間</span><span class="blank" data-fill="4"><span class="bnum">④</span><b>伽耶</b></span></div>
+      </div>
+      <div class="cm-legend">
+        <div class="lg" data-at="1"><span class="n">①</span><span class="b">こうくり。半島<b>北部</b>の国。</span></div>
+        <div class="lg" data-at="2"><span class="n">②</span><span class="b">くだら。半島<b>南西部</b>。のちに日本へ仏教を伝える。</span></div>
+        <div class="lg" data-at="3"><span class="n">③</span><span class="b">しらぎ。半島<b>南東部</b>。のちに④をほろぼす。</span></div>
+        <div class="lg" data-at="4"><span class="n">④</span><span class="b">かや。②と③の<b>間</b>にあった小国の集まり。</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第5章 日本の古代国家</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

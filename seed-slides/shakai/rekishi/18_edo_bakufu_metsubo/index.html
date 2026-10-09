@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>江戸幕府の滅亡｜ 第18章 全34スライド</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #2a2018;
+      font-family: 'BIZ UDPGothic', 'Hiragino Sans', sans-serif; overflow: hidden; }
+    .viewer { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; }
+    .frame-wrap { flex: 1; position: relative; overflow: hidden; background: white; }
+    iframe.slide-frame { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* 上部の一覧バー（スライド名＋ドット）は出さない。
+       投影中に画面の上へかぶって授業の邪魔になるため撤去（8/28 平野さん指示）。
+       移動は下のボタンと PageUp/Down で足りる。 */
+
+    /* ─── 下部コントロール ─── */
+    .controls { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 10;
+      display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px); padding: 8px 14px; border-radius: 999px; box-shadow: 0 4px 14px rgba(0,0,0,.5); }
+    .ctrl-btn { background: white; border: 0; padding: 8px 14px; border-radius: 999px; font-family: inherit;
+      font-size: 14px; font-weight: 700; color: #422C18; cursor: pointer; transition: background .2s, transform .15s; }
+    .ctrl-btn:hover { background: #fff7e0; }
+    .ctrl-btn:active { transform: scale(.96); }
+    .ctrl-btn[disabled] { opacity: .4; cursor: not-allowed; }
+    .ctrl-info { color: white; font-weight: 700; font-size: 13px; min-width: 70px; text-align: center; letter-spacing: .04em; }
+    .help-hint { color: rgba(255,255,255,.7); font-size: 12px; margin-left: 4px; }
+
+  </style>
+</head>
+<body>
+  <div class="viewer">
+    <div class="frame-wrap">
+      <iframe class="slide-frame" id="frame" src="about:blank"></iframe>
+    </div>
+
+    <div class="controls"><a class="ctrl-btn" id="seed-catalog-link" href="../../../index.html" style="text-decoration:none;white-space:nowrap">↩ 教材一覧へ戻る</a>
+      <button class="ctrl-btn" id="prev-btn">◀ 前のスライド</button>
+      <span class="ctrl-info" id="counter">1 / 34</span>
+      <button class="ctrl-btn" id="next-btn">次のスライド ▶</button>
+      <span class="help-hint">スライド内: ←→ ／ スライド切替: PageUp/Down</span>
+    </div>
+
+  </div>
+
+  <script>
+    const SLIDES = [
+  {
+    "file": "01_cover.html",
+    "title": "表紙 ── 黒船が来た日、二百年の鎖国が終わる",
+    "sub": ""
+  },
+  {
+    "file": "02_hook.html",
+    "title": "もし、200年とじていた国に突然“黒船”が来たら？",
+    "sub": ""
+  },
+  {
+    "file": "03_towa.html",
+    "title": "江戸幕府の滅亡とは ── 開国から大政奉還・戊辰戦争まで",
+    "sub": ""
+  },
+  {
+    "file": "04_catalog.html",
+    "title": "江戸幕府の滅亡カタログ ── 集める3枚",
+    "sub": ""
+  },
+  {
+    "file": "05_nenpyo1.html",
+    "title": "年表① 開国への道 ── 1833〜1858",
+    "sub": ""
+  },
+  {
+    "file": "06_nenpyo2.html",
+    "title": "年表② 攘夷から滅亡へ ── 1859〜1868",
+    "sub": ""
+  },
+  {
+    "file": "07_sec_kaikoku.html",
+    "title": "CARD Ⅰ 開国",
+    "sub": ""
+  },
+  {
+    "file": "08_tenpo_kikin.html",
+    "title": "天保の大ききんと大塩の乱 ── 1833・1837年",
+    "sub": ""
+  },
+  {
+    "file": "09_tenpo_kaikaku.html",
+    "title": "天保の改革 ── 1841年・老中 水野忠邦（株仲間の解散）",
+    "sub": ""
+  },
+  {
+    "file": "10_check1.html",
+    "title": "ミニ確認 ── 大塩の乱・天保の改革",
+    "sub": ""
+  },
+  {
+    "file": "11_perry.html",
+    "title": "ペリー来航 ── 1853年・4隻の黒船が浦賀沖に",
+    "sub": ""
+  },
+  {
+    "file": "12_washin.html",
+    "title": "日米和親条約 ── 1854年・下田と函館を開く（鎖国の終了）",
+    "sub": ""
+  },
+  {
+    "file": "13_check2.html",
+    "title": "ミニ確認 ── ペリーと和親条約",
+    "sub": ""
+  },
+  {
+    "file": "14_tsusho.html",
+    "title": "日米修好通商条約 ── 1858年・井伊直弼とハリス（不平等条約）",
+    "sub": ""
+  },
+  {
+    "file": "15_five_ports.html",
+    "title": "開いた5つの港 ── 函館・新潟・神奈川・兵庫・長崎",
+    "sub": ""
+  },
+  {
+    "file": "16_fubyodo.html",
+    "title": "どこが不平等か ── 領事裁判権と関税自主権",
+    "sub": ""
+  },
+  {
+    "file": "17_boueki.html",
+    "title": "貿易の始まりと経済の混乱 ── 生糸・綿織物・金貨の流出",
+    "sub": ""
+  },
+  {
+    "file": "18_check3.html",
+    "title": "ミニ確認 ── 修好通商条約と貿易",
+    "sub": ""
+  },
+  {
+    "file": "19_sec_joui.html",
+    "title": "CARD Ⅱ 攘夷と幕府のゆらぎ",
+    "sub": ""
+  },
+  {
+    "file": "20_sonno_joui.html",
+    "title": "尊王論と攘夷論 ── 結びついて尊皇攘夷運動へ",
+    "sub": ""
+  },
+  {
+    "file": "21_ansei.html",
+    "title": "安政の大獄 ── 1859年・井伊直弼が弾圧（吉田松陰・橋本左内）",
+    "sub": ""
+  },
+  {
+    "file": "22_sakurada.html",
+    "title": "桜田門外の変 ── 1860年・水戸浪士が井伊直弼を暗殺",
+    "sub": ""
+  },
+  {
+    "file": "23_kobu.html",
+    "title": "公武合体 ── 1861年・皇女和宮を将軍夫人に",
+    "sub": ""
+  },
+  {
+    "file": "24_check4.html",
+    "title": "ミニ確認 ── 尊皇攘夷・安政の大獄・桜田門外",
+    "sub": ""
+  },
+  {
+    "file": "25_namamugi.html",
+    "title": "薩摩の攘夷 ── 生麦事件と薩英戦争（1862・1863）",
+    "sub": ""
+  },
+  {
+    "file": "26_shimonoseki.html",
+    "title": "長州の攘夷 ── 下関砲撃と四国連合艦隊（1863・1864）",
+    "sub": ""
+  },
+  {
+    "file": "27_check5.html",
+    "title": "ミニ確認 ── 薩摩と長州の攘夷",
+    "sub": ""
+  },
+  {
+    "file": "28_sec_tobaku.html",
+    "title": "CARD Ⅲ 倒幕と江戸幕府の滅亡",
+    "sub": ""
+  },
+  {
+    "file": "29_satcho.html",
+    "title": "薩長同盟 ── 1866年・坂本龍馬が仲立ち（西郷・大久保／高杉・木戸）",
+    "sub": ""
+  },
+  {
+    "file": "30_yonaoshi.html",
+    "title": "世直し ── 各地で打ちこわしと一揆が多発",
+    "sub": ""
+  },
+  {
+    "file": "31_taisei.html",
+    "title": "大政奉還と王政復古の大号令 ── 1867年・徳川慶喜",
+    "sub": ""
+  },
+  {
+    "file": "32_boshin.html",
+    "title": "戊辰戦争 ── 1868年・鳥羽伏見から五稜郭まで",
+    "sub": ""
+  },
+  {
+    "file": "33_check6.html",
+    "title": "ミニ確認 ── 薩長同盟・大政奉還・戊辰戦争",
+    "sub": ""
+  },
+  {
+    "file": "34_summary.html",
+    "title": "開国から滅亡へ ── 集めた3枚の総まとめ",
+    "sub": ""
+  }
+];
+
+    const frame    = document.getElementById('frame');
+    const counter  = document.getElementById('counter');
+    const prevBtn  = document.getElementById('prev-btn');
+    const nextBtn  = document.getElementById('next-btn');
+    let cur = 0;
+
+    function show(i) {
+      cur = Math.max(0, Math.min(SLIDES.length - 1, i));
+      frame.src = SLIDES[cur].file;
+      counter.textContent = `${cur + 1} / ${SLIDES.length}`;
+      prevBtn.disabled = (cur === 0);
+      nextBtn.disabled = (cur === SLIDES.length - 1);
+      setTimeout(() => { try { frame.contentWindow.focus(); } catch(e) {} }, 200);
+    }
+
+    prevBtn.addEventListener('click', () => show(cur - 1));
+    nextBtn.addEventListener('click', () => show(cur + 1));
+
+    // 目次（ホーム画面）は出さない。授業のたびに一覧が挟まって邪魔になるため撤去（8/21 平野さん指示）。
+    // 移動はドット・前後ボタン・PageUp/Downで足りる。
+    function handleKey(e) {
+      if (e.key === 'PageDown') { if (cur < SLIDES.length - 1) show(cur + 1); e.preventDefault(); }
+      else if (e.key === 'PageUp') { if (cur > 0) show(cur - 1); e.preventDefault(); }
+    }
+    window.addEventListener('keydown', handleKey);
+
+    frame.addEventListener('load', () => {
+      // フォーカスはスライド側へ（←→でステップが動くように）
+      try { frame.contentWindow.focus(); } catch(e) {}
+    });
+
+    // スライド側（nav.js）から届く PageUp/PageDown を受けてスライドを送る。
+    // file:// では iframe のキーを親から直接拾えないので、この経路が本線。
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || d.seed !== 'slide-nav') return;
+      if (d.dir === 'next' && cur < SLIDES.length - 1) show(cur + 1);
+      else if (d.dir === 'prev' && cur > 0) show(cur - 1);
+    });
+
+    // 開いたらそのまま1枚目から始める（目次は挟まない）
+    show(0);
+  </script>
+</body>
+</html>

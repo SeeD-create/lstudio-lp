@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>万葉集 ── 万葉がなで書かれた和歌集｜中1歴史 §7</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .mn-safe { inset: 92px 150px 92px; grid-template-columns: 1fr 560px; align-content: center; gap: 58px; align-items: center; }
+  .mn-fig { height: 620px; border-radius: 28px; }
+  .mn-txt { display: grid; gap: 24px; }
+  .mn-head { display: grid; gap: 12px; }
+  .mn-head .tags { display:flex; gap:14px; }
+  .flow { display: grid; gap: 14px; }
+  .fstep { display: grid; grid-template-columns: 62px 1fr; align-items: center; gap: 22px;
+           background: var(--paper-hi); border-left: 10px solid var(--cat); border-radius: 0 16px 16px 0;
+           padding: 18px 28px; box-shadow: 0 8px 22px rgba(40,30,10,.07); }
+  .fstep .no { width:62px;height:62px;border-radius:50%;background:var(--sumi);color:#fff;
+               font-family:'Zen Old Mincho',serif;font-weight:900;font-size:30px;display:flex;align-items:center;justify-content:center; }
+  .fstep .tx { font-size: 30px; line-height: 1.4; color: var(--sumi); font-weight: 700; }
+  .fstep .tx .blank { font-size: 33px; }
+  .fstep .tx small { display:block; font-size:24px; color:var(--sumi-mute); font-weight:500; margin-top:2px; }
+  .poets { display:flex; flex-wrap:wrap; gap:12px; }
+  .poets span { background:var(--sumi); color:var(--paper-hi); font-family:'Zen Old Mincho',serif; font-weight:900;
+                font-size:26px; border-radius:10px; padding:10px 20px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="new">
+  <div class="seed-safe mn-safe">
+    <div class="mn-txt">
+      <div class="mn-head" data-at="0">
+        <span class="cat-badge"><span class="dot"></span>Ⅲ 天平文化　和歌</span>
+        <h1 class="headline" style="font-size:52px;">天皇も農民も、<br>歌を集めた本</h1>
+        <div class="tags"><span class="tag tag--gold">★ 文字名まで問う</span></div>
+      </div>
+      <div class="flow">
+        <div class="fstep" data-at="1" data-anim="left"><div class="no">1</div>
+          <div class="tx">和歌集＝<span class="blank" data-fill="1"><span class="bnum">⑪</span><b>万葉集</b></span><small>天皇・貴族・農民などの和歌を集めた</small></div></div>
+        <div class="fstep" data-at="2" data-anim="left"><div class="no">2</div>
+          <div class="tx">文字は<span class="blank" data-fill="2"><span class="bnum">⑫</span><b>万葉がな</b></span><small>漢字の音や訓で日本語を表す</small></div></div>
+      </div>
+      <div class="poets" data-at="3" data-anim="fade">
+        <span>大伴家持</span><span>柿本人麻呂</span><span>山上憶良</span>
+      </div>
+    </div>
+    <div class="figure mn-fig" data-at="0" data-anim="right"><img src="assets/manyo_scroll.webp" alt="万葉集の巻物"></div>
+  </div>
+  <div class="seed-foot"><span>第7章 律令政治と奈良時代</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(4);</script>
+</body>
+</html>

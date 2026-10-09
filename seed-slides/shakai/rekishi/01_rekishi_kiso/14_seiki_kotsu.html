@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>世紀を求めるコツ｜中1歴史 §1</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .kt-safe { inset: 90px 150px 90px; align-content: center; gap: 36px; }
+  .kt-head { display: grid; gap: 12px; }
+  .rule { display:flex; align-items:center; gap:30px; background:var(--sumi); color:var(--paper-hi); border-radius:22px; padding:32px 44px; }
+  .rule .rn { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:34px; color:var(--gold-soft); white-space:nowrap; }
+  .rule .rt { font-size:34px; line-height:1.5; } .rule .rt b { color:#fff; }
+  .ex-row { display:grid; grid-template-columns: 1fr 1fr; gap:30px; }
+  .exc { background:var(--paper-hi); border:3px solid var(--cat); border-radius:22px; padding:30px 40px; box-shadow:0 14px 32px rgba(40,30,10,.10); display:grid; gap:14px; position:relative; }
+  .exc::before { content:""; position:absolute; left:0; top:0; bottom:0; width:12px; background:var(--cat); border-radius:19px 0 0 19px; }
+  .exc .yr { font-family:'Zen Old Mincho',serif; font-weight:900; font-size:52px; color:var(--sumi); }
+  .exc .fl { font-size:30px; color:var(--sumi-soft); }
+  .exc .rs { font-size:38px; font-weight:700; color:var(--sumi); }
+  .exc .rs .blank { font-size:40px; min-width:220px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="lib">
+  <div class="seed-safe kt-safe">
+    <div class="kt-head" data-at="0">
+      <span class="kicker"><span class="num">解き方</span>　② 世紀</span>
+      <h1 class="headline" style="font-size:58px;">西暦から世紀を出す<span class="em">2ステップ</span></h1>
+    </div>
+    <div class="rule" data-at="1" data-anim="fade">
+      <span class="rn">コツ</span>
+      <span class="rt">① 年の<b>下2けたを消す</b>　→　② その数に<b>1をたす</b>。<br>（ただし、ちょうど「◯00年」のときは1をたさず、その数がそのまま世紀）</span>
+    </div>
+    <div class="ex-row">
+      <div class="exc" data-at="2" data-anim="left">
+        <div class="yr">1192年</div>
+        <div class="fl">11｜92 → 下2けたを消すと「11」 → ＋1</div>
+        <div class="rs">＝ <span class="blank" data-fill="3"><b>12世紀</b></span></div>
+      </div>
+      <div class="exc" data-at="3" data-anim="right">
+        <div class="yr">800年</div>
+        <div class="fl">ちょうど「◯00年」 → 8がそのまま</div>
+        <div class="rs">＝ <span class="blank" data-fill="4"><b>8世紀</b></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第1章 歴史学習の基礎</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(5);</script>
+</body>
+</html>

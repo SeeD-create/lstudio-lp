@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>なぜ世界中に広がったのか ── つながる経済｜中2歴史 第25章</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .hk-safe { inset: 90px 150px 90px; align-content: center; gap: 34px; }
+  .hk-head { display: grid; gap: 12px; }
+  .hk-grid { display: grid; grid-template-columns: 560px 1fr; gap: 56px; align-items: center; }
+  .ripple { position: relative; height: 460px; display:grid; place-items:center;
+    background: radial-gradient(120% 100% at 50% 45%, var(--paper-hi), var(--paper-lo));
+    border:3px solid var(--cat); border-radius: 26px; box-shadow:0 16px 36px rgba(40,30,10,.12); }
+  .ripple svg { width: 100%; height: 100%; }
+  .exp { display: grid; gap: 20px; }
+  .row { display:flex; gap:20px; align-items:flex-start; font-size:31px; line-height:1.5; font-weight:700; color:var(--sumi); }
+  .row .n { flex:none; width:48px; height:48px; border-radius:50%; background:var(--cat); color:#fff; font-family:'Zen Old Mincho',serif; font-weight:900; font-size:26px; display:grid; place-items:center; }
+  .row b { color: var(--imp); font-weight:900; }
+  .row small { display:block; font-size:23px; color:var(--sumi-mute); font-weight:500; margin-top:2px; }
+  .exp .row .blank { min-width:0; white-space:normal; padding:0 9px 3px; margin:0 2px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe hk-safe">
+    <div class="hk-head" data-at="0">
+      <span class="cat-badge"><span class="dot"></span>Ⅰ 世界恐慌の始まり</span>
+      <h1 class="headline" style="font-size:52px;margin-top:10px;">なぜ、アメリカの不景気が世界に広がった？</h1>
+    </div>
+    <div class="hk-grid">
+      <div class="ripple" data-at="0" data-anim="fade">
+        <svg viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="150" fill="none" stroke="#B8B7B3" stroke-width="2"/>
+          <circle cx="200" cy="200" r="100" fill="none" stroke="#9A9995" stroke-width="2"/>
+          <circle cx="200" cy="200" r="52" fill="#3A3A39"/>
+          <text x="200" y="194" font-size="26" fill="#fff" font-weight="900" text-anchor="middle" font-family="'Zen Old Mincho',serif">アメリカ</text>
+          <text x="200" y="224" font-size="17" fill="#fff" text-anchor="middle">株価暴落</text>
+          <text x="200" y="70" font-size="20" fill="#C4161C" font-weight="900" text-anchor="middle">ヨーロッパ</text>
+          <text x="60" y="205" font-size="20" fill="#C4161C" font-weight="900" text-anchor="middle">日本</text>
+          <text x="340" y="205" font-size="20" fill="#C4161C" font-weight="900" text-anchor="middle">世界へ</text>
+          <path d="M200 148 L200 92" stroke="#C4161C" stroke-width="4" marker-end="url(#a)"/>
+          <path d="M148 200 L96 200" stroke="#C4161C" stroke-width="4" marker-end="url(#a)"/>
+          <path d="M252 200 L304 200" stroke="#C4161C" stroke-width="4" marker-end="url(#a)"/>
+          <defs><marker id="a" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0 0 L7 3 L0 6 Z" fill="#C4161C"/></marker></defs>
+        </svg>
+      </div>
+      <div class="exp">
+        <div class="row" data-at="1" data-anim="left"><span class="n">1</span><div>当時のアメリカは<span class="blank" data-fill="1"><b>世界一の経済大国</b></span>。<small>多くの国がアメリカと貿易・お金の貸し借りをしていた。</small></div></div>
+        <div class="row" data-at="2" data-anim="left"><span class="n">2</span><div>アメリカが不景気になると<span class="blank" data-fill="2"><b>取引相手の国も次々と苦しくなった</b></span>。<small>製品が売れず、お金が返せなくなる。</small></div></div>
+        <div class="row" data-at="3" data-anim="left"><span class="n">3</span><div>日本もこの影響を受け、<span class="blank" data-fill="3"><b>不景気が深刻になった</b></span>。<small>この苦しさが、のちに軍部の台頭を招く。</small></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第25章 世界恐慌</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(4);</script>
+</body>
+</html>

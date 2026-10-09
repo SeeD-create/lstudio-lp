@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>アフリカで生まれ、世界へ広がった｜中1歴史 §2</title>
+<link rel="stylesheet" href="../../../_shared/deck.css">
+<style>
+  .mp-safe { inset: 90px 130px 96px; grid-template-columns: 1fr 900px; align-content: center; gap: 60px; align-items: center; }
+  .mp-txt { display: grid; gap: 26px; }
+  .mp-txt .em { color: var(--imp); font-weight: 900; }
+  .mnote { display: grid; grid-template-columns: 54px 1fr; align-items:center; gap:20px;
+           background: var(--paper-hi); border-left: 10px solid var(--cat); border-radius: 0 16px 16px 0;
+           padding: 20px 28px; box-shadow: 0 8px 22px rgba(40,30,10,.07); }
+  .mnote .no { width:54px;height:54px;border-radius:50%;background:var(--sumi);color:#fff;
+               font-family:'Zen Old Mincho',serif;font-weight:900;font-size:28px;display:flex;align-items:center;justify-content:center; }
+  .mnote .tx { font-size: 30px; line-height: 1.4; color: var(--sumi); font-weight: 700; }
+  .mnote .tx small { display:block; font-size:23px; color:var(--sumi-mute); font-weight:500; margin-top:3px; }
+  .mapwrap { background: var(--paper-hi); border-radius: 26px; box-shadow: 0 16px 36px rgba(40,30,10,.12); padding: 24px; }
+  .mapwrap svg { display:block; width:100%; height:auto; }
+  .legend { display:flex; gap:26px; justify-content:center; margin-top:10px; font-size:24px; font-weight:700; color:var(--sumi-soft); }
+  .legend b { display:inline-block; width:22px; height:22px; border-radius:5px; vertical-align:middle; margin-right:8px; }
+</style>
+</head>
+<body>
+<div class="seed-stage"><div class="seed-slide" data-cat="eq">
+  <div class="seed-safe mp-safe">
+    <div class="mp-txt">
+      <div data-at="0">
+        <span class="cat-badge"><span class="dot"></span>カードⅠ 手前　人類の広がり</span>
+        <h1 class="headline" style="font-size:56px;margin-top:16px;"><span class="em">アフリカ</span>で生まれ、<br>世界へ広がった</h1>
+      </div>
+      <div class="mnote" data-at="1" data-anim="left"><div class="no">1</div>
+        <div class="tx">最初の人類は<span class="em">アフリカ</span>に現れた<small>約700万年前の地層から発見</small></div></div>
+      <div class="mnote" data-at="2" data-anim="left"><div class="no">2</div>
+        <div class="tx">やがて<span class="em">ユーラシア大陸</span>などへ移住した<small>原人が世界へ広がっていった</small></div></div>
+      <div class="mnote" data-at="3" data-anim="left"><div class="no">3</div>
+        <div class="tx">ヨーロッパにも到達し、壁画を残した<small>フランスのラスコー洞くつなど</small></div></div>
+    </div>
+
+    <div>
+      <div class="mapwrap" data-at="0" data-anim="right">
+        <svg viewBox="0 0 820 480" xmlns="http://www.w3.org/2000/svg">
+          <!-- ざっくり大陸の模式図（正確な地図ではない・向きと位置関係の把握用） -->
+          <!-- ユーラシア -->
+          <path d="M300,70 L720,60 Q790,90 760,150 L700,180 L560,175 L470,215 L360,210 L300,170 Z"
+                fill="#E2E0DC" stroke="#8B8A88" stroke-width="3"/>
+          <!-- アフリカ（強調） -->
+          <path d="M330,205 L470,210 L500,270 L470,360 L410,405 L360,360 L330,285 Z"
+                fill="#C4161C" stroke="#8a0f14" stroke-width="3" opacity="0.88"/>
+          <!-- ヨーロッパ寄せの張り出し -->
+          <path d="M300,120 L360,110 L370,165 L305,168 Z" fill="#E2E0DC" stroke="#8B8A88" stroke-width="3"/>
+          <!-- 起点マーク（アフリカ） -->
+          <circle cx="405" cy="290" r="13" fill="#141414"/>
+          <circle cx="405" cy="290" r="22" fill="none" stroke="#141414" stroke-width="3" opacity="0.5"/>
+          <!-- 移動の矢印：アフリカ→ヨーロッパ -->
+          <path id="ar1" d="M395,270 Q350,190 335,150" fill="none" stroke="#141414" stroke-width="5" stroke-dasharray="10 9" marker-end="url(#ah)"/>
+          <!-- 移動の矢印：アフリカ→アジア -->
+          <path id="ar2" d="M430,255 Q580,190 690,140" fill="none" stroke="#141414" stroke-width="5" stroke-dasharray="10 9" marker-end="url(#ah)"/>
+          <defs>
+            <marker id="ah" markerWidth="12" markerHeight="12" refX="7" refY="5" orient="auto">
+              <path d="M0,0 L10,5 L0,10 Z" fill="#141414"/>
+            </marker>
+          </defs>
+          <text x="405" y="330" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="26" fill="#fff">アフリカ</text>
+          <text x="600" y="110" text-anchor="middle" font-family="'Zen Kaku Gothic New',sans-serif" font-weight="900" font-size="24" fill="#4A4947">ユーラシア大陸</text>
+        </svg>
+      </div>
+      <div class="legend" data-at="1"><span><b style="background:#C4161C"></b>人類が生まれた場所</span><span><b style="background:#141414"></b>広がった方向</span></div>
+    </div>
+  </div>
+  <div class="seed-foot"><span>第2章 人類の発生</span><span class="brand">SEED EDUCATION</span></div>
+</div></div>
+<script src="../../../_shared/nav.js"></script>
+<script src="../../../_shared/deck.js"></script>
+<script>SeedDeck.init(4);</script>
+</body>
+</html>
