@@ -101,3 +101,14 @@ nav .nav-cta{font-size:12px}
 .philosophy{position:relative;z-index:1;margin-top:-56px;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 56px);mask-image:linear-gradient(to bottom,transparent 0,#000 56px)}
 .philosophy-copy{padding-top:72px}
 @media(max-width:760px){.philosophy{margin-top:-48px;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 48px);mask-image:linear-gradient(to bottom,transparent 0,#000 48px)}.philosophy-copy{top:12%;padding-top:0}}
+
+/* Preserve original photograph proportions around both students.
+   Only the empty sky between the portraits adapts to screen height. */
+.natural-portraits{display:none}
+@media(max-width:760px){
+.natural-portraits{display:block;position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.natural-portraits img{position:absolute;left:0;width:100%;height:auto;max-width:none;animation:none;transform:none}
+.portrait-top{top:0;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 28%,transparent 37%);mask-image:linear-gradient(to bottom,#000 0%,#000 28%,transparent 37%)}
+.portrait-bottom{bottom:0;-webkit-mask-image:linear-gradient(to bottom,transparent 53%,#000 62%,#000 100%);mask-image:linear-gradient(to bottom,transparent 53%,#000 62%,#000 100%)}
+}
+@media(max-width:760px){.natural-portraits{container-type:inline-size}.portrait-top{top:calc(17% - 30.205cqw)}.portrait-bottom{bottom:calc(30% - 53.303cqw)}}
