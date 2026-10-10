@@ -112,3 +112,20 @@ nav .nav-cta{font-size:12px}
 .portrait-bottom{bottom:0;-webkit-mask-image:linear-gradient(to bottom,transparent 53%,#000 62%,#000 100%);mask-image:linear-gradient(to bottom,transparent 53%,#000 62%,#000 100%)}
 }
 @media(max-width:760px){.natural-portraits{container-type:inline-size}.portrait-top{top:calc(17% - 30.205cqw)}.portrait-bottom{bottom:calc(30% - 53.303cqw)}}
+
+/* Mobile: full-width concern cards and five-subject slide showcase. */
+.subject-lessons{grid-template-columns:1fr;max-width:780px;margin-inline:auto;gap:30px}
+.slide-loop{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#fff;pointer-events:none}
+.slide-pending{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#edfaff,#fff);color:#21627e}
+.slide-pending>span{font:700 38px var(--serif)}
+.slide-pending small{font-size:13px;letter-spacing:.12em}
+@media(max-width:760px){
+.worry-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+.worry{border-radius:16px}
+.worry-image{height:auto;aspect-ratio:16/10}
+.worry p{font-size:17px;padding:18px 12px 22px;line-height:1.8}
+.worry strong{font-size:25px}
+.worry-image>span{font-size:68px;right:20px}
+.subject-lessons{gap:26px}
+.subject-lessons .lesson>h3{font-size:22px;padding:11px}
+}
