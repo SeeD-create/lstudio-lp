@@ -57,6 +57,8 @@ a>.contact-icon:not(.bottom-contact .contact-icon){display:inline-flex;width:22p
 .mobile-phrase{display:inline}
 .mobile-phrase-pair .mobile-phrase + .mobile-phrase{margin-left:0}
 main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
+.home-preview main>section.team-intro{padding:0 0 48px!important;margin-block:0}
+.home-preview main>.team-intro>h2{display:grid;place-items:center;min-height:180px;margin:0;text-align:center;line-height:1.6}
 .home-preview .worry-group h3::before{content:none!important;display:none!important}
 .plan .plan-price{font-size:clamp(23px,2.1vw,32px)!important;line-height:1.6;overflow-wrap:normal}
 .price-range-note,.price-revision-extra{font-size:14px;line-height:1.8}
@@ -74,4 +76,5 @@ main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
  .assurances b{white-space:nowrap;font-size:clamp(13px,3.6vw,18px)!important;letter-spacing:0}
  .contact-flow .flow-first,.contact-flow .flow-last{display:block;white-space:nowrap;font-size:clamp(12px,3.5vw,16px);line-height:2}
  main>.team-intro{margin:38px auto;width:calc(100% - 40px)}
+ .home-preview main>.team-intro>h2{min-height:120px;font-size:clamp(20px,5.5vw,28px)}
 }
