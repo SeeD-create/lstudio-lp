@@ -39,3 +39,27 @@ function syncSlideReels(){slideReels.forEach(v=>{v.muted=true;if(stopped||docume
 const reelObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{e.target.dataset.onscreen=String(e.isIntersecting);});syncSlideReels();},{threshold:0.05});
 slideReels.forEach(v=>reelObserver.observe(v));
 $('.motion').addEventListener('click',syncSlideReels);mq.addEventListener('change',syncSlideReels);document.addEventListener('visibilitychange',syncSlideReels);
+
+// A gentle light trails the mouse. Touch, reduced motion and the motion toggle disable it.
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const hopeLight=document.createElement('div');hopeLight.className='hope-light';hopeLight.setAttribute('aria-hidden','true');document.body.append(hopeLight);
+  let lightX=0,lightY=0,targetX=0,targetY=0,lightFrame=0,lightReady=false;
+  function drawHopeLight(){
+    lightFrame=0;
+    if(stopped||mq.matches||document.hidden)return;
+    lightX+=(targetX-lightX)*.19;lightY+=(targetY-lightY)*.19;
+    hopeLight.style.transform=`translate3d(${lightX}px,${lightY}px,0) translate(-50%,-50%)`;
+    if(Math.abs(targetX-lightX)+Math.abs(targetY-lightY)>.35)lightFrame=requestAnimationFrame(drawHopeLight);
+  }
+  function queueHopeLight(){if(!lightFrame)lightFrame=requestAnimationFrame(drawHopeLight);}
+  document.addEventListener('pointermove',event=>{
+    if(event.pointerType!=='mouse'||stopped||mq.matches)return;
+    targetX=event.clientX;targetY=event.clientY;
+    if(!lightReady){lightX=targetX;lightY=targetY;lightReady=true;}
+    hopeLight.classList.add('is-visible');queueHopeLight();
+  },{passive:true});
+  document.addEventListener('pointerout',event=>{if(!event.relatedTarget)hopeLight.classList.remove('is-visible');});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)hopeLight.classList.remove('is-visible');});
+  $('.motion').addEventListener('click',()=>{hopeLight.classList.remove('is-visible');if(!stopped)queueHopeLight();});
+  mq.addEventListener('change',()=>{hopeLight.classList.remove('is-visible');});
+}

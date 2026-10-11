@@ -222,3 +222,10 @@ nav .nav-cta{font-size:12px}
 .worries .worry-image>span{opacity:.35}
 .lesson>h3{color:var(--navy);background:linear-gradient(110deg,#e1f2f8,#d4eaf2)}
 .filters button[aria-pressed=true]{color:var(--navy);background:#e1f2f8}
+
+/* A small warm light follows the pointer without covering controls. */
+.hope-light{position:fixed;left:0;top:0;width:52px;height:52px;border-radius:50%;z-index:25;pointer-events:none;opacity:0;transform:translate3d(-100px,-100px,0) translate(-50%,-50%);background:radial-gradient(circle,#fff 0 8%,#fff2ae 16%,#ffd65d 27%,#e9a92666 42%,transparent 70%);filter:drop-shadow(0 0 10px #f6ca62);transition:opacity .3s ease}
+.hope-light::after{content:'';position:absolute;inset:21px;border-radius:50%;background:#fff;box-shadow:0 0 8px 3px #fff5bf,0 0 19px 8px #ffdf75}
+.hope-light.is-visible{opacity:.95}
+.motion-off .hope-light{display:none}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.hope-light{display:none!important}}
