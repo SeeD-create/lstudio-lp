@@ -19,8 +19,9 @@ const sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>e
 motionSections.forEach(section=>sectionObserver.observe(section));
 document.querySelectorAll('.worry-grid,.strength-grid,.lesson-grid,.closing-grid').forEach(grid=>[...grid.children].forEach((card,index)=>{card.style.setProperty('--stagger',`${index*110}ms`);card.classList.add('motion-card');if(!card.classList.contains('reveal')){card.classList.add('reveal');io.observe(card);}}));
 document.querySelectorAll('.growth-choices,.growth-visual,.footer-brand,.movie-link').forEach(el=>{el.classList.add('reveal');io.observe(el);});
-const leaves=document.createElement('div');leaves.className='drifting-leaves';leaves.setAttribute('aria-hidden','true');
-for(let i=0;i<7;i++){const leaf=document.createElement('i');leaf.style.cssText=`--x:${[12,88,30,70,52,18,82][i]}%;--delay:${4.6+i*.38}s;--duration:${12+i*1.5}s;--size:${14+i%3*4}px`;leaves.append(leaf);}document.querySelector('.hero').append(leaves);
+const lightRain=document.createElement('div');lightRain.className='light-rain';lightRain.setAttribute('aria-hidden','true');
+const orbX=[7,22,39,56,73,89,15,31,48,65,82,95,11,27,44,60,78,91];
+for(let i=0;i<orbX.length;i++){const orb=document.createElement('i');orb.style.cssText=`--x:${orbX[i]}%;--delay:${4.65+i*.22}s;--duration:${8+(i%5)*1.2}s;--size:${5+(i%4)*2}px;--drift:${[-18,13,22,-14,17,-20][i%6]}px`;lightRain.append(orb);}document.querySelector('.hero').append(lightRain);
 const progress=document.createElement('div');progress.className='reading-progress';progress.setAttribute('aria-hidden','true');document.body.append(progress);
 const parallax=[...document.querySelectorAll('.philosophy>img,.growth-visual>img,footer>img')];
 let motionFrame=0;
