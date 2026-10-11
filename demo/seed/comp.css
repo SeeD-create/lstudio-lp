@@ -179,8 +179,8 @@ nav .nav-cta{font-size:12px}
 .worry p{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;padding:28px 44px;font-size:clamp(21px,2vw,27px);line-height:1.5}
 .worry p br{display:none}
 .worry strong{display:block;font-size:clamp(30px,3vw,40px);line-height:1.45}
-.worry:nth-child(2) .worry-image{order:2}
-.worry:nth-child(2) p{order:1}
+.worry:nth-child(even) .worry-image{order:2}
+.worry:nth-child(even) p{order:1}
 @media(max-width:760px){
   .worry-grid{gap:22px}
   .worry{display:block;min-height:0}
