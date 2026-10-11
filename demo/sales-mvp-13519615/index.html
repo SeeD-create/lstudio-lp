@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="商談議事録から重要な変化と営業仮説の更新候補を提示するMVPデモ">
+  <title>Sales Assist｜営業仮説更新MVPデモ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="demo-note"><strong>ご提案用MVPデモ</strong><span>架空データを使用しています。Microsoft 365連携後の利用イメージです。</span></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#todo" data-route="todo"><span class="brand-mark">S</span><span>Sales Assist</span></a>
+      <label class="search"><span>⌕</span><input type="search" placeholder="顧客名・担当者・商談を検索" aria-label="顧客名・担当者・商談を検索"></label>
+      <button class="sync" type="button"><span class="online"></span> Microsoft 365 同期済み</button>
+      <button class="user" type="button" aria-label="ユーザーメニュー">田</button>
+    </header>
+
+    <aside class="sidebar">
+      <div class="today">2026年10月11日<span>土曜日</span></div>
+      <nav aria-label="メインメニュー">
+        <a href="#todo" data-route="todo" class="active"><span>✓</span>ToDo<em>5</em></a>
+        <a href="#customers" data-route="customers"><span>▦</span>顧客一覧<em>42</em></a>
+        <a href="#meetings" data-route="meetings"><span>▣</span>商談予定<em>8</em></a>
+        <a href="#approved" data-route="approved"><span>●</span>承認済み案件<em>16</em></a>
+      </nav>
+      <div class="side-status"><small>データ連携</small><p><span class="online"></span>正常に同期中</p><small>SharePoint / Teams / Outlook</small><small>最終同期 10:32</small></div>
+    </aside>
+
+    <main>
+      <section class="view active" data-view="todo">
+        <div class="page-head"><div><p>おはようございます、田中さん</p><h1>今日の営業活動</h1><span>対応すべきことを優先順に整理しました。</span></div><button class="primary" data-open="new-note">＋ 商談メモを追加</button></div>
+        <div class="dashboard-grid">
+          <section class="card todo-card">
+            <div class="card-head"><div><h2>今日のToDo</h2><p>5件中2件完了</p></div><span class="progress"><i></i></span></div>
+            <label class="task completed"><input type="checkbox" checked><span><b>東都不動産へ提案資料を送付</b><small>9:00 完了</small></span></label>
+            <label class="task priority"><input type="checkbox"><span><b>青葉建設：AIの更新案を確認</b><small>予算・導入時期に重要な変化</small></span><em>12:00まで</em></label>
+            <label class="task"><input type="checkbox"><span><b>星川工業：次回質問を確認</b><small>競合比較について3件</small></span><em>商談前</em></label>
+            <label class="task"><input type="checkbox"><span><b>北辰設備：議事録の矛盾を確認</b><small>決裁者情報が過去記録と不一致</small></span></label>
+            <label class="task completed"><input type="checkbox" checked><span><b>週次パイプラインを確認</b><small>9:30 完了</small></span></label>
+          </section>
+
+          <section class="card schedule-card">
+            <div class="card-head"><div><h2>今日の予定</h2><p>3件の商談・レビュー</p></div><button class="quiet" data-route="meetings">週表示</button></div>
+            <div class="day-schedule"><div class="time">10:00</div><button class="event blue" data-customer="aoba"><b>青葉建設・第4回商談</b><span>Teams / 60分</span></button><div class="time">13:00</div><button class="event amber" data-customer="aoba"><b>社内レビュー</b><span>営業仮説の更新案</span></button><div class="time">15:00</div><button class="event green" data-customer="hoshikawa"><b>星川工業・提案確認</b><span>Teams / 60分</span></button></div>
+          </section>
+
+          <section class="card recent-card">
+            <div class="card-head"><div><h2>直近のやり取り</h2><p>AIが重要部分を要約</p></div><button class="quiet" data-route="customers">すべて見る</button></div>
+            <button class="conversation" data-customer="aoba"><span class="company-logo">青</span><span><b>株式会社青葉建設</b><small>本日10:30・Teams商談</small><p>今期導入へ前倒し。予算上限は500万円まで検討可能。情報システム部の確認が必要。</p><em>AI要約を確認 →</em></span></button>
+            <button class="conversation" data-customer="toto"><span class="company-logo">東</span><span><b>東都不動産</b><small>昨日16:20・メール</small><p>提案資料を社内共有済み。来週火曜までに役員から回答予定。</p><em>やり取りを開く →</em></span></button>
+          </section>
+
+          <section class="card approval-card">
+            <div class="card-head"><div><h2>承認待ち</h2><p>AIは候補提示まで。確定は人が行います。</p></div><span class="count">3</span></div>
+            <button class="approval-row" data-customer="aoba"><span><b>青葉建設</b><small>営業仮説の更新案</small></span><em class="warning">要確認</em></button>
+            <button class="approval-row" data-customer="hokushin"><span><b>北辰設備</b><small>顧客名寄せ結果</small></span><em class="danger">矛盾あり</em></button>
+            <button class="approval-row" data-customer="hoshikawa"><span><b>星川工業</b><small>次回質問3件</small></span><em>確認可能</em></button>
+            <button class="secondary wide" data-customer="aoba">承認画面を開く</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" data-view="customers">
+        <div class="page-head"><div><p>顧客一覧</p><h1>営業状況をひと目で確認</h1><span>要確認のある顧客を上に表示しています。</span></div><button class="primary">＋ 顧客を追加</button></div>
+        <section class="card customer-table"><div class="table-tools"><input type="search" placeholder="顧客を絞り込み"><select><option>すべてのステージ</option><option>提案中</option><option>決裁待ち</option></select></div><div class="tr th"><span>顧客</span><span>ステージ</span><span>最終接点</span><span>AIの注目</span><span>次回予定</span></div>
+          <button class="tr" data-customer="aoba"><span><i class="company-logo">青</i><b>青葉建設</b></span><span><em class="stage">提案中</em></span><span>本日 10:30</span><span class="attention">予算・時期が変化</span><span>10/18 14:00</span></button>
+          <button class="tr" data-customer="hokushin"><span><i class="company-logo">北</i><b>北辰設備</b></span><span><em class="stage">課題確認</em></span><span>10/10 16:15</span><span class="danger-text">決裁者に矛盾</span><span>未定</span></button>
+          <button class="tr" data-customer="hoshikawa"><span><i class="company-logo">星</i><b>星川工業</b></span><span><em class="stage">比較検討</em></span><span>10/9 13:00</span><span>競合製品を比較中</span><span>本日 15:00</span></button>
+          <button class="tr" data-customer="toto"><span><i class="company-logo">東</i><b>東都不動産</b></span><span><em class="stage">決裁待ち</em></span><span>昨日 16:20</span><span>役員回答待ち</span><span>10/14</span></button>
+        </section>
+      </section>
+
+      <section class="view" data-view="meetings">
+        <div class="page-head"><div><p>商談予定</p><h1>今週のカレンダー</h1><span>OutlookとTeamsの予定を同期しています。</span></div><button class="primary">＋ 商談を登録</button></div>
+        <section class="card week-calendar"><div class="week-head"><button>‹</button><h2>10月11日〜17日</h2><button>›</button></div><div class="week-grid"><div class="hours"><span>9:00</span><span>11:00</span><span>13:00</span><span>15:00</span><span>17:00</span></div><div class="day"><b>土 11</b><button class="meeting blue" data-customer="aoba">10:00<br>青葉建設</button><button class="meeting green" data-customer="hoshikawa">15:00<br>星川工業</button></div><div class="day"><b>日 12</b></div><div class="day"><b>月 13</b><button class="meeting amber">13:00<br>社内定例</button></div><div class="day"><b>火 14</b><button class="meeting blue" data-customer="toto">11:00<br>東都不動産</button></div><div class="day"><b>水 15</b></div><div class="day"><b>木 16</b><button class="meeting blue" data-customer="hokushin">14:00<br>北辰設備</button></div><div class="day"><b>金 17</b></div></div></section>
+      </section>
+
+      <section class="view" data-view="approved">
+        <div class="page-head"><div><p>承認済み案件</p><h1>人が確定した営業情報</h1><span>AIの提案履歴と、承認・修正した内容を追跡できます。</span></div><button class="secondary">CSV出力</button></div>
+        <section class="card approved-list"><article><span class="ok">✓</span><div><b>東都不動産｜提案方針</b><p>役員会回答後に導入範囲を確定する</p><small>田中さんが10月10日 17:02に承認</small></div><button>履歴を見る</button></article><article><span class="ok">✓</span><div><b>星川工業｜顧客ニーズ</b><p>価格よりも既存システムとの連携を重視</p><small>佐藤さんが10月9日 15:45に修正して承認</small></div><button>履歴を見る</button></article><article><span class="ok">✓</span><div><b>青葉建設｜初回仮説</b><p>議事録更新の属人化解消が最優先課題</p><small>田中さんが9月1日 11:20に承認</small></div><button>履歴を見る</button></article></section>
+      </section>
+    </main>
+  </div>
+
+  <div class="drawer" aria-hidden="true">
+    <div class="drawer-head"><div><small>株式会社青葉建設</small><h2>AIが見つけた重要な変化</h2></div><button class="drawer-close" aria-label="閉じる">×</button></div>
+    <div class="drawer-body"><div class="source-info"><span>第4回商談</span><span>10月11日 10:00〜11:00</span><span>Word + Teams</span></div><article class="finding"><span>重要な変化</span><h3>予算上限が300万円から500万円へ</h3><p>前回までの予算想定より200万円増加しています。</p><blockquote>「今期の予算枠で500万円までなら、部長決裁で進められます」<small>Teams文字起こし 12:44</small></blockquote><div class="compare"><span><small>これまで</small><b>300万円</b></span><i>→</i><span><small>今回</small><b>500万円</b></span></div></article><article class="finding"><span>確認が必要</span><h3>決裁経路に曖昧さがあります</h3><p>部長決裁で進められる一方、情報システム部の確認も必要と発言しています。</p></article><section class="questions"><h3>次回、確認したいこと</h3><label><input type="checkbox" checked>最終決裁者は営業本部長で確定ですか？</label><label><input type="checkbox" checked>情報システム部の確認には何日必要ですか？</label><label><input type="checkbox" checked>500万円に含める対象部門はどこですか？</label></section></div>
+    <div class="drawer-actions"><button class="secondary drawer-close">保留</button><button class="secondary">内容を修正</button><button class="primary approve">この更新案を承認</button></div>
+  </div>
+  <div class="overlay"></div>
+  <div class="toast" role="status" aria-live="polite">承認しました。営業情報を更新しました。</div>
+  <script src="app.js"></script>
+</body>
+</html>
