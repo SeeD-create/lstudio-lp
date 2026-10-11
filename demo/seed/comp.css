@@ -145,3 +145,29 @@ nav .nav-cta{font-size:12px}
   .hero-copy{top:47%;left:4%;width:58%}
   .hero h1 .mobile-hero-title{font-size:clamp(42px,5.3vw,82px)}
 }
+
+/* Opening sequence: headline, underline, light, students, then falling leaves. */
+.hero-people{position:absolute;inset:0;z-index:1;opacity:0;pointer-events:none;-webkit-mask-image:linear-gradient(to right,transparent 49%,#000 65%);mask-image:linear-gradient(to right,transparent 49%,#000 65%);animation:students-reveal 1.05s 3.3s ease-out both}
+.hero-people img{width:100%;height:100%;max-width:none;object-fit:cover;object-position:center}
+.hero-light{z-index:2}.hero-copy{z-index:3}
+.hero h1 .mobile-hero-title:after{animation:headline-rule .65s 1.65s cubic-bezier(.2,.7,.2,1) both}
+.hero h1 .mobile-hero-title:before{content:'';position:absolute;z-index:4;left:-16%;top:-8%;width:19%;height:115%;background:linear-gradient(90deg,transparent,#fff5 25%,#fff 50%,#fff5 75%,transparent);filter:blur(8px);transform:translateX(0) skewX(-18deg);opacity:0;pointer-events:none;animation:headline-sweep .85s 2.3s ease-in-out both}
+.headline-flash{position:absolute;z-index:5;left:-7%;top:40%;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle,#fff 0 9%,#fff9 17%,#fff0 65%);filter:drop-shadow(0 0 13px #fff) drop-shadow(0 0 21px #ffe7a0);opacity:0;pointer-events:none;animation:headline-spark .9s 2.28s ease-out both}
+.headline-flash:before,.headline-flash:after{content:'';position:absolute;left:50%;top:50%;background:#fff;box-shadow:0 0 9px 3px #fff9;transform:translate(-50%,-50%)}
+.headline-flash:before{width:2px;height:95px}.headline-flash:after{width:95px;height:2px}
+.hero-copy>.cta{animation-delay:4.25s}
+@keyframes headline-sweep{0%{opacity:0;transform:translateX(0) skewX(-18deg)}18%{opacity:.85}72%{opacity:.7}100%{opacity:0;transform:translateX(620%) skewX(-18deg)}}
+@keyframes headline-spark{0%,100%{opacity:0;transform:scale(.25) rotate(-20deg)}24%{opacity:1;transform:scale(1.15) rotate(0)}58%{opacity:.85;transform:scale(.8) rotate(20deg)}}
+@keyframes students-reveal{from{opacity:0}to{opacity:1}}
+@media(max-width:760px){
+  .hero-people{display:none}
+  .natural-portraits{z-index:1;opacity:0;animation:students-reveal 1.05s 3.3s ease-out both}
+  .headline-flash{width:24px;height:24px;left:-5%}
+  .headline-flash:before{height:64px}.headline-flash:after{width:64px}
+}
+.motion-off .hero-people,.motion-off .natural-portraits{opacity:1!important}
+.motion-off .headline-flash,.motion-off .hero h1 .mobile-hero-title:before{display:none}
+@media(prefers-reduced-motion:reduce){.hero-people,.natural-portraits{opacity:1!important}.headline-flash,.hero h1 .mobile-hero-title:before{display:none}}
+.hero .drifting-leaves{position:absolute;inset:0;z-index:2}
+.hero .drifting-leaves i{background:linear-gradient(35deg,#377b27bc,#b7da49ce);box-shadow:0 2px 4px #174e2826}
+@media(max-width:760px){.hero .drifting-leaves{opacity:.85}.hero .drifting-leaves i:nth-child(n+4){display:block}.hero .drifting-leaves i:nth-child(n+6){display:none}}

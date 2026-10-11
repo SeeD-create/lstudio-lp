@@ -20,7 +20,7 @@ motionSections.forEach(section=>sectionObserver.observe(section));
 document.querySelectorAll('.worry-grid,.strength-grid,.lesson-grid,.closing-grid').forEach(grid=>[...grid.children].forEach((card,index)=>{card.style.setProperty('--stagger',`${index*110}ms`);card.classList.add('motion-card');if(!card.classList.contains('reveal')){card.classList.add('reveal');io.observe(card);}}));
 document.querySelectorAll('.growth-choices,.growth-visual,.footer-brand,.movie-link').forEach(el=>{el.classList.add('reveal');io.observe(el);});
 const leaves=document.createElement('div');leaves.className='drifting-leaves';leaves.setAttribute('aria-hidden','true');
-for(let i=0;i<7;i++){const leaf=document.createElement('i');leaf.style.cssText=`--x:${[3,94,8,97,1,91,5][i]}%;--delay:-${i*3.7}s;--duration:${19+i*2}s;--size:${10+i%3*4}px`;leaves.append(leaf);}document.body.append(leaves);
+for(let i=0;i<7;i++){const leaf=document.createElement('i');leaf.style.cssText=`--x:${[12,88,30,70,52,18,82][i]}%;--delay:${4.6+i*.38}s;--duration:${12+i*1.5}s;--size:${14+i%3*4}px`;leaves.append(leaf);}document.querySelector('.hero').append(leaves);
 const progress=document.createElement('div');progress.className='reading-progress';progress.setAttribute('aria-hidden','true');document.body.append(progress);
 const parallax=[...document.querySelectorAll('.philosophy>img,.growth-visual>img,footer>img')];
 let motionFrame=0;
