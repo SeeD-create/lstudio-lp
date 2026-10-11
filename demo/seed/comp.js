@@ -62,4 +62,17 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches){
   document.addEventListener('visibilitychange',()=>{if(document.hidden)hopeLight.classList.remove('is-visible');});
   $('.motion').addEventListener('click',()=>{hopeLight.classList.remove('is-visible');if(!stopped)queueHopeLight();});
   mq.addEventListener('change',()=>{hopeLight.classList.remove('is-visible');});
+  document.addEventListener('pointerdown',event=>{
+    if(event.pointerType!=='mouse'||event.button!==0||stopped||mq.matches)return;
+    const burst=document.createElement('div');burst.className='hope-burst';burst.setAttribute('aria-hidden','true');
+    burst.style.setProperty('--x',`${event.clientX}px`);burst.style.setProperty('--y',`${event.clientY}px`);
+    for(let i=0;i<8;i++){
+      const angle=i*Math.PI/4,particle=document.createElement('i');
+      particle.style.setProperty('--dx',`${Math.round(Math.cos(angle)*36)}px`);
+      particle.style.setProperty('--dy',`${Math.round(Math.sin(angle)*36)}px`);
+      burst.append(particle);
+    }
+    document.body.append(burst);hopeLight.classList.add('is-bursting');
+    setTimeout(()=>{burst.remove();hopeLight.classList.remove('is-bursting');},650);
+  },{passive:true});
 }
