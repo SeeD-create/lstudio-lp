@@ -52,3 +52,26 @@ a>.contact-icon:not(.bottom-contact .contact-icon){display:inline-flex;width:22p
 /* Keep short Japanese phrases intact on narrow screens. */
 .bottom-contact .reserve-word{display:inline-block;white-space:nowrap}
 .subpage .portrait-hero figcaption{width:260px;max-width:calc(100vw - 48px);position:relative;left:50%;transform:translateX(-50%);text-align:center}
+
+/* 2026-10-11: approved phone line breaks and earlier team introduction. */
+.mobile-phrase{display:inline}
+.mobile-phrase-pair .mobile-phrase + .mobile-phrase{margin-left:0}
+main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
+.home-preview .worry-group h3::before{content:none!important;display:none!important}
+.plan .plan-price{font-size:clamp(23px,2.1vw,32px)!important;line-height:1.6;overflow-wrap:normal}
+.price-range-note,.price-revision-extra{font-size:14px;line-height:1.8}
+.price-revision-extra{border-top:1px solid #d6ddce;padding-top:16px;margin:16px 0}
+.price-revision-extra ul{padding-left:1.3em}
+.main-additional-fees,.partner-fees{margin:42px 0}
+.case-breakdown .price{white-space:normal!important;flex-shrink:0}
+@media(max-width:760px){
+ .mobile-phrase-pair .mobile-phrase{display:block;white-space:nowrap;letter-spacing:0}
+ .worry-group li.mobile-phrase-pair{display:block;position:relative;padding-left:28px;min-width:0;font-size:clamp(14px,4vw,16px)!important;line-height:1.9}
+ .worry-group li.mobile-phrase-pair::before{position:absolute;left:0;top:24px}
+ h2.mobile-phrase-pair{font-size:clamp(20px,5.6vw,28px)!important;line-height:1.65!important}
+ h3.mobile-phrase-pair{font-size:clamp(17px,4.7vw,23px)!important;line-height:1.7!important}
+ p.mobile-phrase-pair{font-size:clamp(14px,3.9vw,17px)!important;line-height:1.9!important}
+ .assurances b{white-space:nowrap;font-size:clamp(13px,3.6vw,18px)!important;letter-spacing:0}
+ .contact-flow .flow-first,.contact-flow .flow-last{display:block;white-space:nowrap;font-size:clamp(12px,3.5vw,16px);line-height:2}
+ main>.team-intro{margin:38px auto;width:calc(100% - 40px)}
+}
