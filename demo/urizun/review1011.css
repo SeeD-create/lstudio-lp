@@ -1,0 +1,11 @@
+/* Final audit: clear fee entry, without changing the approved story. */
+.home-preview .home-fee-guide{background:#f5f5ec;padding:64px 0}
+.home-fee-guide h2{margin:0 0 18px;font-size:clamp(23px,2.6vw,34px);line-height:1.6;color:#294330}
+.home-fee-guide p{font-size:16px;line-height:1.9}
+.home-fee-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin:28px 0 18px}
+.home-fee-list a{display:flex;flex-direction:column;gap:10px;border-top:1px solid #bac5ad;padding:20px 0;color:#294330;text-decoration:none}
+.home-fee-list a:hover{text-decoration:underline}
+.home-fee-list span{font-size:16px;font-weight:700}
+.home-fee-list strong{font-size:clamp(20px,1.8vw,27px);line-height:1.6;letter-spacing:0;white-space:nowrap}
+.home-fee-list small,.home-fee-guide .home-fee-note{font-size:14px;line-height:1.9;color:#4b5648}
+@media(max-width:900px){.home-fee-list{grid-template-columns:1fr;gap:0}.home-fee-list strong{font-size:clamp(20px,5.3vw,27px)}.home-preview .home-fee-guide{padding:42px 0}}
