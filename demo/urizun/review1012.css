@@ -1,0 +1,4 @@
+.individual-tax-total{display:block;font-size:14px;line-height:1.9;color:#394333;margin-top:5px}
+.access-map-zoom{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in}
+.access-map-zoom:focus-visible{outline:3px solid #526b3b;outline-offset:4px}
+.access-map-zoom img{display:block;width:100%;height:auto}
