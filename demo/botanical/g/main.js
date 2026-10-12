@@ -29,7 +29,7 @@
   }
 
    
-  const lineURL = validURL(config.LINE_URL, 'line');
+  const lineURL = config.SIGNUP_ENABLED === true ? validURL(config.LINE_URL, 'line') : '';
   const notes = [...document.querySelectorAll('#line-status, #line-status-2, #line-status-3')];
    
   const sayNear = (el, text) => {
@@ -52,7 +52,7 @@
 
   
 
-  const consultURL = validURL(config.CONSULT_URL);
+  const consultURL = config.CONSULT_ENABLED === true ? validURL(config.CONSULT_URL) : '';
   document.querySelectorAll('[data-consult-action]').forEach(link => {
     if (consultURL) {
       link.href = consultURL;
