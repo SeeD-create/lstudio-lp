@@ -1,0 +1,5 @@
+@media (min-width:801px){
+  .hero{grid-template-columns:50% 50%}
+  .hero-copy{padding-left:8vw;padding-right:4vw}
+  .hero h1{font-size:clamp(46px,4.8vw,70px)}
+}
