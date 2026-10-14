@@ -44,6 +44,13 @@ function sphere(c,w,h,p){paper(c,w,h);let cx=w*.34,cy=h*.49,r=h*.36,L=p.level||0
  if(L>=3){text(c,'天頂',cx,cy-r-27,29,C.red,'center');text(c,'地平線',cx+r+40,cy,29,C.blue);line(c,[[cx,cy-52],[cx,cy-r]],C.red,2,[5,5]);}
  if(L>=4){const low=[];for(let a=180;a<=360;a+=2)low.push([cx+r*cos(a),cy-r*sin(a)]);line(c,low,C.blue,2,[6,7]);text(c,'地面の下の空も含む',cx,cy+r+34,26,C.blue,'center');}if(p._step>3&&p._step<4){c.save();c.globalAlpha=Math.sin((p._step-3)*Math.PI);ellipse(c,cx,cy,r+12,r+12,C.red);c.restore();}
  text(c,L<2?'見える方向を写す':'天球',w*.77,h*.30,L<2?36:58,L<2?C.ink:C.red,'center');text(c,'星までの距離は考えない',w*.77,h*.53,32,C.ink,'center');text(c,'自分を中心に、空を表す',w*.77,h*.7,32,C.ink,'center');}
+const ropeColors=[C.blue,C.gold,C.red];
+function ropeLine(c,pts,col){line(c,pts,col,9);line(c,pts,'#ffffff90',2,[2,6]);}
+function ropeStrip(c,w,h){paper(c,w,h);text(c,'道すじに合わせた紐を、伸ばす',w/2,40,29,C.ink,'center');
+ const xs=[w*.10,w*.50,w*.70,w*.90],y=h*.47;
+ for(let i=0;i<3;i++){ropeLine(c,[[xs[i],y],[xs[i+1],y]],ropeColors[i]);text(c,i?'3 cm':'6 cm',(xs[i]+xs[i+1])/2,y+63,34,ropeColors[i],'center');}
+ for(let i=0;i<4;i++){line(c,[[xs[i],y-11],[xs[i],y+11]],C.ink,3);text(c,['日の出','8時','9時','10時'][i],xs[i],y-45,28,C.ink,'center');}
+ text(c,'右の半球と、同じ色の区間を比べよう',w/2,h-65,25,C.ink,'center');text(c,'紐の長さの例：6 cm・3 cm・3 cm',w/2,h-25,24,C.ink,'center');}
 function record(c,w,h,p){paper(c,w,h);let hour=p.hour??8,cx=w*.47,cy=h*.73,R=Math.min(w*.31,h*.57);const pr=v=>[cx+R*(v.e*.9+v.n*.28),cy-R*(v.u*.86+v.n*.24)];let rim=[];for(let a=0;a<=360;a+=3)rim.push(pr({e:sin(a),n:cos(a),u:0}));line(c,rim,'#7398a8',2);
  for(let az=0;az<180;az+=30){let pts=[];for(let a=0;a<=180;a+=3)pts.push(pr({e:cos(a)*sin(az),n:cos(a)*cos(az),u:sin(a)}));line(c,pts,'#86adbd60',1.5);}
  for(const [a,t] of [[0,'北'],[90,'東'],[180,'南'],[270,'西']]){let q=pr({e:1.13*sin(a),n:1.13*cos(a),u:0});text(c,t,...q,25,C.ink,'center');}
@@ -52,7 +59,13 @@ function record(c,w,h,p){paper(c,w,h);let hour=p.hour??8,cx=w*.47,cy=h*.73,R=Mat
  for(let hh=8;hh<=hour+.001;hh++){let pt=pr(H((hh-12)*15,0));dot(c,...pt,5,C.red);}
  text(c,`${Math.round(hour)}時の記録`,w/2,33,32,C.ink,'center');text(c,'先端の影＝中心 O',w/2,h-22,28,C.red,'center');
  for(let hh=8;hh<=11;hh++)text(c,`${hh}時`,w*.26+(hh-8)*w*.16,91,26,hh<=hour+.001?C.red:'#96938d','center');
- if(p._step>0){ellipse(c,cx,cy,18,9,C.red);arrow(c,[cx-100,cy+50],[cx-10,cy+8],C.red,2);}}
+ if(p._step>0){ellipse(c,cx,cy,18,9,C.red);arrow(c,[cx-100,cy+50],[cx-10,cy+8],C.red,2);}
+ if(p.rope>0){c.save();c.globalAlpha=p.rope;
+  const times=[6,8,9,10];
+  for(let i=0;i<3;i++){const pts=[];for(let j=0;j<=60;j++){const hh=times[i]+(times[i+1]-times[i])*j/60;pts.push(pr(H((hh-12)*15,0)));}ropeLine(c,pts,ropeColors[i]);}
+  for(const hh of times){let q=pr(H((hh-12)*15,0));dot(c,...q,5,C.paper,C.ink);}
+  const sunrise=pr(H(-90,0));text(c,'日の出',sunrise[0]+12,sunrise[1]+29,25,C.blue,'center');
+  c.restore();}}
 function opposite(c,w,h,p){paper(c,w,h);let r=h*.29,cy=h*.52;
  for(let i=0;i<2;i++){let cx=w*(i?.73:.27),phase=(p.turn||0)*(i?-1:1),horizon=i?cy-r*.5:cy+r*.75;const pts=[];for(let a=0;a<=360;a+=2){let x=cx+r*cos(a),y=cy-r*sin(a);let visible=y<horizon;line(c,[[x,y],[cx+r*cos(a+2),cy-r*sin(a+2)]],visible?C.blue:'#b1b8bd',2,visible?[]:[2,3]);}line(c,[[cx-r-40,horizon],[cx+r+40,horizon]],'#747a70',2);dot(c,cx,cy,5,C.red);let a=90+phase;dot(c,cx+r*cos(a),cy-r*sin(a),11,C.gold);let trail=[];for(let t=0;t<=Math.abs(phase);t+=2){let b=90+t*(i?-1:1);trail.push([cx+r*cos(b),cy-r*sin(b)]);}line(c,trail,C.red,3);if(trail.length>2)arrow(c,trail.at(-2),trail.at(-1),C.red,3);
  text(c,i?'南の方向を見る':'北の方向を見る',cx,35,34,C.ink,'center');text(c,i?'天の南極（地平線の下）':'天の北極',cx,cy+35,26,C.ink,'center');text(c,i?'時計回り':'反時計回り',cx,h-25,32,C.red,'center');}
@@ -64,7 +77,7 @@ function latitude(c,w,h,p){paper(c,w,h);for(let i=0;i<3;i++)panel(c,i*w/3,0,w/3,
 function altitude(c,w,h,p){paper(c,w,h);panel(c,0,0,w*.48,h,sunDay,p);let x=w*.6,y=h*.79,R=h*.57,ang=Math.max(0,Astro.solarAltitude(p.hour,0));line(c,[[x-60,y],[w-35,y]],C.ink,2);person(c,x,y,1.2);let q=[x+R*cos(ang),y-R*sin(ang)];dot(c,...q,17,'#eeb74b');line(c,[[x,y],q],C.gold,3);if(p.angle>0){let pts=[];for(let a=0;a<=ang;a+=1)pts.push([x+95*cos(a),y-95*sin(a)]);line(c,pts,C.red,3);text(c,`${ang.toFixed(0)}°`,x+125,y-52,39,C.red);text(c,Math.abs(p.hour-12)<.01?'南中高度':'高度',w*.78,70,38,C.red,'center');}else text(c,'地平線から測る',w*.78,70,34,C.ink,'center');text(c,'地平線',w-40,y+40,27,C.ink,'right');}
 function seasons(c,w,h,p){paper(c,w,h);let cx=w*.43,base=h*.83,R=h*.73;const pr=v=>[cx-Math.atan2(v.e,-v.n)/(Math.PI/2)*w*.25,base-v.u*R];line(c,[[65,base],[w*.84,base]],'#92988b',2);person(c,cx,base,1.2);for(const [i,dec,col,name]of [[0,23.4,C.red,'夏至'],[1,0,C.blue,'春分・秋分'],[2,-23.4,'#6f7887','冬至']]){let pts=[];for(let hh=0;hh<=24;hh+=.05){let v=H((hh-12)*15,dec);if(v.u>=0)pts.push(pr(v));}line(c,pts,col,3);let q=pr(H(0,dec));dot(c,...q,8,col);text(c,name,q[0]+25,q[1]-15,27,col);let begin=pts[0],end=pts.at(-1);dot(c,...begin,5,col);dot(c,...end,5,col);}
  text(c,'南',cx,base+38,28,C.ink,'center');text(c,'東側',75,base+38,27);text(c,'西側',w*.81,base+38,27,C.ink,'right');text(c,'北緯35°',w*.91,42,29,C.ink,'center');for(let [j,t]of ['高い','↑','南中高度','↓','低い'].entries())text(c,t,w*.91,130+j*53,j===2?25:29,C.ink,'center');}
-function recordExercise(c,w,h,p){paper(c,w,h);let xs=[w*.10,w*.46,w*.64,w*.82],ys=[h*.70,h*.42,h*.28,h*.14];line(c,xs.map((x,i)=>[x,ys[i]]),C.blue,4);for(let i=0;i<4;i++){dot(c,xs[i],ys[i],8,C.red);text(c,['日の出','8時','9時','10時'][i],xs[i],ys[i]-45,34,C.ink,'center');}for(let i=0;i<3;i++)text(c,i?'3 cm':'6 cm',(xs[i]+xs[i+1])/2,(ys[i]+ys[i+1])/2+65,36,C.red,'center');text(c,'記録の道すじを取り出して、長さを比べる',w/2,h-37,32,C.ink,'center');}
+function recordExercise(c,w,h,p){paper(c,w,h);let xs=[w*.10,w*.46,w*.64,w*.82],ys=[h*.70,h*.42,h*.28,h*.14];for(let i=0;i<3;i++)ropeLine(c,[[xs[i],ys[i]],[xs[i+1],ys[i+1]]],ropeColors[i]);for(let i=0;i<4;i++){dot(c,xs[i],ys[i],8,C.red);text(c,['日の出','8時','9時','10時'][i],xs[i],ys[i]-45,34,C.ink,'center');}for(let i=0;i<3;i++)text(c,i?'3 cm':'6 cm',(xs[i]+xs[i+1])/2,(ys[i]+ys[i+1])/2+65,36,ropeColors[i],'center');text(c,'透明半球の道すじに合わせた紐を、伸ばして比べる',w/2,h-37,32,C.ink,'center');}
 const render=(canvas,scene,p={})=>{const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height;bounds=[];c.clearRect(0,0,w,h);c.lineCap='round';c.lineJoin='round';
  switch(scene){
  case 'cover':cover(c,w,h);break;
@@ -72,7 +85,7 @@ const render=(canvas,scene,p={})=>{const c=canvas.getContext('2d'),w=canvas.widt
  case 'sphereModel':sphere(c,w,h,p);break;
  case 'sphereProjection':sphereProjection(c,w,h,p);break;
  case 'sphereTerms':sphereTerms(c,w,h,p);break;
- case 'recordSun':panel(c,0,0,w*.47,h,sunDay,p);panel(c,w*.49,0,w*.51,h,record,p);break;
+ case 'recordSun':panel(c,0,0,w*.47,h,sunDay,p);if(p.rope>0){c.save();c.globalAlpha=p.rope;panel(c,0,0,w*.47,h,ropeStrip,p);c.restore();}panel(c,w*.49,0,w*.51,h,record,p);break;
  case 'axisLesson':old(canvas,'learnAxis',p);break;
  case 'spinViews':panel(c,0,0,w*.49,h,earth,p);panel(c,w*.51,0,w*.49,h,tilted,p);break;
  case 'pairedDay':panel(c,0,0,w*.49,h,sunDay,p);panel(c,w*.51,0,w*.49,h,earth,p);break;

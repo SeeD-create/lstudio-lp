@@ -4,7 +4,7 @@ function mix(a,b,t){const o={...b},s=slides[index];let blend=t;
  if(s.transition==='snapshots'&&t<1&&delta!==0){const frames=Math.max(1,Math.round(Math.abs(delta)/(s.sampleInterval||s.sampleDays||10))),position=t*frames,frame=Math.floor(position),phase=position-frame;blend=(frame+(phase>=.8?1:0))/frames;o._snapshotVisible=phase>=.62&&phase<.8?0:1;}
  for(const k in b)if(typeof b[k]==='number')o[k]=(a[k]??b[k])+(b[k]-(a[k]??b[k]))*blend;
  if(s.blinkStars&&t<1&&(a.day??0)!==(b.day??0)){const phase=(t*duration/650)%1;o._starsVisible=phase<.78?1:0;}return o;}
-function paint(){state=mix(from,to,progress);Astro.render($('scene'),slides[index],state,step);$('motion').value=Math.round(progress*1000);$('pause').textContent=paused?'再開':'一時停止';syncCalendar();}
+function paint(){state=mix(from,to,progress);Astro.render($('scene'),slides[index],state,step);$('motion').value=Math.round(progress*1000);$('pause').textContent=paused?'再開':'一時停止';syncCalendar();syncConstellation();}
 function tick(now){progress=Math.min(1,(now-start)/duration);paint();if(progress<1&&!paused)raf=requestAnimationFrame(tick);}
 function animate(){cancelAnimationFrame(raf);paused=false;if(reduced){finish();return;}start=performance.now()-progress*duration;raf=requestAnimationFrame(tick);}
 function finish(){cancelAnimationFrame(raf);progress=1;paused=false;paint();}
@@ -18,6 +18,17 @@ function scale(){document.documentElement.style.setProperty('--scale',Math.min(i
 const lab=document.createElement('div');lab.id='calendar-lab';lab.dataset.noTap='';lab.hidden=true;
 lab.innerHTML='<label>日付 <button type="button" id="day-back" aria-label="1日前">−</button><input id="calendar-day" aria-label="日付を変更" type="range" min="0" max="365" step="1"><button type="button" id="day-next" aria-label="1日後">＋</button></label><button id="flip-month">31日分めくる</button><label>時刻 <input id="calendar-hour" aria-label="観測時刻" type="time" step="60" value="22:00"></label><button id="calendar-reset">元に戻す</button>';
 $('visual-bar').append(lab);
+const constellationLab=document.createElement('div');constellationLab.id='constellation-lab';constellationLab.dataset.noTap='';constellationLab.hidden=true;
+constellationLab.innerHTML='<label>季節 <select id="constellation-season" aria-label="季節を変更"><option value="90">冬</option><option value="180">春</option><option value="270">夏</option><option value="360">秋</option></select></label><label>時刻 <input id="constellation-hour" aria-label="時刻を変更" type="range" min="18" max="30" step="0.25"></label><button id="constellation-evening">夕方</button><button id="constellation-midnight">真夜中</button><button id="constellation-dawn">明け方</button><button id="constellation-reset">元に戻す</button>';
+$('visual-bar').append(constellationLab);
+function syncConstellation(){const enabled=!!slides[index].constellationLab;constellationLab.hidden=!enabled;if(!enabled)return;$('caption').hidden=true;$('motion-controls').hidden=true;$('constellation-season').value=String(state.a??90);$('constellation-hour').value=state.hour??24;}
+function setConstellation(a,hour){cancelAnimationFrame(raf);from=to={...state,a,hour,reveal:3};progress=1;paused=true;paint();}
+$('constellation-season').onchange=e=>setConstellation(Number(e.target.value),state.hour??24);
+$('constellation-hour').oninput=e=>setConstellation(state.a??90,Number(e.target.value));
+$('constellation-evening').onclick=()=>setConstellation(state.a??90,18);
+$('constellation-midnight').onclick=()=>setConstellation(state.a??90,24);
+$('constellation-dawn').onclick=()=>setConstellation(state.a??90,30);
+$('constellation-reset').onclick=()=>show(index,step);
 function syncCalendar(){const enabled=!!slides[index].calendarLab;lab.hidden=!enabled;$('caption').hidden=enabled;$('motion-controls').hidden=enabled;if(!enabled)return;$('calendar-day').value=Math.floor(state.day??0);const m=Math.round((state.hour??22)*60);$('calendar-hour').value=String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');$('flip-month').textContent=progress<1&&!paused?'停止':'31日分めくる';}
 function setCalendar(day,hour){cancelAnimationFrame(raf);from=to={day:Math.max(0,Math.min(365,Math.round(day))),hour};progress=1;paused=true;paint();}
 $('calendar-day').oninput=e=>setCalendar(Number(e.target.value),state.hour??22);

@@ -1,6 +1,6 @@
 /* Deterministic astronomy geometry. Angles in degrees; north-up diagrams. */
 window.Astro=(()=>{'use strict';const D=Math.PI/180,W=1712,H=500,red='#d9474e',blue='#62b0d0',gold='#e4bd70',night='#101e30';let ink='#292c30',muted='#6f716e',c,bounds=[];
-const images={};const ready=Promise.all(['moon','galaxy'].map(k=>new Promise(resolve=>{const i=new Image();images[k]=i;i.onload=resolve;i.onerror=resolve;i.src='../_astro_shared/assets/'+k+'.png';})));
+const images={};const ready=Promise.all(['moon','galaxy','shadow-seasons-v2','orbit-seasons-v2'].map(k=>new Promise(resolve=>{const i=new Image();images[k]=i;i.onload=resolve;i.onerror=resolve;i.src='../_astro_shared/assets/'+k+'.png';})));
 function text(t,x,y,size=27,color=ink,align='center'){c.font=`600 ${size}px "Zen Kaku Gothic New","Yu Gothic",sans-serif`;c.fillStyle=color;c.textAlign=align;c.textBaseline='middle';c.fillText(t,x,y);let w=c.measureText(t).width;bounds.push({text:t,l:align==='left'?x:align==='right'?x-w:x-w/2,r:align==='left'?x+w:align==='right'?x:x+w/2,t:y-size*.65,b:y+size*.65});}
 function line(x,y,xx,yy,color=muted,width=2,dash=[]){c.beginPath();c.setLineDash(dash);c.strokeStyle=color;c.lineWidth=width;c.moveTo(x,y);c.lineTo(xx,yy);c.stroke();c.setLineDash([]);}
 function circle(x,y,r,color,stroke){c.beginPath();c.arc(x,y,r,0,2*Math.PI);if(color){c.fillStyle=color;c.fill();}if(stroke){c.strokeStyle=stroke;c.lineWidth=2;c.stroke();}}
@@ -141,7 +141,7 @@ function annual(s,p,step){
  text(s.timechange&&step>=2?'観測時刻を早めた比較（地球は逆回転しない）':'同じ時刻の比較（途中の自転は省略）',525,467,23,muted);
  text(s.timechange&&step>=2?'約2時間早く見る':`南中からの回転角　約${Math.round(view)}°`,1398,454,25,gold);
 }
-function sunpath(s,p){let dec=p.dec??s.dec??0;const x0=100,x1=1120,y0=390; text('北緯35°の空を、東から西へ見渡す',605,32);text('南中高度と昼の長さ',1400,32);for(let alt of[0,30,60,90]){let y=y0-alt*3.15;line(x0,y,x1,y,'#dfded7');text(alt+'°',73,y,22,muted,'right');}text('高度',60,65,23);for(let az of[90,180,270]){let x=x0+(az-45)/270*(x1-x0);text({90:'東',180:'南',270:'西'}[az],x,435,27);}for(let dd of[-23.4,0,23.4]){c.strokeStyle=Math.abs(dd-dec)<.2?gold:'#c5cbd0';c.lineWidth=Math.abs(dd-dec)<.2?6:2;c.beginPath();let first=true;for(let h=-180;h<=180;h+=.5){let q=solar(dd,h);if(q.alt>=0){const x=x0+(q.az-45)/270*(x1-x0),y=y0-q.alt*3.15;first?c.moveTo(x,y):c.lineTo(x,y);first=false;}}c.stroke();}const q=solar(dec,0);orb(610,y0-q.alt*3.15,12,'#ecc16d');line(1180,75,1180,425,'#d8d3c8');let name=dec>10?'夏至':dec<-10?'冬至':'春分・秋分';text(name,1430,143,42);text((55+dec).toFixed(1)+'°',1430,240,66,red);text('昼　約'+dayLength(dec).toFixed(1)+'時間',1430,343,34);text('太陽の中心・大気差なし',1430,418,22,muted);text('北寄り',120,474,22,muted);text('北寄り',1100,474,22,muted);}
+function sunpath(s,p){let dec=p.dec??s.dec??0;const x0=100,x1=1120,y0=390; text('北緯35°の空を、東から西へ見渡す',605,32);text('南中高度と昼の長さ',1400,32);for(let alt of[0,30,60,90]){let y=y0-alt*3.15;line(x0,y,x1,y,'#dfded7');text(alt+'°',73,y,22,muted,'right');}text('高度',60,65,23);for(let az of[90,180,270]){let x=x0+(az-45)/270*(x1-x0);text({90:'東',180:'南',270:'西'}[az],x,435,27);}for(let dd of[-23.4,0,23.4]){c.strokeStyle=Math.abs(dd-dec)<.2?gold:'#c5cbd0';c.lineWidth=Math.abs(dd-dec)<.2?6:2;c.beginPath();let first=true;for(let h=-180;h<=180;h+=.5){let q=solar(dd,h);if(q.alt>=0){const x=x0+(q.az-45)/270*(x1-x0),y=y0-q.alt*3.15;first?c.moveTo(x,y):c.lineTo(x,y);first=false;}}c.stroke();}line(1180,75,1180,425,'#d8d3c8');let name=dec>10?'夏至':dec<-10?'冬至':'春分・秋分';text(name,1430,143,42);text((55+dec).toFixed(1)+'°',1430,240,66,red);text('昼　約'+dayLength(dec).toFixed(1)+'時間',1430,343,34);text('太陽の中心・大気差なし',1430,418,22,muted);text('北寄り',120,474,22,muted);text('北寄り',1100,474,22,muted);}
 function shadow(s,p){let alt=55+(p.dec??23.4),x=780,y=365,h=170,shadow=h/Math.tan(alt*D);text('同じ場所・同じ高さの棒（北緯35°）',856,35);line(210,y,1460,y,'#a59c88',5);line(x,y,x,y-h,ink,10);line(x,y,x+shadow,y,'#51575e',12);let sx=x-220,sy=y-h-220*Math.tan(alt*D);sy=Math.max(92,sy);sx=x-(y-h-sy)/Math.tan(alt*D);orb(sx,sy,26,'#efbd57');arrow(sx+20,sy+20,x+shadow,y,gold,3);text('南',220,428);text('北',1450,428);text((p.dec??23.4)>0?'夏：南中高度78.4°':'冬：南中高度31.6°',856,465,33,red);}
 function tilt(s,p){let a=p.a??0;const t=(1-Math.cos(a*D))/2,ex=1270-830*t; text('地軸は、ほぼ同じ方向を向いたまま',856,35);orb(855,250,58,'#efbd57');line(170,390,1550,390,'#b5b5ac',2,[7,7]);text('公転面',1450,433,24,muted);half(ex,250,95,ex>855?Math.PI:0);const dx=Math.sin(23.4*D)*135,dy=Math.cos(23.4*D)*135;line(ex-dx,250+dy,ex+dx,250-dy,ink,5);line(ex,120,ex,390,'#92989b',2,[5,5]);text('北極側',ex+dx,85,24);text('23.4°',ex+140,170,29,red);text('66.6°',ex-160,370,27,red);text('太陽',855,346,28);text(ex<855?'北半球は夏':'北半球は冬',856,465,35,red);for(let yy of[210,260,310])arrow(ex<855?760:950,yy,ex<855?ex+120:ex-120,yy,gold,2);}
 function energy(s,p){let a=(p.angle??75)*D;split('同じ幅の光の束','地面に広がる幅');let x=390,y=375,L=250,w=70;let dx=Math.cos(a),dy=Math.sin(a),nx=-dy,ny=dx;let ox=x-L*dx,oy=y-L*dy;const left=x-w/2/dy,right=x+w/2/dy;poly([[ox+nx*w/2,oy+ny*w/2],[ox-nx*w/2,oy-ny*w/2],[right,y],[left,y]],'#efc26050');for(let k of[-1,0,1])arrow(ox+nx*w*k/2,oy+ny*w*k/2,x+w*k/2/dy,y,gold);line(150,y,740,y,ink,5);line(left,y+15,right,y+15,red,8);let ww=70/Math.sin(a);c.fillStyle='#dcb266';c.fillRect(1050,210,ww*3,100);text('光の量は同じ',1310,146,32);text('広がる面積を比べる',1310,376,29);text(Math.round(p.angle??75)+'°の光',440,460,34,red);text((p.angle??75)>60?'狭い面積に集中':'広い面積に分散',1310,460,34,red);}
@@ -172,7 +172,162 @@ function compare(s,p,step){let rows=s.rows||[],n=rows.length;for(let i=0;i<n;i++
 function ratio(s,p,step){let left=s.left,right=s.right,u=s.unit,n=s.amount,base=s.base??1;text('単位量の対応',856,40,30);let col=[540,1170];text(base+' '+left,col[0],150,57);text('…',856,150,45,muted);text(u+' '+right,col[1],150,57);if(step>=2){text('× '+n,col[0]-185,258,38,red);text('× '+n,col[1]+240,258,38,red);arrow(col[0],198,col[0],290,red);arrow(col[1],198,col[1],290,red);}if(step>=3){text(base*n+' '+left,col[0],356,57,red);text('…',856,356,45,muted);text(u*n+' '+right,col[1],356,57,red);}else text('？',856,356,65,muted);text('左も右も、同じ倍数',856,470,30);}
 function lightyear(s,p,step){text('光が進む時間と距離',856,38,30);line(200,240,1510,240,gold,7);arrow(200,240,1510,240,gold,7);text('出発',200,150,30);text('1年後',1510,150,30);text(step>=3?'1光年 ＝ 約9兆4600億 km':'光が1年間に進む距離',856,360,48,step>=3?red:ink);}
 const scenes={annual,annualCycle,annualYear,sunpath,shadow,tilt,energy,altitude,moon,phaseRow,lock,size,distance,moonTime,moonShift,eclipse,planets,orbits,solarDistance,comet,venus,venusCompare,venusSky,photo,starfield,galaxyDisk,galaxies,hierarchy,compare,ratio,lightyear,memory:()=>{}};
-Object.assign(scenes,{annualCalendar,calendarYear,annualExercise});
+function seasonShadow(s,p,step){
+ const img=images['shadow-seasons-v2'];text('夏の南中時',460,30,31);text('冬の南中時',1250,30,31);
+ if(img?.naturalWidth){for(let k=0;k<2;k++)c.drawImage(img,k*img.width/2,img.height*.10,img.width/2,img.height*.75,245+k*790,60,430,430);}
+ text('同じ高さの棒',856,220,25,muted);text('同じ場所',856,275,25,muted);
+}
+function seasonOrbit(s,p,step){
+ if(s.polarSpin&&step>=3){polarDay(s,p);return;}
+ const img=images['orbit-seasons-v2'];if(img?.naturalWidth)c.drawImage(img,145,14,706,471);
+ text('夏至',90,223,28,gold);text('冬至',921,223,28,blue);text('春分',493,25,26);text('秋分',493,478,26);
+ line(1020,65,1020,440,'#476075');text('地軸は、同じ方向を向いたまま',1360,48,28);
+ if(s.title!=='地軸の傾き'){
+  const summer=(p.a??180)>90;circle(summer?217:770,223,62,null,gold);
+  if(s.title.includes('距離')){text('夏と冬を、同じ公転軌道で比べる',1350,165,28);text('太陽との距離だけでは',1350,245,33);text('季節を説明できない',1350,303,33,gold);text('地軸の傾きと、太陽に対する向き',1350,415,25,muted);}
+  else{text(summer?'北半球の夏':'北半球の冬',1350,165,43,gold);text(summer?'北極側が太陽の方へ傾く':'北極側が太陽と反対へ傾く',1350,265,30);text(summer?'南半球は冬':'南半球は夏',1350,374,34,blue);}
+  return;
+ }
+ const x=1290,y=330;line(1120,y,1590,y,'#a4b4c1',3);line(x,95,x,y,'#a4b4c1',2,[6,6]);
+ arrow(x-38,y+85,x+95,110,blue,5);text('公転面',1515,369,24,muted);text('垂直な方向',1190,103,23,muted);
+ text('23.4°',1430,157,38,gold);text('66.6°',1460,284,34,gold);
+ text('北半球の季節を示す',1350,450,25,muted);
+}
+function seasonDomeOld(s,p){
+ const hour=p.hour??6;const names=['夏至','春分・秋分','冬至'],decs=[23.4,0,-23.4],cols=[gold,'#b7dccd',blue];
+ const minutes=Math.round(hour*60);text(`同じ時刻で比較　${Math.floor(minutes/60)}時${String(minutes%60).padStart(2,'0')}分`,856,29,29);
+ for(let k=0;k<3;k++){
+  const cx=292+k*565,cy=332,R=205,col=cols[k];text(names[k],cx,78,31,col);
+  const project=(e,n,u)=>[cx+R*(e*.93+n*.22),cy-R*(u*.89+n*.30)];
+  const path=(points,color,width=1)=>{c.beginPath();points.forEach((p,i)=>{const q=project(...p);i?c.lineTo(...q):c.moveTo(...q);});c.strokeStyle=color;c.lineWidth=width;c.stroke();};
+  const ground=[];for(let a=0;a<=360;a+=3)ground.push([Math.cos(a*D),Math.sin(a*D),0]);
+  c.beginPath();ground.forEach((p,i)=>{const q=project(...p);i?c.lineTo(...q):c.moveTo(...q);});c.closePath();c.fillStyle='#42646b55';c.fill();path(ground,'#a2bec7',2);
+  for(const az of [0,45,90,135]){const pts=[];for(let a=0;a<=180;a+=3)pts.push([Math.cos(a*D)*Math.cos(az*D),Math.cos(a*D)*Math.sin(az*D),Math.sin(a*D)]);path(pts,'#a3c6db30');}
+  for(const elev of [30,60]){const pts=[];for(let a=0;a<=360;a+=3)pts.push([Math.cos(elev*D)*Math.cos(a*D),Math.cos(elev*D)*Math.sin(a*D),Math.sin(elev*D)]);path(pts,'#a3c6db30');}
+  const position=h=>{const d=decs[k]*D,a=h*D,l=35*D;return[-Math.cos(d)*Math.sin(a),Math.sin(d)*Math.cos(l)-Math.cos(d)*Math.cos(a)*Math.sin(l),Math.sin(d)*Math.sin(l)+Math.cos(d)*Math.cos(a)*Math.cos(l)];};
+  const arc=[];for(let h=-180;h<=180;h++) {const q=position(h);if(q[2]>=0)arc.push(q);}path(arc,col,4);
+  const q=position((hour-12)*15);if(q[2]>=0){const pt=project(...q);orb(...pt,12,'#ffe4a4');}
+  observer(cx,cy,0.65,0,'#fff2d5');
+  for(const [name,e,n] of [['東',1,0],['西',-1,0],['北',0,1],['南',0,-1]]){const pt=project(e*1.14,n*1.14,0);text(name,pt[0],pt[1]+12,21,muted);}
+  text(q[2]<0?'太陽は地平線の下':`太陽の高度　約${Math.round(Math.asin(q[2])/D)}°`,cx,457,26,col);
+ }
+}
+function seasonDome(s,p,step=0){
+ const hour=p.hour??6,mins=Math.round(hour*60),cx=650,cy=360,R=360;
+ const project=(e,n,u)=>[cx+R*n,cy+R*(e*.18-u*.76)];
+ const stroke=(pts,col,width=2,dash=[])=>{c.beginPath();pts.forEach((v,i)=>{const q=project(...v);i?c.lineTo(...q):c.moveTo(...q);});c.strokeStyle=col;c.lineWidth=width;c.setLineDash(dash);c.stroke();c.setLineDash([]);};
+ text('東側から天球を見る',650,29,29);text(`${Math.floor(mins/60)}時${String(mins%60).padStart(2,'0')}分`,1350,39,34,gold);
+ const horizon=[];for(let a=0;a<=360;a+=2)horizon.push([Math.sin(a*D),Math.cos(a*D),0]);stroke(horizon,'#bacbd0',2);
+ const rim=[];for(let a=0;a<=180;a+=2)rim.push([0,-Math.cos(a*D),Math.sin(a*D)]);stroke(rim,'#bacbd0',2);
+ observer(cx,cy,1.05,0,'#fff0ce');
+ for(const [name,e,n] of [['南',0,-1.13],['北',0,1.13],['東',1.32,0],['西',-1.25,0]]){const q=project(e,n,0);text(name,...q,27);}
+ const decs=[-23.4,0,23.4],cols=[blue,'#cfe3d6',gold],names=['冬至','春分・秋分','夏至'];
+ for(let k=0;k<3;k++){
+  const pos=h=>{const a=h*D,d=decs[k]*D,l=35*D;return[-Math.cos(d)*Math.sin(a),Math.sin(d)*Math.cos(l)-Math.cos(d)*Math.cos(a)*Math.sin(l),Math.sin(d)*Math.sin(l)+Math.cos(d)*Math.cos(a)*Math.cos(l)];};
+  const am=[],pm=[];for(let h=-180;h<=180;h++){const q=pos(h);if(q[2]>=0)(h<=0?am:pm).push(q);}stroke(pm,cols[k],2,[5,6]);stroke(am,cols[k],4);
+  if(s.focus==='endpoints'&&k===[-1,2,1,0][step]){for(const h of [-1,1]){const a=h*Math.acos(-Math.tan(35*D)*Math.tan(decs[k]*D))/D,pt=project(...pos(a));circle(...pt,13,null,gold);circle(...pt,5,gold);}}
+  const peak=project(...pos(0));text(names[k],peak[0]-25,peak[1]-27,26,cols[k]);
+  const q=pos((hour-12)*15);if(q[2]>=0&&s.focus!=='endpoints')orb(...project(...q),11,'#ffe4a4');
+ }
+ text('午前は手前、午後は奥の軌道',650,479,24,muted);
+ line(1120,85,1120,442,'#476075');
+ if(s.focus==='dayLength'){for(let k=0;k<3;k++){const len=dayLength(decs[k]),y=150+k*112,left=1200,width=440;text(names[k],1400,y-32,25,cols[k]);line(left,y,left+width,y,'#425565',12);line(left+(12-len/2)/24*width,y,left+(12+len/2)/24*width,y,cols[k],12);circle(left+hour/24*width,y,8,'#fff3d0');text(`昼 約${len.toFixed(1)}時間`,1400,y+35,24,cols[k]);}text('0時',1200,478,20,muted);text('24時',1640,478,20,muted);return;}
+ if(s.focus==='endpoints'){text('地平線との交点に注目',1400,142,30,gold);text(step===1?'夏至：北寄り':step===2?'春秋分：真東・真西':step===3?'冬至：南寄り':'まず東と西の位置を確認',1400,245,29);text('丸枠が、昇る位置・沈む位置',1400,361,25,muted);return;}
+ text('3つの季節を、同じ時刻で比較',1400,132,28);text('左が南、右が北',1400,214,29);text('夏は高く、冬は低い',1400,296,29,gold);text('地平線に届く位置も違う',1400,377,26,muted);
+}
+function polarDay(s,p){
+ const spin=p.spin??0;const axis=[Math.sin(23.4*D),Math.sqrt(Math.cos(23.4*D)**2-.25**2),.25],L=Math.hypot(axis[0],axis[1]),u=[axis[1]/L,-axis[0]/L,0],v=[-axis[2]*u[1],axis[2]*u[0],axis[0]*u[1]-axis[1]*u[0]];
+ const point=(lat,lon)=>axis.map((a,i)=>a*Math.sin(lat*D)+Math.cos(lat*D)*(u[i]*Math.cos(lon*D)+v[i]*Math.sin(lon*D)));
+ window.SeedPolarState={spin,north:axis,marker:point(80,spin)};
+ text('地軸のまわりを自転しても、北極の昼夜は変わらない',856,29,31);
+ orb(856,245,42,gold);text('太陽',856,320,26,gold);
+ for(let k=0;k<2;k++){
+  const x=k?1260:450,y=258,r=144,dir=k?-1:1;
+  orb(x,y,r,'#4c96b3');c.save();c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.clip();
+  const g=c.createLinearGradient(x-r,y,x+r,y);g.addColorStop(0,k?'#020a1408':'#020a14f0');g.addColorStop(.49,k?'#020a1410':'#020a14ec');g.addColorStop(.51,k?'#020a14ec':'#020a1410');g.addColorStop(1,k?'#020a14f0':'#020a1408');c.fillStyle=g;c.fillRect(x-r,y-r,r*2,r*2);
+  const draw=pts=>{c.beginPath();let first=true;for(const q of pts){if(q[2]<0){first=true;continue;}const xx=x+r*q[0],yy=y-r*q[1];first?c.moveTo(xx,yy):c.lineTo(xx,yy);first=false;}c.strokeStyle='#d2eaf27a';c.lineWidth=1.5;c.stroke();};
+  for(let lat=-60;lat<=80;lat+=20){const pts=[];for(let lon=0;lon<=360;lon+=3)pts.push(point(lat,lon+spin));draw(pts);}
+  for(let lon=0;lon<360;lon+=30){const pts=[];for(let lat=-90;lat<=90;lat+=3)pts.push(point(lat,lon+spin));draw(pts);}
+  const mark=point(80,spin);if(mark[2]>0)circle(x+r*mark[0],y-r*mark[1],6,red);
+  c.restore();line(x-axis[0]*r*1.2,y+axis[1]*r*1.2,x+axis[0]*r*1.2,y-axis[1]*r*1.2,'#d2eaf2',3);
+  circle(x+axis[0]*r,y-axis[1]*r,7,gold);text('北極',x+axis[0]*r+62,y-axis[1]*r,24,gold);
+  for(let dy of [-32,0,32])arrow(856+dir*-70,y+dy,x+dir*175,y+dy,gold,2);
+  text(k?'冬至：北極は一日中夜':'夏至：北極は一日中昼',x,76,30,k?blue:gold);
+  text(k?'極夜':'白夜',x,454,34,k?blue:gold);
+ }
+ text(`自転 ${Math.round(spin/360*24)}時間／24時間`,856,408,25);text('赤い印：北緯80°の地点',856,478,22,muted);
+}
+function altitudeReason(s,p,step){
+ const dec=p.dec??s.dec??0,alt=55+dec,cx=363,cy=300,r=135,l=35*D;
+ text('地球の断面と、北緯35°の人',425,30,28);text('その人の空を、横から拡大',1300,30,28);line(850,75,850,470,'#476075');
+ orb(cx,cy,r,blue);line(cx-180,cy,cx+190,cy,'#bcd5dc',2,[6,6]);text('赤道',cx-180,cy+34,24,muted);
+ const px=cx+r*Math.cos(l),py=cy-r*Math.sin(l);line(cx,cy,cx+(r+95)*Math.cos(l),cy-(r+95)*Math.sin(l),gold,3);observer(px,py,.65,Math.PI/2-l,'#fff4d5');
+ line(px-80*Math.sin(l),py-80*Math.cos(l),px+90*Math.sin(l),py+90*Math.cos(l),'#e2d6bf',4);
+ text('天頂の方向',615,99,25,gold);text('地平線',650,313,25,muted);
+ c.beginPath();c.arc(cx,cy,67,-l,0);c.strokeStyle=gold;c.lineWidth=3;c.stroke();text('35°',cx+96,cy-27,26,gold);
+ if(s.mode==='equinox'){line(px,py,px+130,py,'#82bacf',2,[5,5]);c.beginPath();c.arc(px,py,52,-l,0);c.strokeStyle=blue;c.lineWidth=3;c.stroke();text('35°',px+79,py-17,23,blue);}
+ if(s.mode!=='latitude'){for(const offset of [-32,0,32])arrow(px+250*Math.cos(dec*D)+offset*Math.sin(dec*D),py-250*Math.sin(dec*D)+offset*Math.cos(dec*D),px+115*Math.cos(dec*D)+offset*Math.sin(dec*D),py-115*Math.sin(dec*D)+offset*Math.cos(dec*D),gold,2);text(dec>1?'赤道より23.4°北からの光':dec<-1?'赤道より23.4°南からの光':'赤道面に平行な太陽光',620,453,23,muted);}
+ const x=1410,y=385,ray=270;line(x-425,y,x+125,y,'#c5d1d6',3);line(x,y,x,y-295,'#bcd5dc',2,[6,6]);observer(x,y,.72,0,'#fff4d5');text('天頂',x,65,25);text('南の地平線',1080,432,24,muted);
+ if(s.mode==='latitude'){text('中心で測る35°が緯度',1320,165,32,gold);text('地平線は足元の地面の向き',1320,245,26);line(x-25,y,x-25,y-25,blue,3);line(x-25,y-25,x,y-25,blue,3);text('地平線から天頂まで90°',1300,478,29,gold);return;}
+ line(x,y,x-ray*Math.cos(55*D),y-ray*Math.sin(55*D),'#a9baca55',3,[6,6]);
+ arrow(x,y,x-ray*Math.cos(alt*D),y-ray*Math.sin(alt*D),gold,4);orb(x-ray*Math.cos(alt*D),y-ray*Math.sin(alt*D),12,gold);
+ c.beginPath();c.arc(x,y,80,-Math.PI+alt*D,-Math.PI/2);c.strokeStyle=blue;c.lineWidth=4;c.stroke();
+ c.beginPath();c.arc(x,y,114,-Math.PI,-Math.PI+alt*D);c.strokeStyle=gold;c.lineWidth=3;c.stroke();text('高度',1210,350,25,gold);
+ text(s.mode==='complement'?'真上まで90°':`天頂との差 ${Math.round((90-alt)*10)/10}°`,1135,109,27,blue);
+ text(step>=3?(s.mode==='complement'?'2つの角度を合わせると90°':`${dec>1?'55° ＋ 23.4°':dec<-1?'55° − 23.4°':'90° − 35°'} ＝ ${alt.toFixed(1)}°`):'地平線から太陽までが、高度',1300,478,27,step>=3?gold:muted);
+}
+function untiltedOrbit(s,p){
+ text('仮想の地球：地軸の傾き0°',490,35,31);const a=(p.a??0)*D,cx=490,cy=255;
+ c.beginPath();c.ellipse(cx,cy,295,133,0,0,Math.PI*2);c.strokeStyle='#8ca6b9';c.lineWidth=2;c.stroke();orb(cx,cy,40,gold);
+ const x=cx+295*Math.cos(a),y=cy+133*Math.sin(a);orb(x,y,45,blue);line(x,y-80,x,y+80,'#ecf3ef',3);line(x-43,y,x+43,y,gold,3);text('太陽',cx,330,25,gold);
+ line(920,80,920,450,'#476075');text('どの公転位置でも',1320,94,32);text('赤道面に沿って光が届く',1320,174,30,gold);text('北緯35°の南中高度：55°',1320,285,32);text('昼の長さ：12時間',1320,375,32);text('実際の地球との比較用モデル',856,479,23,muted);
+}
+function axisBridge(s,p,step){
+ const a=(p.tilt??0)*D,x=520,y=268,r=142;orb(x,y,r,blue);
+ line(140,y,875,y,'#c5ced4',2,[7,7]);line(x,60,x,458,'#c5ced4',2,[7,7]);
+ line(x-190*Math.sin(a),y+190*Math.cos(a),x+190*Math.sin(a),y-190*Math.cos(a),gold,5);
+ if(step>=1)line(x-225*Math.cos(a),y-225*Math.sin(a),x+225*Math.cos(a),y+225*Math.sin(a),red,5);
+ text('公転面',180,y+35,25,muted);text('公転面に垂直',350,52,25,muted);text('地軸',760,85,29,gold);
+ if(step>=2){c.beginPath();c.arc(x,y,165,-Math.PI/2,-Math.PI/2+a);c.strokeStyle=gold;c.lineWidth=3;c.stroke();c.beginPath();c.arc(x,y,195,0,a);c.strokeStyle=red;c.lineWidth=3;c.stroke();}
+ line(970,75,970,443,'#476075');text('地軸と赤道面は、いつも直角',1325,95,31);
+ text(step>=1?'赤い線：赤道面':'まず地軸を見る',1325,190,30,red);
+ if(step>=2){text(`地軸の傾き　${(a/D).toFixed(1)}°`,1325,295,34,gold);text(`赤道面の傾き　${(a/D).toFixed(1)}°`,1325,390,34,red);}
+ text('直角の組を、一緒に傾けて確かめる',520,479,25,muted);
+}
+function declinationBridge(s,p,step){
+ const names=['春分・秋分','夏至','冬至'],ds=[0,23.4,-23.4];text('公転図から、太陽と地軸を含む断面を取り出す',856,30,30);
+ for(let k=0;k<3;k++){const x=280+k*560,y=265,r=100,a=ds[k]*D,shown=k<=Math.max(0,step-1);c.save();c.globalAlpha=shown?1:.18;
+  text(names[k],x,85,31);orb(x,y,r,blue);line(x-135*Math.sin(a),y+135*Math.cos(a),x+135*Math.sin(a),y-135*Math.cos(a),gold,3);line(x-145*Math.cos(a),y-145*Math.sin(a),x+145*Math.cos(a),y+145*Math.sin(a),red,4);
+  for(const dy of [-25,0,25])arrow(x+220,y+dy,x+155,y+dy,gold,2);
+  line(x,y,x+145,y,'#d4e5ea',2,[4,5]);c.beginPath();c.arc(x,y,120,Math.min(0,a),Math.max(0,a));c.strokeStyle='#e4bd70';c.lineWidth=3;c.stroke();
+  text(k===0?'赤道面に沿う：0°':k===1?'北側へ23.4°':'南側へ23.4°',x,438,29,gold);c.restore();
+ }
+ text('赤い線は赤道面。各断面は、太陽が右になるよう向きをそろえた図',856,483,23,muted);
+}
+function altitudePractice(s,p,step){
+ const second=step>=3,lat=second?40:35,alt=90-lat+(second?23.4:0),answer=step===2||step===4,x=920,y=382;
+ text(second?'② 北緯40°・夏至':'① 北緯35°・春分',856,37,34);line(370,y,1320,y,'#b8cbd4',3);line(x,y,x,100,'#b8cbd4',2,[6,6]);observer(x,y,1.15,0,'#fff1d0');
+ arrow(x,y,x-290*Math.cos(alt*D),y-290*Math.sin(alt*D),gold,4);orb(x-290*Math.cos(alt*D),y-290*Math.sin(alt*D),15,gold);text('天頂',x,73,26);text('南の地平線',425,430,26);
+ c.beginPath();c.arc(x,y,120,-Math.PI,-Math.PI+alt*D);c.strokeStyle=gold;c.lineWidth=4;c.stroke();text(answer?`${alt.toFixed(1)}°`:'高度は？',650,327,38,gold);
+ text(answer?(second?'基準50°に、23.4°を足す':'90°から、北緯35°を引く'):'求める角度を指してから、式を考えよう',856,480,28);
+}
+function energyArea(s,p){
+ const a=(p.angle??75)*D,x=440,y=345,w=180,len=w/Math.sin(a),sourceX=x-210*Math.cos(a),sourceY=y-210*Math.sin(a);
+ text('同じ量の光を、傾けて比べる',450,32,29);text('赤枠の地面が受け取る光',1325,32,29);
+ poly([[sourceX-w/2*Math.sin(a),sourceY+w/2*Math.cos(a)],[sourceX+w/2*Math.sin(a),sourceY-w/2*Math.cos(a)],[x+len/2,y],[x-len/2,y]],'#e4bd7040');
+ for(let k=-4;k<=4;k++){const off=k*w/8;arrow(sourceX-off*Math.sin(a),sourceY+off*Math.cos(a),x-off/Math.sin(a),y,gold,2);}
+ line(140,y,780,y,'#acbdc4',3);c.strokeStyle=red;c.lineWidth=4;c.strokeRect(x-70,y-7,140,25);text('赤枠の幅は固定',440,405,27,red);text(`太陽の高度 ${Math.round(a/D)}°`,440,467,26,muted);
+ line(930,75,930,440,'#476075');text('同じ面積',1325,139,32);c.strokeStyle=red;c.lineWidth=4;c.strokeRect(1100,185,450,125);
+ c.fillStyle=`rgba(228,189,112,${Math.sin(a)*.8})`;c.fillRect(1103,188,444,119);
+ text(`受け取る光の相対量　${Math.round(Math.sin(a)*100)}`,1325,365,30,gold);text('真上からの光を100とした比較',1325,420,23,muted);text('光の総量は同じ。広がる面積が違う。',1325,476,25);
+}
+function seasonSummary(s,p,step){
+ text('北半球の夏',430,40,34,gold);text('同じ地球の、南半球は冬',1280,40,34,blue);
+ if(step>=1){text('高い太陽',430,175,42,gold);text('低い太陽',1280,175,42,blue);text('同じ面積に、多くの光',430,248,29);text('同じ面積に、少ない光',1280,248,29);}
+ if(step>=2){text('長い昼',430,350,42,gold);text('短い昼',1280,350,42,blue);}
+ line(856,100,856,420,'#476075');text(step>=3?'同じ地球で季節が逆になる。距離だけでは説明できない。':'太陽の高さと、光が当たる時間を合わせて考える',856,478,28);
+}
+Object.assign(scenes,{annualCalendar,calendarYear,annualExercise,seasonShadow,seasonOrbit,seasonDome,altitudeReason,untiltedOrbit,axisBridge,declinationBridge,altitudePractice,energyArea,seasonSummary});
 const lightScenes=new Set(['compare','ratio','size','distance','solarDistance','altitude','energy','lightyear']);
 function render(canvas,s,p,step){c=canvas.getContext('2d');c.clearRect(0,0,W,H);const light=lightScenes.has(s.scene);ink=light?'#292c30':'#f5f0e5';muted=light?'#6f716e':'#b9c9d3';const bg=c.createLinearGradient(0,0,W,H);if(light){bg.addColorStop(0,'#fbfaf7');bg.addColorStop(1,'#e8eef1');}else{bg.addColorStop(0,'#071b30');bg.addColorStop(.6,'#102a43');bg.addColorStop(1,'#061223');}c.fillStyle=bg;c.fillRect(0,0,W,H);bounds=[];if(!scenes[s.scene])throw Error('Unknown scene '+s.scene);scenes[s.scene](s,p,step);window.SeedDiagramBounds=bounds;}
 return{ready,render,moonFraction,venusMetrics,solar,dayLength,annualMetrics};})();

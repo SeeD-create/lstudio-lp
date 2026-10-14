@@ -1,0 +1,5 @@
+#constellation-lab{display:flex;align-items:center;gap:22px;width:100%;font-size:24px}
+#constellation-lab[hidden]{display:none}
+#constellation-lab label{display:flex;align-items:center;gap:12px}
+#constellation-lab button,#constellation-lab select{font:inherit;padding:3px 12px;border:1px solid #b7ad9c;border-radius:4px;background:#faf7ef;color:#333}
+#constellation-hour{width:300px;accent-color:#9d7941}
