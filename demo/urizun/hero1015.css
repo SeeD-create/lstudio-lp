@@ -1,0 +1,3 @@
+body[data-design=c] .scene:first-child h1{font-size:clamp(23px,5.7vw,28px);line-height:1.65;letter-spacing:.025em;top:24px;left:20px;max-height:calc(100% - 48px)}
+body[data-design=c] .scene:first-child h1 span:nth-child(3){animation-delay:1.45s}
+@media(min-width:761px){body[data-design=c] .scene:first-child h1{font-size:clamp(27px,2.8vw,40px);top:50px;left:clamp(45px,7vw,130px);line-height:1.8;letter-spacing:.025em}}

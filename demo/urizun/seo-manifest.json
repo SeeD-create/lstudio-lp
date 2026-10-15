@@ -1,0 +1,1076 @@
+[
+  {
+    "route": "/pricing/",
+    "title": "料金のご案内｜相続手続き・遺言・年金の費用",
+    "description": "相続手続きのプラン料金と個別業務の費用をご案内。基本報酬、実費、提携専門家の費用を確認し、初回60分の無料相談でお見積りをご相談いただけます。",
+    "canonical": "https://urizun-sozoku.com/pricing/"
+  },
+  {
+    "route": "/contact/",
+    "title": "無料相談・お問い合わせ｜川崎・横浜の相続・終活のご相談",
+    "description": "相続手続き、遺言、身元保証、年金についてのお問い合わせ。初回相談60分無料。ご希望の候補日時をお知らせいただき、事務所からの返信で相談日時を確定します。",
+    "canonical": "https://urizun-sozoku.com/contact/"
+  },
+  {
+    "route": "/pension/",
+    "title": "ご遺族の年金手続き｜川崎・横浜の遺族年金・未支給年金の相談",
+    "description": "ご家族を亡くされた後の未支給年金・遺族年金などの手続きをご案内。Officeうりずんの社会保険労務士が、相続手続きとあわせてご相談をお受けします。",
+    "canonical": "https://urizun-sozoku.com/pension/"
+  },
+  {
+    "route": "/shushin/",
+    "title": "身元保証・終身サポート｜川崎・横浜の身元保証・終活相談",
+    "description": "入院・施設入居時の身元保証から、任意後見や死後事務まで。ご自身の将来への備えについて、サービス内容と費用を確認してご相談いただけます。",
+    "canonical": "https://urizun-sozoku.com/shushin/"
+  },
+  {
+    "route": "/profile/",
+    "title": "代表・メンバー紹介｜前西原清城のプロフィール・資格・経歴",
+    "description": "Officeうりずん代表の前西原清城とメンバーをご紹介。社会保険労務士・行政書士としての資格、経歴、相続や終活のご相談に向き合う姿勢をお伝えします。",
+    "canonical": "https://urizun-sozoku.com/profile/"
+  },
+  {
+    "route": "/office/",
+    "title": "事務所案内・アクセス｜川崎市川崎区中島の社会保険労務士・行政書士事務所",
+    "description": "Officeうりずんの所在地、営業時間、業務内容、アクセスをご案内。神奈川県川崎市川崎区中島2-13-4。川崎・横浜の相続手続きと終活をご相談いただけます。",
+    "canonical": "https://urizun-sozoku.com/office/"
+  },
+  {
+    "route": "/privacy-policy/",
+    "title": "プライバシーポリシー｜個人情報の取扱い",
+    "description": "Officeうりずん社会保険労務士・行政書士事務所の個人情報保護方針。お問い合わせなどでお預かりする個人情報の取扱いについてご案内します。",
+    "canonical": "https://urizun-sozoku.com/privacy-policy/"
+  },
+  {
+    "route": "/column/",
+    "title": "相続・終活コラム",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/"
+  },
+  {
+    "route": "/column/page/2/",
+    "title": "相続・終活コラム（2ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/2/"
+  },
+  {
+    "route": "/column/page/3/",
+    "title": "相続・終活コラム（3ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/3/"
+  },
+  {
+    "route": "/column/page/4/",
+    "title": "相続・終活コラム（4ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/4/"
+  },
+  {
+    "route": "/column/page/5/",
+    "title": "相続・終活コラム（5ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/5/"
+  },
+  {
+    "route": "/column/page/6/",
+    "title": "相続・終活コラム（6ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/6/"
+  },
+  {
+    "route": "/column/page/7/",
+    "title": "相続・終活コラム（7ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/7/"
+  },
+  {
+    "route": "/column/page/8/",
+    "title": "相続・終活コラム（8ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/8/"
+  },
+  {
+    "route": "/column/page/9/",
+    "title": "相続・終活コラム（9ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/9/"
+  },
+  {
+    "route": "/column/page/10/",
+    "title": "相続・終活コラム（10ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/10/"
+  },
+  {
+    "route": "/column/page/11/",
+    "title": "相続・終活コラム（11ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/11/"
+  },
+  {
+    "route": "/column/page/12/",
+    "title": "相続・終活コラム（12ページ目）",
+    "description": "相続・終活コラムの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column/page/12/"
+  },
+  {
+    "route": "/column-category/others/",
+    "title": "その他のお役立ち情報",
+    "description": "その他のお役立ち情報の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/others/"
+  },
+  {
+    "route": "/column-category/fudosan/",
+    "title": "不動産・空き家",
+    "description": "不動産・空き家の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/fudosan/"
+  },
+  {
+    "route": "/column-category/nini-kouken/",
+    "title": "任意後見・財産管理",
+    "description": "任意後見・財産管理の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/nini-kouken/"
+  },
+  {
+    "route": "/column-category/international-inheritance/",
+    "title": "外国人・国際相続",
+    "description": "外国人・国際相続の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/international-inheritance/"
+  },
+  {
+    "route": "/column-category/seasonal-special/",
+    "title": "季節・特殊ケース",
+    "description": "季節・特殊ケースの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/seasonal-special/"
+  },
+  {
+    "route": "/column-category/consult/",
+    "title": "専門家選び・相談",
+    "description": "専門家選び・相談の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/consult/"
+  },
+  {
+    "route": "/column-category/area-kawasaki-yokohama/",
+    "title": "川崎・横浜エリア情報",
+    "description": "川崎・横浜エリア情報の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/area-kawasaki-yokohama/"
+  },
+  {
+    "route": "/column-category/pension/",
+    "title": "年金手続き",
+    "description": "年金手続きの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/pension/"
+  },
+  {
+    "route": "/column-category/after-death-procedures/",
+    "title": "死亡直後の手続き・名義変更",
+    "description": "死亡直後の手続き・名義変更の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/after-death-procedures/"
+  },
+  {
+    "route": "/column-category/seizen-taisaku/",
+    "title": "生前対策",
+    "description": "生前対策の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/seizen-taisaku/"
+  },
+  {
+    "route": "/column-category/inheritance-rights/",
+    "title": "相続の権利・割合",
+    "description": "相続の権利・割合の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/inheritance-rights/"
+  },
+  {
+    "route": "/column-category/law-revision/",
+    "title": "相続・終活の法改正",
+    "description": "相続・終活の法改正の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/law-revision/"
+  },
+  {
+    "route": "/column-category/inheritance-basics/",
+    "title": "相続手続きの基礎",
+    "description": "相続手続きの基礎の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/inheritance-basics/"
+  },
+  {
+    "route": "/column-category/souzokuzei/",
+    "title": "相続税",
+    "description": "相続税の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/souzokuzei/"
+  },
+  {
+    "route": "/column-category/sogi-noukotsu/",
+    "title": "葬儀・納骨・墓じまい",
+    "description": "葬儀・納骨・墓じまいの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/sogi-noukotsu/"
+  },
+  {
+    "route": "/column-category/shushin-support/",
+    "title": "身元保証・終身サポート",
+    "description": "身元保証・終身サポートの記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/shushin-support/"
+  },
+  {
+    "route": "/column-category/will/",
+    "title": "遺言書の作成",
+    "description": "遺言書の作成の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/will/"
+  },
+  {
+    "route": "/column-category/sumai-zanchibutsu/",
+    "title": "高齢者の住まい・残置物",
+    "description": "高齢者の住まい・残置物の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/sumai-zanchibutsu/"
+  },
+  {
+    "route": "/column-category/keiyaku-trouble/",
+    "title": "高齢者の契約トラブル予防",
+    "description": "高齢者の契約トラブル予防の記事をお探しいただけます。相続手続き、年金、遺言、身元保証など、お困りごとに近いテーマをお選びください。",
+    "canonical": "https://urizun-sozoku.com/column-category/keiyaku-trouble/"
+  },
+  {
+    "route": "/column/ginko-sashimodoshi-taio/",
+    "title": "銀行から相続書類の不足を指摘されたら｜差戻し時の確認ポイント",
+    "description": "相続の手続きで、金融機関から書類が足りないと言われたときに確かめたい点を整理します。何が足りないのかの確認の仕方、戸籍のつながりと印鑑証明書の区分、法定相続情報一覧図の写しの使い方を、行政書士が説明します。",
+    "canonical": "https://urizun-sozoku.com/column/ginko-sashimodoshi-taio/"
+  },
+  {
+    "route": "/column/souzoku-nagabiku-genin/",
+    "title": "相続手続きが長引くのはどこ？｜止まりやすい工程と、先に整理しておくこと",
+    "description": "相続手続きが長引くときは、どこかの工程で止まっています。期限がある手続きの一覧と、戸籍・書類・金融機関・相続人の足並みという止まりやすい4つの工程、先に整理しておくことを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/souzoku-nagabiku-genin/"
+  },
+  {
+    "route": "/column/souzoku-susumanai-genin/",
+    "title": "誰も反対していないのに相続が進まない｜連絡・書類・役割分担の整え方",
+    "description": "相続人の誰も反対していないのに手続きが進まないのは、全員分の書類をそろえる作業で止まりやすいからです。連絡の窓口役の決め方、書類の回し方、戸籍の束の減らし方を、行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/souzoku-susumanai-genin/"
+  },
+  {
+    "route": "/column/zanchibutsu-model-joko/",
+    "title": "賃貸の部屋に残された荷物はどうなるのか｜国が示すモデル契約条項と、指定残置物リストの作り方",
+    "description": "賃貸住宅で亡くなった方の部屋に残された荷物は、相続人に引き継がれます。国土交通省と法務省が示した残置物のモデル契約条項の仕組みと、残したいものを書いておく指定残置物リストの作り方を、行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/zanchibutsu-model-joko/"
+  },
+  {
+    "route": "/column/miyori-shien-kaisei-2026/",
+    "title": "社会福祉法の改正で、身寄りのない人への支援はどうなる？｜決まったこと・まだ分からないこと",
+    "description": "2026年6月に成立した改正社会福祉法で、身寄りのない人への支援はどうなるのか。改正で決まったことと、2026年9月時点の公表資料では確認できないこと（施行日・利用料・実施主体など）を分けて、行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/miyori-shien-kaisei-2026/"
+  },
+  {
+    "route": "/column/hosa-kekkaku-joko-saikosai/",
+    "title": "保佐を始めたら仕事を失う？｜警備員の欠格条項を違憲とした最高裁判決と、いまの制度",
+    "description": "最高裁判所大法廷は令和8年2月18日、改正前の警備業法のうち被保佐人を警備員の欠格事由としていた部分について、平成29年3月の時点で憲法に違反するに至っていたと判断しました。判決が判断したこと・していないことと、いまの制度を行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/hosa-kekkaku-joko-saikosai/"
+  },
+  {
+    "route": "/column/shushin-support-guideline/",
+    "title": "身元保証や死後事務を事業者に頼む前に｜国のガイドラインを物差しに契約書を見る",
+    "description": "身元保証や死後事務を事業者に頼む前に、国の高齢者等終身サポート事業者ガイドラインを物差しに、重要事項説明書の12項目、法令に根拠がある6項目、預託金の管理、寄附や遺贈の扱いを確認する方法を行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/shushin-support-guideline/"
+  },
+  {
+    "route": "/column/kosei-shosho-igon-digital/",
+    "title": "公正証書のデジタル化で、遺言の作り方はどう変わったか｜ウェブ会議・電子データ・変わらない証人",
+    "description": "令和7年10月1日から、公正証書を作る手続きがデジタル化されました。公正証書は原則として電子データで作成され、公証人が相当と認めればウェブ会議で作れる場合もあります。一方、証人二人以上など公正証書遺言の基本的な方式は変わっていません。遺言では公証人の出張という方法もあわせて、使える条件を整理します。",
+    "canonical": "https://urizun-sozoku.com/column/kosei-shosho-igon-digital/"
+  },
+  {
+    "route": "/column/koseki-furigana-todokede/",
+    "title": "戸籍のフリガナはどうなった？｜届出の期間が終わったあとの確認と、変更したいときの手続き",
+    "description": "戸籍に氏名のフリガナを記載する制度は令和7年5月26日に始まり、届出の期間は令和8年5月25日で終了しました。届け出なかった場合の記載のされ方、川崎市・横浜市の記載予定、記載されたフリガナを変えたいときの手続き、通知を装った詐欺への注意を整理します。",
+    "canonical": "https://urizun-sozoku.com/column/koseki-furigana-todokede/"
+  },
+  {
+    "route": "/column/smart-henko-toki/",
+    "title": "スマート変更登記とは｜検索用情報の申出をしておけば、住所が変わったときの登記はどうなるか",
+    "description": "令和8年（2026年）4月1日から、不動産の所有者が住所や氏名を変えたときの変更登記が義務になりました。検索用情報の申出をしておくと、法務局がご本人の了解を得た上で職権で変更登記をする「スマート変更登記」の仕組みと、申出の方法、申出の前に確認しておきたい点を整理します。",
+    "canonical": "https://urizun-sozoku.com/column/smart-henko-toki/"
+  },
+  {
+    "route": "/column/koreisha-homon-hanbai-data/",
+    "title": "85歳以上の相談は訪問販売の割合が最も高い｜2025年度のデータと、家族が確認しておくこと",
+    "description": "国民生活センターが2026年9月16日に公表した2025年度の集計では、85歳以上の方の相談の中で、訪問販売の割合が最も高くなりました。件数との違い、大きく増えた分電盤の点検商法、川崎市・横浜市・神奈川県の相談窓口の違いを整理します。",
+    "canonical": "https://urizun-sozoku.com/column/koreisha-homon-hanbai-data/"
+  },
+  {
+    "route": "/column/shisetsu-taikyo-souzoku/",
+    "title": "親が施設で亡くなったら｜退去の手続きと、未払い分の扱いを確認する",
+    "description": "母が施設で亡くなり、片づけと請求書が届いた。まず入居契約書と重要事項説明書を出し、契約の形・前払金の返還・保証の欄を順に確認します。誰が払うかを断定せず、確認の順番を行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/shisetsu-taikyo-souzoku/"
+  },
+  {
+    "route": "/column/nouchi-souzoku/",
+    "title": "農地を相続したら｜まず必要な届出と、手放したいときに確認すること",
+    "description": "父の田畑を相続したが、農業はしておらず遠方に住んでいる。農地を相続したら、農業委員会への届出が相続登記とは別に必要です。期限の考え方と手放すときの選択肢を、行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/nouchi-souzoku/"
+  },
+  {
+    "route": "/column/jigyo-shokei-iryubun-tokurei/",
+    "title": "会社の株を後継者に集めたい｜遺留分の民法特例で確認すること",
+    "description": "父から会社の代表と株を引き継いでいる。妹たちの遺留分が気になる。遺留分の民法特例には、推定相続人全員の合意と大臣の確認・家庭裁判所の許可が必要です。制度の仕組みと相談先を行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/jigyo-shokei-iryubun-tokurei/"
+  },
+  {
+    "route": "/column/sozoku-saseru-igon/",
+    "title": "遺言に「相続させる」と書いてあったら｜自宅は誰のものになるのか、裁判例から見る確認ポイント",
+    "description": "遺言に「自宅は長男に相続させる」とあった。その財産については遺産分割協議を経ないとされますが、登記の手続きは別に必要です。最高裁の考え方と2019年施行の改正を、行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/sozoku-saseru-igon/"
+  },
+  {
+    "route": "/column/kojin-jigyo-souzoku/",
+    "title": "亡くなった親が個人事業主だった｜許認可と届出の期限、引き継ぐときに確認すること",
+    "description": "父が個人事業主だった。店を続けるか閉めるか決めかねている間にも、許認可の手続きには期限があります。業種ごとに違う扱いと、税務署への届出を、公的資料をもとに行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/kojin-jigyo-souzoku/"
+  },
+  {
+    "route": "/column/gentei-shonin/",
+    "title": "限定承認とは｜相続人全員でする手続きと、申述のあとに続くこと",
+    "description": "父に借金がありそうだが、額がはっきりしない。限定承認は、相続で得た財産の範囲でだけ債務を引き継ぐ方法です。相続人全員で申述する必要があることや、申述したあとに続く手続きを、行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/gentei-shonin/"
+  },
+  {
+    "route": "/column/kawasaki-shukatsu-shien/",
+    "title": "川崎市の終活支援事業とは｜未来あんしんサポート事業でできること、できないこと",
+    "description": "入院のときに身元保証人を頼める人がいない。川崎市には社会福祉協議会が実施する終活支援の事業があります。利用できる方の条件、費用、身元保証との違いを、公的資料をもとに行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/kawasaki-shukatsu-shien/"
+  },
+  {
+    "route": "/column/suji-souzoku-kyogisho/",
+    "title": "数次相続の遺産分割協議書｜祖父と父、二つの相続が重なったときに確認すること",
+    "description": "祖父名義のままの土地の相続が終わらないうちに、父が亡くなった。二つの相続が重なったときに、遺産分割協議書を作る前に確認しておきたいことを、公的資料で確認できた範囲で行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/suji-souzoku-kyogisho/"
+  },
+  {
+    "route": "/column/fudosan-bunkatsu-houhou/",
+    "title": "実家をどう分ける？｜現物分割・代償分割・換価分割の違いと、選ぶ前に確認すること",
+    "description": "実家1軒をきょうだいでどう分けるか。家庭裁判所の案内で紹介されている現物分割・代償分割・換価分割などの違いと、代償金を支払えるか、売る前の相続登記など、選ぶ前に確認しておきたいことを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/fudosan-bunkatsu-houhou/"
+  },
+  {
+    "route": "/column/ninchisho-souzokunin/",
+    "title": "相続人に認知症の人がいるとき｜協議を進める前に確認すること",
+    "description": "認知症という診断名だけで、遺産分割協議ができないと決まるわけではありません。判断能力の程度によって後見・保佐・補助のどれを利用するかが変わります。署名を求める前に確認すべきことと、成年後見が遺産分割後も続く点を行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/ninchisho-souzokunin/"
+  },
+  {
+    "route": "/column/tokubetsu-dairinin/",
+    "title": "未成年の相続人がいると特別代理人が必要？｜利益相反になる場面と手続",
+    "description": "未成年の子が相続人になっただけで、常に特別代理人が必要になるわけではありません。必要になるのは親権者と子、または子どうしの利益が相反する場合です。判断の基準と選任の手続き、似た名前の制度との違いを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/tokubetsu-dairinin/"
+  },
+  {
+    "route": "/column/souzokunin-daihyosha-todoke/",
+    "title": "相続人代表者指定届が届いたら｜名前を書くと何が決まるのか",
+    "description": "市区町村や都道府県から届く「相続人代表者指定届」は、書類を受け取る代表者を決めるための届出で、名前を書いた人が全額を負担する仕組みではありません。条文と自治体の公式案内をもとに、この届出が何を決めて何を決めないのかを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/souzokunin-daihyosha-todoke/"
+  },
+  {
+    "route": "/column/souzokubun-joto-hoki/",
+    "title": "相続分の譲渡・放棄と相続放棄は何が違う？｜相続債務の扱いに注意",
+    "description": "相続放棄・相続分の放棄・相続分の譲渡は名前が似ていますが、相続人という立場が残るか、相続債務をどう扱うか、家庭裁判所の手続きが必要かがそれぞれ違います。裁判所の公式資料で確認できる範囲に絞って、3つの違いを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/souzokubun-joto-hoki/"
+  },
+  {
+    "route": "/column/furui-koseki-yomikata/",
+    "title": "古い戸籍が読めないとき｜明治・大正の戸籍で確認すること",
+    "description": "相続手続きで取り寄せた古い戸籍が読めないとき、どこまでさかのぼれるのか、何が現在と違うのか、分からないときにどうすればよいのかを、公的資料で確認できる範囲に絞って行政書士が整理します。取り寄せられない戸籍があった場合の相続登記の取扱いにも触れます。",
+    "canonical": "https://urizun-sozoku.com/column/furui-koseki-yomikata/"
+  },
+  {
+    "route": "/column/jidosha-souzoku-tetsuzuki/",
+    "title": "親の車はどうする？｜自動車の相続手続きと、名義変更の進め方",
+    "description": "亡くなった親の車の名義変更について、車検証の所有者欄の確認から、普通車と軽自動車の窓口の違い、乗り続ける・売る・廃車にする場合の手続きの分かれ方、車の価格が100万円以下のときの提出書類の簡略化までを行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/jidosha-souzoku-tetsuzuki/"
+  },
+  {
+    "route": "/column/shigo-jimu-inin-hanrei/",
+    "title": "死後事務委任契約はなぜ有効なのか｜民法の原則と、最高裁が示した考え方",
+    "description": "委任は委任者が亡くなると終了するのが民法の原則です。それでも死後事務委任契約が有効とされるのはなぜか。最高裁平成4年判決について法務省資料で確認できる範囲と、委任終了後の応急処分との違い、契約で定める事務の例、公正証書と誰が何をするのかを行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/shigo-jimu-inin-hanrei/"
+  },
+  {
+    "route": "/column/souzoku-houchi-kakunin/",
+    "title": "親が亡くなってから相続手続きを何もしていない｜数か月・数年たってしまったときに確認すること",
+    "description": "親が亡くなってから数か月、数年たっても手続きに手をつけていない方へ。相続放棄・相続税・相続登記など期限のあるもの、未支給年金など時効を確認するもの、戸籍収集などいまからでも進められるものを整理し、2024年4月より前の相続登記の期限にも触れて行政書士・社会保険労務士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/souzoku-houchi-kakunin/"
+  },
+  {
+    "route": "/column/muryo-sodan-katsuyo/",
+    "title": "相続の無料相談はどう使う？｜窓口ごとの違いと、費用の確認の仕方",
+    "description": "相続の無料相談には法テラス、市区町村、士業会、法務局や家庭裁判所の手続案内などがあり、窓口によって聞けることが違います。窓口ごとの違い、相談前に整理しておくこと、依頼する前に費用について確認すべきことを行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/muryo-sodan-katsuyo/"
+  },
+  {
+    "route": "/column/saiten-souzoku/",
+    "title": "祖父の相続が終わらないうちに父が亡くなったら｜再転相続と熟慮期間の起算点",
+    "description": "祖父が亡くなり、その相続人となった父が、祖父の相続について承認も放棄もしないうちに亡くなった。この場面を実務では再転相続と呼びます。相続の承認や放棄を判断する3か月は、父が亡くなった日そのものから当然に数えるわけではありません。最高裁が示した起算点の基準と、まず何を確認すべきかを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/saiten-souzoku/"
+  },
+  {
+    "route": "/column/souzokunin-yukuefumei/",
+    "title": "相続人が行方不明のときはどうする？｜不在者財産管理人と失踪宣告の使い分け",
+    "description": "遺産分割を進めようとしたら、相続人のひとりと連絡が取れない。戸籍附票をたどっても所在が分からない。行方が分からない相続人を除外して遺産分割協議を成立させることはできません。不在者財産管理人と失踪宣告という2つの制度は、目的も効果もまったく違います。どちらを検討することになるのか、失踪宣告で誰の相続がどうなるのかを行政書",
+    "canonical": "https://urizun-sozoku.com/column/souzokunin-yukuefumei/"
+  },
+  {
+    "route": "/column/furui-souzoku-shirabekata/",
+    "title": "何十年も前の相続を調べる手順｜古い名義にぶつかったときの進め方",
+    "description": "登記を取ってみたら祖父の名前のままだった。何十年も前の相続が未処理のまま残っていることがあります。いまの家族構成だけを見ていても答えは出ません。亡くなった日の確認から戸籍の取り寄せ、当時の身分関係の読み取り、相続人の確定まで、古い名義にぶつかったときに何をどの順番で確認していくのかを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/furui-souzoku-shirabekata/"
+  },
+  {
+    "route": "/column/chakushutsu-denai-ko-souzokubun/",
+    "title": "嫡出でない子の相続分はいつ変わった？｜平成25年の違憲決定と、いま確認すべきこと",
+    "description": "古い相続の手続きで、相続人の中に婚姻外で生まれた子がいることが分かった。嫡出でない子の相続分は、かつて嫡出である子の2分の1とされていた時期があります。平成25年9月4日の最高裁決定と、その後の民法改正で何が変わったのか。過去に開始した相続への影響、半血の兄弟姉妹との違いまで行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/chakushutsu-denai-ko-souzokubun/"
+  },
+  {
+    "route": "/column/furui-souzoku-katoku/",
+    "title": "家督相続とは？｜戸主の地位を継ぐ制度と、開始する原因をやさしく解説",
+    "description": "古い戸籍を取り寄せたら「家督相続」という言葉が出てきた。祖父名義の土地を調べていたら、聞き慣れない制度にぶつかった。家督相続は、戸主の地位と財産の両方を一人が承継する、いまの民法にはない制度です。どのような場合に始まったのか、系譜・祭具・墳墓の扱い、条文番号を読むときの注意点まで行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/furui-souzoku-katoku/"
+  },
+  {
+    "route": "/column/furui-souzoku-souzokubun/",
+    "title": "配偶者の相続分は昭和56年に変わった｜昭和55年改正と、昔の相続で確認すること",
+    "description": "何十年も前に亡くなった方の相続が、手つかずのまま残っている。このとき、いまの法定相続分をそのまま当てはめると結論が変わることがあります。配偶者の相続分は昭和56年1月1日から引き上げられました。昭和55年改正で何が変わり、どの相続にどちらの割合が適用されるのか、遺留分・寄与分・兄弟姉妹の代襲もあわせて行政書士が整理しま",
+    "canonical": "https://urizun-sozoku.com/column/furui-souzoku-souzokubun/"
+  },
+  {
+    "route": "/column/furui-souzoku-tekiyou-hou/",
+    "title": "昔の相続はどう調べる？｜家督相続・明治民法・昭和23年以後の民法を見分ける方法",
+    "description": "祖父名義のまま残っている土地や、何十年も前の未処理の相続。こうした古い相続には、いまの民法とは違う規律が適用されることがあります。最初に見るのは亡くなった日です。昭和22年5月3日と昭和23年1月1日という二段階の境界を中心に、家督相続と遺産相続の違い、応急措置法の期間の扱い、調べるときの順序を行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/furui-souzoku-tekiyou-hou/"
+  },
+  {
+    "route": "/column/disability-vs-survivor-pension/",
+    "title": "障害年金と遺族年金は何が違う？｜初診日・障害等級・納付要件を解説",
+    "description": "障害年金と遺族年金は、目的も判定の仕方も違う制度です。障害年金で決め手になるのは今の状態ではなく初診日。初診日にどの制度へ加入していたかで請求先が変わります。障害者手帳の等級とは別に判断されることや、保険料納付要件を初診日の前日で見ることまで社会保険労務士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/disability-vs-survivor-pension/"
+  },
+  {
+    "route": "/column/inheritance-tax-payment-difficulty/",
+    "title": "相続税が払えないときどうする？｜期限内納付・延納・物納の順序と準備",
+    "description": "相続税は期限内に現金で一括納付が原則です。手元に現金がないとき、いきなり延納や物納を考えるのは順序が違います。まず財産の換金を検討し、それでも足りないときに延納、延納でも難しいときに物納。連帯納付義務とあわせて、確認する順序を行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/inheritance-tax-payment-difficulty/"
+  },
+  {
+    "route": "/column/jikka-inheritance/",
+    "title": "実家の片づけは何から始める？｜相続放棄・遺産分割の前に確認すること",
+    "description": "親が亡くなり実家を片づけるとき、業者に頼む前に確認しておくことがあります。通帳や権利証などの書類の確保、相続放棄を検討している場合の注意点、相続人どうしの話し合い、片づけ業者の許可の確認まで、進める順序を行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/jikka-inheritance/"
+  },
+  {
+    "route": "/column/shared-ownership-property/",
+    "title": "共有名義の不動産は何が困るのか｜売却・税金・次の相続で起きることと解消の方法",
+    "description": "相続で実家が兄弟の共有名義になった。名義が決まった時点では問題は見えませんが、売却・管理・固定資産税・次の相続の場面で、少しずつ動かしにくさが表に出てきます。2023年4月に変わった共有のルールをふまえ、困りごとの中身と、共有を解消する4つの方法を整理します。",
+    "canonical": "https://urizun-sozoku.com/column/shared-ownership-property/"
+  },
+  {
+    "route": "/column/no-heir-inheritance/",
+    "title": "相続人がいない場合、財産はどうなる？｜相続財産清算人と特別縁故者を行政書士が解説",
+    "description": "相続人がいない場合、財産はすぐに国のものになるわけではありません。家庭裁判所が相続財産清算人を選び、公告を経て、特別縁故者への分与が検討されます。2023年4月の改正で名称も手続きも変わったこの分野を、現行の制度にそって順を追って解説します。",
+    "canonical": "https://urizun-sozoku.com/column/no-heir-inheritance/"
+  },
+  {
+    "route": "/column/survivor-pension-where-to-apply/",
+    "title": "遺族年金はどこに請求する？｜遺族基礎・遺族厚生で変わる提出先と証明書類",
+    "description": "遺族年金の請求書は1種類ではなく、提出先も請求する年金によって変わります。遺族基礎年金のみなら市区町村役場、遺族厚生年金を含むなら年金事務所が基本ですが、死亡日が第3号被保険者期間中の場合は例外があります。生計維持をどう証明するかまで整理します。",
+    "canonical": "https://urizun-sozoku.com/column/survivor-pension-where-to-apply/"
+  },
+  {
+    "route": "/column/utility-cancellation-list/",
+    "title": "故人名義の契約を止めるには｜公共料金・携帯・サブスク解約の注意点",
+    "description": "故人名義の契約は、亡くなったからといって自動で整理されるわけではありません。クレジットカードを止めても契約先との契約は残ることがあります。契約先の特定から、公共料金の名義変更、携帯電話の承継と解約、未払いと相続放棄の関係まで、手続きの順序を整理します。",
+    "canonical": "https://urizun-sozoku.com/column/utility-cancellation-list/"
+  },
+  {
+    "route": "/column/pensioner-death-procedure/",
+    "title": "年金受給者が亡くなったときの手続き｜未支給年金の請求と受給停止を社労士が解説",
+    "description": "年金を受けていた方が亡くなったときの手続きを、未支給年金の請求と受給停止に分けて解説します。マイナンバーが収録されていれば死亡の届出は原則省略できますが、未支給年金は請求しなければ支給されません。請求できる方の順位、必要な書類、提出先、5年の時効の起算点までを整理します。",
+    "canonical": "https://urizun-sozoku.com/column/pensioner-death-procedure/"
+  },
+  {
+    "route": "/column/heikyu-chosei/",
+    "title": "併給調整とは？遺族年金と老齢年金・障害年金を同時に受け取れるケース",
+    "description": "遺族年金と老齢年金は両方受け取れるのか。公的年金の併給調整の仕組みを、65歳の前と後に分けて整理します。同じ支給事由の基礎年金と厚生年金の扱い、65歳以降に併給できる組み合わせ、額が決まる段階と実際に支給される段階の違い、手続きで漏れやすい点までを解説します。",
+    "canonical": "https://urizun-sozoku.com/column/heikyu-chosei/"
+  },
+  {
+    "route": "/column/guarantor-vs-joint-guarantor/",
+    "title": "身元保証人と連帯保証人の違い｜入院・施設入居・賃貸で求められるもの",
+    "description": "入院や施設入居で求められる身元保証人と、賃貸などの連帯保証人は何が違うのか。民法の条文と国の通知をもとに、病院・介護施設・賃貸住宅の場面ごとに求められる役割を整理します。医療行為への同意の可否や、頼める人がいないときの備えも解説します。",
+    "canonical": "https://urizun-sozoku.com/column/guarantor-vs-joint-guarantor/"
+  },
+  {
+    "route": "/column/mimamori-contract/",
+    "title": "見守り契約とは？一人暮らしの高齢者を支える仕組みを行政書士が解説",
+    "description": "見守り契約は、定期的な連絡や訪問で暮らしの状況を確認してもらう契約です。何をしてもらえるのか、財産管理や医療同意ができない理由、誰に頼めるのか、財産管理委任契約や任意後見契約との組み合わせ方まで、行政書士が整理してご説明します。",
+    "canonical": "https://urizun-sozoku.com/column/mimamori-contract/"
+  },
+  {
+    "route": "/column/who-needs-will/",
+    "title": "遺言書が必要な場合・急がなくてもよい場合｜判断の5つの軸を行政書士が解説",
+    "description": "遺言書は、すべての方に必要なわけではありません。いま急いで作らなくてもよい場合、必要性が高い場合を、相続人の人数と関係、財産の分けやすさ、渡したい相手の5つの軸で整理します。遺留分の注意点や方式の選び方まで、行政書士がご説明します。",
+    "canonical": "https://urizun-sozoku.com/column/who-needs-will/"
+  },
+  {
+    "route": "/column/will-executor/",
+    "title": "遺言執行者とは？指定するメリットと選び方｜遺言書を確実に実現するために",
+    "description": "遺言執行者は、遺言書に書かれた内容を実現する役割です。指定しないと相続人側の協力が必要になる場面、遺言執行者がいなければできない手続き、誰を選べばよいかの考え方、就任した人が最初に行うことまで、行政書士が整理してご説明します。",
+    "canonical": "https://urizun-sozoku.com/column/will-executor/"
+  },
+  {
+    "route": "/column/childless-couple-will/",
+    "title": "子どものいない夫婦に遺言書が必要な理由｜配偶者にすべて残すための備えを行政書士が解説",
+    "description": "子どもがいないご夫婦でも、配偶者だけが相続人になるとは限りません。ご両親やご兄弟姉妹、甥・姪へと相続人が広がる仕組み、遺産分割協議の難しさ、兄弟姉妹に遺留分がないこと、公正証書遺言での備え方まで、行政書士が整理してご説明します。",
+    "canonical": "https://urizun-sozoku.com/column/childless-couple-will/"
+  },
+  {
+    "route": "/column/common-law-spouse-inheritance/",
+    "title": "内縁の妻・事実婚の相手に財産を残すには｜相続権がない関係で備えておくことを行政書士が解説",
+    "description": "内縁・事実婚のパートナーには、当然には相続権がありません。持ち家か賃貸かで備え方が変わること、公正証書遺言を中心とした生前の備え、生命保険や死因贈与などの補助手段、遺留分や相続税の注意点まで、行政書士が整理してご説明します。",
+    "canonical": "https://urizun-sozoku.com/column/common-law-spouse-inheritance/"
+  },
+  {
+    "route": "/column/inheritance-documents-list/",
+    "title": "相続手続きに必要な書類一覧｜提出先ごとに何が要るかの対応表",
+    "description": "市区町村・年金事務所・金融機関・法務局・税務署。相続手続きで「どこに何を出すのか」を一枚の対応表に整理しました。法定相続情報一覧図で代えられる場面や、戸籍を何部そろえればよいかもあわせて解説します。",
+    "canonical": "https://urizun-sozoku.com/column/inheritance-documents-list/"
+  },
+  {
+    "route": "/column/foreigner-death-notification/",
+    "title": "外国籍の方が日本で亡くなったとき｜死亡届のほかに必要になる手続き",
+    "description": "外国籍のご家族が日本で亡くなったとき、死亡届と埋火葬許可という基本の流れは日本人の場合と変わりません。加わるのは在留カード等の返納、本国への確認、葬法の希望確認、本国搬送の4点です。14日以内という期限がある返納手続きを中心に行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/foreigner-death-notification/"
+  },
+  {
+    "route": "/column/foreign-document-inheritance/",
+    "title": "相続手続きで署名証明・在留証明・翻訳が必要になるとき｜どこで何を取るか",
+    "description": "海外にお住まいの相続人がいると、印鑑証明書も住民票も取得できません。代わりになるのが署名証明と在留証明です。署名証明の2つの形式、本人が在外公館へ出向く必要があること、在留証明に本籍を記載してもらうこと、翻訳の扱いまで行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/foreign-document-inheritance/"
+  },
+  {
+    "route": "/column/overseas-heir-division/",
+    "title": "海外に相続人がいる場合の遺産分割協議｜進め方と期限からの逆算",
+    "description": "相続人の中に海外にお住まいの方がいると、遺産分割協議はどう進めるのか。全員の参加が必要という原則は変わりませんが、書類のやり取りに数週間かかります。持ち回りを避ける方法、必要な通数の決め方、証明書の有効期限まで行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/overseas-heir-division/"
+  },
+  {
+    "route": "/column/foreign-spouse-inheritance/",
+    "title": "外国籍の配偶者がいる場合の相続で気をつけること｜手続きはどう変わるのか",
+    "description": "妻や夫が外国籍の場合、相続手続きは複雑になるのでしょうか。亡くなった方が日本人で、配偶者が日本にお住まいであれば、手続きの大部分は日本人同士の場合と変わりません。印鑑登録ができる場合があること、書類の氏名表記をそろえること、内容を理解したうえで署名してもらうことまで行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/foreign-spouse-inheritance/"
+  },
+  {
+    "route": "/column/foreigner-death-inheritance/",
+    "title": "外国人が日本で亡くなったら相続手続きはどうなる？必要書類と注意点を解説",
+    "description": "日本で暮らしていた外国籍の方が亡くなったとき、相続手続きの基本の流れは日本人の場合と変わりません。違うのは、相続人の確定方法、どの国の法律で処理するか、求められる書類の3点です。準拠法の考え方から必要書類の集め方まで行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/foreigner-death-inheritance/"
+  },
+  {
+    "route": "/column/landlord-elderly-tenant/",
+    "title": "大家・不動産会社向け｜高齢者入居と残置物処分の注意点を行政書士が解説",
+    "description": "単身高齢者に部屋を貸すことをためらう理由は具体的で、備える方法があります。入居時にできる手当てと、亡くなったあとにやってはいけないこと。鍵の交換や荷物の処分が原則として認められない理由、契約書に条項があっても無効と判断された裁判例まで、貸す側の立場から行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/landlord-elderly-tenant/"
+  },
+  {
+    "route": "/column/shigo-jimu-akewatashi/",
+    "title": "死後事務委任契約で賃貸住宅の明け渡しは頼めるか｜受任者にできることと限界を行政書士が解説",
+    "description": "亡くなったあとの賃貸住宅の解約と片付けを、死後事務委任契約で受任者に任せられるのか。2つの委任契約と賃貸借契約の特約で備える仕組み、大家本人は受任者を避けるべきとされていること、賃借権が相続される点は変わらないことまで行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/shigo-jimu-akewatashi/"
+  },
+  {
+    "route": "/column/kodokushi-zanchibutsu/",
+    "title": "孤独死後の残置物は誰が片付けるのか｜大家・相続人・保証人の役割を行政書士が解説",
+    "description": "賃貸住宅で単身の方が亡くなったあと、部屋に残された物は誰が片付けることになるのか。大家から急かされて片付けると、相続放棄ができなくなる場合があります。相続人・連帯保証人・大家それぞれの立場と、片付ける前に確かめておきたいことを行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/kodokushi-zanchibutsu/"
+  },
+  {
+    "route": "/column/shushin-tatemono-chintai/",
+    "title": "終身建物賃貸借制度とは？高齢者が終身住める借家契約｜普通の賃貸との違いを行政書士が解説",
+    "description": "終身建物賃貸借は、原則として亡くなるまで住み続けられ、死亡時に契約が終了する一代限りの賃貸借契約です。普通の賃貸との違い、入居できる方の要件、2025年10月に変わった手続き、そして契約が終わっても家財の整理は別に必要になることを行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/shushin-tatemono-chintai/"
+  },
+  {
+    "route": "/column/elderly-rental-no-guarantor/",
+    "title": "身元保証人がいない高齢者の賃貸入居対策｜審査で問われることと備え方を行政書士が解説",
+    "description": "「保証人はどなたですか」と聞かれて答えに詰まる。民間賃貸の入居審査では、家賃を保証する連帯保証人や保証会社と、緊急連絡先は別の役割として確認されます。高齢者住宅財団や自治体の居住支援制度もあわせて、何を準備しておくとよいかを行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/elderly-rental-no-guarantor/"
+  },
+  {
+    "route": "/column/elderly-rental-difficulty/",
+    "title": "高齢者が賃貸住宅を借りにくい理由と対策｜貸す側の不安と2025年施行の新制度を行政書士が解説",
+    "description": "高齢者が賃貸住宅を借りにくいと言われる背景には、貸す側の具体的な懸念があります。家賃保証・緊急時の連絡・亡くなったあとの明渡しという3つの空白をどう埋めるか、2025年10月に施行された新しい制度と、川崎市・横浜市の相談窓口とあわせて行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/elderly-rental-difficulty/"
+  },
+  {
+    "route": "/column/ninchisho-contract-cancel/",
+    "title": "認知症の親が結んだ契約は取り消せるか｜無効と取消しの違いを行政書士が解説",
+    "description": "認知症の診断があれば契約を取り消せるのか。判断されるのは診断名ではなく契約した時点の意思能力であること、民法3条の2による無効と民法9条による取消しの違い、後から後見が確定した場合の扱いを行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/ninchisho-contract-cancel/"
+  },
+  {
+    "route": "/column/check-parent-contract/",
+    "title": "高齢の親が不要な契約をしていないか確認する方法｜家族にできることと、その限界を行政書士が解説",
+    "description": "高齢の親が不要な契約をしていないか、家族はどこまで確認できるのか。照会や解約に必要な代理権の考え方、郵便物・引き落とし・保管書類という3つの入口、本人が確認を拒むときに家族だけで相談できる窓口を行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/check-parent-contract/"
+  },
+  {
+    "route": "/column/elderly-contract-trouble/",
+    "title": "高齢者が狙われやすい契約トラブルとは？｜手口の特徴と、家族ができる初動を行政書士が解説",
+    "description": "点検商法や次々販売など、高齢者が狙われやすい契約トラブルの手口を行政書士が整理。年齢ではなく状況が重なると気づきにくくなる理由、契約後にまず確認する3つのこと、ご家族が気づいたときの初動と188への相談の順番を解説します。",
+    "canonical": "https://urizun-sozoku.com/column/elderly-contract-trouble/"
+  },
+  {
+    "route": "/column/cooling-off-basics/",
+    "title": "訪問販売とクーリング・オフの基本｜期間の数え方と通知のしかたを行政書士が解説",
+    "description": "訪問販売で契約してしまっても、一定の期間内なら理由を問わず契約をやめられます。大切なのは、期間内に通知を発すること。届くのが期限を過ぎても効力は生じます。対象になる取引と期間、書面を受け取った日からの数え方、書面と電子メールによる通知のしかたまで、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/cooling-off-basics/"
+  },
+  {
+    "route": "/column/naiyo-shomei-yubin/",
+    "title": "内容証明郵便でできること・できないこと｜行政書士に頼める範囲と弁護士との違い",
+    "description": "内容証明を送れば相手が従う、というのは誤解です。証明されるのは、いつどんな文面を差し出したかという事実で、書かれた内容の真実性でも、相手に届いたことでもありません。できること・できないこと、費用と書式、そして行政書士に頼める範囲と弁護士との違いまで、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/naiyo-shomei-yubin/"
+  },
+  {
+    "route": "/column/will-funeral-wishes/",
+    "title": "遺言書で葬儀や納骨の希望は決められるか｜効力の範囲と実現の備えを行政書士が解説",
+    "description": "遺言書に葬儀や納骨の希望を書くことはできますが、その記載に法的な効力は生じません。さらに、遺言書は葬儀の準備が進む時点ではまだ開かれていないこともあります。効力が生じる事項との違い、祭祀を主宰する人の指定、そして希望を実現するための備えまで、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/will-funeral-wishes/"
+  },
+  {
+    "route": "/column/shigo-jimu-sogi-noukotsu/",
+    "title": "死後事務委任契約で葬儀・納骨は頼めるのか｜受任者にできることを行政書士が解説",
+    "description": "死後事務委任契約で葬儀や納骨を託すことはできます。ただし、死亡届を出せる人、葬儀を主宰する人と葬祭費の申請者、祭祀承継者は、契約に加えて別に確認が必要です。契約書に書いておく項目、費用の準備方法、葬祭費・埋葬料の扱いまで、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/shigo-jimu-sogi-noukotsu/"
+  },
+  {
+    "route": "/column/ohitorisama-ohaka/",
+    "title": "おひとりさまのお墓・納骨は誰が決めるのか｜生前にできる準備を行政書士が解説",
+    "description": "お墓を継ぐ人がいない、身寄りがいない場合、納骨や供養は誰が決めるのでしょうか。「引き継ぐ人」と「実行する人」の違い、何も決めずにいた場合の扱い、生前にできる準備と費用の用意まで、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/ohitorisama-ohaka/"
+  },
+  {
+    "route": "/column/saishi-shokei/",
+    "title": "祭祀承継者とは？お墓・仏壇を引き継ぐ人の決め方を行政書士が解説",
+    "description": "お墓や仏壇は、預貯金や不動産とは別のルールで引き継がれます。祭祀承継者はどう決まるのか、遺産分割との違い、指定の方法、決まらないときの手続きまで、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/saishi-shokei/"
+  },
+  {
+    "route": "/column/eitai-kuyo-jumokuso/",
+    "title": "永代供養・樹木葬・散骨を選ぶ前に｜供養方法の特徴と確認したいこと",
+    "description": "永代供養、樹木葬、納骨堂、散骨——従来の墓石のお墓以外の供養方法には、それぞれ特徴と注意点があります。合祀のタイミング、合祀後に個別の遺骨を取り出せなくなる場合がある点、散骨の位置づけなど、選ぶ前に確認したいことを、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/eitai-kuyo-jumokuso/"
+  },
+  {
+    "route": "/column/hakajimai-guide/",
+    "title": "墓じまいの手続きと費用｜改葬許可の流れと注意点を行政書士が解説",
+    "description": "墓じまい（改葬）には、改葬許可の申請という行政手続きが必要です。手続きの流れ、費用の目安と内訳、離檀料をめぐる注意点、失敗しない進め方を、川崎の行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/hakajimai-guide/"
+  },
+  {
+    "route": "/column/kawasaki-nenkin-jimusho/",
+    "title": "川崎で年金の手続きをするなら｜年金事務所の場所・担当区と持ち物を社会保険労務士が整理",
+    "description": "川崎市で遺族年金や未支給年金の手続きをするとき、どの年金事務所へ行けばよいか。川崎年金事務所と高津年金事務所の担当区、アクセス、予約の方法、区役所との使い分けを、川崎の社会保険労務士・行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/kawasaki-nenkin-jimusho/"
+  },
+  {
+    "route": "/column/kawasaki-yokohama-shukatsu-start/",
+    "title": "川崎・横浜で終活を始めるなら｜地域の窓口と相談先を行政書士が整理",
+    "description": "川崎市・横浜市で終活や相続の準備を始めるとき、どこに何を相談すればよいかを整理しました。区役所・法務局・年金事務所などの地域の窓口と、目的別に読むべき記事への案内を、川崎の行政書士がまとめています。",
+    "canonical": "https://urizun-sozoku.com/column/kawasaki-yokohama-shukatsu-start/"
+  },
+  {
+    "route": "/column/kawasaki-real-estate/",
+    "title": "川崎で相続した不動産の進め方｜土地・建物を相続したら最初に確認することを行政書士が解説",
+    "description": "川崎市内の土地や建物を相続したら、まず何を確認し、どの順で進めればよいか。名寄帳や固定資産税納税通知書での不動産の調べ方、名義変更（相続登記）、共有・未登記・古い名義の注意点、空き家になる場合までを、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/kawasaki-real-estate/"
+  },
+  {
+    "route": "/column/nini-kouken-ikougata/",
+    "title": "移行型の任意後見契約とは？判断能力があるうちから備える仕組みを行政書士が解説",
+    "description": "移行型の任意後見契約とは、判断能力があるうちは財産管理委任契約で支え、低下後は任意後見へ切り替える組み合わせです。将来型・即効型との違い、切り替えの見極め方と注意点を、川崎の行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/nini-kouken-ikougata/"
+  },
+  {
+    "route": "/column/nini-kouken-kantokunin/",
+    "title": "任意後見監督人とは？いつ選任され、何をするのかを行政書士が解説",
+    "description": "任意後見契約は、家庭裁判所が任意後見監督人を選任してはじめて効力が生じます。いつ・誰が申し立てるのか、監督人は誰が選ばれ、どんな仕事をするのかを、川崎の行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/nini-kouken-kantokunin/"
+  },
+  {
+    "route": "/column/nini-kouken-tetsuzuki-hiyou/",
+    "title": "任意後見契約の手続きと費用｜公正証書作成の流れを行政書士が解説",
+    "description": "任意後見契約を結ぶには、公正証書の作成が必要です。相談から公証役場での作成、登記までの手続きの流れと、公証人手数料・登記嘱託手数料・専門家報酬などの費用の内訳を、川崎の行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/nini-kouken-tetsuzuki-hiyou/"
+  },
+  {
+    "route": "/column/obon-family-talk/",
+    "title": "お盆に話す相続｜帰省で家族が集まるときに確認しておきたい5つのこと【行政書士が解説】",
+    "description": "お盆の帰省は、家族で相続の話を始めるよい機会です。重くならない切り出し方と、確認しておきたい5つのこと（財産の在りか・実家の今後・遺言の意向・介護や医療の希望・相談先）を、川崎の行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/obon-family-talk/"
+  },
+  {
+    "route": "/column/yokohama-inheritance-offices/",
+    "title": "横浜市で相続手続きをするなら｜18区の区役所・横浜地方法務局・年金事務所の窓口まとめ【行政書士が解説】",
+    "description": "横浜市で相続手続きをするとき、どの区役所・法務局・年金事務所に行けばよいかを、18区別にまとめました。横浜市は18区と広く、相続登記の申請先も区によって分かれます。窓口の確認先を、川崎の行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/yokohama-inheritance-offices/"
+  },
+  {
+    "route": "/column/zaisan-kanri-inin/",
+    "title": "財産管理委任契約とは？元気だけれど手続きが大変になってきたときの備えを行政書士が解説",
+    "description": "財産管理委任契約とは、判断能力はあるものの、体力の低下などで銀行や役所の手続きが負担になってきたときに、信頼できる人へ財産管理を任せる契約です。任せられる範囲、金融機関での注意点、受任者選びのポイントを、川崎の行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/zaisan-kanri-inin/"
+  },
+  {
+    "route": "/column/ohitorisama-seizen-keiyaku-set/",
+    "title": "おひとりさまに必要な生前契約セット｜判断能力の低下から死後まで、5つの備えで”切れ目”をなくす【行政書士が解説】",
+    "description": "おひとりさまが判断能力の低下から死後まで備える5つの備え（財産管理委任・任意後見・身元保証・死後事務委任・遺言）を、時系列と役割表で整理。どこに空白ができ、どう組み合わせるかを川崎の行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/ohitorisama-seizen-keiyaku-set/"
+  },
+  {
+    "route": "/column/nini-mimoto-shigo-chigai/",
+    "title": "任意後見・身元保証・死後事務委任の違い｜おひとりさまに必要な3つの契約を1枚で整理",
+    "description": "任意後見・身元保証・死後事務委任は、名前は似ていても役割がまったく違います。いつ効力を持つのか、何ができて何ができないのかを1枚の比較表で整理。おひとりさまが備えたい3つの契約を、川崎の行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/nini-mimoto-shigo-chigai/"
+  },
+  {
+    "route": "/column/kawasaki-ward-offices/",
+    "title": "川崎市で相続手続きをするなら｜7区の区役所窓口と進め方【行政書士が解説】",
+    "description": "川崎市で相続手続きをするときの区役所の使い方を、7区の窓口一覧とあわせて解説。死亡届、戸籍の収集、住民票、年金の手続きを進める順番と、広域交付で取れない戸籍の落とし穴まで、川崎の行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/kawasaki-ward-offices/"
+  },
+  {
+    "route": "/column/seinen-koken-hitsuyo-hani/",
+    "title": "成年後見は「必要な範囲で使う」制度へ｜改正を待つべき？今からできる備えは？",
+    "description": "2026年成立の成年後見制度改正で「必要な範囲・必要な期間だけ使う」制度へ。ただし施行はこれから。改正を待つべきか、今動くべきか、待つ間にできる備えまで、川崎の行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/seinen-koken-hitsuyo-hani/"
+  },
+  {
+    "route": "/column/spouse-residence-right/",
+    "title": "配偶者居住権って使うべき？｜メリット・デメリットと注意点を行政書士が解説",
+    "description": "2020年施行の配偶者居住権とは。配偶者短期居住権との違い、成立要件、メリット・デメリット、使うべきケースまで、川崎の行政書士がやさしく解説。登記は司法書士、相続税評価は税理士と連携します。",
+    "canonical": "https://urizun-sozoku.com/column/spouse-residence-right/"
+  },
+  {
+    "route": "/column/ninchisho-souzoku-taisaku/",
+    "title": "認知症になる前にやるべき相続対策｜任意後見・法定後見・家族信託の違いを比較",
+    "description": "認知症による資産凍結に備える3つの制度、任意後見・法定後見・家族信託の違いを比較表で整理。どんな人にどの制度が向くか、組み合わせ方まで、川崎の行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/ninchisho-souzoku-taisaku/"
+  },
+  {
+    "route": "/column/kazoku-shintaku-guide/",
+    "title": "家族信託とは？認知症による資産凍結を防ぐ仕組みと、成年後見との違いをやさしく解説",
+    "description": "認知症による資産凍結に備える家族信託とは。仕組み・できること・成年後見との違い・費用・注意点を、川崎の行政書士がやさしく解説。信託契約書案の作成支援から、登記・税務の専門家連携まで。",
+    "canonical": "https://urizun-sozoku.com/column/kazoku-shintaku-guide/"
+  },
+  {
+    "route": "/column/seizen-zoyo-2024/",
+    "title": "相続税対策の生前贈与｜110万円贈与・7年ルール・相続時精算課税をわかりやすく",
+    "description": "生前贈与で相続税対策になる仕組みを、2024年改正（7年ルール・相続時精算課税の110万円基礎控除）を踏まえてやさしく解説。暦年課税と相続時精算課税の違い・失敗例・始める前の確認を、川崎の行政書士が整理します。",
+    "canonical": "https://urizun-sozoku.com/column/seizen-zoyo-2024/"
+  },
+  {
+    "route": "/column/hokan-shosho-igon/",
+    "title": "デジタル遺言（保管証書遺言）とは？いつから使える？新しい遺言制度をやさしく解説",
+    "description": "新しい遺言「保管証書遺言（デジタル遺言）」は2026年6月に成立・公布されましたが、まだ使えません。いつから使えるか・現行の遺言との違い・今できる準備を、川崎の行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/hokan-shosho-igon/"
+  },
+  {
+    "route": "/column/souzoku-toki-gimuka/",
+    "title": "相続登記の義務化とは？期限・過料・「実家が親名義のまま」の進め方",
+    "description": "『実家がまだ親名義のまま』という方へ。2024年に義務化された相続登記の期限・過料・進め方を、川崎の行政書士がやさしく整理します。過去の相続は2027年3月末が期限。登記は司法書士と連携して進めます。",
+    "canonical": "https://urizun-sozoku.com/column/souzoku-toki-gimuka/"
+  },
+  {
+    "route": "/column/ending-note-guide/",
+    "title": "エンディングノートの書き方｜何を書く？遺言との違いと始め方",
+    "description": "エンディングノートに何を書くか、遺言書との違い（法的効力）、始め方と書いた後の進め方を、終活カウンセラー1級・行政書士・社会保険労務士がやさしく解説します。川崎市エンディングノートの入手先も紹介。終活のはじめの一歩に。",
+    "canonical": "https://urizun-sozoku.com/column/ending-note-guide/"
+  },
+  {
+    "route": "/column/seinen-koken-kaisei-2026/",
+    "title": "2026年改正で成年後見制度はどう変わる？家族が知っておきたい5つのポイント",
+    "description": "2026年6月に成立した改正民法で、成年後見制度がどう変わるかを行政書士が解説します。終身制の見直し、補助への一元化と特定補助、オーダーメイド型など5つのポイントと、施行は2028年ごろの見込みであること、そして判断能力があるうちにできる任意後見などの備えを、わかりやすく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/seinen-koken-kaisei-2026/"
+  },
+  {
+    "route": "/column/shoyu-fudosan-kiroku-shomei/",
+    "title": "所有不動産記録証明制度とは？2026年開始の新制度で相続の不動産調査がどう変わる",
+    "description": "2026年2月に始まった所有不動産記録証明制度をわかりやすく解説します。亡くなった方が所有権の登記名義人として記録されている不動産を、法務局が全国から一覧化して証明する制度で、相続の不動産調査や登記漏れの防止に役立ちます。請求できる人・手数料・必要書類・注意点、そして相続手続きの中での活用法を、行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/shoyu-fudosan-kiroku-shomei/"
+  },
+  {
+    "route": "/column/couple-shukatsu/",
+    "title": "夫婦で考える終活｜遺言・相続・老後の安心を二人で備える",
+    "description": "夫婦の終活は、どちらかが先に一人になることを見すえて、二人で備えることが大切です。夫婦連名の遺言が無効になる理由と予備的遺言、配偶者居住権・遺族年金で残された配偶者の住まいと生活を守る備え、任意後見や二次相続まで、行政書士・社会保険労務士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/couple-shukatsu/"
+  },
+  {
+    "route": "/column/nursing-home-no-guarantor/",
+    "title": "老人ホームに身元保証人なしで入れる？｜断られたときの対処法と代わりの備え",
+    "description": "老人ホームは、身元保証人がいないことだけを理由に入所を断ることは、国の考え方では認められていません。とはいえ現場では保証人を求められることも多いのが実情です。施設が身元保証人に求める役割と、任意後見・死後事務委任・身元保証サービスなど役割ごとの代替手段、断られたときの相談先を、社会保険労務士・行政書士がやさしく解説しま",
+    "canonical": "https://urizun-sozoku.com/column/nursing-home-no-guarantor/"
+  },
+  {
+    "route": "/column/guarantor-company-troubles/",
+    "title": "身元保証・終身サポートのトラブル事例｜契約前に確認すべきポイント",
+    "description": "身元保証・終身サポートサービスの契約をめぐるトラブルが増えています。よくあるトラブルの類型（高額・不透明な料金、預託金の管理、解約・返金、寄附や遺贈との一体化など）と、その背景、国のガイドライン、そして契約前に確認すべきチェックポイントを、公的データに基づいてやさしく整理します。おひとりさまが安心してサービスを選ぶため",
+    "canonical": "https://urizun-sozoku.com/column/guarantor-company-troubles/"
+  },
+  {
+    "route": "/column/posthumous-affairs-contract/",
+    "title": "死後事務委任契約とは｜亡くなった後の手続きを誰に頼む？できること・費用・始め方",
+    "description": "死後事務委任契約とは、自分が亡くなった後の葬儀・行政手続き・各種の整理などを、生前に信頼できる相手へ託しておく契約です。頼めること・頼めないこと、遺言や任意後見との違い、誰に頼めるか、費用や預託金の注意点、始め方まで、おひとりさま向けに全体像をやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/posthumous-affairs-contract/"
+  },
+  {
+    "route": "/column/nini-vs-hoteikouken/",
+    "title": "任意後見と法定後見の違い｜仕組み・費用・選び方をやさしく比較",
+    "description": "成年後見制度の「任意後見」と「法定後見」の違いを、いつ・誰が後見人を決めるかという視点でやさしく整理します。仕組み・取消権・費用・選び方をケース別に比較し、行政書士・司法書士・弁護士それぞれの相談先まで、川崎・横浜の方に向けて解説します。",
+    "canonical": "https://urizun-sozoku.com/column/nini-vs-hoteikouken/"
+  },
+  {
+    "route": "/column/ohitorisama-shukatsu-guide/",
+    "title": "おひとりさまの終活完全ガイド｜元気なうちに備える契約・遺言・死後事務",
+    "description": "おひとりさまの終活で向き合う「判断能力の低下」「入院・施設入所時の身元保証」「死後の手続き」「財産の行き先」という4つの不安を、元気なうちにできる備えから順に整理します。財産管理委任・任意後見・死後事務委任・遺言の違いと、行政書士・身元保証事業者それぞれの役割まで、川崎・横浜のおひとりさまに向けて解説します。",
+    "canonical": "https://urizun-sozoku.com/column/ohitorisama-shukatsu-guide/"
+  },
+  {
+    "route": "/column/siblings-disagree-inheritance/",
+    "title": "兄弟が遺産分割に同意してくれない｜実印を押してくれないときの対処法",
+    "description": "兄弟が遺産分割協議書に実印を押してくれず、預金解約や不動産の手続きが進まない——そんなときに、まず確認すべきこと、やってはいけない対応、話し合いや調停の進め方、行政書士・弁護士への相談の線引きまで、相続の専門家がわかりやすく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/siblings-disagree-inheritance/"
+  },
+  {
+    "route": "/column/without-will-problems/",
+    "title": "遺言書がないとどうなる？残された家族が直面する4つの困りごとと、今できる備え",
+    "description": "遺言書がないと、残された家族は遺産分割協議や戸籍集めに追われ、争いが起きることも。遺言書がない場合に家族が直面しやすい4つの困りごとと、親が元気な今だからこそできる備えを、相続の専門家がわかりやすく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/without-will-problems/"
+  },
+  {
+    "route": "/column/handwritten-will-storage/",
+    "title": "自筆証書遺言書保管制度とは？法務局に預けるメリット・手数料・手続きの流れ",
+    "description": "自筆で書いた遺言書を法務局に預けられる「自筆証書遺言書保管制度」を行政書士がわかりやすく解説。検認が不要になるメリット、3,900円からの手数料、申請の流れ、遺言者が亡くなった後に相続人がする手続きまで、川崎・横浜対応でまとめました。",
+    "canonical": "https://urizun-sozoku.com/column/handwritten-will-storage/"
+  },
+  {
+    "route": "/column/notarized-will-howto/",
+    "title": "公正証書遺言の作り方｜費用・必要書類・証人・行政書士に相談できることを解説",
+    "description": "公正証書遺言を考えはじめた方に向けて、作成の流れ、必要書類、証人2人の選び方、公証人手数料の目安、出張作成の可否、行政書士に相談できることを、相続手続きの現場目線でわかりやすく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/notarized-will-howto/"
+  },
+  {
+    "route": "/column/will-writing-guide/",
+    "title": "遺言書の作成ガイド｜種類・書き方・遺留分・検認まで行政書士がやさしく解説",
+    "description": "遺言書をはじめて作る方に向けて、自筆証書遺言と公正証書遺言の選び方・書き方、財産目録や法務局保管制度、遺留分や検認の注意点、遺言執行者への備えまで、行政書士の立場でやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/will-writing-guide/"
+  },
+  {
+    "route": "/column/land-national-return/",
+    "title": "相続した「いらない土地」を手放す方法｜相続土地国庫帰属制度をやさしく解説",
+    "description": "相続したものの使い道のない土地を、国に引き取ってもらえる「相続土地国庫帰属制度」。対象になる人、引き取ってもらえない土地の要件、審査手数料と負担金、法務局での手続きの流れ、相続放棄・売却との違いを、行政書士の立場でやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/land-national-return/"
+  },
+  {
+    "route": "/column/akiya-souzoku/",
+    "title": "空き家を相続したらどうする？税金・管理リスクと選び方を解説",
+    "description": "親から実家などの空き家を相続したら、まず必要になるのが相続登記です。2024年4月から義務化され、取得を知った日から3年以内の申請が求められます。固定資産税や「特定空家」のリスク、住む・貸す・売る・手放すの選び方まで、行政書士・社会保険労務士の視点でやさしく整理しました。",
+    "canonical": "https://urizun-sozoku.com/column/akiya-souzoku/"
+  },
+  {
+    "route": "/column/inherited-home-sale-tax/",
+    "title": "相続した実家を売るときの税金｜譲渡所得・取得費・空き家3,000万円特別控除をやさしく解説",
+    "description": "相続した実家を売ると、どんな税金がかかる？ 譲渡所得の計算や取得費・所有期間、取得費加算の特例や空き家3,000万円控除、確定申告の流れまで、行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/inherited-home-sale-tax/"
+  },
+  {
+    "route": "/column/diy-vs-expert-inheritance/",
+    "title": "相続手続きは自分でできる？専門家に頼むべき？｜判断の分かれ目と費用の目安",
+    "description": "相続手続きは自分でできる？専門家に頼むべき？ 自分でやりやすいケースと頼んだ方がよいケース、士業の役割分担、相続を専門にしているかで選ぶ視点、費用や「一部だけ依頼」まで、行政書士が公平に整理します。",
+    "canonical": "https://urizun-sozoku.com/column/diy-vs-expert-inheritance/"
+  },
+  {
+    "route": "/column/digital-inheritance/",
+    "title": "デジタル遺産の相続｜ネット銀行・証券・サブスク・スマホの引き継ぎと解約",
+    "description": "ネット銀行・証券、暗号資産、マイル、サブスク、スマホ、SNSアカウントなど「デジタル遺産」の相続を整理。探し方から引き継ぎ・解約、相続税の注意点、生前の備えまで、行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/digital-inheritance/"
+  },
+  {
+    "route": "/column/legal-heir-information-list/",
+    "title": "法定相続情報一覧図の作り方｜戸籍の束を1枚にまとめて相続手続きを最短化",
+    "description": "法定相続情報一覧図は、戸籍の束を1枚にまとめ、各種の相続手続きで使い回せる証明書です。作り方・申出先・必要書類から、2024年に始まった戸籍の広域交付制度、写しの再交付や注意点まで、行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/legal-heir-information-list/"
+  },
+  {
+    "route": "/column/name-change-checklist/",
+    "title": "世帯主変更・公共料金・各種名義変更リスト｜葬儀後に忘れがちな手続きまとめ",
+    "description": "葬儀後に忘れがちな名義変更・解約の手続きを一覧で整理。世帯主変更届（14日以内）、健康保険・年金、電気・ガス・水道、携帯・サブスク、銀行口座、相続登記（2024年義務化・3年以内）、自動車まで、行政書士・社労士が優先順位とともにやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/name-change-checklist/"
+  },
+  {
+    "route": "/column/death-notification-7days/",
+    "title": "死亡届から火葬許可まで｜直後7日以内にやる手続きと提出先",
+    "description": "ご家族が亡くなった直後の「死亡届」と「火葬許可」。死亡の事実を知った日から7日以内という提出期限、提出先（死亡地・本籍地・届出人の所在地）、届出人の範囲、死亡診断書のコピーの注意点まで、最初の7日以内にやる手続きを行政書士・社労士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/death-notification-7days/"
+  },
+  {
+    "route": "/column/spouse-credit-shoukibo/",
+    "title": "配偶者の税額軽減と小規模宅地等の特例｜相続税を大きく減らす2つの制度と注意点",
+    "description": "相続税を大きく減らせる「配偶者の税額軽減」と「小規模宅地等の特例」をやさしく解説。配偶者は1億6,000万円または法定相続分まで非課税、自宅の土地は最大80％減額できます。適用には申告が必要で、二次相続の注意点もあわせて整理します。",
+    "canonical": "https://urizun-sozoku.com/column/spouse-credit-shoukibo/"
+  },
+  {
+    "route": "/column/life-insurance-inheritance-tax/",
+    "title": "生命保険金と相続税｜「500万円×法定相続人」の非課税枠と受取人の選び方",
+    "description": "生命保険金は「500万円×法定相続人の数」まで相続税が非課税です。みなし相続財産の考え方、非課税枠の条件、契約のかたちで変わる税金、受取人の選び方を、行政書士・社会保険労務士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/life-insurance-inheritance-tax/"
+  },
+  {
+    "route": "/column/souzokuzei-deadline-10months/",
+    "title": "相続税の申告期限は10か月｜過ぎたらどうなる？間に合わないときの対処法",
+    "description": "相続税の申告・納付期限は「相続の開始を知った日の翌日から10か月以内」。期限の数え方、過ぎたときの加算税・延滞税、遺産分割が間に合わないときの未分割申告と「分割見込書」、準確定申告4か月、10か月から逆算するスケジュールまで、相続手続きの専門家がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/souzokuzei-deadline-10months/"
+  },
+  {
+    "route": "/column/tokubetsu-jueki-kiyobun/",
+    "title": "特別受益と寄与分とは｜「生前贈与を受けた」「介護した」で相続分はどう変わるか",
+    "description": "生前贈与を受けた相続人がいる場合や、親の介護を長年担った相続人がいる場合、遺産の分け方は法定相続分どおりでよいのでしょうか。特別受益と寄与分という2つの制度について、対象となる範囲、計算のしかた、話し合いで折り合いをつける際の考え方を行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/tokubetsu-jueki-kiyobun/"
+  },
+  {
+    "route": "/column/daishu-suuji-souzoku/",
+    "title": "代襲相続・数次相続とは｜孫や甥姪が相続人になるケースをわかりやすく解説",
+    "description": "「相続人は子どもだけだと思っていたら、すでに亡くなっていた長男の子（孫）も相続人だった」「父の相続を手つかずのままにしていたら、今度は母も亡くなり、手続きがすっかり複雑になってしまった」——こうした場面で関わってくるのが […]",
+    "canonical": "https://urizun-sozoku.com/column/daishu-suuji-souzoku/"
+  },
+  {
+    "route": "/column/iryubun-claim/",
+    "title": "遺留分とは｜最低限の取り分と遺留分侵害額請求の手続き",
+    "description": "遺留分とは、兄弟姉妹を除く相続人に法律で保障された最低限の取り分です。誰にどれだけあるのか、いくら請求できるのか、2019年改正後の遺留分侵害額請求と時効（知った時から1年）まで、社会保険労務士・行政書士が計算例とともに整理します。",
+    "canonical": "https://urizun-sozoku.com/column/iryubun-claim/"
+  },
+  {
+    "route": "/column/widow-50s-pension-planning/",
+    "title": "夫を亡くした50代妻の年金と生活設計｜中高齢寡婦加算と「65歳の崖」への備え",
+    "description": "50代で夫を亡くすと、年金は遺族厚生年金から中高齢寡婦加算、そして自分の老齢年金へと3段階で変わります。65歳で加算が消える「崖」や、令和7年改正で可能になった繰下げの活用まで、社会保険労務士がモデルケースの金額で解説します。",
+    "canonical": "https://urizun-sozoku.com/column/widow-50s-pension-planning/"
+  },
+  {
+    "route": "/column/who-to-consult-inheritance/",
+    "title": "相続の相談はどこにする？｜行政書士・司法書士・税理士・弁護士・社労士の違いと選び方",
+    "description": "相続の相談先は行政書士・司法書士・税理士・弁護士・社労士のどこ？お悩み別の早見表で「誰に何を頼めるか」を整理し、費用を二重にしない賢い相談の始め方を、川崎の社会保険労務士・行政書士がやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/who-to-consult-inheritance/"
+  },
+  {
+    "route": "/column/souzokuzei-basics/",
+    "title": "相続税はいくらから？｜基礎控除3,600万円の計算と申告が必要なケース",
+    "description": "相続税がかかるのは、遺産が基礎控除「3,000万円＋600万円×法定相続人の数」を超えたときだけ。最低3,600万円の意味、相続放棄や養子がいる場合の数え方、税額0円でも申告が必要な特例まで、要否の見極め方をやさしく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/souzokuzei-basics/"
+  },
+  {
+    "route": "/column/legal-heirs-and-shares/",
+    "title": "法定相続人と法定相続分｜誰がどれだけ相続する？早見表でわかる順位と割合",
+    "description": "誰が相続人になり、どれだけの割合を相続するのか。配偶者は常に相続人、血族は子→父母→兄弟姉妹の順位、割合は基本3パターン。早見表と具体例で、代襲相続や相続放棄があった場合まで行政書士がわかりやすく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/legal-heirs-and-shares/"
+  },
+  {
+    "route": "/column/survivor-pension-2028-reform/",
+    "title": "【2028年4月改正】遺族厚生年金はこう変わる｜5年有期給付化・男女差解消・中高齢寡婦加算の段階的廃止を社労士が解説",
+    "description": "2028年4月から遺族厚生年金が大きく変わります。5年有期給付化・男女差解消・中高齢寡婦加算の段階的廃止など改正のポイントと、誰がいつから影響を受けるのか、いま受給中の方への影響まで社労士がわかりやすく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/survivor-pension-2028-reform/"
+  },
+  {
+    "route": "/column/kenpo-death-procedures/",
+    "title": "健康保険・国民健康保険の死亡時手続き｜埋葬料・葬祭費の申請と保険証の返却",
+    "description": "ご家族が亡くなられたとき、健康保険なら「埋葬料」、国民健康保険・後期高齢者医療制度なら「葬祭費」が、葬儀を行ったご遺族に支給されます。どの制度に入っていたかで給付名・金額・窓口が変わります。保険証の返却、被扶養者の切り替え、申請期限2年まで、社会保険労務士が丁寧に解説します。",
+    "canonical": "https://urizun-sozoku.com/column/kenpo-death-procedures/"
+  },
+  {
+    "route": "/column/on-duty-death-procedures/",
+    "title": "ご家族が在職中に亡くなったとき｜会社の手続き・受け取れるお金・遺族年金を社労士が解説",
+    "description": "ご主人が在職中に亡くなられたとき、会社・健康保険・年金にまたがる手続きが必要になります。会社から受け取れるお金（最後の給与・死亡退職金・弔慰金）、健康保険の埋葬料、遺族厚生年金の請求まで、ご遺族の目線で順を追って、社会保険労務士がやさしく整理しました。",
+    "canonical": "https://urizun-sozoku.com/column/on-duty-death-procedures/"
+  },
+  {
+    "route": "/column/chukoukan-kafu-kasan/",
+    "title": "中高齢寡婦加算とは｜遺族厚生年金に上乗せされる40〜64歳の妻への支え",
+    "description": "遺族厚生年金に上乗せされる「中高齢寡婦加算」。40歳から65歳までの妻への支えとなる制度です。令和8年度の金額、受け取れる方の条件、65歳以降の経過的寡婦加算、2025年改正での見直しまで、社会保険労務士がやさしく整理しました。",
+    "canonical": "https://urizun-sozoku.com/column/chukoukan-kafu-kasan/"
+  },
+  {
+    "route": "/column/souzoku-touki-2024/",
+    "title": "相続登記の義務化｜2024年4月開始の3年ルールと過料を避ける進め方",
+    "description": "2024年4月から、相続登記は「義務」になりました。いつまでに・誰が登記するのか、過去の相続はどうなるのか、間に合わないときの相続人申告登記、必要書類と進め方、登記を担う司法書士との連携まで、行政書士がやさしく整理します。",
+    "canonical": "https://urizun-sozoku.com/column/souzoku-touki-2024/"
+  },
+  {
+    "route": "/column/izoku-nenkin-guide/",
+    "title": "遺族年金の請求手続き完全ガイド｜社労士が教える受給要件と必要書類",
+    "description": "親が亡くなった後に必要な手続きを、期限の早い順に10項目で解説。死亡届から相続税申告まで、何から始めればよいか分からない方のための完全ガイド。川崎・横浜の社会保険労務士・行政書士が温かく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/izoku-nenkin-guide/"
+  },
+  {
+    "route": "/column/estate-division-agreement/",
+    "title": "遺産分割協議書の書き方と雛形｜相続人全員の合意を残す方法",
+    "description": "遺産分割協議書とは、相続人全員でどの財産を誰が受け取るかを合意した証拠書類です。本記事では、必要となる場面・不要な場面、5ステップで進める作成手順、必ず書くべき記載事項、押印・添付書類のルール、よくあるトラブルまで、はじめての方にも分かりやすく解説します。",
+    "canonical": "https://urizun-sozoku.com/column/estate-division-agreement/"
+  },
+  {
+    "route": "/column/souzoku-houki-deadline/",
+    "title": "相続放棄の期限と手続き｜3か月の数え方・必要書類・してはいけないこと",
+    "description": "相続放棄の「3か月」の正しい数え方、間に合わないときの対処、家庭裁判所への申述の流れと必要書類、放棄前にやってはいけないこと（法定単純承認）まで社労士・行政書士がやさしく解説。次順位の親族への影響にも触れています。",
+    "canonical": "https://urizun-sozoku.com/column/souzoku-houki-deadline/"
+  },
+  {
+    "route": "/column/bank-account-frozen/",
+    "title": "銀行口座が凍結された時の対処法｜凍結のタイミング・仮払い制度・解約の流れ",
+    "description": "亡くなった方の銀行口座は、金融機関が死亡を把握した時点で凍結されます。凍結のタイミング、民法改正で導入された仮払い制度（最大150万円）の使い方、解約までの実務的な流れを、川崎の社労士・行政書士が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/bank-account-frozen/"
+  },
+  {
+    "route": "/column/estate-asset-investigation/",
+    "title": "相続財産の調べ方｜預貯金・不動産から借金まで漏れなく確認する方法",
+    "description": "亡くなった方の預貯金・不動産・有価証券・生命保険から、借金・連帯保証などの負債まで、相続財産を漏れなく調べる方法を社労士・行政書士がやさしく解説。相続放棄や相続税を判断する前に押さえておきたい調査の手順と落とし穴がわかります。",
+    "canonical": "https://urizun-sozoku.com/column/estate-asset-investigation/"
+  },
+  {
+    "route": "/column/koseki-collection-guide/",
+    "title": "相続人調査|相続手続きで戸籍を集める3つのルートと実務の進め方",
+    "description": "銀行で「亡くなった方の出生から死亡までの戸籍を全部そろえてください」と言われ、戸惑っていませんか。相続人調査の要となる戸籍収集を、戸籍の3種類・「出生から死亡まで」が必要な理由・2024年3月開始の広域交付制度・法定相続情報一覧図・窓口/郵送/広域交付の3ルート・よくあるトラブルまで、はじめての方にも分かるように整理し",
+    "canonical": "https://urizun-sozoku.com/column/koseki-collection-guide/"
+  },
+  {
+    "route": "/column/will-verification-after-death/",
+    "title": "遺言書の確認方法|相続発生後にまず確かめるべき3つのこと",
+    "description": "父・母の遺言書が見つかったら、開ける前に確認すべき3つのこと。自筆・公正・秘密の3種類の違いから、検認手続きの流れ、過料5万円のリスク、無効になりやすい不備、複数遺言の優先まで、川崎の社労士・行政書士事務所が解説します。",
+    "canonical": "https://urizun-sozoku.com/column/will-verification-after-death/"
+  },
+  {
+    "route": "/column/parent-death-10-things/",
+    "title": "親が亡くなったらやるべき10のこと【期限付き手続き完全リスト】",
+    "description": "親が亡くなったあと、何から手をつければよいか分からない――そんな方のために、相続でやるべき10の手続きを期限の早い順にやさしく解説します。死亡届(7日以内)から相続税申告(10か月以内)まで、川崎・横浜の社労士・行政書士が温かくお伝えします。",
+    "canonical": "https://urizun-sozoku.com/column/parent-death-10-things/"
+  },
+  {
+    "route": "/column/opening-greetings/",
+    "title": "ホームページを開設いたしました",
+    "description": "川崎市川崎区にて「Officeうりずん 相続手続き相談室」を開設いたしました。「うりずん」とは沖縄の言葉で、若葉が芽吹く春から初夏の季節を表します。相続・終活・年金・身元保証——人生の大切な節目に、4つの専門資格でお応えする体制でお手伝いします。開設のごあいさつをお届けします。",
+    "canonical": "https://urizun-sozoku.com/column/opening-greetings/"
+  },
+  {
+    "route": "/",
+    "title": "川崎・横浜の相続手続き・遺言・身元保証の相談",
+    "description": "川崎・横浜の相続手続き、遺族年金、遺言、身元保証をOfficeうりずんの行政書士・社会保険労務士がサポート。初回60分無料。お悩み別のコラムと料金案内をご覧いただけます。",
+    "canonical": "https://urizun-sozoku.com/"
+  },
+  {
+    "route": "/souzoku/",
+    "title": "川崎・横浜の相続手続きサポート｜戸籍収集・遺産分割協議書・預貯金の解約｜うりずん相続手続き相談室",
+    "description": "川崎・横浜の相続手続きを、行政書士・社会保険労務士が戸籍収集から預貯金の解約、遺族年金の請求までお手伝い。困りごと別の案内と、期限のある手続きの一覧。初回60分無料。",
+    "canonical": "https://urizun-sozoku.com/souzoku/"
+  }
+]
