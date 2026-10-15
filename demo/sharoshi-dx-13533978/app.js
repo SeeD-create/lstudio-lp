@@ -1,0 +1,8 @@
+const titles={home:'今日の業務',clients:'顧問先',procedures:'手続管理',docs:'公文書',payroll:'給与計算',messages:'問い合わせ',review:'公文書の確認',portal:'顧問先ポータル'};
+const clients=[['株式会社青空フーズ','確認待ち','公文書1件の公開確認','平井'],['ノース建設株式会社','問い合わせ','育休手続への回答','佐藤'],['みなとケア合同会社','未提出','10月給与資料','田中'],['東都デザイン株式会社','順調','資格取得届を審査中','平井'],['三峰物流株式会社','期限間近','月額変更届の確認','佐藤'],['ひかり医療法人','順調','次回給与締め 10/20','田中']];
+document.querySelector('#client-grid').innerHTML=clients.map((c,i)=>`<article class="client-card"><header><h3>${c[0]}</h3><span class="pill ${c[1]==='順調'?'':c[1]==='確認待ち'?'red':'amber'}">${c[1]}</span></header><p>${c[2]}</p><small>担当：${c[3]}　${i%2?31:42}名</small></article>`).join('');
+function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active-view'));document.getElementById(id)?.classList.add('active-view');document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.view===id));document.getElementById('page-title').textContent=titles[id]||'';window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+document.querySelectorAll('[data-open="review"],#start-review').forEach(b=>b.addEventListener('click',()=>go('review')));
+document.getElementById('approve').addEventListener('click',e=>{e.currentTarget.textContent='✓ 公開済み';e.currentTarget.disabled=true;document.getElementById('toast').classList.add('show');setTimeout(()=>document.getElementById('toast').classList.remove('show'),7000)});
