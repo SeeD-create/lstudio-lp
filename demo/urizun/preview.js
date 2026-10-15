@@ -22,4 +22,7 @@ if(form){
     values.replaceChildren();for(const [label,value] of [['お名前',data.get('name')],['お電話番号',data.get('phone')],['メール',data.get('email')||'未記入'],['地域',data.get('area')||'未記入'],['ご相談内容',data.get('topic')],['候補日時',slots.join('\n')||'日時未定'],['詳細',data.get('message')||'未記入']]){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;values.append(dt,dd);}review.hidden=false;review.focus();review.scrollIntoView({block:'center'});window.urizunPreviewEvents.push({event:'consultation_form_review'});
   });
   document.querySelector('#edit-form').addEventListener('click',()=>{review.hidden=true;form.querySelector('input').focus();});
+  // The HTML default button stays disabled unless all local-only handlers bind.
+  // This prevents an ordinary no-JS implicit GET submission with personal input.
+  form.querySelector('button[type=submit]').disabled=false;
 }
