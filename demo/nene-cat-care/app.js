@@ -23,9 +23,11 @@ form.addEventListener('submit', event => {
   const concern = document.getElementById('concern').value;
   const detail = document.getElementById('note').value.trim();
   const lines = [name ? `お名前：${name}` : 'お名前：未入力', concern ? `気になること：${concern}` : '気になること：未選択', detail ? `メモ：${detail}` : 'メモ：未入力'];
+  document.getElementById('copy-status').textContent = '';
   document.getElementById('preview-text').textContent = lines.join('\n');
   const preview = document.getElementById('form-preview');
   preview.hidden = false;
+  preview.focus({preventScroll:true});
   preview.scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'nearest'});
 });
 document.getElementById('copy-note').addEventListener('click', async () => {
@@ -59,7 +61,10 @@ if (window.matchMedia('(pointer:fine)').matches && !window.matchMedia('(prefers-
 }
 const stickyCta = document.querySelector('.mobile-sticky-cta');
 if ('IntersectionObserver' in window) {
-  new IntersectionObserver(entries => stickyCta.classList.toggle('show', !entries[0].isIntersecting), {threshold:0}).observe(document.querySelector('.hero'));
+  let heroVisible = true, consultVisible = false;
+  const updateSticky = () => stickyCta.classList.toggle('show', !heroVisible && !consultVisible);
+  new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; updateSticky(); }, {threshold:0}).observe(document.querySelector('.hero'));
+  new IntersectionObserver(entries => { consultVisible = entries[0].isIntersecting; updateSticky(); }, {threshold:0}).observe(document.querySelector('#consult'));
 } else {
   window.addEventListener('scroll', () => stickyCta.classList.toggle('show', window.scrollY > window.innerHeight), {passive:true});
 }
