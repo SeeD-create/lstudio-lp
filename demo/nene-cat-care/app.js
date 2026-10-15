@@ -1,9 +1,9 @@
 const notes = {
-  food: '「最近、ごはんの様子がいつもと違うかも」。気づいたことを、そのまま聞かせてください。',
-  mood: '「このごろ、遊び方や過ごす場所が変わったかも」。いつもの様子と比べて感じたことを聞かせてください。',
-  age: '「年齢とともに、暮らし方を見直したい」。いま大切にしたいことから、一緒に整理しましょう。'
+  food: '食べる量やタイミングがいつもと違う。気づいた時期や様子をメモして、相談に備えましょう。',
+  mood: '動き方や遊び方に変化がある。いつもの活動と比べて、気づいたことを整理しましょう。',
+  age: '年齢に合わせたケアを考えたい。いまの生活で気になることを書きとめてみましょう。'
 };
-const concernNames = {food: 'ごはんのこと', mood: '過ごし方のこと', age: 'これからのこと'};
+const concernNames = {food: '食事の変化', mood: '活動の変化', age: '年齢とケア'};
 document.querySelectorAll('.feeling-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.feeling-card').forEach(other => {
