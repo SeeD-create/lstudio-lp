@@ -1,0 +1,65 @@
+/* Motion language for the reconstructed Kawai lessons. Keep the final frame still and readable. */
+@keyframes kw-head{0%{opacity:0;transform:translateY(-24px);clip-path:inset(0 100% 0 0)}65%{opacity:1;clip-path:inset(0 0 0 0)}100%{transform:translateY(0);clip-path:inset(0 0 0 0)}}
+@keyframes kw-visual-left{0%{opacity:0;transform:translateX(-55px) rotate(-2.5deg) scale(.91);filter:blur(8px)}65%{opacity:1;transform:translateX(7px) rotate(.4deg) scale(1.015);filter:blur(0)}100%{transform:none;filter:none}}
+@keyframes kw-visual-up{0%{opacity:0;transform:translateY(52px) scale(.88);clip-path:inset(100% 0 0 0)}68%{opacity:1;clip-path:inset(0 0 0 0);transform:translateY(-5px) scale(1.015)}100%{transform:none;clip-path:inset(0 0 0 0)}}
+@keyframes kw-visual-iris{0%{opacity:0;transform:scale(.75) rotate(3deg);clip-path:circle(3% at 50% 50%)}67%{opacity:1;transform:scale(1.025) rotate(-.4deg);clip-path:circle(75% at 50% 50%)}100%{transform:none;clip-path:circle(75% at 50% 50%)}}
+@keyframes kw-visual-right{0%{opacity:0;transform:translateX(25px) rotate(2.5deg) scale(.9);filter:blur(7px)}65%{opacity:1;transform:translateX(-6px) rotate(-.3deg) scale(1.012);filter:blur(0)}100%{transform:none;filter:none}}
+@keyframes kw-lead{0%{opacity:0;transform:translateY(26px);filter:blur(5px)}72%{opacity:1;filter:blur(0)}100%{transform:none;filter:none}}
+@keyframes kw-rule{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes kw-card-left{0%{opacity:0;transform:translateX(-42px) skewX(-6deg) scale(.93)}65%{opacity:1;transform:translateX(5px) skewX(1deg) scale(1.01)}100%{transform:none}}
+@keyframes kw-card-up{0%{opacity:0;transform:translateY(36px) scale(.86) rotate(-2deg)}65%{opacity:1;transform:translateY(-4px) scale(1.025) rotate(.3deg)}100%{transform:none}}
+@keyframes kw-card-right{0%{opacity:0;transform:translateX(44px) skewX(6deg) scale(.92)}65%{opacity:1;transform:translateX(-4px) skewX(-1deg) scale(1.01)}100%{transform:none}}
+@keyframes kw-card-stamp{0%{opacity:0;transform:translateY(-12px) scale(1.06) rotate(-2deg);filter:blur(3px)}55%{opacity:1;transform:translateY(3px) scale(.98) rotate(.5deg);filter:blur(0)}75%{transform:translateY(-1px) scale(1.005)}100%{transform:none}}
+@keyframes kw-card-shine{0%{transform:translateX(-120%) skewX(-18deg);opacity:0}30%{opacity:.22}100%{transform:translateX(220%) skewX(-18deg);opacity:0}}
+@keyframes kw-piece{0%{opacity:0;transform:translateY(22px) scale(.55) rotate(-8deg)}70%{opacity:1;transform:translateY(-3px) scale(1.06) rotate(1deg)}100%{transform:none}}
+@keyframes kw-piece-side{0%{opacity:0;transform:translateX(-36px) scale(.72)}70%{opacity:1;transform:translateX(3px) scale(1.04)}100%{transform:none}}
+@keyframes kw-photo-pan{0%{transform:scale(1.09) translate(-1.5%,1%)}100%{transform:scale(1.09) translate(1.5%,-1%)}}
+@keyframes kw-photo-pan-reverse{0%{transform:scale(1.09) translate(1.5%,-1%)}100%{transform:scale(1.09) translate(-1.5%,1%)}}
+@keyframes kw-ring{0%{opacity:.55;transform:scale(.75)}100%{opacity:0;transform:scale(1.55)}}
+@keyframes kw-dot-pulse{0%,100%{box-shadow:0 0 0 7px #ad2b2b20;transform:scale(1)}50%{box-shadow:0 0 0 16px #ad2b2b08;transform:scale(1.13)}}
+
+.slide:not([hidden]) .slide-head{animation:kw-head .58s cubic-bezier(.2,.7,.2,1) both}
+.slide:not([hidden]) .slide-head::after{content:"";position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--red);transform-origin:left;animation:kw-rule .78s .12s ease-out both;pointer-events:none}
+.slide:not([hidden]) .visual{animation:kw-visual-left .68s cubic-bezier(.2,.7,.25,1) both}
+.slide:nth-child(4n+2):not([hidden]) .visual{animation-name:kw-visual-up}
+.slide:nth-child(4n+3):not([hidden]) .visual{animation-name:kw-visual-iris}
+.slide:nth-child(4n+4):not([hidden]) .visual{animation-name:kw-visual-right}
+.slide:not([hidden]) .lead{animation:kw-lead .52s .17s both}
+.slide:not([hidden]) .foot{animation:kw-lead .48s .32s both}
+.cover:not([hidden]) .visual{animation-duration:.85s}
+.cover:not([hidden]) .title{animation:kw-lead .72s .18s both}
+.cover:not([hidden]) .lead{animation-delay:.45s}
+
+.slide .reveal[data-at]:not(.is-in){animation:none!important;opacity:0;visibility:hidden;transform:translateY(12px)}
+.slide .reveal.is-in{position:relative;visibility:visible;opacity:1;animation:kw-card-left .62s cubic-bezier(.18,.72,.22,1) both}
+.slide .reveal[data-at="2"].is-in{animation-name:kw-card-up}
+.slide .reveal[data-at="3"].is-in{animation-name:kw-card-right}
+.slide .reveal[data-at="4"].is-in,.slide .reveal:last-child.is-in{animation-name:kw-card-stamp}
+.slide .reveal.is-in::after{content:"";position:absolute;inset:0;width:38%;background:linear-gradient(90deg,transparent,#fff,transparent);pointer-events:none;animation:kw-card-shine .68s .1s both}
+.slide .reveal.is-in .label{animation:kw-piece-side .42s .12s both}
+.slide .reveal.is-in .value{animation:kw-piece .5s .2s both}
+.slide .reveal:last-child.is-in::before{content:"";position:absolute;inset:-7px;border:2px solid var(--red);border-radius:5px;pointer-events:none;animation:kw-ring .58s .05s both}
+
+/* Maths: reveal individual steps of the visual proof, instead of moving the whole diagram only. */
+.slide:not([hidden]) .diagram .tiles b,.slide:not([hidden]) .diagram .ladder b,.slide:not([hidden]) .diagram .ladder i,.slide:not([hidden]) .diagram .proofline>*{animation:kw-piece .55s both}
+.slide:not([hidden]) .diagram .tiles b:nth-child(1),.slide:not([hidden]) .diagram .ladder>*:nth-child(1),.slide:not([hidden]) .diagram .proofline>*:nth-child(1){animation-delay:.12s}
+.slide:not([hidden]) .diagram .tiles b:nth-child(2),.slide:not([hidden]) .diagram .ladder>*:nth-child(2),.slide:not([hidden]) .diagram .proofline>*:nth-child(2){animation-delay:.22s}
+.slide:not([hidden]) .diagram .tiles b:nth-child(3),.slide:not([hidden]) .diagram .ladder>*:nth-child(3),.slide:not([hidden]) .diagram .proofline>*:nth-child(3){animation-delay:.32s}
+.slide:not([hidden]) .diagram .tiles b:nth-child(n+4),.slide:not([hidden]) .diagram .ladder>*:nth-child(n+4){animation-delay:.42s}
+.slide:not([hidden]) .diagram .bigformula,.slide:not([hidden]) .diagram .line,.slide:not([hidden]) .diagram .hint,.slide:not([hidden]) .diagram .small{animation:kw-lead .55s .32s both}
+
+/* Science: diagrams assemble; photos move gently within their frame. */
+.slide:not([hidden]) .concept>*{animation:kw-piece-side .58s both}
+.slide:not([hidden]) .concept>*:nth-child(1){animation-delay:.12s}
+.slide:not([hidden]) .concept>*:nth-child(2){animation-delay:.3s}
+.slide:not([hidden]) .concept>*:nth-child(3){animation-delay:.48s}
+.slide:not([hidden]) .chem-box>*{animation:kw-piece .6s both}
+.slide:not([hidden]) .chem-box>*:nth-child(1){animation-delay:.12s}
+.slide:not([hidden]) .chem-box>*:nth-child(2){animation-delay:.32s}
+.slide:not([hidden]) .chem-box>*:nth-child(3){animation-delay:.5s}
+.slide:not([hidden]) .lesson-photo{animation:kw-photo-pan 5s ease-in-out alternate infinite}
+.slide:nth-child(even):not([hidden]) .lesson-photo{animation-name:kw-photo-pan-reverse}
+.slide:not([hidden]) .orbit-ring{animation:kw-piece .6s .18s both}
+.slide:not([hidden]) .orbit-dot{animation:kw-dot-pulse 1.2s .45s ease-in-out infinite}
+
+@media(prefers-reduced-motion:reduce){.slide:not([hidden]) .slide-head,.slide:not([hidden]) .slide-head::after,.slide:not([hidden]) .visual,.slide:not([hidden]) .lead,.slide:not([hidden]) .foot,.cover:not([hidden]) .title,.slide .reveal.is-in,.slide .reveal.is-in::before,.slide .reveal.is-in::after,.slide .reveal.is-in .label,.slide .reveal.is-in .value,.slide:not([hidden]) .diagram *,.slide:not([hidden]) .concept>*,.slide:not([hidden]) .chem-box>*,.slide:not([hidden]) .lesson-photo,.slide:not([hidden]) .orbit-ring,.slide:not([hidden]) .orbit-dot{animation:none!important;filter:none!important;clip-path:none!important;transform:none!important}}
