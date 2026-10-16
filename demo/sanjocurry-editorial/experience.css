@@ -1,0 +1,29 @@
+.style-picker{display:none}.compare-mode .style-picker{display:flex}
+.hero-editorial{height:calc(100svh - 90px);min-height:650px;max-height:1050px;padding:25px 5%;background:#f4efe4}
+.hero-editorial .editorial-top{border-color:#3429203b;color:#776558;font-size:9px;padding-bottom:14px}
+.editorial-title-block{position:absolute;left:6%;top:25%;width:36%;z-index:3}
+.hero-kicker{font:12px 'Shippori Mincho B1',serif;letter-spacing:.16em;margin:0 0 28px}
+.hero-editorial .editorial-title-block h1{position:static;margin:0;font:400 clamp(64px,7.8vw,124px)/.91 'Cormorant Garamond',serif;letter-spacing:-.04em}
+.hero-editorial .editorial-title-block h1 i{padding:0;color:#974d33;font-weight:400}
+.editorial-jp{font:14px/2.1 'Shippori Mincho B1',serif;letter-spacing:.08em;margin:32px 0}
+.hero-menu-link{display:flex;gap:35px;align-items:center;border-bottom:1px solid #826d594a;padding:12px 0;width:max-content;font-size:11px}.hero-menu-link span{font-size:16px}
+.hero-editorial .editorial-photo{left:auto;right:2%;top:12%;bottom:auto;width:56%;aspect-ratio:1;margin:0;cursor:crosshair}
+.plate-frames{position:absolute;inset:0;overflow:hidden;border-radius:50%;isolation:isolate;box-shadow:0 30px 60px -45px #57361b80}
+.plate-frame{position:absolute;inset:0;background-image:url('assets/curry-eating-atlas.webp');background-size:300% 200%;background-repeat:no-repeat;opacity:0;transition:opacity .8s ease;will-change:opacity}
+.plate-frame:first-child{opacity:1}.plate-whisper{position:absolute;bottom:-28px;left:0;width:100%;text-align:center;font:12px 'Shippori Mincho B1',serif;letter-spacing:.16em;color:#89715c;transition:opacity .5s}
+.plate-reset{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);border:0;border-bottom:1px solid #88715c66;background:none;padding:6px;font:12px 'Shippori Mincho B1',serif;color:#6f4c37}
+.eating-plate:focus-visible{outline:1px solid #826d59;outline-offset:8px;border-radius:50%}.hero-editorial .editorial-caption{writing-mode:horizontal-tb;left:6%;bottom:25px;font:9px 'Barlow Condensed',sans-serif;letter-spacing:.19em;color:#857463}
+.kitchen-film{aspect-ratio:1;overflow:hidden}.kitchen-film:after{background:none}.chef-film{object-position:center}.film-toggle,.film-caption{display:none}
+footer{padding-bottom:50px}footer small{font-size:9px;color:#8d8071}
+@media(min-width:1500px){.hero-editorial .editorial-photo{width:min(56%,850px);right:4%;top:9%}}
+@media(max-width:700px){.hero-editorial{height:auto;min-height:0;max-height:none;padding:22px 6% 48px;display:flex;flex-direction:column}.hero-editorial .editorial-top{width:100%}.editorial-title-block{position:relative;left:auto;top:auto;width:100%;margin:35px 0 0}.hero-kicker{font-size:10px;margin-bottom:18px}.hero-editorial .editorial-title-block h1{font-size:clamp(61px,17vw,100px);line-height:.86}.hero-editorial .editorial-title-block h1 br{display:none}.hero-editorial .editorial-title-block h1 i{display:block;margin-left:8%}.editorial-jp{font-size:12px;line-height:1.9;margin:24px 0 15px}.hero-menu-link{position:absolute;right:0;bottom:4px;font-size:10px;gap:12px;padding:8px 0}.hero-editorial .editorial-photo{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:112%;margin:15px -6% 45px;aspect-ratio:1}.plate-frame{background-image:url('assets/curry-eating-atlas-mobile.webp')}.plate-whisper{bottom:-23px;font-size:10px}.plate-reset{bottom:-47px;font-size:11px}.hero-editorial .editorial-caption{position:static;font-size:8px}.kitchen-film{aspect-ratio:1}}
+@media(prefers-reduced-motion:reduce){.plate-frame{transition:none}}
+
+/* Scroll distance advances the plate while the hero stays in view. */
+.tasting-track{display:none}body[data-style="editorial"] .tasting-track{display:block;height:420svh;position:relative}
+.tasting-track .hero-editorial{position:sticky;top:0;height:100svh;min-height:0;max-height:none}
+.tasting-track .plate-frame{transition:opacity .24s ease}
+@media(max-width:700px){body[data-style="editorial"] .tasting-track{height:360svh}.tasting-track .hero-editorial{padding:18px 6% 24px;overflow:hidden;align-items:stretch}.tasting-track .editorial-title-block{margin:23px 0 0}.tasting-track .hero-kicker{margin-bottom:12px;font-size:9px}.tasting-track .editorial-title-block h1{font-size:clamp(44px,8svh,76px);line-height:.88}.tasting-track .editorial-jp{font-size:11px;margin:18px 0 10px}.tasting-track .hero-menu-link{font-size:9px}.tasting-track .editorial-photo{width:min(100%,48svh);flex-shrink:0;align-self:center;margin:10px 0 55px}.tasting-track .editorial-caption{margin-top:auto}.tasting-track .plate-whisper{bottom:-22px;font-size:9px}.tasting-track .plate-reset{bottom:-46px}}
+@media(prefers-reduced-motion:reduce){body[data-style="editorial"] .tasting-track{height:auto}.tasting-track .hero-editorial{position:relative}.tasting-track .plate-frame{transition:none}}
+
+.hero-editorial .editorial-title-block h1.title-jp{font-family:'Shippori Mincho B1',serif;font-size:clamp(42px,4.8vw,76px);font-weight:400;line-height:1.55;letter-spacing:.055em}.hero-editorial .editorial-title-block h1.title-jp i{font-style:normal;padding:0}@media(max-width:700px){.hero-editorial .editorial-title-block h1.title-jp{font-size:clamp(36px,10.5vw,49px);line-height:1.45;letter-spacing:.04em}.hero-editorial .editorial-title-block h1.title-jp br{display:block}.hero-editorial .editorial-title-block h1.title-jp i{display:inline;margin:0}}
