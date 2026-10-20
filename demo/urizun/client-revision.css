@@ -85,3 +85,7 @@ main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
 /* Final 1020: keep expanded support tables within narrow screens. */
 .page-shushin .pricing-detail{grid-template-columns:minmax(0,1fr)}
 .page-shushin .pricing-detail-content,.page-shushin .table-scroll{min-width:0;max-width:100%}
+
+/* Keep the complete hero and its regional announcement above the fixed CTA bar. */
+.home-preview main>section.approved-story{height:min(790px,calc(100svh - var(--hero-header-height,130px) - var(--hero-cta-height,84px) - 12px));min-height:0}
+@media(max-width:760px){.home-preview main>section.approved-story{height:calc(100svh - var(--hero-header-height,76px) - var(--hero-cta-height,76px) - 12px);min-height:0}}
