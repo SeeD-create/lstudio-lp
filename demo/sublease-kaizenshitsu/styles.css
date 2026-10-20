@@ -112,3 +112,21 @@
   .flow-photo{height:205px}
 }
 @media(prefers-reduced-motion:reduce){.case-photo img{transition:none}}
+
+/* Mobile posters: vertical headlines use the tall canvas and keep the CTA nearby. */
+@media(max-width:700px){
+  .poster-stage{height:min(650px,calc(100svh - 112px));min-height:530px}
+  .poster-copy,.poster-one .poster-copy{top:15%;left:20px;right:20px;width:auto;display:flex;flex-direction:column;align-items:flex-end}
+  .poster-kicker{align-self:flex-start;margin-bottom:16px}
+  .poster-copy h1,.poster-copy h2,.poster-one .poster-copy h1{height:330px;max-width:100%;writing-mode:vertical-rl;text-orientation:upright;font-size:clamp(25px,6.9vw,31px);line-height:1.5;letter-spacing:.015em;text-wrap:nowrap}
+  .poster-one .poster-copy h1{height:265px}
+  .poster-three .poster-copy h2{height:245px}
+  .poster-four .poster-copy h2{height:270px}
+  .poster-five .poster-copy h2{height:290px}
+  .poster-copy p,.poster-one .poster-copy p{align-self:stretch;margin-top:11px;font-size:11px;line-height:1.65;text-align:right}
+  .poster-ghost{display:none}
+  .poster-action{left:20px;right:20px;bottom:59px}
+  .poster-controls{bottom:12px}
+  .mobile-sticky{transition:transform .25s ease,visibility .25s ease}
+  .hero-in-view .mobile-sticky{transform:translateY(100%);visibility:hidden;pointer-events:none}
+}

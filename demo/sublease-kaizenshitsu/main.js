@@ -14,6 +14,13 @@
 
   const slider = document.querySelector('[data-poster-slider]');
   if (slider) {
+    const syncSticky = () => {
+      const rect = slider.getBoundingClientRect();
+      document.body.classList.toggle('hero-in-view', rect.bottom > 0 && rect.top < window.innerHeight * 0.75);
+    };
+    window.addEventListener('scroll', syncSticky, { passive: true });
+    window.addEventListener('resize', syncSticky);
+    syncSticky();
     const posters = [...slider.querySelectorAll('[data-poster]')];
     const current = slider.querySelector('[data-poster-current]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
