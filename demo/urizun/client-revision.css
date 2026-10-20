@@ -89,3 +89,7 @@ main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
 /* Keep the complete hero and its regional announcement above the fixed CTA bar. */
 .home-preview main>section.approved-story{height:min(790px,calc(100svh - var(--hero-header-height,130px) - var(--hero-cta-height,84px) - 12px));min-height:0}
 @media(max-width:760px){.home-preview main>section.approved-story{height:calc(100svh - var(--hero-header-height,76px) - var(--hero-cta-height,76px) - 12px);min-height:0}}
+
+.plan-price .price-range-part{display:inline-block;white-space:nowrap}
+
+.page-profile img.letter-photo{display:block;width:120px;max-width:100%;height:auto;max-height:160px;object-fit:contain;margin:20px 0 12px}
