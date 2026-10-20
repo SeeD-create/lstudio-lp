@@ -6,7 +6,7 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
 .bottom-contact{position:fixed!important;inset:auto 0 0!important;z-index:50;background:#fff;display:grid!important;grid-template-columns:1fr 1.3fr 1fr!important;border-top:1px solid #c9d0c2;box-shadow:0 -3px 15px #23382412;padding:0 0 env(safe-area-inset-bottom)!important}
 .bottom-contact a{display:flex;align-items:center;justify-content:center;min-height:64px;text-decoration:none;font-weight:700;font-size:16px!important;border-right:1px solid #d5dccd;white-space:nowrap;color:#2e492d;background:#fff;padding:12px 8px!important}
 .bottom-contact .fixed-reserve{background:#f4b31b;color:#38251d}
-.bottom-contact .fixed-instagram{background:#f56868;color:#38251d}
+.bottom-contact :is(.fixed-instagram,.fixed-phone){background:#f56868;color:#38251d}
 .bottom-contact .fixed-line{background:#087e3b!important;color:#fff!important;border-right:0}
 .bottom-contact a:hover{filter:brightness(.94)}
 @media(min-width:761px){.bottom-contact{padding-inline:max(0px,calc((100% - 1040px)/2))!important}.bottom-contact a{font-size:18px!important}}
@@ -14,28 +14,28 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
 /* Full-width, quiet fills with brand-colored outlines. */
 .bottom-contact{padding-inline:0!important;background:#f8f7f1;gap:0;border-top:0;box-shadow:0 -2px 10px #2436240a}
 .bottom-contact a{border:2px solid;box-sizing:border-box}
-.bottom-contact .fixed-instagram{border-color:#f56868;background:#f6eeeb;color:#68453f}
+.bottom-contact :is(.fixed-instagram,.fixed-phone){border-color:#f56868;background:#f6eeeb;color:#68453f}
 .bottom-contact .fixed-reserve{border-color:#f4b31b;background:#f5f0df;color:#594c2c}
 .bottom-contact .fixed-line{border:2px solid #087e3b;background:#edf2e9!important;color:#36573c!important}
 .bottom-contact a:hover{filter:none;background:#e8ebdf}
 .bottom-contact a:focus-visible{outline:3px solid #293d2d;outline-offset:-6px}
 /* Approved unified interior for the three fixed buttons. */
-.bottom-contact .fixed-instagram,.bottom-contact .fixed-reserve,.bottom-contact .fixed-line{background:#f5f3ea!important;color:#293e2d!important}
+.bottom-contact :is(.fixed-instagram,.fixed-phone),.bottom-contact .fixed-reserve,.bottom-contact .fixed-line{background:#f5f3ea!important;color:#293e2d!important}
 .bottom-contact a:hover{background:#eae9df!important}
 /* Selected option 5: fine pictograms inside colored circles. */
-.bottom-contact a.fixed-instagram,.bottom-contact a.fixed-reserve,.bottom-contact a.fixed-line{border:0;border-right:1px solid #d5d9cb;gap:12px;min-height:76px}
+.bottom-contact a:is(.fixed-instagram,.fixed-phone),.bottom-contact a.fixed-reserve,.bottom-contact a.fixed-line{border:0;border-right:1px solid #d5d9cb;gap:12px;min-height:76px}
 .bottom-contact a.fixed-line{border-right:0}
 .bottom-contact .contact-icon{width:34px;height:34px;flex:none;border:1px solid #f56868;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#293e2d}
 .bottom-contact .fixed-reserve .contact-icon{border-color:#e7a61a}
 .bottom-contact .fixed-line .contact-icon{border-color:#087e3b}
 .bottom-contact svg{display:block;width:21px;height:21px}
 body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
-@media(max-width:760px){.bottom-contact a.fixed-instagram,.bottom-contact a.fixed-reserve,.bottom-contact a.fixed-line{flex-direction:column;gap:4px;min-height:78px;padding:8px 3px!important;font-size:14px!important}.bottom-contact .contact-icon{width:29px;height:29px}.bottom-contact svg{width:18px;height:18px}body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}}
+@media(max-width:760px){.bottom-contact a:is(.fixed-instagram,.fixed-phone),.bottom-contact a.fixed-reserve,.bottom-contact a.fixed-line{flex-direction:column;gap:4px;min-height:78px;padding:8px 3px!important;font-size:14px!important}.bottom-contact .contact-icon{width:29px;height:29px}.bottom-contact svg{width:18px;height:18px}body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}}
 /* Match label and icon outline with readable brand-tone colors. */
-.bottom-contact a.fixed-instagram{--contact-accent:#ac454b;color:var(--contact-accent)!important}
+.bottom-contact a:is(.fixed-instagram,.fixed-phone){--contact-accent:#ac454b;color:var(--contact-accent)!important}
 .bottom-contact a.fixed-reserve{--contact-accent:#886315;color:var(--contact-accent)!important}
 .bottom-contact a.fixed-line{--contact-accent:#087e3b;color:var(--contact-accent)!important}
-.bottom-contact .fixed-instagram .contact-icon,.bottom-contact .fixed-reserve .contact-icon,.bottom-contact .fixed-line .contact-icon{border-color:var(--contact-accent);color:var(--contact-accent)}
+.bottom-contact :is(.fixed-instagram,.fixed-phone) .contact-icon,.bottom-contact .fixed-reserve .contact-icon,.bottom-contact .fixed-line .contact-icon{border-color:var(--contact-accent);color:var(--contact-accent)}
 /* Approved: amber ring with brown reservation label and pictogram. */
 .bottom-contact a.fixed-reserve{--contact-accent:#62452e;color:#62452e!important}
 .bottom-contact .fixed-reserve .contact-icon{border-color:#e7a61a;color:#62452e}
@@ -81,3 +81,7 @@ main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
  main>.team-intro{margin:38px auto;width:calc(100% - 40px)}
  .home-preview main>.team-intro>h2{min-height:120px;font-size:clamp(20px,5.5vw,28px)}
 }
+
+/* Final 1020: keep expanded support tables within narrow screens. */
+.page-shushin .pricing-detail{grid-template-columns:minmax(0,1fr)}
+.page-shushin .pricing-detail-content,.page-shushin .table-scroll{min-width:0;max-width:100%}
