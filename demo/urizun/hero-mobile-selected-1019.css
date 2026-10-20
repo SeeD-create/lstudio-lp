@@ -40,3 +40,11 @@ body.embedded-story[data-design=c] .ending .booking-card{padding:12px}
 body.embedded-story[data-design=c] .ending .booking-card h2{font-size:21px;line-height:1.5}
 body.embedded-story[data-design=c] .ending .cta{margin-top:12px;padding:12px;min-height:46px;font-size:15px}
 }
+
+/* Selected readability mock 01: warm white haze, mobile only. */
+@media(max-width:760px){
+body[data-design=c] .scene:not(.ending) .shade{background:linear-gradient(90deg,#f8f6effa 0%,#f8f6efeb 25%,#f8f6ef94 43%,#f8f6ef00 65%)}
+body[data-design=c] .scene:nth-child(2) .shade{background:linear-gradient(180deg,#f8f6effa 0px,#f8f6efee 100px,#f8f6ef99 145px,#f8f6ef00 210px)}
+body[data-design=c] .scene:nth-child(2) .photo{object-position:center top;transform:translateY(64px)}
+body[data-design=c] .scene:not(.ending) h1,body[data-design=c] .scene:not(.ending) h2{color:#213e2b;font-weight:600;text-shadow:none}
+}
