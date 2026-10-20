@@ -93,3 +93,7 @@ main>.team-intro{width:min(1120px,calc(100% - 48px));margin:60px auto}
 .plan-price .price-range-part{display:inline-block;white-space:nowrap}
 
 .page-profile img.letter-photo{display:block;width:120px;max-width:100%;height:auto;max-height:160px;object-fit:contain;margin:20px 0 12px}
+
+/* Home fees: explicit centered content width, matching neighboring sections. */
+.home-preview .home-fee-guide>.home-fee-inner{width:min(1120px,calc(100% - 72px));max-width:1120px;margin-inline:auto}
+@media(max-width:760px){.home-preview .home-fee-guide>.home-fee-inner{width:calc(100% - 40px)}}
