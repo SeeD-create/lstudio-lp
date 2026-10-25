@@ -39,6 +39,23 @@
 .story{min-height:0}.story-photo{width:calc(100% + 72px);height:320px;object-fit:cover;object-position:center 34%;margin:-36px -36px 24px;flex:none}
 .story .story-label{margin-top:0}.story h3{margin-top:17px}.story>span{padding-top:18px}
 
+/* A continuous leftward gallery makes the possible futures tangible. */
+.final{padding-top:92px;padding-bottom:88px}
+.final h2{margin-bottom:6px}
+.career-marquee{position:relative;overflow:hidden;width:100%;margin:42px 0 32px;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.career-marquee-track{display:flex;width:max-content;animation:career-marquee-left 31s linear infinite;will-change:transform}
+.career-marquee:hover .career-marquee-track,.career-marquee:focus-within .career-marquee-track{animation-play-state:paused}
+.career-marquee-set{display:flex;flex:none;gap:16px;padding-right:16px}
+.career-card{position:relative;flex:none;width:clamp(245px,21vw,330px);height:360px;margin:0;overflow:hidden;border-radius:5px;background:#446477;text-align:left}
+.career-card img{width:100%;height:100%;object-fit:cover;object-position:center 36%;transition:transform .6s ease}
+.career-card:hover img{transform:scale(1.045)}
+.career-card:after{content:'';position:absolute;inset:43% 0 0;background:linear-gradient(transparent,#0e2c3ce0)}
+.career-card figcaption{position:absolute;z-index:1;left:21px;right:15px;bottom:18px;display:flex;flex-direction:column;gap:2px;text-shadow:0 1px 8px #102f42a8}
+.career-card small{color:#d7e5e8;font-size:9px;font-weight:700;letter-spacing:.18em}
+.career-card strong{color:#fff;font:600 21px/1.45 'Noto Serif JP',serif;letter-spacing:-.03em}
+.final-action .button-light{margin-top:0}
+@keyframes career-marquee-left{to{transform:translateX(-50%)}}
+
 @media(max-width:700px){
   .hero-image{background-position:79% center}
   .hero-image-three{background-position:76% center}
@@ -53,6 +70,13 @@
   .promise-visual strong{font-size:17px}
   .scope-photo{height:210px;margin:22px 0 17px;box-shadow:10px 10px 0 #e0edf0}
   .story-photo{width:calc(100% + 50px);height:235px;object-position:center 32%;margin:-25px -25px 20px}
+  .final{padding-top:70px;padding-bottom:74px}
+  .career-marquee{margin:29px 0 29px;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+  .career-marquee-track{animation-duration:26s}
+  .career-marquee-set{gap:11px;padding-right:11px}
+  .career-card{width:72vw;max-width:300px;height:315px}
+  .career-card figcaption{left:18px;bottom:15px}
+  .career-card strong{font-size:18px}
 }
 @media(max-width:390px){.hero-progress button{width:24px}.hero-progress{right:14px}}
-@media(prefers-reduced-motion:reduce){.hero-image,.hero-unease{transition:none;animation:none}.hero-unease:before,.hero-unease:after,.hero.is-doubt #hero-title em{animation:none}.hero-progress button.is-active span{animation:none;width:100%}.hero-content.is-changing .hero-eyebrow,.hero-content.is-changing #hero-title,.hero-content.is-changing .hero-lead{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero-image,.hero-unease{transition:none;animation:none}.hero-unease:before,.hero-unease:after,.hero.is-doubt #hero-title em{animation:none}.hero-progress button.is-active span{animation:none;width:100%}.hero-content.is-changing .hero-eyebrow,.hero-content.is-changing #hero-title,.hero-content.is-changing .hero-lead{animation:none}.career-marquee{overflow-x:auto;mask-image:none}.career-marquee-track{animation:none}}
