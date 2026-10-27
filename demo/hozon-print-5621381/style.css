@@ -113,3 +113,11 @@
 .closing-body>p:not(.eyebrow){font-size:13px;line-height:1.8}
 .closing-pill{font-size:11px;padding:12px 15px;margin-top:18px}
 }
+
+/* Keep navigation available at tablet widths. */
+@media(min-width:701px) and (max-width:1000px){
+.header{gap:12px;padding-inline:25px}
+.nav{display:flex;gap:12px;font-size:11px;margin-left:auto}
+.header-button{margin-left:0;font-size:10px;padding:13px}
+}
+@media(prefers-reduced-motion:reduce){.album-caption{display:none}}
