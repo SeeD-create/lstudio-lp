@@ -2,3 +2,4 @@
 
 
 
+.header.scrolled{position:fixed;top:0;background:rgba(20,45,61,.94);box-shadow:0 7px 28px #061b2855;backdrop-filter:blur(14px);height:70px}.product-note{color:#475c61;font-size:12px}@media(max-width:700px){.moments h2{font-size:30px}.season h2{font-size:29px}.header.scrolled{height:65px}}
