@@ -34,34 +34,100 @@ const season=document.querySelector('.season'),seasonImage=document.querySelecto
 
   const slides = [...document.querySelectorAll('.hero-slide')];
   const heroMain = document.querySelector('.hero-main');
+  const heroStage = document.querySelector('.hero-stage');
+  const album = document.querySelector('.memory-album');
+  const leaves = [...document.querySelectorAll('.album-leaf')];
+  const albumCount = album?.querySelector('.album-caption span');
   const stories = [
     {first:'今日のしあわせを、',second:'いつもの場所に。',copy:'スマホの中で眠る写真を、何度でも見返したくなる一枚へ。<br>家族の時間が、暮らしの景色になる。',caption:'思い出を、しまわない。'},
     {first:'選ぶ時間から、',second:'思い出は動き出す。',copy:'何気なく撮った一枚を見つける。<br>残したい気持ちが、かたちになる。',caption:'写真を、もう一度選ぶ。'},
     {first:'手に取るたび、',second:'あの日が近くなる。',copy:'画面の中にあった笑顔が、暮らしの中へ。<br>一枚の写真から、会話がはじまる。',caption:'笑顔を、手のひらに。'},
     {first:'一緒に見返す、',second:'かけがえのない時間。',copy:'贈った人も、受け取った人も笑顔に。<br>思い出は、これからも続いていく。',caption:'記憶を、分かち合う。'}
   ];
-  if (slides.length === stories.length && heroMain && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    let current = 0;
+  if (slides.length === stories.length && heroMain && heroStage && album) {
     const title = heroMain.querySelector('h1');
     const copy = heroMain.querySelector('.hero-copy');
     const caption = heroMain.querySelector('.hero-caption');
-    setInterval(() => {
-      const old = slides[current];
-      const nextIndex = (current + 1) % slides.length;
-      const upcoming = slides[nextIndex];
-      heroMain.classList.add('story-changing');
-      old.classList.remove('active'); old.classList.add('was-active');
-      upcoming.classList.add('active');
-      current = nextIndex;
-      setTimeout(() => {
-        const story = stories[current];
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let currentStory = 0;
+    let queued = false;
+    const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+    function renderAlbumJourney() {
+      queued = false;
+      if (reducedMotion.matches) return;
+      const travel = Math.max(1, heroStage.offsetHeight - innerHeight);
+      const progress = clamp((scrollY - heroStage.offsetTop) / travel * (stories.length - 1), 0, stories.length - 1);
+      const page = Math.min(stories.length - 2, Math.floor(progress));
+      const turn = clamp(progress - page, 0, 1);
+      const nextOpacity = clamp((turn - .36) / .54, 0, 1);
+      slides.forEach((slide, index) => {
+        slide.style.opacity = index === page ? (1 - nextOpacity) : index === page + 1 ? nextOpacity : 0;
+        slide.style.transform = `scale(${(1.03 + (index === page ? turn : 0) * .09).toFixed(3)})`;
+      });
+      leaves.forEach((leaf, index) => {
+        const amount = clamp(progress - index, 0, 1);
+        leaf.style.transform = `rotateY(${-178 * amount}deg)`;
+      });
+      album.style.setProperty('--album-lift', (Math.sin(turn * Math.PI) * .8).toFixed(3));
+      const visibleStory = clamp(Math.round(progress), 0, stories.length - 1);
+      if (visibleStory !== currentStory) {
+        currentStory = visibleStory;
+        const story = stories[visibleStory];
         title.innerHTML = story.first + '<br><em>' + story.second + '</em>';
         copy.innerHTML = story.copy;
-        caption.querySelector('span:first-child').textContent = '0' + (current + 1) + ' / MEMORY';
+        caption.querySelector('span:first-child').textContent = '0' + (visibleStory + 1) + ' / MEMORY';
         caption.querySelector('span:last-child').textContent = story.caption;
-        heroMain.classList.remove('story-changing');
-      }, 360);
-      setTimeout(() => old.classList.remove('was-active'), 1000);
-    }, 5400);
+        albumCount.textContent = '0' + (visibleStory + 1) + ' / 04';
+        heroMain.classList.remove('album-story-enter');
+        void heroMain.offsetWidth;
+        heroMain.classList.add('album-story-enter');
+      }
+    }
+    function queueJourney() {
+      if (!queued) { queued = true; requestAnimationFrame(renderAlbumJourney); }
+    }
+    addEventListener('scroll', queueJourney, {passive:true});
+    addEventListener('resize', queueJourney, {passive:true});
+    reducedMotion.addEventListener('change', queueJourney);
+    queueJourney();
   }
+
+  const captureButton = document.querySelector('.capture-trigger');
+  const hero = document.querySelector('.hero');
+  const flash = document.querySelector('.shutter-flash');
+  let capturing = false;
+  function captureMemory(event) {
+    if (capturing || !hero || !flash || !album || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    capturing = true;
+    const frame = [...slides].sort((a,b) => Number(getComputedStyle(b).opacity) - Number(getComputedStyle(a).opacity))[0];
+    const photo = document.createElement('div');
+    photo.className = 'capture-print';
+    const image = document.createElement('div');
+    image.className = 'capture-photo';
+    image.style.backgroundImage = getComputedStyle(frame).backgroundImage;
+    photo.append(image);
+    const fromX = Math.min(innerWidth - 80, Math.max(80, event.clientX || innerWidth / 2));
+    const fromY = Math.min(innerHeight - 80, Math.max(80, event.clientY || innerHeight / 2));
+    photo.style.left = fromX - 77 + 'px';
+    photo.style.top = fromY - 68 + 'px';
+    document.body.append(photo);
+    flash.classList.remove('is-firing');
+    void flash.offsetWidth;
+    flash.classList.add('is-firing');
+    const target = album.getBoundingClientRect();
+    const toX = target.left + target.width * .55 - fromX;
+    const toY = target.top + target.height * .48 - fromY;
+    const motion = photo.animate([
+      {opacity:0,transform:'scale(.55) rotate(-9deg)',offset:0},
+      {opacity:1,transform:'scale(1.04) rotate(3deg)',offset:.25},
+      {opacity:1,transform:'scale(1) rotate(-4deg)',offset:.53},
+      {opacity:0,transform:`translate(${toX}px, ${toY}px) scale(.18) rotate(-24deg)`,offset:1}
+    ],{duration:1050,easing:'cubic-bezier(.2,.7,.28,1)',fill:'forwards'});
+    motion.onfinish = () => {photo.remove();capturing = false;};
+  }
+  captureButton?.addEventListener('click', event => {event.stopPropagation();captureMemory(event);});
+  hero?.addEventListener('click', event => {
+    if (event.target.closest('a,button,nav')) return;
+    captureMemory(event);
+  });
 })();
