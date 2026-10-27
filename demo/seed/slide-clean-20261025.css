@@ -1,2 +1,5 @@
 .slide-picture{width:100%;aspect-ratio:16/8.37;overflow:hidden;background:#f8f6ef}
 .slide-picture>.slide-loop{width:100%;max-width:none;aspect-ratio:16/9;height:auto;display:block;object-fit:contain}
+
+/* Unit captions sit higher in later slides of these three videos. */
+.subject-math .slide-picture,.subject-social .slide-picture,.subject-english .slide-picture{aspect-ratio:16/7.5}
