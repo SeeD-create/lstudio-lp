@@ -3,3 +3,23 @@
 
 
 .header.scrolled{position:fixed;top:0;background:rgba(20,45,61,.94);box-shadow:0 7px 28px #061b2855;backdrop-filter:blur(14px);height:70px}.product-note{color:#475c61;font-size:12px}@media(max-width:700px){.moments h2{font-size:30px}.season h2{font-size:29px}.header.scrolled{height:65px}}
+
+/* Photo story controls and cinematic hero transitions */
+.hero-image{animation:none;background:none;transform:none;overflow:hidden}
+.hero-slide{position:absolute;inset:0;background-position:center;background-size:cover;opacity:0;transform:scale(1.035);transition:opacity .9s ease}
+.hero-slide.active{opacity:1;animation:hero-story-zoom 5.4s linear forwards}
+.hero-slide.was-active{opacity:0;transform:scale(1.17)}
+@keyframes hero-story-zoom{from{transform:scale(1.035)}to{transform:scale(1.17)}}
+.hero-main h1,.hero-main .hero-copy,.hero-caption{transition:opacity .35s ease,translate .35s ease}
+.hero-main.story-changing h1,.hero-main.story-changing .hero-copy,.hero-main.story-changing .hero-caption{opacity:0;translate:0 12px}
+.moments{position:relative;padding-bottom:92px}
+.moments-track{cursor:grab;user-select:none;touch-action:auto}
+.moments-track.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.moments-track img{-webkit-user-drag:none;pointer-events:none}
+.moments-controls{position:absolute;right:clamp(28px,8.8vw,160px);bottom:23px;display:flex;gap:10px;z-index:2}
+.moments-controls button{width:50px;height:50px;border:1px solid #cddce0;border-radius:50%;background:transparent;color:#fff;font-size:25px;line-height:1;transition:background .2s,color .2s,border-color .2s}
+.moments-controls button:hover,.moments-controls button:focus-visible{background:#fff;color:#183b50;outline:none}
+.moments-controls button:disabled{opacity:.35;cursor:default;background:transparent;color:#fff}
+.swipe-note{text-align:left;margin-top:16px}
+@media(max-width:700px){.hero-slide{background-position:64% center}.hero-slide:first-child{background-position:60% center}.moments{padding-bottom:62px}.moments-controls{display:none}.swipe-note{margin-top:0}.swipe-note::after{content:'　・　指で左右にスワイプ'}}
+@media(prefers-reduced-motion:reduce){.hero-slide.active{animation:none;transform:none}.hero-slide{transition:none}.hero-main h1,.hero-main .hero-copy,.hero-caption{transition:none}}
