@@ -127,7 +127,22 @@ const season=document.querySelector('.season'),seasonImage=document.querySelecto
   }
   captureButton?.addEventListener('click', event => {event.stopPropagation();captureMemory(event);});
   hero?.addEventListener('click', event => {
+    if (matchMedia('(max-width:700px)').matches) return;
     if (event.target.closest('a,button,nav')) return;
     captureMemory(event);
   });
+})();
+
+/* Pair each seasonal desktop image with a portrait composition on phones. */
+(() => {
+  const mobileImages = ['winter-mobile.webp', 'newyear-mobile.webp', 'banner-mobile.webp'];
+  const current = document.querySelector('.season-current');
+  const image = document.querySelector('.season-image');
+  if (!current || !image) return;
+  const sync = () => {
+    const index = Math.max(0, Math.min(2, Number.parseInt(current.textContent, 10) - 1 || 0));
+    image.style.setProperty('--season-mobile-image', `url('assets/${mobileImages[index]}')`);
+  };
+  new MutationObserver(sync).observe(current, { childList: true, characterData: true, subtree: true });
+  sync();
 })();
