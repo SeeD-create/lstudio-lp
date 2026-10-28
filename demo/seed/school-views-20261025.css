@@ -9,3 +9,5 @@
 .school-photo img,.school-photo-elementary img,.school-photo-senior img{object-position:50% 25%}
 
 .school-photo-elementary{max-width:none}.school-photo-elementary img{object-position:center}
+
+.school-fees dt{flex:1;min-width:0}.school-fees dd{flex-shrink:0}.school-fees>div{align-items:baseline}
