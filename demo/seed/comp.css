@@ -236,3 +236,5 @@ nav .nav-cta{font-size:12px}
 @keyframes hope-burst-spark{to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.45)}}
 .motion-off .hope-light,.motion-off .hope-burst{display:none}
 @media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.hope-light,.hope-burst{display:none!important}}
+
+.footer-brand>a span{font-size:inherit}
