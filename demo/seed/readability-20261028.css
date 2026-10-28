@@ -1,0 +1,54 @@
+/* Readable supporting text, with a stronger floor for phone screens. */
+.school-course p,.school-overview p,.school-approach ul{font-size:15px;line-height:1.9}
+.school-fees{font-size:14px;line-height:1.7}
+.school-fees dt{line-height:1.7}.school-fees dd{white-space:nowrap}
+.school-fee-note{font-size:13px;line-height:1.9;color:#496456}
+.school-customize p{font-size:14px;line-height:1.9}
+.school-label{font-size:12px;letter-spacing:.09em}
+.school-ringo-link,.instagram-diary-link{font-size:13px;line-height:1.8}
+.faq summary{font-size:15px;line-height:1.75}
+.faq details p,.faq .faq-more-content>details>p{font-size:15px;line-height:1.9}
+.faq-region,.faq-intro{font-size:14px;line-height:1.8}
+.faq .faq-more>summary{font-size:14px}
+.flow-steps p,.flow-heading>p:last-child,.flow-note{font-size:15px;line-height:1.9}
+.access-copy address,.access-stations{font-size:14px;line-height:1.9}
+.final-cta>small,.footer-links{font-size:13px;line-height:1.8}
+.draft-note{font-size:12px;line-height:1.8}
+.growth-choice small{font-size:12px;line-height:1.5}
+.little-seed p{font-size:13px}.eyebrow{font-size:12px}
+@media(max-width:760px){
+ body{font-size:15px}
+ .heading>p:not(.eyebrow),.soft-note,.lesson>p,.final-cta p{font-size:15px;line-height:1.85}
+ .philosophy .philosophy-copy p{font-size:15px;line-height:1.9}
+ .school-tabs button{font-size:15px}
+ .school-stage{font-size:14px}
+ .school-overview p,.school-course p,.school-approach ul,.school-customize p{font-size:15px;line-height:1.9}
+ .school-content h4{margin-bottom:15px}
+ .school-fee-note{font-size:14px;line-height:1.9}
+ .school-label{font-size:11px;letter-spacing:.06em}
+ .school-contact{font-size:15px}
+ .school-photo figcaption{font-size:11px;padding:4px 9px}
+ .school-customize{padding:18px}
+ .growth-choice span:not(.arrow){font-size:14px;line-height:1.8}
+ .growth-choice small{font-size:12px}
+ .growth-choice{padding:15px 12px}
+ .growth-choice .arrow{width:26px;font-size:28px;flex-shrink:0}
+ .growth-message{font-size:16px;line-height:1.9}
+ .faq summary{font-size:15px;padding:15px 12px}
+ .faq details p,.faq .faq-more-content>details>p{font-size:14px;line-height:1.95}
+ .faq .faq-more>summary{font-size:14px;gap:10px}
+ .faq-region,.faq-intro{font-size:13px}
+ .flow-steps p,.flow-heading>p:last-child,.flow-note{font-size:14px;line-height:1.95}
+ .access-copy address,.access-stations{font-size:14px;line-height:1.9}
+ .final-cta .cta,.enrollment-flow .flow-contact{font-size:14px;line-height:1.7;padding:15px 16px;gap:12px}
+ .final-cta .cta span,.enrollment-flow .flow-contact span{flex-shrink:0}
+ .final-cta>small{font-size:12px;display:block;margin-top:10px}
+ .instagram-diary-link{font-size:13px}
+ .contact-dock a{font-size:13px}
+ .motion{font-size:12px;padding:9px 12px;line-height:1.4}
+ .hero .ai-label{font-size:10px;padding:3px 8px;line-height:1.5}
+ .footer-brand>p:first-child{font-size:14px}
+ .footer-links{font-size:13px}
+ .draft-note{font-size:12px;padding:10px 14px}
+ .eyebrow{font-size:11px}
+}
