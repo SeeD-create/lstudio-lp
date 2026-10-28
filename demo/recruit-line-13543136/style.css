@@ -22,6 +22,7 @@
 .rich-menu .rich-subgrid button span{font-size:12px;color:#c17b5d}
 @media(max-width:800px){
   .desktop-copy{display:none}.mobile-copy{display:inline}
+  .hero{height:540px;min-height:540px}
   .hero-slide:nth-of-type(1) .hero-image{background-image:url('assets/hero-mobile-1.webp')!important}
   .hero-slide:nth-of-type(2) .hero-image{background-image:url('assets/hero-mobile-2.webp')!important}
   .hero-slide:nth-of-type(3) .hero-image{background-image:url('assets/hero-mobile-3.webp')!important}
@@ -29,7 +30,7 @@
   .hero-slide:nth-of-type(5) .hero-image{background-image:url('assets/hero-mobile-5.webp')!important}
   .hero-image,.hero-image[style*='mentor'],.hero-image[style*='team'],.hero-image[style*='conversation'],.hero-image[style*='future']{background-position:center top;background-size:100% auto;background-repeat:no-repeat;background-color:#071d2b}
   .hero-slide::after{background:linear-gradient(0deg,#071d2bf5 0%,#071d2baf 32%,#071d2b10 62%,#071d2b22 100%)}
-  .hero-content{left:7vw;right:7vw;top:clamp(280px,43svh,375px);bottom:auto;max-width:none}
+  .hero-content{left:7vw;right:7vw;top:clamp(250px,33svh,280px);bottom:auto;max-width:none}
   .hero-content h1{font-size:clamp(24px,7.6vw,36px);line-height:1.45;letter-spacing:0;text-shadow:0 3px 12px #06151fe6}
   .hero-content .eyebrow{margin-bottom:8px}
   .hero-content .lead{font-size:11px;line-height:1.65;margin:14px 0 18px;max-width:31em}

@@ -23,13 +23,13 @@
     <div class="group" aria-label="セクション"><button data-target="#top">ヒーロー</button><button data-target="#people">職場写真</button><button data-target="#line">LINE</button><button data-target="#line-video">動画</button><button data-target=".final-poster">ラスト</button></div>
     <a href="index.html">LPを開く ↗</a>
   </div>
-  <main><div><div class="device"><iframe title="採用LPのスマートフォン表示" src="index.html?qa=1&amp;v=mobilepolish7"></iframe></div><p class="caption">01〜05でポスターを切り替えられます。自動再生でトランジションも確認できます。</p></div></main>
+  <main><div><div class="device"><iframe title="採用LPのスマートフォン表示" src="index.html?qa=1&amp;v=mobilepolish9"></iframe></div><p class="caption">01〜05でポスターを切り替えられます。自動再生でトランジションも確認できます。</p></div></main>
   <script>
     const frame=document.querySelector('.device'),view=document.querySelector('iframe');
     document.querySelectorAll('[data-width]').forEach(button=>button.addEventListener('click',()=>{frame.style.width=button.dataset.width+'px';document.querySelectorAll('[data-width]').forEach(b=>b.classList.toggle('active',b===button))}));
     document.querySelectorAll('[data-target]').forEach(button=>button.addEventListener('click',()=>view.contentWindow.document.querySelector(button.dataset.target)?.scrollIntoView({behavior:'instant'})));
-    document.querySelectorAll('[data-slide]').forEach(button=>button.addEventListener('click',()=>{if(!view.src.includes('qa=1'))view.src='index.html?qa=1&v=mobilepolish7';view.addEventListener('load',()=>view.contentWindow.document.querySelectorAll('.hero-dots button')[Number(button.dataset.slide)]?.click(),{once:true});if(view.contentWindow.document.readyState==='complete'&&view.src.includes('qa=1'))view.contentWindow.document.querySelectorAll('.hero-dots button')[Number(button.dataset.slide)]?.click()}));
-    document.querySelector('#play').addEventListener('click',()=>view.src='index.html?v=mobilepolish7');
+    document.querySelectorAll('[data-slide]').forEach(button=>button.addEventListener('click',()=>{if(!view.src.includes('qa=1'))view.src='index.html?qa=1&v=mobilepolish9';view.addEventListener('load',()=>view.contentWindow.document.querySelectorAll('.hero-dots button')[Number(button.dataset.slide)]?.click(),{once:true});if(view.contentWindow.document.readyState==='complete'&&view.src.includes('qa=1'))view.contentWindow.document.querySelectorAll('.hero-dots button')[Number(button.dataset.slide)]?.click()}));
+    document.querySelector('#play').addEventListener('click',()=>view.src='index.html?v=mobilepolish9');
   </script>
 </body>
 </html>
