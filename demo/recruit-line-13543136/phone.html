@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>スマホ表示｜採用LP × LINE デモ</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#dce6e5;color:#153440;font-family:system-ui,'Noto Sans JP',sans-serif}
+    .bar{position:sticky;top:0;z-index:2;background:#0b2531;color:#fff;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding:12px 18px;box-shadow:0 5px 20px #071c2838}
+    .bar strong{font-size:13px;letter-spacing:.08em;margin-right:10px}.bar a{color:#fff;text-decoration:none;font-size:12px;border-bottom:1px solid #ffffff80;padding-bottom:2px}
+    .group{display:flex;gap:5px}.bar button{border:1px solid #8aa2a8;background:transparent;color:#fff;font:600 11px system-ui,sans-serif;padding:7px 10px;cursor:pointer}
+    .bar button.active,.bar button:hover{background:#e79b79;border-color:#e79b79;color:#09232d}
+    main{display:grid;place-items:center;padding:24px 14px 55px}.device{width:390px;border:9px solid #102b37;border-radius:42px;background:#102b37;box-shadow:0 22px 60px #173a4460;overflow:hidden;transition:width .25s}
+    iframe{display:block;width:100%;height:844px;border:0;background:#0b2430}.caption{font-size:11px;color:#56727a;margin-top:18px;text-align:center}
+    @media(max-width:500px){.bar{justify-content:flex-start}.device{max-width:100%;border-width:5px;border-radius:26px}iframe{height:calc(100svh - 120px);min-height:600px}main{padding:15px 8px}}
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <strong>採用LP｜スマホ表示</strong>
+    <div class="group" aria-label="画面幅"><button data-width="360">360px</button><button data-width="390" class="active">390px</button><button data-width="430">430px</button></div>
+    <div class="group" aria-label="セクション"><button data-target="#top">ヒーロー</button><button data-target="#people">職場写真</button><button data-target="#line">LINE</button><button data-target="#line-video">動画</button><button data-target=".final-poster">ラスト</button></div>
+    <a href="index.html">LPを開く ↗</a>
+  </div>
+  <main><div><div class="device"><iframe title="採用LPのスマートフォン表示" src="index.html?v=mobilepolish5"></iframe></div><p class="caption">画面幅と表示箇所を切り替えて確認できます。</p></div></main>
+  <script>
+    const frame=document.querySelector('.device'),view=document.querySelector('iframe');
+    document.querySelectorAll('[data-width]').forEach(button=>button.addEventListener('click',()=>{frame.style.width=button.dataset.width+'px';document.querySelectorAll('[data-width]').forEach(b=>b.classList.toggle('active',b===button))}));
+    document.querySelectorAll('[data-target]').forEach(button=>button.addEventListener('click',()=>view.contentWindow.document.querySelector(button.dataset.target)?.scrollIntoView({behavior:'instant'})));
+  </script>
+</body>
+</html>
