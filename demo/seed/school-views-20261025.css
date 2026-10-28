@@ -8,4 +8,4 @@
 .school-photo{aspect-ratio:2}.school-photo img,.school-photo-elementary img,.school-photo-senior img{object-position:50% 50%}@media(max-width:760px){.school-photo{aspect-ratio:1.35}}
 .school-photo img,.school-photo-elementary img,.school-photo-senior img{object-position:50% 25%}
 
-.school-photo-elementary{aspect-ratio:1;max-width:560px;margin-left:auto;margin-right:auto}.school-photo-elementary img{object-position:center}
+.school-photo-elementary{max-width:none}.school-photo-elementary img{object-position:center}
