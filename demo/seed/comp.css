@@ -254,3 +254,9 @@ nav .nav-cta{font-size:12px}
 @keyframes tv-signal{0%,16%,22%,71%,79%,100%{transform:translateX(0) skewX(0)}17%{transform:translateX(-3px) skewX(.7deg)}18%{transform:translateX(4px) skewX(-.6deg)}20%{transform:translateX(-2px)}72%{transform:translateX(3px) skewX(-.5deg)}74%{transform:translateX(-4px) skewX(.8deg)}77%{transform:translateX(2px)}}
 .motion-off .instagram-diary video,.motion-off .instagram-diary:before,.motion-off .instagram-diary:after{animation:none;transform:none}.motion-off .instagram-diary:before{opacity:0}.motion-off .instagram-diary:after{opacity:.12}
 @media(prefers-reduced-motion:reduce){.instagram-diary video,.instagram-diary:before,.instagram-diary:after{animation:none;transform:none}.instagram-diary:before{opacity:0}.instagram-diary:after{opacity:.12}}
+
+/* A brief reception glitch; the regular photo motion remains a centered zoom-in. */
+.instagram-diary video{animation:tv-glitch 5.2s steps(1,end) infinite}
+@keyframes tv-glitch{0%,22%,26%,72%,76%,100%{transform:none}23%{transform:translateX(-5px) skewX(.35deg)}24%{transform:translateX(4px) skewX(-.35deg)}25%{transform:none}73%{transform:translateX(5px) skewX(-.3deg)}74%{transform:translateX(-3px)}75%{transform:none}}
+.motion-off .instagram-diary video{animation:none;transform:none}
+@media(prefers-reduced-motion:reduce){.instagram-diary video{animation:none;transform:none}}
