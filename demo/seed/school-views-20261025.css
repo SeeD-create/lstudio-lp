@@ -11,3 +11,5 @@
 .school-photo-elementary{max-width:none}.school-photo-elementary img{object-position:center}
 
 .school-fees dt{flex:1;min-width:0}.school-fees dd{flex-shrink:0}.school-fees>div{align-items:baseline}
+
+.school-customize{margin:26px 0 30px;padding:20px 24px;background:#edf6ed;border-left:4px solid #568d38;border-radius:0 12px 12px 0}.school-customize strong{display:block;font-size:19px;color:#285c35;line-height:1.6}.school-customize p{margin:7px 0 0;font-size:13px;line-height:1.9;color:#476554}@media(max-width:760px){.school-customize{padding:18px;margin:24px 0}.school-customize strong{font-size:17px}.school-customize p{font-size:12px}}
