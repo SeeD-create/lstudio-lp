@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1793240614902,
+  "updatedAt": 1793244411588,
   "entries": [
     {
       "selector": "section.worries > div:nth-of-type(2) > article:nth-of-type(4) > p:nth-of-type(1) > span:nth-of-type(2)",
@@ -9,16 +9,6 @@
       },
       "mobile": {
         "text": "間違えた理由を考える前に、答えを覚えてしまう。少し形が変わっただけですぐにまた解けなくなってしまう。"
-      }
-    },
-    {
-      "selector": "#nav > a:nth-of-type(4)",
-      "desktop": {
-        "text": "",
-        "hidden": true
-      },
-      "mobile": {
-        "text": ""
       }
     },
     {
