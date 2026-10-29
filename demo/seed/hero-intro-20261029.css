@@ -1,0 +1,10 @@
+/* A short opening sequence shared by desktop and phone. */
+html{scrollbar-gutter:stable}
+html.hero-intro-lock,html.hero-intro-lock body{overflow:hidden!important;overscroll-behavior:none!important;scroll-behavior:auto!important}
+.hero h1 .mobile-hero-title>.headline-letter{animation-duration:.55s;animation-delay:calc(.08s + var(--letter)*.045s)}
+.hero h1 .mobile-hero-title:after{animation-duration:.4s;animation-delay:.8s}
+.hero h1 .mobile-hero-title:before{animation-duration:.5s;animation-delay:1.3s}
+.hero .headline-flash{animation-duration:.5s;animation-delay:1.28s}
+.hero .hero-people,.hero .natural-portraits{animation-duration:.7s;animation-delay:1.85s}
+.hero .sparkles{animation-duration:.3s;animation-delay:2.6s}
+.hero .hero-copy>.cta{animation-duration:.5s;animation-delay:2.45s}

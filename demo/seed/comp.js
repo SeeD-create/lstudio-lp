@@ -22,7 +22,7 @@ document.querySelectorAll('.worry-grid,.strength-grid,.lesson-grid,.closing-grid
 document.querySelectorAll('.growth-choices,.growth-visual,.footer-brand,.movie-link').forEach(el=>{el.classList.add('reveal');io.observe(el);});
 const lightRain=document.createElement('div');lightRain.className='light-rain';lightRain.setAttribute('aria-hidden','true');
 const orbX=[7,22,39,56,73,89,15,31,48,65,82,95,11,27,44,60,78,91];
-for(let i=0;i<orbX.length;i++){const orb=document.createElement('i');orb.style.cssText=`--x:${orbX[i]}%;--delay:${4.65+i*.22}s;--duration:${8+(i%5)*1.2}s;--size:${5+(i%4)*2}px;--drift:${[-18,13,22,-14,17,-20][i%6]}px`;lightRain.append(orb);}document.querySelector('.hero').append(lightRain);
+for(let i=0;i<orbX.length;i++){const orb=document.createElement('i');orb.style.cssText=`--x:${orbX[i]}%;--delay:${2.9+i*.12}s;--duration:${8+(i%5)*1.2}s;--size:${5+(i%4)*2}px;--drift:${[-18,13,22,-14,17,-20][i%6]}px`;lightRain.append(orb);}document.querySelector('.hero').append(lightRain);
 const progress=document.createElement('div');progress.className='reading-progress';progress.setAttribute('aria-hidden','true');document.body.append(progress);
 const parallax=[...document.querySelectorAll('.philosophy>img,.growth-visual>img,footer>img')];
 let motionFrame=0;
