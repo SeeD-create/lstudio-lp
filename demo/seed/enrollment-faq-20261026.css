@@ -6,3 +6,6 @@
 
 /* Related questions are grouped inside the optional detail section. */
 .faq .faq-category{font-size:18px;line-height:1.6;margin:24px 0 12px;padding:0 0 8px;border-bottom:2px solid #d7e7d3;color:#285d45}.faq .faq-category:first-child{margin-top:12px}.faq .faq-intro{white-space:pre-line}@media(max-width:760px){.faq .faq-category{font-size:16px;margin-top:22px}.faq .faq-more>summary{font-size:14px}}
+
+/* Opening the outer question group must not change closed child indicators. */
+.faq details:not([open])>summary>span{transform:none}
