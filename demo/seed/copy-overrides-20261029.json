@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1793250806126,
+  "updatedAt": 1793250806127,
   "entries": [
     {
       "selector": "section.worries > div:nth-of-type(2) > article:nth-of-type(4) > p:nth-of-type(1) > span:nth-of-type(2)",
@@ -36,12 +36,6 @@
       },
       "mobile": {
         "text": "一人ひとりに向き合う少人数指導"
-      }
-    },
-    {
-      "selector": "#panel-junior > figure:nth-of-type(1) > figcaption:nth-of-type(1)",
-      "desktop": {
-        "hidden": true
       }
     },
     {
