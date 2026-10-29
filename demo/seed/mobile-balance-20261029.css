@@ -1,0 +1,33 @@
+/* Phone review: intentional phrases, readable answers, clear image/copy separation. */
+@media(max-width:760px){
+ .phrase{display:inline-block}
+ .philosophy{aspect-ratio:auto;min-height:620px}
+ .philosophy .poster-art{z-index:0}
+ .philosophy .poster-art:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#f8ffffd9 0%,#f8ffffef 24%,#f8ffffde 45%,#f8ffff33 66%,transparent 79%)}
+ .philosophy .poster-art img{object-position:center bottom}
+ .philosophy .philosophy-copy{top:31%;left:50%;width:92%;z-index:1;transform:translate(-50%,-50%)}
+ .philosophy .philosophy-copy h2{font-size:34px;line-height:1.6;letter-spacing:.06em}
+ .philosophy .philosophy-copy p{font-size:16px;line-height:2;max-width:21em;margin:20px auto 0;text-wrap:balance}
+ .philosophy .philosophy-copy p br{display:none}
+ .worries .heading h2{font-size:clamp(20px,5.5vw,29px);white-space:nowrap;letter-spacing:0;line-height:1.6}
+ .worries .worry:nth-child(3) strong{font-size:25px;line-height:1.65}
+ .strengths .heading>p{font-size:16px;line-height:1.9}
+ .strengths .heading>p .phrase{display:block}
+ .strength-grid{gap:18px}
+ .strength-grid .strength{display:flex;flex-direction:column;align-items:center;padding:20px 14px 24px;min-height:0;gap:0;text-align:center}
+ .strength-grid .round-photo{order:0;width:104px;flex-shrink:0;margin:0 0 14px}
+ .strength-grid .strength-no{position:absolute;left:20px;top:18px;font-size:18px;margin:0}
+ .strength-grid .strength h3{order:1;font-size:clamp(22px,6.1vw,26px);line-height:1.65;font-weight:900;text-align:center;letter-spacing:0;word-break:keep-all;overflow-wrap:normal;margin:0}
+ .growth-choices{gap:16px}
+ .growth-choice,.growth-choice.active{display:grid;grid-template-columns:1fr;gap:8px;padding:20px 22px;transform:none;text-align:left}
+ .growth-choice span:not(.arrow){font-size:18px;line-height:1.8;width:100%;text-wrap:pretty}
+ .growth-choice .before{padding-bottom:4px}
+ .growth-choice .before br{display:none}
+ .growth-choice .arrow{width:auto;justify-self:start;font-size:27px;line-height:1;transform:rotate(90deg);margin:0 0 3px 3px}
+ .growth-choice .after{padding-top:9px;border-top:1px solid #dcebdc}
+ .growth-choice .after br{display:none}
+ .growth-visual{margin:2px 16px 0}
+}
+
+@media(max-width:760px){.philosophy-line{display:block}.strength-grid .strength h3{font-size:25px}}
+@media(max-width:350px){.strength-grid .strength h3{font-size:22px}}
