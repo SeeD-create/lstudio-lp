@@ -52,3 +52,60 @@
  .draft-note{font-size:12px;padding:10px 14px}
  .eyebrow{font-size:11px}
 }
+
+/* Desktop: 18px minimum for body copy, labels and controls. */
+@media(min-width:761px){
+ body{font-size:18px}
+ nav,.brand,.hero-location,.hero-sub,.hero .cta,.hero .mobile-hero-cta,.hero h1 small,.hero .ai-label,.ai-label,.scroll{font-size:18px}
+ nav{gap:18px}header{height:auto;min-height:74px;gap:20px;padding-top:12px;padding-bottom:12px}
+ header nav{min-width:0;flex-wrap:wrap;justify-content:flex-end;gap:10px 18px}
+ .nav-cta,nav .nav-cta{font-size:18px;line-height:1.6;text-align:center}
+ .philosophy .philosophy-copy p,.heading>p:not(.eyebrow),.eyebrow,.soft-note,.worries .worry-note{font-size:18px;line-height:1.9}
+ .strength h3{font-size:18px;line-height:1.75}
+ .lesson>p,.lesson-play small,.movie-link,.movie-link button,.filters button,.library-card span,.slide-pending small{font-size:18px}
+ .growth-choice span:not(.arrow),.growth-choice small,.growth-message,.little-seed p{font-size:18px}
+ .growth-choice span:not(.arrow){line-height:1.8}.growth-choice small{line-height:1.6}
+ .school-stage,.school-label,.school-overview p,.school-approach ul,.school-course,.school-course p,.school-fees,.school-fee-note,.school-customize p,.school-draft,.school-contact,.school-ringo-link,.school-photo figcaption{font-size:18px;line-height:1.85}
+ .school-label{letter-spacing:.04em}
+ .school-fees dt,.school-fees dd{line-height:1.7}
+ .school-fees>div{gap:14px;padding:13px 0}
+ .school-fees dd{white-space:nowrap}
+ .school-ringo-intro>span,.school-ringo-intro p{font-size:18px}
+ .faq summary,.faq details p,.faq .faq-more>summary,.faq .faq-more-content>details>p,.faq-region,.faq-intro{font-size:18px;line-height:1.85}
+ .flow-steps p,.flow-heading>p:last-child,.flow-note{font-size:18px;line-height:1.9}
+ .flow-steps{gap:18px}.flow-steps li{padding:24px 20px}
+ .final-cta p,.final-cta .cta,.enrollment-flow .flow-contact,.final-cta>small,.final-cta address,.instagram-diary-link{font-size:18px;line-height:1.8}
+ .access-copy address,.access-stations{font-size:18px;line-height:1.9}
+ .footer-brand>p:first-child,.footer-links,.draft-note{font-size:18px;line-height:1.8}
+ .draft-note{max-width:800px}
+ .motion,.contact-dock a,.close-dialog,#video-description,#video-error{font-size:18px}
+ .motion{padding:10px 16px;line-height:1.5}
+ .course-tabs button,.course-kicker,.course-body p{font-size:18px}
+}
+@media(min-width:761px) and (max-width:1100px){
+ .school-content{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .school-content>article:last-child{grid-column:1/-1}
+ .school-fees{max-width:680px}
+ .flow-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .flow-steps li:after{display:none}
+ header{flex-wrap:wrap}header nav{flex:1 1 550px}
+}
+
+@media(min-width:761px){
+ .worry-index,.school-tabs button span{font-size:18px}
+ .achievement-section .eyebrow,.achievement-section>p,.achievement-period,.achievement-sub,.achievement-sub b,.achievement-note,.achievement-photo{font-size:18px;line-height:1.85}
+}
+
+@media(min-width:761px){
+ .school-content{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px}
+ .school-content>article:last-child{grid-column:1/-1}
+}
+@media(min-width:1101px){
+ .school-fees{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px;max-width:none}
+ .school-fee-note{max-width:62em}
+}
+
+@media(min-width:761px){
+ #achievements p,#achievements .achievement-photo{font-size:18px;line-height:1.85}
+ .closing-grid>.faq>h2{font-size:28px}
+}
