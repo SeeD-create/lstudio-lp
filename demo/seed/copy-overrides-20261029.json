@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1793250806127,
+  "updatedAt": 1793250806128,
   "entries": [
     {
       "selector": "section.worries > div:nth-of-type(2) > article:nth-of-type(4) > p:nth-of-type(1) > span:nth-of-type(2)",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "selector": "#panel-elementary > div:nth-of-type(2) > article:nth-of-type(3) > p:nth-of-type(2)",
+      "selector": "#panel-elementary > div:nth-of-type(2) > article:nth-of-type(3) > p:nth-of-type(1)",
       "desktop": {
         "text": "表示金額は税込です。個別指導は週2・週3コマ（1コマ50分）の月額例です。受講コマ数により料金は変わります。通常授業は2か月で7週です。サポート費には年間教材費等・自習室利用費を含みます。入塾時の費用は面談でご確認ください。"
       },
