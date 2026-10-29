@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": 1793250806125,
+  "updatedAt": 1793250806126,
   "entries": [
     {
       "selector": "section.worries > div:nth-of-type(2) > article:nth-of-type(4) > p:nth-of-type(1) > span:nth-of-type(2)",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "selector": "section.growth > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(3) > span:nth-of-type(3)",
+      "selector": "section.growth .growth-choice:nth-child(3) > .after",
       "desktop": {
         "text": "日々の積み重ねが\nテスト直前の勉強の密度を\n大きく変えて点数につながる。"
       },

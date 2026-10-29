@@ -31,3 +31,40 @@
 
 @media(max-width:760px){.philosophy-line{display:block}.strength-grid .strength h3{font-size:25px}}
 @media(max-width:350px){.strength-grid .strength h3{font-size:22px}}
+
+/* All three answers are visible with their own photograph. */
+.growth-layout{display:block}.growth-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.growth-choice,.growth-choice.active{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding:22px;transform:none;cursor:default}
+.growth-choice .before,.growth-choice .after{flex:none!important;width:100%}.growth-choice .arrow{transform:rotate(90deg);width:auto;align-self:flex-start;font-size:28px}
+.growth-answer-photo{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 42%;border-radius:12px;margin-top:auto}
+@media(max-width:760px){
+ .strength-grid .strength h3{font-size:21px;text-align:left;width:100%;line-height:1.65}
+ .strength-grid .strength{padding:20px 22px 23px}
+ .strength-grid .round-photo{width:164px;margin-bottom:18px}
+ .growth-choices{grid-template-columns:1fr;gap:20px}
+ .growth-choice,.growth-choice.active{display:flex;padding:20px;gap:10px}
+ .growth-choice .after{margin-bottom:6px}.growth-answer-photo{margin-top:0;aspect-ratio:4/3}
+ .student-success .unified-copy{padding:16px;gap:12px}
+ .student-success .unified-meta{font-size:14px;padding-bottom:9px}
+ .student-success .unified-results{gap:0}
+ .student-success .unified-result{display:grid;grid-template-columns:76px minmax(0,1fr) 56px;align-items:center;gap:5px;padding:12px 0;border-bottom:1px solid #e7eee7}
+ .student-success .unified-result h3{font-size:13px;line-height:1.4;margin:0;white-space:nowrap;letter-spacing:-.03em}
+ .student-success .unified-scores{gap:5px}
+ .student-success .unified-scores .score-before,.student-success .unified-scores strong{font-size:24px;line-height:1.2}
+ .student-success .score-arrow{font-size:16px}
+ .student-success .unified-scores small{font-size:13px;margin-left:1px}
+ .student-success .unified-gain{margin:0;padding:6px 2px;font-size:16px;white-space:nowrap}
+ .student-success .unified-gain>span{display:none}.student-success .unified-gain small{font-size:12px}
+ .student-success .unified-cert,.student-success .unified-dense .unified-cert{font-size:19px!important;padding:8px;line-height:1.4!important}
+ .student-success .unified-awards .unified-results{gap:12px}.student-success .unified-award p{font-size:23px!important;padding:10px}
+ .final-cta h2{font-size:20px;line-height:1.8;letter-spacing:0;white-space:nowrap}
+ body>header{height:64px;min-height:64px;padding:10px 16px;align-items:center;gap:12px}
+ body>header .seed-official-brand{height:36px;align-items:center;font-size:24px;line-height:1;gap:7px}
+ body>header .seed-official-brand img{width:36px;height:36px}
+ body>header .menu{position:relative;display:grid;place-items:center;width:36px;height:36px;flex:0 0 36px;margin:0;padding:0;font-size:0;line-height:1}
+ body>header .menu:before{content:"";width:22px;height:2px;background:currentColor;box-shadow:0 -7px 0 currentColor,0 7px 0 currentColor}
+ body>header .menu[aria-expanded=true]:before{transform:rotate(45deg);box-shadow:none}
+ body>header .menu[aria-expanded=true]:after{content:"";position:absolute;width:22px;height:2px;background:currentColor;transform:rotate(-45deg)}
+}
+
+@media(max-width:760px){body>header .menu:before{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}body>header .menu[aria-expanded=true]:before{transform:translate(-50%,-50%) rotate(45deg)}}
