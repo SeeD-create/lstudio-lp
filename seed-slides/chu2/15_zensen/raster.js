@@ -1,0 +1,19 @@
+(()=>{
+const assets='assets/generated-',motion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+let active=null,lastStep=-1;
+function fit(frame,host,ratio){const w=Math.min(host.clientWidth,host.clientHeight*ratio);frame.style.width=w+'px';frame.style.height=w/ratio+'px'}
+function stream(frame,points,blue=false,speed=3500){if(!motion)return;for(let i=0;i<5;i++){const d=document.createElement('i');d.className='air-particle'+(blue?' blue':'');frame.append(d);d.animate(points.map(([left,top])=>({left:left+'%',top:top+'%'})),{duration:speed,iterations:Infinity,delay:-i*speed/5,easing:'linear'});}}
+function rain(frame,cold){if(!motion)return;for(let i=0;i<18;i++){const d=document.createElement('i');d.className='rain-drop';const x=cold?66+(i%6)*2:58+(i%9)*4;d.style.left=x+'%';frame.append(d);d.animate([{top:'48%',opacity:0},{top:'53%',opacity:.9},{top:'74%',opacity:0}],{duration:cold?650:1500,delay:-i*140,iterations:Infinity});}}
+function phase(frame,n){const d=document.createElement('div');d.className='raster-phase';d.style.backgroundImage=`url('${assets}life.png')`;d.style.backgroundPosition=['0% 0%','100% 0%','0% 100%','100% 100%'][n-1];frame.append(d);return d}
+function update(){const slide=document.querySelector('.slide:not([hidden])'),host=slide?.querySelector('.raster-science');const step=Number(slide?.dataset.step||0);if(!host){active=null;return}if(active===host&&lastStep===step)return;active=host;lastStep=step;host.getAnimations({subtree:true}).forEach(a=>a.cancel());host.replaceChildren();const mode=host.dataset.mode,k=host.dataset.variant.split('-')[0];
+ if(mode==='comparison'){host.innerHTML='<div class="raster-compare"><div><img src="'+assets+'warm.png" alt="温暖前線の断面"></div><div><img src="'+assets+'cold.png" alt="寒冷前線の断面"></div></div>';return}
+ const frame=document.createElement('div');frame.className='raster-frame';host.append(frame);
+ if(mode==='cyclone'){fit(frame,host,1.5);const n=+k||2;phase(frame,n);if(step===1&&n>1&&motion){const prev=phase(frame,n-1);prev.animate([{opacity:1},{opacity:0}],{duration:1100,fill:'forwards'});}return}
+ const key=['boundary','meeting'].includes(mode)?'boundary':['latitude','westerly'].includes(mode)?'wind':mode==='stationary'?'stationary':k||'warm';const img=document.createElement('img');img.alt='生成画像による'+slide.querySelector('h1').textContent;img.src=assets+key+'.png';frame.append(img);const resize=()=>fit(frame,host,img.naturalWidth/img.naturalHeight||1.5);img.onload=resize;if(img.complete)resize();
+ if(window.frontTeaching?.(frame,slide.dataset.id,step,motion,stream,rain))return;
+ if(step>0){if(key==='warm'){stream(frame,[[39,77],[48,76],[57,70],[66,60]]);stream(frame,[[20,65],[20,60],[20,55]],false,4000)}if(key==='stationary')stream(frame,[[54,61],[63,58],[73,53],[83,45]]);if(key==='cold'){stream(frame,[[94,70],[85,66],[78,56],[72,42],[70,34]],false,2200);stream(frame,[[53,71],[59,71],[65,71]],true,2600);stream(frame,[[10,61],[15,61],[20,61]],true,2600)}if(key==='wind')stream(frame,[[15,34],[30,36],[45,42],[60,38],[75,35],[90,40]],true,4500);if(key==='boundary'){stream(frame,[[15,48],[30,45],[42,39],[51,34]]);if(step>1)stream(frame,[[36,75],[42,72],[47,68],[53,63]],false,4000)}if(key==='occluded')stream(frame,[[73,50],[73,42],[74,34]],false,3200)}
+ if(step>0&&(host.dataset.variant.includes('rain')||mode==='stationary'))rain(frame,key==='cold');
+ if(mode==='passage'){const note=document.createElement('div');note.className='raster-note';note.textContent=step<2?'観測地点：'+(k==='warm'?'寒気側':'暖気側'):'通過後：'+(k==='warm'?'暖気に変わり、気温上昇':'寒気に変わり、気温下降');frame.append(note);if(step===2&&motion)note.animate([{opacity:0,transform:'translate(-50%,10px)'},{opacity:1,transform:'translate(-50%,0)'}],{duration:500});}
+}
+document.addEventListener('seed:step',update);window.addEventListener('resize',()=>{active=null;update()});update();
+})();

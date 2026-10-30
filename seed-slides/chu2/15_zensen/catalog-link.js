@@ -1,0 +1,2 @@
+(()=>{const a=document.createElement('a');a.id='seed-catalog-link';a.textContent='教材一覧';a.href=decodeURI(location.pathname).includes('/WORKSPACE/')?'../../index.html':'https://l-studiojp.com/seed-slides/index.html';document.querySelector('.toolbar').append(a)})();
+(()=>{const a=document.createElement('a');a.id='seed-print-link';a.textContent='配布PDF';a.href='前線と天気の変化_スライドそのまま.pdf';a.target='_blank';a.rel='noopener';a.title='スライドと同じ横長比率・1ページ1枚・答え表示済み／全38ページ';document.querySelector('.toolbar').append(a)})();
