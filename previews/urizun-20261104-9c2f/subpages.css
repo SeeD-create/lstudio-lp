@@ -1,0 +1,61 @@
+/* Lower-page mobile presentation. No changes to desktop content or pricing. */
+.page-visual{display:none}
+@media(max-width:760px){
+ main.subpage-polish:not(.fees-page) .crumb{padding:10px 6%!important;font-size:11px!important;line-height:1.7}
+ main.subpage-polish:not(.fees-page)>.pagehead{padding:24px 6% 26px!important;background:linear-gradient(120deg,#e8f7fc,#f4fbfd);border-bottom:3px solid #0082ad}
+ main.subpage-polish .pagehead .wrap{position:relative}
+ main.subpage-polish:not(.fees-page) .pagehead .eyebrow{display:block;font-size:9px;line-height:1.6;letter-spacing:.1em;padding:0 60px 0 0;margin:0 0 17px;min-height:23px}
+ main.subpage-polish:not(.fees-page) .pagehead h1{font-size:clamp(25px,6.8vw,30px);line-height:1.5;letter-spacing:.01em;margin:0 0 14px;overflow-wrap:break-word}
+ main.subpage-polish.short-title .pagehead h1{font-size:32px;line-height:1.35}
+ main.subpage-polish:not(.fees-page) .pagehead p{font-size:14px;line-height:1.9;margin:0;white-space:normal!important}
+ main.subpage-polish:not(.fees-page)>.pagehead+section{padding-top:26px!important}
+ .subpage-polish .page-visual{display:flex;position:absolute;right:0;top:-6px;align-items:center;justify-content:center}
+ .subpage-polish .icon-visual{width:42px;height:42px;padding:8px;background:white;border:1px solid #c9e7f1;border-radius:12px;color:#0082ad;box-shadow:0 3px 0 #dceff5}
+ .subpage-polish .icon-visual svg{width:100%;height:100%}
+ .subpage-polish .pair-visual,.subpage-polish .portrait-visual{position:static;justify-content:flex-end;height:104px;margin-top:10px;margin-bottom:-12px}
+ .subpage-polish .pair-visual img,.subpage-polish .portrait-visual img{height:100%;width:74px;object-fit:contain;object-position:bottom}
+ main.person-page .pagehead .wrap{padding-right:88px;min-height:142px}
+ main.person-page .pagehead .eyebrow{padding-right:0;font-size:8px}
+ main.person-page .portrait-visual{position:absolute;right:0;top:25px;width:76px;height:128px;margin:0}
+ main.person-page .pagehead p{font-size:12px!important}
+ main.person-page .biography-heading>.portrait{display:none}
+ main.person-page .biography-heading{display:block;border-left:3px solid #0082ad;padding-left:16px;margin-bottom:24px}
+ main.person-page .biography-heading h2{font-size:17px!important;margin:0 0 14px}
+ main.person-page .biography-body>div{margin-bottom:24px}
+ main.person-page .biography-body h2{padding-top:18px;border-top:1px solid #d5e8ef}
+ .subpage-polish .office-visual{position:static;margin:18px 0 -5px;border-radius:6px;overflow:hidden;background:white}
+ .subpage-polish .office-visual img{display:block;width:100%;height:auto;max-height:155px;object-fit:contain}
+ main.service-page>.pagehead+section .badge{background:#e7f5fb;color:#006e95;line-height:1.6;white-space:normal}
+ main.service-page .grid article,main.service-page .two>.card{border-top:3px solid #0082ad;border-radius:5px;box-shadow:0 4px 0 #edf4f6}
+ main.service-page .grid article h3{margin-top:0}
+ main.subpage-polish .flowlinks{margin-top:20px}
+ main.subpage-polish .flowlinks .secondary{background:#fff;border-color:#9ccbdc;color:#006e95}
+ main.subpage-polish .callout:not(.fee-welcome){padding:22px 18px;border-top:3px solid #ed533e;border-left:0;border-radius:4px}
+ main.subpage-polish .callout:not(.fee-welcome) h2{margin-top:0}
+ main.subpage-polish .light{background:#f1f8fb}
+ main.subpage-polish .profile{border-top:3px solid #0082ad}
+ main.form-page .pair-visual{height:76px;margin-top:10px}
+ main.form-page .pagehead .wrap{padding-right:0}
+ main.form-page form{padding:20px 18px;background:#fff;border:1px solid #d4e6ed;border-top:3px solid #0082ad;border-radius:5px;box-shadow:0 5px 0 #edf4f7}
+ main.form-page .field{margin-top:0;margin-bottom:22px}
+ main.form-page .field>span{display:block;margin-bottom:9px;font-size:14px;font-weight:700}
+ main.form-page .field input,main.form-page .field select{min-height:46px}
+ main.form-page .field input,main.form-page .field select,main.form-page .field textarea{border-radius:5px;border:1px solid #a8c6d3;background:#fcfeff}
+ main.form-page .notice{padding:14px;line-height:1.8;font-size:13px;margin-bottom:22px;background:#edf7fc;border-left:3px solid #0082ad}
+ main.faq-page details{margin-bottom:14px;padding:0 16px;border:1px solid #cce1e9;border-radius:5px;background:#fff;box-shadow:0 3px 0 #eff5f7}
+ main.faq-page details[open]{border-top:3px solid #0082ad}
+ main.faq-page details>summary{font-size:15px;padding:17px 0;line-height:1.8}
+ main.faq-page details>p{font-size:14px;line-height:1.9;padding-bottom:6px}
+ main.diagnostic-page .notice{padding:18px;background:#fff;border-left:3px solid #0082ad;border-radius:3px;font-size:13px;line-height:1.8;margin-bottom:24px}
+ main.diagnostic-page .notice h2{font-size:20px!important;margin-top:0}
+ main.diagnostic-page .quizTitle{font-size:21px!important;line-height:1.6}
+ main.diagnostic-page .choice{padding:14px 12px;margin-bottom:10px;border-radius:5px}
+ main.legal-page .pagehead{border-bottom-width:1px}
+ main.legal-page h2{font-size:20px!important;border-bottom:1px solid #d6e8ee;padding-bottom:10px;margin-top:30px!important}
+ main.legal-page p,main.legal-page li{font-size:14px}
+ .subpage-polish .news-list>li{padding:20px!important;border:1px solid #d2e6ee!important;border-top:3px solid #0082ad!important;border-radius:5px;background:#fff;margin-bottom:20px}
+ .subpage-polish .news-list time{font-size:13px;color:#537483}
+ .subpage-polish [data-urizun-widget="columns"]>.wrap>p:last-child{padding:28px 20px;background:#f0f8fb;border:1px dashed #a8cddc;border-radius:6px;text-align:center;color:#416575}
+ .subpage-polish [role="tablist"].flowlinks{display:flex;flex-wrap:nowrap;gap:8px}
+ .subpage-polish [role="tablist"].flowlinks>.btn{flex:1 1 0;min-width:0}
+}
