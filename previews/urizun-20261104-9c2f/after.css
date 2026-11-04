@@ -62,3 +62,22 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
  main.fees-page .fee-welcome>p{grid-column:1/-1;font-size:14px;line-height:1.85;margin:0;padding-top:14px;border-top:1px solid #eddbd0}
 }
 @media(max-width:350px){main.fees-page .fee-welcome{grid-template-columns:minmax(0,1fr) 88px;padding:18px 14px}.fees-page .fee-faces img{width:46px!important;height:90px!important}main.fees-page .fee-free{font-size:23px}}
+
+/* Client review: original copy, actual advisers, readable experience labels. */
+.phrase{display:inline-block}
+#home .impact-partners{margin-top:24px}
+@media(max-width:760px){
+ #home .mobile-headline .headline-top{font-size:.86em}
+ #home .mobile-headline .headline-mark{font-size:.94em}
+ #home .mobile-headline .headline-bottom{font-size:.82em;white-space:nowrap}
+ #home .impact-partners{order:2;--figure-height:196px;margin:0 0 24px;padding:18px 12px;background:#ffffff12;border:1px solid #ffffff40;border-radius:4px}
+ #home .impact-partners p{font-size:13px!important}
+ #home .impact-statement{display:none}
+ .home-impact .impact-experience{grid-template-columns:1fr;padding:22px 6%;gap:0}
+ .home-impact .impact-experience>div,.home-impact .impact-experience>div:last-child{grid-column:auto;display:flex;justify-content:space-between;gap:12px;border:0;border-bottom:1px solid #ffffff40;padding:15px 0}
+ .home-impact .impact-experience>div:last-child{border-bottom:0}
+ .home-impact .impact-experience>div>span{max-width:210px;font-size:14px;line-height:1.8}
+ .home-impact .impact-experience>div>span>.phrase{font-size:inherit}
+ .home-impact .impact-experience strong{flex-shrink:0;font-size:44px}
+}
+@media(max-width:350px){#home .impact-partners{--figure-height:170px}.home-impact .impact-experience>div>span{font-size:12px}}
