@@ -1,4 +1,4 @@
-/* Only header, notice and hero are changed. Everything below the hero uses original CSS and DOM. */
+/* Mobile presentation refinements; original branding and page content retained. */
 @media(max-width:760px){
 header{padding:8px 4%;gap:8px;min-height:84px}header .logoBrand{width:155px}header>.btn{font-size:12px;padding:9px 10px}.menuMobile summary{font-size:22px;padding:2px 8px}
 .uz-notice{font-size:12px!important;line-height:1.65!important;padding:9px 12px!important;margin:8px auto!important}
@@ -20,3 +20,24 @@ header{padding:8px 4%;gap:8px;min-height:84px}header .logoBrand{width:155px}head
 
 /* Mobile subpage typography and spacing only; original text and prices preserved. */
 @media(max-width:760px){main:not(.home-impact) .pagehead{padding:32px 6%}main:not(.home-impact) .pagehead h1{font-size:clamp(24px,6.6vw,30px);line-height:1.5;overflow-wrap:anywhere}main:not(.home-impact) .pagehead p{font-size:14px;line-height:1.85}main:not(.home-impact) h2{font-size:24px;line-height:1.6}main:not(.home-impact) h3{font-size:20px;line-height:1.65}main:not(.home-impact) p,main:not(.home-impact) li{line-height:1.9}main:not(.home-impact) .btn{white-space:normal;min-height:46px;text-align:center}main:not(.home-impact) .flowlinks{gap:10px}main:not(.home-impact) .fee-rows dt,main:not(.home-impact) .fee-rows dd{line-height:1.8}main:not(.home-impact) .crumb{font-size:11px;padding:14px 6%;overflow-wrap:anywhere}main:not(.home-impact) input,main:not(.home-impact) select,main:not(.home-impact) textarea{font-size:16px;max-width:100%}main:not(.home-impact) iframe{max-width:100%}}
+
+/* Consistent rhythm across the full mobile site. */
+a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #e45443;outline-offset:4px}
+@media(max-width:760px){
+ body{padding-bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+ main>section:not(.impact-hero):not(.impact-experience):not(.pagehead),main .fee-schedule section{padding:40px 6%}
+ .home-impact>section:not(.impact-hero):not(.impact-experience)>h2,main:not(.home-impact) h2{font-size:clamp(23px,6.2vw,28px);line-height:1.55;letter-spacing:.015em;margin:10px 0 24px;overflow-wrap:break-word}
+ main:not(.home-impact) h3{font-size:clamp(19px,5.2vw,22px);line-height:1.6;margin-bottom:14px}
+ main p,main li{overflow-wrap:break-word}
+ #home .impact-copy>p{font-size:14px!important;line-height:1.9!important}
+ main .flowlinks{gap:12px;align-items:stretch}
+ main .flowlinks>.btn{flex:1 1 100%;white-space:normal;line-height:1.6;min-height:48px;padding:13px 16px}
+ main .grid article,main .card{min-width:0}
+ main:not(.home-impact) .grid article,main:not(.home-impact) .card{padding:22px 20px}
+ main details:not(.notice-details)>summary{min-height:48px;line-height:1.7;padding-top:14px;padding-bottom:14px;cursor:pointer}
+ main .crumb{font-size:12px!important;line-height:1.7}
+ .mobilecta{padding:10px 4% calc(10px + env(safe-area-inset-bottom,0px));border-top:1px solid #dce8ed}
+ .menuMobile summary{min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+ .menuMobile>div{max-height:70dvh;overflow:auto}
+ .preview-form-note{padding:12px 6%;font-size:12px;line-height:1.7;background:#fff8e8;color:#665223;border-bottom:1px solid #eeddb4}
+}
