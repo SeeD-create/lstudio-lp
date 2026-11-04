@@ -11,7 +11,12 @@ header{padding:8px 4%;gap:8px;min-height:84px}header .logoBrand{width:155px}head
 #home .impact-partners{order:6;--figure-height:170px;margin:10px 0 24px;gap:12px 16px}#home .impact-partners p{font-size:13px!important}#home .hero-diagnoses{order:7;margin-top:0!important;gap:10px!important}.home-impact #home .hero-diagnoses .btn{font-size:13px;padding:12px;line-height:1.6}#home .hero-line{order:8;margin:14px 0 0}#home .hero-line .btn{justify-content:center}
 .menuMobile{position:relative}.menuMobile>div{max-width:90vw;z-index:50}.mobilecta{padding:8px 4%;box-shadow:0 -2px 12px #16384a15}.mobilecta .btn{font-size:14px;min-height:46px}
 }
-@media(min-width:761px){.home-impact .impact-hero h1{line-height:1.5}#home .headline-top{font-size:.72em}#home .headline-mark{background:none;color:white}#home .headline-bottom{background:#ed533e;color:white;padding:0 .12em}}
+
 @media(max-width:350px){header .logoBrand{width:135px}header>.btn{font-size:11px;padding:8px}header{gap:6px}.menuMobile summary{padding:2px 7px}#home .hero-consult{font-size:13px}#home .consult-minutes{font-size:26px}#home .impact-statement{font-size:20px}}
 
 .uz-notice .notice-details summary{cursor:pointer;font-size:12px;font-weight:700;color:#007fad}.notice-content{padding-top:10px}@media(max-width:760px){.menuMobile summary{list-style:none}.menuMobile summary::-webkit-details-marker{display:none}}
+
+.mobile-headline{display:none}@media(max-width:760px){.desktop-headline{display:none}.mobile-headline{display:inline}}@media(min-width:761px){.notice-details>summary{display:none}.notice-details>.notice-content{display:block;padding:0}.uz-notice{font-size:15px!important}}
+
+/* Mobile subpage typography and spacing only; original text and prices preserved. */
+@media(max-width:760px){main:not(.home-impact) .pagehead{padding:32px 6%}main:not(.home-impact) .pagehead h1{font-size:clamp(24px,6.6vw,30px);line-height:1.5;overflow-wrap:anywhere}main:not(.home-impact) .pagehead p{font-size:14px;line-height:1.85}main:not(.home-impact) h2{font-size:24px;line-height:1.6}main:not(.home-impact) h3{font-size:20px;line-height:1.65}main:not(.home-impact) p,main:not(.home-impact) li{line-height:1.9}main:not(.home-impact) .btn{white-space:normal;min-height:46px;text-align:center}main:not(.home-impact) .flowlinks{gap:10px}main:not(.home-impact) .fee-rows dt,main:not(.home-impact) .fee-rows dd{line-height:1.8}main:not(.home-impact) .crumb{font-size:11px;padding:14px 6%;overflow-wrap:anywhere}main:not(.home-impact) input,main:not(.home-impact) select,main:not(.home-impact) textarea{font-size:16px;max-width:100%}main:not(.home-impact) iframe{max-width:100%}}
