@@ -41,3 +41,24 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
  .menuMobile>div{max-height:70dvh;overflow:auto}
  .preview-form-note{padding:12px 6%;font-size:12px;line-height:1.7;background:#fff8e8;color:#665223;border-bottom:1px solid #eeddb4}
 }
+
+/* Fee-page introduction: compact heading and a personable first consultation. */
+.fee-welcome .fee-faces{display:none}.fee-welcome .fee-time strong{font:inherit}
+@media(max-width:760px){
+ main.fees-page .crumb{padding-top:10px!important;padding-bottom:10px!important}
+ main.fees-page .pagehead{padding:22px 6% 24px;background:#eaf8fc;border-bottom:3px solid #0082ad}
+ main.fees-page .pagehead .eyebrow{font-size:10px;letter-spacing:.12em}
+ main.fees-page .pagehead h1{font-size:34px;line-height:1.2;margin:12px 0}
+ main.fees-page .pagehead p{font-size:13px;line-height:1.8;margin-bottom:0}
+ main.fees-page .pagehead+section{padding-top:22px!important}
+ main.fees-page .fee-welcome{display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:center;gap:14px 4px;padding:22px 18px;margin:0 0 36px;background:#fff5ef;border:1px solid #f6d6c7;border-top:4px solid #ed533e;border-radius:4px;box-shadow:0 5px 0 #f2e9e2}
+ main.fees-page .fee-welcome h2{margin:0;font-size:23px;line-height:1.35;letter-spacing:0}
+ main.fees-page .fee-first{display:block;font-size:13px;font-weight:700;margin-bottom:3px}
+ main.fees-page .fee-time{display:block;color:#d94632;font-size:17px;white-space:nowrap}
+ main.fees-page .fee-time strong{font-size:54px;line-height:1.1;font-weight:850;letter-spacing:-.04em;margin-right:3px}
+ main.fees-page .fee-free{display:block;font-size:25px;margin-top:4px}
+ main.fees-page .fee-faces{display:flex;align-items:flex-end;justify-content:center;gap:0}
+ main.fees-page .fee-faces img{width:58px;height:104px;object-fit:contain;object-position:bottom}
+ main.fees-page .fee-welcome>p{grid-column:1/-1;font-size:14px;line-height:1.85;margin:0;padding-top:14px;border-top:1px solid #eddbd0}
+}
+@media(max-width:350px){main.fees-page .fee-welcome{grid-template-columns:minmax(0,1fr) 88px;padding:18px 14px}.fees-page .fee-faces img{width:46px!important;height:90px!important}main.fees-page .fee-free{font-size:23px}}
