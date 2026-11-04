@@ -1,0 +1,1 @@
+(()=>{const image=document.getElementById('hero-variant-image');if(!image)return;const support=new URLSearchParams(location.search).get('hero')==='support';image.src=support?'assets/hero-support-b.webp':'assets/hero-truck-a.webp';image.alt=support?'前西原清城・民の似顔絵をもとに、運送会社の相談者を支える場面を描いたイラスト':'人物のいない青いトラックのイラスト';})();

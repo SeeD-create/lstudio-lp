@@ -81,3 +81,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
  .home-impact .impact-experience strong{flex-shrink:0;font-size:44px}
 }
 @media(max-width:350px){#home .impact-partners{--figure-height:170px}.home-impact .impact-experience>div>span{font-size:12px}}
+
+/* Matched illustration areas for A/B review. */
+#home .hero-variant-art{transform:none;margin-top:20px}
+#home .hero-variant-art img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:contain}
+#home .hero-adviser-caption{text-align:center;color:white;font-size:14px;line-height:1.8}
+#home .hero-adviser-caption a{color:white;text-underline-offset:3px}
+@media(max-width:760px){#home .hero-variant-art{order:2;margin:0 0 12px}#home .hero-adviser-caption{order:2;margin:0 0 20px;font-size:13px}}
