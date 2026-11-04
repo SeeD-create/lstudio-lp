@@ -1,0 +1,17 @@
+/* Only header, notice and hero are changed. Everything below the hero uses original CSS and DOM. */
+@media(max-width:760px){
+header{padding:8px 4%;gap:8px;min-height:84px}header .logoBrand{width:155px}header>.btn{font-size:12px;padding:9px 10px}.menuMobile summary{font-size:22px;padding:2px 8px}
+.uz-notice{font-size:12px!important;line-height:1.65!important;padding:9px 12px!important;margin:8px auto!important}
+.home-impact .impact-hero{display:flex;flex-direction:column;align-items:stretch;padding:24px 5.5% 30px;gap:0;border-bottom-width:5px}#home .impact-copy,#home .impact-visual{display:contents}
+#home .impact-copy>.eyebrow{order:0;align-self:flex-start;font-size:10px;letter-spacing:.02em;padding:5px 8px}
+.home-impact .impact-hero h1{order:1;font-size:clamp(28px,8.3vw,43px);line-height:1.42;margin:20px 0 20px;letter-spacing:-.04em}#home .headline-top{font-size:.66em;letter-spacing:-.045em}#home .headline-mark{background:none;color:white;padding:0}#home .headline-bottom{font-size:1em;background:#ed533e;color:white;padding:1px 5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+#home .illustration-sheet{order:2;transform:none;padding:0;border:4px solid white;box-shadow:5px 6px 0 #00698d;margin:0 0 20px}#home .illustration-sheet img{height:auto;max-height:none;object-fit:contain;width:100%}
+#home .impact-copy>p{order:3;font-size:12px!important;line-height:1.85!important;margin:0 0 16px}#home .hero-consult{order:4;min-height:60px;padding:12px;font-size:15px;gap:10px;box-shadow:4px 4px 0 #004965}#home .consult-minutes{font-size:30px}#home .consult-minutes span{font-size:13px}
+#home .impact-statement{order:5;transform:none;font-size:24px;line-height:1.5;margin:30px 0 12px;text-align:center}#home .impact-statement br{display:none}#home .impact-statement strong{display:inline-block;margin-left:6px}
+#home .impact-partners{order:6;--figure-height:170px;margin:10px 0 24px;gap:12px 16px}#home .impact-partners p{font-size:13px!important}#home .hero-diagnoses{order:7;margin-top:0!important;gap:10px!important}.home-impact #home .hero-diagnoses .btn{font-size:13px;padding:12px;line-height:1.6}#home .hero-line{order:8;margin:14px 0 0}#home .hero-line .btn{justify-content:center}
+.menuMobile{position:relative}.menuMobile>div{max-width:90vw;z-index:50}.mobilecta{padding:8px 4%;box-shadow:0 -2px 12px #16384a15}.mobilecta .btn{font-size:14px;min-height:46px}
+}
+@media(min-width:761px){.home-impact .impact-hero h1{line-height:1.5}#home .headline-top{font-size:.72em}#home .headline-mark{background:none;color:white}#home .headline-bottom{background:#ed533e;color:white;padding:0 .12em}}
+@media(max-width:350px){header .logoBrand{width:135px}header>.btn{font-size:11px;padding:8px}header{gap:6px}.menuMobile summary{padding:2px 7px}#home .hero-consult{font-size:13px}#home .consult-minutes{font-size:26px}#home .impact-statement{font-size:20px}}
+
+.uz-notice .notice-details summary{cursor:pointer;font-size:12px;font-weight:700;color:#007fad}.notice-content{padding-top:10px}@media(max-width:760px){.menuMobile summary{list-style:none}.menuMobile summary::-webkit-details-marker{display:none}}
