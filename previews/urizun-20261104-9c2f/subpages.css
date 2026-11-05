@@ -59,3 +59,5 @@
  .subpage-polish [role="tablist"].flowlinks{display:flex;flex-wrap:nowrap;gap:8px}
  .subpage-polish [role="tablist"].flowlinks>.btn{flex:1 1 0;min-width:0}
 }
+
+@media(max-width:760px){main.subpage-polish .pagehead p[style*="pre-line"]{white-space:pre-line!important}}
