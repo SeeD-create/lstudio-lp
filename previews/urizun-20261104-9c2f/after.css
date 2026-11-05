@@ -88,3 +88,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 #home .hero-adviser-caption{text-align:center;color:white;font-size:14px;line-height:1.8}
 #home .hero-adviser-caption a{color:white;text-underline-offset:3px}
 @media(max-width:760px){#home .hero-variant-art{order:2;margin:0 0 12px}#home .hero-adviser-caption{order:2;margin:0 0 20px;font-size:13px}}
+
+/* Adviser portraits share the flat hero background. */
+#home .impact-partners{background:transparent;border:0;border-radius:0;box-shadow:none}
+
