@@ -122,3 +122,6 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 @media(max-width:760px){.home-impact .concern-heading{font-size:clamp(14px,4.7vw,20px)!important;line-height:1.7}.concern-heading>span{white-space:nowrap}}
 
 @media(max-width:760px){.home-impact h2.team-heading{font-size:clamp(16px,5.2vw,22px)!important;line-height:1.65}.team-heading>span{white-space:nowrap}}
+
+/* Consistent title size across all four column cards. */
+@media(max-width:760px){.home-impact .columns-heading+.grid .card h3{font-size:clamp(12px,3.85vw,16px)!important;line-height:1.65}.home-impact .columns-heading+.grid .card h3 .column-title-line{font-size:inherit;line-height:inherit}}
