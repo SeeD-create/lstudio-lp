@@ -1,0 +1,43 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>出典｜SeeD</title><style>body{max-width:1000px;margin:40px auto;padding:24px;background:#f7f5ed;color:#293f34;font:17px/1.9 sans-serif}pre{white-space:pre-wrap;font:inherit}a{color:#356f63}</style><a href="index.html">教材一覧へ戻る</a><pre># 参考資料・図の出典
+
+確認日：2026-11-06。中学地理の基本事項を独自の文章で構成。統計の順位・生産割合・人口の最新値は使わず、模式図を実測グラフとして見せていない。
+
+## 制作方針
+
+- タネオ旧版の `shakai/chiri/16_chubu`、`17_kanto`、`18_tohoku` の目次と地図ページを、範囲と視覚的な説明方法の参考として閲覧。説明文・問題文・画像・ページ構成は流用していない。
+- 県境はNatural Earthの公開データから、新しい配色・番号・凡例で描画。山地・平野・産業拠点は代表位置を示す概略で、範囲・距離・境界の厳密な読み取りには使わない。
+- 風景は内蔵ImageGenで新規生成した教材用イラスト。特定の実在地点や現況の証拠ではない。中部の冬景色と夏景色は別の地域・季節の比較。
+- 用語は場所・自然条件・人の工夫・地域間のつながりと結びつけて説明。生産地の代表例を全域の特徴に一般化しない。
+- 日本アルプスは飛騨・木曽・赤石。単純な南北順としない。三陸海岸全体をリアス海岸としない。東北の気候・米作・文化をやませ1つの結果として説明しない。
+
+## 主な確認先
+
+1. <a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth：Terms of Use</a> — 地図データはパブリックドメイン。
+2. <a href="https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin_1_states_provinces.geojson">Natural Earthの一次データ</a> — Japanの47都道府県を抽出。境界を簡略化して教材用に使用。
+3. <a href="https://www.pref.nagano.lg.jp/nosei/sangyo/nogyo/shinshu/nosanbutsu.html">長野県：知ってる？信州農産物</a> — 冷涼な気候と高原野菜。
+4. <a href="https://www.nn.zennoh.or.jp/products/vegetables/more/post-22.php">JA全農長野：レタス</a> — 夏の出荷・予冷・保冷輸送。
+5. <a href="https://www.maff.go.jp/hokuriku/seisan/index.html">北陸農政局：農業生産</a> — 北陸の米づくり・地域農業。
+6. <a href="https://www.ktr.mlit.go.jp/tonejo/m/m-tonegawa/gaiyou/about/B03.htm">国土交通省：利根川のあらまし</a> — 日本一の流域面積。
+7. <a href="https://www.pref.chiba.lg.jp/kouhou/profile/sangyou.html">千葉県：千葉県の産業</a> — 京葉臨海地域の素材産業、大消費地への近さと都市農業。
+8. <a href="https://www.pref.gunma.jp/page/9380.html">群馬県：野菜生産</a> — 標高差を生かす夏秋野菜。
+9. <a href="https://www.data.jma.go.jp/cpd/j_climate/tohoku/summer.html">気象庁：東北地方の夏の天候の特徴</a> — やませ・低温・冷害。冷害が必ず発生するわけではない。
+10. <a href="https://www.jma.go.jp/jma/kids/kids/faq/a5_19.html">気象庁：山背って何？</a> — 冷たく湿った北東の風。
+11. <a href="https://www.maff.go.jp/tohoku/seisan/kazyu/index.html">東北農政局：東北の果樹</a> — 多様な落葉果樹の栽培。
+12. <a href="https://www2.suigi.pref.iwate.jp/others/20261020fisheryiwate">岩手県水産技術センター：岩手の沿岸漁業 令和8年度版</a> — 沿岸水塊と漁業・養殖。
+13. <a href="https://www.iwate-pu.ac.jp/contribution/R03_kitaiwate_Yamamoto.html">岩手県立大学：田野畑産養殖わかめ</a> — 外洋と湾内、養殖条件の違い。
+14. <a href="https://www.pref.toyama.jp/130121/sangyou/shoukoukensetsu/kigyouricchi/top/miryoku/kogyoshuseki/iyakuhin/index.html">富山県：医薬品製造業の集積</a> — 医薬品と関連産業。
+15. <a href="https://www3.city.sabae.fukui.jp/kanko/feature/megane/index.html">鯖江市：めがねの聖地</a> — 地場産業の例。割合の数値は教材に転記していない。
+16. <a href="https://www5.cao.go.jp/j-j/cr/cr24-2/chr24-2_01-01.html">内閣府：半導体産業の状況と地域の立地状況</a> — 東北などの電子部品・半導体産業。
+
+図の位置は教材用に簡略化。授業の概略地図を防災・避難判断には使用しない。実際の避難や警報の確認は自治体・気象庁等の最新情報を利用する。
+
+## 生成画像の制作記録
+
+内蔵ImageGenを使用。最終画像は各教材のassets/landscape.pngに保存。
+
+- 中部：冬の北陸、夏の中央高地、東海の茶畑・港・自動車工場の3場面。水彩・色鉛筆、文字なし。初稿の冬の水田に苗があったため、雪で覆われた休耕期の田へ修正。
+- 関東：野菜畑・輸送、郊外の住宅地と鉄道、東京湾周辺の都市・港のつながり。位置・距離は実際とは異なる代表的景観。
+- 東北：水田、りんご園と工芸、入り江と養殖の3場面。地域・季節の異なる景観を組み合わせたイメージ。
+
+詳しいプロンプトは_build/image-prompts.jsonに保存。
+</pre></html>
